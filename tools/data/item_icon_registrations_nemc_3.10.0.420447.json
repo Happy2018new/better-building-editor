@@ -9912,6 +9912,9 @@
         "DisableCulling"
       ],
       "blendSrc": "SourceAlpha",
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendDst": "OneMinusSrcAlpha",
       "+samplerStates": [
         {
@@ -9932,6 +9935,9 @@
         "DisableCulling"
       ],
       "blendSrc": "SourceAlpha",
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendDst": "OneMinusSrcAlpha",
       "+samplerStates": [
         {

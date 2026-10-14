@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "failures": [],
+  "scope": "Frozen opaque surface interior; no product admission.",
+  "case": "shelf.center",
+  "mask_kind": "item",
+  "region": [
+    950,
+    530,
+    1040,
+    620
+  ],
+  "pixel_threshold": 8,
+  "backdrops": [
+    "leaves",
+    "stone"
+  ],
+  "source": {
+    "fixture": "test.entities.visible_item_slots",
+    "case": "shelf.center",
+    "diagnostic_extinguished": false,
+    "diagnostic_face_west": true
+  },
+  "report_sha256": "adc4d843c2148b7f6b21d68326bc243d0e2e80093e645bdea45aa4ba9b64c2ed",
+  "capture_sha256": {
+    "shelf.center_off_air_back": "5070afe3f37bd97c8a3830d2ee1cf320efc15c5201b1ceb0eb85576b7676e509",
+    "shelf.center_off_air_back_repeat": "e2c5bd999e1912baf5e6a04a35604a67f7867bfde2fbb591f0c335069fbb229c",
+    "shelf.center_off_leaves_back": "65ca947b4084ea00c789afdbb6583102cb8472c14f3457b896f2eb75e8b2d439",
+    "shelf.center_off_stone_back": "66b8d0bceecb6fd11db75620336e5c33ddd1c6dd140aa49d629f330dc6f36a73",
+    "shelf.center_on_air_back": "f0f126fa7f9b72c2fa4c6b3619e991e49783eb97f146dfc8894270f1f13232a5",
+    "shelf.center_on_air_back_repeat": "dca1c53c74f4ea514b539c37942dab0a27676a1c969a47de7b73bb802452fa84",
+    "shelf.center_on_leaves_back": "584a8030e9f129f8445305d694f3392371ba15fe6a50a32d559a02718a27a380",
+    "shelf.center_on_stone_back": "514d372cc1f7a267a6c53e044d8898de9137d294581bbb795e29e2212a4a2915"
+  },
+  "crop_sha256": {
+    "shelf.center_off_air_back.png": "5e92c58881e7e3bacb00830e9febd68423055bb4da3fb0c8f530c1bf30760c6f",
+    "shelf.center_off_air_back_repeat.png": "5e92c58881e7e3bacb00830e9febd68423055bb4da3fb0c8f530c1bf30760c6f",
+    "shelf.center_off_leaves_back.png": "f179eadb943708df3c05d159a324b8817be40433f0d665b319ef0a52aa0ba9e7",
+    "shelf.center_off_stone_back.png": "ce00103db96943cd46e2e41179314b0e5b0fcc4dd48e14440e3a17136630a8ba",
+    "shelf.center_on_air_back.png": "5e92c58881e7e3bacb00830e9febd68423055bb4da3fb0c8f530c1bf30760c6f",
+    "shelf.center_on_air_back_repeat.png": "5e92c58881e7e3bacb00830e9febd68423055bb4da3fb0c8f530c1bf30760c6f",
+    "shelf.center_on_leaves_back.png": "ddbb38d1e858caa972d9222cb98dc74e249c54a4646190aed601b3ad1aa6f93a",
+    "shelf.center_on_stone_back.png": "ac06a60b55b05c723d26022083149e4c2fc58439cec81493317b74dd903bcf2e"
+  },
+  "results": {
+    "off": {
+      "mask_pixels": 1159,
+      "repeat": {
+        "pixels": 0,
+        "maximum_channel_difference": 0
+      },
+      "backdrops": {
+        "leaves": {
+          "pixels": 17,
+          "maximum_channel_difference": 30,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 79.19305419921875,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 79,
+              "z": 491
+            },
+            "material": [
+              "minecraft:oak_leaves",
+              2
+            ]
+          }
+        },
+        "stone": {
+          "pixels": 29,
+          "maximum_channel_difference": 31,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 79.19305419921875,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 79,
+              "z": 491
+            },
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          }
+        }
+      }
+    },
+    "on": {
+      "mask_pixels": 1159,
+      "repeat": {
+        "pixels": 0,
+        "maximum_channel_difference": 0
+      },
+      "backdrops": {
+        "leaves": {
+          "pixels": 0,
+          "maximum_channel_difference": 0,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 79.19305419921875,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 79,
+              "z": 491
+            },
+            "material": [
+              "minecraft:oak_leaves",
+              2
+            ]
+          }
+        },
+        "stone": {
+          "pixels": 0,
+          "maximum_channel_difference": 0,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 79.19305419921875,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 79,
+              "z": 491
+            },
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -178,6 +178,7 @@ def outputs():
                 'vertexShader':'shaders/glsl/modern_projection_item_sprite'+suffix+'.vertex',
                 'fragmentShader':'shaders/glsl/modern_projection_item_sprite.fragment',
                 '+states':['Blending','DisableCulling'],
+                '-states':['DisableDepthWrite'],
                 'blendSrc':'SourceAlpha','blendDst':'OneMinusSrcAlpha',
                 '+samplerStates':[{'samplerIndex':0,'textureFilter':'Point'}]}
             owned_registry[model]=registry[model]

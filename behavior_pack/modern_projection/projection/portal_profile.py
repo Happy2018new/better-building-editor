@@ -7,7 +7,7 @@ STYLE = 'native_artwork_layered_starfield_v1'
 PORTAL_NAMES = frozenset(('minecraft:end_portal', 'minecraft:end_gateway'))
 PREFIX = 'modern_projection_portal_'
 PRODUCT_QUALIFIED = True
-QUALIFICATION_SHA256 = '6bd90bcf26f753c52156f24d51632187db8c6271b1976a7631d6beb46a62240e'
+QUALIFICATION_SHA256 = '8679dbf644334aa12132531cd812dc00209f6d8968ccd561a173598c264dac0e'
 
 
 class PortalProfile(object):

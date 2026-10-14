@@ -14,17 +14,19 @@ import numpy as np
 from PIL import Image, ImageFilter
 
 
-def cover_mask(pixels, region):
+def cover_mask(pixels, region, kind='cover'):
     left, top, right, bottom = region
     height, width = pixels.shape[:2]
     if not 0 <= left < right <= width or not 0 <= top < bottom <= height:
         raise ValueError('Cover ROI is outside the capture')
     mask = np.zeros((height, width), dtype=bool)
     crop = pixels[top:bottom, left:right].astype(float)
-    mask[top:bottom, left:right] = ((crop[:, :, 0] > crop[:, :, 1]*1.3) &
-                                   (crop[:, :, 1] > crop[:, :, 2]*1.5))
+    mask[top:bottom, left:right] = (((crop[:, :, 2] > crop[:, :, 0]*1.3) &
+                                    (crop[:, :, 2] > 80)) if kind=='item' else
+                                   ((crop[:, :, 0] > crop[:, :, 1]*1.3) &
+                                    (crop[:, :, 1] > crop[:, :, 2]*1.5)))
     return np.asarray(Image.fromarray(mask.astype('uint8')*255).filter(
-        ImageFilter.MinFilter(5))) > 0
+        ImageFilter.MinFilter(3 if kind=='item' else 5))) > 0
 
 
 def changes(first, second, mask):
@@ -35,7 +37,7 @@ def changes(first, second, mask):
             'maximum_channel_difference': int(delta[mask].max())}
 
 
-def analyze(folder, case, region, output, mask_kind='cover'):
+def analyze(folder, case, region, output, mask_kind='cover', backdrops=('leaves','stone','glass')):
     report_path = folder/'report.json'
     report = json.loads(report_path.read_bytes())
     if not report.get('completed') or not report.get('restored'):
@@ -63,7 +65,7 @@ def analyze(folder, case, region, output, mask_kind='cover'):
     for mode in ('off', 'on'):
         prefix = case+'_'+mode+'_'
         baseline = read(prefix+'air_back')
-        mask = cover_mask(baseline, region)
+        mask = cover_mask(baseline, region, mask_kind)
         if mask_kind == 'rectangle':
             mask[:] = False
             left, top, right, bottom = region
@@ -76,13 +78,13 @@ def analyze(folder, case, region, output, mask_kind='cover'):
         rows[mode] = {'mask_pixels': count, 'repeat': repeat, 'backdrops': {}}
         if repeat['pixels']:
             failures.append(mode+': air repeat is unstable')
-        for material in ('leaves', 'stone', 'glass'):
+        for material in backdrops:
             label = prefix+material+'_back'
             pick = report['captures'][label]['pointed_block']
             hit = pick['hit']
-            expected = 'minecraft:'+('oak_leaves' if material == 'leaves' else material)
+            expected = 'minecraft:'+{'leaves':'oak_leaves','slab':'smooth_stone_slab'}.get(material,material)
             focus = report['prepared']['focus']
-            if (hit.get('type') != 'Block' or hit.get('x') != focus[0]+2 or
+            if (hit.get('type') != 'Block' or hit.get('x') != focus[0]+report['prepared'].get('back_distance',2) or
                     hit.get('z') != focus[2] or not pick.get('material') or
                     pick['material'][0] != expected):
                 raise ValueError('The real rear block was not selected: '+label)
@@ -95,6 +97,7 @@ def analyze(folder, case, region, output, mask_kind='cover'):
     result = {'schema_version': 1, 'passed': not failures, 'failures': failures,
               'scope': 'Frozen opaque surface interior; no product admission.',
               'case': case, 'mask_kind': mask_kind, 'region': list(region), 'pixel_threshold': 8,
+              'backdrops':list(backdrops),
               'source': report['rows'][case]['source'],
               'report_sha256': hashlib.sha256(report_path.read_bytes()).hexdigest(),
               'capture_sha256': receipts, 'crop_sha256': crops, 'results': rows}
@@ -107,11 +110,13 @@ if __name__ == '__main__':
     parser.add_argument('--input', type=Path, required=True)
     parser.add_argument('--case', default='enchanting_table')
     parser.add_argument('--region', nargs=4, type=int, required=True)
-    parser.add_argument('--mask-kind',choices=('cover','rectangle'),default='cover',
+    parser.add_argument('--mask-kind',choices=('cover','rectangle','item'),default='cover',
                         help='Rectangle must lie wholly inside an opaque surface, verified visually.')
+    parser.add_argument('--backdrop',action='append',choices=('leaves','stone','glass','slab'))
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    result = analyze(args.input, args.case, args.region, args.output, args.mask_kind)
+    result = analyze(args.input, args.case, args.region, args.output, args.mask_kind,
+                     tuple(args.backdrop or ('leaves','stone','glass')))
     print(json.dumps({'passed': result['passed'], 'failures': result['failures'],
                       'results': result['results']}))
     raise SystemExit(0 if result['passed'] else 1)

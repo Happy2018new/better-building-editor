@@ -469,6 +469,9 @@
         "Blending",
         "DisableCulling"
       ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha",
       "+samplerStates": [
@@ -484,6 +487,9 @@
       "+states": [
         "Blending",
         "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
       ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha",
@@ -638,6 +644,9 @@
         "DisableCulling"
       ],
       "blendSrc": "SourceAlpha",
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendDst": "OneMinusSrcAlpha",
       "+samplerStates": [
         {
@@ -658,6 +667,9 @@
         "DisableCulling"
       ],
       "blendSrc": "SourceAlpha",
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendDst": "OneMinusSrcAlpha",
       "+samplerStates": [
         {
@@ -674,6 +686,9 @@
       "+states": [
         "Blending",
         "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -697,6 +712,9 @@
         "Blending",
         "DisableCulling"
       ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
       "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
@@ -719,6 +737,9 @@
         "Blending",
         "DisableCulling"
       ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
       "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
@@ -740,6 +761,9 @@
       "+states": [
         "Blending",
         "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -765,6 +789,9 @@
         "Blending",
         "DisableCulling"
       ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"
     },
@@ -774,6 +801,9 @@
       "+states": [
         "Blending",
         "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
       ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"
@@ -785,6 +815,9 @@
         "Blending",
         "DisableCulling"
       ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"
     },
@@ -794,6 +827,9 @@
       "+states": [
         "Blending",
         "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
       ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"

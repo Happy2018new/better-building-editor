@@ -211,6 +211,7 @@ def outputs(catalog, install):
             'vertexShader': 'shaders/glsl/modern_projection_item_icon'+suffix+'.vertex',
             'fragmentShader': 'shaders/glsl/modern_projection_item_icon.fragment',
             '+states': ['Blending', 'DisableCulling'], 'blendSrc': 'SourceAlpha',
+            '-states': ['DisableDepthWrite'],
             'blendDst': 'OneMinusSrcAlpha',
             '+samplerStates': [{'samplerIndex': 0, 'textureFilter': 'Point'},
                                {'samplerIndex': 1, 'textureFilter': 'Bilinear'}]}

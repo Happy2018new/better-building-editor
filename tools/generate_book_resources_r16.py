@@ -2,12 +2,13 @@
 import argparse
 import hashlib
 import json
-import math
 from pathlib import Path
 import shutil
+from PIL import Image
 
 from generate_liquid_product_resources import merge_registry,write_json
 from generate_liquid_skeleton_resources import WORLD_BONE,UI_COORDINATES
+from book_model_geometry import GEOMETRY_VERSION
 
 ROOT=Path(__file__).resolve().parents[1]
 PREFIX='modern_projection_book_'
@@ -73,59 +74,9 @@ void main() {
 '''
 
 
-def rotate(point,axis,angle):
-    values=list(point);a,b=((1,2),(0,2),(0,1))[axis]
-    cosine,sine=math.cos(angle),math.sin(angle)
-    values[a],values[b]=point[a]*cosine-point[b]*sine,point[a]*sine+point[b]*cosine
-    return values
-
-
 def shape(family):
-    vertices,indices=[],[]
-    def cuboid(origin,size,uv,angle=0.,axis=1,face_uv=None,rotate_cover=False):
-        x,y,z=origin;dx,dy,dz=size
-        faces=(((x,y+dy,z),(x+dx,y+dy,z),(x+dx,y+dy,z+dz),(x,y+dy,z+dz),(0,1,0)),
-               ((x,y,z+dz),(x+dx,y,z+dz),(x+dx,y,z),(x,y,z),(0,-1,0)),
-               ((x,y,z),(x+dx,y,z),(x+dx,y+dy,z),(x,y+dy,z),(0,0,-1)),
-               ((x+dx,y,z+dz),(x,y,z+dz),(x,y+dy,z+dz),(x+dx,y+dy,z+dz),(0,0,1)),
-               ((x,y,z+dz),(x,y,z),(x,y+dy,z),(x,y+dy,z+dz),(-1,0,0)),
-               ((x+dx,y,z),(x+dx,y,z+dz),(x+dx,y+dy,z+dz),(x+dx,y+dy,z),(1,0,0)))
-        for slot in range(4):
-            for face_index,face in enumerate(faces):
-                start=len(vertices)
-                for point,corner in zip(face[:4],((0,0),(1,0),(1,1),(0,1))):
-                    point=rotate(point,axis,angle)
-                    point=rotate(point,0,math.radians(22.5 if family=='lectern' else 0.))
-                    normal=rotate(face[4],axis,angle)
-                    normal=rotate(normal,0,math.radians(22.5 if family=='lectern' else 0.))
-                    point[1]+=.98 if family=='enchanting_table' else 1.04
-                    point[2]+=slot*4+1.
-                    rect=face_uv[face_index] if face_uv else uv
-                    if rotate_cover and face_index in (2,3):
-                        corner=(corner[1],1-corner[0])
-                    # The native atlas has OPAQUE black padding. Bound every
-                    # face to texel centers, never the adjacent padding texel.
-                    tex=((rect[0]+.5+corner[0]*(rect[2]-1))/64.,
-                         (rect[1]+.5+corner[1]*(rect[3]-1))/32.)
-                    vertices.append({'pos':point,'normal':normal,'uvcoord':tex,'weight':[['root',1.]]})
-                indices.extend(((start,start+2,start+1),(start,start+3,start+2)))
-    if family=='enchanting_table':
-        # The requested idle state is a closed upright book, not the lectern's
-        # opened horizontal pages. Native matched-player reference: R17 v8.
-        tilt=math.radians(-10.)
-        pages=(1,11,5,8)
-        cuboid((-.28125,-.15625,-.025),(.5625,.375,.05),pages,tilt,2)
-        for z,cover in ((-.0375,(0,0,6,10)),(.025,(16,0,6,10))):
-            cuboid((-.3125,-.1875,z),(.625,.375,.0125),cover,tilt,2,
-                   ((6,1,1,8),(6,1,1,8),cover,cover,(6,1,1,8),(6,1,1,8)),True)
-        return {'mesh':[{'material':PATH+'/'+family,'vertices':vertices,'indices':indices}]}
-    for sign in (-1,1):
-        angle=math.radians(14*sign)
-        cuboid((-.375 if sign<0 else 0.,-.025,-.3125),(.375,.035,.625),
-               (0 if sign<0 else 7,0,6,10),angle,2)
-        cuboid((-.34375 if sign<0 else .0125,.008,-.285),(.33125,.025,.57),
-               (1 if sign<0 else 13,11,5,8),angle,2)
-    return {'mesh':[{'material':PATH+'/'+family,'vertices':vertices,'indices':indices}]}
+    from book_model_geometry import shape as hinged_shape
+    return hinged_shape(family,PATH+"/"+family)
 
 
 def generate(args):
@@ -145,7 +96,9 @@ def generate(args):
             vertex=vertex.replace('// DEPTH','' if world else 'liquidUniformPreviewDepth(vec3(-localPoint.x,-localPoint.z,-localPoint.y),EXTRA_VECTOR4.x,gl_Position,bookClip);')
             # Native R17 v9 rott readbacks: 0.397..0.404 radians/second.
             # Wrap by a complete angular period so wraparound cannot jump.
-            animation='direction+=mod(TOTAL_REAL_WORLD_TIME,15.707963267948966)*0.4;point.y+=sin(TOTAL_REAL_WORLD_TIME*1.25)*0.045;' if family=='enchanting_table' else ''
+            animation='direction+=mod(TOTAL_REAL_WORLD_TIME,15.707963267948966)*0.4;point.y+=sin(TOTAL_REAL_WORLD_TIME*2.0)*0.01;' if family=='enchanting_table' else ''
+            if args.animation_time_control is not None:
+                animation=animation.replace('TOTAL_REAL_WORLD_TIME',str(float(args.animation_time_control)))
             vertex=vertex.replace('// ANIMATION',animation)
             shader='shaders/glsl/'+name+suffix+'.vertex'
             path=args.output/('resource_pack/'+shader);path.parent.mkdir(parents=True,exist_ok=True);path.write_text(vertex,encoding='ascii',newline='\n')
@@ -153,15 +106,21 @@ def generate(args):
                 'material':name+suffix,'texture':{'tex0':PATH+'/native_book'}}
             materials[name+suffix+':entity_for_skeleton_alpha']={'vertexShader':shader,
                 'fragmentShader':'shaders/glsl/'+PREFIX+'geometry.fragment','+states':['Blending','DisableCulling'],
+                '-states':['DisableDepthWrite'],
                 'blendSrc':'SourceAlpha','blendDst':'OneMinusSrcAlpha'}
     path=args.output/('resource_pack/shaders/glsl/'+PREFIX+'geometry.fragment');path.write_text(FRAGMENT,encoding='ascii',newline='\n')
     skeleton=json.loads((ROOT/'resource_pack/models/modern_projection/liquid/skeleton.json').read_bytes())
     write_json(args.output/('resource_pack/models/'+PATH+'/skeleton.json'),skeleton)
     source=args.native_data/'resource_packs/vanilla/textures/entity/enchanting_table_book.png'
+    with Image.open(source) as texture:
+        if texture.size!=(64,32):
+            raise ValueError('Native book atlas layout changed; review the hinged model UV contract')
     destination=args.output/('resource_pack/textures/models/'+PATH+'/native_book.png');destination.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,destination)
     write_json(args.output/'resource_pack/models/netease_models.json',models)
     write_json(args.output/'resource_pack/materials/entity.material',{'materials':dict(materials,version='1.0.0')})
-    contract={'schema_version':1,'engine_version':'3.10.0.420447','product_qualified':False,
+    contract={'schema_version':1,'geometry_version':GEOMETRY_VERSION,'engine_version':'3.10.0.420447','product_qualified':False,
+        'depth_write':True,'diagnostic_animation_time':args.animation_time_control,
+        'geometry_reference':'Independent hinged construction; Java 1.21.1 book dimensions and renderer poses, checked against NEMC 3.10 captures.',
         'native_texture_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'models':models,'materials':materials,
         'limits':['Project book geometry using native artwork; no proximity reaction or page text.'],
         'output_sha256':{path.relative_to(args.output).as_posix():hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(args.output.rglob('*')) if path.is_file()}}
@@ -183,6 +142,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--native-data',type=Path,required=True);parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--install-project',type=Path)
+    parser.add_argument('--animation-time-control',type=float,
+                        help='Diagnostic: freeze the book pose for paired material controls.')
     generate(parser.parse_args())
 
 

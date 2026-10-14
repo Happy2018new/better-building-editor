@@ -25,7 +25,8 @@ rotation=factory.CreateRot(player).GetRot()
 base=(int(foot[0]),int(foot[1])+12,int(foot[2]))
 focus=(base[0]+3,base[1]+1,base[2])
 positions=[(base[0]+dx,base[1],base[2]+dz) for dx in (-1,0,1) for dz in (-1,0,1)]
-back=[(focus[0]+2,focus[1]+dy,focus[2]) for dy in (-1,0,1,2)]
+back_distance=2
+back=[(focus[0]+back_distance,focus[1]+dy,focus[2]) for dy in (-1,0,1,2)]
 front=[(focus[0]-1,focus[1]+dy,focus[2]) for dy in (-1,0,1,2)]
 saved={'foot':foot,'rotation':rotation,'base':base,'focus':focus,
        'back':back,'front':front,'journal':[]}
@@ -38,7 +39,7 @@ for pos in positions:
  assert info.SetBlockNew(pos,{'name':'minecraft:stone','aux':0},0,dimension,True,False)
 destination=(base[0]+.5,base[1]+1.,base[2]+.5)
 assert factory.CreatePos(player).SetFootPos(destination)
-_result={'focus':focus,'base':base,'destination':destination}
+_result={'focus':focus,'base':base,'destination':destination,'back_distance':back_distance}
 '''
 
 BACKDROP=SERVER+'''saved=sys._depth_fixture_r17
@@ -111,25 +112,41 @@ def document(case,unlit=False,face_west=False):
             cell=source.get((3,3,3));value=foreground(cell)
             properties=states(value);properties['extinguished']=True
             source.set_cell((3,3,3),make_cell(material(value[0],properties),nbt=actor_data(cell)))
+        if face_west:
+            from projection.cell import actor_data,foreground,make_cell
+            from projection.block_registry import states
+            cell=source.get((3,3,3));value=foreground(cell)
+            properties=states(value);properties['minecraft:cardinal_direction']='west'
+            source.set_cell((3,3,3),make_cell(material(value[0],properties),nbt=actor_data(cell)))
     elif case.startswith('spawner.'):
         from projection.debug_spawner_blueprints import source_document
         source=source_document(case.split('.')[1]);fixture='test.entities.spawners'
+    elif case=='standing_banner':
+        from projection.debug_banner_blueprints import POSITIONS,METADATA
+        from projection.debug_blueprints import build
+        gallery=build(METADATA[0]);position=POSITIONS[0]
+        delta=tuple(3-value for value in position)
+        source=Document((8,8,8),name=gallery.name,biome=gallery.biome)
+        for shift in (0,-1):
+            original=(position[0],position[1]+shift,position[2])
+            source.set_cell((3,3+shift,3),rebase(gallery.get(original),delta))
+        fixture=METADATA[0]
     elif case in ('chest','standing_sign','standing_banner','purple_shulker_box'):
         from projection.debug_compatibility_blueprints import CASES,source_document
         name='minecraft:'+case
         fixture=next(identity for identity,rows in CASES.items() if any(row['id']==name for row in rows))
         source=source_document(fixture,name)
-        if face_west and case in ('standing_sign','standing_banner'):
-            from projection.cell import actor_data,foreground,make_cell
-            from projection.block_registry import states
-            cell=source.get((3,3,3));value=foreground(cell)
-            properties=states(value);properties['ground_sign_direction']=4
-            source.set_cell((3,3,3),make_cell(material(value[0],properties),nbt=actor_data(cell)))
     else:
         source=Document((8,8,8),name='Native occlusion control')
         source.set_cell((3,3,3),material(case))
         source.set_cell((3,2,3),material('stone'))
         return source.to_data(),{'fixture':None,'control':case}
+    if face_west and case in ('standing_sign','standing_banner'):
+        from projection.cell import actor_data,foreground,make_cell
+        from projection.block_registry import states
+        cell=source.get((3,3,3));value=foreground(cell)
+        properties=states(value);properties['ground_sign_direction']=4
+        source.set_cell((3,3,3),make_cell(material(value[0],properties),nbt=actor_data(cell)))
     # Keep exactly one focus cell and its support for a consistent sightline.
     doc=Document((8,8,8),name=source.name,biome=source.biome)
     for pos in ((3,3,3),(3,2,3)):doc.set_cell(pos,source.get(pos))
@@ -149,7 +166,12 @@ def run(args):
     environment_saved=False
     try:
         report['environment']=audit.execute('environment',ENV_SETUP,False);environment_saved=True
-        prepared=audit.execute('prepare',PREPARE,False);report['prepared']=prepared
+        prepare=PREPARE.replace('back_distance=2','back_distance=%d' % args.back_distance)
+        if args.low_platform:
+            prepare=prepare.replace("{'name':'minecraft:stone','aux':0}","{'name':'minecraft:smooth_stone_slab','aux':0}")
+            prepare=prepare.replace('base[1]+1.,base[2]+.5','base[1]+.5,base[2]+.5')
+        prepared=audit.execute('prepare',prepare,False);report['prepared']=prepared
+        report['low_platform']=args.low_platform
         time.sleep(1.5)
         focus=prepared['focus'];origin=tuple(v-3 for v in focus)
         audit.execute('save_profiles',CLIENT+'''assert not hasattr(sys,'_depth_profiles_r17')
@@ -249,6 +271,8 @@ if __name__=='__main__':
     parser.add_argument('--front',action='store_true');parser.add_argument('--missing',action='store_true')
     parser.add_argument('--opacity',type=float,default=1.)
     parser.add_argument('--aim-height',type=float)
+    parser.add_argument('--back-distance',type=int,choices=(1,2),default=2)
+    parser.add_argument('--low-platform',action='store_true',help='Stand on a real bottom slab so the rear outline crosses mid-height items.')
     parser.add_argument('--unlit',action='store_true',help='Keep source contents; extinguish campfire for unobstructed item control.')
     parser.add_argument('--face-west',action='store_true',help='View standing sign/banner face instead of the thin edge.')
     args=parser.parse_args();args.mode=args.mode or ['off','on'];args.backdrop=args.backdrop or ['air','leaves','stone','glass']

@@ -1,5 +1,6 @@
 {
   "clock": "TOTAL_REAL_WORLD_TIME",
+  "depth_write": true,
   "end_gateway_faces": 6,
   "end_portal_height": 0.75,
   "engine_version": "3.10.0.420447",
@@ -11,6 +12,9 @@
       "+states": [
         "Blending",
         "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -34,6 +38,9 @@
         "Blending",
         "DisableCulling"
       ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
       "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
@@ -56,6 +63,9 @@
         "Blending",
         "DisableCulling"
       ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
       "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
@@ -77,6 +87,9 @@
       "+states": [
         "Blending",
         "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -144,7 +157,7 @@
   },
   "native_parity_claimed": false,
   "output_sha256": {
-    "resource_pack/materials/entity.material": "5b7729c098c613253e8c98a087d1feee28434474378afd3a2d93ea056fa3176c",
+    "resource_pack/materials/entity.material": "2d49df18fcc9c13c2bb1e101349276edcc1ff767845dcc970093ea25bfff824a",
     "resource_pack/models/modern_projection/portal/end_gateway_mesh.json": "f71f8ef105ff824a0a16ffd5a0ceb3181b58c662fa0addce6c11b79baf48a694",
     "resource_pack/models/modern_projection/portal/end_portal_mesh.json": "f92309ec7b21a28ed0bad8dad5857104a2b90fe6ab4d971e4e5ba0ccd3d9e28b",
     "resource_pack/models/modern_projection/portal/skeleton.json": "20a966711bc01cf74ced1159e371b07e0ec819dbd538c3514b0ffbe54d31beed",

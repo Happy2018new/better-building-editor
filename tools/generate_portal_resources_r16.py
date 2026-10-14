@@ -104,6 +104,7 @@ def generate(native, output):
                 'vertexShader':'shaders/glsl/'+PREFIX+'geometry'+suffix+'.vertex',
                 'fragmentShader':'shaders/glsl/'+PREFIX+'starfield.fragment',
                 '+states':['Blending','DisableCulling'],
+                '-states':['DisableDepthWrite'],
                 'blendSrc':'SourceAlpha','blendDst':'OneMinusSrcAlpha',
                 'samplerStates':[{'samplerIndex':0,'textureFilter':'Point','textureWrap':'Repeat'},
                                  {'samplerIndex':1,'textureFilter':'Point','textureWrap':'Repeat'}]}
@@ -111,6 +112,7 @@ def generate(native, output):
     write_json(output/'resource_pack/materials/entity.material',{'materials':dict(materials,version='1.0.0')})
     contract = {'schema_version':1,'engine_version':'3.10.0.420447','payload_version':2,
         'style':'native_artwork_layered_starfield_v1','native_parity_claimed':False,
+        'depth_write':True,
         'end_portal_height':.75,'end_gateway_faces':6,'clock':'TOTAL_REAL_WORLD_TIME',
         'textures':textures,'models':models,'materials':materials,'requires_visual_qualification':True,
         'limits':['Finite surfaces only; gateway cooldown and transient activation beam remain pending. No teleportation or particles.'],

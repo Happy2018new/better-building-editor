@@ -1,5 +1,17 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-15 04:45 遮挡修复、末地表面重新资格化
+
+继续独立开发至08:00并休眠，禁止代理。当前唯一owned实例是session `e47e110d34b54f729120afbf2b02a7a2`，owner `root-depth-final-r17`，project `D:/bbe-r15-native-production`，MC18088仅供身份核验；下方旧session均已正常回收。副本为R16冻结实现加R17选择性资源overlay，不是最新全仓库。计划任务仍Ready。
+
+用户黑线根因已实测确认：后方真实方块选框覆盖未写深度的自定义表面，树叶／石头／玻璃都能触发。新发现无遮蔽展示架剑也受影响（半砖平台有效负控17／29→0／0）；证据 `docs/evidence/render-depth-r17-v1/shelf-item`。12条书／末地表面／图标／旧剑材质现在显式移除DisableDepthWrite，水与锅未改。旧native矩阵已完成恢复，采样旗帜正面可见且未复现；早期侧向／空actor截图不算验收。
+
+末地最终资源名冷启检查 `.runtime/portal-depth-editor-r17-v1`31帧和`.runtime/portal-depth-world-r17-v1`28帧均completed/restored/source_unchanged，全部11张sheet已目检。新资格已写 `docs/evidence/portal-product-r16`，SHA `8679dbf644334aa12132531cd812dc00209f6d8968ccd561a173598c264dac0e`，四组enabled校验通过；旧证据备份`.runtime/portal-product-r16-before-depth-r17`。gateway是三个格构成L形，不能把预期轮廓误判缺面。
+
+新书geometry v3、depth和icon资源已安装root及冷启副本，但仍未提交。`.runtime/book-hinged-final-reference-r17-v1`18帧完成恢复，同camera实图已看：讲台方向修正有效；附魔书封面有新发现的细密深度冲突点（极薄双面关闭剔除），原生/投影附魔台顶面相对支持块也不同，需继续独立核对，不混作黑线原因。书产品23帧探针exec65280运行中，先确认恢复。候选gate均False，不得直接开启。下一步先完成当前book检查，再跑新depth的visible item回归，然后仅在冷重启前安装书culling/薄面候选；不在活跃capture时改资源。
+
+上个提交701cb043仅保存诊断和原对照，不含实际材质修复。保持显式stage，不碰五个用户palette probe及无关water WIP。
+
 ## 2026-10-15 03:55 选框穿透已复现，继续独立开发
 
 仍禁止代理，08:00截止并休眠，计划任务Ready。最新唯一owned MC session=`7935726409c84528b9505d137947dc2e`，owner=`root-books-depth-r17b`，project=`D:/bbe-r15-native-production`，MC4364仅供核验；复用前读session状态。下面02:20及更早实例已回收，不再使用。
