@@ -1,5 +1,5 @@
 """Compose a declared water style independently of exact native qualification."""
-from . import block_registry, liquid_face_texture_data
+from . import block_registry, liquid_face_texture_data, liquid_render_target_data
 from .liquid_face_textures import LiquidFaceTextures
 from .liquid_profile import _models, _side_templates, _text, _uv_rotations, _vector
 from .liquid_render_plan import WATER_NAMES
@@ -10,6 +10,7 @@ from .storage import integer_types
 class ProductLiquidProfile(object):
     """SDK-free resource adapter over a complete immutable document snapshot."""
     def __init__(self, resources, ui_pose, ui_offset):
+        liquid_render_target_data.check_version(block_registry.source_version(), block_registry.fingerprint())
         from . import liquid_product_shape_data as rules
         from .liquid_native_shapes import product_check_version
         product_check_version()

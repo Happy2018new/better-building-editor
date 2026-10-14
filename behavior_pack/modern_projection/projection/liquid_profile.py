@@ -1,7 +1,7 @@
 """Compose versioned liquid rules and native resources for UI and world owners."""
 import math
 
-from . import block_registry, liquid_face_texture_data, liquid_shape_data
+from . import block_registry, liquid_face_texture_data, liquid_render_target_data, liquid_shape_data
 from .cell import text_type
 from .liquid_face_textures import LiquidFaceTextures
 from .liquid_native_shapes import check_version, shape_provider
@@ -90,6 +90,7 @@ class NativeLiquidProfile(object):
     adapter. The provider always consumes the unchanged complete document.
     """
     def __init__(self, resources, ui_pose, ui_offset, flow_uv=None):
+        liquid_render_target_data.check_version(block_registry.source_version(), block_registry.fingerprint())
         check_version()
         if (not isinstance(resources, dict) or resources.get('schema_version') != 2
                 or resources.get('payload_version') != PAYLOAD_VERSION

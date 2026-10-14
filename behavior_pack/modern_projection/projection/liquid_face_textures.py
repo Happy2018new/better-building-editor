@@ -1,5 +1,5 @@
 """Split native top, bottom and side materials without changing saved layers."""
-from . import block_registry, liquid_face_texture_data as source
+from . import block_registry, liquid_face_texture_data as source, liquid_render_target_data
 from .liquid_render_plan import LiquidSurface
 
 
@@ -11,6 +11,7 @@ class LiquidFaceTextures(object):
     the side UV mapping or the choice of flowing top faces.
     """
     def __init__(self, provider, side_templates, uv_rotations=None, top_templates=None):
+        liquid_render_target_data.check_version(block_registry.source_version(), block_registry.fingerprint())
         if (source.SCHEMA_VERSION != 1 or source.SOURCE_VERSION != block_registry.source_version()
                 or source.PALETTE_SHA256.lower() != block_registry.fingerprint().lower()):
             raise ValueError('Native liquid face textures need regeneration for this registry')

@@ -27,6 +27,7 @@ MODULES = (
     'scaffold_support_data',
     'biome_water_data',
     'liquid_face_texture_data',
+    'liquid_render_target_data',
     'liquid_shape_data',
     'static_frame_item_data',
 )
