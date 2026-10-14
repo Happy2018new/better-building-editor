@@ -84,6 +84,35 @@ class VersionBundleTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             bundle.check_actor_materials(data, manifest)
 
+    def test_shared_actor_material_scope_preserves_owned_entries(self):
+        manifest, data = self.actor_snapshot()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in data['adapted']:
+                path = root/name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT/name, path)
+            path = root/'resource_pack/materials/entity.material'
+            material = json.loads(path.read_bytes())
+            material['materials']['unrelated_companion:entity_for_skeleton_alpha'] = {
+                '-states': ['DisableDepthWrite']}
+            path.write_text(json.dumps(material), encoding='ascii')
+            bundle.check_actor_materials(data, manifest, root=root)
+            material['materials']['sign:entity_static']['+states'] = ['DisableDepthWrite']
+            path.write_text(json.dumps(material), encoding='ascii')
+            with self.assertRaisesRegex(ValueError, 'repeat shader and visual checks'):
+                bundle.check_actor_materials(data, manifest, root=root)
+            del material['materials']['sign:entity_static']
+            path.write_text(json.dumps(material), encoding='ascii')
+            with self.assertRaisesRegex(ValueError, 'entry missing'):
+                bundle.check_actor_materials(data, manifest, root=root)
+
+    def test_owned_actor_contract_cannot_silently_drop_a_material(self):
+        manifest, data = self.actor_snapshot()
+        del data['owned_material_entries']['sign:entity_static']
+        with self.assertRaisesRegex(ValueError, 'ownership contract'):
+            bundle.check_actor_materials(data, manifest)
+
     def test_current_sources_and_runtime_observations_match(self):
         with patch.object(bundle, 'check_rail_provenance', wraps=bundle.check_rail_provenance) as rails:
             manifest, files = bundle.check_provenance()

@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "game_version": "NEMC 3.9.0.401155",
   "adapted_hash_format": "sha256-utf8-lf-v1",
   "palette_sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01",
@@ -41,7 +41,7 @@
     }
   },
   "adapted": {
-    "resource_pack/materials/entity.material": "3283b761c7ba2aaac8a7bc32577c2ebcc2fabf8ee722f9dd9eff5e4371781d9d",
+    "resource_pack/materials/entity.material": "7270a6dbdc0cf318123f4d4b788ed8d8f8bff130e0f2998fb4b1854e8e17a3d5",
     "resource_pack/shaders/glsl/modern_projection_native_actor.fragment": "a74ab74b55efa681f7ff5aac2e485a4f423870563c035686cad12a3676c6d6cf",
     "resource_pack/shaders/glsl/modern_projection_sign_body.vertex": "e946ecbba3a16df5d9a87613f8c3df9436d475f5bd2c590cc45f070c0efaae66",
     "resource_pack/shaders/glsl/modern_projection_sign_body.fragment": "121a9b1dccf1eee52ae5ab975fc9f9c6f26c52739ea4aeffaa7759914ce241f9",
@@ -49,5 +49,28 @@
     "resource_pack/shaders/glsl/modern_projection_sign_text.fragment": "40fc6fa1b283fe137a8d4c8d3539b61a1304096990848250aee83ac5474d3540",
     "resource_pack/materials/ui3D.material": "98331de2f192a39186bbda684740a3cdf68bd1347c59b864c630fd0b69305244"
   },
-  "scope": "Native source and adaptation consistency; shader and visual acceptance are separate."
+  "scope": "Native source and owned actor material/shader consistency; unrelated companion entries have separate contracts. Shader and visual acceptance are separate.",
+  "previous_shared_file_sha256": "3283b761c7ba2aaac8a7bc32577c2ebcc2fabf8ee722f9dd9eff5e4371781d9d",
+  "owned_material_entries": {
+    "netease_block_as_entity_transparency": {
+      "fragmentShader": "shaders/glsl/modern_projection_native_actor.fragment"
+    },
+    "banner": {
+      "vertexShader": "shaders/glsl/modern_projection_native_preview_banner.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_native_preview_banner.fragment"
+    },
+    "banner_pole:banner": {
+      "vertexShader": "shaders/glsl/modern_projection_native_preview_banner.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_native_preview_banner.fragment"
+    },
+    "sign:entity_static": {
+      "vertexShader": "shaders/glsl/modern_projection_sign_body.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_sign_body.fragment",
+      "+states": [
+        "Blending"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    }
+  }
 }
