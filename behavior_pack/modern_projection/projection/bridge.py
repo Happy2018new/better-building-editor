@@ -40,7 +40,7 @@ def _native_palette(data):
     """Convert SDK strings without copying the potentially large integer lists."""
     result = {}
     for key, value in data.items():
-        if key == '_native_render_profile':
+        if key in ('_native_render_profile', '_cauldron_profile', '_liquid_render_profile'):
             continue
         if key in ('common', 'extra'):
             result[native(key)] = dict((_native_tree(material), indices)
@@ -420,15 +420,23 @@ class ClientBridge(object):
             data = prepare_context_batches(context_document, document.palette_data(visible),
                                            render_origin=render_origin,
                                            item_profile=getattr(self.session, 'item_profile', None),
-                                           native_render_profile=preview_profile)
+                                           native_render_profile=preview_profile,
+                                           cauldron_profile=getattr(self.session, 'cauldron_profile', None),
+                                           liquid_profile=getattr(self.session, 'liquid_profile', None))
         else:
             from .geometry_palette import prepare_palette
+            biome = getattr(document, 'biome', None)
+            if biome is None:
+                biome = self.session.editor.document.biome
             # One empty Y cell separates source top vertices from overlay
             # bottom vertices so the shader never classifies both alike.
             data = prepare_palette(document.palette_data(visible), overlay_base=document.size[1]+1,
                                    render_origin=render_origin,
                                    item_profile=getattr(self.session, 'item_profile', None),
-                                   native_render_profile=preview_profile)
+                                   native_render_profile=preview_profile,
+                                   cauldron_profile=getattr(self.session, 'cauldron_profile', None),
+                                   biome=biome,
+                                   liquid_profile=getattr(self.session, 'liquid_profile', None))
         if '_context_batches' in data:
             if not hasattr(self, 'context_models'):
                 self.context_models = {}

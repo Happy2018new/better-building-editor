@@ -485,6 +485,142 @@
           "textureFilter": "Point"
         }
       ]
+    },
+    "modern_projection_cauldron_lava:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_lava.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry.vertex"
+    },
+    "modern_projection_cauldron_lava_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_lava.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry_world.vertex"
+    },
+    "modern_projection_cauldron_water:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_water.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry.vertex"
+    },
+    "modern_projection_cauldron_water_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_water.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry_world.vertex"
+    },
+    "modern_projection_cauldron_plain_water:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_plain_water.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry.vertex"
+    },
+    "modern_projection_cauldron_plain_water_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_plain_water.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry_world.vertex"
+    },
+    "modern_projection_cauldron_snow:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_snow.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry.vertex"
+    },
+    "modern_projection_cauldron_snow_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_snow.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry_world.vertex"
     }
   }
 }

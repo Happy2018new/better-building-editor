@@ -45,25 +45,30 @@ class ProductLiquidProfileTests(unittest.TestCase):
         from projection import liquid_product_resource_data as resources
         from projection import liquid_product_owner_data as owners
         good = {'SCHEMA_VERSION': 1, 'PRODUCT_QUALIFIED': True, 'QUALIFICATION_SHA256': '1' * 64,
+                'QUALIFICATION_ENGINE_VERSION': deployment.TARGET_ENGINE_VERSION,
                 'QUALIFICATION_RESOURCE_CONTRACT_SHA256': resources.PRODUCT_RESOURCE_CONTRACT_SHA256,
                 'QUALIFICATION_RULES_SHA256': rules.PRODUCT_RULES_SHA256,
                 'QUALIFICATION_STYLE_VERSION': rules.PRODUCT_STYLE_VERSION,
                 'QUALIFICATION_IMPLEMENTATION_CONTRACT_SHA256': owners.IMPLEMENTATION_CONTRACT_SHA256,
                 'GATES': dict((name, True) for name in deployment.REQUIRED_GATES)}
         for field, invalid in (('SCHEMA_VERSION', 2), ('QUALIFICATION_SHA256', None),
+                               ('QUALIFICATION_ENGINE_VERSION', '3.9.0.401155'),
                                ('QUALIFICATION_RESOURCE_CONTRACT_SHA256', '0' * 64),
                                ('QUALIFICATION_IMPLEMENTATION_CONTRACT_SHA256', '0' * 64),
                                ('QUALIFICATION_RULES_SHA256', '0' * 64), ('QUALIFICATION_STYLE_VERSION', 'future')):
             with self.subTest(field=field), patch.multiple(qualification, **dict(good, **{field: invalid})):
                 with self.assertRaises(ValueError):
-                    deployment.production_profile()
+                    deployment.production_profile(deployment.TARGET_ENGINE_VERSION)
         for gate in deployment.REQUIRED_GATES:
             with self.subTest(gate=gate), patch.multiple(qualification,
                     **dict(good, GATES=dict(good['GATES'], **{gate: False}))):
                 with self.assertRaises(ValueError):
-                    deployment.production_profile()
+                    deployment.production_profile(deployment.TARGET_ENGINE_VERSION)
         with patch.multiple(qualification, **good):
-            self.assertEqual(rules.PRODUCT_RULES_SHA256, deployment.production_profile().rules_sha256)
+            self.assertEqual(rules.PRODUCT_RULES_SHA256,
+                             deployment.production_profile(deployment.TARGET_ENGINE_VERSION).rules_sha256)
+            for version in (None, '3.9.0.401155', '3.11.0', '3.10'):
+                self.assertIsNone(deployment.production_profile(version))
 
     def test_profile_rejects_stale_registry_and_detaches_mutable_resource_maps(self):
         from projection import liquid_product_resource_data as resources

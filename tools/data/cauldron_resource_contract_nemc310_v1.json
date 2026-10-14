@@ -1,0 +1,332 @@
+{
+  "clock": "TOTAL_REAL_WORLD_TIME",
+  "clock_direction": 1,
+  "engine_version": "3.10.0.420447",
+  "height_quantization_error": 0.00196078431372549,
+  "inset": 0.125,
+  "materials": {
+    "modern_projection_cauldron_lava:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_lava.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry.vertex"
+    },
+    "modern_projection_cauldron_lava_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_lava.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry_world.vertex"
+    },
+    "modern_projection_cauldron_plain_water:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_plain_water.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry.vertex"
+    },
+    "modern_projection_cauldron_plain_water_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_plain_water.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry_world.vertex"
+    },
+    "modern_projection_cauldron_snow:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_snow.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry.vertex"
+    },
+    "modern_projection_cauldron_snow_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_snow.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry_world.vertex"
+    },
+    "modern_projection_cauldron_water:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_water.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry.vertex"
+    },
+    "modern_projection_cauldron_water_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_cauldron_water.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry_world.vertex"
+    }
+  },
+  "measurement_sha256": "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+  "models": {
+    "modern_projection_cauldron_lava": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_cauldron_lava",
+      "mesh": "modern_projection/cauldron/lava_mesh.json",
+      "skeleton": "modern_projection/cauldron/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/cauldron/lava"
+      }
+    },
+    "modern_projection_cauldron_lava_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_cauldron_lava_world",
+      "mesh": "modern_projection/cauldron/lava_mesh.json",
+      "skeleton": "modern_projection/cauldron/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/cauldron/lava"
+      }
+    },
+    "modern_projection_cauldron_plain_water": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_cauldron_plain_water",
+      "mesh": "modern_projection/cauldron/plain_water_mesh.json",
+      "skeleton": "modern_projection/cauldron/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/cauldron/plain_water"
+      }
+    },
+    "modern_projection_cauldron_plain_water_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_cauldron_plain_water_world",
+      "mesh": "modern_projection/cauldron/plain_water_mesh.json",
+      "skeleton": "modern_projection/cauldron/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/cauldron/plain_water"
+      }
+    },
+    "modern_projection_cauldron_snow": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_cauldron_snow",
+      "mesh": "modern_projection/cauldron/snow_mesh.json",
+      "skeleton": "modern_projection/cauldron/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/cauldron/snow"
+      }
+    },
+    "modern_projection_cauldron_snow_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_cauldron_snow_world",
+      "mesh": "modern_projection/cauldron/snow_mesh.json",
+      "skeleton": "modern_projection/cauldron/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/cauldron/snow"
+      }
+    },
+    "modern_projection_cauldron_water": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_cauldron_water",
+      "mesh": "modern_projection/cauldron/water_mesh.json",
+      "skeleton": "modern_projection/cauldron/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/cauldron/water"
+      }
+    },
+    "modern_projection_cauldron_water_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_cauldron_water_world",
+      "mesh": "modern_projection/cauldron/water_mesh.json",
+      "skeleton": "modern_projection/cauldron/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/cauldron/water"
+      }
+    }
+  },
+  "native_flipbook_sha256": "54fef45e43eabb065a703f829d70320430c746744289775e57af582cb240fd7a",
+  "native_opacity": "source_texture_alpha",
+  "output_sha256": {
+    "resource_pack/materials/entity.material": "45e8fda484e973e3cd0adeb164148767acc64177cf402d4e01c51b728fff1c48",
+    "resource_pack/models/modern_projection/cauldron/lava_mesh.json": "33ff82ab951d82d27a2b2332e5e3d6c9de99b738677d9885e8f55c58b7740af2",
+    "resource_pack/models/modern_projection/cauldron/plain_water_mesh.json": "ffdface56c9284db7ba3e8353cf9c3a3064251bcd76f8cb1eb8014ee7a65d61d",
+    "resource_pack/models/modern_projection/cauldron/skeleton.json": "20a966711bc01cf74ced1159e371b07e0ec819dbd538c3514b0ffbe54d31beed",
+    "resource_pack/models/modern_projection/cauldron/snow_mesh.json": "2200e611725787c8ec9bfaafa33688670265830810548c5f25db1776c6c98ed6",
+    "resource_pack/models/modern_projection/cauldron/water_mesh.json": "4b4a60ba4019a592b61250d93d619839b367030be7bf0265f9ed116ae213b041",
+    "resource_pack/models/netease_models.json": "7e254afbfef8524d5e1a06233c36fc728e0e70c0576220f7436adadac7a5a675",
+    "resource_pack/shaders/glsl/modern_projection_cauldron_geometry.vertex": "cbb361f3d4bde17fa151d26bbb015ea3964c9795ac9070f5e650aaaa867144a4",
+    "resource_pack/shaders/glsl/modern_projection_cauldron_geometry_world.vertex": "94444218bc8ff1b1436572a8d8c4496eba00a8fd695c7ec13fccb17b6400d0b9",
+    "resource_pack/shaders/glsl/modern_projection_cauldron_lava.fragment": "500bb83011e02519d3a32dfa4efb5f0ebb28de7d4d474f9d6ba88bf3aebc7829",
+    "resource_pack/shaders/glsl/modern_projection_cauldron_plain_water.fragment": "5b4f792f15047cca4f268051cb4ce3fac4cb9e418305f1ee037ef67d106c4bdc",
+    "resource_pack/shaders/glsl/modern_projection_cauldron_snow.fragment": "b5c69d196ce9ece7e3b65d48a4c75c65f1d26d32f8d2f5468091d82277038ddb",
+    "resource_pack/shaders/glsl/modern_projection_cauldron_water.fragment": "5b4f792f15047cca4f268051cb4ce3fac4cb9e418305f1ee037ef67d106c4bdc",
+    "resource_pack/textures/models/modern_projection/cauldron/lava.png": "09cbeb2e4a220cd4f1ba65516792cc5285ce4c968f8f39ca7d1e07670b199f29",
+    "resource_pack/textures/models/modern_projection/cauldron/plain_water.png": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3",
+    "resource_pack/textures/models/modern_projection/cauldron/snow.png": "5afb828a30052f8b041c2e73c738d38b9bb8a04c7540161270260dc21005d4d8",
+    "resource_pack/textures/models/modern_projection/cauldron/water.png": "32dcf6ea0e72f8d65d729734a3b2318e5962026e29b375c501b7c0b0bcb7f888"
+  },
+  "payload_version": 2,
+  "product_acceptance_claimed": false,
+  "schema_version": 1,
+  "textures": {
+    "lava": {
+      "alpha_range": [
+        255,
+        255
+      ],
+      "flipbook": {
+        "atlas_tile": "still_lava",
+        "flipbook_texture": "textures/blocks/lava_still",
+        "ticks_per_frame": 16
+      },
+      "frames": 32,
+      "sha256": "09cbeb2e4a220cd4f1ba65516792cc5285ce4c968f8f39ca7d1e07670b199f29",
+      "size": [
+        16,
+        512
+      ],
+      "source": "resource_packs/vanilla/textures/blocks/lava_still.png",
+      "ticks_per_frame": 16
+    },
+    "plain_water": {
+      "alpha_range": [
+        240,
+        240
+      ],
+      "flipbook": {
+        "atlas_tile": "still_water_grey",
+        "flipbook_texture": "textures/blocks/water_still_grey",
+        "ticks_per_frame": 2
+      },
+      "frames": 32,
+      "sha256": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3",
+      "size": [
+        16,
+        512
+      ],
+      "source": "resource_packs/vanilla/textures/blocks/water_still_grey.png",
+      "ticks_per_frame": 2
+    },
+    "snow": {
+      "alpha_range": [
+        255,
+        255
+      ],
+      "flipbook": {
+        "flipbook_texture": "textures/blocks/powder_snow"
+      },
+      "frames": 1,
+      "sha256": "5afb828a30052f8b041c2e73c738d38b9bb8a04c7540161270260dc21005d4d8",
+      "size": [
+        16,
+        16
+      ],
+      "source": "resource_packs/vanilla/textures/blocks/powder_snow.png",
+      "ticks_per_frame": 1
+    },
+    "water": {
+      "alpha_range": [
+        168,
+        226
+      ],
+      "flipbook": {
+        "atlas_tile": "cauldron_water",
+        "flipbook_texture": "textures/blocks/cauldron_water",
+        "ticks_per_frame": 2
+      },
+      "frames": 32,
+      "sha256": "32dcf6ea0e72f8d65d729734a3b2318e5962026e29b375c501b7c0b0bcb7f888",
+      "size": [
+        16,
+        512
+      ],
+      "source": "resource_packs/vanilla/textures/blocks/cauldron_water.png",
+      "ticks_per_frame": 2
+    }
+  },
+  "uv_bounds": [
+    0.125,
+    0.875
+  ]
+}

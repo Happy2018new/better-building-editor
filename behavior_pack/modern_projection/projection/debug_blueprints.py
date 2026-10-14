@@ -22,6 +22,9 @@ from .debug_item_blueprints import (ORIENTATION_METADATA as ITEM_ORIENTATION_MET
 from .debug_action_blueprints import METADATA as ACTION_METADATA, ACTION_MATRIX
 from .debug_botanical_blueprints import METADATA as BOTANICAL_METADATA, VISUAL_CASE as BOTANICAL_VISUAL_CASE
 from .debug_product_connections import METADATA as PRODUCT_METADATA, VISUAL_CASE as PRODUCT_VISUAL_CASE
+from .debug_cauldron_blueprints import METADATA as CAULDRON_METADATA, VISUAL_CASE as CAULDRON_VISUAL_CASE
+from .debug_compatibility_blueprints import (METADATA as COMPATIBILITY_METADATA,
+                                            VISUAL_CASES as COMPATIBILITY_VISUAL_CASES)
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -40,6 +43,7 @@ BLUEPRINTS = (
     ('test.entities.appearances', 'entities', '方块实体 · 非默认外观', (40, 12, 44), 'minecraft:skeleton_skull'),
     ITEM_METADATA,
     ITEM_ORIENTATION_METADATA,
+    CAULDRON_METADATA,
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
     SIGN_METADATA,
     WATER_METADATA,
@@ -50,13 +54,14 @@ BLUEPRINTS = (
     ACTION_METADATA,
     BOTANICAL_METADATA,
     PRODUCT_METADATA,
-)
+) + COMPATIBILITY_METADATA
 VISUAL_CASES = {
     'neighbor_actions': ACTION_MATRIX,
     'product_connections': PRODUCT_VISUAL_CASE,
     'botanical_neighbors': BOTANICAL_VISUAL_CASE,
     'item_contents': ITEM_VISUAL_CASE,
     'item_orientations': ITEM_ORIENTATION_VISUAL_CASE,
+    'cauldron_contents': CAULDRON_VISUAL_CASE,
     'water_behaviors': WATER_VISUAL_CASE,
     'pure_liquids': LIQUID_VISUAL_CASE,
     'water_style': WATER_STYLE_VISUAL_CASE,
@@ -128,6 +133,7 @@ VISUAL_CASES = {
         'camera': {'editor': (35., 25., 2.8), 'world_offset': (-3.5, 3., -5.)},
     },
 }
+VISUAL_CASES.update(COMPATIBILITY_VISUAL_CASES)
 
 
 def entries(category=None):
@@ -314,6 +320,9 @@ def build(identity):
     if metadata is None:
         raise ValueError('找不到这份测试蓝图')
     fixture = Fixture(metadata)
+    if identity in COMPATIBILITY_VISUAL_CASES:
+        from .debug_compatibility_blueprints import populate
+        return populate(fixture, identity)
     if identity == LIQUID_METADATA[0]:
         from .debug_liquid_blueprints import populate
         return populate(fixture)
@@ -348,6 +357,9 @@ def build(identity):
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
                 'test.transforms.directions': _directions, 'test.registry.vanilla': _vanilla}
     if metadata[1] == 'entities':
+        if identity == CAULDRON_METADATA[0]:
+            from .debug_cauldron_blueprints import populate
+            return populate(fixture)
         if identity == ITEM_METADATA[0]:
             from .debug_item_blueprints import populate
             return populate(fixture)

@@ -177,7 +177,7 @@ def _append_frame_items(common, actors, logical, overlay_base, item_profile=None
 
 def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE,
                     inferred_bed_colors=None, render_origin=(0, 0, 0), item_profile=None,
-                    native_render_profile=None):
+                    native_render_profile=None, cauldron_profile=None, biome='plains', liquid_profile=None):
     """Copy and canonicalize both native layers and actor payloads."""
     validate_plant_source()
     render_origin = validate_render_origin(render_origin)
@@ -202,6 +202,16 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
     common, common_states = prepare_layer('common')
     extra, extra_states = prepare_layer('extra')
     normalize_palette_layers(common, common_states, extra, extra_states)
+    from .liquid_render_ownership import owned_names, suppress
+    liquid_names = owned_names(liquid_profile)
+    common, common_states = suppress(common, common_states, liquid_names)
+    extra, extra_states = suppress(extra, extra_states, liquid_names)
+    if liquid_names:
+        normalize_palette_layers(common, common_states, extra, extra_states)
+    if cauldron_profile is not None:
+        from .cauldron_render_plan import prepare_shells
+        common, common_states = prepare_shells(common, common_states, source.get('actor', {}),
+                                               cauldron_profile, biome)
     volume = _append_snow_overlays(common, common_states, extra, extra_states,
                                   source.get('volume'), overlay_base, render_origin)
     item_volume = _append_frame_items(common, source.get('actor', {}), source.get('volume'),
@@ -236,6 +246,10 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
                 extraStates=extra_states, actor=actors)
     if native_render_profile is not None:
         data['_native_render_profile'] = native_render_profile.identity
+    if cauldron_profile is not None:
+        data['_cauldron_profile'] = cauldron_profile.identity
+    if liquid_names:
+        data['_liquid_render_profile'] = tuple(sorted(liquid_names))
     if volume is not None:
         data['volume'] = volume
     return data

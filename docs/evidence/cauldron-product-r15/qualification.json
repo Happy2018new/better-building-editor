@@ -1,0 +1,66 @@
+{
+  "counts": {
+    "animated_pairs": 12,
+    "default_biome_routes": 3,
+    "matrix_pairs": 30,
+    "occupied_restore_cases": 5,
+    "public_gallery_cases": 33,
+    "static_pairs": 3,
+    "visibility_cases": 2
+  },
+  "engine_version": "3.10.0.420447",
+  "evidence_sha256": {
+    "default-biome-analysis.json": "cd9f8a9a2fb8e0a2ac5f180ae7e3d7580c4da94e7c31cd90f76c540e7d3eccf4",
+    "default-biome-analysis.png": "05e4287b5d4146d8ce249aed08418424da99f889d0d543fb9fc783c940f81809",
+    "default-biome-smoke-v2.json": "98475ccc2a3ae210250cee373d6f1d1fda9480a1cebf32b543862e2ab4039f1b",
+    "final-extras-v1-analysis.json": "3be0a5a8fb038642a313687158217a21dfb286d04da63881096fa5929e0c3c7a",
+    "final-extras-v1-analysis.png": "e273fe2017a98e46feb68b77468b3957a605750fd1bd24de3bd60579025a4faf",
+    "final-extras-v1.json": "95b28f18c95bee6c5cbf8bd97ee1554d7ab7086e80b03feea621380e60f81ad9",
+    "final-matrix-v1-analysis.json": "e8a694e5886035016db3993816e1442d1aacb17995d68f5cb855a468cc5c96dc",
+    "final-matrix-v1-analysis.png": "bf36c755e705a33283c1b369435318823669f4317a4ebb452ee630e4138fb69b",
+    "final-matrix-v1.json": "edc5629de85645c4ff5c2f120c2cbf6ba733466ba6348ff197357e36e39a87b3",
+    "final-visibility-gallery-v1.json": "b194cfc272c841b78d53396e4f2a3d3c8479ac1e5bd6a6e5e792708cdb55a075"
+  },
+  "exact_native_parity_claimed": false,
+  "fixture": "test.entities.cauldrons",
+  "gates": {
+    "animation": true,
+    "biome": true,
+    "colors": true,
+    "default_path": true,
+    "editor": true,
+    "gallery": true,
+    "geometry": true,
+    "lifecycle": true,
+    "occupancy": true,
+    "projection_full": true,
+    "projection_missing": true,
+    "visibility": true
+  },
+  "implementation_contract_sha256": "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+  "implementation_sha256": {
+    "behavior_pack/modern_projection/projection/biomes.py": "899968dd2748847ac178d5a43a3b284de6cba6589474e2a082e4b2f17b1bf9ef",
+    "behavior_pack/modern_projection/projection/cauldron_appearance.py": "2a9813f5bfa2f7042f68d50caa32d83bd8c44495c05e82c1f6557a15f888f10f",
+    "behavior_pack/modern_projection/projection/cauldron_native_data.py": "2af3f5ced49de747908f24da4143a9b4c3fb054db250aad1d156c9e4f4c15f7c",
+    "behavior_pack/modern_projection/projection/cauldron_preview.py": "9c64592cd6660474e587d5f75d7359cb7d71a6b2a90dac6837ca4adb5cdd5103",
+    "behavior_pack/modern_projection/projection/cauldron_profile.py": "43a4a1c35022c69829aa24bd38678c2b3dac2f4f9facbbb6c8dd0ac3733e99c2",
+    "behavior_pack/modern_projection/projection/cauldron_projection.py": "2fc25bfe6a263f9c5878b1a00a119fef38db100de2e957c59e740b7068b5ac9d",
+    "behavior_pack/modern_projection/projection/cauldron_render_plan.py": "c975e29b25bd7fa3c4fcd8836869bf1d62b66bf3d9187558f738b2ae5af43e8c",
+    "behavior_pack/modern_projection/projection/debug_cauldron_blueprints.py": "67821ef6d9781765b81deb424e9b5cb206add45a5879902d6b2e40e17ac31992",
+    "behavior_pack/modern_projection/projection/liquid_preview.py": "bbb8e7327dd842b42c153b9337c6c56464f5b1ca53b0bb7f8379b79b4e1856b6",
+    "behavior_pack/modern_projection/projection/liquid_projection.py": "2816a12c5c02f3cfe1394752946022891caed287b5a45f5b16623bd202a78b8e",
+    "behavior_pack/modern_projection/projection/liquid_render_plan.py": "4c702b4e8ad7ca77d25d8547262617042b724c9267979d0d1e39e8761aa8fd03",
+    "behavior_pack/modern_projection/projection/liquid_transport.py": "b259a3f097015a8b841ee0e483c260262277d4866dbaf0cf6c22e84ccd14b65b"
+  },
+  "limits": [
+    "Ordinary water uses the document biome preset appearance.",
+    "Individual projection captures cover ten cases, not all 33 gallery cases.",
+    "Malformed or future cauldron appearances retain the native route.",
+    "Qualification covers the declared cauldron owner and resources; shared integration has separate tests."
+  ],
+  "native_data_sha256": "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+  "plain_water_style": "document_biome_world_water_v1",
+  "product_qualified": true,
+  "resource_contract_sha256": "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+  "schema_version": 1
+}

@@ -1,6 +1,7 @@
 """Visible product-style acceptance; exact-native evidence remains independent."""
 SCHEMA_VERSION = 1
 PRODUCT_QUALIFIED = False
+QUALIFICATION_ENGINE_VERSION = None
 QUALIFICATION_SHA256 = None
 QUALIFICATION_RESOURCE_CONTRACT_SHA256 = None
 QUALIFICATION_RULES_SHA256 = None

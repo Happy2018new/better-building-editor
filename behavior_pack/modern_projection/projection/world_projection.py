@@ -21,6 +21,8 @@ class WorldProjection(object):
         self.opacity, self.missing = s.opacity, s.projection_missing
         self.item_profile = getattr(s, 'item_profile', None)
         self.native_render_profile = getattr(s, 'native_render_profile', None)
+        self.cauldron_profile = getattr(s, 'cauldron_profile', None)
+        self.liquid_profile = getattr(s, 'liquid_profile', None)
         from .occupancy import ProjectionOccupancy
         self.occupancy = ProjectionOccupancy(bridge, origin, self.document) if self.missing else None
         self.size = tuple(self.document.size)
@@ -37,7 +39,7 @@ class WorldProjection(object):
         self.cleanup_errors = []
         self.liquid = None
         companions = []
-        profile = getattr(s, 'liquid_profile', None)
+        profile = self.liquid_profile
         if profile is not None:
             from .liquid_projection import LiquidProjection
             dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
@@ -49,6 +51,11 @@ class WorldProjection(object):
             dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
             companions.append(ItemProjection(bridge, self.document, origin, item_profile, dimension,
                                              self.hidden, self.layer))
+        if self.cauldron_profile is not None:
+            from .cauldron_projection import CauldronProjection
+            dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+            companions.append(CauldronProjection(bridge, self.document, origin, self.cauldron_profile,
+                                                 dimension, self.hidden, self.layer))
         if len(companions) == 1:
             self.liquid = companions[0]
         elif companions:
@@ -100,7 +107,9 @@ class WorldProjection(object):
         from .render_context import ContextBatchBuilder
         builder = ContextBatchBuilder(self.document, self.output.palette_data(), render_origin=self.origin,
                                       item_profile=self.item_profile,
-                                      native_render_profile=getattr(self, 'native_render_profile', None))
+                                      native_render_profile=getattr(self, 'native_render_profile', None),
+                                      cauldron_profile=getattr(self, 'cauldron_profile', None),
+                                      liquid_profile=getattr(self, 'liquid_profile', None))
         for unused in builder.prepare():
             yield None
         self.prepared = builder.data
@@ -121,7 +130,8 @@ class WorldProjection(object):
         if self.error:
             s.editor.message = self.error
         elif self.ready:
-            s.editor.message = ('完整投影已生成，关闭工作台即可查看' if self.model else
+            visible = self.model or (self.liquid is not None and self.targets)
+            s.editor.message = ('完整投影已生成，关闭工作台即可查看' if visible else
                                 '当前没有需要投影的方块，范围框已保留')
             if self.cleanup_errors:
                 s.editor.message += '；旧投影资源清理失败，请关闭投影后重试'
@@ -222,9 +232,11 @@ class WorldProjection(object):
 
     def submit(self):
         b = self.bridge
+        from .render_context import has_native_draws
+        required = has_native_draws(self.prepared) if self.prepared is not None else bool(self.output.count)
         self.model = b.geometry(self.output, name=self.shader.names[0], prepared=self.prepared)
         if not self.model:
-            if self.output.count:
+            if required:
                 raise ValueError('投影模型生成失败，原投影已保留，请重试')
             self.commit(None)
             return

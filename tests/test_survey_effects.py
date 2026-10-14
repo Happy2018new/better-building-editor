@@ -114,14 +114,14 @@ class SurveyAssetTests(unittest.TestCase):
         self.assertIn('Blending',guide['+states'])
         self.assertIn('DisableDepthWrite',guide['+states'])
         self.assertNotIn('DisableDepthTest',guide['+states'])
-        shader=(ROOT/'resource_pack/shaders/glsl/modern_projection_survey_stars.vertex').read_text()
+        shader=(ROOT/'resource_pack/shaders/glsl/modern_projection_survey_stars.vertex').read_text(encoding='utf8')
         self.assertEqual(3,shader.count('float shardSize='))
         self.assertFalse(any('eyeDistance' in line for line in shader.splitlines()
                              if 'float shardSize=' in line))
         self.assertNotIn('density<0.',shader)
         self.assertIn('float edge=floor(id/48.)',shader)
         self.assertNotIn('effectKind=8.',shader)
-        fragment=(ROOT/'resource_pack/shaders/glsl/modern_projection_survey_stars.fragment').read_text()
+        fragment=(ROOT/'resource_pack/shaders/glsl/modern_projection_survey_stars.fragment').read_text(encoding='utf8')
         self.assertNotIn('vec2 grid=fract(tile)',fragment)
 
 

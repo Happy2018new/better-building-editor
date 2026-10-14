@@ -181,10 +181,14 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
 class ContextPaletteBuilder(object):
     """Read snapshot chunks directly and yield between small preparation units."""
     def __init__(self, document, targets, render_origin=(0, 0, 0), item_profile=None,
-                 native_render_profile=None):
+                 native_render_profile=None, cauldron_profile=None, liquid_profile=None):
         self.document, self.targets = document, targets
         self.item_profile = item_profile
         self.native_render_profile = native_render_profile
+        self.cauldron_profile = cauldron_profile
+        self.liquid_profile = liquid_profile
+        from .liquid_render_ownership import identity
+        self.liquid_identity = identity(liquid_profile)
         self.render_origin = validate_render_origin(render_origin)
         sx, sy, sz = document.size
         self.logical_volume = (sz, sx, sy)
@@ -261,7 +265,9 @@ class ContextPaletteBuilder(object):
                                    inferred_bed_colors={0: color} if color is not None else None,
                                    render_origin=tuple(self.render_origin[i] + (x, y, z)[i] for i in range(3)),
                                    item_profile=self.item_profile,
-                                   native_render_profile=self.native_render_profile)
+                                   native_render_profile=self.native_render_profile,
+                                   cauldron_profile=self.cauldron_profile, biome=self.document.biome,
+                                   liquid_profile=self.liquid_profile)
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result
@@ -311,8 +317,10 @@ class ContextPaletteBuilder(object):
     def put_target(self, target):
         tx, ty, tz = target
         center = self.material(tx, ty, tz)
-        if center is None or center[0] is None:
+        if center is None:
             raise ValueError('Context target is absent from the complete source palette')
+        if center[0] is None and center[1] is None:
+            return
         cx = tx * CONTEXT_STRIDE + CONTEXT_CENTER
         cy = ty * CONTEXT_STRIDE + CONTEXT_CENTER + CONTEXT_BASE
         cz = tz * CONTEXT_STRIDE + CONTEXT_CENTER
@@ -376,15 +384,19 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                 batches[origin] = batch
             context, overlay, writer = batch
             center = self.material(*target)
-            if center is None or center[0] is None:
+            if center is None:
                 raise ValueError('Context target is absent from its source')
+            if center[0] is None and center[1] is None:
+                if number % TARGETS_PER_UNIT == 0:
+                    yield True
+                continue
             lx, ly, lz = tx - origin[0], ty - origin[1], tz - origin[2]
             cx, cy, cz = (lx * CONTEXT_STRIDE + CONTEXT_CENTER,
                           ly * CONTEXT_STRIDE + CONTEXT_CENTER,
                           lz * CONTEXT_STRIDE + CONTEXT_CENTER)
             delta = (cx - tx, cy - ty, cz - tz)
             center_index = (cy * 64 + cx) * 64 + cz
-            if _native_actor_mesh(center[0], self.native_render_profile):
+            if center[0] is not None and _native_actor_mesh(center[0], self.native_render_profile):
                 # Native block actors carry a model-local POSITION. Their
                 # model transform cannot use the packed neighbor-tile decoder.
                 actor_cell = {'common': center[0].get('common'),
@@ -414,6 +426,10 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                     continue
                 if self.native_render_profile is not None:
                     palette['_native_render_profile'] = profile_identity(self.native_render_profile)
+                if self.cauldron_profile is not None:
+                    palette['_cauldron_profile'] = self.cauldron_profile.identity
+                if self.liquid_identity:
+                    palette['_liquid_render_profile'] = self.liquid_identity
                 for key, layer, records in (('states', 'common', self.states),
                                              ('extraStates', 'extra', self.extra_states)):
                     palette[key] = dict((value, records[value]) for value in palette[layer]
@@ -432,10 +448,18 @@ class ContextBatchBuilder(ContextPaletteBuilder):
 
 
 def prepare_context_batches(document, targets, render_origin=(0, 0, 0), item_profile=None,
-                            native_render_profile=None):
+                            native_render_profile=None, cauldron_profile=None, liquid_profile=None):
     builder = ContextBatchBuilder(document, targets, render_origin=render_origin,
                                   item_profile=item_profile,
-                                  native_render_profile=native_render_profile)
+                                  native_render_profile=native_render_profile,
+                                  cauldron_profile=cauldron_profile, liquid_profile=liquid_profile)
     for unused in builder.prepare():
         pass
     return builder.data
+
+
+def has_native_draws(prepared):
+    """Custom-owned cells can have logical targets without any native mesh."""
+    if '_context_batches' in prepared:
+        return bool(prepared['_context_batches'])
+    return bool(prepared.get('common') or prepared.get('extra'))

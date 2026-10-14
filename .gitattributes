@@ -145,3 +145,29 @@ docs/evidence/background-minimal-baseline-rp-r14-v1/** -text -diff whitespace=cr
 docs/evidence/background-baseline-after-user-fullscreen-r14-v1/** -text -diff whitespace=cr-at-eol
 # Native animation resources are archived verbatim and checked by byte hash.
 docs/reference/native_animations/** -text whitespace=cr-at-eol
+# Cauldron acceptance binds the exact tested implementation and resource bytes.
+behavior_pack/modern_projection/projection/cauldron_appearance.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/cauldron_native_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/cauldron_preview.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/cauldron_profile.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/cauldron_projection.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/cauldron_render_plan.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/debug_cauldron_blueprints.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_preview.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_projection.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_render_plan.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_transport.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/biomes.py -text whitespace=cr-at-eol
+tools/data/cauldron_native_nemc310_v1.json -text whitespace=cr-at-eol
+tools/data/cauldron_resource_contract_nemc310_v1.json -text whitespace=cr-at-eol
+resource_pack/models/modern_projection/cauldron/** -text whitespace=cr-at-eol
+resource_pack/shaders/glsl/modern_projection_cauldron_* -text whitespace=cr-at-eol
+# Generated vertex templates retain three whitespace-only lines in frozen hashes.
+resource_pack/shaders/glsl/modern_projection_cauldron_geometry.vertex -text whitespace=cr-at-eol,-blank-at-eol
+resource_pack/shaders/glsl/modern_projection_cauldron_geometry_world.vertex -text whitespace=cr-at-eol,-blank-at-eol
+docs/evidence/cauldron-product-r15/** -text -diff whitespace=cr-at-eol
+docs/evidence/cauldron-surface-r15/** -text -diff whitespace=cr-at-eol
+# Water reports and manifests retain the original evidence bytes.
+docs/evidence/water-production-final310-r15-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/water-production-biome310-r15-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/water-production-fixed310-r15-v1/** -text -diff whitespace=cr-at-eol

@@ -63,6 +63,8 @@ def inspect(session, value):
     liquid_controls = getattr(session, 'liquid_controls', None)
     items = getattr(session, 'item_preview', None)
     item_controls = getattr(session, 'item_controls', None)
+    cauldrons = getattr(session, 'cauldron_preview', None)
+    cauldron_controls = getattr(session, 'cauldron_controls', None)
     return {'size': e.document.size, 'sceneSize': session.scene_size, 'origin': session.scene_origin,
             'sceneScale': session.scene_scale, 'pending': session.preview_pending, 'error': session.preview_error,
             'liquid': {'enabled': getattr(session, 'liquid_profile', None) is not None,
@@ -77,6 +79,12 @@ def inspect(session, value):
                       'planReady': items is not None and items.published == items.signature(),
                       'controlsPending': item_controls.pending if item_controls is not None else False,
                       'error': getattr(session, 'item_error', '')},
+            'cauldrons': {'enabled': getattr(session, 'cauldron_profile', None) is not None,
+                          'groups': len(cauldrons.groups) if cauldrons is not None else 0,
+                          'revision': cauldrons.revision if cauldrons is not None else 0,
+                          'planReady': cauldrons is not None and cauldrons.published == cauldrons.signature(),
+                          'controlsPending': cauldron_controls.pending if cauldron_controls is not None else False,
+                          'error': getattr(session, 'cauldron_error', '')},
             'blocks': len(e.document.blocks), 'model': session.model_name, 'selection': len(e.selection),
             'start': e.start, 'end': e.end, 'anchor': session.box_anchor, 'focused': session.focused,
             'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,

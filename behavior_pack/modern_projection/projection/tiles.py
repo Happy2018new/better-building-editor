@@ -7,6 +7,7 @@ from .chunks import EDGE, tile_bounds, keys_in
 from .preview_regions import regions
 from .large_preview import SurfacePalette
 from .native_render_profile import profile_identity
+from .liquid_render_ownership import identity as liquid_identity
 try:
     text_type = unicode
 except NameError:
@@ -308,7 +309,9 @@ class TiledPreview(object):
     def submit(self, key, palette, origin):
         data = (palette.common, palette.extra, palette.actor, palette.size, tuple(origin),
                 id(getattr(self.session, 'item_profile', None)),
-                profile_identity(getattr(self.session, 'native_render_profile', None)))
+                profile_identity(getattr(self.session, 'native_render_profile', None)),
+                getattr(getattr(self.session, 'cauldron_profile', None), 'identity', None),
+                liquid_identity(getattr(self.session, 'liquid_profile', None)))
         part = self.parts.get(key)
         if part is not None and data == part['data']:
             part['signature'] = self.session.preview_signature()

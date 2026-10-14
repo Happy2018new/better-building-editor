@@ -12,6 +12,7 @@ from projection.debug_blueprints import material
 from projection.liquid_projection import LiquidProjection
 from projection.liquid_render import WorldLiquidRenderer
 from projection.liquid_render_plan import LiquidSurface
+from projection.large_preview import SurfacePalette
 from projection.model import Document, Editor
 from test_liquid_render import Runtime as ModelRuntime
 import test_bridge as bridge_tests
@@ -269,6 +270,49 @@ class WorldLiquidIntegrationTests(unittest.TestCase):
 
     def drain(self):
         bridge_tests.ProjectionLifecycleTests.drain_projection(self, limit=400)
+
+    def test_custom_only_water_publishes_without_native_mesh_and_occupancy_recovers(self):
+        for missing in (False, True):
+            with self.subTest(missing=missing):
+                self.bridge.session.liquid_profile.supported_names = frozenset(('minecraft:water',))
+                self.bridge.session.editor = Editor(Document((4, 3, 4),
+                    {(1, 1, 1): material('water')}))
+                self.bridge.session.projection_missing = missing
+                self.bridge.geometry = lambda *args, **kwargs: None
+                self.bridge.project_large((10, 64, 20))
+                self.drain()
+                work = self.bridge.projection_work
+                self.assertTrue(work.ready)
+                self.assertIsNone(work.error)
+                self.assertIsNone(self.bridge.entity)
+                self.assertEqual(1, len(self.runtime.liquid_models.models))
+                self.assertIn('完整投影已生成', self.bridge.session.editor.message)
+                if missing:
+                    tracker = self.bridge.projection_occupancy
+                    for state, expected in ((2, 0), (1, 1)):
+                        tracker.observe(tracker.index((1, 1, 1)), state)
+                        tracker.snapshot = tracker.state[:]
+                        tracker.output = SurfacePalette(tracker.size)
+                        for unused in tracker.prepare():
+                            pass
+                        tracker.submit()
+                        for unused in range(100):
+                            tracker.replace(None, tracker.anchor)
+                            if tracker.pending_pair is None:
+                                break
+                        self.assertFalse(tracker.failed)
+                        self.assertEqual(expected, len(self.runtime.liquid_models.models))
+                self.bridge.stop_projection()
+                self.drain()
+                self.assertEqual({}, self.runtime.liquid_models.models)
+
+    def test_missing_native_body_still_rejects_failed_geometry(self):
+        self.bridge.session.liquid_profile.supported_names = frozenset(('minecraft:water',))
+        self.bridge.geometry = lambda *args, **kwargs: None
+        self.bridge.project_large((10, 64, 20))
+        self.drain()
+        self.assertIsNotNone(self.bridge.projection_work.error)
+        self.assertFalse(self.bridge.projection_work.ready)
 
     def test_public_build_publishes_water_and_close_releases_both_native_owners(self):
         self.bridge.project_large((10, 64, 20))

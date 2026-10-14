@@ -22,9 +22,9 @@ def candidate_profile(frozen=False, flowing_top=False):
     return NativeLiquidProfile(resources, ui_pose, ui_offset)
 
 
-def production_profile():
+def production_profile(engine_version=None):
     from .liquid_product_deployment import production_profile as product_profile
-    product = product_profile()
+    product = product_profile(engine_version)
     if product is not None:
         return product
     if not source.PRODUCTION_QUALIFIED:

@@ -37,13 +37,17 @@ class Session(object):
         self.liquid_error = ''
         self.liquid_preview = self.liquid_controls = None
         from .liquid_deployment import production_profile
-        self.liquid_profile = production_profile()
+        self.liquid_profile = production_profile(getattr(bridge, 'engine_version', None))
         self.item_error = ''
         self.item_preview = self.item_controls = None
         from .item_sprite_profile import production_profile as item_production_profile
         self.item_profile = item_production_profile()
         from .native_render_profile import production_profile as native_production_profile
         self.native_render_profile = native_production_profile(getattr(bridge, 'engine_version', None))
+        from .cauldron_deployment import production_profile as cauldron_production_profile
+        self.cauldron_profile = cauldron_production_profile(getattr(bridge, 'engine_version', None))
+        self.cauldron_error = ''
+        self.cauldron_preview = self.cauldron_controls = None
         self.camera_yaw = 35.
         self.camera_pitch = 25.
         self.zoom = 1.
@@ -605,10 +609,16 @@ class Session(object):
 
     def preview_signature(self):
         from .native_render_profile import profile_identity
+        from .liquid_render_ownership import identity as liquid_identity
         return (id(self.editor), self.editor.revision, tuple(sorted(self.editor.hidden_layers)), self.solo_layer,
                 self.editor.layer if self.solo_layer or self.section else -1, self.section,
                 id(getattr(self, 'item_profile', None)),
-                profile_identity(self.native_render_profile))
+                profile_identity(self.native_render_profile),
+                getattr(self.cauldron_profile, 'identity', None), liquid_identity(self.liquid_profile))
+
+    def preview_has_content(self):
+        return any(self.tiles.parts[key]['count'] for key in self.tiles.slots
+                   if key in self.tiles.parts)
 
     def depth_plane(self):
         from .camera import OrbitCamera

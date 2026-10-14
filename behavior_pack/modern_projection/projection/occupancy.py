@@ -35,6 +35,8 @@ class ProjectionOccupancy(object):
         self.layer = bridge.session.editor.layer if bridge.session.solo_layer else None
         self.item_profile = getattr(bridge.session, 'item_profile', None)
         self.native_render_profile = getattr(bridge.session, 'native_render_profile', None)
+        self.cauldron_profile = getattr(bridge.session, 'cauldron_profile', None)
+        self.liquid_profile = getattr(bridge.session, 'liquid_profile', None)
         self.info = bridge.factory.CreateBlockInfo(bridge.level)
         self.camera = bridge.factory.CreateCamera(bridge.level)
         self.loaded_chunks = getattr(bridge.system, 'projection_loaded_chunks', None)
@@ -276,7 +278,9 @@ class ProjectionOccupancy(object):
         from .render_context import ContextBatchBuilder
         builder = ContextBatchBuilder(self.document, self.output.palette_data(), render_origin=self.origin,
                                       item_profile=self.item_profile,
-                                      native_render_profile=self.native_render_profile)
+                                      native_render_profile=self.native_render_profile,
+                                      cauldron_profile=self.cauldron_profile,
+                                      liquid_profile=self.liquid_profile)
         for unused in builder.prepare():
             yield True
         self.prepared = builder.data
@@ -341,6 +345,8 @@ class ProjectionOccupancy(object):
             return
         self.bank = 1-self.shader.bank if self.entity is not None else 0
         name = self.shader.names[self.bank]
+        from .render_context import has_native_draws
+        required = has_native_draws(self.prepared) if self.prepared is not None else bool(self.output.count)
         started = time.time()
         model = (self.bridge.geometry(self.output, name=name, prepared=self.prepared)
                  if self.output.count else None)
@@ -350,7 +356,7 @@ class ProjectionOccupancy(object):
         # a 6ms SDK call. Keep the old buffer throughout size-scaled warmup.
         self.resource_wait = max(.15, len(self.state)/419430.4,
                                  self.last_build_ms*.04) if model else 0.
-        if self.output.count and not model:
+        if required and not model:
             raise ValueError('Could not generate occupancy projection')
         self.builds += 1
         self.output = self.prepared = None
