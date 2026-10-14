@@ -14,6 +14,20 @@ from probe_portal_product_r16 import PORTAL_STATUS, PortalAudit
 from verify_debug_blueprints import CLIENT
 
 CASES=('enchanting_table','lectern.empty','lectern.book')
+
+
+def book_sources(project):
+    """Fingerprint the installed candidate, not merely the host checkout."""
+    contract=project/'tools/data/book_resource_contract_nemc310_v1.json'
+    if not contract.is_file():
+        return {'contract_present':False}
+    data=json.loads(contract.read_bytes())
+    paths=sorted(path for path in data['output_sha256']
+                 if path not in ('resource_pack/materials/entity.material',
+                                 'resource_pack/models/netease_models.json'))
+    return {'contract_present':True,
+            'contract_sha256':hashlib.sha256(contract.read_bytes()).hexdigest(),
+            'files':{path:hashlib.sha256((project/path).read_bytes()).hexdigest() for path in paths}}
 CANDIDATE_SETUP=CLIENT+'''import modern_projection.projection.scene as scene
 import modern_projection.projection.portal_projection as portal_world
 from modern_projection.projection.book_profile import candidate_profile
@@ -65,6 +79,7 @@ def run(args):
     audit=BookAudit(args) if args.candidate else BannerAudit(args)
     report={'schema_version':1,'engine':'3.10.0.420447','stage':'candidate_adapter' if args.candidate else 'native_before_adapter',
         'completed':False,'restored':False,'rows':{},'captures':{},'cleanup_errors':[]}
+    report['installed_sources']=book_sources(args.project)
     try:
         if args.candidate:
             report['candidate_setup']=audit.execute('candidate_setup',CANDIDATE_SETUP)
@@ -117,6 +132,7 @@ _result=True
                 report['candidate_restoration']=audit.execute('restore_candidate',CANDIDATE_RESTORE)
             except Exception as error:
                 report['cleanup_errors'].append(str(error));report['restored']=False
+        report['source_unchanged']=report['installed_sources']==book_sources(args.project)
         save(args.output/'report.json',report)
     print(json.dumps({'completed':report['completed'],'captures':len(report['captures']),
         'restored':report['restored']}))

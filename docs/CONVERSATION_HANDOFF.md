@@ -2,6 +2,12 @@
 
 ## 2026-10-15 00:42 独立恢复第十七轮
 
+01:46进展优先：完整回归2,841项／288.869秒／OK（1跳过）；图标源提交`e13ae3cf`。书本已找到有效原生参考：`.runtime/book-reference-r17-matched-player-v8`、`book-reference-r17-geometry-v9`，近眼高、实际玩家视角，native书可见；原脱离相机无书证据不能作外观依据。实际朝向与候选保持一致，玩家rot会恢复。v9 NBT rott导出约0.40 rad/s。生成器候选采用竖立idle书、讲台1.04高，转速0.4整周期回绕，最新v7修复用户书页／封面黑线（UV包含原图不透明黑padding；现在每面取有效texel中心）。`.runtime/book-product-r17-v7/report.json`23截图、completed/restored/source_unchanged均true，编辑器和full/missing投影可见，4项book tests通过，四enabled bundle校验仍通过；精简图`docs/evidence/books-r17-v7`。生产book仍False；本体底部条纹、附魔台body高度差和完整姿态校准／接线未完成。当前独占游戏reload_addons仍same session，副本只更新书v7资源，未同步icon等主分支最新源。无正在运行的书探针。保持独立开发直到08:00，禁止代理。
+
+01:18补充：icon候选现在拥有独立`item_icons/skeleton.json`，900条注册不再共享legacy骨架；骨架字节进入资源指纹，17项icon tests和生成器check通过，四组enabled render qualifications仍通过。同期保留450个side-UV候选mesh，不表示侧面／附魔最终实机资格通过。完整R17回归日志`.runtime/r17-solo-alltests.log`运行中，不能引用为已通过。
+
+书本原生参考v5（真实物品放置）16帧恢复成功，但目检真实附魔台／讲台均无书，不能用于校准；讲台实际aux2而候选原aux0的对照缺陷已修正。v6 attached玩家视角被正上方支撑块遮挡，不能证明原生书缺失；v7正在用附近眼高空位验证。工具`tools/probe_book_reference_r17.py`记录真实方向、NBT、恢复世界／库存／玩家朝向。当前唯一MC为session`8b5bb11bf3cd4881acb9eec560e6d955`、owner`root-solo-r17-protected`，project`D:/bbe-r15-native-production`；MC36448／MCDK37840仅供身份核对，不按PID直接操作。该副本是冻结R16书本候选，非主仓库最新资源。
+
 用户要求继续开发至今天08:00并休眠，明确禁止使用任何子代理。主会话独立执行，旧代理不恢复。Windows任务`Codex-BetterBuildingEditor-R17-Hibernate-20261015`已从07:00改为08:00，实际读回Ready、2026-10-15T08:00:00+08:00、shutdown.exe /h。保持dev、不push／合main，后台实机测试和最多5游戏限制继续生效；启动新实例时必须取得新session身份。先修复已复现的EditJob跨批次成组编辑，再按有效证据推进渲染缺口。暂停检查点提交为ab05e6a5，R17未完源码保留工作区。
 
 ## 2026-10-14 23:45 用户要求暂停以切换模型

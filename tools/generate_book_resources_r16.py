@@ -82,7 +82,7 @@ def rotate(point,axis,angle):
 
 def shape(family):
     vertices,indices=[],[]
-    def cuboid(origin,size,uv,angle=0.,axis=1):
+    def cuboid(origin,size,uv,angle=0.,axis=1,face_uv=None,rotate_cover=False):
         x,y,z=origin;dx,dy,dz=size
         faces=(((x,y+dy,z),(x+dx,y+dy,z),(x+dx,y+dy,z+dz),(x,y+dy,z+dz),(0,1,0)),
                ((x,y,z+dz),(x+dx,y,z+dz),(x+dx,y,z),(x,y,z),(0,-1,0)),
@@ -91,24 +91,40 @@ def shape(family):
                ((x,y,z+dz),(x,y,z),(x,y+dy,z),(x,y+dy,z+dz),(-1,0,0)),
                ((x+dx,y,z),(x+dx,y,z+dz),(x+dx,y+dy,z+dz),(x+dx,y+dy,z),(1,0,0)))
         for slot in range(4):
-            for face in faces:
+            for face_index,face in enumerate(faces):
                 start=len(vertices)
                 for point,corner in zip(face[:4],((0,0),(1,0),(1,1),(0,1))):
                     point=rotate(point,axis,angle)
-                    point=rotate(point,0,math.radians(22.5 if family=='lectern' else 15.))
+                    point=rotate(point,0,math.radians(22.5 if family=='lectern' else 0.))
                     normal=rotate(face[4],axis,angle)
-                    normal=rotate(normal,0,math.radians(22.5 if family=='lectern' else 15.))
-                    point[1]+=1.05 if family=='enchanting_table' else .89
+                    normal=rotate(normal,0,math.radians(22.5 if family=='lectern' else 0.))
+                    point[1]+=.98 if family=='enchanting_table' else 1.04
                     point[2]+=slot*4+1.
-                    tex=((uv[0]+corner[0]*uv[2])/64.,(uv[1]+corner[1]*uv[3])/32.)
+                    rect=face_uv[face_index] if face_uv else uv
+                    if rotate_cover and face_index in (2,3):
+                        corner=(corner[1],1-corner[0])
+                    # The native atlas has OPAQUE black padding. Bound every
+                    # face to texel centers, never the adjacent padding texel.
+                    tex=((rect[0]+.5+corner[0]*(rect[2]-1))/64.,
+                         (rect[1]+.5+corner[1]*(rect[3]-1))/32.)
                     vertices.append({'pos':point,'normal':normal,'uvcoord':tex,'weight':[['root',1.]]})
                 indices.extend(((start,start+2,start+1),(start,start+3,start+2)))
+    if family=='enchanting_table':
+        # The requested idle state is a closed upright book, not the lectern's
+        # opened horizontal pages. Native matched-player reference: R17 v8.
+        tilt=math.radians(-10.)
+        pages=(1,11,5,8)
+        cuboid((-.28125,-.15625,-.025),(.5625,.375,.05),pages,tilt,2)
+        for z,cover in ((-.0375,(0,0,6,10)),(.025,(16,0,6,10))):
+            cuboid((-.3125,-.1875,z),(.625,.375,.0125),cover,tilt,2,
+                   ((6,1,1,8),(6,1,1,8),cover,cover,(6,1,1,8),(6,1,1,8)),True)
+        return {'mesh':[{'material':PATH+'/'+family,'vertices':vertices,'indices':indices}]}
     for sign in (-1,1):
         angle=math.radians(14*sign)
         cuboid((-.375 if sign<0 else 0.,-.025,-.3125),(.375,.035,.625),
                (0 if sign<0 else 7,0,6,10),angle,2)
         cuboid((-.34375 if sign<0 else .0125,.008,-.285),(.33125,.025,.57),
-               (0 if sign<0 else 6,12,5,8),angle,2)
+               (1 if sign<0 else 13,11,5,8),angle,2)
     return {'mesh':[{'material':PATH+'/'+family,'vertices':vertices,'indices':indices}]}
 
 
@@ -127,7 +143,9 @@ def generate(args):
             vertex=vertex.replace('// UI','' if world else UI_COORDINATES)
             vertex=vertex.replace('// BONE',WORLD_BONE if world else '')
             vertex=vertex.replace('// DEPTH','' if world else 'liquidUniformPreviewDepth(vec3(-localPoint.x,-localPoint.z,-localPoint.y),EXTRA_VECTOR4.x,gl_Position,bookClip);')
-            animation='direction+=mod(TOTAL_REAL_WORLD_TIME,512.0)*0.18;point.y+=sin(TOTAL_REAL_WORLD_TIME*1.25)*0.045;' if family=='enchanting_table' else ''
+            # Native R17 v9 rott readbacks: 0.397..0.404 radians/second.
+            # Wrap by a complete angular period so wraparound cannot jump.
+            animation='direction+=mod(TOTAL_REAL_WORLD_TIME,15.707963267948966)*0.4;point.y+=sin(TOTAL_REAL_WORLD_TIME*1.25)*0.045;' if family=='enchanting_table' else ''
             vertex=vertex.replace('// ANIMATION',animation)
             shader='shaders/glsl/'+name+suffix+'.vertex'
             path=args.output/('resource_pack/'+shader);path.parent.mkdir(parents=True,exist_ok=True);path.write_text(vertex,encoding='ascii',newline='\n')
@@ -155,7 +173,9 @@ def generate(args):
         for source in (args.output/'resource_pack').rglob('*'):
             if source.is_file() and source.name not in ('entity.material','netease_models.json'):
                 destination=project/source.relative_to(args.output);destination.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,destination)
-        shutil.copyfile(args.output/'contract.json',project/'tools/data/book_resource_contract_nemc310_v1.json')
+        contract_path=project/'tools/data/book_resource_contract_nemc310_v1.json'
+        contract_path.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(args.output/'contract.json',contract_path)
     print(json.dumps({'models':len(models),'product_qualified':False}))
 
 

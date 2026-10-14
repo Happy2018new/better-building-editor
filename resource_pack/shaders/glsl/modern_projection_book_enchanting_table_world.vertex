@@ -21,7 +21,7 @@ void main() {
     if(!tagged) bookVisible=0.0;
     vec3 point=vec3(POSITION.x,POSITION.y,mod(POSITION.z,4.0)-1.0);
     vec3 normal=NORMAL.xyz;
-    direction+=mod(TOTAL_REAL_WORLD_TIME,512.0)*0.18;point.y+=sin(TOTAL_REAL_WORLD_TIME*1.25)*0.045;
+    direction+=mod(TOTAL_REAL_WORLD_TIME,15.707963267948966)*0.4;point.y+=sin(TOTAL_REAL_WORLD_TIME*1.25)*0.045;
     point.xz=mat2(cos(direction),sin(direction),-sin(direction),cos(direction))*point.xz;
     normal.xz=mat2(cos(direction),sin(direction),-sin(direction),cos(direction))*normal.xz;
     vec3 cell=vec3(mod(address,4.0),floor(address/16.0),mod(floor(address/4.0),4.0));

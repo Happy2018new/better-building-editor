@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "product_qualified": false,
+  "captures": [
+    {
+      "version": "v6",
+      "label": "editor_lectern.book_yaw35",
+      "roi": [
+        890,
+        490,
+        1090,
+        635
+      ],
+      "source": ".runtime\\book-product-r17-v6\\editor_lectern.book_yaw35.png",
+      "source_sha256": "61355c8795a1889594e376de06ceec19a0138ddb325c28efabdfd44b4880322e",
+      "crop": "v6-editor_lectern.book_yaw35.png"
+    },
+    {
+      "version": "v6",
+      "label": "full_lectern.book_motion0",
+      "roi": [
+        925,
+        480,
+        1065,
+        560
+      ],
+      "source": ".runtime\\book-product-r17-v6\\full_lectern.book_motion0.png",
+      "source_sha256": "d1c3fc334714a8424b1cee7ae1b9bf2512f84a8e316330fbc4ea7cfb3a0e025b",
+      "crop": "v6-full_lectern.book_motion0.png"
+    },
+    {
+      "version": "v7",
+      "label": "editor_lectern.book_yaw35",
+      "roi": [
+        890,
+        490,
+        1090,
+        635
+      ],
+      "source": ".runtime\\book-product-r17-v7\\editor_lectern.book_yaw35.png",
+      "source_sha256": "693d08ea6c85cba8fa2ad251f574454ef42749eefddced4e9a600b1e617f9196",
+      "crop": "v7-editor_lectern.book_yaw35.png"
+    },
+    {
+      "version": "v7",
+      "label": "full_lectern.book_motion0",
+      "roi": [
+        925,
+        480,
+        1065,
+        560
+      ],
+      "source": ".runtime\\book-product-r17-v7\\full_lectern.book_motion0.png",
+      "source_sha256": "c67a162c19e03f2de21bef28daca40bb01ac5c7fc01127b630f47e06aa2706fd",
+      "crop": "v7-full_lectern.book_motion0.png"
+    }
+  ],
+  "v7_sources": {
+    "contract_present": true,
+    "contract_sha256": "e7f4fd77bb88643ba7cafc18869cc79ddff14f306a8455d8e7c1905b3107f1c5",
+    "files": {
+      "resource_pack/models/modern_projection/book/enchanting_table_mesh.json": "3e406a4d74d1e8b840384c78b7040d40d3c7232dc2b7caf18b2cdaaa66309a9a",
+      "resource_pack/models/modern_projection/book/lectern_mesh.json": "07d43f88032b99066f3f0a387250efa5e3c91a6426fe2f3498eeff1e40e8638d",
+      "resource_pack/models/modern_projection/book/skeleton.json": "20a966711bc01cf74ced1159e371b07e0ec819dbd538c3514b0ffbe54d31beed",
+      "resource_pack/shaders/glsl/modern_projection_book_enchanting_table.vertex": "2b794c3b0b4eedf0e93b82e91bb5048da05f9070ff4345acccf6b9cf5de82396",
+      "resource_pack/shaders/glsl/modern_projection_book_enchanting_table_world.vertex": "dd68c969b2cea2109937917b30729151d92e2cc64d4a7b60655d01dc03be6e73",
+      "resource_pack/shaders/glsl/modern_projection_book_geometry.fragment": "9e056d0664608b0a8fdddb2f07e31ddedb21fc707a9acfb03635497fc9caa44d",
+      "resource_pack/shaders/glsl/modern_projection_book_lectern.vertex": "4c1da29dd3337064dbe5f98046110df85c85eaedd9503106aa381a21c5e41e8c",
+      "resource_pack/shaders/glsl/modern_projection_book_lectern_world.vertex": "071ca39f4ee3d6b1ebfc2505d287efe8d44af183f6202a56207ac52ed1feb3f0",
+      "resource_pack/textures/models/modern_projection/book/native_book.png": "e8d23533b48976b578098db767e2c8161a31fa5d7b22bf576bf531b1bc7f000f"
+    }
+  }
+}
