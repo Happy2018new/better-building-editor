@@ -1,5 +1,60 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-14 17:20 第十五轮最终接续点
+
+本节优先于下方所有暂停／恢复记录。分支`dev`，不push、不合main；本轮17:30停止，无休眠任务。用户选择`gpt-6.1-sol (ultra)`，最多3个活动子代理、5个活动MC。三个专项已完成本轮操作、正常停止全部自有游戏，没有残留exec；未受管用户3.9 PID40452不得按旧PID回收，恢复时先核对实时身份。
+
+17:29最终进程检查纠正了上午旧clean实例已停止的说法：13804仍有687句柄，命令行／创建时间确认属于session`e150444343dd46f0a0f791b165872648`及owner`clean-nemc310-runtime-audit-r15`。此前夹具已恢复；正常stop未退出，随后仅对此受管身份执行`stop --force`成功，游戏13804及MCDK44480已回收。没有操作用户40452，也未按零句柄历史记录批量杀进程。
+
+### 已交付与验证
+
+- `f46e5e66 fix: preserve native banner patterns and transformed world poses`：旗帜render-only方向适配、图案无损及world静态有限准入；保存NBT不变，editor和飘动不由此放行。
+- `fcb7952e fix: render biome-aware cauldron contents and isolate custom water`：shared水ownership、native-less纯水发布／空状态修复；锅专用计划／preview／projection、版本化实测数据和资源、精确3.10默认资格；公开7个动态和7个NBT分页及33例锅。锅纯水调用`biomes.water_appearance(document.biome)`，药水／CustomColor独立。默认三路径平原→沼泽→平原已看图。
+- `d349f804 fix: preserve qualified cauldron source bytes across checkouts`：确实发现Git旧过滤把部分实测CRLF转LF，已用`-text`及定点renormalize保存原始source／data／receipt字节。14个源／数据与95个资源／证据blob逐项核对；不是改写实机hash。生成vertex三个空白行保留，属性只针对这两个冻结文件处理blank-at-eol检查。
+- `655c0834 test: preserve water transparency and biome acceptance evidence`：提交约1MB review包、源闭包审计、host多owner选择／群系重发布、像素负控与证据生成工具。完整raw仍本地，不因这些证据修改水生产资格。
+- `eed00305 test: archive measured banner editor depth candidate`：保存v6b源／原生差分／编译报告、10组已看截图／捕获／状态回执及数值测量；已归档native receipts的原始换行也固定。不是生产shader改动。旗帜剩余家族集成与静态矩阵约1.5–3小时，飘动另计。
+- 全仓库`python -X utf8 -m unittest discover -s tests`为**2,719项／474.663秒／OK**，日志`.runtime/r15-alltests-latest.log`。其后锅全14预设×6纯水位及药水／RGB不变性补测，锅专项27项；水host／biome负控及analysis专项25项；debug蓝图28项。203运行时文件白名单无违规。专项通过没有冒充第二次完整回归。
+- 锅产品资格`docs/evidence/cauldron-product-r15/qualification.json`绑定12源、资源与证据；保留56文件约44MB，原始165MB在ignored `.runtime/cauldron-product-r15-raw/`。10个独立near-view case×3路径，不冒称33例逐格三路径全测。
+- 水最终review约1MB：`docs/evidence/water-production-final310-r15-v1/review/README.md`。最终36alpha／本体图、4world east/falling burst、9纯水几何、editor纯水内容和missing pool占用／恢复、三路径biome均有正例。root已看alpha/body/biome/锅及native候选截图。保留旧动画伪透明度失败和初版80%biome阈值失败，不改原始捕获。完整zip／burst原图留本地，精简包不是独立raw重放包。
+- `tools/audit_water_source_closure_r15.py`和`source-closure-audit.json`核验两份完整ZIP的每个member。最新biome snapshot `fb2dccac...`与当前35owner、专属资源／注册完全一致；final `a01f2884...`只差`liquid_deployment`、`liquid_product_deployment`、`session`中的引擎门控和锅默认接线，没有水shader／mesh／texture变化。owner contract为`f783b06b...`。
+
+### 恢复顺序与明确缺口
+
+1. 水`liquid_product_qualification_data.PRODUCT_QUALIFIED`仍False。现有实机均显式注入candidate。下一步补普通Session默认资格的精确3.10三路径冷启、相邻side UV连续性、切面／部分实块邻域／隐藏恢复及透明排序／模型／tick预算，再冻结资格。不要再次把candidate通过直接写成默认已验。
+2. banner editor深度v6b是成功隔离候选，代码仍在`D:/bbe-r15-native-production`，未复制生产shader。测得banner/pole家族原点450、native-to-block比例约0.64，不适用于其他actor或新引擎。源快照、差分、测量、编译限制与正常停止在`docs/evidence/native-render-profile-r15/BANNER_EDITOR_DEPTH_DIAGNOSTIC.md`及`depth-candidate-v6b-sources/`。原生GLSL100 skinned `mat3x4`基线失败仍保留，不声称所有variant编译通过。下一步版本化家族契约、生产变换／图层／zoom像素及同shader世界full/missing／占用复验，再准入；飘动另验。
+3. 通用可见物品和附魔、展示架／营火／讲台等内容、常驻附魔书、末地门／折跃门、头颅／活塞静态臂、普通动态族、刷怪笼有／无配置生物标识，以及最终含雪／连缀集成仍待。默认空NBT样本不能替代非默认外观样本。
+   17:25已复核默认表：MobSpawner有type8空`EntityIdentifier`；TrialSpawner的两份config没有配置生物字段，`current_mobs`不是配置存在性，默认试炼样本只能记未知。先补真实正／负／未知公开case，不能猜Java字段。离线NBT审计生成器还保留归档scope分类名，后续规划元数据更新须同步当前排除项和I类标识，raw证据保持不变。
+4. 继续保持用户范围：粒子、教育、moving_block、信标／导管激活、宝库内部物品特效排除；固定居中植物是设计。原生世界岩浆允许，锅内容自定义；本次不更新3.9 registry／transform表。
+5. 估计从本轮最终状态继续还需**10–18小时有效墙钟，风险18–28小时**，主会话加3代理。锅关闭与水诊断节省不全部作用在最长专项上；详细并行流见技术附件。不要用测试数量或经过时间换算产品完成率。
+
+最终文档提交ID见`git log`和本轮最终回复。五个用户`tools/p0_palette*_probe.py`保持untracked，不改不stage；大量完整raw证据和未完成探针仍只留本地，不能`git add .`。恢复时先读统一待办和技术附件，再按实时身份决定是否启动新游戏。测试不主动focus／resize／桌面输入；用户手动观察前台时照常继续，捕获／夹具失败须显式报告。
+
+## 2026-10-14 16:35 增量（优先于下方恢复／暂停记录）
+
+- `debug_compatibility_blueprints`新增7个动态、7个NBT分页，已登记普通玩家的测试蓝图页。资源候选48名称和默认NBT155名称来源覆盖测试通过。独立case提取会rebase已知空间字段，内容／类型／未知字段保留。完整MD映射已写入外观附件。还需要逐族实机资格，不把生成蓝图等同于支持。
+- 炼药锅10个near-view case × editor/full/missing，六岩浆液位、RGB／药水／纯水／雪、动画、占用／恢复和切面／33例gallery均已看图。`cauldron_deployment.production_profile(engine_version)`已由Session调用，仅精确3.10启用；完整来源／资源／实现／证据哈希门控，精简证据32文件约24MB。原始165MB存ignored `.runtime/cauldron-product-r15-raw/`。最新冷启动默认入口及plain→swampland实机继续由`r15_cauldron_live`执行；其首次测试空域被天然草块preflight拦截，未写世界且恢复，改抬高测试空域。
+- 最新水source archive `a01f2884...`的36透明度、4world东向／向下burst、纯水editor空状态、missing pool实际占用恢复均完成；root已看两份contact。实例已正常停止。`r15_water_live`补最后三路径群系切换；产品仍False，不能静默启用。root新增exact3.10调用参数与qualification engine字段，owners contract扩到35个源，未知版本返回None。
+- native editor旗帜depth仍未通过，候选仅在隔离副本；world-only banner静态准入已完成，root尚未提交。源shader没有因试验更改。v4斜视仍被石块错遮挡；代理继续一次数值诊断。
+- 全仓库第一遍回归发现测试GBK默认读UTF-8 shader及actor材料manifest旧hash。只新增8个cauldron材质，旧定义逐项结构比对零更改；已更新适配hash而保留原生源／dump hash，并修正test显式UTF-8。版本bundle14项随后通过。最终全仓库重跑输出在`.runtime/r15-alltests-latest.log`，尚未完成时不能引用为全绿。
+
+17:30截止，不休眠；仍在dev，不push/main merge。最多3活动代理、5游戏。五个用户`tools/p0_palette*_probe.py`继续不改不stage。最终commit和停止状态在收尾后追加。
+
+## 2026-10-14 15:30 恢复开发（优先于14:05暂停与上午记录）
+
+**15:40用户缩减范围：** 激活导管／持续特效、moving_block、信标光束、宝库内部物品特效、教育版排除；附魔台仅常驻书动作。刷怪笼生物模型仍排除，但新增统一“有／无配置生物”的替代标识F03-SP01。火／灵魂火原生能力与三路径资格分开记录。当前剩余估计**11–20小时有效墙钟、风险20–30小时**，替代下方15:30暂估，不继续追查已排除的外观。
+
+用户切换至`gpt-6.1-sol (ultra)`后恢复第十五轮，最多3个活动子代理、5个活动MC；17:30截止、不休眠。分支`dev`，不推送、不合入main。三个活动专项是`r15_water_live`、`r15_cauldron_live`、`r15_native_live`；旧沙箱代理保持终止，不再次唤醒。当前改动未全部提交；五个用户`tools/p0_palette*_probe.py`不修改不stage。
+
+- **水根因已确认并修复接线。** `docs/evidence/water-native-duplicate-r15-v2/report.json`六图固定相位、独立Combine名称：原路alpha0仍有原生蓝水，移除原生水后alpha0正常透见栅栏和后金块，默认.45半透明、alpha1不透明。主会话已看图。新`liquid_render_ownership`根据profile声明排除两层原生水，仅处理detached draw；完整文档、NBT、target与逻辑邻域保留，原生岩浆保留。geometry_palette、bridge、context、cache、world、occupancy均接线；删除自定义前景水后再提升剩余原生背景本体。ContextBatchBuilder纯自定义格保持分帧。纯水无原生网格允许投影发布／占用隐藏恢复，真实Combine失败仍报错。方向15项旧通过保留；修复后新三路径透明度仍在实机采集。
+- **炼药锅已接共享链。** Session candidate默认None；独立CauldronPreview／controls、WorldProjection companions、原生空壳适配、profile cache identity、诊断／可见错误／retry，以及独立公开蓝图已接。专用模块复用原LiquidPreview／LiquidProjection生命周期。生成数据核验21份测量来源，六档高度和雪高度、RGB／药水形态均有依据。普通水采用document biome预设的产品样式与独立灰水纹理，精确原生锅水颜色未接受；药水和CustomColor保持实际独立颜色。三路径实机进行中，不默认放行。
+- **实入口错误已捕获修正。** 首次product water测试遇到`SurfacePalette`没有biome，已保留失败并恢复；bridge从完整document读取biome，裁剪palette从当前session document获取。离线新测试直接覆盖真实ClientBridge.geometry而非仅供假bridge。scene恢复viewport会invalidate cauldron controls。
+- **旗帜有限世界资格整理中。** ordinary／3pattern／6pattern的identity、rotate90/180/270、mirrorX/Z world图和missing隐藏恢复已由专项查看。render-only native actor以当前状态刷新bannerDirection，保存NBT与图案不变；拟只启用world model_local静态子集。源世界旗帜缺失的对照不能证明原生视觉等价，editor深度和飘动仍待。
+- **最新相关测试：** 首批114项通过；新增ownership、SurfacePalette、cache、纯水full/missing／occupancy／关闭cleanup／真正native failure回归均通过。更广集成与MOD结构review待本轮最终记录。不能把单测数或未读截图计为像素验收。
+
+当前有效实例须按owner/session再查：水第二次product owner `water-alpha310-r15-product` / `bcb751aa241144dda77ed25768f523d9` / PID19216；炼药锅 `cauldron-product310-r15-live` / session由专项记录 / PID49848；native旧13540完成旗帜fixture恢复后准备回收。clean13804夹具已恢复并释放；旧cauldron32868、water43268/32396与native47968已按所属身份停止。未受管用户3.9 PID40452保留。所有测试不主动focus/resize/桌面输入，用户自行前台观察照常继续，失败捕获显式记录。
+
+剩余时间已重估为16–28小时有效墙钟，风险28–42小时，按主会话加3代理。水／锅约3–6小时、通用物品约8–14小时、特殊NBT与动态12–19小时并行，加最终集成4–7小时；具体状态与估计只在统一待办和技术附件维护。不能保证17:30完成全部范围。
+
 ## 2026-10-14 14:05 模型切换暂停点（优先于下方历史记录）
 
 用户要求立即保存上下文、终止主会话及所有子代理，切换模型后再继续。MC允许保留。本轮仍为第十五轮，原定17:30截止、不休眠；本次暂停不视为全部完成。分支`dev`，不推送、不合入`main`。最新授权最多3个活动子代理、5个活动MC，恢复前核查时间和实例身份。
