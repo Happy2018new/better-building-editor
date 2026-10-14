@@ -1,0 +1,2492 @@
+{
+  "schema": 1,
+  "audit": "nemc310-nbt-r15",
+  "created_from": "nemc-clean-r14 3.10 clean runtime evidence",
+  "qualification": "Structural/NBT and palette evidence are recorded separately from pixel acceptance.",
+  "runtime": {
+    "engine": "3.10.0.420447",
+    "minecraft": "1.21.130.0",
+    "ui_initialized": true,
+    "admission_pixel_acceptance": false,
+    "source_index": {
+      "at": "2026-10-13T16:11:14.541291+00:00",
+      "owner": "nemc-clean-310-r14",
+      "version": "310",
+      "project": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\ca7587fe60f5439680ecacc705b220e0\\session.json",
+      "game_pid": 22040,
+      "game_identity": "134363793741100837",
+      "mcdk_pid": 48916,
+      "mcdk_identity": "134363793739560152",
+      "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_ca7587fe60f5439680ecacc705b220e0",
+      "fixture_sha256": "381e951a01d141d4948776775d0e2e02c21788a0c88a346e426ecd6f84c3fba9",
+      "files": {
+        "admission\\mounted-packs.json": "66979d24cf70cace69746da46aa5cff3e7bb469cc4f37e0b9d37b4480d14cfd0",
+        "admission\\result.json": "e3b34c8c2bcc430e31959a8d2c1895ee104ec597778c59ffa64c154a7336127c",
+        "content\\result.json": "ada46eff82b2d039932bc2b5c342af607c5091813eed14e14305039cf4aec8b1",
+        "creative\\result.json": "da7db453455b44f1524a627e6238cb74f81cf2e8fa3e66a177b6b4af3bd94792",
+        "free\\result.json": "b312741bee8a8d123a65be0041d1ed9ed895425e69dbcab656612467421037e3",
+        "independent-exit.json": "008667426dc6239143f02839b9f10e51f53087a5472c60c0d56cfc175b55697f",
+        "mounted-packs-resolved.json": "3d887ba2045d639b8b7f0ea948ab9c3dfb0c81ae02406c7ddd59580ca20c2f12",
+        "overview.capture.json": "0c527dcd7bd190e458685076920b7e17e45dba072f31100a287ba153b33e71de",
+        "overview.png": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419",
+        "project\\result.json": "cb06ab983d86755f59ee1e42dcc6e9ec7f9f4cff6a4eb2476481229a2dacdf6b",
+        "project-refreshed\\result.json": "fb8f607a3e87e79ad4c8f98d6972455d5c7158dacfcfa57c7abb50f05fa08268",
+        "repair\\result.json": "abbe78b6286a9e8cb484272a68eb7c63e54a3594b4ac89999f4da2d3d577c40c",
+        "setup\\result.json": "da207a233778ca3f962cf5c9e2b43f0b2c9feb2eca6270d89bf33b1b59392d0d",
+        "view\\result.json": "0c4e8c911dd707a5384eda806c531e6c442899737d77ce70e1ccc6ce1c2dec00",
+        "plan.json": "499fc1f7d0abcd4ff5c938ae0cd6744f4385b14813c1550e1a95b7b4d1d39fb5",
+        "mcdev.json": "1ee8f9597e768a2dfa275ce0d0b39e47f27aa8701df2787a1b996d5b06e49408",
+        "prelaunch-capacity.json": "ccb4481dcddca2f8157d5f05b478159b79699d014f1441b5ea01b0f21c693005"
+      },
+      "user_confirmed_closed": true,
+      "automatic_relaunch": false,
+      "game_current_identity": null,
+      "mcdk_current_identity": null
+    }
+  },
+  "capture_control": {
+    "reliable": true,
+    "background_only": false,
+    "foreground_unchanged": true,
+    "window": {
+      "hwnd": 1447400,
+      "pid": 22040,
+      "process": "Minecraft.Windows.exe",
+      "title": "(1994, 1105) Minecraft",
+      "x": 283,
+      "y": 264,
+      "width": 1994,
+      "height": 1105,
+      "minimized": false
+    },
+    "obscured": true,
+    "obscured_reason": "Pause/menu UI and a large gray panel cover the world in overview.png."
+  },
+  "source_manifest": {
+    "admission": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\admission\\result.json",
+      "sha256": "e3b34c8c2bcc430e31959a8d2c1895ee104ec597778c59ffa64c154a7336127c",
+      "bytes": 475
+    },
+    "mounted_packs": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\admission\\mounted-packs.json",
+      "sha256": "66979d24cf70cace69746da46aa5cff3e7bb469cc4f37e0b9d37b4480d14cfd0",
+      "bytes": 491
+    },
+    "content": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+      "sha256": "ada46eff82b2d039932bc2b5c342af607c5091813eed14e14305039cf4aec8b1",
+      "bytes": 51170
+    },
+    "repair": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json",
+      "sha256": "abbe78b6286a9e8cb484272a68eb7c63e54a3594b4ac89999f4da2d3d577c40c",
+      "bytes": 3436
+    },
+    "project": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json",
+      "sha256": "fb8f607a3e87e79ad4c8f98d6972455d5c7158dacfcfa57c7abb50f05fa08268",
+      "bytes": 33437
+    },
+    "capture": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+      "sha256": "0c527dcd7bd190e458685076920b7e17e45dba072f31100a287ba153b33e71de",
+      "bytes": 4043
+    },
+    "screenshot": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.png",
+      "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419",
+      "bytes": 437104
+    },
+    "index": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\index.json",
+      "sha256": "bce30591c812148009a963a04897ed69445c7deff8668348739bc0977b19257f",
+      "bytes": 2442
+    },
+    "capacity": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\prelaunch-capacity.json",
+      "sha256": "ccb4481dcddca2f8157d5f05b478159b79699d014f1441b5ea01b0f21c693005",
+      "bytes": 297
+    },
+    "exit": {
+      "path": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\independent-exit.json",
+      "sha256": "008667426dc6239143f02839b9f10e51f53087a5472c60c0d56cfc175b55697f",
+      "bytes": 322
+    }
+  },
+  "family_results": [
+    {
+      "family": "enchant_table",
+      "scope": "special book model, NBT-free default and animated visible model",
+      "materials": [
+        "minecraft:enchanting_table"
+      ],
+      "native_ids": [
+        "EnchantTable"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "beacon",
+      "scope": "beam geometry; particles excluded",
+      "materials": [
+        "minecraft:beacon"
+      ],
+      "native_ids": [
+        "Beacon"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "conduit",
+      "scope": "inactive/active core and wind geometry; particles excluded",
+      "materials": [
+        "minecraft:conduit"
+      ],
+      "native_ids": [
+        "Conduit"
+      ],
+      "default": "observed",
+      "nondefault": "unavailable",
+      "action": "unavailable",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "conduit",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:conduit"
+            },
+            "states": {},
+            "nbt": {
+              "Active": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "Target": {
+                "__type__": 4,
+                "__value__": -1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Conduit"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -4
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 21
+              }
+            },
+            "repaired": false
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "observed",
+        "actor_materials": [
+          "minecraft:conduit"
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "observed",
+        "actor_names": [
+          "minecraft:conduit"
+        ],
+        "combine_result_present": true,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [
+        "Only the inactive/default state was observed; active-frame behavior was not exercised."
+      ],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:conduit"
+      ]
+    },
+    {
+      "family": "banner",
+      "scope": "base color, patterns, ominous variant, orientation",
+      "materials": [
+        "minecraft:standing_banner",
+        "minecraft:wall_banner"
+      ],
+      "native_ids": [
+        "Banner"
+      ],
+      "default": "observed",
+      "nondefault": "observed_partial",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "banner_plain",
+            "block": {
+              "aux": 11,
+              "name": "minecraft:standing_banner"
+            },
+            "states": {
+              "ground_sign_direction": 11
+            },
+            "nbt": {
+              "Base": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Type": {
+                "__type__": 3,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Banner"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -7
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 12
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "banner_patterns",
+            "block": {
+              "aux": 11,
+              "name": "minecraft:standing_banner"
+            },
+            "states": {
+              "ground_sign_direction": 11
+            },
+            "nbt": {
+              "Base": {
+                "__type__": 3,
+                "__value__": 4
+              },
+              "Type": {
+                "__type__": 3,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Banner"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -4
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 12
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "banner_ominous",
+            "block": {
+              "aux": 11,
+              "name": "minecraft:standing_banner"
+            },
+            "states": {
+              "ground_sign_direction": 11
+            },
+            "nbt": {
+              "Base": {
+                "__type__": 3,
+                "__value__": 15
+              },
+              "Type": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Banner"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -1
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 12
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "wall_banner_plain",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:wall_banner"
+            },
+            "states": {
+              "facing_direction": 2
+            },
+            "nbt": {
+              "Base": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Type": {
+                "__type__": 3,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Banner"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 2
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 12
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "wall_banner_patterns",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:wall_banner"
+            },
+            "states": {
+              "facing_direction": 2
+            },
+            "nbt": {
+              "Base": {
+                "__type__": 3,
+                "__value__": 4
+              },
+              "Type": {
+                "__type__": 3,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Banner"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 5
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 12
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "wall_banner_ominous",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:wall_banner"
+            },
+            "states": {
+              "facing_direction": 2
+            },
+            "nbt": {
+              "Base": {
+                "__type__": 3,
+                "__value__": 15
+              },
+              "Type": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Banner"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 8
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 12
+              }
+            },
+            "repaired": false
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "observed",
+        "actor_materials": [
+          "minecraft:standing_banner",
+          "minecraft:wall_banner"
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "observed",
+        "actor_names": [
+          "minecraft:standing_banner",
+          "minecraft:wall_banner"
+        ],
+        "combine_result_present": true,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [
+        "Requested pattern cases were placed and base/type read back, but final content NBT omitted nested Patterns (banner_patterns, wall_banner_patterns)."
+      ],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:standing_banner",
+        "minecraft:wall_banner"
+      ]
+    },
+    {
+      "family": "sign",
+      "scope": "front/back text, colors, glow flags, orientation",
+      "materials": [
+        "minecraft:standing_sign",
+        "minecraft:wall_sign",
+        "minecraft:oak_hanging_sign"
+      ],
+      "native_ids": [
+        "Sign",
+        "HangingSign"
+      ],
+      "default": "observed",
+      "nondefault": "observed",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "standing_sign_empty",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:standing_sign"
+            },
+            "states": {
+              "ground_sign_direction": 0
+            },
+            "nbt": {
+              "BackText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -16777216
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "FrontText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -16777216
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "IsWaxed": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Sign"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -7
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 15
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "standing_sign_text",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:standing_sign"
+            },
+            "states": {
+              "ground_sign_direction": 0
+            },
+            "nbt": {
+              "BackText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -16711936
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": "NATIVE BACK\nOTHER SIDE"
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "FrontText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -65536
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": "NATIVE FRONT\nNBT TEXT"
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "IsWaxed": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Sign"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -4
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 15
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "wall_sign_empty",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:wall_sign"
+            },
+            "states": {
+              "facing_direction": 2
+            },
+            "nbt": {
+              "BackText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -16777216
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "FrontText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -16777216
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "IsWaxed": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Sign"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -7
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 24
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "wall_sign_text",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:wall_sign"
+            },
+            "states": {
+              "facing_direction": 2
+            },
+            "nbt": {
+              "BackText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -16711936
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": "NATIVE BACK\nOTHER SIDE"
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "FrontText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -65536
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": "NATIVE FRONT\nNBT TEXT"
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "IsWaxed": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Sign"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -4
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 24
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "hanging_sign_empty",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:oak_hanging_sign"
+            },
+            "states": {
+              "attached_bit": false,
+              "facing_direction": 0,
+              "ground_sign_direction": 0,
+              "hanging": false
+            },
+            "nbt": {
+              "BackText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -16777216
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "FrontText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -16777216
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "IsWaxed": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "HangingSign"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -1
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 24
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "hanging_sign_text",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:oak_hanging_sign"
+            },
+            "states": {
+              "attached_bit": false,
+              "facing_direction": 0,
+              "ground_sign_direction": 0,
+              "hanging": false
+            },
+            "nbt": {
+              "BackText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -16711936
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": "NATIVE BACK\nOTHER SIDE"
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "FrontText": {
+                "FilteredText": {
+                  "__type__": 8,
+                  "__value__": ""
+                },
+                "HideGlowOutline": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "IgnoreLighting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "PersistFormatting": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "SignTextColor": {
+                  "__type__": 3,
+                  "__value__": -65536
+                },
+                "Text": {
+                  "__type__": 8,
+                  "__value__": "NATIVE FRONT\nNBT TEXT"
+                },
+                "TextOwner": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              },
+              "IsWaxed": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "HangingSign"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 2
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 24
+              }
+            },
+            "repaired": false
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "observed",
+        "actor_materials": [
+          "minecraft:oak_hanging_sign",
+          "minecraft:standing_sign",
+          "minecraft:wall_sign"
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "observed",
+        "actor_names": [
+          "minecraft:oak_hanging_sign",
+          "minecraft:standing_sign",
+          "minecraft:wall_sign"
+        ],
+        "combine_result_present": true,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:oak_hanging_sign",
+        "minecraft:standing_sign",
+        "minecraft:wall_sign"
+      ]
+    },
+    {
+      "family": "flower_pot",
+      "scope": "empty and visible plant content",
+      "materials": [
+        "minecraft:flower_pot"
+      ],
+      "native_ids": [
+        "FlowerPot"
+      ],
+      "default": "observed",
+      "nondefault": "observed",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "pot_empty",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:flower_pot"
+            },
+            "states": {
+              "update_bit": false
+            },
+            "nbt": {
+              "id": {
+                "__type__": 8,
+                "__value__": "FlowerPot"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -7
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 18
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "pot_content",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:flower_pot"
+            },
+            "states": {
+              "update_bit": false
+            },
+            "nbt": {
+              "PlantBlock": {
+                "name": {
+                  "__type__": 8,
+                  "__value__": "minecraft:poppy"
+                },
+                "states": {},
+                "val": {
+                  "__type__": 2,
+                  "__value__": 0
+                },
+                "version": {
+                  "__type__": 3,
+                  "__value__": 18168865
+                }
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "FlowerPot"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -4
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 18
+              }
+            },
+            "repaired": false
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "observed",
+        "actor_materials": [
+          "minecraft:flower_pot"
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "observed",
+        "actor_names": [
+          "minecraft:flower_pot"
+        ],
+        "combine_result_present": true,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:flower_pot"
+      ]
+    },
+    {
+      "family": "chest",
+      "scope": "empty/content NBT, pair state, opening fields",
+      "materials": [
+        "minecraft:chest",
+        "minecraft:copper_chest"
+      ],
+      "native_ids": [
+        "Chest"
+      ],
+      "default": "observed",
+      "nondefault": "observed",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "chest_empty",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:chest"
+            },
+            "states": {
+              "minecraft:cardinal_direction": "north"
+            },
+            "nbt": {
+              "Findable": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsIgnoreShuffle": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsOpened": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "Items": [],
+              "id": {
+                "__type__": 8,
+                "__value__": "Chest"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -1
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 15
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "chest_content",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:chest"
+            },
+            "states": {
+              "minecraft:cardinal_direction": "north"
+            },
+            "nbt": {
+              "Findable": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsIgnoreShuffle": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsOpened": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "Items": [
+                {
+                  "Count": {
+                    "__type__": 1,
+                    "__value__": 1
+                  },
+                  "Damage": {
+                    "__type__": 2,
+                    "__value__": 0
+                  },
+                  "Name": {
+                    "__type__": 8,
+                    "__value__": "minecraft:diamond_sword"
+                  },
+                  "Slot": {
+                    "__type__": 1,
+                    "__value__": 0
+                  },
+                  "WasPickedUp": {
+                    "__type__": 1,
+                    "__value__": 0
+                  }
+                }
+              ],
+              "forceunpair": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Chest"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 2
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 15
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "copper_chest_empty",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:copper_chest"
+            },
+            "states": {
+              "minecraft:cardinal_direction": "north"
+            },
+            "nbt": {
+              "Findable": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsIgnoreShuffle": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsOpened": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "Items": [],
+              "id": {
+                "__type__": 8,
+                "__value__": "Chest"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -1
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 21
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "copper_chest_content",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:copper_chest"
+            },
+            "states": {
+              "minecraft:cardinal_direction": "north"
+            },
+            "nbt": {
+              "Findable": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsIgnoreShuffle": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsOpened": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "Items": [
+                {
+                  "Count": {
+                    "__type__": 1,
+                    "__value__": 1
+                  },
+                  "Damage": {
+                    "__type__": 2,
+                    "__value__": 0
+                  },
+                  "Name": {
+                    "__type__": 8,
+                    "__value__": "minecraft:diamond_sword"
+                  },
+                  "Slot": {
+                    "__type__": 1,
+                    "__value__": 0
+                  },
+                  "WasPickedUp": {
+                    "__type__": 1,
+                    "__value__": 0
+                  }
+                }
+              ],
+              "forceunpair": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Chest"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 2
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 21
+              }
+            },
+            "repaired": false
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "observed",
+        "actor_materials": [
+          "minecraft:chest",
+          "minecraft:copper_chest"
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "observed",
+        "actor_names": [
+          "minecraft:chest",
+          "minecraft:copper_chest"
+        ],
+        "combine_result_present": true,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:chest",
+        "minecraft:copper_chest"
+      ]
+    },
+    {
+      "family": "ender_chest",
+      "scope": "native ender chest shell and state",
+      "materials": [
+        "minecraft:ender_chest"
+      ],
+      "native_ids": [
+        "EnderChest"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "shulker",
+      "scope": "color, facing, empty/content NBT",
+      "materials": [
+        "minecraft:purple_shulker_box"
+      ],
+      "native_ids": [
+        "ShulkerBox"
+      ],
+      "default": "observed",
+      "nondefault": "observed",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "shulker_empty",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:purple_shulker_box"
+            },
+            "states": {},
+            "nbt": {
+              "Findable": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsIgnoreShuffle": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsOpened": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "Items": [],
+              "facing": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "ShulkerBox"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 5
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 15
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "shulker_content",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:purple_shulker_box"
+            },
+            "states": {},
+            "nbt": {
+              "Findable": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsIgnoreShuffle": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "IsOpened": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "Items": [
+                {
+                  "Count": {
+                    "__type__": 1,
+                    "__value__": 1
+                  },
+                  "Damage": {
+                    "__type__": 2,
+                    "__value__": 0
+                  },
+                  "Name": {
+                    "__type__": 8,
+                    "__value__": "minecraft:diamond_sword"
+                  },
+                  "Slot": {
+                    "__type__": 1,
+                    "__value__": 0
+                  },
+                  "WasPickedUp": {
+                    "__type__": 1,
+                    "__value__": 0
+                  }
+                }
+              ],
+              "facing": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "forceunpair": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "ShulkerBox"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 8
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 15
+              }
+            },
+            "repaired": false
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "observed",
+        "actor_materials": [
+          "minecraft:purple_shulker_box"
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "observed",
+        "actor_names": [
+          "minecraft:purple_shulker_box"
+        ],
+        "combine_result_present": true,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:purple_shulker_box"
+      ]
+    },
+    {
+      "family": "bed",
+      "scope": "paired head/foot and color state",
+      "materials": [
+        "minecraft:bed"
+      ],
+      "native_ids": [
+        "Bed"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "skull",
+      "scope": "dragon, piglin, player and orientation variants",
+      "materials": [
+        "minecraft:skull",
+        "minecraft:player_head"
+      ],
+      "native_ids": [
+        "Skull"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "cauldron",
+      "scope": "empty/water levels and visible liquid content; no particles",
+      "materials": [
+        "minecraft:cauldron",
+        "minecraft:lava_cauldron"
+      ],
+      "native_ids": [
+        "Cauldron"
+      ],
+      "default": "observed",
+      "nondefault": "observed_partial",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "cauldron_water",
+            "block": {
+              "aux": 6,
+              "name": "minecraft:cauldron"
+            },
+            "states": {
+              "cauldron_liquid": "water",
+              "fill_level": 6
+            },
+            "nbt": {
+              "Items": [],
+              "PotionId": {
+                "__type__": 2,
+                "__value__": -1
+              },
+              "PotionType": {
+                "__type__": 2,
+                "__value__": -1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Cauldron"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 8
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 18
+              }
+            },
+            "repaired": false
+          },
+          {
+            "case": "cauldron_empty",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:cauldron"
+            },
+            "states": {
+              "cauldron_liquid": "water",
+              "fill_level": 0
+            },
+            "nbt": {
+              "Items": [],
+              "PotionId": {
+                "__type__": 2,
+                "__value__": -1
+              },
+              "PotionType": {
+                "__type__": 2,
+                "__value__": -1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Cauldron"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 5
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 24
+              }
+            },
+            "repaired": false
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "observed",
+        "actor_materials": [
+          "minecraft:cauldron"
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "observed",
+        "actor_names": [
+          "minecraft:cauldron"
+        ],
+        "combine_result_present": true,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [
+        "Only empty and ordinary-water levels were observed; potion, lava, powder-snow, and custom-color variants are not covered by this run."
+      ],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:cauldron"
+      ]
+    },
+    {
+      "family": "bell",
+      "scope": "idle shell and ringing pose/action",
+      "materials": [
+        "minecraft:bell"
+      ],
+      "native_ids": [
+        "Bell"
+      ],
+      "default": "observed",
+      "nondefault": "unavailable",
+      "action": "unavailable",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "bell",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:bell"
+            },
+            "states": {
+              "attachment": "standing",
+              "direction": 0,
+              "toggle_bit": false
+            },
+            "nbt": {
+              "Direction": {
+                "__type__": 3,
+                "__value__": 255
+              },
+              "Ringing": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "Ticks": {
+                "__type__": 3,
+                "__value__": 6
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "Bell"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -7
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 21
+              }
+            },
+            "repaired": false
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "observed",
+        "actor_materials": [
+          "minecraft:bell"
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "observed",
+        "actor_names": [
+          "minecraft:bell"
+        ],
+        "combine_result_present": true,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [
+        "Only the idle/default state was observed; ringing action/pose was not exercised."
+      ],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:bell"
+      ]
+    },
+    {
+      "family": "campfire",
+      "scope": "flame texture and visible cooking items; smoke excluded",
+      "materials": [
+        "minecraft:campfire",
+        "minecraft:soul_campfire"
+      ],
+      "native_ids": [
+        "Campfire"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "moving_piston",
+      "scope": "moving head/arm and embedded block snapshot",
+      "materials": [
+        "minecraft:piston",
+        "minecraft:sticky_piston",
+        "minecraft:moving_block"
+      ],
+      "native_ids": [
+        "PistonArm",
+        "MovingBlock"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "vault_trial",
+      "scope": "exterior/state-driven model; internal mobs excluded",
+      "materials": [
+        "minecraft:vault",
+        "minecraft:trial_spawner"
+      ],
+      "native_ids": [
+        "Vault",
+        "TrialSpawner"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "sculk_dynamic",
+      "scope": "state-driven animated textures and visible shell",
+      "materials": [
+        "minecraft:sculk_sensor",
+        "minecraft:calibrated_sculk_sensor",
+        "minecraft:sculk_catalyst",
+        "minecraft:sculk_shrieker"
+      ],
+      "native_ids": [
+        "SculkSensor",
+        "CalibratedSculkSensor",
+        "SculkCatalyst",
+        "SculkShrieker"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "simple_static_nbt",
+      "scope": "preserve native NBT/state; no hidden inventory overlay",
+      "materials": [],
+      "native_ids": [
+        "Barrel",
+        "Beehive",
+        "BlastFurnace",
+        "ChemistryTable",
+        "CommandBlock",
+        "Comparator",
+        "Crafter",
+        "CraftingTable",
+        "CreakingHeart",
+        "DaylightDetector",
+        "Dispenser",
+        "Dropper",
+        "Furnace",
+        "Hopper",
+        "JigsawBlock",
+        "Jukebox",
+        "Lodestone",
+        "Music",
+        "NetherReactor",
+        "Smoker",
+        "StructureBlock",
+        "SporeBlossom"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "mob_spawner_shell",
+      "scope": "shell/state only; internal creature rendering excluded",
+      "materials": [
+        "minecraft:mob_spawner",
+        "minecraft:trial_spawner"
+      ],
+      "native_ids": [
+        "MobSpawner",
+        "TrialSpawner"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "end_portal_gateway",
+      "scope": "official Combine exclusion; dedicated surface route required",
+      "materials": [
+        "minecraft:end_portal",
+        "minecraft:end_gateway"
+      ],
+      "native_ids": [
+        "EndPortal",
+        "EndGateway"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "not_applicable",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unsupported_by_combine",
+      "pixel_reason": "Official CombineBlockPaletteToGeometry documentation excludes EndPortal and EndGateway; no support claim is made.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    }
+  ],
+  "policy": {
+    "particles": "excluded",
+    "internal_spawner_mobs": "excluded",
+    "end_portal_gateway": "unsupported_by_combine; no support claim",
+    "api_or_nbt_is_not_pixel_acceptance": true
+  }
+}
