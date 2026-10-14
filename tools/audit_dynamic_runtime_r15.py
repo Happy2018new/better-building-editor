@@ -19,7 +19,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / ".agents/skills/pyreact-debugging/scripts"
 
-DYNAMIC = (
+ORDINARY_FLIPBOOK = (
+    "water", "flowing_water", "lava", "flowing_lava", "bubble_column",
+    "fire", "soul_fire", "lantern", "soul_lantern", "copper_lantern",
+    "exposed_copper_lantern", "weathered_copper_lantern", "oxidized_copper_lantern",
+    "waxed_copper_lantern", "waxed_exposed_copper_lantern",
+    "waxed_weathered_copper_lantern", "waxed_oxidized_copper_lantern",
+    "sculk", "sculk_vein", "kelp", "seagrass", "firefly_bush", "prismarine",
+    "prismarine_slab", "prismarine_double_slab", "prismarine_stairs",
+    "prismarine_wall", "sea_lantern", "crimson_stem", "crimson_hyphae",
+    "warped_stem", "warped_hyphae", "magma", "portal", "respawn_anchor",
+    "stonecutter_block", "chemical_heat",
+)
+
+RUNTIME_CANDIDATES = (
     "bubble_column", "fire", "soul_fire", "lantern", "soul_lantern",
     "copper_lantern", "exposed_copper_lantern", "weathered_copper_lantern",
     "oxidized_copper_lantern", "waxed_copper_lantern",
@@ -36,7 +49,7 @@ DYNAMIC = (
 GROUPS = {
     "portal_family": ("portal", "end_portal", "end_gateway"),
     "fire_family": ("fire", "soul_fire"),
-    "lantern_family": tuple(x for x in DYNAMIC if "lantern" in x),
+    "lantern_family": tuple(x for x in RUNTIME_CANDIDATES if "lantern" in x),
     "sculk_family": ("sculk", "sculk_vein"),
     "water_plants": ("kelp", "seagrass", "big_dripleaf"),
     "prismarine_family": ("prismarine", "prismarine_slab", "prismarine_double_slab", "prismarine_stairs", "prismarine_wall", "sea_lantern"),
@@ -69,12 +82,16 @@ def main():
     parser.add_argument("--session", required=True)
     parser.add_argument("--owner", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--group", choices=tuple(GROUPS), help="Capture one focused family")
     args = parser.parse_args()
+    selected = GROUPS[args.group] if args.group else RUNTIME_CANDIDATES
     result = {"schema": 1, "engine": "3.10.0.420447", "minecraft": "1.21.130.0",
-              "particles": "excluded", "groups": GROUPS, "candidates": DYNAMIC,
+              "particles": "excluded", "groups": GROUPS,
+              "ordinary_flipbook_candidates": ORDINARY_FLIPBOOK,
+              "runtime_candidates": RUNTIME_CANDIDATES, "selected": selected,
               "pixel_acceptance": False}
     try:
-        result["document"] = execute(args.session, args.owner, source_for_blocks())
+        result["document"] = execute(args.session, args.owner, source_for_blocks(selected))
         result["captured_at"] = time.time()
         result["note"] = "Rows were submitted to editor preview; screenshots must be inspected independently."
     except Exception as error:
