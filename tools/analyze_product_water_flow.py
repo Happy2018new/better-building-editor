@@ -24,7 +24,9 @@ from projection.liquid_native_shapes import product_shape_provider
 GRID = 96
 LIMITS = {'maximum_pair_seconds': .15, 'minimum_frames': 8,
           'minimum_signal_stddev': .3, 'minimum_correlation': .50,
-          'minimum_polarity_margin': .05, 'minimum_correct_pair_fraction': .70}
+          'minimum_polarity_margin': .05, 'minimum_correct_pair_fraction': .70,
+          'minimum_measurable_span_fraction': .60,
+          'temporal_quarters': 4, 'minimum_measurable_quarters': 3}
 PHYSICAL_FLOW = {'flow_east': (1, 0), 'flow_south': (0, 1),
                  'flow_west': (-1, 0), 'flow_north': (0, -1)}
 
@@ -128,19 +130,55 @@ def motion(signal, times, axis, expected_sign, spacing, texels_per_unit):
         best = max(candidates)
         forward = max(value for value, shift in candidates if shift * expected_sign > 0)
         backward = max(value for value, shift in candidates if shift * expected_sign < 0)
-        pairs.append({'delta_seconds': delta, 'shift_grid_units': best[1], 'correlation': best[0],
+        # A repeated compositor frame has no direction, and the water atlas can
+        # replace its texture between frames instead of translating every texel.
+        # Decide whether displacement is measurable without using its sign.
+        # Retain every temporal pair below so missing signal stays reviewable.
+        measurable = (best[1] != 0 and best[0] >= LIMITS['minimum_correlation']
+                      and abs(forward - backward) >= LIMITS['minimum_polarity_margin'])
+        pairs.append({'frame_index': index, 'delta_seconds': delta,
+                      'shift_grid_units': best[1], 'correlation': best[0],
                       'forward_correlation': forward, 'backward_correlation': backward,
                       'polarity_margin': forward - backward,
-                      'correct': (best[1] * expected_sign > 0
-                                  and best[0] >= LIMITS['minimum_correlation']
-                                  and forward - backward >= LIMITS['minimum_polarity_margin'])})
+                      'measurable': measurable,
+                      'correct': measurable and best[1] * expected_sign > 0})
     fraction = sum(row['correct'] for row in pairs) / max(1, len(pairs))
-    return {'signal_stddev': energy, 'pairs': pairs, 'eligible_pairs': len(pairs),
+    measured = sum(row['measurable'] for row in pairs)
+    measured_fraction = sum(row['correct'] for row in pairs) / max(1, measured)
+    duration = float(times[-1] - times[0]) if len(times) > 1 else 0.
+    measured_indices = [row['frame_index'] for row in pairs if row['measurable']]
+    span = ((times[measured_indices[-1] + 1] - times[measured_indices[0]]) / duration
+            if measured_indices and duration > 0 else 0.)
+    quarters = sorted({min(LIMITS['temporal_quarters'] - 1,
+                          int(((times[index] + times[index + 1]) / 2 - times[0])
+                              / duration * LIMITS['temporal_quarters']))
+                       for index in measured_indices}) if duration > 0 else []
+    return {'direction_metric_version': 2,
+            'signal_stddev': energy, 'pairs': pairs, 'eligible_pairs': len(pairs),
             'correct_pair_fraction': fraction, 'physical_grid_spacing': spacing,
+            'measurable_pairs': measured, 'measurable_pair_fraction': measured / max(1, len(pairs)),
+            'correct_measurable_pair_fraction': measured_fraction,
+            'measurable_span_fraction': float(span), 'measurable_quarters': quarters,
             'expected_axis': axis, 'expected_sign': expected_sign,
             'passed': (energy >= LIMITS['minimum_signal_stddev']
                        and len(pairs) >= LIMITS['minimum_frames'] - 1
-                       and fraction >= LIMITS['minimum_correct_pair_fraction'])}
+                       and measured >= LIMITS['minimum_frames'] - 1
+                       and span >= LIMITS['minimum_measurable_span_fraction']
+                       and len(quarters) >= LIMITS['minimum_measurable_quarters']
+                       and measured_fraction >= LIMITS['minimum_correct_pair_fraction'])}
+
+
+def controlled_motion(signal, times, axis, expected_sign, spacing, texels_per_unit):
+    """Replay the identical physical pixels in reverse as a mandatory negative."""
+    observed = motion(signal, times, axis, expected_sign, spacing, texels_per_unit)
+    # Preserve each original time interval while reversing the frame sequence.
+    reverse_times = times[0] + times[-1] - np.asarray(times[::-1])
+    reversed_result = motion(signal[::-1], reverse_times, axis, expected_sign,
+                             spacing, texels_per_unit)
+    observed['reversed_time_control'] = reversed_result
+    observed['reversed_time_rejected'] = not reversed_result['passed']
+    observed['passed'] = observed['passed'] and observed['reversed_time_rejected']
+    return observed
 
 
 def burst_frames(capture):
@@ -203,14 +241,14 @@ def analyze_flow(source_path, partial_diagnostics=False):
                 signal, spacing = physical_samples(images, shape, 0, row, source)
                 observed.update(physical_sample_position=upstream, provider_vector=vector,
                                 transmitted_top_uv=shape['flow_uv'],
-                                top=motion(signal, times, 1 if expected[0] else 0,
+                                top=controlled_motion(signal, times, 1 if expected[0] else 0,
                                            expected[0] or expected[1], spacing, 16))
                 observed['passed'] = observed['top']['passed']
             elif case == 'falling':
                 shape = next(shape for shape in row['ready']['shapes']
                              if shape['faces'] & 4 and tuple(shape['position']) == (3, 3, 3))
                 signal, spacing = physical_samples(images, shape, 2, row, source)
-                observed['south_side'] = motion(signal, times, 0, -1, spacing, 15)
+                observed['south_side'] = controlled_motion(signal, times, 0, -1, spacing, 15)
                 observed['passed'] = observed['south_side']['passed']
             else:
                 raise ValueError('Unexpected flow-direction case')

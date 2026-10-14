@@ -1,0 +1,155 @@
+{
+  "analyzer_sha256": "146b92cd4a665bed8b72b84b70cab9b3dbbfe8aca4f650b4613ddefb45e48924",
+  "animation": {
+    "missing_low_wet": {
+      "contribution_pixels": 1762,
+      "eligible_pixels": 3192,
+      "fraction": 0.5520050125313283,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "missing_pool_wet": {
+      "contribution_pixels": 13816,
+      "eligible_pixels": 22510,
+      "fraction": 0.613771657041315,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "missing_source_wet": {
+      "contribution_pixels": 4072,
+      "eligible_pixels": 6789,
+      "fraction": 0.599793784062454,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "missing_wet_oak_fence_wet": {
+      "contribution_pixels": 2706,
+      "eligible_pixels": 3834,
+      "fraction": 0.7057902973395931,
+      "passed": true,
+      "rgb_delta": 2
+    }
+  },
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "evidence_valid": true,
+  "geometry": {
+    "missing_low_wet": {
+      "declared": {
+        "bounds": [
+          944,
+          550,
+          1049,
+          612
+        ],
+        "pixels": 3848
+      },
+      "iou": 0.9600201156650742,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          944,
+          549,
+          1050,
+          612
+        ],
+        "pixels": 3947
+      },
+      "passed": true
+    },
+    "missing_pool_wet": {
+      "declared": {
+        "bounds": [
+          890,
+          514,
+          1116,
+          675
+        ],
+        "pixels": 24148
+      },
+      "iou": 0.9703837653204742,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          889,
+          513,
+          1118,
+          676
+        ],
+        "pixels": 24885
+      },
+      "passed": true
+    },
+    "missing_source_wet": {
+      "declared": {
+        "bounds": [
+          943,
+          514,
+          1050,
+          612
+        ],
+        "pixels": 7699
+      },
+      "iou": 0.9676686031826218,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          943,
+          513,
+          1051,
+          612
+        ],
+        "pixels": 7881
+      },
+      "passed": true
+    }
+  },
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": true,
+    "geometry": true,
+    "transparency": true
+  },
+  "product_style_accepted": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "b1f75477b9132e415b6935438879e322c0474206b11a5a99066d2ae1e5f859a0",
+  "transparency": {
+    "missing_wet_oak_fence_wet": {
+      "passed": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 61,
+          "eligible_pixels": 300,
+          "fraction": 0.20333333333333334,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 300
+        },
+        "rear": {
+          "contribution_pixels": 103,
+          "eligible_pixels": 210,
+          "fraction": 0.49047619047619045,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 210
+        }
+      },
+      "water_pixels": 4413
+    }
+  }
+}

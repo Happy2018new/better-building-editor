@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "supersedes": "Transparency acceptance conclusions in original summary.json and *-style-sky-v1-analysis.json; original report bytes are retained.",
+  "geometry": true,
+  "direction": true,
+  "direction_cases_passed": 15,
+  "direction_cases_total": 15,
+  "transparency": false,
+  "transparency_review": "manual_rejected",
+  "product_visual_acceptance": false,
+  "reason": "Wet fence body and rear gold are almost invisible. The old contribution gate compares animated frames captured at different atlas phases, allowing water texture changes alone to exceed its RGB delta and pixel-fraction thresholds.",
+  "original_metric_is_not_valid_transparency_evidence": true,
+  "frozen_time_or_same_frame_controls_required": true,
+  "root_cause_status": "Not yet isolated; material blend/depth/coverage order requires fixed-time diagnostic controls.",
+  "observations": {
+    "material_base": "entity_for_skeleton_alpha:entity_for_skeleton",
+    "inherited_states": [
+      "Blending",
+      "DisableDepthWrite"
+    ],
+    "explicit_blend": [
+      "SourceAlpha",
+      "OneMinusSrcAlpha"
+    ],
+    "product_default_alpha": 0.45,
+    "product_culling": "InvertCulling",
+    "fence_shape_groups": 2,
+    "fence_shape_faces": [
+      1,
+      30
+    ],
+    "fence_visible_slots_per_group": 1
+  },
+  "runtime_state": "All owned water instances stopped. No new diagnostic copy or instance was created after the stop request.",
+  "production_changes_this_resumed_turn": false
+}

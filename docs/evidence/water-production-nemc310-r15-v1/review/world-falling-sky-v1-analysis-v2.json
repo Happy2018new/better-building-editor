@@ -1,0 +1,3592 @@
+{
+  "schema": 1,
+  "source_sha256": "031fc63ca5a7826a60229f926dca350157fd3397dcbdc8103bf47ee1341afcde",
+  "analyzer_sha256": "3cdc9597170a2fd53254539961a5bb8d51e278eeed279bb580d22a668971179f",
+  "limits": {
+    "maximum_pair_seconds": 0.15,
+    "minimum_frames": 8,
+    "minimum_signal_stddev": 0.3,
+    "minimum_correlation": 0.5,
+    "minimum_polarity_margin": 0.05,
+    "minimum_correct_pair_fraction": 0.7,
+    "minimum_measurable_span_fraction": 0.6,
+    "temporal_quarters": 4,
+    "minimum_measurable_quarters": 3
+  },
+  "evidence_valid": true,
+  "rows": {
+    "full_falling_wet": {
+      "case": "falling",
+      "route": "full",
+      "passed": true,
+      "frames": 71,
+      "south_side": {
+        "direction_metric_version": 2,
+        "signal_stddev": 3.317511620295875,
+        "pairs": [
+          {
+            "frame_index": 0,
+            "delta_seconds": 0.0181815,
+            "shift_grid_units": 0,
+            "correlation": 0.8917529611751539,
+            "forward_correlation": 0.8605417374712591,
+            "backward_correlation": 0.8484599769865849,
+            "polarity_margin": 0.012081760484674131,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 1,
+            "delta_seconds": 0.0181815,
+            "shift_grid_units": 0,
+            "correlation": 0.845337476857174,
+            "forward_correlation": 0.8195531184167606,
+            "backward_correlation": 0.7950012204003364,
+            "polarity_margin": 0.024551898016424212,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 2,
+            "delta_seconds": 0.0303016,
+            "shift_grid_units": -1,
+            "correlation": 0.7887015167195944,
+            "forward_correlation": 0.7887015167195944,
+            "backward_correlation": 0.7425684663593489,
+            "polarity_margin": 0.04613305036024551,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 3,
+            "delta_seconds": 0.0484829,
+            "shift_grid_units": -9,
+            "correlation": 0.6976625019664999,
+            "forward_correlation": 0.6976625019664999,
+            "backward_correlation": 0.5394220466883317,
+            "polarity_margin": 0.1582404552781682,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 4,
+            "delta_seconds": 0.048484,
+            "shift_grid_units": -10,
+            "correlation": 0.817665243024254,
+            "forward_correlation": 0.817665243024254,
+            "backward_correlation": 0.5490194568109071,
+            "polarity_margin": 0.2686457862133469,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 5,
+            "delta_seconds": 0.0424247,
+            "shift_grid_units": -1,
+            "correlation": 0.6659108968036517,
+            "forward_correlation": 0.6659108968036517,
+            "backward_correlation": 0.6211832009571343,
+            "polarity_margin": 0.04472769584651737,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 6,
+            "delta_seconds": 0.0484874,
+            "shift_grid_units": -9,
+            "correlation": 0.6106807951543642,
+            "forward_correlation": 0.6106807951543642,
+            "backward_correlation": 0.412703970833721,
+            "polarity_margin": 0.19797682432064323,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 7,
+            "delta_seconds": 0.0484831,
+            "shift_grid_units": -9,
+            "correlation": 0.6912812417165873,
+            "forward_correlation": 0.6912812417165873,
+            "backward_correlation": 0.5019258299397917,
+            "polarity_margin": 0.1893554117767956,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 8,
+            "delta_seconds": 0.042427,
+            "shift_grid_units": -4,
+            "correlation": 0.7091089390728466,
+            "forward_correlation": 0.7091089390728466,
+            "backward_correlation": 0.6649014356431944,
+            "polarity_margin": 0.044207503429652184,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 9,
+            "delta_seconds": 0.0484854,
+            "shift_grid_units": -9,
+            "correlation": 0.8046210820058416,
+            "forward_correlation": 0.8046210820058416,
+            "backward_correlation": 0.5693323858396144,
+            "polarity_margin": 0.23528869616622716,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 10,
+            "delta_seconds": 0.0484851,
+            "shift_grid_units": -9,
+            "correlation": 0.44165185069777646,
+            "forward_correlation": 0.44165185069777646,
+            "backward_correlation": 0.3418588618246006,
+            "polarity_margin": 0.09979298887317584,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 11,
+            "delta_seconds": 0.0484808,
+            "shift_grid_units": -10,
+            "correlation": 0.770253107008078,
+            "forward_correlation": 0.770253107008078,
+            "backward_correlation": 0.31149539645792107,
+            "polarity_margin": 0.45875771055015696,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 12,
+            "delta_seconds": 0.0424219,
+            "shift_grid_units": -1,
+            "correlation": 0.5518801984383583,
+            "forward_correlation": 0.5518801984383583,
+            "backward_correlation": 0.5030605597099461,
+            "polarity_margin": 0.04881963872841222,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 13,
+            "delta_seconds": 0.0424227,
+            "shift_grid_units": -9,
+            "correlation": 0.7960570044553463,
+            "forward_correlation": 0.7960570044553463,
+            "backward_correlation": 0.6139542890782799,
+            "polarity_margin": 0.18210271537706646,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 14,
+            "delta_seconds": 0.0484838,
+            "shift_grid_units": -1,
+            "correlation": 0.31725147426154643,
+            "forward_correlation": 0.31725147426154643,
+            "backward_correlation": 0.2809674144619791,
+            "polarity_margin": 0.036284059799567336,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 15,
+            "delta_seconds": 0.0484829,
+            "shift_grid_units": -9,
+            "correlation": 0.7638034710154635,
+            "forward_correlation": 0.7638034710154635,
+            "backward_correlation": 0.46447244456551084,
+            "polarity_margin": 0.2993310264499527,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 16,
+            "delta_seconds": 0.0424237,
+            "shift_grid_units": 0,
+            "correlation": 0.5988798612815603,
+            "forward_correlation": 0.5957289677207742,
+            "backward_correlation": 0.5530410744970398,
+            "polarity_margin": 0.04268789322373445,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 17,
+            "delta_seconds": 0.0484868,
+            "shift_grid_units": -5,
+            "correlation": 0.6693746462529595,
+            "forward_correlation": 0.6693746462529595,
+            "backward_correlation": 0.6298950685386975,
+            "polarity_margin": 0.039479577714262026,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 18,
+            "delta_seconds": 0.0424271,
+            "shift_grid_units": -8,
+            "correlation": 0.6970777616831455,
+            "forward_correlation": 0.6970777616831455,
+            "backward_correlation": 0.6626784927350589,
+            "polarity_margin": 0.03439926894808665,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 19,
+            "delta_seconds": 0.0484831,
+            "shift_grid_units": -9,
+            "correlation": 0.6870095326500998,
+            "forward_correlation": 0.6870095326500998,
+            "backward_correlation": 0.5290013103861132,
+            "polarity_margin": 0.1580082222639866,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 20,
+            "delta_seconds": 0.0484824,
+            "shift_grid_units": -9,
+            "correlation": 0.6860184954371826,
+            "forward_correlation": 0.6860184954371826,
+            "backward_correlation": 0.47194075656786655,
+            "polarity_margin": 0.21407773886931608,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 21,
+            "delta_seconds": 0.0484853,
+            "shift_grid_units": -10,
+            "correlation": 0.613070122571948,
+            "forward_correlation": 0.613070122571948,
+            "backward_correlation": 0.36089419742922063,
+            "polarity_margin": 0.2521759251427274,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 22,
+            "delta_seconds": 0.0424212,
+            "shift_grid_units": -1,
+            "correlation": 0.6249925003344233,
+            "forward_correlation": 0.6249925003344233,
+            "backward_correlation": 0.5956112697630144,
+            "polarity_margin": 0.029381230571408956,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 23,
+            "delta_seconds": 0.0545454,
+            "shift_grid_units": 0,
+            "correlation": 0.44102481751809686,
+            "forward_correlation": 0.4384042528459383,
+            "backward_correlation": 0.4100019740271875,
+            "polarity_margin": 0.028402278818750792,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 24,
+            "delta_seconds": 0.0484859,
+            "shift_grid_units": -9,
+            "correlation": 0.7123505064504827,
+            "forward_correlation": 0.7123505064504827,
+            "backward_correlation": 0.3961756362498669,
+            "polarity_margin": 0.3161748702006158,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 25,
+            "delta_seconds": 0.048485,
+            "shift_grid_units": -9,
+            "correlation": 0.5804172707325056,
+            "forward_correlation": 0.5804172707325056,
+            "backward_correlation": 0.2906872461944958,
+            "polarity_margin": 0.2897300245380098,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 26,
+            "delta_seconds": 0.0484853,
+            "shift_grid_units": -9,
+            "correlation": 0.7034072275479911,
+            "forward_correlation": 0.7034072275479911,
+            "backward_correlation": 0.2614295887332839,
+            "polarity_margin": 0.4419776388147072,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 27,
+            "delta_seconds": 0.0484826,
+            "shift_grid_units": -9,
+            "correlation": 0.5771380390238341,
+            "forward_correlation": 0.5771380390238341,
+            "backward_correlation": 0.35782579283221677,
+            "polarity_margin": 0.21931224619161732,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 28,
+            "delta_seconds": 0.054543,
+            "shift_grid_units": -9,
+            "correlation": 0.7175821007682104,
+            "forward_correlation": 0.7175821007682104,
+            "backward_correlation": 0.3967690016313182,
+            "polarity_margin": 0.3208130991368922,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 29,
+            "delta_seconds": 0.0484838,
+            "shift_grid_units": -9,
+            "correlation": 0.49161393008590754,
+            "forward_correlation": 0.49161393008590754,
+            "backward_correlation": 0.39523033664606055,
+            "polarity_margin": 0.09638359343984698,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 30,
+            "delta_seconds": 0.0545446,
+            "shift_grid_units": -10,
+            "correlation": 0.7169259575616082,
+            "forward_correlation": 0.7169259575616082,
+            "backward_correlation": 0.4014705026324263,
+            "polarity_margin": 0.31545545492918187,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 31,
+            "delta_seconds": 0.0484835,
+            "shift_grid_units": -10,
+            "correlation": 0.5451571182019791,
+            "forward_correlation": 0.5451571182019791,
+            "backward_correlation": 0.45059061060881417,
+            "polarity_margin": 0.09456650759316493,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 32,
+            "delta_seconds": 0.0484819,
+            "shift_grid_units": -9,
+            "correlation": 0.7171401328196402,
+            "forward_correlation": 0.7171401328196402,
+            "backward_correlation": 0.516030010537604,
+            "polarity_margin": 0.20111012228203617,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 33,
+            "delta_seconds": 0.0484831,
+            "shift_grid_units": 0,
+            "correlation": 0.4534394394771944,
+            "forward_correlation": 0.44713580831956734,
+            "backward_correlation": 0.4281068863778737,
+            "polarity_margin": 0.019028921941693644,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 34,
+            "delta_seconds": 0.0545442,
+            "shift_grid_units": -9,
+            "correlation": 0.7486251800394815,
+            "forward_correlation": 0.7486251800394815,
+            "backward_correlation": 0.39719914663293593,
+            "polarity_margin": 0.3514260334065456,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 35,
+            "delta_seconds": 0.0484869,
+            "shift_grid_units": -10,
+            "correlation": 0.4850831831944304,
+            "forward_correlation": 0.4850831831944304,
+            "backward_correlation": 0.3175053815199362,
+            "polarity_margin": 0.1675778016744942,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 36,
+            "delta_seconds": 0.0484854,
+            "shift_grid_units": -9,
+            "correlation": 0.8336720116859312,
+            "forward_correlation": 0.8336720116859312,
+            "backward_correlation": 0.38505316252544863,
+            "polarity_margin": 0.44861884916048256,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 37,
+            "delta_seconds": 0.0484805,
+            "shift_grid_units": -10,
+            "correlation": 0.6453814311128576,
+            "forward_correlation": 0.6453814311128576,
+            "backward_correlation": 0.37718692622908073,
+            "polarity_margin": 0.2681945048837769,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 38,
+            "delta_seconds": 0.0484863,
+            "shift_grid_units": -9,
+            "correlation": 0.7873391497012209,
+            "forward_correlation": 0.7873391497012209,
+            "backward_correlation": 0.5438166036865942,
+            "polarity_margin": 0.24352254601462664,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 39,
+            "delta_seconds": 0.0484829,
+            "shift_grid_units": -9,
+            "correlation": 0.5265266162986983,
+            "forward_correlation": 0.5265266162986983,
+            "backward_correlation": 0.3822561099966389,
+            "polarity_margin": 0.14427050630205945,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 40,
+            "delta_seconds": 0.0424219,
+            "shift_grid_units": -9,
+            "correlation": 0.8140890472574082,
+            "forward_correlation": 0.8140890472574082,
+            "backward_correlation": 0.5669424936874485,
+            "polarity_margin": 0.24714655356995963,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 41,
+            "delta_seconds": 0.0424227,
+            "shift_grid_units": -1,
+            "correlation": 0.7038665647025397,
+            "forward_correlation": 0.7038665647025397,
+            "backward_correlation": 0.6701548063642114,
+            "polarity_margin": 0.03371175833832829,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 42,
+            "delta_seconds": 0.0484833,
+            "shift_grid_units": -9,
+            "correlation": 0.8601211602490783,
+            "forward_correlation": 0.8601211602490783,
+            "backward_correlation": 0.6976895667560103,
+            "polarity_margin": 0.1624315934930679,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 43,
+            "delta_seconds": 0.0424244,
+            "shift_grid_units": 0,
+            "correlation": 0.6895825855079133,
+            "forward_correlation": 0.6841592939647841,
+            "backward_correlation": 0.6590247417544663,
+            "polarity_margin": 0.025134552210317795,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 44,
+            "delta_seconds": 0.0484825,
+            "shift_grid_units": -10,
+            "correlation": 0.6972251968867004,
+            "forward_correlation": 0.6972251968867004,
+            "backward_correlation": 0.3721081574523171,
+            "polarity_margin": 0.32511703943438325,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 45,
+            "delta_seconds": 0.0484842,
+            "shift_grid_units": -5,
+            "correlation": 0.5284023766175169,
+            "forward_correlation": 0.5284023766175169,
+            "backward_correlation": 0.43540282680001663,
+            "polarity_margin": 0.09299954981750025,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 46,
+            "delta_seconds": 0.0484842,
+            "shift_grid_units": -10,
+            "correlation": 0.7389693687655011,
+            "forward_correlation": 0.7389693687655011,
+            "backward_correlation": 0.38097021887422533,
+            "polarity_margin": 0.3579991498912758,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 47,
+            "delta_seconds": 0.0424229,
+            "shift_grid_units": -10,
+            "correlation": 0.3982038164372449,
+            "forward_correlation": 0.3982038164372449,
+            "backward_correlation": 0.29587346971937317,
+            "polarity_margin": 0.10233034671787172,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 48,
+            "delta_seconds": 0.0424236,
+            "shift_grid_units": -9,
+            "correlation": 0.5090324040801539,
+            "forward_correlation": 0.5090324040801539,
+            "backward_correlation": 0.38251914679638327,
+            "polarity_margin": 0.12651325728377066,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 49,
+            "delta_seconds": 0.0424211,
+            "shift_grid_units": -9,
+            "correlation": 0.7165960647968436,
+            "forward_correlation": 0.7165960647968436,
+            "backward_correlation": 0.5307074609198751,
+            "polarity_margin": 0.18588860387696848,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 50,
+            "delta_seconds": 0.0484837,
+            "shift_grid_units": 0,
+            "correlation": 0.4136838308256879,
+            "forward_correlation": 0.40928285278140186,
+            "backward_correlation": 0.4024642746001608,
+            "polarity_margin": 0.006818578181241042,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 51,
+            "delta_seconds": 0.0424243,
+            "shift_grid_units": -9,
+            "correlation": 0.8174794170657591,
+            "forward_correlation": 0.8174794170657591,
+            "backward_correlation": 0.6632203461580483,
+            "polarity_margin": 0.15425907090771085,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 52,
+            "delta_seconds": 0.0363616,
+            "shift_grid_units": 0,
+            "correlation": 0.7805221606300428,
+            "forward_correlation": 0.7694554688712101,
+            "backward_correlation": 0.7505403620286658,
+            "polarity_margin": 0.01891510684254427,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 53,
+            "delta_seconds": 0.0484853,
+            "shift_grid_units": -9,
+            "correlation": 0.7604462747226708,
+            "forward_correlation": 0.7604462747226708,
+            "backward_correlation": 0.5923243389415732,
+            "polarity_margin": 0.16812193578109758,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 54,
+            "delta_seconds": 0.0424248,
+            "shift_grid_units": -10,
+            "correlation": 0.5601573264073398,
+            "forward_correlation": 0.5601573264073398,
+            "backward_correlation": 0.42554188755970423,
+            "polarity_margin": 0.1346154388476356,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 55,
+            "delta_seconds": 0.0424226,
+            "shift_grid_units": -9,
+            "correlation": 0.7047401917034367,
+            "forward_correlation": 0.7047401917034367,
+            "backward_correlation": 0.5505316942509395,
+            "polarity_margin": 0.1542084974524972,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 56,
+            "delta_seconds": 0.0424227,
+            "shift_grid_units": -9,
+            "correlation": 0.6091523049642793,
+            "forward_correlation": 0.6091523049642793,
+            "backward_correlation": 0.5528317590218973,
+            "polarity_margin": 0.056320545942382005,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 57,
+            "delta_seconds": 0.0484828,
+            "shift_grid_units": 0,
+            "correlation": 0.5011698264037029,
+            "forward_correlation": 0.4938481431906331,
+            "backward_correlation": 0.4679507139665739,
+            "polarity_margin": 0.025897429224059187,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 58,
+            "delta_seconds": 0.042426,
+            "shift_grid_units": -9,
+            "correlation": 0.7730289382285597,
+            "forward_correlation": 0.7730289382285597,
+            "backward_correlation": 0.5472133123229213,
+            "polarity_margin": 0.22581562590563842,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 59,
+            "delta_seconds": 0.0484825,
+            "shift_grid_units": -9,
+            "correlation": 0.5101219015946454,
+            "forward_correlation": 0.5101219015946454,
+            "backward_correlation": 0.3880097129987917,
+            "polarity_margin": 0.12211218859585371,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 60,
+            "delta_seconds": 0.0424242,
+            "shift_grid_units": -9,
+            "correlation": 0.7470163469107542,
+            "forward_correlation": 0.7470163469107542,
+            "backward_correlation": 0.5732892411552273,
+            "polarity_margin": 0.17372710575552697,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 61,
+            "delta_seconds": 0.0424235,
+            "shift_grid_units": -1,
+            "correlation": 0.499525037250337,
+            "forward_correlation": 0.499525037250337,
+            "backward_correlation": 0.44260215569409433,
+            "polarity_margin": 0.056922881556242644,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 62,
+            "delta_seconds": 0.048484,
+            "shift_grid_units": -10,
+            "correlation": 0.7671251020122786,
+            "forward_correlation": 0.7671251020122786,
+            "backward_correlation": 0.384286188427078,
+            "polarity_margin": 0.38283891358520056,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 63,
+            "delta_seconds": 0.0424238,
+            "shift_grid_units": -8,
+            "correlation": 0.37015650108457704,
+            "forward_correlation": 0.37015650108457704,
+            "backward_correlation": 0.3263373784131098,
+            "polarity_margin": 0.04381912267146726,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 64,
+            "delta_seconds": 0.0484849,
+            "shift_grid_units": -10,
+            "correlation": 0.7600979428581358,
+            "forward_correlation": 0.7600979428581358,
+            "backward_correlation": 0.4773404717697586,
+            "polarity_margin": 0.28275747108837723,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 65,
+            "delta_seconds": 0.0424225,
+            "shift_grid_units": -9,
+            "correlation": 0.6245581357102048,
+            "forward_correlation": 0.6245581357102048,
+            "backward_correlation": 0.4979480044079878,
+            "polarity_margin": 0.126610131302217,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 66,
+            "delta_seconds": 0.0484904,
+            "shift_grid_units": -1,
+            "correlation": 0.5462464788886975,
+            "forward_correlation": 0.5462464788886975,
+            "backward_correlation": 0.5237033381687426,
+            "polarity_margin": 0.02254314071995489,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 67,
+            "delta_seconds": 0.0424234,
+            "shift_grid_units": -9,
+            "correlation": 0.755853668910755,
+            "forward_correlation": 0.755853668910755,
+            "backward_correlation": 0.42470285469542435,
+            "polarity_margin": 0.33115081421533066,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 68,
+            "delta_seconds": 0.048483,
+            "shift_grid_units": 0,
+            "correlation": 0.49253848412702717,
+            "forward_correlation": 0.4813476361992685,
+            "backward_correlation": 0.46328445970215587,
+            "polarity_margin": 0.018063176497112643,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 69,
+            "delta_seconds": 0.0424239,
+            "shift_grid_units": -9,
+            "correlation": 0.8000418542630126,
+            "forward_correlation": 0.8000418542630126,
+            "backward_correlation": 0.5954686688134331,
+            "polarity_margin": 0.20457318544957948,
+            "measurable": true,
+            "correct": true
+          }
+        ],
+        "eligible_pairs": 70,
+        "correct_pair_fraction": 0.6285714285714286,
+        "physical_grid_spacing": 0.0066315789473684215,
+        "measurable_pairs": 44,
+        "measurable_pair_fraction": 0.6285714285714286,
+        "correct_measurable_pair_fraction": 1.0,
+        "measurable_span_fraction": 0.9790479308839375,
+        "measurable_quarters": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "expected_axis": 0,
+        "expected_sign": -1,
+        "passed": true,
+        "reversed_time_control": {
+          "direction_metric_version": 2,
+          "signal_stddev": 3.317511620295875,
+          "pairs": [
+            {
+              "frame_index": 0,
+              "delta_seconds": 0.0424239,
+              "shift_grid_units": 9,
+              "correlation": 0.8000418542630126,
+              "forward_correlation": 0.5954686688134332,
+              "backward_correlation": 0.8000418542630126,
+              "polarity_margin": -0.20457318544957936,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 1,
+              "delta_seconds": 0.048483,
+              "shift_grid_units": 0,
+              "correlation": 0.492538484127027,
+              "forward_correlation": 0.46328445970215576,
+              "backward_correlation": 0.4813476361992684,
+              "polarity_margin": -0.018063176497112643,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 2,
+              "delta_seconds": 0.0424234,
+              "shift_grid_units": 9,
+              "correlation": 0.7558536689107549,
+              "forward_correlation": 0.4247028546954242,
+              "backward_correlation": 0.7558536689107549,
+              "polarity_margin": -0.3311508142153307,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 3,
+              "delta_seconds": 0.0484904,
+              "shift_grid_units": 1,
+              "correlation": 0.5462464788886975,
+              "forward_correlation": 0.5237033381687426,
+              "backward_correlation": 0.5462464788886975,
+              "polarity_margin": -0.02254314071995489,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 4,
+              "delta_seconds": 0.0424225,
+              "shift_grid_units": 9,
+              "correlation": 0.6245581357102048,
+              "forward_correlation": 0.4979480044079878,
+              "backward_correlation": 0.6245581357102048,
+              "polarity_margin": -0.126610131302217,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 5,
+              "delta_seconds": 0.0484849,
+              "shift_grid_units": 10,
+              "correlation": 0.7600979428581358,
+              "forward_correlation": 0.4773404717697587,
+              "backward_correlation": 0.7600979428581358,
+              "polarity_margin": -0.2827574710883771,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 6,
+              "delta_seconds": 0.0424238,
+              "shift_grid_units": 8,
+              "correlation": 0.37015650108457704,
+              "forward_correlation": 0.3263373784131098,
+              "backward_correlation": 0.37015650108457704,
+              "polarity_margin": -0.04381912267146726,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 7,
+              "delta_seconds": 0.048484,
+              "shift_grid_units": 10,
+              "correlation": 0.7671251020122788,
+              "forward_correlation": 0.38428618842707796,
+              "backward_correlation": 0.7671251020122788,
+              "polarity_margin": -0.38283891358520084,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 8,
+              "delta_seconds": 0.0424235,
+              "shift_grid_units": 1,
+              "correlation": 0.499525037250337,
+              "forward_correlation": 0.44260215569409433,
+              "backward_correlation": 0.499525037250337,
+              "polarity_margin": -0.056922881556242644,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 9,
+              "delta_seconds": 0.0424242,
+              "shift_grid_units": 9,
+              "correlation": 0.7470163469107541,
+              "forward_correlation": 0.5732892411552273,
+              "backward_correlation": 0.7470163469107541,
+              "polarity_margin": -0.17372710575552686,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 10,
+              "delta_seconds": 0.0484825,
+              "shift_grid_units": 9,
+              "correlation": 0.5101219015946454,
+              "forward_correlation": 0.38800971299879183,
+              "backward_correlation": 0.5101219015946454,
+              "polarity_margin": -0.1221121885958536,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 11,
+              "delta_seconds": 0.042426,
+              "shift_grid_units": 9,
+              "correlation": 0.7730289382285597,
+              "forward_correlation": 0.5472133123229213,
+              "backward_correlation": 0.7730289382285597,
+              "polarity_margin": -0.22581562590563842,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 12,
+              "delta_seconds": 0.0484828,
+              "shift_grid_units": 0,
+              "correlation": 0.501169826403703,
+              "forward_correlation": 0.46795071396657384,
+              "backward_correlation": 0.49384814319063314,
+              "polarity_margin": -0.0258974292240593,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 13,
+              "delta_seconds": 0.0424227,
+              "shift_grid_units": 9,
+              "correlation": 0.6091523049642794,
+              "forward_correlation": 0.5528317590218974,
+              "backward_correlation": 0.6091523049642794,
+              "polarity_margin": -0.056320545942382005,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 14,
+              "delta_seconds": 0.0424226,
+              "shift_grid_units": 9,
+              "correlation": 0.7047401917034367,
+              "forward_correlation": 0.5505316942509395,
+              "backward_correlation": 0.7047401917034367,
+              "polarity_margin": -0.1542084974524972,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 15,
+              "delta_seconds": 0.0424248,
+              "shift_grid_units": 10,
+              "correlation": 0.5601573264073397,
+              "forward_correlation": 0.42554188755970423,
+              "backward_correlation": 0.5601573264073397,
+              "polarity_margin": -0.1346154388476355,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 16,
+              "delta_seconds": 0.0484853,
+              "shift_grid_units": 9,
+              "correlation": 0.7604462747226708,
+              "forward_correlation": 0.5923243389415732,
+              "backward_correlation": 0.7604462747226708,
+              "polarity_margin": -0.16812193578109758,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 17,
+              "delta_seconds": 0.0363616,
+              "shift_grid_units": 0,
+              "correlation": 0.7805221606300429,
+              "forward_correlation": 0.7505403620286658,
+              "backward_correlation": 0.7694554688712101,
+              "polarity_margin": -0.01891510684254427,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 18,
+              "delta_seconds": 0.0424243,
+              "shift_grid_units": 9,
+              "correlation": 0.8174794170657589,
+              "forward_correlation": 0.6632203461580483,
+              "backward_correlation": 0.8174794170657589,
+              "polarity_margin": -0.15425907090771063,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 19,
+              "delta_seconds": 0.0484837,
+              "shift_grid_units": 0,
+              "correlation": 0.4136838308256878,
+              "forward_correlation": 0.40246427460016077,
+              "backward_correlation": 0.40928285278140186,
+              "polarity_margin": -0.006818578181241097,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 20,
+              "delta_seconds": 0.0424211,
+              "shift_grid_units": 9,
+              "correlation": 0.7165960647968436,
+              "forward_correlation": 0.5307074609198751,
+              "backward_correlation": 0.7165960647968436,
+              "polarity_margin": -0.18588860387696848,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 21,
+              "delta_seconds": 0.0424236,
+              "shift_grid_units": 9,
+              "correlation": 0.5090324040801537,
+              "forward_correlation": 0.38251914679638316,
+              "backward_correlation": 0.5090324040801537,
+              "polarity_margin": -0.12651325728377055,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 22,
+              "delta_seconds": 0.0424229,
+              "shift_grid_units": 10,
+              "correlation": 0.39820381643724484,
+              "forward_correlation": 0.2958734697193731,
+              "backward_correlation": 0.39820381643724484,
+              "polarity_margin": -0.10233034671787172,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 23,
+              "delta_seconds": 0.0484842,
+              "shift_grid_units": 10,
+              "correlation": 0.7389693687655011,
+              "forward_correlation": 0.38097021887422544,
+              "backward_correlation": 0.7389693687655011,
+              "polarity_margin": -0.3579991498912757,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 24,
+              "delta_seconds": 0.0484842,
+              "shift_grid_units": 5,
+              "correlation": 0.528402376617517,
+              "forward_correlation": 0.43540282680001663,
+              "backward_correlation": 0.528402376617517,
+              "polarity_margin": -0.09299954981750036,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 25,
+              "delta_seconds": 0.0484825,
+              "shift_grid_units": 10,
+              "correlation": 0.6972251968867004,
+              "forward_correlation": 0.3721081574523172,
+              "backward_correlation": 0.6972251968867004,
+              "polarity_margin": -0.3251170394343832,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 26,
+              "delta_seconds": 0.0424244,
+              "shift_grid_units": 0,
+              "correlation": 0.6895825855079135,
+              "forward_correlation": 0.6590247417544662,
+              "backward_correlation": 0.6841592939647841,
+              "polarity_margin": -0.025134552210317906,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 27,
+              "delta_seconds": 0.0484833,
+              "shift_grid_units": 9,
+              "correlation": 0.860121160249078,
+              "forward_correlation": 0.6976895667560103,
+              "backward_correlation": 0.860121160249078,
+              "polarity_margin": -0.16243159349306768,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 28,
+              "delta_seconds": 0.0424227,
+              "shift_grid_units": 1,
+              "correlation": 0.7038665647025397,
+              "forward_correlation": 0.6701548063642114,
+              "backward_correlation": 0.7038665647025397,
+              "polarity_margin": -0.03371175833832829,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 29,
+              "delta_seconds": 0.0424219,
+              "shift_grid_units": 9,
+              "correlation": 0.8140890472574084,
+              "forward_correlation": 0.5669424936874483,
+              "backward_correlation": 0.8140890472574084,
+              "polarity_margin": -0.24714655356996007,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 30,
+              "delta_seconds": 0.0484829,
+              "shift_grid_units": 9,
+              "correlation": 0.5265266162986985,
+              "forward_correlation": 0.38225610999663895,
+              "backward_correlation": 0.5265266162986985,
+              "polarity_margin": -0.1442705063020595,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 31,
+              "delta_seconds": 0.0484863,
+              "shift_grid_units": 9,
+              "correlation": 0.787339149701221,
+              "forward_correlation": 0.5438166036865942,
+              "backward_correlation": 0.787339149701221,
+              "polarity_margin": -0.24352254601462675,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 32,
+              "delta_seconds": 0.0484805,
+              "shift_grid_units": 10,
+              "correlation": 0.6453814311128577,
+              "forward_correlation": 0.3771869262290808,
+              "backward_correlation": 0.6453814311128577,
+              "polarity_margin": -0.26819450488377694,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 33,
+              "delta_seconds": 0.0484854,
+              "shift_grid_units": 9,
+              "correlation": 0.8336720116859312,
+              "forward_correlation": 0.3850531625254486,
+              "backward_correlation": 0.8336720116859312,
+              "polarity_margin": -0.4486188491604826,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 34,
+              "delta_seconds": 0.0484869,
+              "shift_grid_units": 10,
+              "correlation": 0.4850831831944304,
+              "forward_correlation": 0.3175053815199362,
+              "backward_correlation": 0.4850831831944304,
+              "polarity_margin": -0.1675778016744942,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 35,
+              "delta_seconds": 0.0545442,
+              "shift_grid_units": 9,
+              "correlation": 0.7486251800394814,
+              "forward_correlation": 0.3971991466329359,
+              "backward_correlation": 0.7486251800394814,
+              "polarity_margin": -0.35142603340654555,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 36,
+              "delta_seconds": 0.0484831,
+              "shift_grid_units": 0,
+              "correlation": 0.45343943947719423,
+              "forward_correlation": 0.42810688637787364,
+              "backward_correlation": 0.4471358083195673,
+              "polarity_margin": -0.019028921941693644,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 37,
+              "delta_seconds": 0.0484819,
+              "shift_grid_units": 9,
+              "correlation": 0.7171401328196402,
+              "forward_correlation": 0.516030010537604,
+              "backward_correlation": 0.7171401328196402,
+              "polarity_margin": -0.20111012228203617,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 38,
+              "delta_seconds": 0.0484835,
+              "shift_grid_units": 10,
+              "correlation": 0.545157118201979,
+              "forward_correlation": 0.450590610608814,
+              "backward_correlation": 0.545157118201979,
+              "polarity_margin": -0.09456650759316498,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 39,
+              "delta_seconds": 0.0545446,
+              "shift_grid_units": 10,
+              "correlation": 0.716925957561608,
+              "forward_correlation": 0.40147050263242623,
+              "backward_correlation": 0.716925957561608,
+              "polarity_margin": -0.3154554549291818,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 40,
+              "delta_seconds": 0.0484838,
+              "shift_grid_units": 9,
+              "correlation": 0.49161393008590754,
+              "forward_correlation": 0.39523033664606055,
+              "backward_correlation": 0.49161393008590754,
+              "polarity_margin": -0.09638359343984698,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 41,
+              "delta_seconds": 0.054543,
+              "shift_grid_units": 9,
+              "correlation": 0.7175821007682105,
+              "forward_correlation": 0.3967690016313182,
+              "backward_correlation": 0.7175821007682105,
+              "polarity_margin": -0.3208130991368923,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 42,
+              "delta_seconds": 0.0484826,
+              "shift_grid_units": 9,
+              "correlation": 0.577138039023834,
+              "forward_correlation": 0.3578257928322168,
+              "backward_correlation": 0.577138039023834,
+              "polarity_margin": -0.21931224619161716,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 43,
+              "delta_seconds": 0.0484853,
+              "shift_grid_units": 9,
+              "correlation": 0.7034072275479911,
+              "forward_correlation": 0.2614295887332839,
+              "backward_correlation": 0.7034072275479911,
+              "polarity_margin": -0.4419776388147072,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 44,
+              "delta_seconds": 0.048485,
+              "shift_grid_units": 9,
+              "correlation": 0.5804172707325057,
+              "forward_correlation": 0.29068724619449593,
+              "backward_correlation": 0.5804172707325057,
+              "polarity_margin": -0.2897300245380098,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 45,
+              "delta_seconds": 0.0484859,
+              "shift_grid_units": 9,
+              "correlation": 0.7123505064504826,
+              "forward_correlation": 0.39617563624986696,
+              "backward_correlation": 0.7123505064504826,
+              "polarity_margin": -0.31617487020061563,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 46,
+              "delta_seconds": 0.0545454,
+              "shift_grid_units": 0,
+              "correlation": 0.44102481751809675,
+              "forward_correlation": 0.4100019740271876,
+              "backward_correlation": 0.4384042528459383,
+              "polarity_margin": -0.028402278818750737,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 47,
+              "delta_seconds": 0.0424212,
+              "shift_grid_units": 1,
+              "correlation": 0.6249925003344236,
+              "forward_correlation": 0.5956112697630144,
+              "backward_correlation": 0.6249925003344236,
+              "polarity_margin": -0.029381230571409178,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 48,
+              "delta_seconds": 0.0484853,
+              "shift_grid_units": 10,
+              "correlation": 0.6130701225719482,
+              "forward_correlation": 0.3608941974292207,
+              "backward_correlation": 0.6130701225719482,
+              "polarity_margin": -0.25217592514272746,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 49,
+              "delta_seconds": 0.0484824,
+              "shift_grid_units": 9,
+              "correlation": 0.6860184954371826,
+              "forward_correlation": 0.4719407565678666,
+              "backward_correlation": 0.6860184954371826,
+              "polarity_margin": -0.21407773886931603,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 50,
+              "delta_seconds": 0.0484831,
+              "shift_grid_units": 9,
+              "correlation": 0.6870095326500996,
+              "forward_correlation": 0.5290013103861131,
+              "backward_correlation": 0.6870095326500996,
+              "polarity_margin": -0.15800822226398648,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 51,
+              "delta_seconds": 0.0424271,
+              "shift_grid_units": 8,
+              "correlation": 0.6970777616831455,
+              "forward_correlation": 0.6626784927350589,
+              "backward_correlation": 0.6970777616831455,
+              "polarity_margin": -0.03439926894808665,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 52,
+              "delta_seconds": 0.0484868,
+              "shift_grid_units": 5,
+              "correlation": 0.6693746462529593,
+              "forward_correlation": 0.6298950685386976,
+              "backward_correlation": 0.6693746462529593,
+              "polarity_margin": -0.03947957771426169,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 53,
+              "delta_seconds": 0.0424237,
+              "shift_grid_units": 0,
+              "correlation": 0.5988798612815603,
+              "forward_correlation": 0.5530410744970398,
+              "backward_correlation": 0.595728967720774,
+              "polarity_margin": -0.04268789322373423,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 54,
+              "delta_seconds": 0.0484829,
+              "shift_grid_units": 9,
+              "correlation": 0.7638034710154635,
+              "forward_correlation": 0.4644724445655107,
+              "backward_correlation": 0.7638034710154635,
+              "polarity_margin": -0.29933102644995285,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 55,
+              "delta_seconds": 0.0484838,
+              "shift_grid_units": 1,
+              "correlation": 0.3172514742615463,
+              "forward_correlation": 0.2809674144619791,
+              "backward_correlation": 0.3172514742615463,
+              "polarity_margin": -0.036284059799567225,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 56,
+              "delta_seconds": 0.0424227,
+              "shift_grid_units": 9,
+              "correlation": 0.7960570044553464,
+              "forward_correlation": 0.61395428907828,
+              "backward_correlation": 0.7960570044553464,
+              "polarity_margin": -0.18210271537706646,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 57,
+              "delta_seconds": 0.0424219,
+              "shift_grid_units": 1,
+              "correlation": 0.5518801984383583,
+              "forward_correlation": 0.5030605597099462,
+              "backward_correlation": 0.5518801984383583,
+              "polarity_margin": -0.04881963872841211,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 58,
+              "delta_seconds": 0.0484808,
+              "shift_grid_units": 10,
+              "correlation": 0.7702531070080781,
+              "forward_correlation": 0.3114953964579211,
+              "backward_correlation": 0.7702531070080781,
+              "polarity_margin": -0.458757710550157,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 59,
+              "delta_seconds": 0.0484851,
+              "shift_grid_units": 9,
+              "correlation": 0.44165185069777646,
+              "forward_correlation": 0.34185886182460073,
+              "backward_correlation": 0.44165185069777646,
+              "polarity_margin": -0.09979298887317573,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 60,
+              "delta_seconds": 0.0484854,
+              "shift_grid_units": 9,
+              "correlation": 0.8046210820058417,
+              "forward_correlation": 0.5693323858396145,
+              "backward_correlation": 0.8046210820058417,
+              "polarity_margin": -0.23528869616622716,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 61,
+              "delta_seconds": 0.042427,
+              "shift_grid_units": 4,
+              "correlation": 0.7091089390728467,
+              "forward_correlation": 0.6649014356431941,
+              "backward_correlation": 0.7091089390728467,
+              "polarity_margin": -0.04420750342965252,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 62,
+              "delta_seconds": 0.0484831,
+              "shift_grid_units": 9,
+              "correlation": 0.6912812417165876,
+              "forward_correlation": 0.5019258299397917,
+              "backward_correlation": 0.6912812417165876,
+              "polarity_margin": -0.18935541177679582,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 63,
+              "delta_seconds": 0.0484874,
+              "shift_grid_units": 9,
+              "correlation": 0.6106807951543642,
+              "forward_correlation": 0.412703970833721,
+              "backward_correlation": 0.6106807951543642,
+              "polarity_margin": -0.19797682432064323,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 64,
+              "delta_seconds": 0.0424247,
+              "shift_grid_units": 1,
+              "correlation": 0.6659108968036517,
+              "forward_correlation": 0.6211832009571344,
+              "backward_correlation": 0.6659108968036517,
+              "polarity_margin": -0.04472769584651726,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 65,
+              "delta_seconds": 0.048484,
+              "shift_grid_units": 10,
+              "correlation": 0.817665243024254,
+              "forward_correlation": 0.549019456810907,
+              "backward_correlation": 0.817665243024254,
+              "polarity_margin": -0.268645786213347,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 66,
+              "delta_seconds": 0.0484829,
+              "shift_grid_units": 9,
+              "correlation": 0.6976625019664998,
+              "forward_correlation": 0.5394220466883317,
+              "backward_correlation": 0.6976625019664998,
+              "polarity_margin": -0.1582404552781681,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 67,
+              "delta_seconds": 0.0303016,
+              "shift_grid_units": 1,
+              "correlation": 0.7887015167195944,
+              "forward_correlation": 0.7425684663593488,
+              "backward_correlation": 0.7887015167195944,
+              "polarity_margin": -0.04613305036024562,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 68,
+              "delta_seconds": 0.0181815,
+              "shift_grid_units": 0,
+              "correlation": 0.8453374768571739,
+              "forward_correlation": 0.7950012204003363,
+              "backward_correlation": 0.8195531184167607,
+              "polarity_margin": -0.024551898016424434,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 69,
+              "delta_seconds": 0.0181815,
+              "shift_grid_units": 0,
+              "correlation": 0.8917529611751539,
+              "forward_correlation": 0.8484599769865849,
+              "backward_correlation": 0.8605417374712591,
+              "polarity_margin": -0.012081760484674131,
+              "measurable": false,
+              "correct": false
+            }
+          ],
+          "eligible_pairs": 70,
+          "correct_pair_fraction": 0.0,
+          "physical_grid_spacing": 0.0066315789473684215,
+          "measurable_pairs": 44,
+          "measurable_pair_fraction": 0.6285714285714286,
+          "correct_measurable_pair_fraction": 0.0,
+          "measurable_span_fraction": 0.9790479308839375,
+          "measurable_quarters": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "expected_axis": 0,
+          "expected_sign": -1,
+          "passed": false
+        },
+        "reversed_time_rejected": true
+      }
+    },
+    "missing_falling_wet": {
+      "case": "falling",
+      "route": "missing",
+      "passed": true,
+      "frames": 75,
+      "south_side": {
+        "direction_metric_version": 2,
+        "signal_stddev": 3.3026855254542147,
+        "pairs": [
+          {
+            "frame_index": 0,
+            "delta_seconds": 0.0181833,
+            "shift_grid_units": 0,
+            "correlation": 0.9342645322229448,
+            "forward_correlation": 0.912026603280307,
+            "backward_correlation": 0.9005030141439854,
+            "polarity_margin": 0.011523589136321677,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 1,
+            "delta_seconds": 0.018181,
+            "shift_grid_units": 0,
+            "correlation": 0.8667230933142468,
+            "forward_correlation": 0.8400815455711034,
+            "backward_correlation": 0.8262544553110451,
+            "polarity_margin": 0.013827090260058239,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 2,
+            "delta_seconds": 0.0303005,
+            "shift_grid_units": -1,
+            "correlation": 0.6107863496010972,
+            "forward_correlation": 0.6107863496010972,
+            "backward_correlation": 0.5661207501265499,
+            "polarity_margin": 0.04466559947454729,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 3,
+            "delta_seconds": 0.0424253,
+            "shift_grid_units": -9,
+            "correlation": 0.7300690707980629,
+            "forward_correlation": 0.7300690707980629,
+            "backward_correlation": 0.45496470162592123,
+            "polarity_margin": 0.2751043691721417,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 4,
+            "delta_seconds": 0.048483,
+            "shift_grid_units": -9,
+            "correlation": 0.4674592799958509,
+            "forward_correlation": 0.4674592799958509,
+            "backward_correlation": 0.38769186927669164,
+            "polarity_margin": 0.07976741071915927,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 5,
+            "delta_seconds": 0.0424236,
+            "shift_grid_units": -9,
+            "correlation": 0.7570075468034032,
+            "forward_correlation": 0.7570075468034032,
+            "backward_correlation": 0.5468970667556008,
+            "polarity_margin": 0.21011048004780242,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 6,
+            "delta_seconds": 0.0424221,
+            "shift_grid_units": 0,
+            "correlation": 0.39778784447931176,
+            "forward_correlation": 0.39738403004183476,
+            "backward_correlation": 0.36370270300744467,
+            "polarity_margin": 0.033681327034390085,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 7,
+            "delta_seconds": 0.0363612,
+            "shift_grid_units": -5,
+            "correlation": 0.7088593936578808,
+            "forward_correlation": 0.7088593936578808,
+            "backward_correlation": 0.6473856136941065,
+            "polarity_margin": 0.06147377996377423,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 8,
+            "delta_seconds": 0.0424246,
+            "shift_grid_units": -1,
+            "correlation": 0.647363559809044,
+            "forward_correlation": 0.647363559809044,
+            "backward_correlation": 0.5889570979939135,
+            "polarity_margin": 0.05840646181513054,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 9,
+            "delta_seconds": 0.0484843,
+            "shift_grid_units": 0,
+            "correlation": 0.5007788559841431,
+            "forward_correlation": 0.4948818552446331,
+            "backward_correlation": 0.4889578080852438,
+            "polarity_margin": 0.005924047159389267,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 10,
+            "delta_seconds": 0.0424237,
+            "shift_grid_units": -9,
+            "correlation": 0.8180529433857912,
+            "forward_correlation": 0.8180529433857912,
+            "backward_correlation": 0.5871969803777538,
+            "polarity_margin": 0.23085596300803735,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 11,
+            "delta_seconds": 0.0424274,
+            "shift_grid_units": -9,
+            "correlation": 0.6303713646588843,
+            "forward_correlation": 0.6303713646588843,
+            "backward_correlation": 0.5237144762676748,
+            "polarity_margin": 0.10665688839120957,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 12,
+            "delta_seconds": 0.0424219,
+            "shift_grid_units": -9,
+            "correlation": 0.8263005784593389,
+            "forward_correlation": 0.8263005784593389,
+            "backward_correlation": 0.6242215761737704,
+            "polarity_margin": 0.20207900228556852,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 13,
+            "delta_seconds": 0.0424208,
+            "shift_grid_units": 0,
+            "correlation": 0.643362298873999,
+            "forward_correlation": 0.6396771946089217,
+            "backward_correlation": 0.612422211687869,
+            "polarity_margin": 0.027254982921052662,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 14,
+            "delta_seconds": 0.0424224,
+            "shift_grid_units": -10,
+            "correlation": 0.7480101398794421,
+            "forward_correlation": 0.7480101398794421,
+            "backward_correlation": 0.5051819475671997,
+            "polarity_margin": 0.2428281923122424,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 15,
+            "delta_seconds": 0.0484828,
+            "shift_grid_units": -9,
+            "correlation": 0.4208217850731638,
+            "forward_correlation": 0.4208217850731638,
+            "backward_correlation": 0.3950898261209785,
+            "polarity_margin": 0.02573195895218533,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 16,
+            "delta_seconds": 0.0484829,
+            "shift_grid_units": -10,
+            "correlation": 0.6340198922335621,
+            "forward_correlation": 0.6340198922335621,
+            "backward_correlation": 0.4405670907489513,
+            "polarity_margin": 0.19345280148461086,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 17,
+            "delta_seconds": 0.0424233,
+            "shift_grid_units": -1,
+            "correlation": 0.5050983608973362,
+            "forward_correlation": 0.5050983608973362,
+            "backward_correlation": 0.4793363806262982,
+            "polarity_margin": 0.025761980271037987,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 18,
+            "delta_seconds": 0.0484838,
+            "shift_grid_units": -10,
+            "correlation": 0.6494150527145415,
+            "forward_correlation": 0.6494150527145415,
+            "backward_correlation": 0.31003686587211227,
+            "polarity_margin": 0.3393781868424292,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 19,
+            "delta_seconds": 0.0484868,
+            "shift_grid_units": -9,
+            "correlation": 0.6249110205849477,
+            "forward_correlation": 0.6249110205849477,
+            "backward_correlation": 0.3274332590981615,
+            "polarity_margin": 0.29747776148678623,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 20,
+            "delta_seconds": 0.0424234,
+            "shift_grid_units": -9,
+            "correlation": 0.5911840293156453,
+            "forward_correlation": 0.5911840293156453,
+            "backward_correlation": 0.37326779155508294,
+            "polarity_margin": 0.21791623776056235,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 21,
+            "delta_seconds": 0.0545421,
+            "shift_grid_units": -9,
+            "correlation": 0.6712060716654021,
+            "forward_correlation": 0.6712060716654021,
+            "backward_correlation": 0.3386153664033204,
+            "polarity_margin": 0.33259070526208173,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 22,
+            "delta_seconds": 0.0424233,
+            "shift_grid_units": -9,
+            "correlation": 0.5218581083035264,
+            "forward_correlation": 0.5218581083035264,
+            "backward_correlation": 0.41889399412890616,
+            "polarity_margin": 0.10296411417462026,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 23,
+            "delta_seconds": 0.0484811,
+            "shift_grid_units": -9,
+            "correlation": 0.8061821061333254,
+            "forward_correlation": 0.8061821061333254,
+            "backward_correlation": 0.563119072710288,
+            "polarity_margin": 0.24306303342303737,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 24,
+            "delta_seconds": 0.0424204,
+            "shift_grid_units": 0,
+            "correlation": 0.5975137747717664,
+            "forward_correlation": 0.5939163005295438,
+            "backward_correlation": 0.5713276324280165,
+            "polarity_margin": 0.022588668101527265,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 25,
+            "delta_seconds": 0.0484852,
+            "shift_grid_units": -9,
+            "correlation": 0.8095707571003848,
+            "forward_correlation": 0.8095707571003848,
+            "backward_correlation": 0.576813803346296,
+            "polarity_margin": 0.2327569537540889,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 26,
+            "delta_seconds": 0.0424243,
+            "shift_grid_units": 0,
+            "correlation": 0.5528113137569772,
+            "forward_correlation": 0.5377523509423103,
+            "backward_correlation": 0.5236807748478631,
+            "polarity_margin": 0.014071576094447202,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 27,
+            "delta_seconds": 0.0424235,
+            "shift_grid_units": -10,
+            "correlation": 0.7387671046285827,
+            "forward_correlation": 0.7387671046285827,
+            "backward_correlation": 0.6181049934898893,
+            "polarity_margin": 0.1206621111386934,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 28,
+            "delta_seconds": 0.042425,
+            "shift_grid_units": -8,
+            "correlation": 0.615453632927531,
+            "forward_correlation": 0.615453632927531,
+            "backward_correlation": 0.5008490120115259,
+            "polarity_margin": 0.1146046209160051,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 29,
+            "delta_seconds": 0.0424266,
+            "shift_grid_units": 0,
+            "correlation": 0.5419378004197204,
+            "forward_correlation": 0.5404006025147147,
+            "backward_correlation": 0.5041642735277464,
+            "polarity_margin": 0.03623632898696827,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 30,
+            "delta_seconds": 0.0424233,
+            "shift_grid_units": -9,
+            "correlation": 0.8283002458562841,
+            "forward_correlation": 0.8283002458562841,
+            "backward_correlation": 0.39647111255283646,
+            "polarity_margin": 0.4318291333034477,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 31,
+            "delta_seconds": 0.0424265,
+            "shift_grid_units": -9,
+            "correlation": 0.6567520341767539,
+            "forward_correlation": 0.6567520341767539,
+            "backward_correlation": 0.5194970736072237,
+            "polarity_margin": 0.13725496056953013,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 32,
+            "delta_seconds": 0.0545444,
+            "shift_grid_units": -9,
+            "correlation": 0.8239282093878879,
+            "forward_correlation": 0.8239282093878879,
+            "backward_correlation": 0.6050553756331675,
+            "polarity_margin": 0.21887283375472044,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 33,
+            "delta_seconds": 0.0424244,
+            "shift_grid_units": -4,
+            "correlation": 0.5288467114797497,
+            "forward_correlation": 0.5288467114797497,
+            "backward_correlation": 0.46804435993359295,
+            "polarity_margin": 0.06080235154615676,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 34,
+            "delta_seconds": 0.0484886,
+            "shift_grid_units": -9,
+            "correlation": 0.8053549258756394,
+            "forward_correlation": 0.8053549258756394,
+            "backward_correlation": 0.6561955156747875,
+            "polarity_margin": 0.14915941020085188,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 35,
+            "delta_seconds": 0.0545455,
+            "shift_grid_units": -9,
+            "correlation": 0.5941715164218575,
+            "forward_correlation": 0.5941715164218575,
+            "backward_correlation": 0.5069068242096803,
+            "polarity_margin": 0.08726469221217725,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 36,
+            "delta_seconds": 0.048484,
+            "shift_grid_units": -9,
+            "correlation": 0.841545964925845,
+            "forward_correlation": 0.841545964925845,
+            "backward_correlation": 0.6478008111822892,
+            "polarity_margin": 0.19374515374355583,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 37,
+            "delta_seconds": 0.0424221,
+            "shift_grid_units": 0,
+            "correlation": 0.64646959313277,
+            "forward_correlation": 0.6424392583427657,
+            "backward_correlation": 0.6151103811111369,
+            "polarity_margin": 0.0273288772316288,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 38,
+            "delta_seconds": 0.0484863,
+            "shift_grid_units": -10,
+            "correlation": 0.7303262308658218,
+            "forward_correlation": 0.7303262308658218,
+            "backward_correlation": 0.4848607879372894,
+            "polarity_margin": 0.24546544292853245,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 39,
+            "delta_seconds": 0.0484844,
+            "shift_grid_units": -9,
+            "correlation": 0.48769422479699737,
+            "forward_correlation": 0.48769422479699737,
+            "backward_correlation": 0.3888344905514795,
+            "polarity_margin": 0.09885973424551786,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 40,
+            "delta_seconds": 0.0424225,
+            "shift_grid_units": -10,
+            "correlation": 0.7595304136753098,
+            "forward_correlation": 0.7595304136753098,
+            "backward_correlation": 0.5530425532258209,
+            "polarity_margin": 0.20648786044948897,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 41,
+            "delta_seconds": 0.0484806,
+            "shift_grid_units": -10,
+            "correlation": 0.3142869393827395,
+            "forward_correlation": 0.3142869393827395,
+            "backward_correlation": 0.13615442405426045,
+            "polarity_margin": 0.17813251532847904,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 42,
+            "delta_seconds": 0.0545466,
+            "shift_grid_units": -10,
+            "correlation": 0.6767419486602726,
+            "forward_correlation": 0.6767419486602726,
+            "backward_correlation": 0.2360081598037806,
+            "polarity_margin": 0.440733788856492,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 43,
+            "delta_seconds": 0.0424215,
+            "shift_grid_units": 0,
+            "correlation": 0.6590252195138233,
+            "forward_correlation": 0.6589381434620876,
+            "backward_correlation": 0.6092640930347659,
+            "polarity_margin": 0.04967405042732165,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 44,
+            "delta_seconds": 0.0424255,
+            "shift_grid_units": 0,
+            "correlation": 0.623307563641754,
+            "forward_correlation": 0.6140249555254034,
+            "backward_correlation": 0.6044707300234681,
+            "polarity_margin": 0.009554225501935298,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 45,
+            "delta_seconds": 0.0424273,
+            "shift_grid_units": -9,
+            "correlation": 0.8163977009620424,
+            "forward_correlation": 0.8163977009620424,
+            "backward_correlation": 0.5897561071956189,
+            "polarity_margin": 0.22664159376642357,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 46,
+            "delta_seconds": 0.048484,
+            "shift_grid_units": -9,
+            "correlation": 0.6163255502426945,
+            "forward_correlation": 0.6163255502426945,
+            "backward_correlation": 0.43832519519545937,
+            "polarity_margin": 0.17800035504723516,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 47,
+            "delta_seconds": 0.0424249,
+            "shift_grid_units": -9,
+            "correlation": 0.8234068724858093,
+            "forward_correlation": 0.8234068724858093,
+            "backward_correlation": 0.585465928875858,
+            "polarity_margin": 0.23794094360995133,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 48,
+            "delta_seconds": 0.0484837,
+            "shift_grid_units": -1,
+            "correlation": 0.5437545527842146,
+            "forward_correlation": 0.5437545527842146,
+            "backward_correlation": 0.5112193868314717,
+            "polarity_margin": 0.03253516595274286,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 49,
+            "delta_seconds": 0.0424225,
+            "shift_grid_units": -9,
+            "correlation": 0.7495473238721622,
+            "forward_correlation": 0.7495473238721622,
+            "backward_correlation": 0.6152799782953439,
+            "polarity_margin": 0.1342673455768183,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 50,
+            "delta_seconds": 0.0363629,
+            "shift_grid_units": 0,
+            "correlation": 0.5922161366426089,
+            "forward_correlation": 0.5767538195265459,
+            "backward_correlation": 0.5609144616078752,
+            "polarity_margin": 0.01583935791867075,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 51,
+            "delta_seconds": 0.0424217,
+            "shift_grid_units": 0,
+            "correlation": 0.619514096643682,
+            "forward_correlation": 0.6188834632135385,
+            "backward_correlation": 0.5886695087998599,
+            "polarity_margin": 0.03021395441367858,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 52,
+            "delta_seconds": 0.0363644,
+            "shift_grid_units": -9,
+            "correlation": 0.6746206068950411,
+            "forward_correlation": 0.6746206068950411,
+            "backward_correlation": 0.6038750472253641,
+            "polarity_margin": 0.070745559669677,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 53,
+            "delta_seconds": 0.0424232,
+            "shift_grid_units": -9,
+            "correlation": 0.539976244562109,
+            "forward_correlation": 0.539976244562109,
+            "backward_correlation": 0.35566347959299155,
+            "polarity_margin": 0.18431276496911747,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 54,
+            "delta_seconds": 0.0424248,
+            "shift_grid_units": -9,
+            "correlation": 0.7414971432953525,
+            "forward_correlation": 0.7414971432953525,
+            "backward_correlation": 0.5499338465889888,
+            "polarity_margin": 0.19156329670636374,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 55,
+            "delta_seconds": 0.0363645,
+            "shift_grid_units": 0,
+            "correlation": 0.5835222089934966,
+            "forward_correlation": 0.5810257054705555,
+            "backward_correlation": 0.5322687980946993,
+            "polarity_margin": 0.04875690737585625,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 56,
+            "delta_seconds": 0.0424208,
+            "shift_grid_units": -10,
+            "correlation": 0.6871239383925358,
+            "forward_correlation": 0.6871239383925358,
+            "backward_correlation": 0.4079463057773026,
+            "polarity_margin": 0.2791776326152332,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 57,
+            "delta_seconds": 0.0424226,
+            "shift_grid_units": -9,
+            "correlation": 0.6503173564518555,
+            "forward_correlation": 0.6503173564518555,
+            "backward_correlation": 0.5065049072535162,
+            "polarity_margin": 0.14381244919833935,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 58,
+            "delta_seconds": 0.0424219,
+            "shift_grid_units": -9,
+            "correlation": 0.502167010157437,
+            "forward_correlation": 0.502167010157437,
+            "backward_correlation": 0.4475306102648206,
+            "polarity_margin": 0.05463639989261643,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 59,
+            "delta_seconds": 0.0363608,
+            "shift_grid_units": -9,
+            "correlation": 0.8258837382511129,
+            "forward_correlation": 0.8258837382511129,
+            "backward_correlation": 0.6893973395639673,
+            "polarity_margin": 0.13648639868714563,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 60,
+            "delta_seconds": 0.0424233,
+            "shift_grid_units": 0,
+            "correlation": 0.5803448834763004,
+            "forward_correlation": 0.5751280494407432,
+            "backward_correlation": 0.5504001704274799,
+            "polarity_margin": 0.024727879013263343,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 61,
+            "delta_seconds": 0.0363622,
+            "shift_grid_units": -8,
+            "correlation": 0.6892149218717631,
+            "forward_correlation": 0.6892149218717631,
+            "backward_correlation": 0.6199286375838505,
+            "polarity_margin": 0.06928628428791261,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 62,
+            "delta_seconds": 0.0424242,
+            "shift_grid_units": -9,
+            "correlation": 0.6573467379331812,
+            "forward_correlation": 0.6573467379331812,
+            "backward_correlation": 0.5317063150707795,
+            "polarity_margin": 0.12564042286240173,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 63,
+            "delta_seconds": 0.0363615,
+            "shift_grid_units": 0,
+            "correlation": 0.6040159143426227,
+            "forward_correlation": 0.5870175576969234,
+            "backward_correlation": 0.5701970932026752,
+            "polarity_margin": 0.016820464494248233,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 64,
+            "delta_seconds": 0.0363639,
+            "shift_grid_units": -1,
+            "correlation": 0.7860262498445661,
+            "forward_correlation": 0.7860262498445661,
+            "backward_correlation": 0.7378174515707339,
+            "polarity_margin": 0.04820879827383229,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 65,
+            "delta_seconds": 0.0363614,
+            "shift_grid_units": -7,
+            "correlation": 0.6429271128834534,
+            "forward_correlation": 0.6429271128834534,
+            "backward_correlation": 0.5693920848232857,
+            "polarity_margin": 0.07353502806016765,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 66,
+            "delta_seconds": 0.0484829,
+            "shift_grid_units": -10,
+            "correlation": 0.5749013148841186,
+            "forward_correlation": 0.5749013148841186,
+            "backward_correlation": 0.49135782437183667,
+            "polarity_margin": 0.08354349051228188,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 67,
+            "delta_seconds": 0.0363629,
+            "shift_grid_units": -9,
+            "correlation": 0.8193230818650283,
+            "forward_correlation": 0.8193230818650283,
+            "backward_correlation": 0.5387706799029682,
+            "polarity_margin": 0.2805524019620601,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 68,
+            "delta_seconds": 0.042424,
+            "shift_grid_units": -10,
+            "correlation": 0.6520499316754258,
+            "forward_correlation": 0.6520499316754258,
+            "backward_correlation": 0.49589179338800504,
+            "polarity_margin": 0.15615813828742076,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 69,
+            "delta_seconds": 0.042421,
+            "shift_grid_units": -6,
+            "correlation": 0.8450536205071898,
+            "forward_correlation": 0.8450536205071898,
+            "backward_correlation": 0.7397600278415146,
+            "polarity_margin": 0.10529359266567517,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 70,
+            "delta_seconds": 0.0424224,
+            "shift_grid_units": -1,
+            "correlation": 0.6598083655345789,
+            "forward_correlation": 0.6598083655345789,
+            "backward_correlation": 0.6150961733054856,
+            "polarity_margin": 0.044712192229093284,
+            "measurable": false,
+            "correct": false
+          },
+          {
+            "frame_index": 71,
+            "delta_seconds": 0.0363619,
+            "shift_grid_units": -9,
+            "correlation": 0.6783266288601233,
+            "forward_correlation": 0.6783266288601233,
+            "backward_correlation": 0.5771733179940104,
+            "polarity_margin": 0.1011533108661129,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 72,
+            "delta_seconds": 0.0424251,
+            "shift_grid_units": -9,
+            "correlation": 0.7162642945081217,
+            "forward_correlation": 0.7162642945081217,
+            "backward_correlation": 0.5619846139149175,
+            "polarity_margin": 0.15427968059320418,
+            "measurable": true,
+            "correct": true
+          },
+          {
+            "frame_index": 73,
+            "delta_seconds": 0.042423,
+            "shift_grid_units": -2,
+            "correlation": 0.7098685246935129,
+            "forward_correlation": 0.7098685246935129,
+            "backward_correlation": 0.671368429387949,
+            "polarity_margin": 0.038500095305563864,
+            "measurable": false,
+            "correct": false
+          }
+        ],
+        "eligible_pairs": 74,
+        "correct_pair_fraction": 0.6486486486486487,
+        "physical_grid_spacing": 0.0066315789473684215,
+        "measurable_pairs": 48,
+        "measurable_pair_fraction": 0.6486486486486487,
+        "correct_measurable_pair_fraction": 1.0,
+        "measurable_span_fraction": 0.9654513809987632,
+        "measurable_quarters": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "expected_axis": 0,
+        "expected_sign": -1,
+        "passed": true,
+        "reversed_time_control": {
+          "direction_metric_version": 2,
+          "signal_stddev": 3.3026855254542147,
+          "pairs": [
+            {
+              "frame_index": 0,
+              "delta_seconds": 0.042423,
+              "shift_grid_units": 2,
+              "correlation": 0.7098685246935131,
+              "forward_correlation": 0.6713684293879492,
+              "backward_correlation": 0.7098685246935131,
+              "polarity_margin": -0.038500095305563975,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 1,
+              "delta_seconds": 0.0424251,
+              "shift_grid_units": 9,
+              "correlation": 0.7162642945081217,
+              "forward_correlation": 0.5619846139149176,
+              "backward_correlation": 0.7162642945081217,
+              "polarity_margin": -0.15427968059320407,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 2,
+              "delta_seconds": 0.0363619,
+              "shift_grid_units": 9,
+              "correlation": 0.6783266288601234,
+              "forward_correlation": 0.5771733179940103,
+              "backward_correlation": 0.6783266288601234,
+              "polarity_margin": -0.10115331086611312,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 3,
+              "delta_seconds": 0.0424224,
+              "shift_grid_units": 1,
+              "correlation": 0.6598083655345789,
+              "forward_correlation": 0.6150961733054858,
+              "backward_correlation": 0.6598083655345789,
+              "polarity_margin": -0.04471219222909306,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 4,
+              "delta_seconds": 0.042421,
+              "shift_grid_units": 6,
+              "correlation": 0.8450536205071898,
+              "forward_correlation": 0.7397600278415147,
+              "backward_correlation": 0.8450536205071898,
+              "polarity_margin": -0.10529359266567506,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 5,
+              "delta_seconds": 0.042424,
+              "shift_grid_units": 10,
+              "correlation": 0.6520499316754258,
+              "forward_correlation": 0.495891793388005,
+              "backward_correlation": 0.6520499316754258,
+              "polarity_margin": -0.1561581382874208,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 6,
+              "delta_seconds": 0.0363629,
+              "shift_grid_units": 9,
+              "correlation": 0.8193230818650283,
+              "forward_correlation": 0.5387706799029681,
+              "backward_correlation": 0.8193230818650283,
+              "polarity_margin": -0.2805524019620602,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 7,
+              "delta_seconds": 0.0484829,
+              "shift_grid_units": 10,
+              "correlation": 0.5749013148841184,
+              "forward_correlation": 0.4913578243718366,
+              "backward_correlation": 0.5749013148841184,
+              "polarity_margin": -0.08354349051228183,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 8,
+              "delta_seconds": 0.0363614,
+              "shift_grid_units": 7,
+              "correlation": 0.6429271128834535,
+              "forward_correlation": 0.5693920848232857,
+              "backward_correlation": 0.6429271128834535,
+              "polarity_margin": -0.07353502806016776,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 9,
+              "delta_seconds": 0.0363639,
+              "shift_grid_units": 1,
+              "correlation": 0.7860262498445661,
+              "forward_correlation": 0.737817451570734,
+              "backward_correlation": 0.7860262498445661,
+              "polarity_margin": -0.048208798273832176,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 10,
+              "delta_seconds": 0.0363615,
+              "shift_grid_units": 0,
+              "correlation": 0.6040159143426228,
+              "forward_correlation": 0.5701970932026753,
+              "backward_correlation": 0.5870175576969235,
+              "polarity_margin": -0.016820464494248233,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 11,
+              "delta_seconds": 0.0424242,
+              "shift_grid_units": 9,
+              "correlation": 0.6573467379331811,
+              "forward_correlation": 0.5317063150707795,
+              "backward_correlation": 0.6573467379331811,
+              "polarity_margin": -0.12564042286240162,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 12,
+              "delta_seconds": 0.0363622,
+              "shift_grid_units": 8,
+              "correlation": 0.689214921871763,
+              "forward_correlation": 0.6199286375838505,
+              "backward_correlation": 0.689214921871763,
+              "polarity_margin": -0.0692862842879125,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 13,
+              "delta_seconds": 0.0424233,
+              "shift_grid_units": 0,
+              "correlation": 0.5803448834763004,
+              "forward_correlation": 0.5504001704274799,
+              "backward_correlation": 0.5751280494407432,
+              "polarity_margin": -0.024727879013263343,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 14,
+              "delta_seconds": 0.0363608,
+              "shift_grid_units": 9,
+              "correlation": 0.8258837382511129,
+              "forward_correlation": 0.6893973395639672,
+              "backward_correlation": 0.8258837382511129,
+              "polarity_margin": -0.13648639868714574,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 15,
+              "delta_seconds": 0.0424219,
+              "shift_grid_units": 9,
+              "correlation": 0.5021670101574371,
+              "forward_correlation": 0.4475306102648206,
+              "backward_correlation": 0.5021670101574371,
+              "polarity_margin": -0.05463639989261654,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 16,
+              "delta_seconds": 0.0424226,
+              "shift_grid_units": 9,
+              "correlation": 0.6503173564518556,
+              "forward_correlation": 0.506504907253516,
+              "backward_correlation": 0.6503173564518556,
+              "polarity_margin": -0.14381244919833958,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 17,
+              "delta_seconds": 0.0424208,
+              "shift_grid_units": 10,
+              "correlation": 0.6871239383925357,
+              "forward_correlation": 0.4079463057773025,
+              "backward_correlation": 0.6871239383925357,
+              "polarity_margin": -0.2791776326152332,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 18,
+              "delta_seconds": 0.0363645,
+              "shift_grid_units": 0,
+              "correlation": 0.5835222089934966,
+              "forward_correlation": 0.5322687980946993,
+              "backward_correlation": 0.5810257054705554,
+              "polarity_margin": -0.04875690737585614,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 19,
+              "delta_seconds": 0.0424248,
+              "shift_grid_units": 9,
+              "correlation": 0.7414971432953524,
+              "forward_correlation": 0.5499338465889887,
+              "backward_correlation": 0.7414971432953524,
+              "polarity_margin": -0.19156329670636374,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 20,
+              "delta_seconds": 0.0424232,
+              "shift_grid_units": 9,
+              "correlation": 0.5399762445621088,
+              "forward_correlation": 0.3556634795929913,
+              "backward_correlation": 0.5399762445621088,
+              "polarity_margin": -0.18431276496911747,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 21,
+              "delta_seconds": 0.0363644,
+              "shift_grid_units": 9,
+              "correlation": 0.674620606895041,
+              "forward_correlation": 0.603875047225364,
+              "backward_correlation": 0.674620606895041,
+              "polarity_margin": -0.070745559669677,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 22,
+              "delta_seconds": 0.0424217,
+              "shift_grid_units": 0,
+              "correlation": 0.619514096643682,
+              "forward_correlation": 0.58866950879986,
+              "backward_correlation": 0.6188834632135385,
+              "polarity_margin": -0.030213954413678468,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 23,
+              "delta_seconds": 0.0363629,
+              "shift_grid_units": 0,
+              "correlation": 0.5922161366426087,
+              "forward_correlation": 0.5609144616078752,
+              "backward_correlation": 0.5767538195265459,
+              "polarity_margin": -0.01583935791867075,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 24,
+              "delta_seconds": 0.0424225,
+              "shift_grid_units": 9,
+              "correlation": 0.7495473238721623,
+              "forward_correlation": 0.6152799782953438,
+              "backward_correlation": 0.7495473238721623,
+              "polarity_margin": -0.13426734557681852,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 25,
+              "delta_seconds": 0.0484837,
+              "shift_grid_units": 1,
+              "correlation": 0.5437545527842145,
+              "forward_correlation": 0.5112193868314716,
+              "backward_correlation": 0.5437545527842145,
+              "polarity_margin": -0.03253516595274286,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 26,
+              "delta_seconds": 0.0424249,
+              "shift_grid_units": 9,
+              "correlation": 0.8234068724858095,
+              "forward_correlation": 0.5854659288758581,
+              "backward_correlation": 0.8234068724858095,
+              "polarity_margin": -0.23794094360995133,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 27,
+              "delta_seconds": 0.048484,
+              "shift_grid_units": 9,
+              "correlation": 0.6163255502426946,
+              "forward_correlation": 0.43832519519545937,
+              "backward_correlation": 0.6163255502426946,
+              "polarity_margin": -0.17800035504723527,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 28,
+              "delta_seconds": 0.0424273,
+              "shift_grid_units": 9,
+              "correlation": 0.8163977009620426,
+              "forward_correlation": 0.5897561071956191,
+              "backward_correlation": 0.8163977009620426,
+              "polarity_margin": -0.22664159376642345,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 29,
+              "delta_seconds": 0.0424255,
+              "shift_grid_units": 0,
+              "correlation": 0.623307563641754,
+              "forward_correlation": 0.6044707300234683,
+              "backward_correlation": 0.6140249555254035,
+              "polarity_margin": -0.009554225501935187,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 30,
+              "delta_seconds": 0.0424215,
+              "shift_grid_units": 0,
+              "correlation": 0.6590252195138233,
+              "forward_correlation": 0.6092640930347659,
+              "backward_correlation": 0.6589381434620873,
+              "polarity_margin": -0.049674050427321426,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 31,
+              "delta_seconds": 0.0545466,
+              "shift_grid_units": 10,
+              "correlation": 0.6767419486602728,
+              "forward_correlation": 0.23600815980378062,
+              "backward_correlation": 0.6767419486602728,
+              "polarity_margin": -0.44073378885649217,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 32,
+              "delta_seconds": 0.0484806,
+              "shift_grid_units": 10,
+              "correlation": 0.3142869393827396,
+              "forward_correlation": 0.13615442405426034,
+              "backward_correlation": 0.3142869393827396,
+              "polarity_margin": -0.17813251532847926,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 33,
+              "delta_seconds": 0.0424225,
+              "shift_grid_units": 10,
+              "correlation": 0.7595304136753102,
+              "forward_correlation": 0.5530425532258209,
+              "backward_correlation": 0.7595304136753102,
+              "polarity_margin": -0.2064878604494893,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 34,
+              "delta_seconds": 0.0484844,
+              "shift_grid_units": 9,
+              "correlation": 0.48769422479699726,
+              "forward_correlation": 0.3888344905514794,
+              "backward_correlation": 0.48769422479699726,
+              "polarity_margin": -0.09885973424551786,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 35,
+              "delta_seconds": 0.0484863,
+              "shift_grid_units": 10,
+              "correlation": 0.7303262308658218,
+              "forward_correlation": 0.4848607879372895,
+              "backward_correlation": 0.7303262308658218,
+              "polarity_margin": -0.24546544292853234,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 36,
+              "delta_seconds": 0.0424221,
+              "shift_grid_units": 0,
+              "correlation": 0.6464695931327699,
+              "forward_correlation": 0.6151103811111369,
+              "backward_correlation": 0.6424392583427658,
+              "polarity_margin": -0.027328877231628912,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 37,
+              "delta_seconds": 0.048484,
+              "shift_grid_units": 9,
+              "correlation": 0.8415459649258449,
+              "forward_correlation": 0.6478008111822892,
+              "backward_correlation": 0.8415459649258449,
+              "polarity_margin": -0.19374515374355572,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 38,
+              "delta_seconds": 0.0545455,
+              "shift_grid_units": 9,
+              "correlation": 0.5941715164218574,
+              "forward_correlation": 0.5069068242096804,
+              "backward_correlation": 0.5941715164218574,
+              "polarity_margin": -0.08726469221217703,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 39,
+              "delta_seconds": 0.0484886,
+              "shift_grid_units": 9,
+              "correlation": 0.8053549258756394,
+              "forward_correlation": 0.6561955156747875,
+              "backward_correlation": 0.8053549258756394,
+              "polarity_margin": -0.14915941020085188,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 40,
+              "delta_seconds": 0.0424244,
+              "shift_grid_units": 4,
+              "correlation": 0.5288467114797497,
+              "forward_correlation": 0.46804435993359295,
+              "backward_correlation": 0.5288467114797497,
+              "polarity_margin": -0.06080235154615676,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 41,
+              "delta_seconds": 0.0545444,
+              "shift_grid_units": 9,
+              "correlation": 0.823928209387888,
+              "forward_correlation": 0.6050553756331676,
+              "backward_correlation": 0.823928209387888,
+              "polarity_margin": -0.21887283375472044,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 42,
+              "delta_seconds": 0.0424265,
+              "shift_grid_units": 9,
+              "correlation": 0.6567520341767538,
+              "forward_correlation": 0.5194970736072237,
+              "backward_correlation": 0.6567520341767538,
+              "polarity_margin": -0.13725496056953002,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 43,
+              "delta_seconds": 0.0424233,
+              "shift_grid_units": 9,
+              "correlation": 0.8283002458562838,
+              "forward_correlation": 0.39647111255283635,
+              "backward_correlation": 0.8283002458562838,
+              "polarity_margin": -0.43182913330344747,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 44,
+              "delta_seconds": 0.0424266,
+              "shift_grid_units": 0,
+              "correlation": 0.5419378004197205,
+              "forward_correlation": 0.5041642735277464,
+              "backward_correlation": 0.5404006025147148,
+              "polarity_margin": -0.03623632898696838,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 45,
+              "delta_seconds": 0.042425,
+              "shift_grid_units": 8,
+              "correlation": 0.6154536329275311,
+              "forward_correlation": 0.5008490120115259,
+              "backward_correlation": 0.6154536329275311,
+              "polarity_margin": -0.1146046209160052,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 46,
+              "delta_seconds": 0.0424235,
+              "shift_grid_units": 10,
+              "correlation": 0.7387671046285827,
+              "forward_correlation": 0.6181049934898892,
+              "backward_correlation": 0.7387671046285827,
+              "polarity_margin": -0.12066211113869352,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 47,
+              "delta_seconds": 0.0424243,
+              "shift_grid_units": 0,
+              "correlation": 0.5528113137569773,
+              "forward_correlation": 0.523680774847863,
+              "backward_correlation": 0.5377523509423102,
+              "polarity_margin": -0.014071576094447202,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 48,
+              "delta_seconds": 0.0484852,
+              "shift_grid_units": 9,
+              "correlation": 0.8095707571003847,
+              "forward_correlation": 0.576813803346296,
+              "backward_correlation": 0.8095707571003847,
+              "polarity_margin": -0.23275695375408878,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 49,
+              "delta_seconds": 0.0424204,
+              "shift_grid_units": 0,
+              "correlation": 0.5975137747717664,
+              "forward_correlation": 0.5713276324280164,
+              "backward_correlation": 0.5939163005295438,
+              "polarity_margin": -0.022588668101527376,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 50,
+              "delta_seconds": 0.0484811,
+              "shift_grid_units": 9,
+              "correlation": 0.8061821061333253,
+              "forward_correlation": 0.5631190727102879,
+              "backward_correlation": 0.8061821061333253,
+              "polarity_margin": -0.24306303342303737,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 51,
+              "delta_seconds": 0.0424233,
+              "shift_grid_units": 9,
+              "correlation": 0.5218581083035264,
+              "forward_correlation": 0.4188939941289061,
+              "backward_correlation": 0.5218581083035264,
+              "polarity_margin": -0.10296411417462031,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 52,
+              "delta_seconds": 0.0545421,
+              "shift_grid_units": 9,
+              "correlation": 0.6712060716654024,
+              "forward_correlation": 0.33861536640332035,
+              "backward_correlation": 0.6712060716654024,
+              "polarity_margin": -0.332590705262082,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 53,
+              "delta_seconds": 0.0424234,
+              "shift_grid_units": 9,
+              "correlation": 0.5911840293156454,
+              "forward_correlation": 0.373267791555083,
+              "backward_correlation": 0.5911840293156454,
+              "polarity_margin": -0.2179162377605624,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 54,
+              "delta_seconds": 0.0484868,
+              "shift_grid_units": 9,
+              "correlation": 0.6249110205849477,
+              "forward_correlation": 0.32743325909816146,
+              "backward_correlation": 0.6249110205849477,
+              "polarity_margin": -0.2974777614867863,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 55,
+              "delta_seconds": 0.0484838,
+              "shift_grid_units": 10,
+              "correlation": 0.6494150527145415,
+              "forward_correlation": 0.31003686587211204,
+              "backward_correlation": 0.6494150527145415,
+              "polarity_margin": -0.33937818684242943,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 56,
+              "delta_seconds": 0.0424233,
+              "shift_grid_units": 1,
+              "correlation": 0.5050983608973362,
+              "forward_correlation": 0.4793363806262982,
+              "backward_correlation": 0.5050983608973362,
+              "polarity_margin": -0.025761980271037987,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 57,
+              "delta_seconds": 0.0484829,
+              "shift_grid_units": 10,
+              "correlation": 0.6340198922335621,
+              "forward_correlation": 0.44056709074895134,
+              "backward_correlation": 0.6340198922335621,
+              "polarity_margin": -0.1934528014846108,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 58,
+              "delta_seconds": 0.0484828,
+              "shift_grid_units": 9,
+              "correlation": 0.4208217850731637,
+              "forward_correlation": 0.3950898261209785,
+              "backward_correlation": 0.4208217850731637,
+              "polarity_margin": -0.02573195895218522,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 59,
+              "delta_seconds": 0.0424224,
+              "shift_grid_units": 10,
+              "correlation": 0.748010139879442,
+              "forward_correlation": 0.5051819475671997,
+              "backward_correlation": 0.748010139879442,
+              "polarity_margin": -0.24282819231224229,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 60,
+              "delta_seconds": 0.0424208,
+              "shift_grid_units": 0,
+              "correlation": 0.6433622988739991,
+              "forward_correlation": 0.612422211687869,
+              "backward_correlation": 0.6396771946089217,
+              "polarity_margin": -0.027254982921052662,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 61,
+              "delta_seconds": 0.0424219,
+              "shift_grid_units": 9,
+              "correlation": 0.826300578459339,
+              "forward_correlation": 0.6242215761737705,
+              "backward_correlation": 0.826300578459339,
+              "polarity_margin": -0.20207900228556852,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 62,
+              "delta_seconds": 0.0424274,
+              "shift_grid_units": 9,
+              "correlation": 0.6303713646588843,
+              "forward_correlation": 0.523714476267675,
+              "backward_correlation": 0.6303713646588843,
+              "polarity_margin": -0.10665688839120935,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 63,
+              "delta_seconds": 0.0424237,
+              "shift_grid_units": 9,
+              "correlation": 0.818052943385791,
+              "forward_correlation": 0.5871969803777539,
+              "backward_correlation": 0.818052943385791,
+              "polarity_margin": -0.23085596300803712,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 64,
+              "delta_seconds": 0.0484843,
+              "shift_grid_units": 0,
+              "correlation": 0.5007788559841432,
+              "forward_correlation": 0.48895780808524375,
+              "backward_correlation": 0.49488185524463296,
+              "polarity_margin": -0.005924047159389212,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 65,
+              "delta_seconds": 0.0424246,
+              "shift_grid_units": 1,
+              "correlation": 0.6473635598090443,
+              "forward_correlation": 0.5889570979939135,
+              "backward_correlation": 0.6473635598090443,
+              "polarity_margin": -0.05840646181513076,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 66,
+              "delta_seconds": 0.0363612,
+              "shift_grid_units": 5,
+              "correlation": 0.7088593936578805,
+              "forward_correlation": 0.6473856136941066,
+              "backward_correlation": 0.7088593936578805,
+              "polarity_margin": -0.0614737799637739,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 67,
+              "delta_seconds": 0.0424221,
+              "shift_grid_units": 0,
+              "correlation": 0.39778784447931187,
+              "forward_correlation": 0.36370270300744467,
+              "backward_correlation": 0.3973840300418348,
+              "polarity_margin": -0.03368132703439014,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 68,
+              "delta_seconds": 0.0424236,
+              "shift_grid_units": 9,
+              "correlation": 0.7570075468034032,
+              "forward_correlation": 0.5468970667556007,
+              "backward_correlation": 0.7570075468034032,
+              "polarity_margin": -0.21011048004780253,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 69,
+              "delta_seconds": 0.048483,
+              "shift_grid_units": 9,
+              "correlation": 0.4674592799958508,
+              "forward_correlation": 0.3876918692766917,
+              "backward_correlation": 0.4674592799958508,
+              "polarity_margin": -0.0797674107191591,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 70,
+              "delta_seconds": 0.0424253,
+              "shift_grid_units": 9,
+              "correlation": 0.7300690707980628,
+              "forward_correlation": 0.45496470162592123,
+              "backward_correlation": 0.7300690707980628,
+              "polarity_margin": -0.2751043691721416,
+              "measurable": true,
+              "correct": false
+            },
+            {
+              "frame_index": 71,
+              "delta_seconds": 0.0303005,
+              "shift_grid_units": 1,
+              "correlation": 0.6107863496010973,
+              "forward_correlation": 0.5661207501265499,
+              "backward_correlation": 0.6107863496010973,
+              "polarity_margin": -0.0446655994745474,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 72,
+              "delta_seconds": 0.018181,
+              "shift_grid_units": 0,
+              "correlation": 0.8667230933142468,
+              "forward_correlation": 0.8262544553110451,
+              "backward_correlation": 0.8400815455711033,
+              "polarity_margin": -0.013827090260058128,
+              "measurable": false,
+              "correct": false
+            },
+            {
+              "frame_index": 73,
+              "delta_seconds": 0.0181833,
+              "shift_grid_units": 0,
+              "correlation": 0.9342645322229448,
+              "forward_correlation": 0.9005030141439854,
+              "backward_correlation": 0.912026603280307,
+              "polarity_margin": -0.011523589136321677,
+              "measurable": false,
+              "correct": false
+            }
+          ],
+          "eligible_pairs": 74,
+          "correct_pair_fraction": 0.0,
+          "physical_grid_spacing": 0.0066315789473684215,
+          "measurable_pairs": 48,
+          "measurable_pair_fraction": 0.6486486486486487,
+          "correct_measurable_pair_fraction": 0.0,
+          "measurable_span_fraction": 0.9654513809987632,
+          "measurable_quarters": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "expected_axis": 0,
+          "expected_sign": -1,
+          "passed": false
+        },
+        "reversed_time_rejected": true
+      }
+    }
+  },
+  "capture_failures": [],
+  "passed": true,
+  "partial_diagnostics": false,
+  "native_parity_claimed": false,
+  "product_style_accepted": false,
+  "scope": "Independent physical face motion in short owner-bound compositor bursts",
+  "atlas": {
+    "sha256": "f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246",
+    "frame_count": 32,
+    "frame_pixels": 32,
+    "rows": [
+      {
+        "frame": 0,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.9453125,
+        "next_best_mse": 313.16015625
+      },
+      {
+        "frame": 1,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 257.3837890625,
+        "next_best_mse": 283.5947265625
+      },
+      {
+        "frame": 2,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.2861328125,
+        "next_best_mse": 244.5126953125
+      },
+      {
+        "frame": 3,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 203.767578125,
+        "next_best_mse": 238.869140625
+      },
+      {
+        "frame": 4,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.140625,
+        "next_best_mse": 219.38671875
+      },
+      {
+        "frame": 5,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 215.5185546875,
+        "next_best_mse": 263.5595703125
+      },
+      {
+        "frame": 6,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.2197265625,
+        "next_best_mse": 264.4775390625
+      },
+      {
+        "frame": 7,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 219.9228515625,
+        "next_best_mse": 284.5419921875
+      },
+      {
+        "frame": 8,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.408203125,
+        "next_best_mse": 291.80859375
+      },
+      {
+        "frame": 9,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 228.6162109375,
+        "next_best_mse": 289.7802734375
+      },
+      {
+        "frame": 10,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 1.01953125,
+        "next_best_mse": 281.30078125
+      },
+      {
+        "frame": 11,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 307.5078125,
+        "next_best_mse": 338.25
+      },
+      {
+        "frame": 12,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 1.859375,
+        "next_best_mse": 289.55859375
+      },
+      {
+        "frame": 13,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 294.560546875,
+        "next_best_mse": 309.966796875
+      },
+      {
+        "frame": 14,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.7490234375,
+        "next_best_mse": 275.8935546875
+      },
+      {
+        "frame": 15,
+        "motion_xy": [
+          0,
+          2
+        ],
+        "alignment_mse": 280.3291015625,
+        "next_best_mse": 288.2177734375
+      },
+      {
+        "frame": 16,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.0,
+        "next_best_mse": 263.46875
+      },
+      {
+        "frame": 17,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 221.771484375,
+        "next_best_mse": 275.623046875
+      },
+      {
+        "frame": 18,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.056640625,
+        "next_best_mse": 294.169921875
+      },
+      {
+        "frame": 19,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 254.966796875,
+        "next_best_mse": 333.537109375
+      },
+      {
+        "frame": 20,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.09765625,
+        "next_best_mse": 369.6640625
+      },
+      {
+        "frame": 21,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 329.9892578125,
+        "next_best_mse": 408.6474609375
+      },
+      {
+        "frame": 22,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.7119140625,
+        "next_best_mse": 318.9638671875
+      },
+      {
+        "frame": 23,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 282.091796875,
+        "next_best_mse": 381.318359375
+      },
+      {
+        "frame": 24,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 2.08984375,
+        "next_best_mse": 323.16796875
+      },
+      {
+        "frame": 25,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 360.0478515625,
+        "next_best_mse": 399.8701171875
+      },
+      {
+        "frame": 26,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 1.7666015625,
+        "next_best_mse": 277.3427734375
+      },
+      {
+        "frame": 27,
+        "motion_xy": [
+          0,
+          -2
+        ],
+        "alignment_mse": 281.2275390625,
+        "next_best_mse": 302.8818359375
+      },
+      {
+        "frame": 28,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.126953125,
+        "next_best_mse": 229.966796875
+      },
+      {
+        "frame": 29,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 297.8076171875,
+        "next_best_mse": 336.6923828125
+      },
+      {
+        "frame": 30,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 0.0,
+        "next_best_mse": 271.09765625
+      },
+      {
+        "frame": 31,
+        "motion_xy": [
+          0,
+          1
+        ],
+        "alignment_mse": 330.294921875,
+        "next_best_mse": 356.802734375
+      }
+    ],
+    "uniform_motion": false
+  },
+  "missing_requested_bursts": []
+}

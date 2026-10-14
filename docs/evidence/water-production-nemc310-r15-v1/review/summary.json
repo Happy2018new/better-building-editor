@@ -1,0 +1,819 @@
+{
+  "schema": 1,
+  "runtime": "NEMC 3.10.0.420447",
+  "direction_accepted": true,
+  "direction_rows": {
+    "editor_flow_east_wet": {
+      "analysis": "editor-flow-v2-analysis-v2.json",
+      "case": "flow_east",
+      "route": "editor",
+      "direction_metric_version": 2,
+      "signal_stddev": 6.836842130044978,
+      "eligible_pairs": 35,
+      "correct_pair_fraction": 0.7142857142857143,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 25,
+      "measurable_pair_fraction": 0.7142857142857143,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.9655192927676343,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 1,
+      "expected_sign": 1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "editor_flow_south_wet": {
+      "analysis": "editor-flow-v2-analysis-v2.json",
+      "case": "flow_south",
+      "route": "editor",
+      "direction_metric_version": 2,
+      "signal_stddev": 6.800427241771866,
+      "eligible_pairs": 33,
+      "correct_pair_fraction": 0.7878787878787878,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 26,
+      "measurable_pair_fraction": 0.7878787878787878,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.9566916755371567,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 0,
+      "expected_sign": 1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "editor_flow_west_wet": {
+      "analysis": "editor-flow-v2-analysis-v2.json",
+      "case": "flow_west",
+      "route": "editor",
+      "direction_metric_version": 2,
+      "signal_stddev": 6.500316944956741,
+      "eligible_pairs": 36,
+      "correct_pair_fraction": 0.75,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 27,
+      "measurable_pair_fraction": 0.75,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.9769231740688041,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 1,
+      "expected_sign": -1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "editor_flow_north_wet": {
+      "analysis": "editor-flow-v2-analysis-v2.json",
+      "case": "flow_north",
+      "route": "editor",
+      "direction_metric_version": 2,
+      "signal_stddev": 6.381272405728261,
+      "eligible_pairs": 36,
+      "correct_pair_fraction": 0.7777777777777778,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 28,
+      "measurable_pair_fraction": 0.7777777777777778,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.976834377037057,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 0,
+      "expected_sign": -1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "editor_falling_wet": {
+      "analysis": "editor-flow-v2-analysis-v2.json",
+      "case": "falling",
+      "route": "editor",
+      "direction_metric_version": 2,
+      "signal_stddev": 4.169551831448068,
+      "eligible_pairs": 33,
+      "correct_pair_fraction": 0.5757575757575758,
+      "physical_grid_spacing": 0.0066315789473684215,
+      "measurable_pairs": 19,
+      "measurable_pair_fraction": 0.5757575757575758,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.9296914448154301,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 0,
+      "expected_sign": -1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "full_flow_east_wet": {
+      "analysis": "full-flow-v1-analysis-v2.json",
+      "case": "flow_east",
+      "route": "full",
+      "direction_metric_version": 2,
+      "signal_stddev": 4.855333092998411,
+      "eligible_pairs": 17,
+      "correct_pair_fraction": 0.5294117647058824,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 9,
+      "measurable_pair_fraction": 0.5294117647058824,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.8505753789909951,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 1,
+      "expected_sign": 1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "full_flow_south_wet": {
+      "analysis": "full-flow-v1-analysis-v2.json",
+      "case": "flow_south",
+      "route": "full",
+      "direction_metric_version": 2,
+      "signal_stddev": 4.737175652388858,
+      "eligible_pairs": 16,
+      "correct_pair_fraction": 0.5,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 8,
+      "measurable_pair_fraction": 0.5,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.8333325339030393,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 0,
+      "expected_sign": 1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "full_flow_west_wet": {
+      "analysis": "full-flow-v1-analysis-v2.json",
+      "case": "flow_west",
+      "route": "full",
+      "direction_metric_version": 2,
+      "signal_stddev": 4.684077049810841,
+      "eligible_pairs": 16,
+      "correct_pair_fraction": 0.5,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 8,
+      "measurable_pair_fraction": 0.5,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.6992207050232483,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 1,
+      "expected_sign": -1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "full_flow_north_wet": {
+      "analysis": "full-flow-v1-analysis-v2.json",
+      "case": "flow_north",
+      "route": "full",
+      "direction_metric_version": 2,
+      "signal_stddev": 4.676917499316292,
+      "eligible_pairs": 15,
+      "correct_pair_fraction": 0.4666666666666667,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 7,
+      "measurable_pair_fraction": 0.4666666666666667,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.6612997058582837,
+      "measurable_quarters": [
+        0,
+        1,
+        2
+      ],
+      "expected_axis": 0,
+      "expected_sign": -1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "missing_flow_east_wet": {
+      "analysis": "missing-flow-v1-analysis-v2.json",
+      "case": "flow_east",
+      "route": "missing",
+      "direction_metric_version": 2,
+      "signal_stddev": 4.902921647887535,
+      "eligible_pairs": 15,
+      "correct_pair_fraction": 0.4666666666666667,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 7,
+      "measurable_pair_fraction": 0.4666666666666667,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.8461550470669326,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 1,
+      "expected_sign": 1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "missing_flow_south_wet": {
+      "analysis": "missing-flow-v1-analysis-v2.json",
+      "case": "flow_south",
+      "route": "missing",
+      "direction_metric_version": 2,
+      "signal_stddev": 4.7681006632480045,
+      "eligible_pairs": 15,
+      "correct_pair_fraction": 0.6666666666666666,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 10,
+      "measurable_pair_fraction": 0.6666666666666666,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.9758056258463477,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 0,
+      "expected_sign": 1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "missing_flow_west_wet": {
+      "analysis": "missing-flow-v1-analysis-v2.json",
+      "case": "flow_west",
+      "route": "missing",
+      "direction_metric_version": 2,
+      "signal_stddev": 4.790177033835927,
+      "eligible_pairs": 16,
+      "correct_pair_fraction": 0.4375,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 7,
+      "measurable_pair_fraction": 0.4375,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.6363645375590655,
+      "measurable_quarters": [
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 1,
+      "expected_sign": -1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "missing_flow_north_wet": {
+      "analysis": "missing-flow-v1-analysis-v2.json",
+      "case": "flow_north",
+      "route": "missing",
+      "direction_metric_version": 2,
+      "signal_stddev": 4.920928246577845,
+      "eligible_pairs": 15,
+      "correct_pair_fraction": 0.7333333333333333,
+      "physical_grid_spacing": 0.008842105263157894,
+      "measurable_pairs": 11,
+      "measurable_pair_fraction": 0.7333333333333333,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 1.0,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 0,
+      "expected_sign": -1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "full_falling_wet": {
+      "analysis": "world-falling-sky-v1-analysis-v2.json",
+      "case": "falling",
+      "route": "full",
+      "direction_metric_version": 2,
+      "signal_stddev": 3.317511620295875,
+      "eligible_pairs": 70,
+      "correct_pair_fraction": 0.6285714285714286,
+      "physical_grid_spacing": 0.0066315789473684215,
+      "measurable_pairs": 44,
+      "measurable_pair_fraction": 0.6285714285714286,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.9790479308839375,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 0,
+      "expected_sign": -1,
+      "passed": true,
+      "reversed_time_rejected": true
+    },
+    "missing_falling_wet": {
+      "analysis": "world-falling-sky-v1-analysis-v2.json",
+      "case": "falling",
+      "route": "missing",
+      "direction_metric_version": 2,
+      "signal_stddev": 3.3026855254542147,
+      "eligible_pairs": 74,
+      "correct_pair_fraction": 0.6486486486486487,
+      "physical_grid_spacing": 0.0066315789473684215,
+      "measurable_pairs": 48,
+      "measurable_pair_fraction": 0.6486486486486487,
+      "correct_measurable_pair_fraction": 1.0,
+      "measurable_span_fraction": 0.9654513809987632,
+      "measurable_quarters": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected_axis": 0,
+      "expected_sign": -1,
+      "passed": true,
+      "reversed_time_rejected": true
+    }
+  },
+  "style_controls": {
+    "editor": {
+      "analysis": "editor-style-sky-v1-analysis.json",
+      "capture": "editor-style-sky-v1.json",
+      "observed_product_gates": {
+        "animation": true,
+        "geometry": true,
+        "transparency": true
+      },
+      "cases": [
+        "source",
+        "low",
+        "pool",
+        "wet_oak_fence"
+      ],
+      "capture_count": 22,
+      "restored": true,
+      "source_unchanged": true,
+      "geometry": {
+        "editor_low_wet": {
+          "declared": {
+            "bounds": [
+              832,
+              529,
+              1060,
+              653
+            ],
+            "pixels": 17533
+          },
+          "iou": 0.9596085308593088,
+          "maximum_boundary_pixels": 3,
+          "observed": {
+            "bounds": [
+              833,
+              529,
+              1060,
+              650
+            ],
+            "pixels": 17107
+          },
+          "passed": true
+        },
+        "editor_pool_wet": {
+          "declared": {
+            "bounds": [
+              739,
+              447,
+              1193,
+              749
+            ],
+            "pixels": 96554
+          },
+          "iou": 0.9886409276747371,
+          "maximum_boundary_pixels": 2,
+          "observed": {
+            "bounds": [
+              739,
+              447,
+              1193,
+              747
+            ],
+            "pixels": 96549
+          },
+          "passed": true
+        },
+        "editor_source_wet": {
+          "declared": {
+            "bounds": [
+              832,
+              447,
+              1060,
+              653
+            ],
+            "pixels": 36229
+          },
+          "iou": 0.9773632592511194,
+          "maximum_boundary_pixels": 3,
+          "observed": {
+            "bounds": [
+              833,
+              447,
+              1060,
+              650
+            ],
+            "pixels": 35749
+          },
+          "passed": true
+        }
+      },
+      "transparency": {
+        "editor_wet_oak_fence_wet": {
+          "passed": true,
+          "regions": {
+            "body": {
+              "contribution_pixels": 146,
+              "eligible_pixels": 560,
+              "fraction": 0.26071428571428573,
+              "passed": true,
+              "rgb_delta": 8,
+              "underlying_control_pixels": 560
+            },
+            "rear": {
+              "contribution_pixels": 268,
+              "eligible_pixels": 440,
+              "fraction": 0.6090909090909091,
+              "passed": true,
+              "rgb_delta": 8,
+              "underlying_control_pixels": 440
+            }
+          },
+          "water_pixels": 8346
+        }
+      },
+      "animation": {
+        "editor_low_wet": {
+          "contribution_pixels": 10131,
+          "eligible_pixels": 16147,
+          "fraction": 0.6274230507214963,
+          "passed": true,
+          "rgb_delta": 2
+        },
+        "editor_pool_wet": {
+          "contribution_pixels": 59728,
+          "eligible_pixels": 93552,
+          "fraction": 0.6384470668719001,
+          "passed": true,
+          "rgb_delta": 2
+        },
+        "editor_source_wet": {
+          "contribution_pixels": 22830,
+          "eligible_pixels": 34515,
+          "fraction": 0.661451542807475,
+          "passed": true,
+          "rgb_delta": 2
+        },
+        "editor_wet_oak_fence_wet": {
+          "contribution_pixels": 5675,
+          "eligible_pixels": 7725,
+          "fraction": 0.7346278317152104,
+          "passed": true,
+          "rgb_delta": 2
+        }
+      }
+    },
+    "full": {
+      "analysis": "full-style-sky-v1-analysis.json",
+      "capture": "full-style-sky-v1.json",
+      "observed_product_gates": {
+        "animation": true,
+        "geometry": true,
+        "transparency": true
+      },
+      "cases": [
+        "source",
+        "low",
+        "pool",
+        "wet_oak_fence"
+      ],
+      "capture_count": 16,
+      "restored": true,
+      "source_unchanged": true,
+      "geometry": {
+        "full_low_wet": {
+          "declared": {
+            "bounds": [
+              944,
+              550,
+              1049,
+              612
+            ],
+            "pixels": 3848
+          },
+          "iou": 0.9600201156650742,
+          "maximum_boundary_pixels": 1,
+          "observed": {
+            "bounds": [
+              944,
+              549,
+              1050,
+              612
+            ],
+            "pixels": 3947
+          },
+          "passed": true
+        },
+        "full_pool_wet": {
+          "declared": {
+            "bounds": [
+              890,
+              514,
+              1116,
+              675
+            ],
+            "pixels": 24148
+          },
+          "iou": 0.9703837653204742,
+          "maximum_boundary_pixels": 2,
+          "observed": {
+            "bounds": [
+              889,
+              513,
+              1118,
+              676
+            ],
+            "pixels": 24885
+          },
+          "passed": true
+        },
+        "full_source_wet": {
+          "declared": {
+            "bounds": [
+              943,
+              514,
+              1050,
+              612
+            ],
+            "pixels": 7699
+          },
+          "iou": 0.9676686031826218,
+          "maximum_boundary_pixels": 1,
+          "observed": {
+            "bounds": [
+              943,
+              513,
+              1051,
+              612
+            ],
+            "pixels": 7881
+          },
+          "passed": true
+        }
+      },
+      "transparency": {
+        "full_wet_oak_fence_wet": {
+          "passed": true,
+          "regions": {
+            "body": {
+              "contribution_pixels": 111,
+              "eligible_pixels": 300,
+              "fraction": 0.37,
+              "passed": true,
+              "rgb_delta": 8,
+              "underlying_control_pixels": 300
+            },
+            "rear": {
+              "contribution_pixels": 88,
+              "eligible_pixels": 210,
+              "fraction": 0.41904761904761906,
+              "passed": true,
+              "rgb_delta": 8,
+              "underlying_control_pixels": 210
+            }
+          },
+          "water_pixels": 4413
+        }
+      },
+      "animation": {
+        "full_low_wet": {
+          "contribution_pixels": 1859,
+          "eligible_pixels": 3192,
+          "fraction": 0.5823934837092731,
+          "passed": true,
+          "rgb_delta": 2
+        },
+        "full_pool_wet": {
+          "contribution_pixels": 14036,
+          "eligible_pixels": 22510,
+          "fraction": 0.6235450910706353,
+          "passed": true,
+          "rgb_delta": 2
+        },
+        "full_source_wet": {
+          "contribution_pixels": 4638,
+          "eligible_pixels": 6789,
+          "fraction": 0.6831639416703491,
+          "passed": true,
+          "rgb_delta": 2
+        },
+        "full_wet_oak_fence_wet": {
+          "contribution_pixels": 2449,
+          "eligible_pixels": 3834,
+          "fraction": 0.6387584767866458,
+          "passed": true,
+          "rgb_delta": 2
+        }
+      }
+    },
+    "missing": {
+      "analysis": "missing-style-sky-v1-analysis.json",
+      "capture": "missing-style-sky-v1.json",
+      "observed_product_gates": {
+        "animation": true,
+        "geometry": true,
+        "transparency": true
+      },
+      "cases": [
+        "source",
+        "low",
+        "pool",
+        "wet_oak_fence"
+      ],
+      "capture_count": 18,
+      "restored": true,
+      "source_unchanged": true,
+      "geometry": {
+        "missing_low_wet": {
+          "declared": {
+            "bounds": [
+              944,
+              550,
+              1049,
+              612
+            ],
+            "pixels": 3848
+          },
+          "iou": 0.9600201156650742,
+          "maximum_boundary_pixels": 1,
+          "observed": {
+            "bounds": [
+              944,
+              549,
+              1050,
+              612
+            ],
+            "pixels": 3947
+          },
+          "passed": true
+        },
+        "missing_pool_wet": {
+          "declared": {
+            "bounds": [
+              890,
+              514,
+              1116,
+              675
+            ],
+            "pixels": 24148
+          },
+          "iou": 0.9703837653204742,
+          "maximum_boundary_pixels": 2,
+          "observed": {
+            "bounds": [
+              889,
+              513,
+              1118,
+              676
+            ],
+            "pixels": 24885
+          },
+          "passed": true
+        },
+        "missing_source_wet": {
+          "declared": {
+            "bounds": [
+              943,
+              514,
+              1050,
+              612
+            ],
+            "pixels": 7699
+          },
+          "iou": 0.9676686031826218,
+          "maximum_boundary_pixels": 1,
+          "observed": {
+            "bounds": [
+              943,
+              513,
+              1051,
+              612
+            ],
+            "pixels": 7881
+          },
+          "passed": true
+        }
+      },
+      "transparency": {
+        "missing_wet_oak_fence_wet": {
+          "passed": true,
+          "regions": {
+            "body": {
+              "contribution_pixels": 61,
+              "eligible_pixels": 300,
+              "fraction": 0.20333333333333334,
+              "passed": true,
+              "rgb_delta": 8,
+              "underlying_control_pixels": 300
+            },
+            "rear": {
+              "contribution_pixels": 103,
+              "eligible_pixels": 210,
+              "fraction": 0.49047619047619045,
+              "passed": true,
+              "rgb_delta": 8,
+              "underlying_control_pixels": 210
+            }
+          },
+          "water_pixels": 4413
+        }
+      },
+      "animation": {
+        "missing_low_wet": {
+          "contribution_pixels": 1762,
+          "eligible_pixels": 3192,
+          "fraction": 0.5520050125313283,
+          "passed": true,
+          "rgb_delta": 2
+        },
+        "missing_pool_wet": {
+          "contribution_pixels": 13816,
+          "eligible_pixels": 22510,
+          "fraction": 0.613771657041315,
+          "passed": true,
+          "rgb_delta": 2
+        },
+        "missing_source_wet": {
+          "contribution_pixels": 4072,
+          "eligible_pixels": 6789,
+          "fraction": 0.599793784062454,
+          "passed": true,
+          "rgb_delta": 2
+        },
+        "missing_wet_oak_fence_wet": {
+          "contribution_pixels": 2706,
+          "eligible_pixels": 3834,
+          "fraction": 0.7057902973395931,
+          "passed": true,
+          "rgb_delta": 2
+        }
+      }
+    }
+  },
+  "host_phase_cases": 40,
+  "host_phase_passed": true,
+  "negative_39_rows_rejected": true,
+  "negative_39_row_count": 8,
+  "production_shader_or_uv_changed": false,
+  "production_alpha": 0.45,
+  "native_parity_claimed": false,
+  "product_style_flag_promoted": false,
+  "scope": "Observed public F01 water source/low/pool/wet_oak_fence and cardinal/falling direction through Scene editor, full WorldProjection, missing-only WorldProjection. Frozen production source snapshots; does not certify later unrelated root edits.",
+  "direction_combination": "All15 rows combine complete owner-bound captures. Initial full/missing batches retained failed falling metrics; skyward rechecks independently qualify both physical south faces.",
+  "metric_change": "Keep original correct_pair_fraction over all eligible temporal pairs. Qualify movement without sign via nonzero displacement, correlation>=.50 and absolute forward/backward correlation gap>=.05. Require>=7 measurable pairs,>=.70 agreement,>=.60 temporal span,>=3of4 temporal quarters,signal stddev>=.3,adjacent interval<=.15s,and reject reversed-time replay.",
+  "active_session": {
+    "id": "6bbdb943cc8c499caebdb5bceb8ea924",
+    "owner": "water-production310-r15",
+    "game_pid": 35392,
+    "game_identity": "134364278160980267",
+    "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/6bbdb943cc8c499caebdb5bceb8ea924/session.json",
+    "project": "D:/bbe-r15-water-production-sky",
+    "last_observed_handles": 213470,
+    "noactivate": true,
+    "retained_for_reuse": true
+  },
+  "original_reports_unchanged": true
+}

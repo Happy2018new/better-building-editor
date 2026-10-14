@@ -1,0 +1,42 @@
+{
+  "frozen_project": "D:/bbe-r15-water-production",
+  "source_snapshot": "launch-inputs.json",
+  "sessions": [
+    {
+      "id": "94395bb1ec7c4b138532c0c9243b5b58",
+      "game_pid": 30448,
+      "game_identity": "134364247783442913",
+      "stop_reason": "400000 handle diagnostic budget reached after complete and restored routes",
+      "last_observed_handles": 429717,
+      "normal_close": "WM_CLOSE; timeout first, then native Client Destroy and Server Destroy logs; process_alive game=false,mcdk=false before stop --force finalized stopped",
+      "no_process_was_force_terminated": true
+    },
+    {
+      "id": "0eb89ccac81240f788239ea828a0ebbd",
+      "game_pid": 55160,
+      "game_identity": "134364265785946541",
+      "startup": "ready via standard owned instance launcher",
+      "foreground_changed_by_user": true,
+      "agent_activation_allowed": false,
+      "noactivate_guard": true,
+      "maximum_handles": 400000,
+      "stop_reason": "Prepare declared skyward fixture view in new frozen copy",
+      "normal_close": "WM_CLOSE; native Destroy logs; both game/mcdk false before stop finalization",
+      "no_process_was_force_terminated": true,
+      "state": "stopped"
+    },
+    {
+      "id": "6bbdb943cc8c499caebdb5bceb8ea924",
+      "owner": "water-production310-r15",
+      "game_pid": 35392,
+      "game_identity": "134364278160980267",
+      "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/6bbdb943cc8c499caebdb5bceb8ea924/session.json",
+      "project": "D:/bbe-r15-water-production-sky",
+      "last_observed_handles": 213470,
+      "noactivate": true,
+      "retained_for_reuse": true
+    }
+  ],
+  "scope": "Owned test instances only; frozen project was reused without addon reload",
+  "final_scope": "Only own sessions stopped/replaced; active final runtime retained; sky copy changed host probe only; source snapshot preserved for all attempts."
+}

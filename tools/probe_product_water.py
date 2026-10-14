@@ -134,6 +134,10 @@ def main():
                         help='Pinned persistent WGC helper for independent flow-direction samples')
     parser.add_argument('--flow-burst-sha256')
     parser.add_argument('--flow-burst-duration-ms', type=int, default=1200)
+    parser.add_argument('--world-fixture-lift-y', type=int, default=0,
+                        help='Lift the reserved world fixture, preserving all document geometry')
+    parser.add_argument('--falling-skyward', action='store_true',
+                        help='Observe the physical south falling face against sky for dense capture')
     parser.add_argument('--max-seconds', type=float, default=1200.)
     parser.add_argument('--max-handles', type=int, default=250000)
     args = parser.parse_args()
@@ -143,6 +147,10 @@ def main():
         parser.error('Flow burst helper and expected SHA256 must be provided together')
     if args.flow_burst_exe and args.frozen:
         parser.error('Flow direction needs animated water')
+    if not 0 <= args.world_fixture_lift_y <= 128:
+        parser.error('World fixture lift must be within 0..128 blocks')
+    if args.falling_skyward and args.world_fixture_lift_y < 8:
+        parser.error('Skyward falling capture needs a fixture lift of at least 8 blocks')
     os.environ.update(MCDEV_SESSION_FILE=str(Path(args.session).resolve(strict=True)), MCDEV_OWNER=args.owner)
     session = load_session(args.session, args.owner, live=True)
     if Path(session['project']).resolve() != base.ROOT or not session.get('noactivation', {}).get('window_noactivate'):
@@ -167,6 +175,8 @@ def main():
     report = {'schema': 1, 'completed': False, 'restored': False, 'cleanup_errors': [], 'captures': {},
               'rows': {}, 'extra_rows': {}, 'flow_bursts': {}, 'frozen': args.frozen,
               'routes': routes, 'cases': cases, 'controls': controls,
+              'fixture_view': {'world_lift_y': args.world_fixture_lift_y,
+                               'falling_skyward': args.falling_skyward},
               'session_binding': {key: session[key] for key in ('id', 'owner', 'game_pid', 'game_identity', 'session_file')},
               'native_shape_accepted': False, 'native_uv_accepted': False, 'native_alpha_accepted': False,
               'product_style_accepted': False,
@@ -282,7 +292,9 @@ def main():
                 report['capture_hud'] = check.run(SAVE_HUD)
                 environment_attempted = True
                 report['environment'] = base.run(client, base.ENVIRONMENT, True)
-                report['reservation'] = base.run(client, RESERVE, True)
+                reserve = RESERVE.replace('int(math.floor(foot[1]))+2',
+                    'int(math.floor(foot[1]))+%d' % (2 + args.world_fixture_lift_y))
+                report['reservation'] = base.run(client, reserve, True)
                 world_saved = True
                 report['flow_frozen'] = base.run(client, workspace.FLOW % True, True)
                 origin = tuple(report['reservation']['origin'])
@@ -313,6 +325,8 @@ def main():
                             row['ready'] = check.wait(label, workspace.world_ready, lambda: check.run(WORLD_STATE))
                             target = tuple(origin[i] + (.5 if i != 1 else 1.35 if wet_case else .5) for i in range(3))
                             offset = (0., 0., 12.) if wet_case else (6., 5., 8.)
+                            if identity == 'falling' and args.falling_skyward:
+                                offset = (0., -3., 6.)
                             row['camera_expected'] = check.run(CAMERA % ((target, offset),))
                             row['camera'] = check.wait(label + ' camera',
                                 lambda value: camera_matches(value, row['camera_expected']), lambda: check.run(CAMERA_STATE))
