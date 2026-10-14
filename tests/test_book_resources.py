@@ -11,6 +11,17 @@ from generate_book_resources_r16 import shape
 
 
 class BookResourceTests(unittest.TestCase):
+    def test_all_book_faces_have_consistent_exterior_winding(self):
+        for family in ('enchanting_table','lectern'):
+            mesh=shape(family)['mesh'][0]
+            for indices in mesh['indices']:
+                a,b,c=[mesh['vertices'][index] for index in indices]
+                u=[b['pos'][i]-a['pos'][i] for i in range(3)]
+                v=[c['pos'][i]-a['pos'][i] for i in range(3)]
+                normal=(u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0])
+                self.assertGreater(sum(normal[i]*a['normal'][i] for i in range(3)),0.,
+                                   (family,indices))
+
     def test_every_face_samples_artwork_instead_of_opaque_black_padding(self):
         with Image.open(ROOT/'resource_pack/textures/models/modern_projection/book/native_book.png') as source:
             texture = source.convert('RGB')

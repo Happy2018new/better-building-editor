@@ -104,9 +104,12 @@ def generate(args):
             path=args.output/('resource_pack/'+shader);path.parent.mkdir(parents=True,exist_ok=True);path.write_text(vertex,encoding='ascii',newline='\n')
             models[name+suffix]={'dy_load':True,'mesh':mesh_name,'skeleton':PATH+'/skeleton.json','animation':{},
                 'material':name+suffix,'texture':{'tex0':PATH+'/native_book'}}
+            # This skeleton/WVP convention renders exterior faces with inverted
+            # culling, in both UI and world. Native close-ups reject the default
+            # winding: it exposes inner page faces and the dark inside cover.
             materials[name+suffix+':entity_for_skeleton_alpha']={'vertexShader':shader,
-                'fragmentShader':'shaders/glsl/'+PREFIX+'geometry.fragment','+states':['Blending','DisableCulling'],
-                '-states':['DisableDepthWrite'],
+                'fragmentShader':'shaders/glsl/'+PREFIX+'geometry.fragment','+states':['Blending','InvertCulling'],
+                '-states':['DisableDepthWrite','DisableCulling'],
                 'blendSrc':'SourceAlpha','blendDst':'OneMinusSrcAlpha'}
     path=args.output/('resource_pack/shaders/glsl/'+PREFIX+'geometry.fragment');path.write_text(FRAGMENT,encoding='ascii',newline='\n')
     skeleton=json.loads((ROOT/'resource_pack/models/modern_projection/liquid/skeleton.json').read_bytes())
@@ -119,7 +122,7 @@ def generate(args):
     write_json(args.output/'resource_pack/models/netease_models.json',models)
     write_json(args.output/'resource_pack/materials/entity.material',{'materials':dict(materials,version='1.0.0')})
     contract={'schema_version':1,'geometry_version':GEOMETRY_VERSION,'engine_version':'3.10.0.420447','product_qualified':False,
-        'depth_write':True,'diagnostic_animation_time':args.animation_time_control,
+        'depth_write':True,'raster_culling':'front','diagnostic_animation_time':args.animation_time_control,
         'geometry_reference':'Independent hinged construction; Java 1.21.1 book dimensions and renderer poses, checked against NEMC 3.10 captures.',
         'native_texture_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'models':models,'materials':materials,
         'limits':['Project book geometry using native artwork; no proximity reaction or page text.'],

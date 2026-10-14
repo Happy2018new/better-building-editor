@@ -8,8 +8,9 @@ import time
 
 from audit_native_visual_r15 import ROOT,save
 from audit_native_coordinates_r15 import LOAD,PROJECT
-from probe_book_native_r16 import BookAudit,CANDIDATE_SETUP,CANDIDATE_RESTORE,document
+from probe_book_native_r16 import BookAudit,CANDIDATE_RESTORE,document,book_sources,candidate_setup,MODEL_PREFIXES
 from verify_debug_blueprints import CLIENT
+from context_test_environment import SETUP as ENV_SETUP,RESTORE as ENV_RESTORE
 
 SERVER='''import json,sys
 import mod.server.extraServerApi as api
@@ -74,12 +75,25 @@ for pos in (saved['position'],saved['support']):
  assert info.SetBlockNew(pos,{'name':'minecraft:air','aux':0},0,dimension,True,True)
 _result=True
 '''
+VIEW_PLATFORM=SERVER+'''saved=sys._book_reference_r17
+pos=saved['position']
+platform=(pos[0],pos[1]-2,pos[2]-3)
+previous=info.GetBlockNew(platform,dimension)
+assert previous['name']=='minecraft:air',(platform,previous)
+saved['foot_before']=factory.CreatePos(player).GetFootPos()
+saved['journal'].append({'pos':platform,'block':previous,'nbt':None})
+assert info.SetBlockNew(platform,{'name':'minecraft:stone','aux':0},0,dimension,True,False)
+foot=(platform[0]+.5,platform[1]+1.,platform[2]+.5)
+assert factory.CreatePos(player).SetFootPos(foot)
+_result={'platform':platform,'foot':foot,'distance':3.}
+'''
 RESTORE=SERVER+'''saved=getattr(sys,'_book_reference_r17',None)
 if saved is None:_result={'restored':True,'owned':False}
 else:
  items=factory.CreateItem(player)
  assert items.SetInvItemNum(saved['slot'],0)
  assert factory.CreateRot(player).SetRot(tuple(saved['rotation']))
+ if 'foot_before' in saved:assert factory.CreatePos(player).SetFootPos(tuple(saved['foot_before']))
  rows=[]
  for entry in reversed(saved['journal']):
   info.SetBlockNew(entry['pos'],entry['block'],0,dimension,True,True)
@@ -98,26 +112,59 @@ def run(args):
     audit=BookAudit(args)
     report={'schema':1,'engine':'3.10.0.420447','completed':False,'restored':False,
             'captures':{},'rows':{},'cleanup_errors':[],'product_qualified':False}
+    report['installed_sources']=book_sources(args.project,args.model_prefix)
+    report['model_prefix']=args.model_prefix
     sys.path.insert(0,str(ROOT/'behavior_pack/modern_projection'))
     from projection.model import Document
     from projection.cell import make_cell,foreground
     from projection.nbt_spatial import rebase
     from projection.visible_actor import compose_actor
-    for case in ('enchanting_table','lectern.book'):
+    for case in (args.case or ('enchanting_table','lectern.book')):
+        environment_saved=False
         try:
-            audit.execute('candidate_setup',CANDIDATE_SETUP)
+            report['environment']=audit.execute('environment',ENV_SETUP,False)
+            environment_saved=True
+            audit.execute('candidate_setup',candidate_setup(args.model_prefix))
+            if args.lectern_turn or args.book_turns:
+                audit.execute('lectern_direction_control',CLIENT+'''import modern_projection.projection.book_render_plan as book_plan
+assert not hasattr(sys,'_book_direction_r17')
+sys._book_direction_r17=book_plan.appearance
+sys._book_turn_r17=0
+def direction_control(material,actor,engine_version,original=book_plan.appearance,turn=%r,state=sys):
+ result=original(material,actor,engine_version)
+ if not result:return result
+ extra=turn if result[0]=='lectern' else state._book_turn_r17
+ return (result[0],(result[1]+extra)%%256)
+book_plan.appearance=direction_control
+_result=True
+''' % args.lectern_turn)
             foot=audit.execute('foot',CLIENT+'_result=json.dumps(b.player_position.GetFootPos())')
             origin=tuple(int(foot[index])+args.origin_offset[index] for index in range(3))
-            if args.eye_level:
+            if args.controlled_arena:
+                origin=tuple(int(foot[index])+(3,24,3)[index] for index in range(3))
+                audit.execute('arena_clear',SERVER+'''origin=%r
+positions=[(origin[0]+x,origin[1]+y,origin[2]+z)
+ for x in range(1,6) for y in range(0,7) for z in range(-2,6)]
+blocks=[info.GetBlockNew(p,dimension) for p in positions]
+assert all(block and block['name']=='minecraft:air' for block in blocks),'Arena is not empty'
+_result={'checked':len(positions)}
+''' % (origin,),False)
+            elif args.eye_level:
                 available=audit.execute('find_eye_level_air',SERVER+'''foot=factory.CreatePos(player).GetFootPos()
 found=None
-for dx,dz in ((3,0),(-3,0),(0,3),(0,-3),(3,3),(-3,3),(3,-3),(-3,-3)):
+for dx,dz in tuple((x*distance,z*distance) for distance in (3,6,9)
+ for x,z in ((1,0),(-1,0),(0,1),(0,-1),(1,1),(-1,1),(1,-1),(-1,-1))):
  pos=(int(foot[0])+dx,int(foot[1])+1,int(foot[2])+dz)
  support=(pos[0],pos[1]-1,pos[2])
- if all(info.GetBlockNew(p,dimension)['name']=='minecraft:air' for p in (pos,support)):
+ # A book extends above its block. Two empty cells alone can leave tree
+ # foliage crossing the reference, making an apparently valid capture useless.
+ region=[(pos[0]+x,pos[1]+y,pos[2]+z) for x in (-1,0,1)
+  for y in (-1,0,1,2) for z in (-1,0,1)]
+ blocks=[info.GetBlockNew(p,dimension) for p in region]
+ if all(block and block['name']=='minecraft:air' for block in blocks):
   found=pos
   break
-assert found is not None,'No empty eye-level fixture and support near player'
+assert found is not None,'No unobscured eye-level book fixture near player'
 _result=found
 ''',False)
                 origin=tuple(value-3 for value in available)
@@ -127,6 +174,8 @@ _result=found
             support_name=foreground(doc.get((3,2,3)))[0]
             report['rows'][case]={'origin':origin,
                 'prepared':audit.execute('prepare_real_'+case,PREPARE % (origin,name,support_name),False)}
+            if args.controlled_arena:
+                report['rows'][case]['view_platform']=audit.execute('native_view_platform',VIEW_PLATFORM,False)
             time.sleep(1.)
             if args.native_placement:
                 report['rows'][case]['native_placement']=audit.execute('native_placement',PLACE_NATIVE,False)
@@ -189,7 +238,7 @@ _result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotatio
 '''
             report['rows'][case]['camera']=audit.execute('matched_camera',camera_code)
             time.sleep(1.)
-            for sample in range(6 if case=='enchanting_table' else 2):
+            for sample in range((args.native_samples or args.samples) if case=='enchanting_table' else 2):
                 label='native_'+case+'_motion%d' % sample
                 report['captures'][label]=audit.frame(label)
                 report['captures'][label]['native_actor']=audit.execute(label+'_actor',SERVER+'''
@@ -205,12 +254,29 @@ _result=info.GetBlockEntityData(dimension,sys._book_reference_r17['position'])
             audit.execute('project_candidate',code);audit.settle(True)
             audit.execute('matched_camera_again',camera_code)
             time.sleep(1.)
-            for sample in range(6 if case=='enchanting_table' else 2):
+            for sample in range(args.samples if case=='enchanting_table' else 2):
                 label='candidate_'+case+'_motion%d' % sample
                 report['captures'][label]=audit.frame(label)
+                report['captures'][label]['pointed_block']=audit.execute(label+'_pick',CLIENT+'''
+hit=b.factory.CreateCamera(b.level).PickFacing()
+material=None
+if hit.get('type')=='Block':
+ material=b.factory.CreateBlockInfo(b.level).GetBlock((hit['x'],hit['y'],hit['z']))
+_result={'hit':hit,'material':material}
+''')
                 time.sleep(.5)
             report['rows'][case]['candidate_state']=audit.execute('candidate_state',CLIENT+
                 '_result=json.dumps({"origin":s.origin,"opacity":s.opacity,"mesh":b.projection_mesh})')
+            if case=='enchanting_table' and args.book_turns:
+                for direction in args.book_turns:
+                    audit.execute('sweep_stop',CLIENT+'b.stop_projection()\nsys._book_turn_r17=%r\n_result=True' % direction)
+                    audit.execute('sweep_project',code);audit.settle(True)
+                    audit.execute('sweep_camera',camera_code)
+                    time.sleep(.4)
+                    label='candidate_enchanting_turn%d' % direction
+                    report['captures'][label]=audit.frame(label)
+                    report['captures'][label]['diagnostic_turn']=direction
+                    save(args.output/'report.json',report)
         finally:
             try:
                 audit.execute('stop',CLIENT+'b.stop_projection()\n_result=True')
@@ -221,8 +287,19 @@ cam.ResetCameraPos();cam.UnDepartCamera();cam.LockModCameraPitch(False);cam.Lock
 _result=True
 ''')
                 audit.execute('candidate_restore',CANDIDATE_RESTORE)
+                audit.execute('direction_restore',CLIENT+'''if hasattr(sys,'_book_direction_r17'):
+ import modern_projection.projection.book_render_plan as book_plan
+ book_plan.appearance=sys._book_direction_r17
+ del sys._book_direction_r17
+ if hasattr(sys,'_book_turn_r17'):del sys._book_turn_r17
+_result=True
+''')
             except Exception as error:report['cleanup_errors'].append(str(error))
+            if environment_saved:
+                try:report['environment_restoration']=audit.execute('environment_restore',ENV_RESTORE,False)
+                except Exception as error:report['cleanup_errors'].append('environment: '+str(error))
             report['restored']=not report['cleanup_errors']
+            report['source_unchanged']=report['installed_sources']==book_sources(args.project,args.model_prefix)
             save(args.output/'report.json',report)
     report['completed']=True
     save(args.output/'report.json',report)
@@ -241,6 +318,16 @@ def main():
                         help='Additional attached-player camera control; restores player rotation.')
     parser.add_argument('--eye-level',action='store_true',
                         help='Find an empty nearby eye-level fixture for the attached-view control.')
+    parser.add_argument('--controlled-arena',action='store_true',
+                        help='Empty elevated fixture and fixed three-block native viewing platform; restores both.')
+    parser.add_argument('--case',action='append',choices=('enchanting_table','lectern.book'))
+    parser.add_argument('--samples',type=int,default=6)
+    parser.add_argument('--native-samples',type=int,help='Optional shorter native series for repeated raster controls.')
+    parser.add_argument('--model-prefix',default='',choices=MODEL_PREFIXES)
+    parser.add_argument('--lectern-turn',type=int,default=0,
+                        help='Diagnostic direction offset in 1/256 turns; restored after each case.')
+    parser.add_argument('--book-turns',type=int,nargs='+',default=(),
+                        help='Frozen enchanting book direction sweep in 1/256 turns; diagnostic only.')
     run(parser.parse_args())
 
 

@@ -787,10 +787,11 @@
       "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
       "+states": [
         "Blending",
-        "DisableCulling"
+        "InvertCulling"
       ],
       "-states": [
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "DisableCulling"
       ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"
@@ -800,10 +801,11 @@
       "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
       "+states": [
         "Blending",
-        "DisableCulling"
+        "InvertCulling"
       ],
       "-states": [
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "DisableCulling"
       ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"
@@ -813,10 +815,11 @@
       "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
       "+states": [
         "Blending",
-        "DisableCulling"
+        "InvertCulling"
       ],
       "-states": [
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "DisableCulling"
       ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"
@@ -826,10 +829,11 @@
       "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
       "+states": [
         "Blending",
-        "DisableCulling"
+        "InvertCulling"
       ],
       "-states": [
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "DisableCulling"
       ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"

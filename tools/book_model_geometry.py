@@ -6,7 +6,7 @@ Dimensions and pose references are recorded in the R17 book evidence notes.
 """
 import math
 
-GEOMETRY_VERSION=3
+GEOMETRY_VERSION=4
 
 
 def turn(point,axis,angle):
@@ -47,7 +47,7 @@ def _faces(origin,size,uv):
     # Geometry uses model Y; texture V increases from the model's low-Y edge.
     return (
         ((x,y+h,z),(w,0,0),(0,0,d),(0,1,0),(u+d+w,v+d,w,-d)),
-        ((x,y,z),(w,0,0),(0,0,d),(0,-1,0),(u+d,v,w,d)),
+        ((x+w,y,z),(-w,0,0),(0,0,d),(0,-1,0),(u+d+w,v,-w,d)),
         ((x,y,z),(w,0,0),(0,h,0),(0,0,-1),(u+d,v+d,w,h)),
         ((x+w,y,z+d),(-w,0,0),(0,h,0),(0,0,1),(u+w+2*d,v+d,w,h)),
         ((x,y,z+d),(0,0,-d),(0,h,0),(-1,0,0),(u,v+d,d,h)),

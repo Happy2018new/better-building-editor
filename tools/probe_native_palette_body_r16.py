@@ -1,4 +1,4 @@
-"""Compare a public shelf body with live, roundtrip and prepared native palettes.
+"""Compare a native body with live, roundtrip and prepared native palettes.
 
 This owner-bound diagnostic preserves four views and a cyan support positive
 control. It does not activate a window or grant production qualification.
@@ -17,6 +17,24 @@ from probe_product_water import snapshot_sources
 
 VIEWS = {'south': (0., 1., 4.), 'north': (0., 1., -4.),
          'east': (4., 1., 0.), 'west': (-4., 1., 0.)}
+CLOSE_WORKSPACE = '''from modern_projection.pyreact import navigator
+assert not navigator.is_transitioning
+assert navigator.top is None or navigator.top.key=='modern_projection_workspace'
+assert not hasattr(sys,'_palette_body_workspace')
+sys._palette_body_workspace=navigator.top is not None
+if navigator.top is not None:navigator.pop()
+_result={'was_open':sys._palette_body_workspace}
+'''
+WORLD_VISIBLE = '''from modern_projection.pyreact import navigator
+_result=navigator.top is None and not navigator.is_transitioning
+'''
+RESTORE_WORKSPACE = '''from modern_projection.pyreact import navigator
+if hasattr(sys,'_palette_body_workspace'):
+ if sys._palette_body_workspace:
+  api.GetSystem('ModernProjection','ModernProjectionClientSystem').open_workspace()
+ del sys._palette_body_workspace
+_result=True
+'''
 PREPARE = native.PREPARE + '''
 support=(origin[0],origin[1]-1,origin[2])
 assert info.SetBlockNew(support,{'name':'minecraft:cyan_concrete','aux':0},0,dimension,True,False)
@@ -43,6 +61,12 @@ for key,palette in (('live',live),('roundtrip',copy),('prepared',converted)):
  result=geometry.CombineBlockPaletteToGeometry(palette,name,0)
  assert result is not None,(key,result)
  saved['paths'].append({'path':key,'requested':name,'returned':result})
+for key,position in (('body_only',origin),('support_only',low)):
+ palette=block.GetBlockPaletteBetweenPos(position,position,False)
+ name=saved['paths'][0]['requested']+'_'+key
+ result=geometry.CombineBlockPaletteToGeometry(palette,name,0)
+ assert result is not None,(key,result)
+ saved['paths'].append({'path':key,'requested':name,'returned':result})
 saved['entity']=api.GetSystem('ModernProjection','ModernProjectionClientSystem').CreateClientEntityByTypeStr(
  'modern_projection:anchor',origin,(0.,0.))
 assert saved['entity']
@@ -65,6 +89,11 @@ def main():
     parser.add_argument('--owner', required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--capture-exe', type=Path, required=True)
+    parser.add_argument('--block', default='minecraft:oak_shelf',
+                        choices=('minecraft:oak_shelf', 'minecraft:enchanting_table',
+                                 'minecraft:lectern', 'minecraft:cyan_concrete'))
+    parser.add_argument('--body-offsets',type=float,nargs='+',default=(),
+                        help='Diagnostic vertical offsets for a separately generated body; support stays fixed.')
     args = parser.parse_args()
     session = json.loads(args.session.read_bytes())
     if session['owner'] != args.owner or args.output.exists():
@@ -78,24 +107,32 @@ def main():
               'host_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'session': {key: session[key] for key in ('id','owner','game_pid','game_identity')},
               'cleanup_errors': []}
+    report['block'] = args.block
     def persist():
         native.write(args.output, report)
     with native.Client(timeout=40) as client:
-        world = saved = environment = False
+        world = saved = environment = workspace_saved = False
         try:
+            report['workspace'] = native.run(client, CLOSE_WORKSPACE)
+            workspace_saved = True
+            deadline = time.monotonic()+10.
+            while not native.run(client, WORLD_VISIBLE):
+                if time.monotonic()>=deadline:
+                    raise RuntimeError('Workspace did not close before the world diagnostic')
+                time.sleep(.2)
             report['environment'] = native.run(client, native.ENVIRONMENT, True)
             environment = True
-            report['world'] = native.run(client, PREPARE % 'minecraft:oak_shelf', True)
+            report['world'] = native.run(client, PREPARE % args.block, True)
             world = True
             origin = tuple(report['world']['origin'])
             report['near_player'] = native.run(client, native.NEAR_PLAYER, True)
             deadline = time.monotonic() + 15.
             while True:
                 replicated = native.run(client, native.REPLICATION % (origin,))
-                if any(row['name'] == 'minecraft:oak_shelf' for row in replicated['materials']):
+                if any(row['name'] == args.block for row in replicated['materials']):
                     break
                 if time.monotonic() >= deadline:
-                    raise RuntimeError('Shelf did not replicate: ' + repr(replicated))
+                    raise RuntimeError('Native body did not replicate: ' + repr(replicated))
                 time.sleep(.2)
             report['replication'] = replicated
             native.run(client, native.SAVE % (origin,))
@@ -103,6 +140,8 @@ def main():
             time.sleep(1.)
             report['palette'] = native.run(client, PALETTE % ('shelf_body_' + uuid.uuid4().hex))
             def frame(label, view):
+                if not native.run(client, WORLD_VISIBLE):
+                    raise RuntimeError('Workspace obscures the native body capture')
                 code = native.CAMERA.replace('offset=(3.,3.,5.)', 'offset=' + repr(VIEWS[view]))
                 camera = native.run(client, code)
                 time.sleep(.5)
@@ -124,6 +163,16 @@ def main():
                 native.run(client, native.ATTACH % (key,(-.5,-1.,-.5),(0.,0.,0.,0.),[]))
                 for view in VIEWS:
                     frame(key, view)
+            for offset in args.body_offsets:
+                native.run(client,native.ATTACH % ('body_only',(-.5,offset,-.5),(0.,0.,0.,0.),[]))
+                native.run(client,'''saved=sys._liquid_pose_client
+render=factory.CreateActorRender(saved['entity'])
+path=next(row for row in saved['paths'] if row['path']=='support_only')
+assert render.AddActorBlockGeometry(path['returned'],(-.5,-1.,-.5),(0.,180.,0.))
+_result={'body_offset':%r,'support_offset':(-.5,-1.,-.5)}
+''' % offset)
+                for view in VIEWS:
+                    frame('separate_'+str(offset),view)
             report['completed'] = True
         except Exception as error:
             report['error'] = type(error).__name__ + ': ' + str(error)
@@ -137,6 +186,8 @@ def main():
                 actions.append(('world', native.CLEAN_WORLD, True))
             if environment:
                 actions.append(('environment', native.RESTORE_ENVIRONMENT, True))
+            if workspace_saved:
+                actions.append(('workspace', RESTORE_WORKSPACE, False))
             for label, code, server in actions:
                 try:
                     report[label+'_restore'] = native.run(client, code, server)
