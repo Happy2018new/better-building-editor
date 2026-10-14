@@ -1,0 +1,5 @@
+{
+  "code": "import json,sys\nimport mod.server.extraServerApi as api\nfactory=api.GetEngineCompFactory()\nplayer=api.GetPlayerList()[0]\ndimension=factory.CreateDimension(player).GetEntityDimensionId()\ninfo=factory.CreateBlockInfo(player)\nassert dimension==0\npositions=((1, -56, 1), (4, -56, 1), (7, -56, 1), (10, -56, 1), (13, -56, 1))\nrestore=True\nif not hasattr(sys,'_native_r15_occupied'):sys._native_r15_occupied={}\nsaved=sys._native_r15_occupied\nrows=[]\nfor pos in positions:\n if restore:\n  before=saved.pop(pos)\n  info.SetBlockNew(pos,before,0,dimension,True,False)\n else:\n  assert pos not in saved\n  before=info.GetBlockNew(pos,dimension)\n  assert before['name']=='minecraft:air',before\n  saved[pos]=before\n  info.SetBlockNew(pos,{'name':'minecraft:stone','aux':0},0,dimension,True,False)\n rows.append({'pos':pos,'before':before,'after':info.GetBlockNew(pos,dimension)})\n_result=json.dumps(rows)\n",
+  "is_client": false,
+  "direct_return": true
+}

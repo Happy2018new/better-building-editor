@@ -42,6 +42,8 @@ class Session(object):
         self.item_preview = self.item_controls = None
         from .item_sprite_profile import production_profile as item_production_profile
         self.item_profile = item_production_profile()
+        from .native_render_profile import production_profile as native_production_profile
+        self.native_render_profile = native_production_profile(getattr(bridge, 'engine_version', None))
         self.camera_yaw = 35.
         self.camera_pitch = 25.
         self.zoom = 1.
@@ -602,9 +604,11 @@ class Session(object):
         self.emit()
 
     def preview_signature(self):
+        from .native_render_profile import profile_identity
         return (id(self.editor), self.editor.revision, tuple(sorted(self.editor.hidden_layers)), self.solo_layer,
                 self.editor.layer if self.solo_layer or self.section else -1, self.section,
-                id(getattr(self, 'item_profile', None)))
+                id(getattr(self, 'item_profile', None)),
+                profile_identity(self.native_render_profile))
 
     def depth_plane(self):
         from .camera import OrbitCamera

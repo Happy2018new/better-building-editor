@@ -176,7 +176,8 @@ def _append_frame_items(common, actors, logical, overlay_base, item_profile=None
 
 
 def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE,
-                    inferred_bed_colors=None, render_origin=(0, 0, 0), item_profile=None):
+                    inferred_bed_colors=None, render_origin=(0, 0, 0), item_profile=None,
+                    native_render_profile=None):
     """Copy and canonicalize both native layers and actor payloads."""
     validate_plant_source()
     render_origin = validate_render_origin(render_origin)
@@ -208,7 +209,8 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
     if item_volume is not None:
         volume = item_volume
     common, static_actors = prepare_static_entities(common, source.get('actor', {}), source.get('volume'),
-                                                   inferred_chest_parts, inferred_bed_colors)
+                                                   inferred_chest_parts, inferred_bed_colors,
+                                                   native_render_profile)
     common, common_states = _proxy_foreground(common, common_states, source.get('volume'),
                                              render_origin, overlay_base)
     for entries in (common, extra):
@@ -232,6 +234,8 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
             actors[name] = rendered
     data.update(common=common, states=common_states, extra=extra,
                 extraStates=extra_states, actor=actors)
+    if native_render_profile is not None:
+        data['_native_render_profile'] = native_render_profile.identity
     if volume is not None:
         data['volume'] = volume
     return data

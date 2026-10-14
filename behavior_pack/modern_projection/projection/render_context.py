@@ -11,6 +11,7 @@ from .render_layout import (CONTEXT_BASE, CONTEXT_CENTER, CONTEXT_STRIDE,
                             MAX_LOGICAL_HEIGHT, OVERLAY_BASE, context_position)
 from .storage import integer_types
 from .plant_position import position_sensitive, render_origin as validate_render_origin
+from .native_render_profile import coordinate_mode, profile_identity
 
 NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
@@ -81,25 +82,35 @@ def _put_encoded(data, cell, index, delta):
         data['actor'].setdefault(name, {})[index] = rebase(payload, delta)
 
 
-def _native_actor_mesh(cell):
+def _native_actor_mesh(cell, native_render_profile=None):
     actor = cell.get('actor')
     if actor is None or not isinstance(actor[1], dict):
         return False
-    return (field_key(actor[1], 'signType') is not None or
-            field_key(actor[1], 'decoratedPotShredNamesSize') is not None)
+    material = cell.get('common')
+    if material is None:
+        return False
+    mode = coordinate_mode(native_render_profile, material, actor[1])
+    if mode is not None:
+        return mode == 'model_local'
+    if material[0] == 'minecraft:decorated_pot':
+        return field_key(actor[1], 'decoratedPotShredNamesSize') is not None
+    from .native_sign_data import TEMPLATES
+    return material[0] in TEMPLATES and field_key(actor[1], 'signType') is not None
 
 
 class _ContextWriter(object):
     """Resolve each prepared material's output buckets once per native batch."""
-    def __init__(self, palette):
+    def __init__(self, palette, native_render_profile=None):
         self.palette, self.cache = palette, {}
+        self.native_render_profile = native_render_profile
 
     def put(self, rendered, index, delta):
         key = id(rendered)
         plan = self.cache.get(key)
         if plan is None:
             cell = rendered[0]
-            layers = ('extra',) if _native_actor_mesh(cell) else ('common', 'extra')
+            layers = (('extra',) if _native_actor_mesh(cell, self.native_render_profile)
+                      else ('common', 'extra'))
             buckets = []
             for layer in layers:
                 value = cell.get(layer)
@@ -169,9 +180,11 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
 
 class ContextPaletteBuilder(object):
     """Read snapshot chunks directly and yield between small preparation units."""
-    def __init__(self, document, targets, render_origin=(0, 0, 0), item_profile=None):
+    def __init__(self, document, targets, render_origin=(0, 0, 0), item_profile=None,
+                 native_render_profile=None):
         self.document, self.targets = document, targets
         self.item_profile = item_profile
+        self.native_render_profile = native_render_profile
         self.render_origin = validate_render_origin(render_origin)
         sx, sy, sz = document.size
         self.logical_volume = (sz, sx, sy)
@@ -247,7 +260,8 @@ class ContextPaletteBuilder(object):
         rendered = prepare_palette(source, {(front[0], 0): part} if part is not None else None,
                                    inferred_bed_colors={0: color} if color is not None else None,
                                    render_origin=tuple(self.render_origin[i] + (x, y, z)[i] for i in range(3)),
-                                   item_profile=self.item_profile)
+                                   item_profile=self.item_profile,
+                                   native_render_profile=self.native_render_profile)
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result
@@ -358,7 +372,7 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                     return {'volume': volume, 'common': {}, 'extra': {}, 'actor': {},
                             'states': {}, 'extraStates': {}, 'void': False, 'eliminateAir': True}
                 context, overlay = palette((64, 64, 64)), palette((16, 16, 16))
-                batch = (context, overlay, _ContextWriter(context))
+                batch = (context, overlay, _ContextWriter(context, self.native_render_profile))
                 batches[origin] = batch
             context, overlay, writer = batch
             center = self.material(*target)
@@ -370,7 +384,7 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                           lz * CONTEXT_STRIDE + CONTEXT_CENTER)
             delta = (cx - tx, cy - ty, cz - tz)
             center_index = (cy * 64 + cx) * 64 + cz
-            if _native_actor_mesh(center[0]):
+            if _native_actor_mesh(center[0], self.native_render_profile):
                 # Native block actors carry a model-local POSITION. Their
                 # model transform cannot use the packed neighbor-tile decoder.
                 actor_cell = {'common': center[0].get('common'),
@@ -398,6 +412,8 @@ class ContextBatchBuilder(ContextPaletteBuilder):
             for kind, palette in enumerate(palettes[:2]):
                 if not palette['common'] and not palette['extra']:
                     continue
+                if self.native_render_profile is not None:
+                    palette['_native_render_profile'] = profile_identity(self.native_render_profile)
                 for key, layer, records in (('states', 'common', self.states),
                                              ('extraStates', 'extra', self.extra_states)):
                     palette[key] = dict((value, records[value]) for value in palette[layer]
@@ -415,9 +431,11 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                      'volume': self.logical_volume}
 
 
-def prepare_context_batches(document, targets, render_origin=(0, 0, 0), item_profile=None):
+def prepare_context_batches(document, targets, render_origin=(0, 0, 0), item_profile=None,
+                            native_render_profile=None):
     builder = ContextBatchBuilder(document, targets, render_origin=render_origin,
-                                  item_profile=item_profile)
+                                  item_profile=item_profile,
+                                  native_render_profile=native_render_profile)
     for unused in builder.prepare():
         pass
     return builder.data

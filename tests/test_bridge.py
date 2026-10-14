@@ -701,7 +701,8 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.runtime = Runtime()
         self.original_api = boundary.clientApi
         boundary.clientApi = types.SimpleNamespace(GetEngineCompFactory=lambda: self.runtime,
-            GetLevelId=lambda: 'level', GetLocalPlayerId=lambda: 'player')
+            GetLevelId=lambda: 'level', GetLocalPlayerId=lambda: 'player',
+            GetEngineVersion=lambda: '3.9.0.401155')
         self.bridge = boundary.ClientBridge(self.runtime)
         self.bridge.model_layouts = {}
         self.bridge.geometry = lambda *unused, **kwargs: kwargs.get('name') or 'model'

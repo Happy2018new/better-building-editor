@@ -1,0 +1,5 @@
+{
+  "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\ncam=b.factory.CreateCamera(b.level)\nrows=[]\nfor name,local in zip(('chest', 'copper_chest', 'ender_chest', 'bed', 'flower_pot'),((1, 1, 1), (4, 1, 1), (7, 1, 1), (10, 1, 1), (13, 1, 1))):\n pos=tuple(s.origin[i]+local[i] for i in range(3))\n points=[cam.WorldToScreenPoint(pos[0]+x,pos[1]+y,pos[2]+z)\n  for x in (0.,1.) for y in (0.,1.) for z in (0.,2. if name=='bed' else 1.)]\n rows.append({'name':name,'position':pos,'points':points})\n_result=json.dumps(rows)\n",
+  "is_client": true,
+  "direct_return": true
+}

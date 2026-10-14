@@ -1,0 +1,5 @@
+{
+  "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\nif navigator.top is not None:navigator.pop()\ns.origin=(0,-57,0)\ns.opacity=1.\ns.projection_outline=False\ns.projection_missing=True\nb.project()\n_result=True\n",
+  "is_client": true,
+  "direct_return": true
+}

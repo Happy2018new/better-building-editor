@@ -40,6 +40,8 @@ def _native_palette(data):
     """Convert SDK strings without copying the potentially large integer lists."""
     result = {}
     for key, value in data.items():
+        if key == '_native_render_profile':
+            continue
         if key in ('common', 'extra'):
             result[native(key)] = dict((_native_tree(material), indices)
                                        for material, indices in value.items())
@@ -51,6 +53,7 @@ def _native_palette(data):
 class ClientBridge(object):
     def __init__(self, system):
         self.system = system
+        self.engine_version = clientApi.GetEngineVersion()
         self.factory = clientApi.GetEngineCompFactory()
         self.level = clientApi.GetLevelId()
         self.player = clientApi.GetLocalPlayerId()
@@ -408,20 +411,24 @@ class ClientBridge(object):
 
     def geometry(self, document, visible=None, name=None, context_document=None, prepared=None,
                  render_origin=(0, 0, 0)):
+        from .native_render_profile import for_preview
+        preview_profile = for_preview(getattr(self.session, 'native_render_profile', None))
         if prepared is not None:
             data = prepared
         elif context_document is not None:
             from .render_context import prepare_context_batches
             data = prepare_context_batches(context_document, document.palette_data(visible),
                                            render_origin=render_origin,
-                                           item_profile=getattr(self.session, 'item_profile', None))
+                                           item_profile=getattr(self.session, 'item_profile', None),
+                                           native_render_profile=preview_profile)
         else:
             from .geometry_palette import prepare_palette
             # One empty Y cell separates source top vertices from overlay
             # bottom vertices so the shader never classifies both alike.
             data = prepare_palette(document.palette_data(visible), overlay_base=document.size[1]+1,
                                    render_origin=render_origin,
-                                   item_profile=getattr(self.session, 'item_profile', None))
+                                   item_profile=getattr(self.session, 'item_profile', None),
+                                   native_render_profile=preview_profile)
         if '_context_batches' in data:
             if not hasattr(self, 'context_models'):
                 self.context_models = {}

@@ -20,6 +20,7 @@ class WorldProjection(object):
         self.layer = s.editor.layer if s.solo_layer else None
         self.opacity, self.missing = s.opacity, s.projection_missing
         self.item_profile = getattr(s, 'item_profile', None)
+        self.native_render_profile = getattr(s, 'native_render_profile', None)
         from .occupancy import ProjectionOccupancy
         self.occupancy = ProjectionOccupancy(bridge, origin, self.document) if self.missing else None
         self.size = tuple(self.document.size)
@@ -98,7 +99,8 @@ class WorldProjection(object):
             self.completed.add(key)
         from .render_context import ContextBatchBuilder
         builder = ContextBatchBuilder(self.document, self.output.palette_data(), render_origin=self.origin,
-                                      item_profile=self.item_profile)
+                                      item_profile=self.item_profile,
+                                      native_render_profile=getattr(self, 'native_render_profile', None))
         for unused in builder.prepare():
             yield None
         self.prepared = builder.data

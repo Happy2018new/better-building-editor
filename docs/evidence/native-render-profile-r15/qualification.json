@@ -1,0 +1,103 @@
+{
+  "schema": 2,
+  "runtime_version": "3.10.0.420447",
+  "production_world_model_local": [
+    "minecraft:chest",
+    "minecraft:copper_chest",
+    "minecraft:ender_chest"
+  ],
+  "production_context": [
+    "minecraft:flower_pot"
+  ],
+  "production_scene_names": [
+    "minecraft:flower_pot"
+  ],
+  "gate": "exact name + complete captured actor fields + measured coordinate route + independently measured scene scope",
+  "manual_pixel_acceptance": {
+    "69-scoped-default-editor": {
+      "frame_sha256": "b4aff3f05cb7a85a16da92be6f724c87c71cf834cfc5f708eb61955524d37a45",
+      "report_sha256": "c0d0891a13bcdad531a6e45e2b28940053e8b0e86beadd60579aace020c14252",
+      "accepted": true
+    },
+    "71-scoped-default-full": {
+      "frame_sha256": "c58cfc17f4c86386a4889b1f6e55138ac42b0ae8e3d0c3d6dbc6ee5bf957200c",
+      "report_sha256": "3ebcc0a757e22790b4a813f21ed1360a672abf1b48f6f967d213614788d12e77",
+      "accepted": true
+    },
+    "74-scoped-default-occupied": {
+      "frame_sha256": "3d531279bce3e3b00b7bbd3f692aa599d0421621d9fbcd4fb3388577c04172b6",
+      "report_sha256": "1efe07fa586f338737d23303ae88d0b1115e495568ea89ba9caac16fd62d5177",
+      "accepted": true
+    },
+    "76-scoped-default-restored": {
+      "frame_sha256": "d0d46792fdeaf487772beee2d2adfb8f6066989c3198ae08dd11c6b260d6fa71",
+      "report_sha256": "96c8c6e8ab1b6b9356295593f7e05a1902066da066d3fadbf5c8a7ba6c6cab42",
+      "accepted": true
+    }
+  },
+  "negative_coordinate_control": "16-full-context/frame.png",
+  "negative_ui_depth_control": [
+    "56-unique-native-oblique/frame.png",
+    "58-unique-fallback-oblique/frame.png"
+  ],
+  "bed_production_qualified": false,
+  "banner_production_qualified": false,
+  "native_tests": 11,
+  "focused_tests_passed": 207,
+  "test_output_tail": [
+    "..............................................................................................",
+    "----------------------------------------------------------------------",
+    "Ran 207 tests in 11.093s",
+    "",
+    "OK"
+  ],
+  "sources": {
+    "native_render_profile.py": {
+      "workspace_sha256": "ab714f9e64a35eb480e19099088d68489d5ed8b4688d693c4b59d26ec4ff925e",
+      "runtime_sha256": "ab714f9e64a35eb480e19099088d68489d5ed8b4688d693c4b59d26ec4ff925e"
+    },
+    "entity_render.py": {
+      "workspace_sha256": "39c5509e537ec7a5d79c47764855781299c64591018284cf573b18187b431b32",
+      "runtime_sha256": "39c5509e537ec7a5d79c47764855781299c64591018284cf573b18187b431b32"
+    },
+    "geometry_palette.py": {
+      "workspace_sha256": "83946d275618ddf5b11a8bdc42b4802797a8338cbb97ea7fddfe4535d28fe687",
+      "runtime_sha256": "83946d275618ddf5b11a8bdc42b4802797a8338cbb97ea7fddfe4535d28fe687"
+    },
+    "render_context.py": {
+      "workspace_sha256": "9d27fd15aeb90d822509e94af52449e125a0da36847103428b8216875dc9ebd2",
+      "runtime_sha256": "9d27fd15aeb90d822509e94af52449e125a0da36847103428b8216875dc9ebd2"
+    },
+    "bridge.py": {
+      "workspace_sha256": "1e93fad8933993b7f318559bb3a142e7fb668dd7479e4b9f67f0f6912979e124",
+      "runtime_sha256": "1e93fad8933993b7f318559bb3a142e7fb668dd7479e4b9f67f0f6912979e124"
+    },
+    "session.py": {
+      "workspace_sha256": "f14dfe71e993dd12f0f559872d392db329d708a9c526e1c1868ff9f596915982",
+      "runtime_sha256": "f14dfe71e993dd12f0f559872d392db329d708a9c526e1c1868ff9f596915982"
+    },
+    "tiles.py": {
+      "workspace_sha256": "28ec2fb407a7bd32cf0a119a558eba6da68668a7741fcf9ee62589f96ce03c23",
+      "runtime_sha256": "28ec2fb407a7bd32cf0a119a558eba6da68668a7741fcf9ee62589f96ce03c23"
+    },
+    "world_projection.py": {
+      "workspace_sha256": "e33c02fb681a9a6961765376a4fe45203cbc3d47a3e09eb57971f88b97d13db2",
+      "runtime_sha256": "e33c02fb681a9a6961765376a4fe45203cbc3d47a3e09eb57971f88b97d13db2"
+    },
+    "occupancy.py": {
+      "workspace_sha256": "112e6d250f9afb93b211588f823462fa5f485361219373643a6cf816dfb8be14",
+      "runtime_sha256": "112e6d250f9afb93b211588f823462fa5f485361219373643a6cf816dfb8be14"
+    }
+  },
+  "fixture_sha256": {
+    "native_actor_310_r15.json": "979a0de924ff206c363672903dd655f79bb92ecc6d729d6cd7e0e6350f827540",
+    "native_banner_310_r15.json": "2cadbb35ec2f7add531d89e0e0d090a710842f9de9e9a5298cb0ca66142b5076"
+  },
+  "session": "60695c6595894ffcbe4c9fca5e36be0e",
+  "owner": "native-render310-r15",
+  "game_pid": 47968,
+  "game_identity": "134364256401523988",
+  "mcdk_port": 51296,
+  "registry_rewritten": false,
+  "shader_modified": false
+}

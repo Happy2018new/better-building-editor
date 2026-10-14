@@ -7,6 +7,7 @@ from .nbt_spatial import field_key, root_payload, scalar
 from .visible_actor import chest_is_single, render_actor, entity_nbt
 from .static_skull import SKULL_PROXIES, skull_proxy
 from .static_bed import BED_PROXIES, bed_proxy, palette_bed_colors
+from .native_render_profile import coordinate_mode
 
 SCHEMA_VERSION = 4
 SHULKER_COLORS = ('undyed', 'white', 'orange', 'magenta', 'light_blue', 'yellow',
@@ -219,7 +220,7 @@ def document_chest_part(document, position, material):
 
 
 def prepare_static_entities(entries, actors, volume=None, inferred_chest_parts=None,
-                            inferred_bed_colors=None):
+                            inferred_bed_colors=None, native_render_profile=None):
     """Replace only render cells; return actor slots consumed by static meshes."""
     result, replaced = {}, set()
     bed_colors = palette_bed_colors(entries, actors, volume)
@@ -231,6 +232,9 @@ def prepare_static_entities(entries, actors, volume=None, inferred_chest_parts=N
         payloads = actors.get(value[0], actors.get(value[0].encode('utf8'), {}))
         parts = _adjacent_chest_parts(value, positions, volume, payloads) if value[0] in CHEST_PROXIES else {}
         for index in positions:
+            if coordinate_mode(native_render_profile, value, payloads.get(index)) is not None:
+                result.setdefault(value, []).append(index)
+                continue
             inferred = (inferred_chest_parts or {}).get((value[0], index), parts.get(index))
             color = (inferred_bed_colors or {}).get(index, bed_colors.get(index))
             proxy = static_proxy(value, payloads.get(index), inferred, color)

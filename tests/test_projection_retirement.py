@@ -70,7 +70,8 @@ class ProjectionRetirementTests(unittest.TestCase):
         self.runtime = RetirementRuntime()
         self.original_api = boundary.clientApi
         boundary.clientApi = types.SimpleNamespace(GetEngineCompFactory=lambda: self.runtime,
-            GetLevelId=lambda: 'level', GetLocalPlayerId=lambda: 'player')
+            GetLevelId=lambda: 'level', GetLocalPlayerId=lambda: 'player',
+            GetEngineVersion=lambda: '3.9.0.401155')
         self.bridge = boundary.ClientBridge(self.runtime)
         self.bridge.session = Session(self.bridge)
         self.bridge.session.editor = Editor(Document((1, 1, 1),
