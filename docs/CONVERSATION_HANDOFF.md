@@ -1,5 +1,74 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-14 23:45 用户要求暂停以切换模型
+
+本节优先于以下连续开发计划。用户最新要求先保存上下文，然后终止本会话、所有子代理和全部打开的Minecraft实例。已停止新开发，实机代理执行恢复与身份绑定回收，主会话仅保存检查点／已验证提交／核对停止状态。切换后等待用户明确继续，不自动恢复代理或游戏。
+
+分支仍`dev`，不push／合main；五个用户`tools/p0_palette*_probe.py`未编辑、未stage。07:00休眠任务仍保留（用户未取消），原计划为第十七轮截止；如下一次恢复改变截止或休眠指令，以新指令为准。下方23:30处的运行中实例均为历史身份，不可直接复用。
+
+### 第十七轮暂停时的真实增量
+
+- `render_contract_review_r17`完成工具级漏洞修复：`tools/verify_render_qualifications.py`现核对冻结资源契约、资源字节和shared registry的owned entries；无关新条目不使已有资格失效。9项focused负控测试通过，当前四个enabled bundle全部通过（锅31／旗帜4／门16／刷怪笼9个资源检查），没有改runtime或资格hash。新icon复用的`item_sprite/skeleton.json`仍漏入契约，必须补依赖后再资格化。
+- `data_layer_regression_r17`复现新缺陷：512格选区EditJob计算批次错误限制成组伙伴，门替换结果0；`jobs.py`提前恢复完整selection的两行WIP使replace正确，但checker跨批仍上半AIR／下半stone，而小文档两半stone。未提交、未写新tests，不可当完成修复；恢复时需有界伙伴请求处理，先读`.runtime/r17-data-layer-checkpoint.md`。
+- `water_qualification_r16`独立新增`liquid_product_render.py`／`liquid_product_projection.py`与profile factory，10focused tests通过。共享`liquid_projection.py`已恢复原字节，`world_projection.py`未接线；owner数据未regen，生产False。v19同高度horizontal近x3水可见、远x63水缺失而stone可见，但远terrain也未加载，尚不能区分距离／chunk context。测试已恢复，自有v18／v19及MCDK均退出。交接`docs/evidence/water-product-r16-v1/HANDOFF_MODEL_SWITCH_2339.md`。
+- `visible_items_r16`新icon side-UV候选／独立侧面分析器仍需实机资格和完整姿态矩阵；与R16已提交旧生成器修复分开。16focused tests通过，实机原生对照仍失败；front plane14.75替代15及side normal lighting仅为未应用假设。最终源码、附魔与icon skeleton闭包尚待核对，生产False。检查点`.runtime/r17-visible-items-checkpoint.md`；MC16920／MCDK34588确认退出，session`797034991a5740ff82d420038f193ec5`为stopped。
+- `banner_special_r16`真实world book同camera参照完成16capture、completed／restored均true、cleanup_errors空；真实方块回读恢复air，库存／UI／camera／临时classes已归还。原件`.runtime/book-reference-r17-v1`和工具`tools/probe_book_reference_r17.py`保存，但尚未目检，不算资格。亮度／高度／旋转方向及editor讲台书缺失仍开。
+- `shelf_body_r17`仅有atlas源核对与两个独立host工具，未生成Shelf runtime／mesh。新instance启动120秒未ready，尚未执行夹具或相机／world写入；应正常关闭session`4c41d4cf0634408589edd389667c8b03`（MC54368／MCDK50728），不把启动算实测。
+- `native_dynamic_audit_r17`独立工具`tools/audit_dynamic_routes_r17.py`通过语法和3项既有blueprint tests，但未实机跑，prismarine别名的flipbook_indexes映射须修正，约300ticks／15s每帧。七种头颅有效源、伸出活塞本体＋辅助臂、原生岩浆和普通动态三路径仍待；旧SkullType255不能用于原生不支持结论。
+- `block_item_models_r17`／`item_tint_families_r17`／`special_items_plan_r17`主要保存研究，无产品完成新增。1,338个block物品不能直接以Damage映射block aux或当cube；应先诊断3.10原生BindItemToSkeletonModel。命名spawn egg用物种PNG、药水真实aux纹理映射可复用；leather/firework TGA颜色尚未测。ID级unsupported混入无效aux，不代表整个ID不支持；map raster／shield atlas等依赖仍未解决。
+
+### 独立检查点
+
+恢复时先读本文件、统一待办和外观附件，再按实际要接手的专项读取：`.runtime/r17-render-contract-checkpoint.md`、`.runtime/r17-data-layer-checkpoint.md`、`.runtime/r17-native-dynamic-checkpoint.md`、`.runtime/r17-block-items-checkpoint.md`、`.runtime/r17-item-tints-checkpoint.md`、`.runtime/r17-special-items-checkpoint.md`、`.runtime/r17-visible-items-checkpoint.md`、`docs/SHELF_BODY_R17_CHECKPOINT.md`以及水的tracked交接。`.runtime`检查点本地保留但ignored；关键结论已在此收敛。WIP源码保留工作区，不用reset/revert用户或代理变更；恢复前先检查git diff和门控，最后一次2,817项全量结果是R16冻结源，不能自动算R17未完源码全绿。
+
+23:47实际进程检查没有任何具有活动句柄或有效路径的Minecraft；历史零句柄／无路径进程记录不能当作活动游戏。用户3.9 PID40452此次依照“全部打开MC”新授权核对path／创建时间后关闭（无窗口）。此前“不操作用户40452”适用于开发测试，不阻止本次明确的关闭要求。
+
+## 2026-10-14 23:30 第十六轮检查点与第十七轮接续
+
+本节优先于下方历史安排。第十六轮23:30结束后无缝进入第十七轮，持续至2026-10-15 07:00（Asia/Shanghai），届时休眠而非关机。用户最新授权最多10个活动子代理；活动MC仍最多5个，含用户3.9 PID40452，该用户实例不操作。继续在`dev`，不push、不合main、不清工作树。模型继承用户选择的`gpt-6.1-sol (ultra)`。后台测试不focus／resize／桌面输入；用户自行前台观察不暂停，捕获不可靠必须报告。
+
+一次性Windows任务`Codex-BetterBuildingEditor-R17-Hibernate-20261015`已登记并验证：下次运行2026-10-15T07:00:00+08:00，`C:\\WINDOWS\\System32\\shutdown.exe /h`，Ready、WakeToRun。07:00前先恢复夹具和保存进度；不要重新启用旧R15任务。
+
+- 提交`06831f59 test: diagnose missing native shelf bodies and verify render provenance`、`27362111 fix: extend versioned block appearance adapters and item geometry`已保存。后者包含生产刷怪笼标识、旗帜editor静态深度、末地门／折跃门表面、物品与书候选及精简证据；不表示水／物品／书默认资格通过。此检查点后出现的R17 icon side-UV改动尚属候选，须独立提交。
+- 最终完整回归`.runtime/r16-alltests-geometry-final.log`：2,817项、431.123秒、OK；此前2,815项也通过。运行时223文件白名单无违规。工作区与staged的锅／旗帜／门／刷怪笼来源校验均通过；Git保存实际测试字节，不能用改写hash掩盖换行差异。
+- 物品生成器west／east暴露邻居确实反向，已修复并重生成48旧模型和450新icon。修复后侧视可见，但同物品／同相机／足够尺度的plain剑仍有分段侧边：product52×161、native55×161，独立side mask recall0.93255、precision0.94401。不是已证实厚度不足；新icon采用opaque-texel-center side-UV候选正在R17对照。48＋12姿态与最终源附魔复验仍缺，生产False。
+- 附魔双层原生纹理v3的157／158px近景三路径证据已通过有限可见性，旧正弦方案失败保留；后续侧面几何变化要求最终源复验，用户亮度／原生外观问题不由有限光效通过关闭。
+- 青色`cyan_concrete`在同坐标、同camera、无书／物品／水的actual-world与normal full projection对照中，投影顶面／侧面边界有背景色细线，真实块无此线。有效v2读回和恢复完成，证据`docs/evidence/cyan-seam-r16`。这是普通投影缺陷；mesh、UV、MSAA、深度或变换原因未定位，用户截图的竖边尚未完全隔离。不盲目膨胀所有方块。
+- 书候选v4已见附魔台常驻浮动／旋转和world讲台书，但editor讲台书缺失；用户指出亮度、浮空高度、旋转方向不对。下一步真实世界原生书同camera连续帧参照，而非空palette基准。book生产False，原始19帧原生观察／23帧候选均保留。
+- 水R16覆盖57／57 case-route、12／12 alpha、54／54独立切面、108／108生命周期；35源闭包未变。world侧UV、冷构建103／157ms、远距／context、三路径动画／群系、精确占用、反角度、gallery、普通默认冷启九类仍开，生产False。同v18、固定玩家foot的远Y3／近Y-61对照已复现远水缺失而native stone可见；具体剔除原因尚未确认。R17 texture-center独立诊断editor两面／world south吻合，world east仍明显不符，不拟合图片放宽门槛。
+- Windows句柄增长原因未定位，不能当已证实模组／GPU泄漏。水v18 PID37732已因超预算回收；启动新实例必须核对当前owner、session、创建时间，不能按历史PID批量操作。
+
+### 第十七轮分工与接续顺序
+
+10个子代理：`water_qualification_r16`（水）、`visible_items_r16`（侧面／附魔）、`banner_special_r16`（真实书参照）、`shelf_body_r17`（架本体）、`block_item_models_r17`（3D方块物品）、`item_tint_families_r17`（颜色家族）、`native_dynamic_audit_r17`（动态／头颅／活塞资格）、`data_layer_regression_r17`（数据／成组回归）、`render_contract_review_r17`（来源及架构审查）、`special_items_plan_r17`（特殊内容家族）。后六个先离线，不自行启动游戏；主会话负责青色接缝、实例分配和整合。
+
+23:35附近在用：user40452、items16920、books45248、水v19 PID48680（session`9966378c03354934b8e607e3b6245e94`，owner`water-product-r16`）。Shelf获第5槽15分钟短测授权，完成后回收供root使用；进程状态随时变化，以上不是可直接操作的身份凭据。
+
+水冷构建拟用water-only renderer，避免改变已资格化共用文件；`liquid_projection.py`属于锅／门来源闭包，修改会使旧资格失效，不能仅保留旧hash。代理需优先考虑独立product projection子类／工厂，在冻结入口整合后再验。五个用户`tools/p0_palette*_probe.py`继续不编辑、不stage；不可`git add .`。本轮增量任务仅在`IMPLEMENTATION_GAPS.md`维护，技术依据在外观附件。
+
+剩余工期尚在按10代理的实际任务重估；不得把旧3代理10–18小时估计直接除以代理数量，也不得根据通过测试数换算百分比。完整NBT可见物品特殊家族与最终集成是主要不确定性，先核对现有范围和source证据。
+
+## 2026-10-14 第十六轮历史进行记录
+
+本轮截止为今天23:30（Asia/Shanghai），没有休眠任务。继续在`dev`开发，不push、不合main；用户指定`gpt-6.1-sol (ultra)`，最多3个活动子代理、5个活动MC。第十五轮最终结果仍以下方17:20检查点为准，本节仅登记本轮进行中的工作，不代表新增资格已通过。
+
+- `water_qualification_r16`：水默认冷启、side UV／切面／邻域／透明排序及预算，先补实机证据，再决定精确3.10生产资格。独立副本`D:/bbe-r16-water-production`，owner`water-product-r16`。
+- `visible_items_r16`：通用可见物品／附魔和框槽位，资源来源及家族参数分开；特殊物品不静默降级。owner`visible-items310-r16`。
+- `banner_special_r16`：旗帜v6b家族契约及editor变换／图层／缩放／切面、world回归；完成后继续特殊表面。使用隔离副本`D:/bbe-r15-native-production`，owner`banner-special-r16`。
+- 主会话：刷怪笼配置有／无／未知标识、原生动态族产品验收、共享入口接线和最终证据／文档／提交整合。共享Session／Scene／bridge等源变动要同步给水资格负责人，防止冻结旧源。cauldron及native已冻结字节契约不得无解释失效。
+
+18:17实时核对只有用户3.9 PID40452有活动句柄；其他历史MC记录均零句柄，不按旧PID批量杀进程。该用户实例不操作；三个代理各最多1个实例，主会话最多1个，总量含用户实例不超过5。继续后台测试，不主动focus／resize／桌面输入；用户自行前台观察不暂停。截图或夹具不可靠必须显式报告。五个用户`tools/p0_palette*_probe.py`不编辑、不stage；不能`git add .`。
+
+### 22:40接续增量
+
+- Root检查点`06831f59`已保存Shelf缺本体四向对照、负控分析器和实际／staged资格来源校验。root实例PID14632及MCDK22336已正常退出；不复用历史身份。共享功能与精简证据正在显式stage，不push／main merge。
+- 刷怪笼、editor旗帜深度及末地门／折跃门表面有限范围已默认启用，锅既有资格保持。`verify_render_qualifications.py`工作区四包通过。首次staged检查抓到3个未改动共享文件的Git换行差异，现用精确字节属性和定点renormalize保存实测CRLF，不改写实机hash；后续仍须重验staged。
+- 水world全空并非已证实shader错误：相机在测试平台附近但真实玩家约65格外。移近玩家后几何／透明／切面通过；同代码不同干净实例的远近对照尚不足确定剔除阈值，保留实际远距可见性限制。侧UV两面0.814／0.683和一次约157ms冷构建未达门槛，生产False。来源35闭包未变。
+- 附魔v3有效原生157／158像素放大对照已通过三路径可见性；完整姿态未完成，生产物品False。用户新增贴框／无侧面：已确认共享silhouette_cubes左右暴露邻居检测反向，正在取before并做最小修复；影响旧3.9禁用候选及450新icon资源，生成器／资源须一起更新，最终回归需覆盖冻结后的源。离框位置／侧面照明仍待实测，不能靠有厚度字段关闭。
+- 用户两张讲台青色支撑截图疑似竖边接缝，banner专项补真实方块／纯Combine／无书对照。截图雪山背景与该专项森林实例不同，不假定它是同实例。book候选仍False，讲台初版实际未见书，附魔书初版偏平；最终候选在测。
+- 第一遍2,815项全库失败的book空actor、水mock类型和actor材料适配hash已focused修正，第二遍日志`.runtime/r16-alltests-final.log`正在运行；没有完成前不得写全绿。若随后修改共享物品生成器，必须以最终冻结源补相应回归／第三遍，而非引用修复前结果。
+- 句柄持续增长是未定位的V06环境／资源问题，不等于已证实模组或GPU泄漏。短批重启只是风险控制。完整raw仍保留ignored `.runtime`，提交只选精简review及来源回执，用户五探针不stage。
+
 ## 2026-10-14 17:20 第十五轮最终接续点
 
 本节优先于下方所有暂停／恢复记录。分支`dev`，不push、不合main；本轮17:30停止，无休眠任务。用户选择`gpt-6.1-sol (ultra)`，最多3个活动子代理、5个活动MC。三个专项已完成本轮操作、正常停止全部自有游戏，没有残留exec；未受管用户3.9 PID40452不得按旧PID回收，恢复时先核对实时身份。

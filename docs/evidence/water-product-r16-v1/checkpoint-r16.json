@@ -1,0 +1,434 @@
+{
+  "alpha_all_passed": true,
+  "alpha_control_count": 12,
+  "case_route_coverage": 57,
+  "geometry_all_passed": true,
+  "independent_section_all_passed": true,
+  "independent_section_control_count": 54,
+  "maximum_owner_ms": {
+    "LiquidControls.update": 8.00013542175293,
+    "LiquidPreview.advance": 8.00013542175293,
+    "LiquidProjection.advance": 157.00006484985352,
+    "WorldLiquidRenderer.advance": 156.00013732910156
+  },
+  "open": [
+    "world_side_uv_failed",
+    "cold_world_advance_over_100ms",
+    "free_model_native_entity_distance_or_world_context_mismatch",
+    "animated_physical_flow_three_routes",
+    "frozen_biome_three_routes",
+    "missing_pool_exact_occupancy_transitions",
+    "opposite_angle_neighbors_and_overlap",
+    "complete_public_gallery",
+    "cold_start_ordinary_default_entry"
+  ],
+  "product_qualified": false,
+  "public_cases": 19,
+  "round": 16,
+  "routes": [
+    "editor",
+    "full",
+    "missing"
+  ],
+  "runs": [
+    {
+      "acceptance_analysis": {
+        "path": "editor-core-acceptance-v9.json",
+        "sha256": "1bdcf5113812c5e11cb2bd14e5f2a9db6dac237425f19968c51541d69987a8ca"
+      },
+      "body_alpha": {
+        "editor_wet_oak_fence_wet": true
+      },
+      "budgets": {
+        "LiquidControls.update": {
+          "maximum_ms": 6.000041961669922,
+          "p95_ms": 0.9999275207519531,
+          "p99_ms": 1.0001659393310547,
+          "passed": true,
+          "samples": 67176
+        },
+        "LiquidPreview.advance": {
+          "maximum_ms": 8.00013542175293,
+          "p95_ms": 0.0,
+          "p99_ms": 0.0,
+          "passed": true,
+          "samples": 67176
+        },
+        "LiquidProjection.advance": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        },
+        "WorldLiquidRenderer.advance": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        }
+      },
+      "captures": 54,
+      "elapsed_seconds": 189.6664424999908,
+      "geometry_passed": true,
+      "product_analysis": {
+        "path": "editor-core-product-analysis-v9.json",
+        "sha256": "c8988b47e45d72e34edd74c95cb7daaeeddcf441f4fad542840ceb83ff399a9e"
+      },
+      "report": {
+        "path": "editor-core-v9.json",
+        "sha256": "530332b162e65b1c40bdd36da32a862cf76a544920c3937c7e96261f9e6ecd18"
+      },
+      "rows": 26,
+      "side_uv": {
+        "editor_pool_wet_east": {
+          "background_control": "editor_pool_dry",
+          "contrast": 8.583354847157183,
+          "correlation": 0.9829062371336358,
+          "negative_constant": {
+            "contrast": 1.4210854715202004e-14,
+            "correlation": -1.1957323511435142e-15,
+            "passed": false,
+            "rgb_rmse": 48.45494383357941
+          },
+          "negative_mirrored": {
+            "contrast": 8.583354847157183,
+            "correlation": -0.11703299927161621,
+            "passed": false,
+            "rgb_rmse": 14.29873123034995
+          },
+          "negative_wrong_phase": {
+            "contrast": 8.583354847157183,
+            "correlation": -0.018261136288799506,
+            "passed": false,
+            "rgb_rmse": 13.666240991740624
+          },
+          "opaque_control": "editor_pool_wet_side_opaque",
+          "passed": true,
+          "rgb_rmse": 1.8178535921629242,
+          "surface_opacity": 0.45
+        },
+        "editor_pool_wet_south": {
+          "background_control": "editor_pool_dry",
+          "contrast": 8.61453903944493,
+          "correlation": 0.963750664192431,
+          "negative_constant": {
+            "contrast": 0.0,
+            "correlation": null,
+            "passed": false,
+            "rgb_rmse": 48.5290779337201
+          },
+          "negative_mirrored": {
+            "contrast": 8.61453903944493,
+            "correlation": -0.13071795966912814,
+            "passed": false,
+            "rgb_rmse": 14.193464695862158
+          },
+          "negative_wrong_phase": {
+            "contrast": 8.61453903944493,
+            "correlation": -0.017630833300623695,
+            "passed": false,
+            "rgb_rmse": 13.478896561930412
+          },
+          "opaque_control": "editor_pool_wet_side_opaque",
+          "passed": true,
+          "rgb_rmse": 2.5868469763990203,
+          "surface_opacity": 0.45
+        }
+      },
+      "visibility_passed": true
+    },
+    {
+      "acceptance_analysis": {
+        "path": "editor-neighbors-acceptance-v9.json",
+        "sha256": "f28fc0167c41e833b2fa7e75c2b738ff2fd0f71a396c7d0d3575f8a76d9bcbcc"
+      },
+      "body_alpha": {
+        "editor_wet_glass_pane_wet": true,
+        "editor_wet_oak_slab_wet": true,
+        "editor_wet_oak_stairs_wet": true
+      },
+      "budgets": {
+        "LiquidControls.update": {
+          "maximum_ms": 8.00013542175293,
+          "p95_ms": 0.9999275207519531,
+          "p99_ms": 1.0001659393310547,
+          "passed": true,
+          "samples": 69813
+        },
+        "LiquidPreview.advance": {
+          "maximum_ms": 6.999969482421875,
+          "p95_ms": 0.0,
+          "p99_ms": 0.0,
+          "passed": true,
+          "samples": 69813
+        },
+        "LiquidProjection.advance": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        },
+        "WorldLiquidRenderer.advance": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        }
+      },
+      "captures": 62,
+      "elapsed_seconds": 254.06245409999974,
+      "geometry_passed": true,
+      "product_analysis": {
+        "path": "editor-neighbors-product-analysis-v9.json",
+        "sha256": "1906c20d0852dde29d356d80a6500fdb894b8635b4e1d06f9f432bc756814ad8"
+      },
+      "report": {
+        "path": "editor-neighbors-v9.json",
+        "sha256": "175a2ba53a6c66f535d5ad27b620f4dd13a0abe6b5de427775fc25b65db0811c"
+      },
+      "rows": 28,
+      "side_uv": {},
+      "visibility_passed": true
+    },
+    {
+      "acceptance_analysis": {
+        "path": "full-core-acceptance-v14.json",
+        "sha256": "1691089fc0dfa8ba3423ff50ae57b80736880e7e9f44ef12cd41c21547c2f20c"
+      },
+      "body_alpha": {
+        "full_wet_oak_fence_wet": true
+      },
+      "budgets": {
+        "LiquidControls.update": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        },
+        "LiquidPreview.advance": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        },
+        "LiquidProjection.advance": {
+          "maximum_ms": 157.00006484985352,
+          "p95_ms": 0.0,
+          "p99_ms": 0.9999275207519531,
+          "passed": false,
+          "samples": 165522
+        },
+        "WorldLiquidRenderer.advance": {
+          "maximum_ms": 156.00013732910156,
+          "p95_ms": 0.0,
+          "p99_ms": 0.0,
+          "passed": false,
+          "samples": 165511
+        }
+      },
+      "captures": 54,
+      "elapsed_seconds": 225.8303687999869,
+      "geometry_passed": true,
+      "product_analysis": {
+        "path": "full-core-product-analysis-v14.json",
+        "sha256": "1ad003b672c014f86542de24b59984a5d7342b58980a3ed99d6374edf052c8ab"
+      },
+      "report": {
+        "path": "full-core-v14.json",
+        "sha256": "189411268437008967a1ef923bc1198280cfe94b89f71827cdc19f69ed72a9a1"
+      },
+      "rows": 26,
+      "side_uv": {
+        "full_pool_wet_east": {
+          "background_control": "full_pool_dry",
+          "contrast": 8.189848475710553,
+          "correlation": 0.6827084163562814,
+          "negative_constant": {
+            "contrast": 1.4210854715202004e-14,
+            "correlation": -5.646218027374487e-16,
+            "passed": false,
+            "rgb_rmse": 48.365118187736265
+          },
+          "negative_mirrored": {
+            "contrast": 8.189848475710553,
+            "correlation": 0.027853421960169877,
+            "passed": false,
+            "rgb_rmse": 13.008991139952778
+          },
+          "negative_wrong_phase": {
+            "contrast": 8.189848475710553,
+            "correlation": -0.04429540438893536,
+            "passed": false,
+            "rgb_rmse": 13.499513941634218
+          },
+          "opaque_control": "full_pool_wet_side_opaque",
+          "passed": false,
+          "rgb_rmse": 7.470552233625841,
+          "surface_opacity": 0.45
+        },
+        "full_pool_wet_south": {
+          "background_control": "full_pool_dry",
+          "contrast": 8.537991974649445,
+          "correlation": 0.8142560124606175,
+          "negative_constant": {
+            "contrast": 1.4210854715202004e-14,
+            "correlation": -3.5274108438611174e-16,
+            "passed": false,
+            "rgb_rmse": 48.410657684717975
+          },
+          "negative_mirrored": {
+            "contrast": 8.537991974649445,
+            "correlation": -0.13816807220569283,
+            "passed": false,
+            "rgb_rmse": 14.327180774446948
+          },
+          "negative_wrong_phase": {
+            "contrast": 8.537991974649445,
+            "correlation": 0.018735105154729346,
+            "passed": false,
+            "rgb_rmse": 13.310699942246243
+          },
+          "opaque_control": "full_pool_wet_side_opaque",
+          "passed": false,
+          "rgb_rmse": 5.843284598993042,
+          "surface_opacity": 0.45
+        }
+      },
+      "visibility_passed": true
+    },
+    {
+      "acceptance_analysis": {
+        "path": "full-neighbors-acceptance-v15.json",
+        "sha256": "870ad1a9948e1414551d7eccee8f89710530c5a45003abd31c980482bf84ea24"
+      },
+      "body_alpha": {
+        "full_wet_glass_pane_wet": true,
+        "full_wet_oak_slab_wet": true,
+        "full_wet_oak_stairs_wet": true
+      },
+      "budgets": {
+        "LiquidControls.update": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        },
+        "LiquidPreview.advance": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        },
+        "LiquidProjection.advance": {
+          "maximum_ms": 87.00013160705566,
+          "p95_ms": 0.0,
+          "p99_ms": 0.9999275207519531,
+          "passed": true,
+          "samples": 185856
+        },
+        "WorldLiquidRenderer.advance": {
+          "maximum_ms": 87.00013160705566,
+          "p95_ms": 0.0,
+          "p99_ms": 0.0,
+          "passed": true,
+          "samples": 185853
+        }
+      },
+      "captures": 62,
+      "elapsed_seconds": 246.17394670000067,
+      "geometry_passed": true,
+      "product_analysis": {
+        "path": "full-neighbors-product-analysis-v15.json",
+        "sha256": "1da3a822959fe8d175072bb66087b2e203eacdbc0b67bc823c3cb628904bf5f6"
+      },
+      "report": {
+        "path": "full-neighbors-v15.json",
+        "sha256": "9cf5af5191e49dc9eb4b71d30b4540af660d47805a1dc3fbe2bf82c8017e234c"
+      },
+      "rows": 28,
+      "side_uv": {},
+      "visibility_passed": true
+    },
+    {
+      "acceptance_analysis": {
+        "path": "missing-all-acceptance-v17.json",
+        "sha256": "ec0785cfbbef9022ca11c6bf6787b27c3dbc415d30392a83466adef51ae5e53b"
+      },
+      "body_alpha": {
+        "missing_wet_glass_pane_wet": true,
+        "missing_wet_oak_fence_wet": true,
+        "missing_wet_oak_slab_wet": true,
+        "missing_wet_oak_stairs_wet": true
+      },
+      "budgets": {
+        "LiquidControls.update": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        },
+        "LiquidPreview.advance": {
+          "maximum_ms": null,
+          "p95_ms": null,
+          "p99_ms": null,
+          "passed": false,
+          "samples": 0
+        },
+        "LiquidProjection.advance": {
+          "maximum_ms": 80.00016212463379,
+          "p95_ms": 0.0,
+          "p99_ms": 0.9999275207519531,
+          "passed": true,
+          "samples": 350181
+        },
+        "WorldLiquidRenderer.advance": {
+          "maximum_ms": 78.99999618530273,
+          "p95_ms": 0.0,
+          "p99_ms": 0.0,
+          "passed": true,
+          "samples": 350167
+        }
+      },
+      "captures": 116,
+      "elapsed_seconds": 449.50703569999314,
+      "geometry_passed": true,
+      "product_analysis": {
+        "path": "missing-all-product-analysis-v17.json",
+        "sha256": "b9500a9d338e200e805708c5a66e09a1058f07dff415cf9602b0bc06d496a608"
+      },
+      "report": {
+        "path": "missing-all-v17.json",
+        "sha256": "c00ed67d6c718dc85835f2c0fed3ef193bae7c71c22b3e6a0f3f786559982571"
+      },
+      "rows": 54,
+      "side_uv": {
+        "missing_pool_wet_east": {
+          "error": "Declared physical side samples leave the native viewport",
+          "opaque_control": "missing_pool_wet_side_opaque",
+          "passed": false
+        },
+        "missing_pool_wet_south": {
+          "error": "Declared physical side samples leave the native viewport",
+          "opaque_control": "missing_pool_wet_side_opaque",
+          "passed": false
+        }
+      },
+      "visibility_passed": true
+    }
+  ],
+  "runtime_owner_sources": 35,
+  "runtime_owner_sources_identical": true,
+  "schema": 1,
+  "scope": "Completed public frozen near-field controls; this is not a product admission.",
+  "world_lifecycle_all_passed": true,
+  "world_lifecycle_sample_count": 108
+}

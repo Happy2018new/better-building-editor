@@ -1,0 +1,298 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "source_report_sha256": "7f983441f12f539bc06f9705cd83e321e811d799ba05e14f34dac1d9de8e7d4e",
+  "source_analysis_sha256": "8775273a4acc07d32e73707971d63b0f02e91560fb7ed241067c139932097784",
+  "resource_contract": {
+    "layout_version": 1,
+    "resource_sha256": "b780201158dff825b4eb638b498ffac09ca008f23e16bf34b23735601793b712"
+  },
+  "analysis": {
+    "schema": 1,
+    "source_sha256": "7f983441f12f539bc06f9705cd83e321e811d799ba05e14f34dac1d9de8e7d4e",
+    "analyzer_sha256": "f499d3d98caa4f65167fab77a05b804c0bad505fdc73f86b7c1dd2e6680cd1de",
+    "capture_failures": [],
+    "cases": [
+      {
+        "id": "orientation.frame_f2_r0",
+        "item": [
+          "minecraft:diamond_sword",
+          0
+        ],
+        "routes": {
+          "editor": {
+            "plain": {
+              "observed": {
+                "pixels": 3622,
+                "bounds": [
+                  1120,
+                  677,
+                  1177,
+                  832
+                ]
+              },
+              "declared": {
+                "pixels": 2691,
+                "bounds": [
+                  1120,
+                  678,
+                  1173,
+                  833
+                ]
+              },
+              "iou": 0.6997845988152935,
+              "maximum_boundary_pixels": 4,
+              "passed": false,
+              "stable_hidden_fraction": 1.0
+            },
+            "enchanted": {
+              "observed": {
+                "pixels": 2468,
+                "bounds": [
+                  803,
+                  677,
+                  859,
+                  832
+                ]
+              },
+              "declared": {
+                "pixels": 2690,
+                "bounds": [
+                  802,
+                  678,
+                  855,
+                  833
+                ]
+              },
+              "iou": 0.5369487485101311,
+              "maximum_boundary_pixels": 4,
+              "passed": false,
+              "stable_hidden_fraction": 1.0
+            }
+          },
+          "full": {
+            "plain": {
+              "observed": {
+                "pixels": 3237,
+                "bounds": [
+                  968,
+                  476,
+                  1020,
+                  637
+                ]
+              },
+              "declared": {
+                "pixels": 2134,
+                "bounds": [
+                  972,
+                  478,
+                  1019,
+                  636
+                ]
+              },
+              "iou": 0.6521070439864657,
+              "maximum_boundary_pixels": 4,
+              "passed": false,
+              "stable_hidden_fraction": 1.0
+            }
+          },
+          "missing": {
+            "plain": {
+              "observed": {
+                "pixels": 3237,
+                "bounds": [
+                  968,
+                  476,
+                  1020,
+                  637
+                ]
+              },
+              "declared": {
+                "pixels": 2134,
+                "bounds": [
+                  972,
+                  478,
+                  1019,
+                  636
+                ]
+              },
+              "iou": 0.6521070439864657,
+              "maximum_boundary_pixels": 4,
+              "passed": false,
+              "stable_hidden_fraction": 1.0
+            }
+          },
+          "native": {
+            "plain": {
+              "observed": {
+                "pixels": 3710,
+                "bounds": [
+                  968,
+                  476,
+                  1023,
+                  637
+                ]
+              },
+              "declared": {
+                "pixels": 2134,
+                "bounds": [
+                  972,
+                  478,
+                  1019,
+                  636
+                ]
+              },
+              "iou": 0.5752021563342318,
+              "maximum_boundary_pixels": 4,
+              "passed": false,
+              "stable_hidden_fraction": 1.0
+            }
+          }
+        },
+        "native_body_comparison": {
+          "full": {
+            "product": {
+              "pixels": 3237,
+              "bounds": [
+                968,
+                476,
+                1020,
+                637
+              ]
+            },
+            "native": {
+              "pixels": 3710,
+              "bounds": [
+                968,
+                476,
+                1023,
+                637
+              ]
+            },
+            "limits": {
+              "edge_tolerance_pixels": 2,
+              "minimum_recall": 0.985,
+              "minimum_precision": 0.985,
+              "minimum_extent_pixels": 48
+            },
+            "recall": 0.9495956873315364,
+            "precision": 0.9978375038616002,
+            "scale_passed": true,
+            "passed": false,
+            "negative_controls": {
+              "blank_rejected": true,
+              "shifted_rejected": true
+            }
+          },
+          "missing": {
+            "product": {
+              "pixels": 3237,
+              "bounds": [
+                968,
+                476,
+                1020,
+                637
+              ]
+            },
+            "native": {
+              "pixels": 3710,
+              "bounds": [
+                968,
+                476,
+                1023,
+                637
+              ]
+            },
+            "limits": {
+              "edge_tolerance_pixels": 2,
+              "minimum_recall": 0.985,
+              "minimum_precision": 0.985,
+              "minimum_extent_pixels": 48
+            },
+            "recall": 0.9495956873315364,
+            "precision": 0.9978375038616002,
+            "scale_passed": true,
+            "passed": false,
+            "negative_controls": {
+              "blank_rejected": true,
+              "shifted_rejected": true
+            }
+          }
+        }
+      }
+    ],
+    "production_qualified": false,
+    "scope": "Static measured flat-icon geometry and actual native frame body; animation measured separately",
+    "resource_contract": {
+      "layout_version": 1,
+      "resource_sha256": "b780201158dff825b4eb638b498ffac09ca008f23e16bf34b23735601793b712"
+    },
+    "profile_mode": "candidate",
+    "view_configuration": {},
+    "world_measured_modes": [
+      "plain"
+    ],
+    "requested_cases": [
+      "orientation.frame_f2_r0"
+    ],
+    "completed_cases": [
+      "orientation.frame_f2_r0"
+    ],
+    "matrix_completed": true,
+    "contact_sheet": ".runtime\\visible-items-r16-oblique-near-v1-analysis-v2\\contact-sheet.png",
+    "closeup": {},
+    "evidence_valid": true,
+    "all_bodies_passed": false
+  },
+  "files": [
+    {
+      "path": "orientation.frame_f2_r0_editor_hidden_before.png",
+      "sha256": "566152ad639ad88915a8f2946ff5e89166768d33250ccd8fc880619669e66ad5"
+    },
+    {
+      "path": "orientation.frame_f2_r0_editor_shown.png",
+      "sha256": "722b94b5891414c39a76254f72dfd8fae9a9682bac629da33f8044f6bc05dbbd"
+    },
+    {
+      "path": "orientation.frame_f2_r0_editor_hidden_after.png",
+      "sha256": "6a5a2f664a0482fe660ba8d784389b60cdeb5259ef4309669b7da60aacac75b9"
+    },
+    {
+      "path": "orientation.frame_f2_r0_full_hidden_before.png",
+      "sha256": "e592b5e1a72e9fa73b9a61cde2b665a8387bd9b5b5f3a0890a0d81ab1ccc1a5c"
+    },
+    {
+      "path": "orientation.frame_f2_r0_full_shown.png",
+      "sha256": "65ba4b9dfd093cc1ef34918d4a60dbb893916209716ffb5b7ab50dc5ee318991"
+    },
+    {
+      "path": "orientation.frame_f2_r0_full_hidden_after.png",
+      "sha256": "079e1033534c755a962212fcf0b6133dc98d0b1de09d1052e2fe470708b90216"
+    },
+    {
+      "path": "orientation.frame_f2_r0_missing_hidden_before.png",
+      "sha256": "3d98bae898885b6565abdc67f6185ed923eaae84ff383ac7b3b9d782d73cbe0d"
+    },
+    {
+      "path": "orientation.frame_f2_r0_missing_shown.png",
+      "sha256": "0c563f18b6b1166b112f4b0447f6b7780da3902fb12b55efc40fa1d444ac577a"
+    },
+    {
+      "path": "orientation.frame_f2_r0_missing_hidden_after.png",
+      "sha256": "763f24df6e31f2148f203b026a28820ebe4e3e9abc13894311ff7679257100da"
+    },
+    {
+      "path": "orientation.frame_f2_r0_native_hidden_before.png",
+      "sha256": "14d5692124465bffb9746cf09b9fe2f52a4b6c45d52e78d8113f80842052c804"
+    },
+    {
+      "path": "orientation.frame_f2_r0_native_shown.png",
+      "sha256": "fd9da5306328850bad1d8d0f230438ac6b4ac287fc04fbdff6585776a21d3b2d"
+    },
+    {
+      "path": "orientation.frame_f2_r0_native_hidden_after.png",
+      "sha256": "5505c8e3443c84bdf25551b90d1bb2da576ea813402ce649bc1987dc6a5641cc"
+    }
+  ],
+  "scope": "Selected raw same-item near side-view reference; full raw capture remains local"
+}

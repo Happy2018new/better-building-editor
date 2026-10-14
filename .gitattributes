@@ -242,3 +242,13 @@ resource_pack/models/modern_projection/item_sprite/** -text whitespace=cr-at-eol
 resource_pack/models/netease_block/preview_item_minecraft_diamond_sword_0_*.json -text whitespace=cr-at-eol
 tools/generate_flat_item_proxies.py -text whitespace=cr-at-eol
 docs/evidence/visible-items-product-r16/sides-review-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/visible-items-product-r16/sides-near-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-candidate-r16/** -text -diff whitespace=cr-at-eol
+docs/evidence/cyan-seam-r16/** -text -diff whitespace=cr-at-eol
+docs/evidence/water-product-r16-v1/checkpoint-r16.json -text whitespace=cr-at-eol
+# The legacy generator checks all of these output bytes without normalization.
+behavior_pack/modern_projection/projection/static_frame_item_data.py -text whitespace=cr-at-eol
+behavior_pack/netease_blocks/preview_item_minecraft_diamond_sword_0_*.json -text whitespace=cr-at-eol
+resource_pack/blocks.json -text whitespace=cr-at-eol
+resource_pack/textures/terrain_texture.json -text whitespace=cr-at-eol
+resource_pack/shaders/glsl/modern_projection_item_sprite.fragment -text whitespace=cr-at-eol
