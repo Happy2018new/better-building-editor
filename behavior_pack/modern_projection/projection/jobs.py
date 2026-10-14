@@ -7,7 +7,7 @@ import random
 import time
 from collections import deque
 from .model import AIR, BY_ID, DIRECTIONS, add, bounds, box_points, close_group_selection
-from .storage import Selection, FULL, CELLS, integer_types, indices, position
+from .storage import BlockStore, Selection, FULL, CELLS, integer_types, indices, position
 from .cell import Cell, foreground, layer, has_complete_cells, rebase as rebase_cell, transform as transform_cell
 from .block_edits import edit_material, material_changes
 
@@ -48,6 +48,8 @@ class EditJob(object):
         self.staged = self.source.blocks.copy()
         self.group_written = set()
         self.batch_changes = None
+        self.requested_cells = None
+        self.requested_positions = None
         self.preserve_connections = Selection()
         self.result_selection = None
         self.result_clipboard = None
@@ -496,6 +498,17 @@ class EditJob(object):
                 self._fill_selected_chunk(key, candidates.chunks[key], work.material)
                 yield None
             return
+        # A removed partner can have a different request in a later batch.
+        # Keep the complete request snapshot in palette chunks, including an
+        # explicit bitset for AIR requests, before resolving those groups.
+        from .block_groups import group_partner
+        edited_layers = (0, 1) if work.edit_layer == 2 else (work.edit_layer,)
+        if tool not in ('fill', 'box', 'erase') and any(
+                group_partner(layer(cell, index)) is not None
+                for cell in self.source.blocks.palette for index in edited_layers):
+            self.requested_cells = BlockStore()
+            self.requested_positions = Selection()
+            self.total *= 2
         randomizer = random.Random(work.seed)
         for key in sorted(self.selection.chunks):
             mask = self.selection.chunks[key]
@@ -515,6 +528,26 @@ class EditJob(object):
                 for step in self._batch(tool, group, batch, lo, hi, randomizer):
                     yield step
             self.staged.compact(key)
+            if self.requested_cells is not None:
+                self.requested_cells.compact(key)
+        if self.requested_cells is not None:
+            for step in self._apply_requests():
+                yield step
+
+    def _apply_requests(self):
+        self.batch_changes = self.requested_cells
+        self.total = self.processed + len(self.requested_positions)
+        for key in sorted(self.requested_positions.chunks):
+            for offset, index in enumerate(indices(self.requested_positions.chunks[key])):
+                pos = position(key, index)
+                self._set(pos, self.requested_cells.get(pos, AIR))
+                self.processed += 1
+                if offset % 128 == 127:
+                    yield None
+            self.staged.compact(key)
+            yield None
+        self.batch_changes = None
+        self.requested_cells = self.requested_positions = None
 
     def _batch(self, tool, group, batch, lo, hi, randomizer):
         work = self.work
@@ -532,6 +565,8 @@ class EditJob(object):
             changes = work._finish(tool, lo, hi)
         else:
             changes = work._edit(tool)
+        # Batches bound calculation work, not the editor transaction's scope.
+        work.selection = self.selection
         if tool == 'replace' and changes:
             from .block_groups import paired_cell_position
             for pos in tuple(changes):
@@ -540,10 +575,14 @@ class EditJob(object):
                 if partner is not None and partner in self.selection:
                     changes[partner] = changes[pos]
         # All changes in this batch are still part of the original selection.
-        self.batch_changes = changes
-        for pos, value in changes.items():
-            self._set(pos, value)
-        self.batch_changes = None
-        work.selection = self.selection
+        if self.requested_cells is not None:
+            for pos, value in changes.items():
+                self.requested_cells[pos] = value
+                self.requested_positions.add(pos)
+        else:
+            self.batch_changes = changes
+            for pos, value in changes.items():
+                self._set(pos, value)
+            self.batch_changes = None
         self.processed += len(batch)
         yield None
