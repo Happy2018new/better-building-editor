@@ -1,0 +1,379 @@
+{
+  "schema": 1,
+  "source_sha256": "e08a53715946da8f96a7d9c5009f1119254c10e51d1d40946ce9b17d9a0fe35a",
+  "analyzer_sha256": "b419cdabf04d0fb7a33328f6319843b2f139c34cf9d098d7d96a20654d1c1da8",
+  "source_contract_sha256": "fb2dccac3c3eba6616b7ed8cbb0abdec6e66ee43493fe67e49e7b94af3f1bf38",
+  "evidence_valid": true,
+  "capture_failures": [],
+  "frozen": true,
+  "rows": {
+    "editor": {
+      "geometry_unchanged": true,
+      "phases": {
+        "plains": {
+          "geometry_unchanged": true,
+          "requested_biome_visible": true,
+          "regions": {
+            "body": {
+              "pixels": 560,
+              "mean_rgb": [
+                81.53571428571429,
+                102.85,
+                104.0125
+              ]
+            },
+            "rear": {
+              "pixels": 440,
+              "mean_rgb": [
+                132.51136363636363,
+                152.50454545454545,
+                107.44090909090909
+              ]
+            }
+          },
+          "capture_sha256": "383baf711562f4df81b06d138fc38a0a2e1d2d8f8462ad9939b333bb707ac9db"
+        },
+        "swampland": {
+          "geometry_unchanged": true,
+          "requested_biome_visible": true,
+          "regions": {
+            "body": {
+              "pixels": 560,
+              "mean_rgb": [
+                81.19285714285714,
+                85.59821428571429,
+                62.801785714285714
+              ]
+            },
+            "rear": {
+              "pixels": 440,
+              "mean_rgb": [
+                113.9659090909091,
+                117.44545454545455,
+                64.87954545454545
+              ]
+            }
+          },
+          "capture_sha256": "73e3e13fbc265d02088e4b61f2246b3683e49cca5b7c76113d002046e25fcf3b"
+        },
+        "mangrove_swamp": {
+          "geometry_unchanged": true,
+          "requested_biome_visible": true,
+          "regions": {
+            "body": {
+              "pixels": 560,
+              "mean_rgb": [
+                78.68035714285715,
+                86.76785714285714,
+                61.84464285714286
+              ]
+            },
+            "rear": {
+              "pixels": 440,
+              "mean_rgb": [
+                129.5590909090909,
+                136.5431818181818,
+                64.875
+              ]
+            }
+          },
+          "capture_sha256": "5a3a786c1bfa368fcf135a070f06dfbd441c12dd1c823b1fd2840fb3f4a6d0bc"
+        }
+      },
+      "pairs": {
+        "plains_to_swampland": {
+          "body": {
+            "pixels": 560,
+            "mean_absolute_rgb_delta": [
+              3.4642857142857144,
+              17.251785714285713,
+              41.21071428571429
+            ],
+            "changed_pixels": 560,
+            "passed": true
+          },
+          "rear": {
+            "pixels": 440,
+            "mean_absolute_rgb_delta": [
+              18.545454545454547,
+              35.05909090909091,
+              42.56136363636364
+            ],
+            "changed_pixels": 440,
+            "passed": true
+          }
+        },
+        "swampland_to_mangrove_swamp": {
+          "body": {
+            "pixels": 560,
+            "mean_absolute_rgb_delta": [
+              3.9625,
+              3.2589285714285716,
+              2.1
+            ],
+            "changed_pixels": 385,
+            "passed": false
+          },
+          "rear": {
+            "pixels": 440,
+            "mean_absolute_rgb_delta": [
+              15.593181818181819,
+              19.097727272727273,
+              1.4363636363636363
+            ],
+            "changed_pixels": 440,
+            "passed": true
+          }
+        }
+      },
+      "passed": false,
+      "plains_restore_rgb_rmse": 0.0
+    },
+    "full": {
+      "geometry_unchanged": true,
+      "phases": {
+        "plains": {
+          "geometry_unchanged": true,
+          "requested_biome_visible": true,
+          "regions": {
+            "body": {
+              "pixels": 300,
+              "mean_rgb": [
+                80.32333333333334,
+                101.24333333333334,
+                102.43
+              ]
+            },
+            "rear": {
+              "pixels": 210,
+              "mean_rgb": [
+                131.6238095238095,
+                146.67619047619047,
+                100.1
+              ]
+            }
+          },
+          "capture_sha256": "e9c48228da1351f27e9e5cc702e752309d71aa831c737ea56f9aecde2cae4892"
+        },
+        "swampland": {
+          "geometry_unchanged": true,
+          "requested_biome_visible": true,
+          "regions": {
+            "body": {
+              "pixels": 300,
+              "mean_rgb": [
+                79.96,
+                84.25,
+                61.766666666666666
+              ]
+            },
+            "rear": {
+              "pixels": 210,
+              "mean_rgb": [
+                113.46666666666667,
+                113.75714285714285,
+                60.09047619047619
+              ]
+            }
+          },
+          "capture_sha256": "c7def47c10c09c11e6aa68133c01ca6efbfc17ebf715145deb5eedc33e673f48"
+        },
+        "mangrove_swamp": {
+          "geometry_unchanged": true,
+          "requested_biome_visible": true,
+          "regions": {
+            "body": {
+              "pixels": 300,
+              "mean_rgb": [
+                77.46666666666667,
+                85.40666666666667,
+                60.85
+              ]
+            },
+            "rear": {
+              "pixels": 210,
+              "mean_rgb": [
+                128.46666666666667,
+                130.64761904761906,
+                57.21904761904762
+              ]
+            }
+          },
+          "capture_sha256": "e7c660d5a23e58122b101999ee5b2118651bf2f0fdba5b65a63ac080080e82fd"
+        }
+      },
+      "pairs": {
+        "plains_to_swampland": {
+          "body": {
+            "pixels": 300,
+            "mean_absolute_rgb_delta": [
+              3.8033333333333332,
+              16.993333333333332,
+              40.663333333333334
+            ],
+            "changed_pixels": 300,
+            "passed": true
+          },
+          "rear": {
+            "pixels": 210,
+            "mean_absolute_rgb_delta": [
+              18.15714285714286,
+              32.91904761904762,
+              40.00952380952381
+            ],
+            "changed_pixels": 210,
+            "passed": true
+          }
+        },
+        "swampland_to_mangrove_swamp": {
+          "body": {
+            "pixels": 300,
+            "mean_absolute_rgb_delta": [
+              4.113333333333333,
+              3.5166666666666666,
+              2.216666666666667
+            ],
+            "changed_pixels": 211,
+            "passed": false
+          },
+          "rear": {
+            "pixels": 210,
+            "mean_absolute_rgb_delta": [
+              15.0,
+              16.89047619047619,
+              3.3666666666666667
+            ],
+            "changed_pixels": 210,
+            "passed": true
+          }
+        }
+      },
+      "passed": false,
+      "plains_restore_rgb_rmse": 0.0
+    },
+    "missing": {
+      "geometry_unchanged": true,
+      "phases": {
+        "plains": {
+          "geometry_unchanged": true,
+          "requested_biome_visible": true,
+          "regions": {
+            "body": {
+              "pixels": 300,
+              "mean_rgb": [
+                80.32333333333334,
+                101.24333333333334,
+                102.43
+              ]
+            },
+            "rear": {
+              "pixels": 210,
+              "mean_rgb": [
+                131.6238095238095,
+                146.67619047619047,
+                100.1
+              ]
+            }
+          },
+          "capture_sha256": "f85fead4a013f4cf6ddbf5dc0e2339bb7971c71c1aa6055e941b1949f13de3af"
+        },
+        "swampland": {
+          "geometry_unchanged": true,
+          "requested_biome_visible": true,
+          "regions": {
+            "body": {
+              "pixels": 300,
+              "mean_rgb": [
+                79.96,
+                84.25,
+                61.766666666666666
+              ]
+            },
+            "rear": {
+              "pixels": 210,
+              "mean_rgb": [
+                113.46666666666667,
+                113.75714285714285,
+                60.09047619047619
+              ]
+            }
+          },
+          "capture_sha256": "ec6b1b9200cfc5f15f8b33d3c8ff2a8aa60e4848ff5282e247151bd093f62a74"
+        },
+        "mangrove_swamp": {
+          "geometry_unchanged": true,
+          "requested_biome_visible": true,
+          "regions": {
+            "body": {
+              "pixels": 300,
+              "mean_rgb": [
+                77.46666666666667,
+                85.40666666666667,
+                60.85
+              ]
+            },
+            "rear": {
+              "pixels": 210,
+              "mean_rgb": [
+                128.46666666666667,
+                130.64761904761906,
+                57.21904761904762
+              ]
+            }
+          },
+          "capture_sha256": "066f87a1b5db36a43f08e896117683cc1a73c4b7b0fcdd996c294abb11210fba"
+        }
+      },
+      "pairs": {
+        "plains_to_swampland": {
+          "body": {
+            "pixels": 300,
+            "mean_absolute_rgb_delta": [
+              3.8033333333333332,
+              16.993333333333332,
+              40.663333333333334
+            ],
+            "changed_pixels": 300,
+            "passed": true
+          },
+          "rear": {
+            "pixels": 210,
+            "mean_absolute_rgb_delta": [
+              18.15714285714286,
+              32.91904761904762,
+              40.00952380952381
+            ],
+            "changed_pixels": 210,
+            "passed": true
+          }
+        },
+        "swampland_to_mangrove_swamp": {
+          "body": {
+            "pixels": 300,
+            "mean_absolute_rgb_delta": [
+              4.113333333333333,
+              3.5166666666666666,
+              2.216666666666667
+            ],
+            "changed_pixels": 211,
+            "passed": false
+          },
+          "rear": {
+            "pixels": 210,
+            "mean_absolute_rgb_delta": [
+              15.0,
+              16.89047619047619,
+              3.3666666666666667
+            ],
+            "changed_pixels": 210,
+            "passed": true
+          }
+        }
+      },
+      "passed": false,
+      "plains_restore_rgb_rmse": 0.0
+    }
+  },
+  "passed": false,
+  "scope": "Visible preset changes with unchanged blocks, water geometry and camera"
+}

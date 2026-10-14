@@ -13,7 +13,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-from analyze_product_water import analyze, contribution, product_geometry
+from analyze_product_water import analyze, contribution, fixed_alpha_regions, product_geometry
 from water_capture_contract import (camera_matches, calibrated_viewport_matches, scene_capture_state,
                                     stable_scene_predicate)
 
@@ -245,6 +245,28 @@ class ProductWaterAnalysisTests(unittest.TestCase):
             self.assertTrue(result['observed_product_gates']['transparency'])
             opaque, body, rear = self.transparency_evidence(directory, opaque=True)
             self.assertFalse(self.replay_transparency(directory, opaque, body, rear)['observed_product_gates']['transparency'])
+
+    def test_unmatched_animation_phases_cannot_pass_transparency(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source, body, rear = self.transparency_evidence(directory)
+            source['frozen'] = False
+            result = self.replay_transparency(directory, source, body, rear)
+            self.assertTrue(result['evidence_valid'])
+            self.assertFalse(result['observed_product_gates']['transparency'])
+            self.assertFalse(result['transparency_phase_controlled'])
+
+    def test_fixed_alpha_endpoints_reject_opaque_animated_and_missing_controls(self):
+        clear = np.full((16, 16, 3), (150, 100, 20), dtype=np.int16)
+        opaque = np.full_like(clear, (20, 50, 150))
+        regions = {'body': np.indices((16, 16))[1] < 8, 'rear': np.indices((16, 16))[1] >= 8}
+        images = {'0': clear, '1': opaque}
+        for name, alpha in (('0_25', .25), ('0_45', .45), ('0_75', .75), ('default', .45)):
+            images[name] = np.rint(clear * (1. - alpha) + opaque * alpha).astype(np.int16)
+        self.assertTrue(fixed_alpha_regions(images, regions)['passed'])
+        for invalid in (opaque, images['0_45'] + 12):
+            changed = dict(images, **{'0_45': invalid})
+            self.assertFalse(fixed_alpha_regions(changed, regions)['passed'])
+        self.assertFalse(fixed_alpha_regions(images, {'body': np.zeros((16, 16), dtype=bool)})['passed'])
 
     def test_individually_stable_transparency_controls_must_share_one_scene_pose(self):
         with tempfile.TemporaryDirectory() as directory:

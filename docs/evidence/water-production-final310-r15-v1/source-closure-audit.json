@@ -1,0 +1,42 @@
+{
+  "current_owner_mismatches": [],
+  "normalization": "CRLF_to_LF_only",
+  "owner_contract_sha256": "f783b06b366834e26704427a06c0e8241a01e582f5e08e93d204cc012db2e4e9",
+  "owners": 35,
+  "qualification_modified": false,
+  "schema": 1,
+  "snapshots": {
+    "biome": {
+      "archive_sha256": "11b7a29dbd2c04e9dafc1277930af834cccafc6b0cb4f1614ae793338be2ce11",
+      "launch_sha256": "0370206309c3c37256966fdecf35f884e6d64dc58a14cd97613a6f8434651d64",
+      "owner_differences": {},
+      "raw_archive_verified": true,
+      "water_registry_differences": {},
+      "water_resource_differences": {}
+    },
+    "final": {
+      "archive_sha256": "3d14867f7b6fc17f41bb5c792317973df58da6d07bab177194b6cd3cf478edc1",
+      "launch_sha256": "04f8a78c63cb86171d0c2fa0fa39022134c900dc06a8456a8abed8792086bee5",
+      "owner_differences": {
+        "behavior_pack/modern_projection/projection/liquid_deployment.py": {
+          "current_sha256": "160743508f9742a342f244df26026c64ed7ceb4e0a951b0aa59b1c7c5f8ea9f8",
+          "diff": "--- frozen/behavior_pack/modern_projection/projection/liquid_deployment.py\n+++ current/behavior_pack/modern_projection/projection/liquid_deployment.py\n@@ -22,9 +22,9 @@\n     return NativeLiquidProfile(resources, ui_pose, ui_offset)\n \n \n-def production_profile():\n+def production_profile(engine_version=None):\n     from .liquid_product_deployment import production_profile as product_profile\n-    product = product_profile()\n+    product = product_profile(engine_version)\n     if product is not None:\n         return product\n     if not source.PRODUCTION_QUALIFIED:\n",
+          "frozen_sha256": "03c9726e7872d082311025af7b13b6f365408446b7079029098dcefca0bd3dae"
+        },
+        "behavior_pack/modern_projection/projection/liquid_product_deployment.py": {
+          "current_sha256": "9a3721ac79ed9273e791cbbf96d74d1a5937a3dd16c7f7a0bc310bddebf1879f",
+          "diff": "--- frozen/behavior_pack/modern_projection/projection/liquid_product_deployment.py\n+++ current/behavior_pack/modern_projection/projection/liquid_product_deployment.py\n@@ -1,5 +1,6 @@\n \"\"\"Select explicitly accepted water visuals without claiming native parity.\"\"\"\n from . import liquid_product_qualification_data as qualification\n+from .liquid_render_target_data import TARGET_ENGINE_VERSION\n \n REQUIRED_GATES = frozenset(('editor', 'projection_full', 'projection_missing', 'transparency',\n                             'geometry', 'animation', 'biome', 'lifecycle'))\n@@ -16,13 +17,17 @@\n     return ProductLiquidProfile(selected, ui_pose, ui_offset)\n \n \n-def production_profile():\n+def production_profile(engine_version=None):\n     if not qualification.PRODUCT_QUALIFIED:\n+        return None\n+    if engine_version != TARGET_ENGINE_VERSION:\n         return None\n     from . import liquid_product_resource_data as resources, liquid_product_shape_data as rules\n     from . import liquid_product_owner_data as owners\n     evidence = qualification.QUALIFICATION_SHA256\n-    if (qualification.SCHEMA_VERSION != 1 or not isinstance(evidence, str) or len(evidence) != 64\n+    if (qualification.SCHEMA_VERSION != 1\n+            or qualification.QUALIFICATION_ENGINE_VERSION != TARGET_ENGINE_VERSION\n+            or not isinstance(evidence, str) or len(evidence) != 64\n             or any(value not in '0123456789abcdef' for value in evidence)\n             or qualification.QUALIFICATION_RESOURCE_CONTRACT_SHA256 != resources.PRODUCT_RESOURCE_CONTRACT_SHA256\n             or qualification.QUALIFICATION_RULES_SHA256 != rules.PRODUCT_RULES_SHA256\n",
+          "frozen_sha256": "6830faa1ce370147f7a70fda09821e47cf8ba92be487d91c828445a193d9a4be"
+        },
+        "behavior_pack/modern_projection/projection/session.py": {
+          "current_sha256": "1ae172e48e18c54b5f46991e45efc515df7819b4e5ea9daf98eb542e7c4f7f09",
+          "diff": "--- frozen/behavior_pack/modern_projection/projection/session.py\n+++ current/behavior_pack/modern_projection/projection/session.py\n@@ -37,14 +37,15 @@\n         self.liquid_error = ''\n         self.liquid_preview = self.liquid_controls = None\n         from .liquid_deployment import production_profile\n-        self.liquid_profile = production_profile()\n+        self.liquid_profile = production_profile(getattr(bridge, 'engine_version', None))\n         self.item_error = ''\n         self.item_preview = self.item_controls = None\n         from .item_sprite_profile import production_profile as item_production_profile\n         self.item_profile = item_production_profile()\n         from .native_render_profile import production_profile as native_production_profile\n         self.native_render_profile = native_production_profile(getattr(bridge, 'engine_version', None))\n-        self.cauldron_profile = None\n+        from .cauldron_deployment import production_profile as cauldron_production_profile\n+        self.cauldron_profile = cauldron_production_profile(getattr(bridge, 'engine_version', None))\n         self.cauldron_error = ''\n         self.cauldron_preview = self.cauldron_controls = None\n         self.camera_yaw = 35.\n",
+          "frozen_sha256": "e2d12611f11e4b30670ce4f3e856bb74853354b92bda0ac2b416d4e7dac7f955"
+        }
+      },
+      "raw_archive_verified": true,
+      "water_registry_differences": {},
+      "water_resource_differences": {}
+    }
+  }
+}

@@ -19,6 +19,10 @@ from projection.camera import OrbitCamera
 LIMITS = {'rgb_delta': 8, 'minimum_water_pixels': 24, 'minimum_mask_iou': .80,
           'maximum_boundary_pixels': 6, 'minimum_contribution_pixels': 8,
           'minimum_contribution_fraction': .10, 'temporal_delta': 2}
+TRANSPARENCY_REGIONS = {
+    'body': ((3.43, 3.18, 4.), (3.57, 3.18, 4.), (3.57, 3.50, 4.), (3.43, 3.50, 4.)),
+    'rear': ((3.10, 3.35, 4.), (3.28, 3.35, 4.), (3.28, 3.55, 4.), (3.10, 3.55, 4.)),
+}
 FACE_INDICES = ((4, 5, 6, 7), (0, 1, 5, 4), (2, 3, 7, 6),
                 (3, 0, 4, 7), (1, 2, 6, 5), (3, 2, 1, 0))
 
@@ -107,6 +111,32 @@ def contribution(first, second, eligible, threshold=None):
                            and pixels / max(1, total) >= LIMITS['minimum_contribution_fraction'])}
 
 
+def fixed_alpha_regions(images, regions):
+    """Reject opaque or animated controls using one frozen water geometry."""
+    clear, opaque = images['0'].astype(np.float64), images['1'].astype(np.float64)
+    result = {}
+    for name, selected in regions.items():
+        eligible = difference_mask(clear, opaque, selected, LIMITS['rgb_delta'])
+        count = int(eligible.sum())
+        row = {'eligible_pixels': count, 'phases': {}, 'passed': False}
+        if count >= LIMITS['minimum_contribution_pixels']:
+            for label, alpha in (('0_25', .25), ('0_45', .45), ('0_75', .75)):
+                actual = images[label].astype(np.float64)
+                expected = clear * (1. - alpha) + opaque * alpha
+                rms = float(np.sqrt(np.mean((actual[eligible] - expected[eligible]) ** 2)))
+                body = difference_mask(actual, opaque, eligible, 3)
+                water = difference_mask(actual, clear, eligible, 3)
+                row['phases'][label] = {'alpha': alpha, 'endpoint_rgb_rmse': rms,
+                    'body_pixels': int(body.sum()), 'water_pixels': int(water.sum()),
+                    'passed': bool(rms <= 3. and body.sum() >= count * .8 and water.sum() >= count * .8)}
+            default_rms = float(np.sqrt(np.mean((images['default'][eligible].astype(np.float64)
+                                               - images['0_45'][eligible]) ** 2)))
+            row['default_rgb_rmse'] = default_rms
+            row['passed'] = default_rms <= 3. and all(phase['passed'] for phase in row['phases'].values())
+        result[name] = row
+    return {'regions': result, 'passed': bool(result) and all(row['passed'] for row in result.values())}
+
+
 def analyze(path):
     source = json.loads(path.read_bytes())
     failures = capture_failures(source['captures'], source['session_binding'])
@@ -168,13 +198,20 @@ def analyze(path):
                 label = route + '_' + case + '_' + control
                 if label not in source['rows']:
                     failures.append({'missing_requested_row': label})
+                if source.get('alpha_controls_requested') and control == 'wet' and case.startswith('wet_'):
+                    holdout = source.get('alpha_controls', {}).get(label, {})
+                    phases = holdout.get('phases', {})
+                    if any(name not in phases or phases[name].get('capture_label') not in source['captures']
+                           for name in ('0', '0_25', '0_45', '0_75', '1', 'default')):
+                        failures.append({'missing_requested_alpha_control': label})
     evidence_valid = (not failures and source['completed'] is True and source['restored'] is True
                       and not source['cleanup_errors'])
     output = {'schema': 1, 'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
               'analyzer_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), 'limits': LIMITS,
               'completed': source['completed'], 'restored': source['restored'], 'cleanup_errors': source['cleanup_errors'],
               'capture_failures': failures, 'captures_verified': not failures, 'geometry': {}, 'transparency': {},
-              'animation': {}, 'native_shape_accepted': False, 'native_uv_accepted': False, 'native_alpha_accepted': False,
+              'animation': {}, 'alpha_controls': {}, 'transparency_phase_controlled': source.get('frozen') is True,
+              'native_shape_accepted': False, 'native_uv_accepted': False, 'native_alpha_accepted': False,
               'product_style_accepted': False, 'evidence_valid': evidence_valid,
               'observed_product_gates': {'geometry': False, 'transparency': False, 'animation': False},
               'scope': 'Declared Java-style geometry and independent body/rear contribution; no native RGB comparison'}
@@ -205,20 +242,34 @@ def analyze(path):
         if not all(value in images for value in required.values()):
             continue
         water = difference_mask(images[required['water_only']], images[required['empty']], selected, LIMITS['rgb_delta'])
-        regions = {
-            'body': ((3.43, 3.18, 4.), (3.57, 3.18, 4.), (3.57, 3.50, 4.), (3.43, 3.50, 4.)),
-            'rear': ((3.10, 3.35, 4.), (3.28, 3.35, 4.), (3.28, 3.55, 4.), (3.10, 3.55, 4.)),
-        }
-        result = output['transparency'][label] = {'water_pixels': int(water.sum()), 'regions': {}}
-        for name, points in regions.items():
+        result = output['transparency'][label] = {'water_pixels': int(water.sum()), 'regions': {},
+                                                 'phase_controlled': source.get('frozen') is True}
+        for name, points in TRANSPARENCY_REGIONS.items():
             region = region_mask(row, source, size, points)
             underlying = difference_mask(images[required['dry']], images[required['empty']], region, LIMITS['rgb_delta'])
             eligible = region & water & underlying
             control = 'liquid_only' if name == 'body' else 'rearless'
             result['regions'][name] = contribution(images[label], images[required[control]], eligible)
             result['regions'][name]['underlying_control_pixels'] = int(underlying.sum())
-        result['passed'] = (result['water_pixels'] >= LIMITS['minimum_water_pixels']
+        result['passed'] = (result['phase_controlled'] and result['water_pixels'] >= LIMITS['minimum_water_pixels']
                             and all(value['passed'] for value in result['regions'].values()))
+        holdout = source.get('alpha_controls', {}).get(label)
+        if holdout:
+            from analyze_liquid_transparency import alpha_context
+            phase_labels = ('0', '0_25', '0_45', '0_75', '1', 'default')
+            phases = holdout.get('phases', {})
+            complete = all(name in phases and phases[name].get('capture_label') in images for name in phase_labels)
+            alpha_result = output['alpha_controls'][label] = {'complete': complete, 'passed': False}
+            if complete:
+                context = alpha_context(holdout['baseline'], row['route'] != 'editor')
+                unchanged = all(alpha_context(phases[name]['ready'], row['route'] != 'editor') == context
+                                for name in phase_labels)
+                measured = fixed_alpha_regions(
+                    {name: images[phases[name]['capture_label']] for name in phase_labels},
+                    {name: region_mask(row, source, size, points) for name, points in TRANSPARENCY_REGIONS.items()})
+                alpha_result.update(measured, geometry_unchanged=unchanged)
+                alpha_result['passed'] = measured['passed'] and unchanged and result['phase_controlled']
+            result['passed'] = result['passed'] and alpha_result['passed']
     output['observed_product_gates'] = {
         'geometry': bool(output['geometry']) and all(row['passed'] for row in output['geometry'].values()),
         'transparency': bool(output['transparency']) and all(row['passed'] for row in output['transparency'].values()),

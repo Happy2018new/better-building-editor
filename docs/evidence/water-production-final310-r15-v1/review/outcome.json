@@ -1,0 +1,168 @@
+{
+  "pure_occupancy": {
+    "occupied": {
+      "building": false,
+      "changed": 0,
+      "commits": 1,
+      "failed": false,
+      "pending": false,
+      "rendered_keep": 2,
+      "state_keep": 2,
+      "tracked": 4
+    },
+    "restored": {
+      "building": false,
+      "changed": 0,
+      "commits": 2,
+      "failed": false,
+      "pending": false,
+      "rendered_keep": 1,
+      "state_keep": 1,
+      "tracked": 4
+    }
+  },
+  "reports": {
+    "alpha": {
+      "cases": [
+        "wet_oak_fence"
+      ],
+      "cleanup_errors": [],
+      "completed": true,
+      "controls": [
+        "wet",
+        "dry",
+        "liquid_only",
+        "water_only",
+        "rearless",
+        "empty"
+      ],
+      "error": null,
+      "fixture_without_supports": false,
+      "frozen": true,
+      "restored": true,
+      "routes": [
+        "editor",
+        "full",
+        "missing"
+      ],
+      "session_binding": {
+        "game_identity": "134364380349226140",
+        "game_pid": 49576,
+        "id": "d479bc68e4e346ce8a78a6ee86c44367",
+        "owner": "water-final310-r15-product",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d479bc68e4e346ce8a78a6ee86c44367\\session.json"
+      },
+      "source_contract_sha256": "a01f2884026ddd1797baabe3df368b77dae3eec823a5e2ed012bbefcbdc3e5d1",
+      "source_unchanged": true
+    },
+    "biome": {
+      "cases": [
+        "wet_oak_fence"
+      ],
+      "cleanup_errors": [],
+      "completed": true,
+      "controls": [
+        "wet"
+      ],
+      "error": null,
+      "fixture_without_supports": false,
+      "frozen": true,
+      "restored": true,
+      "routes": [
+        "editor",
+        "full",
+        "missing"
+      ],
+      "session_binding": {
+        "game_identity": "134364402857229225",
+        "game_pid": 1844,
+        "id": "eeed36cd9d354330afbd1762e72d22cf",
+        "owner": "water-biome310-r15-product",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\eeed36cd9d354330afbd1762e72d22cf\\session.json"
+      },
+      "source_contract_sha256": "fb2dccac3c3eba6616b7ed8cbb0abdec6e66ee43493fe67e49e7b94af3f1bf38",
+      "source_unchanged": true
+    },
+    "direction": {
+      "cases": [
+        "flow_east",
+        "falling"
+      ],
+      "cleanup_errors": [],
+      "completed": true,
+      "controls": [
+        "wet"
+      ],
+      "error": null,
+      "fixture_without_supports": false,
+      "frozen": false,
+      "restored": true,
+      "routes": [
+        "full",
+        "missing"
+      ],
+      "session_binding": {
+        "game_identity": "134364380349226140",
+        "game_pid": 49576,
+        "id": "d479bc68e4e346ce8a78a6ee86c44367",
+        "owner": "water-final310-r15-product",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d479bc68e4e346ce8a78a6ee86c44367\\session.json"
+      },
+      "source_contract_sha256": "a01f2884026ddd1797baabe3df368b77dae3eec823a5e2ed012bbefcbdc3e5d1",
+      "source_unchanged": true
+    },
+    "editor_pure": {
+      "cases": [
+        "source"
+      ],
+      "cleanup_errors": [],
+      "completed": true,
+      "controls": [
+        "wet"
+      ],
+      "error": null,
+      "fixture_without_supports": true,
+      "frozen": true,
+      "restored": true,
+      "routes": [
+        "editor"
+      ],
+      "session_binding": {
+        "game_identity": "134364380349226140",
+        "game_pid": 49576,
+        "id": "d479bc68e4e346ce8a78a6ee86c44367",
+        "owner": "water-final310-r15-product",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d479bc68e4e346ce8a78a6ee86c44367\\session.json"
+      },
+      "source_contract_sha256": "a01f2884026ddd1797baabe3df368b77dae3eec823a5e2ed012bbefcbdc3e5d1",
+      "source_unchanged": true
+    },
+    "missing_pure": {
+      "cases": [
+        "pool"
+      ],
+      "cleanup_errors": [],
+      "completed": true,
+      "controls": [
+        "wet"
+      ],
+      "error": null,
+      "fixture_without_supports": true,
+      "frozen": true,
+      "restored": true,
+      "routes": [
+        "missing"
+      ],
+      "session_binding": {
+        "game_identity": "134364380349226140",
+        "game_pid": 49576,
+        "id": "d479bc68e4e346ce8a78a6ee86c44367",
+        "owner": "water-final310-r15-product",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d479bc68e4e346ce8a78a6ee86c44367\\session.json"
+      },
+      "source_contract_sha256": "a01f2884026ddd1797baabe3df368b77dae3eec823a5e2ed012bbefcbdc3e5d1",
+      "source_unchanged": true
+    }
+  },
+  "schema": 1
+}

@@ -1,0 +1,787 @@
+{
+  "alpha_controls": {
+    "editor_wet_oak_fence_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 560,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 560,
+              "endpoint_rgb_rmse": 0.3336865687894498,
+              "passed": true,
+              "water_pixels": 560
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 560,
+              "endpoint_rgb_rmse": 0.275337995752062,
+              "passed": true,
+              "water_pixels": 560
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 560,
+              "endpoint_rgb_rmse": 0.3336865687894498,
+              "passed": true,
+              "water_pixels": 560
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 440,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 440,
+              "endpoint_rgb_rmse": 0.3272648357634421,
+              "passed": true,
+              "water_pixels": 440
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 440,
+              "endpoint_rgb_rmse": 0.29697336887031217,
+              "passed": true,
+              "water_pixels": 440
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 440,
+              "endpoint_rgb_rmse": 0.3272648357634421,
+              "passed": true,
+              "water_pixels": 440
+            }
+          }
+        }
+      }
+    },
+    "full_wet_oak_fence_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 300,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.3327077462946188,
+              "passed": true,
+              "water_pixels": 300
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.2886462656378341,
+              "passed": true,
+              "water_pixels": 300
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.33437337746231466,
+              "passed": true,
+              "water_pixels": 300
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 210,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.32626432949130785,
+              "passed": true,
+              "water_pixels": 210
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.3009047204575758,
+              "passed": true,
+              "water_pixels": 210
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.32626432949130785,
+              "passed": true,
+              "water_pixels": 210
+            }
+          }
+        }
+      }
+    },
+    "missing_wet_oak_fence_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 300,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.3327077462946188,
+              "passed": true,
+              "water_pixels": 300
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.2886462656378341,
+              "passed": true,
+              "water_pixels": 300
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.33437337746231466,
+              "passed": true,
+              "water_pixels": 300
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 210,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.32626432949130785,
+              "passed": true,
+              "water_pixels": 210
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.3009047204575758,
+              "passed": true,
+              "water_pixels": 210
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.32626432949130785,
+              "passed": true,
+              "water_pixels": 210
+            }
+          }
+        }
+      }
+    }
+  },
+  "analysis_sha256": "8143fb9b634bfbf91677a006a8ec8d33d2006e5dff0292fa11c4689e48020d9a",
+  "captures": {
+    "editor_wet_oak_fence_dry": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_dry.png",
+      "sha256": "eb09cf6b390a0e0ef77c9846d68d40c2edc9bbad8d0a3c95a35bee5157e46a5e"
+    },
+    "editor_wet_oak_fence_empty": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_empty.png",
+      "sha256": "33c27efb16fabe90814682bacbf7021f648ca190411d13e83e8850d06cd389d1"
+    },
+    "editor_wet_oak_fence_liquid_only": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_liquid_only.png",
+      "sha256": "36fc5c173624f8d9ec4d25f1b1fd7443245fe0f5cbd6fa1a1b4b7f8792085fb9"
+    },
+    "editor_wet_oak_fence_rearless": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_rearless.png",
+      "sha256": "b3b6b3f43e9e1bc9b864610dcd4553530c0b6847162998ac70afcf539ca32ff4"
+    },
+    "editor_wet_oak_fence_water_only": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_water_only.png",
+      "sha256": "087f92a2b2b0875e431fec76e56ba8f74640a92faaba905224769646e9a62ea8"
+    },
+    "editor_wet_oak_fence_wet": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_wet.png",
+      "sha256": "c6a0731b52f5000f0e88d0bab46126663951d22f88ffc896962686d106e2a531"
+    },
+    "editor_wet_oak_fence_wet_alpha_0": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_wet_alpha_0.png",
+      "sha256": "449cd6623a84d481bab2c4a6231abf98d99cc57dad8b4c94cb10030f745d1169"
+    },
+    "editor_wet_oak_fence_wet_alpha_0_25": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_wet_alpha_0_25.png",
+      "sha256": "43d9f865d3285b853d82e2005cd63241a90657d54fbda73f238ec9efc010c856"
+    },
+    "editor_wet_oak_fence_wet_alpha_0_45": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_wet_alpha_0_45.png",
+      "sha256": "07f6046841b92142b12d91ee13512911c54cb86858293a80c5dc104b55ae6fca"
+    },
+    "editor_wet_oak_fence_wet_alpha_0_75": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_wet_alpha_0_75.png",
+      "sha256": "e356dbd553a92b785e2e8d7da04cab44dd8fab7a8c879adf373eeac9920c9751"
+    },
+    "editor_wet_oak_fence_wet_alpha_1": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_wet_alpha_1.png",
+      "sha256": "997499a312b0bd8c284d85b18acd9696f04b48c7973e2310cb6065eb113802aa"
+    },
+    "editor_wet_oak_fence_wet_alpha_default": {
+      "crop": [
+        930,
+        561,
+        1085,
+        743
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_editor_wet_oak_fence_wet_alpha_default.png",
+      "sha256": "9f6a35ef456725d1becb28e02fd692b16d152047df2d88018726bf38623bf2c6"
+    },
+    "full_wet_oak_fence_dry": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_dry.png",
+      "sha256": "4a2f8a0848b1e595f616867fdeef07d749838190a25938fff2b208bac4bf5d7c"
+    },
+    "full_wet_oak_fence_empty": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_empty.png",
+      "sha256": "698fcca806042efee2186b986ce1ad58514dc268f90968eaabe19668df5fb801"
+    },
+    "full_wet_oak_fence_liquid_only": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_liquid_only.png",
+      "sha256": "3ec704d27729bf402f60472c866cc2c4b720199b15b57308d15d36804ac66081"
+    },
+    "full_wet_oak_fence_rearless": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_rearless.png",
+      "sha256": "4d95998700b11167a5f125c48b7ac2124f5b1957d2c59174d8727b71fe9b0d7a"
+    },
+    "full_wet_oak_fence_water_only": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_water_only.png",
+      "sha256": "8a4e84e45d7d41146ed31f0aeee4389d39cc37ac18a8ff3d7c48ef574e035b8e"
+    },
+    "full_wet_oak_fence_wet": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_wet.png",
+      "sha256": "3b989a2101008ce2063cf85c0d1a931835a8ee936898add42d66dc4f5309f3fc"
+    },
+    "full_wet_oak_fence_wet_alpha_0": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_wet_alpha_0.png",
+      "sha256": "5580cc8d4e41512654e13458c3837cb8080e03c1b156dfcae464f6a14cd2b68a"
+    },
+    "full_wet_oak_fence_wet_alpha_0_25": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_wet_alpha_0_25.png",
+      "sha256": "9f2ef5405acd718ea324654dc952fcd76913e4e46b2269b0abfa32383d6b39b0"
+    },
+    "full_wet_oak_fence_wet_alpha_0_45": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_wet_alpha_0_45.png",
+      "sha256": "80ea44528417ca8e81afc6a53436e87b0327e77dbc142999742f7ac5576f7bc5"
+    },
+    "full_wet_oak_fence_wet_alpha_0_75": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_wet_alpha_0_75.png",
+      "sha256": "10dc9f0d7f71fc6a77fb6b9f955faa18508ab55e76acee7497a23a214f754244"
+    },
+    "full_wet_oak_fence_wet_alpha_1": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_wet_alpha_1.png",
+      "sha256": "cfcf0360d387e32f6c05493917f4e5bce8268691041e5c65090faa1e9c987ec2"
+    },
+    "full_wet_oak_fence_wet_alpha_default": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_full_wet_oak_fence_wet_alpha_default.png",
+      "sha256": "39fc88c409b375c5bba136ccaf0afbdbe975aedcccb9ad7f03e49ee111ab652b"
+    },
+    "missing_wet_oak_fence_dry": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_dry.png",
+      "sha256": "362a4f2defd280add5e8de906c2d73bd4328de1c15090203670bc7e67e9cbb3f"
+    },
+    "missing_wet_oak_fence_empty": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_empty.png",
+      "sha256": "300c5a813ce21d6844259a36d9c31eed257ae8b6a8d2de4c81fcf3f48447084f"
+    },
+    "missing_wet_oak_fence_liquid_only": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_liquid_only.png",
+      "sha256": "43485213fa1e033e379cf9961ef97939a412ece88f0a77a3d059e032b10596f0"
+    },
+    "missing_wet_oak_fence_rearless": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_rearless.png",
+      "sha256": "92f7e32709edf6a9d15df7b1c9ad1bbbab104036510c03449c22632e279a4117"
+    },
+    "missing_wet_oak_fence_water_only": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_water_only.png",
+      "sha256": "119ec281a5f5fd145d6a96d5ad3bfe2ee773cf0448a42d4711cca752233a4082"
+    },
+    "missing_wet_oak_fence_wet": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_wet.png",
+      "sha256": "02589e01a206ea8a935a0a5d0c2503afbe86b6c7d8a52e10d22117b679ce487d"
+    },
+    "missing_wet_oak_fence_wet_alpha_0": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_wet_alpha_0.png",
+      "sha256": "32c692812276b28006ce9ef8b730ad592a1625f0d6c45831b8216711033b148b"
+    },
+    "missing_wet_oak_fence_wet_alpha_0_25": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_wet_alpha_0_25.png",
+      "sha256": "a380aa9f9c82928099e0fcec3086bde9e0544b54fb0a09f5dec036e875914cb8"
+    },
+    "missing_wet_oak_fence_wet_alpha_0_45": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_wet_alpha_0_45.png",
+      "sha256": "cbca66848e440f81aa5386a9956dae1c2f7293a249ff7e1e28c1394208c6f215"
+    },
+    "missing_wet_oak_fence_wet_alpha_0_75": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_wet_alpha_0_75.png",
+      "sha256": "c36bf2387019c378627cb4cc0bdd69c6935ff5503aa3984b424e228c9ab04545"
+    },
+    "missing_wet_oak_fence_wet_alpha_1": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_wet_alpha_1.png",
+      "sha256": "12372a2a5d69db4109878ba66aa11b15e4befc8c7dab2c65171c47ecbd030a89"
+    },
+    "missing_wet_oak_fence_wet_alpha_default": {
+      "crop": [
+        936,
+        565,
+        1058,
+        727
+      ],
+      "native_size": [
+        1994,
+        1105
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\water-production-final310-r15-v1\\alpha_missing_wet_oak_fence_wet_alpha_default.png",
+      "sha256": "c0492cb6a22e0b43325399c9052154ebeb8eda6641568e5698491b4b9f9daa13"
+    }
+  },
+  "completed": true,
+  "evidence_valid": true,
+  "frozen": true,
+  "restored": true,
+  "schema": 1,
+  "scope": "Three production owner paths at fixed phase; directional animation is separate",
+  "session_binding": {
+    "game_identity": "134364380349226140",
+    "game_pid": 49576,
+    "id": "d479bc68e4e346ce8a78a6ee86c44367",
+    "owner": "water-final310-r15-product",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d479bc68e4e346ce8a78a6ee86c44367\\session.json"
+  },
+  "source_contract_sha256": "a01f2884026ddd1797baabe3df368b77dae3eec823a5e2ed012bbefcbdc3e5d1",
+  "source_report_sha256": "87c5f692d39b8a1c24dc86420ede445beb3dee31ab0f36ce126414847dde37f2",
+  "source_unchanged": true,
+  "transparency": {
+    "editor_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 560,
+          "eligible_pixels": 560,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 560
+        },
+        "rear": {
+          "contribution_pixels": 440,
+          "eligible_pixels": 440,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 440
+        }
+      },
+      "water_pixels": 8346
+    },
+    "full_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 300,
+          "eligible_pixels": 300,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 300
+        },
+        "rear": {
+          "contribution_pixels": 210,
+          "eligible_pixels": 210,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 210
+        }
+      },
+      "water_pixels": 4412
+    },
+    "missing_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 300,
+          "eligible_pixels": 300,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 300
+        },
+        "rear": {
+          "contribution_pixels": 210,
+          "eligible_pixels": 210,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 210
+        }
+      },
+      "water_pixels": 4412
+    }
+  }
+}

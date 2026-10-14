@@ -128,6 +128,10 @@ def main():
     parser.add_argument('--route', action='append', choices=('editor', 'full', 'missing'))
     parser.add_argument('--case', action='append')
     parser.add_argument('--frozen', action='store_true')
+    parser.add_argument('--alpha-controls', action='store_true',
+                        help='Frozen, fixed-geometry opacity endpoints and intermediate controls')
+    parser.add_argument('--without-supports', action='store_true',
+                        help='Remove public fixture support stones to exercise custom-only geometry')
     parser.add_argument('--controls', choices=('wet', 'all'), default='all')
     parser.add_argument('--extras', action='store_true', help='Animation, biome and missing occupancy transitions')
     parser.add_argument('--flow-burst-exe', type=Path,
@@ -147,6 +151,8 @@ def main():
         parser.error('Flow burst helper and expected SHA256 must be provided together')
     if args.flow_burst_exe and args.frozen:
         parser.error('Flow direction needs animated water')
+    if args.alpha_controls and not args.frozen:
+        parser.error('Opacity controls require a frozen animation phase')
     if not 0 <= args.world_fixture_lift_y <= 128:
         parser.error('World fixture lift must be within 0..128 blocks')
     if args.falling_skyward and args.world_fixture_lift_y < 8:
@@ -173,8 +179,10 @@ def main():
                 or Path(calibration.get('session_file', '')).resolve() != Path(session['session_file']).resolve()):
             parser.error('Camera calibration must pass and restore in this exact session')
     report = {'schema': 1, 'completed': False, 'restored': False, 'cleanup_errors': [], 'captures': {},
-              'rows': {}, 'extra_rows': {}, 'flow_bursts': {}, 'frozen': args.frozen,
+              'rows': {}, 'extra_rows': {}, 'alpha_controls': {}, 'alpha_controls_requested': args.alpha_controls,
+              'flow_bursts': {}, 'frozen': args.frozen,
               'routes': routes, 'cases': cases, 'controls': controls,
+              'fixture_without_supports': args.without_supports,
               'fixture_view': {'world_lift_y': args.world_fixture_lift_y,
                                'falling_skyward': args.falling_skyward},
               'session_binding': {key: session[key] for key in ('id', 'owner', 'game_pid', 'game_identity', 'session_file')},
@@ -314,8 +322,13 @@ def main():
                     pose = (0., 0., 3.) if wet_case else (35., 25., 4.6)
                     for control in selected:
                         label = route + '_' + identity + '_' + control
+                        load = LOAD
+                        if args.without_supports:
+                            load = load.replace("sys._blueprint_qa_identity=", "for pos,value in list(document.blocks.items()):\n"
+                                " if value[0]=='minecraft:stone':document.set_cell(pos,('minecraft:air',0))\n"
+                                "sys._blueprint_qa_identity=")
                         row = report['rows'][label] = {'route': route, 'case': identity, 'control': control,
-                            'source': check.run(LOAD % ((identity, control, pose),))}
+                            'source': check.run(load % ((identity, control, pose),))}
                         if route == 'editor':
                             pan = (.15, -.08) if pose[:2] == (0., 0.) else (0., 0.)
                             row['ready'] = check.wait(label + ' settled native layout',
@@ -333,6 +346,21 @@ def main():
                             row['camera']['target'] = row['camera_expected']['target']
                         time.sleep(.35)
                         capture(label, row)
+                        if args.alpha_controls and control == 'wet' and wet_case:
+                            holdout = report['alpha_controls'][label] = {'baseline': row['ready'], 'phases': {}}
+                            command = workspace.SCENE_ALPHA if route == 'editor' else workspace.WORLD_ALPHA
+                            for alpha, phase in workspace.ALPHA_PHASES:
+                                check.run(command % alpha + ('s.emit()\n_result=True' if route == 'editor' else ''))
+                                ready = check.wait(label + ' alpha ' + phase,
+                                    lambda state: workspace.alpha_ready(state, alpha, route != 'editor'),
+                                    lambda: check.run(SCENE_STATE if route == 'editor' else WORLD_STATE))
+                                phase_row = dict(row, ready=ready)
+                                phase_label = label + '_alpha_' + phase
+                                time.sleep(.35)
+                                capture(phase_label, phase_row)
+                                holdout['phases'][phase] = dict(phase_row, requested_alpha=alpha,
+                                                              capture_label=phase_label)
+                            record()
                         if (control == 'wet' and args.flow_burst_exe
                                 and (identity.startswith('flow_') or identity == 'falling')):
                             capture_flow_burst(label, row)
@@ -340,12 +368,17 @@ def main():
                             row['temporal_initial'] = report['captures'][label]
                             time.sleep(.55)
                             capture(label + '_later', row)
-                            if route == 'editor' and identity in ('source', 'wet_oak_fence'):
+                            if identity in ('source', 'wet_oak_fence'):
                                 for biome in ('swampland', 'mangrove_swamp', 'plains'):
                                     check.run('s.set_biome(%r)\n_result=True' % biome)
+                                    if route != 'editor':
+                                        check.run('b.stop_projection()\nb.project()\n_result=True')
+                                    state_command = SCENE_STATE if route == 'editor' else WORLD_STATE
                                     ready = check.wait(
-                                        'Scene biome', lambda state: workspace.scene_ready(state) and state['biome'] == biome,
-                                        lambda: check.run(SCENE_STATE))
+                                        route + ' biome',
+                                        lambda state: (workspace.scene_ready(state) if route == 'editor'
+                                                       else workspace.world_ready(state)) and state['biome'] == biome,
+                                        lambda: check.run(state_command))
                                     extra_row = report['extra_rows'][label + '_biome_' + biome] = dict(row, ready=ready)
                                     capture(label + '_biome_' + biome, extra_row)
                             elif identity == 'pool' and route == 'missing':

@@ -1,0 +1,243 @@
+{
+  "alpha_controls": {},
+  "analyzer_sha256": "bca162f9312d367566e6f45dac29ade3637a610788a8c380e430f79647c66771",
+  "animation": {},
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "evidence_valid": true,
+  "geometry": {
+    "editor_low_wet": {
+      "declared": {
+        "bounds": [
+          832,
+          529,
+          1060,
+          653
+        ],
+        "pixels": 17533
+      },
+      "iou": 0.9738643434971997,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          833,
+          529,
+          1060,
+          651
+        ],
+        "pixels": 17359
+      },
+      "passed": true
+    },
+    "editor_pool_wet": {
+      "declared": {
+        "bounds": [
+          739,
+          447,
+          1193,
+          749
+        ],
+        "pixels": 96554
+      },
+      "iou": 0.9897927621404269,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          739,
+          447,
+          1193,
+          747
+        ],
+        "pixels": 96436
+      },
+      "passed": true
+    },
+    "editor_source_wet": {
+      "declared": {
+        "bounds": [
+          832,
+          447,
+          1060,
+          653
+        ],
+        "pixels": 36229
+      },
+      "iou": 0.9734950218387998,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          833,
+          447,
+          1060,
+          651
+        ],
+        "pixels": 36516
+      },
+      "passed": true
+    },
+    "full_low_wet": {
+      "declared": {
+        "bounds": [
+          944,
+          550,
+          1049,
+          612
+        ],
+        "pixels": 3848
+      },
+      "iou": 0.9600201156650742,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          944,
+          549,
+          1050,
+          612
+        ],
+        "pixels": 3947
+      },
+      "passed": true
+    },
+    "full_pool_wet": {
+      "declared": {
+        "bounds": [
+          890,
+          514,
+          1116,
+          675
+        ],
+        "pixels": 24148
+      },
+      "iou": 0.9703837653204742,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          889,
+          513,
+          1118,
+          676
+        ],
+        "pixels": 24885
+      },
+      "passed": true
+    },
+    "full_source_wet": {
+      "declared": {
+        "bounds": [
+          943,
+          514,
+          1050,
+          612
+        ],
+        "pixels": 7699
+      },
+      "iou": 0.9676686031826218,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          943,
+          513,
+          1051,
+          612
+        ],
+        "pixels": 7881
+      },
+      "passed": true
+    },
+    "missing_low_wet": {
+      "declared": {
+        "bounds": [
+          944,
+          550,
+          1049,
+          612
+        ],
+        "pixels": 3848
+      },
+      "iou": 0.9600201156650742,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          944,
+          549,
+          1050,
+          612
+        ],
+        "pixels": 3947
+      },
+      "passed": true
+    },
+    "missing_pool_wet": {
+      "declared": {
+        "bounds": [
+          890,
+          514,
+          1116,
+          675
+        ],
+        "pixels": 24148
+      },
+      "iou": 0.9703837653204742,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          889,
+          513,
+          1118,
+          676
+        ],
+        "pixels": 24885
+      },
+      "passed": true
+    },
+    "missing_source_wet": {
+      "declared": {
+        "bounds": [
+          943,
+          514,
+          1050,
+          612
+        ],
+        "pixels": 7699
+      },
+      "iou": 0.9676686031826218,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          943,
+          513,
+          1051,
+          612
+        ],
+        "pixels": 7881
+      },
+      "passed": true
+    }
+  },
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": false,
+    "geometry": true,
+    "transparency": false
+  },
+  "product_style_accepted": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "2d1ffb5662bded4c45a0686fb50189ae6c2207ba2b773790f382273a4bbd9429",
+  "transparency": {},
+  "transparency_phase_controlled": true
+}

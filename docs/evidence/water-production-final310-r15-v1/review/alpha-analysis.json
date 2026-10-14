@@ -1,0 +1,295 @@
+{
+  "alpha_controls": {
+    "editor_wet_oak_fence_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 560,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 560,
+              "endpoint_rgb_rmse": 0.3336865687894498,
+              "passed": true,
+              "water_pixels": 560
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 560,
+              "endpoint_rgb_rmse": 0.275337995752062,
+              "passed": true,
+              "water_pixels": 560
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 560,
+              "endpoint_rgb_rmse": 0.3336865687894498,
+              "passed": true,
+              "water_pixels": 560
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 440,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 440,
+              "endpoint_rgb_rmse": 0.3272648357634421,
+              "passed": true,
+              "water_pixels": 440
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 440,
+              "endpoint_rgb_rmse": 0.29697336887031217,
+              "passed": true,
+              "water_pixels": 440
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 440,
+              "endpoint_rgb_rmse": 0.3272648357634421,
+              "passed": true,
+              "water_pixels": 440
+            }
+          }
+        }
+      }
+    },
+    "full_wet_oak_fence_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 300,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.3327077462946188,
+              "passed": true,
+              "water_pixels": 300
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.2886462656378341,
+              "passed": true,
+              "water_pixels": 300
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.33437337746231466,
+              "passed": true,
+              "water_pixels": 300
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 210,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.32626432949130785,
+              "passed": true,
+              "water_pixels": 210
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.3009047204575758,
+              "passed": true,
+              "water_pixels": 210
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.32626432949130785,
+              "passed": true,
+              "water_pixels": 210
+            }
+          }
+        }
+      }
+    },
+    "missing_wet_oak_fence_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 300,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.3327077462946188,
+              "passed": true,
+              "water_pixels": 300
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.2886462656378341,
+              "passed": true,
+              "water_pixels": 300
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 300,
+              "endpoint_rgb_rmse": 0.33437337746231466,
+              "passed": true,
+              "water_pixels": 300
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 210,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.32626432949130785,
+              "passed": true,
+              "water_pixels": 210
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.3009047204575758,
+              "passed": true,
+              "water_pixels": 210
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 210,
+              "endpoint_rgb_rmse": 0.32626432949130785,
+              "passed": true,
+              "water_pixels": 210
+            }
+          }
+        }
+      }
+    }
+  },
+  "analyzer_sha256": "bca162f9312d367566e6f45dac29ade3637a610788a8c380e430f79647c66771",
+  "animation": {},
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "evidence_valid": true,
+  "geometry": {},
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": false,
+    "geometry": false,
+    "transparency": true
+  },
+  "product_style_accepted": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "87c5f692d39b8a1c24dc86420ede445beb3dee31ab0f36ce126414847dde37f2",
+  "transparency": {
+    "editor_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 560,
+          "eligible_pixels": 560,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 560
+        },
+        "rear": {
+          "contribution_pixels": 440,
+          "eligible_pixels": 440,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 440
+        }
+      },
+      "water_pixels": 8346
+    },
+    "full_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 300,
+          "eligible_pixels": 300,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 300
+        },
+        "rear": {
+          "contribution_pixels": 210,
+          "eligible_pixels": 210,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 210
+        }
+      },
+      "water_pixels": 4412
+    },
+    "missing_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 300,
+          "eligible_pixels": 300,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 300
+        },
+        "rear": {
+          "contribution_pixels": 210,
+          "eligible_pixels": 210,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 210
+        }
+      },
+      "water_pixels": 4412
+    }
+  },
+  "transparency_phase_controlled": true
+}

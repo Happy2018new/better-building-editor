@@ -97,9 +97,15 @@ if controls is not None:
 row['screen_size']=b.factory.CreateGame(b.level).GetScreenSize()
 _result=json.dumps(row)
 '''
-WORLD_STATE = '''from modern_projection.projection.cell import encode
+WATER_OWNER_SELECT = '''liquid=next((companion for companion in getattr(owner,'companions',(owner,))
+ if type(companion) is LiquidProjection),None)
+'''
+WATER_OWNER = '''from modern_projection.projection.liquid_projection import LiquidProjection
+owner=b.projection_liquid
+''' + WATER_OWNER_SELECT
+
+WORLD_STATE = WATER_OWNER + '''from modern_projection.projection.cell import encode
 work=b.projection_work
-liquid=b.projection_liquid
 tracker=b.projection_occupancy
 renderer=liquid.renderer if liquid is not None else None
 _result=json.dumps({'active':s.projection_active,'origin':s.origin,'opacity':s.opacity,
@@ -109,7 +115,7 @@ _result=json.dumps({'active':s.projection_active,'origin':s.origin,'opacity':s.o
  'work_error':work.error if work is not None else None,'missing':s.projection_missing,
  'body_entity':b.entity,'body_uniforms':work.shader.uniforms if work is not None else None,
  'body_parts':work.shader.parts if work is not None else None,
- 'liquid_owned':work is not None and work.liquid is liquid,
+ 'liquid_owned':work is not None and work.liquid is owner and liquid is not None,
  'liquid_ready':liquid is not None and liquid.ready,
  'liquid_error':str(liquid.error) if liquid is not None and liquid.error is not None else None,
  'liquid_source_current':liquid is not None and liquid.document.blocks==s.editor.document.blocks and
@@ -170,8 +176,9 @@ for key,group in list(preview.groups.items()):
  preview.groups[key]=group._replace(uniforms=group.uniforms[:3]+((value[0],alpha,value[2],value[3]),))
 _result=True
 '''
-WORLD_ALPHA = '''alpha=%r
-renderer=b.projection_liquid.renderer
+WORLD_ALPHA = WATER_OWNER + '''alpha=%r
+assert liquid is not None
+renderer=liquid.renderer
 assert not renderer.staging and renderer.wanted is None
 for record in renderer.active.values():
  group=record['group'];value=group.uniforms[3]
