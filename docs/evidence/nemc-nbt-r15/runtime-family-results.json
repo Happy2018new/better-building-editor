@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "audit": "nemc310-nbt-r15",
   "created_from": "nemc-clean-r14 3.10 clean runtime evidence",
   "qualification": "Structural/NBT and palette evidence are recorded separately from pixel acceptance.",
@@ -248,7 +248,8 @@
                 "__value__": 21
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           }
         ],
         "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
@@ -295,7 +296,7 @@
         "Banner"
       ],
       "default": "observed",
-      "nondefault": "observed_partial",
+      "nondefault": "observed",
       "action": "unknown",
       "raw_nbt": {
         "status": "observed",
@@ -339,22 +340,45 @@
                 "__value__": 12
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "banner_patterns",
             "block": {
-              "aux": 11,
+              "aux": 10,
               "name": "minecraft:standing_banner"
             },
             "states": {
-              "ground_sign_direction": 11
+              "ground_sign_direction": 10
             },
             "nbt": {
               "Base": {
                 "__type__": 3,
                 "__value__": 4
               },
+              "Patterns": [
+                {
+                  "Color": {
+                    "__type__": 3,
+                    "__value__": 1
+                  },
+                  "Pattern": {
+                    "__type__": 8,
+                    "__value__": "bs"
+                  }
+                },
+                {
+                  "Color": {
+                    "__type__": 3,
+                    "__value__": 14
+                  },
+                  "Pattern": {
+                    "__type__": 8,
+                    "__value__": "ts"
+                  }
+                }
+              ],
               "Type": {
                 "__type__": 3,
                 "__value__": 0
@@ -380,7 +404,8 @@
                 "__value__": 12
               }
             },
-            "repaired": false
+            "repaired": true,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
           },
           {
             "case": "banner_ominous",
@@ -421,7 +446,8 @@
                 "__value__": 12
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "wall_banner_plain",
@@ -462,7 +488,8 @@
                 "__value__": 12
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "wall_banner_patterns",
@@ -478,6 +505,28 @@
                 "__type__": 3,
                 "__value__": 4
               },
+              "Patterns": [
+                {
+                  "Color": {
+                    "__type__": 3,
+                    "__value__": 1
+                  },
+                  "Pattern": {
+                    "__type__": 8,
+                    "__value__": "bs"
+                  }
+                },
+                {
+                  "Color": {
+                    "__type__": 3,
+                    "__value__": 14
+                  },
+                  "Pattern": {
+                    "__type__": 8,
+                    "__value__": "ts"
+                  }
+                }
+              ],
               "Type": {
                 "__type__": 3,
                 "__value__": 0
@@ -503,7 +552,8 @@
                 "__value__": 12
               }
             },
-            "repaired": false
+            "repaired": true,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
           },
           {
             "case": "wall_banner_ominous",
@@ -544,7 +594,8 @@
                 "__value__": 12
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           }
         ],
         "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
@@ -569,9 +620,7 @@
       },
       "pixel_status": "unknown_obscured",
       "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
-      "limitations": [
-        "Requested pattern cases were placed and base/type read back, but final content NBT omitted nested Patterns (banner_patterns, wall_banner_patterns)."
-      ],
+      "limitations": [],
       "capture": {
         "status": "reliable_but_obscured",
         "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
@@ -696,7 +745,8 @@
                 "__value__": 15
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "standing_sign_text",
@@ -793,7 +843,8 @@
                 "__value__": 15
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "wall_sign_empty",
@@ -890,7 +941,8 @@
                 "__value__": 24
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "wall_sign_text",
@@ -987,7 +1039,8 @@
                 "__value__": 24
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "hanging_sign_empty",
@@ -1087,7 +1140,8 @@
                 "__value__": 24
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "hanging_sign_text",
@@ -1187,7 +1241,8 @@
                 "__value__": 24
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           }
         ],
         "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
@@ -1273,7 +1328,8 @@
                 "__value__": 18
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "pot_content",
@@ -1321,7 +1377,8 @@
                 "__value__": 18
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           }
         ],
         "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
@@ -1353,6 +1410,576 @@
       },
       "observed_materials": [
         "minecraft:flower_pot"
+      ]
+    },
+    {
+      "family": "decorated_pot",
+      "scope": "four sherd faces and facing; hidden inventory excluded",
+      "materials": [
+        "minecraft:decorated_pot"
+      ],
+      "native_ids": [
+        "DecoratedPot"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "item_frames",
+      "scope": "native frame shell; visible item and glint require separate observation",
+      "materials": [
+        "minecraft:frame",
+        "minecraft:glow_frame"
+      ],
+      "native_ids": [
+        "ItemFrame",
+        "GlowItemFrame"
+      ],
+      "default": "observed",
+      "nondefault": "observed",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "frame_empty",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:frame"
+            },
+            "states": {
+              "facing_direction": 2,
+              "item_frame_map_bit": false,
+              "item_frame_photo_bit": false
+            },
+            "nbt": {
+              "id": {
+                "__type__": 8,
+                "__value__": "ItemFrame"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": -1
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 18
+              }
+            },
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
+          },
+          {
+            "case": "frame_normal_sword",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:frame"
+            },
+            "states": {
+              "facing_direction": 2,
+              "item_frame_map_bit": false,
+              "item_frame_photo_bit": false
+            },
+            "nbt": {
+              "Item": {
+                "Count": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "Damage": {
+                  "__type__": 2,
+                  "__value__": 0
+                },
+                "Name": {
+                  "__type__": 8,
+                  "__value__": "minecraft:diamond_sword"
+                },
+                "WasPickedUp": {
+                  "__type__": 1,
+                  "__value__": 0
+                }
+              },
+              "ItemDropChance": {
+                "__type__": 5,
+                "__value__": 1.0
+              },
+              "ItemRotation": {
+                "__type__": 5,
+                "__value__": 0.0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "ItemFrame"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 2
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 18
+              }
+            },
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
+          },
+          {
+            "case": "frame_enchanted_sword",
+            "block": {
+              "aux": 2,
+              "name": "minecraft:frame"
+            },
+            "states": {
+              "facing_direction": 2,
+              "item_frame_map_bit": false,
+              "item_frame_photo_bit": false
+            },
+            "nbt": {
+              "Item": {
+                "Count": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "Damage": {
+                  "__type__": 2,
+                  "__value__": 0
+                },
+                "Name": {
+                  "__type__": 8,
+                  "__value__": "minecraft:diamond_sword"
+                },
+                "WasPickedUp": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "tag": {
+                  "ench": [
+                    {
+                      "id": {
+                        "__type__": {
+                          "__repr__": "2",
+                          "__type__": "int"
+                        },
+                        "__value__": {
+                          "__repr__": "9",
+                          "__type__": "int"
+                        }
+                      },
+                      "lvl": {
+                        "__type__": {
+                          "__repr__": "2",
+                          "__type__": "int"
+                        },
+                        "__value__": {
+                          "__repr__": "1",
+                          "__type__": "int"
+                        }
+                      },
+                      "modEnchant": {
+                        "__type__": {
+                          "__repr__": "8",
+                          "__type__": "int"
+                        },
+                        "__value__": {
+                          "__repr__": "''",
+                          "__type__": "str"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "ItemDropChance": {
+                "__type__": 5,
+                "__value__": 1.0
+              },
+              "ItemRotation": {
+                "__type__": 5,
+                "__value__": 0.0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "ItemFrame"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 5
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 18
+              }
+            },
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "observed",
+        "actor_materials": [
+          "minecraft:frame"
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "observed",
+        "actor_names": [
+          "minecraft:frame"
+        ],
+        "combine_result_present": true,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:frame"
+      ]
+    },
+    {
+      "family": "shelf",
+      "scope": "shelf shell and nonempty visible item slots",
+      "materials": [],
+      "native_ids": [
+        "Shelf"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "lectern",
+      "scope": "empty lectern and visible book",
+      "materials": [
+        "minecraft:lectern"
+      ],
+      "native_ids": [
+        "Lectern"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "brushable",
+      "scope": "brush progress and exposed item; particles excluded",
+      "materials": [
+        "minecraft:suspicious_sand",
+        "minecraft:suspicious_gravel"
+      ],
+      "native_ids": [
+        "BrushableBlock"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "brewing_stand",
+      "scope": "native shell and three bottle occupancy states",
+      "materials": [
+        "minecraft:brewing_stand"
+      ],
+      "native_ids": [
+        "BrewingStand"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "chiseled_bookshelf",
+      "scope": "six occupied-slot textures and facing",
+      "materials": [
+        "minecraft:chiseled_bookshelf"
+      ],
+      "native_ids": [
+        "ChiseledBookshelf"
+      ],
+      "default": "unavailable",
+      "nondefault": "not_applicable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "unavailable",
+        "rows": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "unavailable",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unavailable",
+      "pixel_reason": "No isolated 3.10 capture for this family in the source bundle.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": []
+    },
+    {
+      "family": "copper_statue",
+      "scope": "statue pose, facing, oxidation and wax; not a live mob",
+      "materials": [],
+      "native_ids": [
+        "CopperGolemStatue"
+      ],
+      "default": "observed",
+      "nondefault": "unavailable",
+      "action": "unknown",
+      "raw_nbt": {
+        "status": "observed",
+        "rows": [
+          {
+            "case": "copper_statue",
+            "block": {
+              "aux": 0,
+              "name": "minecraft:copper_golem_statue"
+            },
+            "states": {
+              "minecraft:cardinal_direction": "south"
+            },
+            "nbt": {
+              "Actor": {
+                "ActorIdentifier": {
+                  "__type__": 8,
+                  "__value__": "minecraft:copper_golem<>"
+                },
+                "SaveData": {}
+              },
+              "Pose": {
+                "__type__": 3,
+                "__value__": 0
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "CopperGolemStatue"
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 5
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -60
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": 21
+              }
+            },
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
+          }
+        ],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
+        "supplemental_repair_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\repair\\result.json"
+      },
+      "project_palette": {
+        "status": "unavailable",
+        "actor_materials": [],
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "native_call": {
+        "status": "no_actor_submission",
+        "actor_names": [],
+        "combine_result_present": false,
+        "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\project-refreshed\\result.json"
+      },
+      "pixel_status": "unknown_obscured",
+      "pixel_reason": "Reliable WGC frame exists, but the only 3.10 overview is obscured by pause/menu UI and is not a family-isolated pixel acceptance frame.",
+      "limitations": [],
+      "capture": {
+        "status": "reliable_but_obscured",
+        "path": "D:\\bbe-r14-nemc310\\.runtime\\nemc-clean-310\\evidence\\overview.png",
+        "metadata": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\overview.capture.json",
+        "sha256": "0df4ae2452e7647e8ae4a5afb7687755d9646bb6d05f3bf7c9be256ab75ef419"
+      },
+      "observed_materials": [
+        "minecraft:copper_golem_statue"
       ]
     },
     {
@@ -1415,7 +2042,8 @@
                 "__value__": 15
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "chest_content",
@@ -1488,7 +2116,8 @@
                 "__value__": 15
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "copper_chest_empty",
@@ -1534,7 +2163,8 @@
                 "__value__": 21
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "copper_chest_content",
@@ -1607,7 +2237,8 @@
                 "__value__": 21
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           }
         ],
         "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
@@ -1745,7 +2376,8 @@
                 "__value__": 15
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "shulker_content",
@@ -1820,7 +2452,8 @@
                 "__value__": 15
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           }
         ],
         "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
@@ -1992,7 +2625,8 @@
                 "__value__": 18
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           },
           {
             "case": "cauldron_empty",
@@ -2035,7 +2669,8 @@
                 "__value__": 24
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           }
         ],
         "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",
@@ -2131,7 +2766,8 @@
                 "__value__": 21
               }
             },
-            "repaired": false
+            "repaired": false,
+            "readback_source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json"
           }
         ],
         "source": "D:\\bbe-r14-nemc310\\docs\\evidence\\nemc-clean-r14\\310\\content\\result.json",

@@ -1,0 +1,1467 @@
+{
+  "schema": 1,
+  "timestamp": "2026-10-14T13:15:00+08:00",
+  "runtime": "3.10.0.420447",
+  "body_samples": 103,
+  "observed_nbt_roots": [
+    "Banner",
+    "Barrel",
+    "Beacon",
+    "Bed",
+    "Beehive",
+    "Bell",
+    "BlastFurnace",
+    "BrewingStand",
+    "BrushableBlock",
+    "CalibratedSculkSensor",
+    "Campfire",
+    "Cauldron",
+    "ChemistryTable",
+    "Chest",
+    "ChiseledBookshelf",
+    "CommandBlock",
+    "Comparator",
+    "Conduit",
+    "CopperGolemStatue",
+    "Crafter",
+    "CraftingTable",
+    "CreakingHeart",
+    "DaylightDetector",
+    "DecoratedPot",
+    "Dispenser",
+    "Dropper",
+    "EnchantTable",
+    "EndGateway",
+    "EndPortal",
+    "EnderChest",
+    "FlowerPot",
+    "Furnace",
+    "GlowItemFrame",
+    "HangingSign",
+    "Hopper",
+    "ItemFrame",
+    "JigsawBlock",
+    "Jukebox",
+    "Lectern",
+    "Lodestone",
+    "MobSpawner",
+    "Music",
+    "NetherReactor",
+    "PistonArm",
+    "SculkCatalyst",
+    "SculkSensor",
+    "SculkShrieker",
+    "Shelf",
+    "ShulkerBox",
+    "Sign",
+    "Skull",
+    "Smoker",
+    "SporeBlossom",
+    "StructureBlock",
+    "TrialSpawner",
+    "Vault"
+  ],
+  "ordinary_sampled_names": [
+    "minecraft:chemical_heat",
+    "minecraft:copper_lantern",
+    "minecraft:crimson_hyphae",
+    "minecraft:crimson_stem",
+    "minecraft:exposed_copper_lantern",
+    "minecraft:firefly_bush",
+    "minecraft:kelp",
+    "minecraft:lantern",
+    "minecraft:magma",
+    "minecraft:oxidized_copper_lantern",
+    "minecraft:portal",
+    "minecraft:prismarine",
+    "minecraft:prismarine_double_slab",
+    "minecraft:prismarine_slab",
+    "minecraft:prismarine_stairs",
+    "minecraft:prismarine_wall",
+    "minecraft:respawn_anchor",
+    "minecraft:sculk",
+    "minecraft:sculk_vein",
+    "minecraft:sea_lantern",
+    "minecraft:seagrass",
+    "minecraft:soul_lantern",
+    "minecraft:stonecutter_block",
+    "minecraft:warped_hyphae",
+    "minecraft:warped_stem",
+    "minecraft:waxed_copper_lantern",
+    "minecraft:waxed_exposed_copper_lantern",
+    "minecraft:waxed_oxidized_copper_lantern",
+    "minecraft:waxed_weathered_copper_lantern",
+    "minecraft:weathered_copper_lantern"
+  ],
+  "ordinary_remaining_names": [
+    "minecraft:bubble_column",
+    "minecraft:fire",
+    "minecraft:flowing_lava",
+    "minecraft:flowing_water",
+    "minecraft:lava",
+    "minecraft:soul_fire",
+    "minecraft:water"
+  ],
+  "production_qualified": false,
+  "limits": [
+    "Readback and projection presence are recorded separately from nondefault-content and animation acceptance.",
+    "World references were not consistently visible. Positive projected bodies are usable evidence; missing content requires valid source/client synchronization.",
+    "Water-plant setup left extra-layer water; heads-v4 is invalid due contaminated fixture.",
+    "MovingBlock has no valid moving-piston source.",
+    "Education chemical_heat/compound_creator displayed dirt-like fallback textures."
+  ],
+  "samples": {
+    "minecraft:standing_banner": {
+      "report": "banners-v4/report.json",
+      "nbt_id": "Banner",
+      "actual": {
+        "aux": 8,
+        "name": "minecraft:standing_banner"
+      },
+      "states": {
+        "ground_sign_direction": 8
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:wall_banner": {
+      "report": "banners-v4/report.json",
+      "nbt_id": "Banner",
+      "actual": {
+        "aux": 2,
+        "name": "minecraft:wall_banner"
+      },
+      "states": {
+        "facing_direction": 2
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:suspicious_sand": {
+      "report": "batch-v2/brushable/report.json",
+      "nbt_id": "BrushableBlock",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:suspicious_sand"
+      },
+      "states": {
+        "hanging": false,
+        "brushed_progress": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:suspicious_gravel": {
+      "report": "batch-v2/brushable/report.json",
+      "nbt_id": "BrushableBlock",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:suspicious_gravel"
+      },
+      "states": {
+        "hanging": false,
+        "brushed_progress": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:chest": {
+      "report": "batch-v2/containers/report.json",
+      "nbt_id": "Chest",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:chest"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:copper_chest": {
+      "report": "batch-v2/containers/report.json",
+      "nbt_id": "Chest",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:copper_chest"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:ender_chest": {
+      "report": "batch-v2/containers/report.json",
+      "nbt_id": "EnderChest",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:ender_chest"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:lectern": {
+      "report": "batch-v2/contents/report.json",
+      "nbt_id": "Lectern",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:lectern"
+      },
+      "states": {
+        "powered_bit": false,
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:oak_shelf": {
+      "report": "batch-v2/contents/report.json",
+      "nbt_id": "Shelf",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:oak_shelf"
+      },
+      "states": {
+        "powered_bit": false,
+        "powered_shelf_type": 0,
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:chiseled_bookshelf": {
+      "report": "batch-v2/contents/report.json",
+      "nbt_id": "ChiseledBookshelf",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:chiseled_bookshelf"
+      },
+      "states": {
+        "books_stored": 0,
+        "direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:exposed_copper_lantern": {
+      "report": "batch-v2/copper_a/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:exposed_copper_lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:weathered_copper_lantern": {
+      "report": "batch-v2/copper_a/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:weathered_copper_lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:oxidized_copper_lantern": {
+      "report": "batch-v2/copper_a/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:oxidized_copper_lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:waxed_copper_lantern": {
+      "report": "batch-v2/copper_b/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:waxed_copper_lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:waxed_exposed_copper_lantern": {
+      "report": "batch-v2/copper_b/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:waxed_exposed_copper_lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:waxed_weathered_copper_lantern": {
+      "report": "batch-v2/copper_c/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:waxed_weathered_copper_lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:waxed_oxidized_copper_lantern": {
+      "report": "batch-v2/copper_c/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:waxed_oxidized_copper_lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:frame": {
+      "report": "batch-v2/frames/report.json",
+      "nbt_id": "ItemFrame",
+      "actual": {
+        "aux": 2,
+        "name": "minecraft:frame"
+      },
+      "states": {
+        "facing_direction": 2,
+        "item_frame_map_bit": false,
+        "item_frame_photo_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:glow_frame": {
+      "report": "batch-v2/frames/report.json",
+      "nbt_id": "GlowItemFrame",
+      "actual": {
+        "aux": 2,
+        "name": "minecraft:glow_frame"
+      },
+      "states": {
+        "facing_direction": 2,
+        "item_frame_map_bit": false,
+        "item_frame_photo_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:brewing_stand": {
+      "report": "batch-v2/frames/report.json",
+      "nbt_id": "BrewingStand",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:brewing_stand"
+      },
+      "states": {
+        "brewing_stand_slot_a_bit": false,
+        "brewing_stand_slot_c_bit": false,
+        "brewing_stand_slot_b_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:piglin_head": {
+      "report": "batch-v3/heads/report.json",
+      "nbt_id": "Skull",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:piglin_head"
+      },
+      "states": {
+        "facing_direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:player_head": {
+      "report": "batch-v3/heads/report.json",
+      "nbt_id": "Skull",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:player_head"
+      },
+      "states": {
+        "facing_direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:skeleton_skull": {
+      "report": "batch-v3/heads/report.json",
+      "nbt_id": "Skull",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:skeleton_skull"
+      },
+      "states": {
+        "facing_direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:piston": {
+      "report": "batch-v2/pistons/report.json",
+      "nbt_id": "PistonArm",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:piston"
+      },
+      "states": {
+        "facing_direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:sticky_piston": {
+      "report": "batch-v2/pistons/report.json",
+      "nbt_id": "PistonArm",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:sticky_piston"
+      },
+      "states": {
+        "facing_direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:moving_block": {
+      "report": "batch-v2/pistons/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:air"
+      },
+      "states": null,
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:portal": {
+      "report": "batch-v2/portals/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 1,
+        "name": "minecraft:portal"
+      },
+      "states": {
+        "portal_axis": "x"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:end_portal": {
+      "report": "batch-v2/portals/report.json",
+      "nbt_id": "EndPortal",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:end_portal"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:end_gateway": {
+      "report": "batch-v2/portals/report.json",
+      "nbt_id": "EndGateway",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:end_gateway"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:flower_pot": {
+      "report": "batch-v2/pottery/report.json",
+      "nbt_id": "FlowerPot",
+      "actual": {
+        "aux": 1,
+        "name": "minecraft:flower_pot"
+      },
+      "states": {
+        "update_bit": true
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:decorated_pot": {
+      "report": "batch-v2/pottery/report.json",
+      "nbt_id": "DecoratedPot",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:decorated_pot"
+      },
+      "states": {
+        "direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:prismarine": {
+      "report": "batch-v2/prismarine_a/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:prismarine"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:prismarine_slab": {
+      "report": "batch-v2/prismarine_a/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:prismarine_slab"
+      },
+      "states": {
+        "minecraft:vertical_half": "bottom"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:prismarine_double_slab": {
+      "report": "batch-v2/prismarine_b/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:prismarine_double_slab"
+      },
+      "states": {
+        "minecraft:vertical_half": "bottom"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:prismarine_stairs": {
+      "report": "batch-v2/prismarine_b/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:prismarine_stairs"
+      },
+      "states": {
+        "weirdo_direction": 0,
+        "upside_down_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:prismarine_wall": {
+      "report": "batch-v2/prismarine_c/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 1,
+        "name": "minecraft:prismarine_wall"
+      },
+      "states": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:sea_lantern": {
+      "report": "batch-v2/prismarine_c/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:sea_lantern"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:sculk": {
+      "report": "batch-v2/sculk/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:sculk"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:sculk_vein": {
+      "report": "batch-v2/sculk/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 1,
+        "name": "minecraft:sculk_vein"
+      },
+      "states": {
+        "multi_face_direction_bits": 1
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:sculk_catalyst": {
+      "report": "batch-v2/sculk_nbt/report.json",
+      "nbt_id": "SculkCatalyst",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:sculk_catalyst"
+      },
+      "states": {
+        "bloom": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:sculk_shrieker": {
+      "report": "batch-v2/sculk_nbt/report.json",
+      "nbt_id": "SculkShrieker",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:sculk_shrieker"
+      },
+      "states": {
+        "active": false,
+        "can_summon": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:sculk_sensor": {
+      "report": "batch-v2/sensor/report.json",
+      "nbt_id": "SculkSensor",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:sculk_sensor"
+      },
+      "states": {
+        "sculk_sensor_phase": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:calibrated_sculk_sensor": {
+      "report": "batch-v2/sensor/report.json",
+      "nbt_id": "CalibratedSculkSensor",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:calibrated_sculk_sensor"
+      },
+      "states": {
+        "sculk_sensor_phase": 0,
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:purple_shulker_box": {
+      "report": "batch-v2/shulker_bed/report.json",
+      "nbt_id": "ShulkerBox",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:purple_shulker_box"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:bed": {
+      "report": "batch-v2/shulker_bed/report.json",
+      "nbt_id": "Bed",
+      "actual": {
+        "aux": 8,
+        "name": "minecraft:bed"
+      },
+      "states": {
+        "occupied_bit": false,
+        "direction": 0,
+        "head_piece_bit": true
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:dragon_head": {
+      "report": "batch-v2/shulker_bed/report.json",
+      "nbt_id": "Skull",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:dragon_head"
+      },
+      "states": {
+        "facing_direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:standing_sign": {
+      "report": "batch-v2/signs/report.json",
+      "nbt_id": "Sign",
+      "actual": {
+        "aux": 8,
+        "name": "minecraft:standing_sign"
+      },
+      "states": {
+        "ground_sign_direction": 8
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:wall_sign": {
+      "report": "batch-v2/signs/report.json",
+      "nbt_id": "Sign",
+      "actual": {
+        "aux": 2,
+        "name": "minecraft:wall_sign"
+      },
+      "states": {
+        "facing_direction": 2
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:oak_hanging_sign": {
+      "report": "batch-v2/signs/report.json",
+      "nbt_id": "HangingSign",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:oak_hanging_sign"
+      },
+      "states": {
+        "attached_bit": false,
+        "facing_direction": 0,
+        "ground_sign_direction": 0,
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:enchanting_table": {
+      "report": "batch-v2/special_nbt/report.json",
+      "nbt_id": "EnchantTable",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:enchanting_table"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:beacon": {
+      "report": "batch-v2/special_nbt/report.json",
+      "nbt_id": "Beacon",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:beacon"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:conduit": {
+      "report": "batch-v2/special_nbt/report.json",
+      "nbt_id": "Conduit",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:conduit"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:bell": {
+      "report": "batch-v2/special_states/report.json",
+      "nbt_id": "Bell",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:bell"
+      },
+      "states": {
+        "direction": 0,
+        "attachment": "standing",
+        "toggle_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:copper_golem_statue": {
+      "report": "batch-v2/special_states/report.json",
+      "nbt_id": "CopperGolemStatue",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:copper_golem_statue"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:big_dripleaf": {
+      "report": "batch-v2/special_states/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:big_dripleaf"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south",
+        "big_dripleaf_head": false,
+        "big_dripleaf_tilt": "none"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:vault": {
+      "report": "batch-v2/trial/report.json",
+      "nbt_id": "Vault",
+      "actual": {
+        "aux": 4,
+        "name": "minecraft:vault"
+      },
+      "states": {
+        "ominous": false,
+        "vault_state": "active",
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:trial_spawner": {
+      "report": "batch-v2/trial/report.json",
+      "nbt_id": "TrialSpawner",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:trial_spawner"
+      },
+      "states": {
+        "trial_spawner_state": 0,
+        "ominous": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:mob_spawner": {
+      "report": "batch-v2/trial/report.json",
+      "nbt_id": "MobSpawner",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:mob_spawner"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:campfire": {
+      "report": "batch-v3/campfire/report.json",
+      "nbt_id": "Campfire",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:campfire"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south",
+        "extinguished": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:soul_campfire": {
+      "report": "batch-v3/campfire/report.json",
+      "nbt_id": "Campfire",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:soul_campfire"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south",
+        "extinguished": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:command_block": {
+      "report": "batch-v3/command/report.json",
+      "nbt_id": "CommandBlock",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:command_block"
+      },
+      "states": {
+        "facing_direction": 0,
+        "conditional_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:chain_command_block": {
+      "report": "batch-v3/command/report.json",
+      "nbt_id": "CommandBlock",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:chain_command_block"
+      },
+      "states": {
+        "facing_direction": 0,
+        "conditional_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:repeating_command_block": {
+      "report": "batch-v3/command/report.json",
+      "nbt_id": "CommandBlock",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:repeating_command_block"
+      },
+      "states": {
+        "facing_direction": 0,
+        "conditional_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:barrel": {
+      "report": "batch-v3/functional/report.json",
+      "nbt_id": "Barrel",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:barrel"
+      },
+      "states": {
+        "facing_direction": 0,
+        "open_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:hopper": {
+      "report": "batch-v3/functional/report.json",
+      "nbt_id": "Hopper",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:hopper"
+      },
+      "states": {
+        "facing_direction": 0,
+        "toggle_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:dispenser": {
+      "report": "batch-v3/functional/report.json",
+      "nbt_id": "Dispenser",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:dispenser"
+      },
+      "states": {
+        "facing_direction": 0,
+        "triggered_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:dropper": {
+      "report": "batch-v3/functional_b/report.json",
+      "nbt_id": "Dropper",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:dropper"
+      },
+      "states": {
+        "facing_direction": 0,
+        "triggered_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:crafter": {
+      "report": "batch-v3/functional_b/report.json",
+      "nbt_id": "Crafter",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:crafter"
+      },
+      "states": {
+        "crafting": false,
+        "orientation": "down_east",
+        "triggered_bit": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:crafting_table": {
+      "report": "batch-v3/functional_b/report.json",
+      "nbt_id": "CraftingTable",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:crafting_table"
+      },
+      "states": {
+        "custom_appearance": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:furnace": {
+      "report": "batch-v3/functional_c/report.json",
+      "nbt_id": "Furnace",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:furnace"
+      },
+      "states": {
+        "custom_appearance": false,
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:blast_furnace": {
+      "report": "batch-v3/functional_c/report.json",
+      "nbt_id": "BlastFurnace",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:blast_furnace"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:smoker": {
+      "report": "batch-v3/functional_c/report.json",
+      "nbt_id": "Smoker",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:smoker"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:bee_nest": {
+      "report": "batch-v3/functional_d/report.json",
+      "nbt_id": "Beehive",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:bee_nest"
+      },
+      "states": {
+        "honey_level": 0,
+        "direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:beehive": {
+      "report": "batch-v3/functional_d/report.json",
+      "nbt_id": "Beehive",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:beehive"
+      },
+      "states": {
+        "honey_level": 0,
+        "direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:creaking_heart": {
+      "report": "batch-v3/functional_d/report.json",
+      "nbt_id": "CreakingHeart",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:creaking_heart"
+      },
+      "states": {
+        "pillar_axis": "y",
+        "creaking_heart_state": "uprooted",
+        "natural": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:daylight_detector": {
+      "report": "batch-v3/functional_e/report.json",
+      "nbt_id": "DaylightDetector",
+      "actual": {
+        "aux": 15,
+        "name": "minecraft:daylight_detector"
+      },
+      "states": {
+        "redstone_signal": 15
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:daylight_detector_inverted": {
+      "report": "batch-v3/functional_e/report.json",
+      "nbt_id": "DaylightDetector",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:daylight_detector_inverted"
+      },
+      "states": {
+        "redstone_signal": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:unpowered_comparator": {
+      "report": "batch-v3/functional_e/report.json",
+      "nbt_id": "Comparator",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:unpowered_comparator"
+      },
+      "states": {
+        "output_lit_bit": false,
+        "output_subtract_bit": false,
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:jukebox": {
+      "report": "batch-v3/functional_f/report.json",
+      "nbt_id": "Jukebox",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:jukebox"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:noteblock": {
+      "report": "batch-v3/functional_f/report.json",
+      "nbt_id": "Music",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:noteblock"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:lodestone": {
+      "report": "batch-v3/functional_f/report.json",
+      "nbt_id": "Lodestone",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:lodestone"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:jigsaw": {
+      "report": "batch-v3/functional_g/report.json",
+      "nbt_id": "JigsawBlock",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:jigsaw"
+      },
+      "states": {
+        "facing_direction": 0,
+        "rotation": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:structure_block": {
+      "report": "batch-v3/functional_g/report.json",
+      "nbt_id": "StructureBlock",
+      "actual": {
+        "aux": 1,
+        "name": "minecraft:structure_block"
+      },
+      "states": {
+        "structure_block_type": "save"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:netherreactor": {
+      "report": "batch-v3/functional_g/report.json",
+      "nbt_id": "NetherReactor",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:netherreactor"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:spore_blossom": {
+      "report": "batch-v3/functional_h/report.json",
+      "nbt_id": "SporeBlossom",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:spore_blossom"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:compound_creator": {
+      "report": "batch-v3/functional_h/report.json",
+      "nbt_id": "ChemistryTable",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:compound_creator"
+      },
+      "states": {
+        "direction": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:cauldron": {
+      "report": "batch-v3/functional_h/report.json",
+      "nbt_id": "Cauldron",
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:cauldron"
+      },
+      "states": {
+        "cauldron_liquid": "water",
+        "fill_level": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:lit_smoker": {
+      "report": "batch-v3/furnaces/report.json",
+      "nbt_id": "Smoker",
+      "actual": {
+        "aux": 2,
+        "name": "minecraft:lit_smoker"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "north"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:lit_blast_furnace": {
+      "report": "batch-v3/furnaces/report.json",
+      "nbt_id": "BlastFurnace",
+      "actual": {
+        "aux": 2,
+        "name": "minecraft:lit_blast_furnace"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "north"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:crimson_hyphae": {
+      "report": "batch-v3/hyphae/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:crimson_hyphae"
+      },
+      "states": {
+        "pillar_axis": "y"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:warped_hyphae": {
+      "report": "batch-v3/hyphae/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:warped_hyphae"
+      },
+      "states": {
+        "pillar_axis": "y"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:magma": {
+      "report": "batch-v3/nether/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:magma"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:respawn_anchor": {
+      "report": "batch-v3/nether/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 4,
+        "name": "minecraft:respawn_anchor"
+      },
+      "states": {
+        "respawn_anchor_charge": 4
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:firefly_bush": {
+      "report": "batch-v3/plants/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:firefly_bush"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:crimson_stem": {
+      "report": "batch-v3/stem/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:crimson_stem"
+      },
+      "states": {
+        "pillar_axis": "y"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:warped_stem": {
+      "report": "batch-v3/stem/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:warped_stem"
+      },
+      "states": {
+        "pillar_axis": "y"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:stonecutter_block": {
+      "report": "batch-v3/utility/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:stonecutter_block"
+      },
+      "states": {
+        "minecraft:cardinal_direction": "south"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:chemical_heat": {
+      "report": "batch-v3/utility/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:chemical_heat"
+      },
+      "states": {},
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:kelp": {
+      "report": "batch-v3/water_plants/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:kelp"
+      },
+      "states": {
+        "kelp_age": 0
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:seagrass": {
+      "report": "batch-v3/water_plants/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:seagrass"
+      },
+      "states": {
+        "sea_grass_type": "default"
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:lantern": {
+      "report": "lantern-v3/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:soul_lantern": {
+      "report": "lantern-v3/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:soul_lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    },
+    "minecraft:copper_lantern": {
+      "report": "lantern-v3/report.json",
+      "nbt_id": null,
+      "actual": {
+        "aux": 0,
+        "name": "minecraft:copper_lantern"
+      },
+      "states": {
+        "hanging": false
+      },
+      "pixel_review": "see_manual_review_notes",
+      "production_qualified": false
+    }
+  }
+}

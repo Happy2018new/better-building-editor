@@ -1,9 +1,15 @@
 # NEMC 3.10 Projection Support Audit
 
-Independent research branch: `codex/r14-nemc310`, based on
-`f4b1a00c470c197ee54cd613245fceb7890205dd` (`dev`). This audit does not add 3.10
-support to the shipping 3.9 runtime. Findings describe the observed beta build,
-not all future 3.10 releases.
+Round-15 afternoon checkpoint (2026-10-14 14:05): the measured native profile now admits single ordinary/copper/ender chests only in world projections and flower pots on the context route. Editor chest proxies remain because native bodies fail shared depth at oblique angles. Final scoped frames 69/71/74/76 were inspected by the root reviewer. Banners and beds remain candidates. Custom-water direction passes all 15 production path/direction combinations, but its transparency is **not accepted**: animated control differences caused the earlier analyzer to pass despite nearly invisible submerged objects. The retained raw `true` is superseded by visual review. Cauldron dedicated geometry/color measurement is in progress and has no integrated three-path acceptance. The user requested a model-switch pause; see the current [handoff](CONVERSATION_HANDOFF.md).
+
+The archived clean comparison originated on independent research branch
+`codex/r14-nemc310`, based on `f4b1a00c470c197ee54cd613245fceb7890205dd`
+(`dev`). Development has since been authorized on NEMC 3.10 in `dev`, but
+the comparison itself does not implement the production migration. Findings
+describe installed build `3.10.0.420447`, not every 3.10 release. Current work
+and acceptance status are maintained in [IMPLEMENTATION_GAPS.md](IMPLEMENTATION_GAPS.md);
+the complete family classification and revised estimate are in
+[NEMC310_RENDER_COMPATIBILITY_INVENTORY.md](NEMC310_RENDER_COMPATIBILITY_INVENTORY.md).
 
 ## Sources And Actual Installation
 
@@ -132,6 +138,14 @@ stop, relaunch, branch merge, or push.
 Its actor records establish the following structural capabilities; they do
 not establish complete pixel or animation behavior.
 
+`NATIVE` below is a route/field capability label. Documentation, actual
+typed NBT and palette fields, inspected clean Combine pixels, and acceptance
+of editor/full/missing projection are four separate evidence levels.
+An attachment success or a nonempty generated model name does not advance
+the latter two levels. A missing projected stone positive control makes
+the capture fixture invalid; it cannot establish that the target family is
+unsupported.
+
 | Family | 3.10 native status | Observed 3.10 Actor Fields | Migration Boundary |
 | --- | --- | --- |
 | Standing / wall banners | `NATIVE` | Base, Type, direction, pattern count, bs/ts pattern/color fields | Preserve native actor data; do not replace supported appearance with a 3.9 proxy. Waving is not qualified. |
@@ -144,7 +158,9 @@ not establish complete pixel or animation behavior.
 | Purple shulker box | `NATIVE-PARTIAL` | Empty dictionary | Color follows block name; this capture does not establish NBT-facing or opening support. Keep unqualified pose fallback. |
 | Bell | `NATIVE` | Bell attachment/direction | Official support is documented; dynamic movement still needs qualification. |
 | Conduit | `NATIVE-PARTIAL` | Empty conduit record | Official support is documented and the family is on the native route, but active-state model, rotation and animation are not qualified. |
-| Water / falling water / lava / wet fence / cauldron | `CUSTOM` | Native primary/extra water, depths and cauldron fill state | The user requires custom water and cauldron-liquid adaptation despite official conversion support. Remove fluid contribution from the official route to avoid duplicate rendering. World lava may remain native only where the product path passes. |
+| Water / falling water / wet fence | `CUSTOM` | Native primary/extra water and depths | The user requires custom world water despite official conversion support. Remove its contribution from the official route to avoid duplicate geometry. |
+| World lava / flowing lava | `NATIVE-PARTIAL` | Native lava cells | The user permits the official world-lava route; level, flow direction, slow animation and all product paths require qualification. |
+| Cauldron contents | `CUSTOM` | Native cauldron shell and fill state | Preserve the shell and typed NBT; use a bounded project surface for water, lava, powder snow, potions and custom colors. World-lava permission does not apply to the cauldron. |
 | Fire | `NATIVE-PARTIAL` | Native fire cell | Official support is documented and accepted as a migration route by the user; full dynamic behavior still needs targeted validation. |
 | `portal` | `NATIVE-PARTIAL` | Not included in this clean actor sample | Ordinary Nether portal may use the native transparent/flipbook route, but axis, depth and animation still require a dedicated sample. |
 | `end_portal` / `end_gateway` | `CUSTOM` | Combine documentation explicitly excludes both types | Implement dedicated dynamic surface/beam geometry; no claim of native Combine support and no portal behavior simulation. |
@@ -156,11 +172,119 @@ animation, chest/shulker opening, bell swinging, conduit effects, enchanted
 item glint, and all unexercised NBT types remain distinct qualification work.
 There is no general claim that all NBT is displayable by Combine.
 
+## Round 15 Evidence Reconciliation
+
+[`nemc-nbt-r15/runtime-family-results.json`](evidence/nemc-nbt-r15/runtime-family-results.json)
+reanalyzes the archived round 14 receipts; it is not a new 57-family live run.
+Its 28 work groups now index all 57 captured NBT root IDs, including groups
+with no sample. The supplemental `repair/result.json` is part of the input:
+real banners contain `bs/Color 1` followed by `ts/Color 14`, and the rebuilt
+client palette contains the corresponding pattern fields. The initial
+missing-pattern observation must not override this later readback. The
+archived 3.10 overview remains obscured and adds no family pixel passes.
+
+The separate [round 15 cauldron audit](evidence/cauldron-runtime-r15/README.md)
+contains 60 native interactions and all water/lava/powder-snow
+`fill_level=0..6` states. Item aux `0` is a water bottle: it fills levels
+`2/4/6` with `PotionId=-1`; aux `1..4` leaves the cauldron empty; aux
+`5..46` reads back the requested potion ID. Two typed `CustomColor` integers
+also read back exactly. These establish data and storage boundaries;
+channel interpretation, actual color, inset surface height and production
+overlay pixels remain unqualified.
+
+The old dynamic gallery covers only 33 of the 37 ordinary resource-animation
+names. It omits all four world-water/lava names and all 12 NBT animation
+names; its four additional special samples do not fill these omissions.
+Identical editor/projection image bytes and insufficient block scale leave
+`pixel_acceptance=false`. It cannot support a blanket conclusion that every
+vanilla animation is either working or frozen. New close captures must have
+an inspected projected-stone positive control and a fixed camera before
+target differences are interpreted.
+
+### Inspected Close Captures At 11:25, 2026-10-14
+
+The main session inspected the new PNGs under
+[`r15-solo-runtime`](evidence/r15-solo-runtime/). In the separate `fire-v2`
+and `lantern-v3` captures the real-world samples and clean Combine models
+are both visible. The fire group changes between frames while the static
+stone control remains unchanged; the lantern group establishes body
+visibility. These are limited clean-route observations, not product
+editor/full/missing acceptance.
+
+The subsequent `batch-v2` uses origin `(0,-58,0)` with a projected-stone
+positive control. Inspected projection images show red front text on the
+standing/wall signs and green back text on the oak hanging sign; ordinary,
+copper and ender chest shells; a purple shulker and bed; a poppy in its pot
+and a decorated-pot shell; enchanting-table, beacon and inactive-conduit
+bodies; a purple Nether portal surface; ordinary/glow frame bodies; lectern
+and chiseled-bookshelf bodies; bell, copper statue, piston and sticky-piston
+bodies. The observations are limited to the displayed samples and do not
+qualify all variants, contents, pose, animation or product routes.
+
+The same inspected images do not show a book, beacon beam, displayed sword,
+shelf, head samples, moving block or the two End portal types. Those
+absences are **not new unsupported-family findings**: from the signs group
+onward the real-world reference row is also blank despite valid state
+readbacks, leaving client synchronization/display unsettled. The banner
+sample exposes this mismatch directly: its raw NBT has `Base=4` and two
+patterns, while the captured palette has `Base=0` and zero patterns. That
+fixture cannot negate the earlier repaired banner-palette evidence.
+The End portal types remain on the custom route because of the official
+API exclusion, independently of these unsettled captures.
+
+The `plants` group failed projected-stone visibility and stopped the batch.
+Its capture is invalid for capability decisions. Other generated reports
+that have not been inspected are not promoted to pixel observations, and
+all batch reports retain `pixel_acceptance=false`. Before interpreting
+missing content, restore the visible world reference and match the actual
+client palette to the intended typed NBT/state sample. The Chinese
+[inventory's close-capture table](NEMC310_RENDER_COMPATIBILITY_INVENTORY.md#1125新增近景观察与夹具限制)
+records the per-group boundaries.
+
+Subsequent inspection adds all eight copper-lantern bodies, the prismarine
+shapes, sculk and sensor bodies. Their temporal crops have not yet been
+inspected; numerical differences alone do not qualify their animation.
+A vanilla `/setblock dirt` at the missing-world-control ROI immediately
+became visible. The fixture's `SetBlockNew(updateNeighbors=False)` is now
+a synchronization hypothesis under test, not an established renderer
+failure. Negative qualification remains blocked until the actual fixture
+source snapshot and client NBT/palette agree.
+
+At 11:50 the main session inspected
+[`banners-v4/rois.png`](evidence/r15-solo-runtime/banners-v4/rois.png).
+Genuine `PlayerUseItemToPos` placement with item `userData` produced a
+client palette matching `Base=4` and two real patterns, `bs/Color 1` then
+`ts/Color 14`. Standing and wall banner projections visibly show those
+colored patterns. The earlier direct raw-NBT write had not refreshed the
+palette appearance. This is new round 15 evidence for those two projected
+pattern samples, separate from the archived round 14 fields.
+All three inspected temporal samples have `changed_gt12=0`; no waving was
+seen in this short sample, and no general animation claim follows.
+The real-world stone is visible after enabling neighbor updates, but the
+real-world banners remain absent. World-reference and product-path
+qualification are therefore still open. Further `batch-v3` captures are
+not accepted before inspection.
+
+### Independent 3.10 Clock Measurement
+
+The textureless `TOTAL_REAL_WORLD_TIME` diagnostic
+[`clock310-v2.json`](evidence/water-clock-nemc310-r15-v1/clock310-v2.json) measured
+`clock_direction=+1` over 13 valid frames with 11 changing intervals. Its
+red-channel rate is 31.596 units/second against an expected 31.875, while
+the support area remains exactly 12,584 pixels. Completion, full temporal
+capture, restoration and unchanged source checks passed;
+`product_acceptance_claimed=false`. The durable archive preserves the original bytes, 13 frames and diagnostic
+sources; its [relative artifact index](evidence/water-clock-nemc310-r15-v1/artifact-index.json)
+records hashes and byte lengths.
+This constrains the clock used by that diagnostic shader, not water UV
+orientation or texture-frame order. The earlier 3.9 `-1` clock observation
+must not be used to prescribe a 3.10 direction fix.
+
 ## Migration Scope
 
 After observing the clean worlds, the user authorized development on NEMC
-3.10, accepting official NBT and fire appearance where supported while
-retaining custom water/lava/cauldron adaptation. Dump, rotation and mirror are
+3.10, accepting official NBT, fire and world-lava appearance where supported
+while retaining custom world water and cauldron contents. Dump, rotation and mirror are
 explicitly deferred. The existing 3.9 registry is not evidence for 3.10 and
 must not be relabeled as a regenerated 3.10 dump.
 
@@ -172,3 +296,29 @@ supported native actor meshes must use the model-local overlay path rather
 than the packed 27-neighbor coordinate decoder. `visible_actor.compose_actor`
 already preserves typed NBT separately from native renderer fields and should
 continue to do so. Unknown NBT and unknown renderer fields must survive.
+
+The new `native_render_profile` candidate is wired through palette
+preparation, actor coordinate routing, the editor/full/missing paths and
+cache identity. It explicitly permits validated payloads for ordinary,
+copper and ender single chests, beds and flower pots. The caller must choose
+`model_local` or `context` from live evidence; paired chests, empty shulker
+actors, heads and stale banner payloads are outside this initial set.
+The 168 relevant offline tests pass, but `Session.native_render_profile`
+still defaults to `None` and no production native route is automatically
+enabled by a version string. Live route selection and product qualification
+remain pending. Existing fallback and unknown fields survive, and body
+ownership remains separate from item/liquid overlays. The item sprite
+resource still covers `diamond_sword` only; its animated-glint diagnostic
+is not evidence for a general displayed-item renderer.
+
+The candidate now has a separate 3.10 product run under
+[`native-render-profile-r15`](evidence/native-render-profile-r15/).
+The specialist inspected the full `model_local` and restored-missing images:
+the three single chests, bed and poppy pot align. The occupied image hides
+bodies at the occupied positions, while the remaining bed-head half still
+needs review. The `context` comparison shows misplaced/duplicated single
+chests and a misplaced bed; the pot remains aligned. The oblique editor
+image exposes bodies incorrectly occluded by their supports, so shared-depth
+integration is still under repair. These observations distinguish a working
+world candidate from its failed controls and unfinished editor path;
+production qualification is incomplete and the default remains disabled.

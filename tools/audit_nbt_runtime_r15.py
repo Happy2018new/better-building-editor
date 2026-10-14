@@ -54,6 +54,40 @@ FAMILIES = {
         "materials": ["minecraft:flower_pot"],
         "scope": "empty and visible plant content",
     },
+    "decorated_pot": {
+        "ids": ["DecoratedPot"], "materials": ["minecraft:decorated_pot"],
+        "scope": "four sherd faces and facing; hidden inventory excluded",
+    },
+    "item_frames": {
+        "ids": ["ItemFrame", "GlowItemFrame"],
+        "materials": ["minecraft:frame", "minecraft:glow_frame"],
+        "scope": "native frame shell; visible item and glint require separate observation",
+    },
+    "shelf": {
+        "ids": ["Shelf"], "materials": [],
+        "scope": "shelf shell and nonempty visible item slots",
+    },
+    "lectern": {
+        "ids": ["Lectern"], "materials": ["minecraft:lectern"],
+        "scope": "empty lectern and visible book",
+    },
+    "brushable": {
+        "ids": ["BrushableBlock"],
+        "materials": ["minecraft:suspicious_sand", "minecraft:suspicious_gravel"],
+        "scope": "brush progress and exposed item; particles excluded",
+    },
+    "brewing_stand": {
+        "ids": ["BrewingStand"], "materials": ["minecraft:brewing_stand"],
+        "scope": "native shell and three bottle occupancy states",
+    },
+    "chiseled_bookshelf": {
+        "ids": ["ChiseledBookshelf"], "materials": ["minecraft:chiseled_bookshelf"],
+        "scope": "six occupied-slot textures and facing",
+    },
+    "copper_statue": {
+        "ids": ["CopperGolemStatue"], "materials": [],
+        "scope": "statue pose, facing, oxidation and wax; not a live mob",
+    },
     "chest": {
         "ids": ["Chest"],
         "materials": ["minecraft:chest", "minecraft:copper_chest"],
@@ -184,6 +218,7 @@ def select_rows(rows: list[dict[str, Any]], family: dict[str, Any]) -> list[dict
                 "states": states,
                 "nbt": nbt,
                 "repaired": row.get("repaired", False),
+                "readback_source": row.get("readback_source"),
             })
     return selected
 
@@ -210,10 +245,17 @@ def build_report() -> dict[str, Any]:
     project = load_json(files["project"])
     capture = load_json(files["capture"])
     index = load_json(files["index"])
-    # Content readback is the broad native placement/readback source. The
-    # repair readback is retained as supplemental provenance; it is narrower
-    # and must not be used as the family coverage index.
-    content_rows = content.get("result", {}).get("rows", [])
+    # Preserve broad coverage, then replace only cases actually reread after
+    # repair. Ignoring this later evidence incorrectly reported lost Patterns.
+    indexed_rows = {}
+    for source_name in ("content", "repair"):
+        for row in result_rows(files[source_name]):
+            key = row.get("id") or row.get("case")
+            if not isinstance(key, str):
+                raise ValueError("Readback row requires a stable case identifier")
+            indexed_rows[key] = dict(row, readback_source=str(files[source_name]),
+                                    repaired=source_name == "repair")
+    content_rows = list(indexed_rows.values())
     actor_names = source_actor_names(project)
     capture_obscured = True
     source_manifest = {
@@ -330,7 +372,7 @@ def build_report() -> dict[str, Any]:
         "source_index": index,
     }
     return {
-        "schema": 1,
+        "schema": 2,
         "audit": "nemc310-nbt-r15",
         "created_from": "nemc-clean-r14 3.10 clean runtime evidence",
         "qualification": "Structural/NBT and palette evidence are recorded separately from pixel acceptance.",

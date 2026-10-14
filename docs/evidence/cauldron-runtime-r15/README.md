@@ -26,8 +26,9 @@ project cauldron overlay is complete.
 - Water, lava, and powder-snow buckets filled a real cauldron through
   `PlayerUseItemToPos` and read back `fill_level=6`.
 - Potion IDs `5..46` filled two levels per use and read back the requested
-  `PotionId`. IDs `0..4` did not produce a filled potion cauldron in this
-  interaction path. Ordinary, splash, and lingering potion types read back as
+  `PotionId`. Item aux `0` (water bottle) filled ordinary water to levels
+  `2/4/6` while `PotionId` and `PotionType` remained `-1`; item aux `1..4`
+  left the cauldron empty. Ordinary, splash, and lingering potion types read back as
   `PotionType=0`, `1`, and `2`; IDs `43..46` were included in each form.
 - Typed `CustomColor` values `-65536` and `16711680` were accepted by
   `SetBlockEntityData` and returned exactly by `GetBlockEntityData`. This proves

@@ -11,7 +11,9 @@
   "production_qualification": false,
   "editor": {
     "fixture": "test.entities.item_contents",
-    "routes": ["editor"],
+    "routes": [
+      "editor"
+    ],
     "groups": 4,
     "ordinary_item_visible": true,
     "enchanted_item_visible": true,
@@ -27,7 +29,7 @@
       "editor_temporal_0.png",
       "editor_temporal_1.png",
       "editor_temporal_2.png",
-      "editor_19.png",
+      "closeup/editor_19.png",
       "editor_items_hidden.png",
       "editor_cutaway.png",
       "editor_cutaway_restored.png"
@@ -40,26 +42,50 @@
         "world_0_to_1": 918,
         "world_1_to_2": 919
       },
-      "captures": ["world_0.png", "world_1.png", "world_2.png", "world_19.png"]
+      "captures": [
+        "closeup/world_0.png",
+        "closeup/world_1.png",
+        "closeup/world_2.png",
+        "closeup/world_19.png"
+      ]
     },
     "missing": {
       "groups": 4,
       "occupied_cell_groups": 3,
-      "captures": ["world_missing_0.png", "world_missing_1.png", "world_missing_2.png", "world_missing_19.png"]
+      "captures": [
+        "closeup/world_missing_0.png",
+        "closeup/world_missing_1.png",
+        "closeup/world_missing_2.png",
+        "closeup/world_missing_19.png"
+      ]
     },
     "hidden_clear_restore": true,
     "world_cell_restored": true
   },
   "native_reference": {
     "placement": "PlayerUseItemToPos on real frame blocks in a private world",
-    "rows": ["plain", "enchanted", "empty"],
+    "rows": [
+      "plain",
+      "enchanted",
+      "empty"
+    ],
     "typed_nbt_readback": true,
-    "enchanted_tag": {"id": 9, "lvl": 3},
+    "enchanted_tag": {
+      "id": 9,
+      "lvl": 3
+    },
     "empty_frame_negative": true,
-    "enchantment_roi_changed_pixels": {"native_1_to_19": 1015},
+    "enchantment_roi_changed_pixels": {
+      "native_1_to_19": 1015
+    },
     "first_interval_changed_pixels": 0,
     "restored": true,
-    "captures": ["native_before_fill.png", "native_0.png", "native_1.png", "native_19.png"]
+    "captures": [
+      "closeup/native_before_fill.png",
+      "closeup/native_0.png",
+      "closeup/native_1.png",
+      "closeup/native_19.png"
+    ]
   },
   "not_verified_by_this_audit": [
     "Shelf with real slot contents",

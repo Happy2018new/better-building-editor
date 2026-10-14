@@ -1,20 +1,50 @@
 # 新对话交接：现代化投影建筑编辑器
 
-2026-10-14第十五轮最新入口：先看[统一待办3.10盘点检查点](IMPLEMENTATION_GAPS.md)和[外观兼容技术表](NEMC310_RENDER_COMPATIBILITY_INVENTORY.md)。已离线遍历1340名／15,858状态，57个NBT ID／155名；vanilla+education动态资源候选49名（普通37、NBT12），粒子与刷怪笼内部生物排除。官方世界岩浆可采用，自定义水与锅内容继续；三种传送门全部列入，末地门／折跃门官方仍不支持。统一矩阵现在显式标记 `NATIVE`、`NATIVE-PARTIAL`、`CUSTOM` 和 `UNVERIFIED`，其中告示牌、旗帜走原生路径，潮涌核心为原生部分支持，框体／物品内容和三条产品路径仍待验收。用户要求MD之后继续实机观察未知项、修订范围并再次估时；实机核查后剩余估计修订为20–34小时，风险34–50小时。最多10子代理／5MC。截止已延长至2026-10-14 08:00，保存／回收后休眠，不受之前暂停实现消息影响。dev开发，main/render-dragon和五个用户暂存探针保持；3.9方块表／变换升级暂缓。
+## 2026-10-14 14:05 模型切换暂停点（优先于下方历史记录）
 
-2026-10-13 22:45 接续：三个活跃专项仍为liquid／item／snow，不重复启动。根HEAD`cc09cd4c`，五个用户探针仍独立暂存；全量2611项与版本入口27项／99来源通过。用户新增流水四向似乎反向、岩浆慢速、炼药锅液位／药水／自定义RGB，以及其他动态方块完整表审计，已在统一待办顶部登记。流水旧双帧间隔超过周期，必须密集采帧并独立判纹理沿下坡移动；根负责burst捕获的显式用户前台许可，不回退旧background-only限制。雪v7八高54行通过并恢复，29名称目录运行；物品v8真实框数据有剑但画面0像素，尚无原生光效对照阳性。水v7采集有效，保留falling／pool几何与湿楼梯动画失败。各专项原件、失败及来源保持，23:30记录第十四轮，继续至次日07:00并休眠。
+用户要求立即保存上下文、终止主会话及所有子代理，切换模型后再继续。MC允许保留。本轮仍为第十五轮，原定17:30截止、不休眠；本次暂停不视为全部完成。分支`dev`，不推送、不合入`main`。最新授权最多3个活动子代理、5个活动MC，恢复前核查时间和实例身份。
 
-2026-10-13 22:03 实机检查点：根已合入水`InvertCulling`候选及源水／低水／含水栅栏v6有效通过记录、物品缺失shader声明修复与v5近景采集／真实帧GIF工具，HEAD`4c1843eb`。顶面／侧面异贴图接缝质疑已交水专项独立验证，不能仅凭总体IoU关闭；下一轮水普通动画／14场景尚未启动。物品独立工作树`7a98ec29`的真实展示框钻石剑v6正在运行，含雪独立工作树`54805a8f`的高处校准v6通过后开始最小阳性，两者源码保持冻结。根全量回归正在重跑，首轮2609项的5失败系旧guard夹具未提供foreground身份，修正夹具后13准备测试通过。详情和剩余门控只维护在统一待办。
+- **水的方向已通过，透明度未通过。** `docs/evidence/water-production-nemc310-r15-v1/review/`包含editor/full/missing × 四向及下落共15项生产资源方向证据，时间倒放全部拒绝。3.10原生时钟为正向，不迁入3.9负时钟修补。主会话复核近景发现含水栅栏与后方金块几乎不可见；专项确认原透明度测试被不同动画相位误导，水下本体与无本体控制的RGB几乎相同。旧报告`transparency=true`只保留为历史工具输出，**不得宣称透明度完成**。下一步固定时钟或同帧对照，检查混合、深度、绘制顺序和重复表面；不要通过降低像素差门槛放行。
+- **首批原生路由已完成有限生产接入。** exact 3.10版本＋真实完整payload门控；普通／铜／末影单箱仅world走model_local，editor保留静态代理以避开已证实的共享深度异常；花盆走context。床保持代理。主会话已看最终69/71/74/76画面，96项相关测试通过；专项207项测试记录见qualification。版本、payload、scene限制和缓存身份均独立记录。
+- **旗帜仍为候选。** raised world full/occupied/restored已见正确；context出现重复漂移，editor布面被支撑误遮挡，不能生产放行。后续在render-only native_actor适配中由当前material states刷新bannerDirection，不能把变换后的合法旗帜静默排除。头颅新真实物品放置样本已捕获，95组截图尚未人工查看。
+- **炼药锅未接入共享生产链。** cauldron_profile/render_plan/preview/projection与专用资源、测试均在工作区；稳定接口由专项交接记录。root尚未修改Session/Scene/bridge/world来接入它。六档高度实测接近5/16、7/16、9/16、11/16、13/16、15/16，内缩1/8；CustomColor及药水主采样有效。普通锅水与药水纹理/透明度不同，不能拿白色药水对照推导出错误水色。`candidate_profile`数据生成与三路径验收未完成，不能启用默认。
+- **原生广泛采样不是全通过。** r15-solo-runtime已查看batch-v2/v3、fire-v2、lantern-v3及banners-v4；有56个NBT根ID数据样本，缺MovingBlock真实运动源。教育chemical_heat/compound_creator出现泥土样回退；plants/heads旧夹具存在额外层水污染，负向结论无效。新版heads见专项交接。
+- 最近root相关验证：96项单测通过，native_render_profile结构审查files=1/findings=0。不要重跑整个库只为制造验证数量。五个用户p0_palette探针不得修改或提交。
 
-2026-10-13 21:33 新增附魔对照：用户要求编辑器和投影放大观察后，又指出光效不够明显，应与真实物品展示框中的附魔钻石剑比较。现有物品v5按冻结来源先完成，下一独立轮次加入原生实方块展示框的附魔／普通钻石剑与空框，对照至少7秒连续原始帧，核对写入读回、实际可见尺度、亮度／覆盖／节奏，并保留真实帧预览；独立actor或非零帧差不能代替原生基准。具体验收门控统一维护于待办顶部F03／M04。
+专项恢复入口：`docs/evidence/native-render-profile-r15/HANDOFF-native-resume.md`、水`review/`的纠正说明与handoff、`docs/evidence/cauldron-surface-r15/`的handoff。原始水证据约538MB留本地，提交仅约16MB的review包；干净检出没有所有原始帧，文档需明确可复核范围。
 
-2026-10-13 20:20 用户更正测试策略：用户可能手动将 MC 切到前台观察，自动测试必须继续，不暂停、不因前台状态关闭实例。测试器仍不得主动激活、resize 或使用桌面输入。共享 SDK／启动器／WGC 采用显式 `MCDEV_ALLOW_USER_FOREGROUND=1`；截图 schema 3 记录真实前后台状态及前后 noactivate guard，不能伪造 background_safe。未 opt-in 的旧调用维持原行为。最近 `water-product-r14-v2-root` 退出由监督器 `Noactivation guard failed` 触发主动清理，随后才有 WER；只取得六张石块标定图，未运行水 probe，不能计为水验收或 Minecraft 自发崩溃。恢复时先完成这项策略回归，再串行重试水正式产品验收。
+最近有效实例为clean owner `clean-nemc310-runtime-audit-r15` / session `e150444343dd46f0a0f791b165872648` / PID13804，以及native owner `native-render310-r15` / session `60695c6595894ffcbe4c9fca5e36be0e` / PID47968。未受管3.9 PID40452保留。water PID35392已按身份正常关闭；新water/cauldron是否启动须以专项最后交接和instances status为准。native实例仍有head临时区域与raw geometry，恢复journal已保存。不得跨agent操作clean相机；所有测试继续遵守不主动前台化、不resize、不桌面输入，用户自行前台观察允许继续。
 
-21:15 接续优先于上一句的串行安排：用户要求水／物品／含雪多实例实机，已分配各一个独立 owner／project，三个专项继续，23:30 后仍不超过三个活跃子代理。共享策略已修复并提交，水布局等待精确稳定后再采图，DPI 复用已有局部 PMv2 helper。水 v5 正式矩阵有效但几何失败，候选仅改产品材质剔除；物品已由原生日志定位到遗漏 `uniformWorldConstants.h`，补齐后 v4 四剑真实可见，动画局部通过但轮廓仍失败；含雪短草最小三路线通过后继续其他植物／雪高。用户新增编辑器和投影的放大附魔动画轮次，已交物品专项，具体门控在统一待办。根当前已合入 `e2723824`（单一物品 render owner）、`12de62f9`（脚手架真空气校验）及 `6412d4b9`（脚手架前台观察许可），下一次水根启动前须在整合后的生产源码重生成 owner／资源合同。五个用户探针仍独立暂存。
+上午18–31小时（风险31–46小时）的估计仍是最近一次正式估计，不因流向通过直接减去墙钟；透明度新增确认缺陷、普通锅水待定、通用物品及特殊表面仍需工作。模型切换后根据实际关闭项更新。
 
-最新恢复入口（2026-10-13晚间）：先阅读 [统一待办顶部第十四／十五轮检查点](IMPLEMENTATION_GAPS.md)、[Java四版本水渲染研究](LIQUID_JAVA_REFERENCE_STUDY_20261013.md) 和 [上午／下午第十三轮交接](ROUND13_HANDOFF.md)。用户更正当前为第十四轮，授权开发至今日23:30，随后不中断进入第十五轮至2026-10-14 07:00并休眠；一次性系统任务名为 `Codex-BetterBuildingEditor-R15-Hibernate-20261014`，动作是 `shutdown.exe /h`。开发分支仍为 `dev`。水允许视觉合理的Java风格／独立样式，不再要求基岩版精确等价；需建立独立产品资格，旧原生失败和标志保留。含雪、物品、脚手架与连缀等其他专项恢复并行。五个用户暂存探针、main和render-dragon保持。下方9月历史记录不是当前分支或运行实例状态。
+暂停最终回报：三个活动子代理均已保存交接并终止，无待执行exec。水未启动新实例；炼药锅产品实例已启动一次，owner `cauldron-product310-r15`、session `bf6a4f16278246a3b549448e42e68d21`、project `D:/bbe-r15-cauldron-production`、game PID32868／MCDK34124；就绪等待超时但日志显示14:00:20后已入世界，恢复先检查身份/IPC，禁止盲目重启增加实例。clean保留锁定相机及恢复journal。炼药锅`cauldron_native_data.py`尚未生成，`candidate_profile()`当前不可调用；`water_colors={}`，十个补采药水形态因约0.000007度roll浮点差被分析器拒绝，需量化合理相机容差后复析，不能接受此前看向天空的无效图。
 
-随后用户再次明确：植物固定居中就是原设计，不应恢复原生世界坐标随机偏移；旧jitter不一致仅诊断，不再作为产品阻塞。第十五轮预算限制最多三个活动子代理；本轮完成的规则／资源／工具专项不再追加。后续进度和估时以统一待办的最新实际关闭项为准。
+已创建本地原生路由检查点`39cb31f6 fix: scope native block actor rendering to verified routes`。其他检查点见本轮最终回复和git log。炼药锅及后续原生/时钟诊断的未完成源码、资源和大体积原始证据保留在工作区；不要reset/clean，也不要将五个用户探针一起stage。水透明度最终纠正文件为`review/review-assessment.json`（overall=false）和`review/HANDOFF_TRANSPARENCY.md`，优先于未改写的原始summary。
+
+2026-10-14第十五轮上午最新入口：先看[统一待办顶部](IMPLEMENTATION_GAPS.md)和[外观兼容技术表](NEMC310_RENDER_COMPATIBILITY_INVENTORY.md)。用户已恢复最多3个活动子代理、最多5个活动MC；12:00前修订技术MD与估时，继续开发至17:30，不自动休眠。此前“独立开发、禁止子代理”、最多10代理和07:00／08:00休眠均为被后续指令替代的历史安排。一次性任务 `Codex-BetterBuildingEditor-R15-Hibernate-20261014` 已Disabled；02:00–08:00没有产生工作增量。
+
+开发在 `dev`，目标NEMC `3.10.0.420447`／MCBE `1.21.130.0`。`main`、`render-dragon`和五个用户探针保持原状；本轮不更新3.9方块表或旋转／镜像转换表。粒子与刷怪笼内部生物排除；植物固定居中是设计要求。世界水继续自定义，世界岩浆可走官方，锅内水／岩浆／药水／染色液体／细雪仍要独立overlay。三种传送门均在范围内，末地门／折跃门仍被官方Combine排除。
+
+离线范围为1340名／15,858状态、57个NBT根ID／155名；动画资源候选49名（普通37、NBT12）。`NATIVE`只表示官方本体或实测字段路线，必须另记干净投影像素和editor／full／missing资格。技术MD已按A–H、S、X共用方案分类，不为每个ID分别写渲染器。最新剩余估计为18–31小时有效墙钟，风险31–46小时，按最多3代理重算：共同前置2–4小时＋最长并行专项12–20小时＋最终集成4–7小时；不是从旧估计减去已过去时间。假设与分项只在[技术附件](NEMC310_RENDER_COMPATIBILITY_INVENTORY.md#本轮修订的剩余工期评估)维护，状态只在统一待办维护；17:30前不保证全部关闭。
+
+上午已纠正的证据口径：
+
+- `nemc-nbt-r15/runtime-family-results.json`是第十四轮归档复析，28个工作组已完整索引57根ID；不是全族新实测。已合入repair的真实旗帜`bs/Color 1`、`ts/Color 14`，菜单遮挡的旧overview不新增像素通过。
+- 旧动态gallery只覆盖33/37普通候选，漏水／流水／岩浆／流动岩浆；额外big_dripleaf／conduit／end_portal／end_gateway不是补齐项，12个NBT动画名称也未在gallery中。字节相同且比例过小的旧图保持`pixel_acceptance=false`。
+- 炼药锅60行真实交互与21个状态已采集：aux0清水瓶产生fill2／4／6且PotionId=-1，aux1..4保持空锅，aux5..46返回药水ID；CustomColor两值精确读回只证明存储。专用液面六档、颜色、透明度与三路径仍待。
+- 物品r15有普通／附魔／空框与真实原版展示框的连续帧诊断，summary已补实际capture路径映射；sprite资源只有diamond_sword，框体尺度／轮廓、通用物品、其他内容家族、生命周期和生产资格仍未关闭。
+- `native_render_profile`候选已接入palette、静态代理选择、actor坐标、三条显示路径与缓存身份，168项相关离线测试通过；仅显式允许有效payload的普通／铜／末影单箱、床、花盆。Session默认None，model_local/context选择须实机决定，生产原生路线尚未启用；不靠版本字符串放行。
+- 3.10独立无纹理`clock310-v2`已测得时钟+1：13帧／11变化间隔、红通道31.596每秒（预期31.875）、区域12,584像素稳定，完整捕获／恢复／源码不变通过。3.9旧-1时钟和局部反向水纹证据不能转用；3.10水产品帧序／UV方向与三路径仍待。持久原件在[water-clock-nemc310-r15-v1](evidence/water-clock-nemc310-r15-v1/clock310-v2.json)，相对路径artifact-index绑定13帧、源码与SHA256。
+
+11:25主会话已查看新干净3.10近景：独立fire-v2／lantern-v3真实世界与Combine同屏可见，火有明显帧差、静态石块稳定；随后 `docs/evidence/r15-solo-runtime/batch-v2/`已见实际告示牌文字、多个NBT本体和下界门紫色表面。该批真实世界参考前排却为空，旗帜NBT为Base4／两图案而palette为Base0／零图案，需修复客户端同步夹具；本轮未见书／光束／剑／架／头／moving_block不能判官方不支持。`plants`因投影石块不可见停止。旧负坐标试验同样归夹具无效。已查看结果并入[逐组近景表](NEMC310_RENDER_COMPATIBILITY_INVENTORY.md#1125新增近景观察与夹具限制)，所有未查看PNG、API成功和actor字段均不新增像素通过；生产三路径及`pixel_acceptance=false`保持。
+
+11:40追加观察：八种铜灯笼、海晶石形状和幽匿／感测器本体已查看可见，但时间裁剪未查看，不计动画通过。同一世界缺失ROI用原版`/setblock dirt`立即可见，主会话正验证`SetBlockNew(updateNeighbors=False)`导致同步未刷新的可能性；旗帜重跑与源码快照核对完成前不作新的不支持判定。
+
+11:50旗帜v4复验已查看：真实`PlayerUseItemToPos`带item userData放置后，palette与NBT一致（Base4、bs1／ts14两层），立式／墙挂投影彩色图案清楚可见；此前直接写NBT的palette未刷新。三帧未见飘动，不授予动画资格。真实世界石块已可见但旗帜仍缺，保持有限投影正例；batch-v3补采中，未查看内容不预先关闭。原生profile专项已看model_local full／恢复图，五名称对齐；context对照箱／床错位，editor原生主体被支座错误遮挡，missing床半格仍待核。候选在修复，默认None保持，不宣称已上线。
+
+最近可复用受管实例为session `C:/Users/Happy2018new/.pyreact-debug/instances/e150444343dd46f0a0f791b165872648/session.json`，owner `clean-nemc310-runtime-audit-r15`，project `D:/bbe-r15-dynamic-runtime/.runtime/nemc-clean-310`，最近PID13804、MCDK44480、port53471；恢复时先核验身份和IPC，不按旧PID直接操作。PID40452是未受管3.9实例，保留。没有窗口／线程／句柄的历史进程记录不能按条数当作活动游戏。测试器不主动前台化、resize或桌面输入；用户手动前台观察时继续，按 `MCDEV_ALLOW_USER_FOREGROUND=1`记录实际授权与捕获元数据。
+
+上午模型切换曾中断10个Astra子代理，不直接唤醒旧代理；之后按用户当前模型与3代理上限重新分工。已有离线六模块25项、render/NBT盘点与100来源provenance通过不代表新像素通过。下方保留9月项目背景和历史验收，只能作为来源，不能当作本轮运行身份或本轮最终资格。
 
 更新于 2026-09-25，工作区 `D:/Happy2018newの个人文件/GitHub/better-building-editor`，本轮以 `1af6a65` 的交接及 `998218a` 的功能为基线。此文档用于把当前项目和近期对话带入新任务；具体行为以当前源码为准。`docs/` 中的阶段报告保留当时的实现与测试记录，部分旧措辞已过期。
 

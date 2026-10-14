@@ -1,6 +1,8 @@
 # NEMC 3.10 方块外观兼容盘点
 
-更新：2026-10-14。待办状态只在 [IMPLEMENTATION_GAPS.md](IMPLEMENTATION_GAPS.md) 维护；本文件是该清单 F01-W05/W06、F03、F04、F05 的范围、技术分类和实机审计附件。本文先给出离线盘点，实机阶段须按实际结果修订“待核查”，不能把候选数量当成需要自行重写的数量。
+**14:05暂停修订：** 午后状态优先于下方上午过程记录。水的三路径五方向15项通过，但透明度实际画面未通过：不同动画相位误导了原像素贡献检查，水下栅栏与后方金块仍难见，需冻结时钟重新测试混合/深度。原生profile已有限启用：世界三类单箱model_local、花盆context；editor箱子仍用代理以规避共享深度缺陷。旗帜world候选有正例、editor仍失败；床和头颅未新增生产资格。炼药锅六档高度/内缩及药水颜色测量有实机依据，专用overlay尚未接共享生产链，普通水材质与药水差异未定。详见[统一待办最新状态](IMPLEMENTATION_GAPS.md)和[暂停交接](CONVERSATION_HANDOFF.md)；下方“Session默认None”和“3.10水流向未验收”仅描述上午当时状态。
+
+更新：2026-10-14，第十五轮上午修订。待办状态只在 [IMPLEMENTATION_GAPS.md](IMPLEMENTATION_GAPS.md) 维护；本文件是该清单 F01-W05/W06、F03、F04、F05 的范围、技术分类、实机审计和估时附件。名称与状态盘点已完成，像素资格和生产接入分别记录；候选数量不等于需要自行重写的数量。
 
 ## 范围与依据
 
@@ -17,6 +19,8 @@
 
 本文件后续表格中的“原生”只表示 3.10 的官方 Combine／原生 actor 路径能够提供相应的方块本体、状态或 typed NBT 字段；它不自动表示编辑器、完整投影或缺失投影的像素验收已经通过。每个条目必须同时看下面的能力级别和验收路径。
 
+资格需要分四层记录：①资源／官方文档声明；②目标版本真实状态、typed NBT 和 palette 字段；③干净 Combine 投影中已人工观察的本体／内容／连续帧；④项目 editor、full projection、missing projection 的集成资格。`NATIVE` 是前两层的能力标签，不替代后两层。负坐标或相机夹具中连投影石块阳性都不可见时，该轮属于夹具无效，不能给目标方块判“不支持”。
+
 | 标记 | 含义 | 后续动作 |
 | --- | --- | --- |
 | `NATIVE` | 官方文档覆盖，且 3.10 干净样本已经观察到与该外观相关的字段或本体 | 保留原生 owner，补 editor／full projection／missing projection 像素和动态验收；不重复实现已经存在的本体 |
@@ -31,24 +35,25 @@
 | 方块／家族 | 3.10 原生能力 | 当前边界 |
 | --- | --- | --- |
 | 告示牌 `standing_sign`、`wall_sign`、悬挂告示牌 `*_hanging_sign` | `NATIVE` | 两面文字、颜色、发光和姿态字段已观察；字体排版、切面和三条产品路径仍待像素验收 |
-| 旗帜 `standing_banner`、`wall_banner` | `NATIVE` | 底色、类型、图案顺序字段已观察；旗面飘动和所有图案组合仍待像素验收，不能回退成无图案 actor |
+| 旗帜 `standing_banner`、`wall_banner` | `NATIVE` | 新`banners-v4`两种投影已实际显示Base4及bs1／ts14两层彩色图案，palette与NBT一致；短采样未见飘动，其他组合及三路径仍待 |
 | 潮涌核心 `conduit` | `NATIVE-PARTIAL` | 官方 Combine 明确列入支持，原生字段路径可用；激活核心、框架、旋转、持续动画和粒子之外的可见效果尚未资格化 |
 | 花盆 `flower_pot` | `NATIVE` | `flowerPotPlant` 字段已观察；所有植物种类、切面和三条产品路径仍待像素验收 |
 | 铜箱各氧化／涂蜡变体 | `NATIVE` | 铜类型、配对、方向和开度字段已观察；箱盖时序和内容不外绘仍待验收 |
 | 铜傀儡雕像各氧化／涂蜡变体 | `NATIVE` | 铜类型、涂蜡、姿态和方向字段已观察；所有姿态像素仍待验收 |
 | 普通箱子与陷阱箱 | `NATIVE-PARTIAL` | 配对、方向和开度字段已观察；双箱局部消隐、箱盖和三条产品路径仍待验收 |
 | 钟 `bell` | `NATIVE` | 挂接／方向字段已观察；摆动时序仍待验收 |
-| 火 `fire`、灵魂火 `soul_fire` | `NATIVE-PARTIAL` | 官方支持本体；火焰 flipbook、状态切换和切面需实机验证，烟雾等粒子排除 |
+| 火 `fire`、灵魂火 `soul_fire` | `NATIVE-PARTIAL` | `fire-v2`干净同屏火组已见本体及明显帧差，石块静止；各状态和产品三路径／切面仍待，烟雾等粒子排除 |
 | 世界岩浆 `lava`、`flowing_lava` | `NATIVE-PARTIAL` | 用户允许使用官方路径；液位、流向、比水慢的动画及透明／占用仍需验收，炼药锅岩浆不适用 |
 | 世界水 `water`、`flowing_water`、`bubble_column` 及含水本体 | `CUSTOM` | 即使 3.10 文档列出水，项目仍使用自定义半透明／流向／含水路径；不得同时保留官方水几何 |
 | 炼药锅 `cauldron` 的水、岩浆、细雪、药水和染色液体 | `CUSTOM` | 原生锅壳和 fill 状态可复用，锅内有限液面、药水颜色和 `CustomColor` 必须由项目 overlay 提供 |
-| 下界传送门 `portal` | `NATIVE-PARTIAL` | 普通透明方块和 flipbook 可走原生路径；轴向、深度、动画和三条产品路径仍待验收 |
+| 下界传送门 `portal` | `NATIVE-PARTIAL` | 新干净投影已见紫色门面；轴向、深度、动画和三条产品路径仍待验收 |
 | 末地传送门 `end_portal` | `CUSTOM` | Combine 文档明确不支持，必须使用专用动态表面；不实现传送行为或周边粒子 |
 | 末地折跃门 `end_gateway` | `CUSTOM` | Combine 文档明确不支持，必须使用专用表面／光束几何；不模拟传送、冷却或周边粒子 |
 | 物品框／发光物品框、展示架 | `NATIVE-PARTIAL` | 框体本体可由原生提供，但当前 actor 不含展示物品；物品模型、附魔光效、槽位和深度必须用共享 overlay |
 | 箱子、潜影盒、末影箱 | `NATIVE-PARTIAL` | 壳体／方向／配对字段优先原生；库存只无损保存，不外绘，开盖和切面仍待验收 |
 | 末地门框 `end_portal_frame` | `NATIVE-PARTIAL` | 这是静态框架方块，不是第四种传送门；末影之眼状态按原生状态验收 |
-| 末地门／折跃门之外的特殊 NBT（附魔台、信标、活塞／移动块等） | `UNVERIFIED` | 有默认 NBT 或资源不等于原生像素支持；按下方技术分类和实机批次确认 |
+| 附魔台、信标、讲台、活塞／黏性活塞 | `NATIVE-PARTIAL` | 新干净投影已见本体；书、光束、可见内容与伸缩姿态未资格化，当前同步夹具下的缺失不作为不支持证据 |
+| 移动块、未覆盖的头颅／特殊活动姿态 | `UNVERIFIED` | 有默认NBT或资源不等于可见快照支持；修复客户端同步后核查内嵌内容与非默认状态 |
 
 矩阵中的 `NATIVE` 不是“无需测试”，而是“不要重复造一个已经存在的原生本体路径”。任何原生路径在 editor、full projection、missing projection 中出现空白、静止、错位、内容丢失或切面错误，都降级为 `NATIVE-PARTIAL` 并进入对应自定义适配待办。
 
@@ -85,13 +90,13 @@
 
 | NBT ID | 名称数／方块 | 需要检查或补充的外观 | 分类／难度 | 3.10 与项目当前依据 |
 | --- | --- | --- | --- | --- |
-| Cauldron | 1，`cauldron` | 空锅／fill_level 1..6；水、岩浆、药水、染色液体与细雪；液面高度、遮挡、纹理与颜色 | F+D，高 | 原生基础 fill 已见；内容未完整支持，必须自定义。旧dump含water/lava/powder_snow，3.10 GameTest也有对应状态；药水与CustomColor还须目标实机确认。`lava_cauldron`是资源定义，不在旧dump，不能凭资源创建方块ID |
-| ItemFrame | 1，`frame` | 物品、旋转、地图或其他有特殊内容的物品、附魔光效 | B，高 | 普通／附魔真实物品 NBT 存在，3.10 palette 内容 actor 仍 `{}`；现有 sprite 与绑定候选未完整验收 |
+| Cauldron | 1，`cauldron` | 空锅／fill_level 1..6；水、岩浆、药水、染色液体与细雪；液面高度、遮挡、纹理与颜色 | F+D，高 | 3.10已读回三类液体0..6档、药水aux5..46及两组CustomColor；aux0是清水瓶，aux1..4保持空锅。字段已知，液面overlay与像素仍未完成。`lava_cauldron`是资源定义，不在旧dump，不能凭资源创建方块ID |
+| ItemFrame | 1，`frame` | 物品、旋转、地图或其他有特殊内容的物品、附魔光效 | B，高 | 普通／附魔真实物品 NBT 存在，3.10 palette 内容 actor 仍 `{}`；sprite资源仅有diamond_sword，连续帧诊断阳性不等于通用物品支持或生产资格 |
 | GlowItemFrame | 1，`glow_frame` | 上述内容及发光本体／内容光照 | B，高 | 同普通框；不能以框体可见代替物品可见 |
 | Shelf | 12，`acacia_shelf`、`bamboo_shelf`、`birch_shelf`、`cherry_shelf`、`crimson_shelf`、`dark_oak_shelf`、`jungle_shelf`、`mangrove_shelf`、`oak_shelf`、`pale_oak_shelf`、`spruce_shelf`、`warped_shelf` | 三槽真实物品、附魔、联组角色、通电状态 | B+S，高 | 旧默认样本为空，3.10 内容未验证；应复用框物品方案并参数化槽位 |
-| EnchantTable | 1，`enchanting_table` | 书本模型、翻页／常驻动作、打开姿态和朝向 | G，高 | 台体不代表书已显示；模型/动画原生支持待核查。文字粒子排除 |
-| Lectern | 1，`lectern` | 无书／有书的模型与页面姿态 | B/C，中高 | 有书非默认样本待采；无需渲染 GUI 全文，也不模拟翻页交互 |
-| Beacon | 1，`beacon` | 本体、实际激活状态的光束与染色分段 | G，高 | 光束是可见几何，不属于粒子排除；快照是否提供结构上下文与原生光束待核查 |
+| EnchantTable | 1，`enchanting_table` | 书本模型、翻页／常驻动作、打开姿态和朝向 | G，高 | 新干净投影台体可见；本轮未见书，但客户端同步夹具未稳，书模型／动画仍未知。文字粒子排除 |
+| Lectern | 1，`lectern` | 无书／有书的模型与页面姿态 | B/C，中高 | 新干净投影本体可见，有书非默认样本仍待有效采集；无需渲染GUI全文，也不模拟翻页交互 |
+| Beacon | 1，`beacon` | 本体、实际激活状态的光束与染色分段 | G，高 | 新干净投影本体可见；激活结构上下文与光束待核查。光束是可见几何，不属于粒子排除 |
 | EndPortal | 1，`end_portal` | 特殊动态材质与透明／深度关系 | G，高 | 3.10 Combine文档仍明确不支持，须专用表面；实际跳过／画面另验。没有flipbook不代表静止，安装中有`end_portal.vertex/fragment` |
 | EndGateway | 1，`end_gateway` | 门内特殊材质与捕获状态；光束是否有可用快照依据 | G，高 | 3.10 Combine文档明确不支持；不能用传送坐标当可见状态，不模拟传送和冷却计时 |
 | MovingBlock | 1，`moving_block` | 内嵌被移动方块／实体外观、偏移与可显示的瞬态快照 | H，高 | 默认或外壳代理不代表嵌套内容已显示；边界须真实样本确定 |
@@ -99,15 +104,15 @@
 | Skull | 7，`creeper_head`、`dragon_head`、`piglin_head`、`player_head`、`skeleton_skull`、`wither_skeleton_skull`、`zombie_head` | 方向、玩家外观来源、龙嘴／猪灵耳的可见模型姿态 | C/G，中高 | 3.9 四种头颅局部姿态通过；玩家、龙、猪灵及3.10仍待，不能加载普通生物代替头颅 |
 | ShulkerBox | 17，`black_shulker_box`、`blue_shulker_box`、`brown_shulker_box`、`cyan_shulker_box`、`gray_shulker_box`、`green_shulker_box`、`light_blue_shulker_box`、`light_gray_shulker_box`、`lime_shulker_box`、`magenta_shulker_box`、`orange_shulker_box`、`pink_shulker_box`、`purple_shulker_box`、`red_shulker_box`、`undyed_shulker_box`、`white_shulker_box`、`yellow_shulker_box` | 六向、颜色、闭合或可捕获的开盖姿态 | C，中高 | 3.10紫色actor `{}`；旧静态六向代理可复用但未完成新版本资格。箱内库存不外绘 |
 | Chest | 10，`chest`、`trapped_chest`、`copper_chest`、`exposed_copper_chest`、`weathered_copper_chest`、`oxidized_copper_chest`及四种铜箱的`waxed_`版本 | 单／双箱、朝向、主副半、箱盖捕获姿态、氧化／涂蜡 | A/C，中 | 3.10已有配对、方向、开度与铜类型字段；原生像素及局部消隐待验。内部库存不外绘 |
-| EnderChest | 1，`ender_chest` | 本体、方向、箱盖姿态 | A/C，中 | 原生待核查；紫色周边粒子排除，私有库存不影响外观 |
-| Banner | 2，`standing_banner`、`wall_banner` | 底色、类型、完整图案顺序、旗面常驻动作 | A/C/G，中高 | 3.10已见底色／图案字段，旧“actor为空”结论不适用于此版本；飘动尚未验收，先原生后补缺项 |
+| EnderChest | 1，`ender_chest` | 本体、方向、箱盖姿态 | A/C，中 | 新干净投影本体可见，方向／箱盖／三路径仍待；紫色周边粒子排除，私有库存不影响外观 |
+| Banner | 2，`standing_banner`、`wall_banner` | 底色、类型、完整图案顺序、旗面常驻动作 | A/C/G，中高 | 新r15两种投影图案已见，真实物品交互后palette与NBT一致；3帧未见飘动，不宣称动态通过，优先原生图案 |
 | Sign | 24，`standing_sign`、`wall_sign`及`acacia`、`bamboo`、`birch`、`cherry`、`crimson`、`darkoak`、`jungle`、`mangrove`、`pale_oak`、`spruce`、`warped`各自的`_standing_sign`与`_wall_sign` | 两面文字、染色、发光、排版、支撑／朝向 | A/C，中 | 3.10真实文字／颜色／发光字段已见；优先原生。旧橡木ID不带oak前缀，darkoak与悬挂款dark_oak不同 |
 | HangingSign | 12，`acacia_hanging_sign`、`bamboo_hanging_sign`、`birch_hanging_sign`、`cherry_hanging_sign`、`crimson_hanging_sign`、`dark_oak_hanging_sign`、`jungle_hanging_sign`、`mangrove_hanging_sign`、`oak_hanging_sign`、`pale_oak_hanging_sign`、`spruce_hanging_sign`、`warped_hanging_sign` | 两面文字、悬挂姿态、材质与发光 | A/C，中 | 3.10字段已见，实际editor/full/missing未全部验收 |
 | FlowerPot | 1，`flower_pot` | 空盆与实际盆栽植物 | A/C，低中 | 3.10 已见 `flowerPotPlant`，旧默认空盆不覆盖全部植物 |
 | DecoratedPot | 1，`decorated_pot` | 四面陶片图案、朝向和当前外观姿态 | A/C，中 | 旧陶片／四向局部验收可复用；3.10 非默认样本待验。不显示盆内隐藏库存 |
 | Campfire | 2，普通／灵魂营火 | 火焰／余烬动画、熄灭与点燃、四个烹饪物品的可见模型 | A+D+B，中高 | 动画纹理已关联；烹饪内容非默认 NBT 尚未验。烟雾／火星排除，不运行烹饪计时 |
 | Bell | 1，`bell` | 挂接方向、本体与可捕获的摆动姿态 | A/C/G，中 | 3.10 附着／方向字段已见；原生默认静态姿态和动态动作分别观察，不模拟敲钟事件 |
-| Conduit | 1，`conduit` | 非激活／激活核心、框架状态、旋转／眼睛等可见外观 | A/G，中高 | 官方宣称支持，但空 actor 不说明激活模型是否完整；粒子与攻击实体排除 |
+| Conduit | 1，`conduit` | 非激活／激活核心、框架状态、旋转／眼睛等可见外观 | A/G，中高 | 新干净投影已见未激活本体；空actor不能证明激活模型完整，须有效激活样本；粒子与攻击实体排除 |
 | Bed | 1，`bed` | 两格完整模型、16颜色、头尾、方向和局部消隐 | A/C/S，中 | 3.9 部分公开用例通过；3.10 原生色／配对待核查；NBT库存不适用 |
 | BrewingStand | 1，`brewing_stand` | 三个瓶位的占位外观 | S，低中 | 状态 `brewing_stand_slot_a/b/c_bit` 可表示八种组合；不必按每瓶药水画完整物品，不模拟酿造 |
 | ChiseledBookshelf | 1，`chiseled_bookshelf` | 六槽占位纹理与方向 | S，低 | `books_stored` 0..63 ×4方向，共256状态；不是 Shelf 的通用物品模型问题 |
@@ -151,11 +156,11 @@
 
 | 分类 | 方块名称（省略 minecraft:） | 数量 | 外观与技术方案 | 当前实机边界 |
 | --- | --- | --- | --- | --- |
-| E | `water`、`flowing_water` | 2 | 自定义半透明、源水／流水高度、四向与下落纹理、含水本体、群系近似色 | 3.9 既有部分通过；3.10 时钟／顶侧面／完整三路径仍待，不采用官方水替代 |
+| E | `water`、`flowing_water` | 2 | 自定义半透明、源水／流水高度、四向与下落纹理、含水本体、群系近似色 | 3.10独立无纹理时钟已测得+1；水本身帧序／四向／顶侧面及完整三路径仍待，不采用官方水替代 |
 | A+D | `lava`、`flowing_lava` | 2 | 官方原生优先，检查顶／侧面、液位和比水慢的动画 | 3.10 静态／流动动画、切面／占用待验。锅内岩浆不归此方案 |
 | E+D | `bubble_column` | 1 | 水面归E；可见泡柱纹理若原生缺失则复用D | 纹理动画与 standalone 气泡粒子分开；粒子不实现 |
-| A+D | `fire`、`soul_fire` | 2 | 官方原生火模型＋flipbook；保留支持面／点燃状态 | 用户接受官方外观；editor/full/missing 的动画与局部隐藏待观察 |
-| A+D | `lantern`、`soul_lantern` | 2 | 8 ticks火光纹理、摆放姿态 | 发光不自动代表动画通过；不新增火星粒子 |
+| A+D | `fire`、`soul_fire` | 2 | 官方原生火模型＋flipbook；保留支持面／点燃状态 | 干净同屏火组有明显帧差且石块静止；editor/full/missing与局部隐藏仍待 |
+| A+D | `lantern`、`soul_lantern` | 2 | 8 ticks火光纹理、摆放姿态 | `lantern-v3`同屏世界与Combine本体可见；发光不自动代表动画通过，不新增火星粒子 |
 | A+D | `copper_lantern`、`exposed_copper_lantern`、`weathered_copper_lantern`、`oxidized_copper_lantern`及这四种的`waxed_`版本 | 8 | 同灯笼动画器，材质／铜阶段作为参数 | 检查共享图片导致的关联与各变体实际材质，不逐个实现 |
 | A+D | `sculk`、`sculk_vein` | 2 | 20 ticks纹理、薄附着面／邻接 | NBT幽匿四种另见上表；脉络多面和含水仍需上下文 |
 | A+D | `kelp`、`seagrass` | 2 | 原版纹理帧序与层数，固定居中植物形状 | 海带上下／海草高低状态与水深遮挡待验，不模拟摇摆物理或生长 |
@@ -192,9 +197,9 @@
 
 ### 炼药锅的共享实现边界
 
-旧registry有21个合法状态：water的aux0..6、lava的aux8..14、powder_snow的aux16..22，各自`fill_level=0..6`。空锅默认NBT只证实`PotionId`/`PotionType`为Short且值为-1；3.10干净样本仅有空锅／满水，不能代替其他内容。
+旧registry有21个合法状态：water的aux0..6、lava的aux8..14、powder_snow的aux16..22，各自`fill_level=0..6`。第十四轮干净样本只有空锅／满水；第十五轮独立专项已经读回全部21个状态及60行真实交互，证据见[炼药锅审计](evidence/cauldron-runtime-r15/README.md)。药水物品aux0是清水瓶，逐次填充至2／4／6且`PotionId`/`PotionType=-1`；aux1..4保持空锅；aux5..46才返回对应`PotionId`。喷溅／滞留aux43..46和`PotionType=0/1/2`均有读回。状态可以直接设置成功，不等于每个液体档位都能通过原生玩家交互到达。
 
-[PocketMine锅NBT](https://github.com/pmmp/PocketMine-MP/blob/stable/src/block/tile/Cauldron.php)与[Nukkit锅NBT](https://github.com/CloudburstMC/Nukkit/blob/master/src/main/java/cn/nukkit/blockentity/BlockEntityCauldron.java)可佐证`CustomColor` Int及药水字段，但仍须目标3.10读回。保留原始有符号值／alpha，不先验截掉类型。药水43..46的新效应颜色不能照搬过时第三方色表；先批量取得目标版本来源。
+[PocketMine锅NBT](https://github.com/pmmp/PocketMine-MP/blob/stable/src/block/tile/Cauldron.php)与[Nukkit锅NBT](https://github.com/CloudburstMC/Nukkit/blob/master/src/main/java/cn/nukkit/blockentity/BlockEntityCauldron.java)是辅助资料；目标3.10已接受Int `CustomColor=-65536`和`16711680`并精确读回。该结果只证明存储，RGB/ARGB解释、alpha语义、药水颜色表仍需实际液面图像或目标版本资源佐证。保留原始有符号值和类型；药水43..46的新效应颜色不能照搬过时第三方色表。
 
 建议独立纯解码`cauldron_appearance`与版本化内缘／液位／颜色profile，使用锅内有限水平面；复用液体owner／透明度／切面／占用显隐和纹理帧采样。现有世界水网格占满整格、依赖邻域，不能把锅液面伪装为普通水cell。原生锅壳在渲染副本中使用空锅状态，避免自带液体和overlay重叠；文档state/NBT保持。水纹`cauldron_water`为2 ticks，锅岩浆用`still_lava`为16 ticks，细雪独立静态材质；精确内缘及六档高度均未取得可信数值，不猜测。
 
@@ -202,20 +207,59 @@
 
 ### 实机范围核查后的修订
 
-本轮已完成的核查改变了“需要写多少适配器”的判断，但没有把结构证据误报成产品通过：
+本轮按证据来源修订范围，以下成果分别解决盘点、字段与像素问题：
 
-- 3.10 干净 actor／默认蓝图实际结构字段已覆盖 14 个代表族；告示牌、旗帜、花盆、铜箱、铜傀儡雕像和钟可保留原生本体路径，潮涌核心为原生部分支持。
-- 展示框专项已取得 editor、full projection、missing projection 的连续帧；普通物品静止、附魔光效变化和空框阴性均有 ROI 证据，真实原版展示框也读回了附魔 NBT 并观察到时间变化。但编辑器近景中框体本体未稳定出现，框体尺度、资源生命周期、展示架和其他可见物品内容仍未关闭，不能把 `NATIVE-PARTIAL` 升级成生产通过。
-- 动态方块专项确认 3.10 后台 WGC 捕获链路可取得可靠图像，但当前大画廊夹具的 editor／projection 两张图字节相同且比例过小，后台没有可靠重绘差异；`pixel_acceptance=false`，不能把 37 个普通候选或 12 个 NBT flipbook 候选当作逐族通过。
-- 三种传送门仍未取得可靠像素证据。`portal` 有原生 flipbook 候选；`end_portal`／`end_gateway` 被 Combine 明确排除，必须保留自定义材质／几何任务。失败启动实例已回收，不计作画面阴性。
-- 公开测试蓝图已经能构建 57 个 NBT 族和 37+12 个动态候选，但除水／岩浆等少数夹具外，许多条目只有静态 registry gallery；gallery 存在不等于动态或投影验收覆盖。
-- 炼药锅仍只有默认 actor／空锅和普通水结构证据，没有六档水／岩浆／细雪、药水 `PotionId`／`PotionType` 或 `CustomColor` 的专用可视夹具。
+- [NBT运行时索引](evidence/nemc-nbt-r15/runtime-family-results.json)是第十四轮3.10归档的重新分析；现有28个工作组完整索引57根ID，但大量组没有来源样本，不能称为“57族新实测”。后续repair已纳入：旗帜真实NBT含`bs/Color 1`、`ts/Color 14`，对应更新palette保留图案字段；早期未读到Patterns不能覆盖后续成功读回。归档overview被菜单遮挡，不能新增像素通过。
+- 告示牌、旗帜、花盆、铜箱、铜傀儡雕像和钟已有原生结构字段，可继续原生本体路线；潮涌核心仅有默认字段／本体依据。新增`native_render_profile`候选已接入palette、actor坐标上下文、editor/full/missing及缓存身份，168项相关离线测试通过；当前只允许显式选择普通／铜／末影单箱、床、花盆，并校验实际payload。Session默认仍为None，尚未启用生产原生分流，其他名称／无效字段保留已有路径；`model_local`或`context`须实机决定，版本号本身不自动放行。
+- 展示框专项已取得editor、full projection、missing projection连续帧；普通剑稳定、附魔剑变化、空框阴性及真实原版展示框时间变化都有诊断证据。现有sprite资源只覆盖`diamond_sword`，框体轮廓／尺度、远景、资源生命周期、展示架、营火、讲台、刷除和宝库内容仍待，`NATIVE-PARTIAL`及`production_qualification=false`保持。
+- 旧动态大画廊实际只含37个普通候选中的33个，缺`water`、`flowing_water`、`lava`、`flowing_lava`；额外加入的`big_dripleaf`、`conduit`、`end_portal`、`end_gateway`不能补足这四项，12个NBT动画名称也没有进入该gallery。editor／projection图字节相同且比例过小，`pixel_acceptance=false`；公开蓝图能构造样本不等于这些样本已经逐项观察。
+- 三种传送门的最终产品资格均未完成。`portal`有原生flipbook候选；`end_portal`／`end_gateway`仍被Combine文档明确排除，专用表面任务保留。新干净投影必须先让同屏石块阳性可见，再判断目标缺失；失败启动、无石块的负坐标夹具和菜单遮挡均不作为不支持的像素证据。
+- 炼药锅已取得60行3.10交互／读回、21个液体状态及两组`CustomColor`；不再列为“没有专用字段夹具”。剩余是准确药水／自定义颜色、六档高度、有限液面、深度／透明度和三个产品路径，现有证据`pixel_acceptance=false`。
+- 水四向疑似反向已有3.9密集采帧局部证据；3.10独立无纹理时钟新测得递增`+1`，与3.9归档的`-1`不同。该测量只解除了独立时钟方向未知，水纹帧序、UV四向与下落仍需新版本密集采帧，不能直接移植旧方向修正。
 
-这一条在本轮被细化：炼药锅代理已经取得 60 行 3.10 原生交互／读回，覆盖水、岩浆、细雪桶，PotionId 0–46、喷溅／滞留药水 43–46 和两组 `CustomColor`，并采集三类液体的 `fill_level=0..6` palette/NBT。它仍没有取得可信锅内像素验收，因此“原生字段／状态已覆盖”不等于“锅内 overlay 已完成”。
-
-因此将初始估时修订为：**还需20–34小时有效墙钟时间**。其中水与炼药锅约7–13小时，框／架／附魔及其他可见内容约5–10小时，末地门／折跃门／信标／导管／移动块等特殊材质与嵌套快照约5–9小时，动态族批量验收和三路径集成约3–6小时。若特殊材质必须建立新渲染 owner、3.10 方块表延迟迁移或后台捕获再次失效，风险上限为 **34–50小时**；本轮剩余时间不能保证全部交付。该估时已经扣除了原生告示牌、旗帜等本体适配，不扣除仍必须完成的像素验收。
+这些结果减少重复实现原生本体的必要性，也明确了候选路由的实机启用、通用物品和特殊材质仍是剩余工作。重新估时使用下方的实际剩余工作与最多3个活动子代理，不再沿用十代理假设或用已经过去的墙钟扣减。
 
 展示框本轮原始结果保存在 [`item-product-r15-310-summary.json`](evidence/item-product-r15-310-summary.json)，字段中明确保留 `production_qualification=false`；它是实机证据，不是把诊断结果直接升级为产品能力。
+
+### 11:25新增近景观察与夹具限制
+
+主会话已打开`r15-solo-runtime`的新PNG复核。独立的[`fire-v2`](evidence/r15-solo-runtime/fire-v2/report.json)与[`lantern-v3`](evidence/r15-solo-runtime/lantern-v3/report.json)中，真实世界与官方Combine模型同屏可见；火组有明显帧差，静态石块对照保持静止，灯笼组至少确认本体可见。它们证明干净官方路径的有限范围，不是项目三路径资格。
+
+随后[`batch-v2`](evidence/r15-solo-runtime/batch-v2/)采用origin `(0,-58,0)`，每组带投影石块阳性。下表只登记主会话已经查看的图像，不把其余已生成报告算作观察完成。报告中的`pixel_acceptance=false`保持。
+
+| 已查看样本组 | 此次投影中实际可见 | 仍未解决或不能据此判定的内容 |
+| --- | --- | --- |
+| `signs` | 立式／墙面告示牌红色正面文字、橡木悬挂牌绿色背面文字可见 | 全部木种、双面排版／发光、姿态与产品路径仍待 |
+| `containers`、`shulker_bed` | 普通箱、铜箱、末影箱、紫色潜影盒及床本体可见 | 配对局部消隐、箱盖、颜色／方向全覆盖未验；同组龙头未见，不据此判不支持 |
+| `pottery` | 盆栽虞美人和饰纹陶罐外壳可见 | 其他植物、陶片四面顺序与姿态未验 |
+| `special_nbt` | 附魔台本体、信标本体、未激活导管本体可见 | 本轮未见书或光束；激活样本及客户端同步尚未建立，不能据此排除原生能力 |
+| `portals` | 下界门紫色表面可见 | 本轮未见末地门／折跃门，仍按官方不支持保留自定义方案；此次缺失图本身不新增可信负向结论 |
+| `frames`、`contents` | 普通／发光框框体、讲台和雕纹书架本体可见 | 未见剑与展示架；真实内容和客户端同步须先确认，不扩大为“所有原生内容不支持” |
+| `special_states`、`pistons` | 钟、铜傀儡雕像、活塞／黏性活塞本体可见 | 动态姿态、伸缩／移动快照未验；本轮未见moving_block，不据此判不支持 |
+| `heads` | 石块投影阳性可见 | 猪灵头、玩家头、骷髅头与前述龙头未见；需有效客户端样本重验 |
+| `batch-v2/banners` | 该次旗面呈黑色 | 原始typed NBT为Base4／两图案，而palette为Base0／零图案，来源不一致；保留失败原件，后续`banners-v4`已补有效图案投影 |
+| `copper_a/b/c` | 加上此前基础款，八种铜灯笼本体已查看且可见 | 连续时间裁剪尚未人工复核，只有差分统计时不授予动画通过 |
+| `prismarine_a/b/c`、`sculk`、`sculk_nbt`、`sensor` | 已查看的海晶石形状、幽匿及感测器本体可见 | 慢动画、各激活阶段与时间裁剪仍待复核，不把本体可见外推为动画接受 |
+
+该批从`signs`开始，真实世界前排在图像中也未显示，虽然服务端／状态读回有效；因此客户端同步或显示夹具仍有问题。投影石块阳性允许保留“实际看到的投影本体”这一正向事实，不能使预期内容缺失自动成为引擎不支持结论。`plants`组又出现投影石块不可见，批次因此停止；该组及未查看的动态组均未完成资格。需要修复客户端可见参考、等待并核对客户端状态／actor内容，再重跑缺失与非默认样本。该夹具问题保留在本次风险估计内。
+
+后续定位在相同缺失石块ROI执行原版`/setblock dirt`后立即看见泥土，说明捕获区域本身可以显示世界方块。当前怀疑夹具的`SetBlockNew(updateNeighbors=False)`未使世界显示及时刷新，正使用更新邻居的版本重跑旗帜；这仍是待验证原因，不将它写为确定引擎缺陷。新负向结论必须绑定已固定的夹具源码快照，并同时核对真实世界、客户端palette与原始NBT。
+
+本轮重新检索的`SetBlockNew`官方资料只把`updateNeighbors`定义为相邻方块更新／事件开关，没有承诺它控制客户端mesh刷新。资料另外提示，放置后立即调用影响相关客户端表现的服务端接口可能异常，建议下一帧再操作。这两项需分别控制，不能把参数名称当作根因证据。
+
+**11:50旗帜复验：** 主会话已查看[`banners-v4/rois.png`](evidence/r15-solo-runtime/banners-v4/rois.png)。经真实`PlayerUseItemToPos`使用带`userData`的旗帜物品后，palette的Base4／两图案（bs颜色1、ts颜色14）与原始NBT一致，立式／墙挂投影均清楚显示彩色图案；直接`SetBlockEntityData`只写原始字段的前一方案没有刷新此palette内容。该有效正向样本解决的是两种旗帜的这组图案显示。三帧`changed_gt12=0`，当前未见飘动，不能宣称永久静止或动画通过。`updateNeighbors=True`后真实世界石块可见，但真实世界旗帜仍未显示；因此世界参考与最终产品资格继续待验。新的`batch-v3`还在补采其他类型，未查看结果不提前计入。
+
+### 3.10独立时钟证据
+
+独立无纹理`TOTAL_REAL_WORLD_TIME`诊断[`clock310-v2.json`](evidence/water-clock-nemc310-r15-v1/clock310-v2.json)已完成：13个有效帧、11个变化间隔，`clock_direction=+1`；红通道约31.596／秒，诊断公式预期31.875／秒；支持区域13帧均为12,584像素。`completed`、`restored`、`source_unchanged`和`capture_temporal_complete`均为true，`product_acceptance_claimed=false`。原件已归档，[相对路径索引](evidence/water-clock-nemc310-r15-v1/artifact-index.json)记录SHA256与字节数，保存13帧及当次诊断工具／shader，避免依赖原报告中的会话绝对路径。
+
+这个结果约束的是该3.10诊断shader所用时钟的方向及速度，不能单独证明水纹流向正确。3.9的递减时钟证据只保留历史来源；水的产品shader、帧序和UV需按3.10实测分别验证。独立测量已取得，不重复列为待建立；水的三路径资格保持未通过。
+
+午间新增[3.10流向诊断汇总](evidence/water-flow-nemc310-r15-v1/summary.json)：复用当前world shader／mesh／图集、使用不透明洋红控制uniform的独立freeModel，四向顶面各26帧／25个有效间隔，正确方向比例均0.84，反向时间序列均被拒绝；生产shader没有修改。下降侧面v2为0.667、加密sky背景v3为0.45，虽然非零位移向下，质量门未通过，整项`completed=false`。恢复及源码不变通过，归档保存两份报告与原图。该结果不是Scene／WorldProjection owner、透明度或editor/full/missing资格，不能据顶面统计宣布水已完成或流向已修复。
+
+### 原生profile候选实机进度
+
+候选已经在单独的3.10产品实例运行，图像写入[`native-render-profile-r15`](evidence/native-render-profile-r15/)。专项已查看`06-full-local`／`12-missing-restored`中的三种单箱、床和虞美人花盆，model_local路线对齐；`10-missing-occupied`中占用位置的主体消隐，床头半格保留还须单独核对。`16-full-context`对照出现单箱错位／重复、床错位，花盆仍对齐。`14-editor-oblique`则暴露原生主体被支座错误遮挡，正在定位编辑器共享深度。以上是候选的正例、反例与待修问题，不能宣称已经上线；默认profile继续None，编辑器／占用边界和最终三路径资格仍未完成。
 
 | 批次 | 同屏样本与控制 | 必须留下的结果 |
 | --- | --- | --- |
@@ -229,7 +273,7 @@
 
 普通材质族按资源关联扩展测试覆盖；个体不需要重复写实现。共用修复须包含静态阴性、动画阳性、独立未知输入与移除恢复，防止错误外推。水时钟／纹理方向须使用3.10的新观测，旧3.9递减时钟证据只保留为历史。
 
-最多10个活动子代理、最多5个活动MC；测试器不主动前台化、不使用桌面输入。用户手动切到前台时继续。按身份回收所属实例，捕获失败不能静默吞掉。本轮截止已延长为2026-10-14 08:00（Asia/Shanghai），先保存并回收，再休眠。
+当前授权最多3个活动子代理、最多5个活动MC；测试器不主动前台化、不使用桌面输入。用户手动切到前台时继续。按身份回收所属实例，捕获失败不能静默吞掉。本轮要求12:00前修订技术MD与估时，继续开发至2026-10-14 17:30（Asia/Shanghai），不自动休眠。
 
 ## 按难度的开发顺序
 
@@ -243,22 +287,23 @@
 | 4 | D所有动态纹理；A/S原生本体与状态 | 通用时钟／帧序／材质检测覆盖整族；官方岩浆、火等只补实际缺项 |
 | 5 | 三路径集成、含雪、连缀／占用、性能与冷启动 | 专项可并行补测，最终同一提交验收；不以局部或旧版本记录关闭总体资格 |
 
-## 初次剩余工期评估
+## 本轮修订的剩余工期评估
 
-此评估在完成离线MD之后、补充3.10实机范围核查之前作出；最终需要按本轮实机结果再次更新。单位是实际开发墙钟小时，包含代码、自动验收与集成，按最多10代理／5游戏实例估计，不是十份代理工时简单相加或除十。
+估计起点为2026-10-14上午这次证据与源码复核，单位是继续开发所需的有效墙钟小时，包含实现、实机自动验收和集成。上限为主会话加3个活动子代理、5个活动MC；五实例只增加采样容量，共享渲染代码集成、冷启动与人工读图仍有串行阶段。此处替代早先按十代理给出的18–30／20–34小时暂估，不从旧数字减去无新增通过项的等待或整理时间。
 
-| 工作 | 专项预计耗时 | 主要条件 |
-| --- | --- | --- |
-| 本轮原生能力批量观察、修订表格和运行目标分流 | 3–5小时 | 多族同屏；不逐个重启。先区分原生缺失与旧3.9代理干扰 |
-| 世界水完成3.10资格；炼药锅液体 | 6–12小时 | 可并行一部分；水的方向／透明度／时钟及锅颜色数据是关键不确定项 |
-| 框／架／附魔及其他可见物品内容 | 6–12小时 | 复用已有候选；展示架真实槽位与特殊物品模型需先观察 |
-| 非原生覆盖的特殊NBT模型／材质 | 4–8小时 | 若书、门材质、导管、光束等原生不支持，则会上升；不会为全部57类各写适配器 |
-| 动画纹理族、官方岩浆／火和静态NBT | 2–5小时 | 批量观测后只补缺项；海晶石慢动画需要可靠取样 |
-| 既有含雪／多格连缀收尾与统一集成验收 | 4–7小时 | 与上述并行，但最终产品资格及冷启动有串行阶段 |
+| 阶段／并行流 | 尚需完成的具体工作 | 预计墙钟 | 依赖与完成口径 |
+| --- | --- | --- | --- |
+| 共同前置 | 固定同屏阳性／客户端同步夹具；实机选择候选profile的本地或上下文坐标路由；按有效payload启用唯一owner | 2–4小时 | 候选已实现并通过168项相关测试，默认未启用；仍须实机证明路线，旧代理保留到新路径验收 |
+| 并行A：水与锅 | 将3.10递增时钟观测落实到产品帧序与四向／下落方向；半透明／含水、有限锅液面六档、药水及RGB解释；官方岩浆只补实际缺项 | 8–14小时 | 复用液体几何／纹理设施；关闭三路径局部消隐和恢复；字段及独立时钟采集不重复计工 |
+| 并行B：可见物品与静态NBT | 单剑sprite推广到实际需要的物品表示；框／架槽位、附魔、营火／讲台等；旧静态代理按已验字段退场 | 8–14小时 | 特殊物品先确定模型来源；不将“能解析NBT”或“剑在动”视为通用支持 |
+| 并行C：特殊外观与动态候选 | 末地门／折跃门专用表面，书／光束／导管／头颅／移动快照实际缺项；49个资源候选分页、慢动画取样和状态控制 | 12–20小时 | 约8–14小时用于特殊材质／嵌套快照，4–6小时用于动态与未覆盖状态；这条链目前决定总体时长 |
+| 最终串行集成 | 同一生产版本的editor／full／missing、切面／占用／透明度、保存变换、含雪及连缀收尾、资源释放和冷启动 | 4–7小时 | 专项的局部结果可复用，但合入后的共用路径必须实际跑通 |
 
-综合初估：**还需18–30小时有效墙钟时间**。若3.10原生覆盖多数特殊模型且共用物品路径顺利，接近下限；若展示架／特殊物品、末地材质或移动块须建立新渲染路径，风险范围约 **30–45小时**。相比之前的估计，新增了全面外观核查与此前未覆盖的可见内容，同时扣除了粒子和自定义世界岩浆实现；两者不能只凭名称数互相抵消。
+在三条专项稳定并行、原生字段可直接复用且不新增独立渲染架构的假设下，关键路径为共同前置2–4小时＋最长专项12–20小时＋最终集成4–7小时，即**还需18–31小时有效墙钟**。这不是可由现有证据保证的工期：若特殊物品、门材质／光束、移动块或新的3.10坐标／时钟问题必须重新设计路径，或有效夹具需要反复重建，风险区间为**31–46小时**。每次估时只依据新增关闭项及已暴露返工更新，不按运行了多少代理或拍了多少截图折算完成率。
 
-范围包含已授权P0、多格／连缀、NBT／动态外观及其自动验收，不包含全部P1/P2、RenderDragon、完整安卓认证、方块表／旋转镜像版本迁移。今晚08:00前应争取完成原生范围核查和高风险专项增量，不能仅凭剩余时间保证全部交付。
+午间进展已经从剩余实现中扣除独立时钟测量与profile候选接线，保留其产品启用和资格工作。新暴露的编辑器共享深度遮挡、世界参考同步和下降水面质量门仍需修复，因此暂不机械压缩上述范围；若共享深度必须改架构，应进入风险区间重新拆分。17:30前继续推进这些具体阻塞，不把诊断量或离线测试数换算成全部外观完成率。
+
+范围包含已授权P0、多格／连缀、NBT／动态外观及自动验收；不包含全部P1/P2、RenderDragon、完整安卓认证或已明确推迟的方块表／旋转镜像版本迁移。17:30是本轮停止时间，今日剩余窗口足以推进原生范围核查、能力选择和专项增量，不能承诺在该窗口内关闭上表全部工作。遇到未取得有效样本的类型时保留未知与待办，不以缩减可见内容来满足截止。
 
 ## 重跑盘点
 
