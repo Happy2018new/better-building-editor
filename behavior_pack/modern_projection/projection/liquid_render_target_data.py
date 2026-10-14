@@ -7,6 +7,8 @@ an unversioned 3.10 capability.
 """
 from __future__ import unicode_literals
 
+from .cell import text_type
+
 
 SCHEMA_VERSION = 1
 
@@ -39,9 +41,9 @@ def check_version(registry_version, registry_fingerprint):
             or TARGET_ENGINE_VERSION != '3.10.0.420447'
             or TARGET_MINECRAFT_VERSION != '1.21.130.0'
             or TARGET_RESOURCE_VERSION != 'NEMC ' + TARGET_ENGINE_VERSION
-            or not isinstance(registry_version, str)
+            or not isinstance(registry_version, text_type)
             or registry_version != SOURCE_VERSION
-            or not isinstance(registry_fingerprint, str)
+            or not isinstance(registry_fingerprint, text_type)
             or registry_fingerprint.lower() != PALETTE_SHA256.lower()
             or CAPABILITIES != {
                 'world_water': 'custom',
