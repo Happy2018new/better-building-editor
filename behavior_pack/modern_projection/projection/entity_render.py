@@ -3,13 +3,13 @@ from __future__ import unicode_literals
 from . import block_registry, static_chest_data, static_shulker_data
 from .cell import actor_data, foreground, integer_types, freeze, thaw
 from .block_registry import states
-from .nbt_spatial import field_key, root_payload, scalar
+from .nbt_spatial import field_key, root_payload, scalar, set_scalar
 from .visible_actor import chest_is_single, render_actor, entity_nbt
 from .static_skull import SKULL_PROXIES, skull_proxy
 from .static_bed import BED_PROXIES, bed_proxy, palette_bed_colors
 from .native_render_profile import coordinate_mode
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 SHULKER_COLORS = ('undyed', 'white', 'orange', 'magenta', 'light_blue', 'yellow',
                   'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue',
                   'brown', 'green', 'red', 'black')
@@ -54,6 +54,8 @@ def native_actor(material, actor):
         return pot
     if material[0] == 'minecraft:bed':
         return _bed_actor(material, actor, renderer)
+    if material[0] in ('minecraft:standing_banner', 'minecraft:wall_banner'):
+        return _banner_actor(material, renderer)
     if material[0] not in SKULL_NAMES:
         return renderer
     root = root_payload(entity_nbt(actor))
@@ -74,6 +76,21 @@ def native_actor(material, actor):
     result = thaw(freeze(renderer)) if renderer is not None else {'progress': 0.0}
     result.update(facingDirection=record['facing_direction'], rotation=rotation,
                   skullType=skull_type)
+    return result
+
+
+def _banner_actor(material, renderer):
+    """Material transforms control pose; patterns remain in the render payload."""
+    record = states(material)
+    root = root_payload(renderer)
+    standing = material[0] == 'minecraft:standing_banner'
+    direction = record.get('ground_sign_direction' if standing else 'facing_direction') if record else None
+    if (root is None or field_key(root, 'bannerDirection') is None or
+            not isinstance(direction, integer_types) or type(direction) is bool or
+            not (0 <= direction <= 15 if standing else 2 <= direction <= 5)):
+        return renderer
+    result = thaw(freeze(renderer))
+    set_scalar(root_payload(result), 'bannerDirection', direction)
     return result
 
 

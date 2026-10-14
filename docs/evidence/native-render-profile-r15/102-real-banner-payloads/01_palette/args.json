@@ -1,0 +1,5 @@
+{
+  "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\nlow=(0,-57,19)\nhigh=(12,-54,24)\npalette=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(low,high,False)\nraw=palette.SerializeBlockPalette()\nassert not raw.get('extra'),raw.get('extra')\nrows=[]\ndepth,width,height=raw['volume']\nfor pos in ((1, -56, 20), (6, -56, 20), (11, -56, 20), (1, -55, 23), (6, -55, 23), (11, -55, 23)):\n local=tuple(pos[i]-low[i] for i in range(3))\n index=local[1]*width*depth+local[0]*depth+local[2]\n found=[(name,actor[index]) for name,actor in raw.get('actor',{}).items() if index in actor]\n assert len(found)==1,(pos,index,raw.get('actor'))\n name,actor=found[0]\n rows.append({'name':name,'pos':pos,'actor':actor})\n_result=json.dumps({'engine':api.GetEngineVersion(),'rows':rows,'extra':raw.get('extra')})\n",
+  "is_client": true,
+  "direct_return": true
+}

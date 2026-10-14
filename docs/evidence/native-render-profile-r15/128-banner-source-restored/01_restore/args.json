@@ -1,0 +1,5 @@
+{
+  "code": "import json,sys\nimport mod.server.extraServerApi as api\nfactory=api.GetEngineCompFactory()\nlevel=api.GetLevelId()\nplayer=api.GetPlayerList()[0]\ninfo=factory.CreateBlockInfo(player)\nstate=factory.CreateBlockState(level)\ndimension=factory.CreateDimension(player).GetEntityDimensionId()\nassert dimension==0\nsaved=api._native_banner_items\nfor entry in reversed(saved['journal']):\n info.SetBlockNew(entry['pos'],entry['block'],0,dimension,True,True)\n if entry['nbt']:info.SetBlockEntityData(dimension,entry['pos'],entry['nbt'])\ndel api._native_banner_items\n_result=True\n",
+  "is_client": false,
+  "direct_return": true
+}

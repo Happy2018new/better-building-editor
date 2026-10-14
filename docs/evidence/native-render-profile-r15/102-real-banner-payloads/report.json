@@ -1,0 +1,684 @@
+{
+  "schema": 1,
+  "action": "palette",
+  "transform": "identity",
+  "public_blueprint": "test.entities.appearances",
+  "pixel_acceptance": false,
+  "setup": {
+    "inventory_restored": true,
+    "rows": [
+      {
+        "style": [],
+        "actual": {
+          "aux": 8,
+          "name": "minecraft:standing_banner"
+        },
+        "name": "minecraft:standing_banner",
+        "pos": [
+          1,
+          -56,
+          20
+        ],
+        "nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 20
+          },
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -56
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 1
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          }
+        },
+        "states": {
+          "ground_sign_direction": 8
+        }
+      },
+      {
+        "style": [
+          [
+            1,
+            "bo"
+          ],
+          [
+            14,
+            "cr"
+          ],
+          [
+            11,
+            "mc"
+          ]
+        ],
+        "actual": {
+          "aux": 8,
+          "name": "minecraft:standing_banner"
+        },
+        "name": "minecraft:standing_banner",
+        "pos": [
+          6,
+          -56,
+          20
+        ],
+        "nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 20
+          },
+          "Patterns": [
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bo"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 14
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "cr"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 11
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "mc"
+              }
+            }
+          ],
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -56
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 6
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          }
+        },
+        "states": {
+          "ground_sign_direction": 8
+        }
+      },
+      {
+        "style": [
+          [
+            1,
+            "bs"
+          ],
+          [
+            14,
+            "ts"
+          ],
+          [
+            11,
+            "ls"
+          ],
+          [
+            3,
+            "rs"
+          ],
+          [
+            8,
+            "cs"
+          ],
+          [
+            0,
+            "bo"
+          ]
+        ],
+        "actual": {
+          "aux": 8,
+          "name": "minecraft:standing_banner"
+        },
+        "name": "minecraft:standing_banner",
+        "pos": [
+          11,
+          -56,
+          20
+        ],
+        "nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 20
+          },
+          "Patterns": [
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 14
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "ts"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 11
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "ls"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 3
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "rs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 8
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "cs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 0
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bo"
+              }
+            }
+          ],
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -56
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 11
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          }
+        },
+        "states": {
+          "ground_sign_direction": 8
+        }
+      },
+      {
+        "style": [],
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:wall_banner"
+        },
+        "name": "minecraft:wall_banner",
+        "pos": [
+          1,
+          -55,
+          23
+        ],
+        "nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 23
+          },
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -55
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 1
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          }
+        },
+        "states": {
+          "facing_direction": 2
+        }
+      },
+      {
+        "style": [
+          [
+            1,
+            "bo"
+          ],
+          [
+            14,
+            "cr"
+          ],
+          [
+            11,
+            "mc"
+          ]
+        ],
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:wall_banner"
+        },
+        "name": "minecraft:wall_banner",
+        "pos": [
+          6,
+          -55,
+          23
+        ],
+        "nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 23
+          },
+          "Patterns": [
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bo"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 14
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "cr"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 11
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "mc"
+              }
+            }
+          ],
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -55
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 6
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          }
+        },
+        "states": {
+          "facing_direction": 2
+        }
+      },
+      {
+        "style": [
+          [
+            1,
+            "bs"
+          ],
+          [
+            14,
+            "ts"
+          ],
+          [
+            11,
+            "ls"
+          ],
+          [
+            3,
+            "rs"
+          ],
+          [
+            8,
+            "cs"
+          ],
+          [
+            0,
+            "bo"
+          ]
+        ],
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:wall_banner"
+        },
+        "name": "minecraft:wall_banner",
+        "pos": [
+          11,
+          -55,
+          23
+        ],
+        "nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 23
+          },
+          "Patterns": [
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 14
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "ts"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 11
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "ls"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 3
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "rs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 8
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "cs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 0
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bo"
+              }
+            }
+          ],
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -55
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 11
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          }
+        },
+        "states": {
+          "facing_direction": 2
+        }
+      }
+    ]
+  },
+  "palette": {
+    "engine": "3.10.0.420447",
+    "rows": [
+      {
+        "name": "minecraft:standing_banner",
+        "actor": {
+          "bannerType": 0,
+          "bannerBaseColor": 4,
+          "bannerPatternCount": 0,
+          "bannerIsStanding": true,
+          "bannerDirection": 8
+        },
+        "pos": [
+          1,
+          -56,
+          20
+        ]
+      },
+      {
+        "name": "minecraft:standing_banner",
+        "actor": {
+          "bannerType": 0,
+          "bannerPatternCount": 3,
+          "bannerBaseColor": 4,
+          "bannerPattern2": "mc",
+          "bannerPattern0": "bo",
+          "bannerPattern1": "cr",
+          "bannerDirection": 8,
+          "bannerColor1": 14,
+          "bannerColor0": 1,
+          "bannerIsStanding": true,
+          "bannerColor2": 11
+        },
+        "pos": [
+          6,
+          -56,
+          20
+        ]
+      },
+      {
+        "name": "minecraft:standing_banner",
+        "actor": {
+          "bannerType": 0,
+          "bannerPatternCount": 6,
+          "bannerBaseColor": 4,
+          "bannerPattern2": "ls",
+          "bannerPattern3": "rs",
+          "bannerPattern0": "bs",
+          "bannerPattern1": "ts",
+          "bannerDirection": 8,
+          "bannerPattern4": "cs",
+          "bannerPattern5": "bo",
+          "bannerColor5": 0,
+          "bannerColor4": 8,
+          "bannerIsStanding": true,
+          "bannerColor1": 14,
+          "bannerColor0": 1,
+          "bannerColor3": 3,
+          "bannerColor2": 11
+        },
+        "pos": [
+          11,
+          -56,
+          20
+        ]
+      },
+      {
+        "name": "minecraft:wall_banner",
+        "actor": {
+          "bannerType": 0,
+          "bannerBaseColor": 4,
+          "bannerPatternCount": 0,
+          "bannerIsStanding": false,
+          "bannerDirection": 2
+        },
+        "pos": [
+          1,
+          -55,
+          23
+        ]
+      },
+      {
+        "name": "minecraft:wall_banner",
+        "actor": {
+          "bannerType": 0,
+          "bannerPatternCount": 3,
+          "bannerBaseColor": 4,
+          "bannerPattern2": "mc",
+          "bannerPattern0": "bo",
+          "bannerPattern1": "cr",
+          "bannerDirection": 2,
+          "bannerColor1": 14,
+          "bannerColor0": 1,
+          "bannerIsStanding": false,
+          "bannerColor2": 11
+        },
+        "pos": [
+          6,
+          -55,
+          23
+        ]
+      },
+      {
+        "name": "minecraft:wall_banner",
+        "actor": {
+          "bannerType": 0,
+          "bannerPatternCount": 6,
+          "bannerBaseColor": 4,
+          "bannerPattern2": "ls",
+          "bannerPattern3": "rs",
+          "bannerPattern0": "bs",
+          "bannerPattern1": "ts",
+          "bannerDirection": 2,
+          "bannerPattern4": "cs",
+          "bannerPattern5": "bo",
+          "bannerColor5": 0,
+          "bannerColor4": 8,
+          "bannerIsStanding": false,
+          "bannerColor1": 14,
+          "bannerColor0": 1,
+          "bannerColor3": 3,
+          "bannerColor2": 11
+        },
+        "pos": [
+          11,
+          -55,
+          23
+        ]
+      }
+    ],
+    "extra": {}
+  }
+}

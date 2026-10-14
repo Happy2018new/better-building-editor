@@ -9,6 +9,7 @@ from types import SimpleNamespace
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.cell import make_cell
+from projection.entity_render import native_actor
 from projection.debug_blueprints import material
 from projection.geometry_palette import prepare_palette
 from projection.model import Document, Editor
@@ -74,18 +75,90 @@ class NativeRenderProfileTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             NativeRenderProfile(model_local=('minecraft:chest',), context=('minecraft:chest',))
 
-    def test_patterned_banner_candidate_needs_complete_item_placed_actor(self):
+    def test_patterned_banner_world_route_needs_complete_item_placed_actor(self):
         captures = json.loads((ROOT / 'tests/data/native_banner_310_r15.json').read_text(encoding='utf8'))
         profile = NativeRenderProfile(model_local=captures)
         for name, record in captures.items():
             actor = record['actor']
             self.assertEqual('model_local', profile.coordinate_mode((name, 0), actor))
-            self.assertIsNone(profile.coordinate_mode((name, 0), CAPTURES[name]['actor']))
-            self.assertIsNone(production_profile(RUNTIME_VERSION).coordinate_mode((name, 0), actor))
+            self.assertEqual('model_local', profile.coordinate_mode((name, 0), CAPTURES[name]['actor']))
+            production = production_profile(RUNTIME_VERSION)
+            self.assertEqual('model_local', production.coordinate_mode((name, 0), actor))
+            self.assertIsNone(for_preview(production).coordinate_mode((name, 0), actor))
             for field in actor:
                 missing = dict(actor)
                 del missing[field]
                 self.assertIsNone(profile.coordinate_mode((name, 0), missing), field)
+
+    def test_banner_schema_accepts_pattern_counts_without_a_pattern_whitelist(self):
+        captures = json.loads((ROOT / 'tests/data/native_banner_310_r15.json').read_text(encoding='utf8'))
+        profile = NativeRenderProfile(model_local=captures)
+        for name, record in captures.items():
+            for count in (0, 1, 3, 6, 17):
+                actor = dict((key, value) for key, value in record['actor'].items()
+                             if not key.startswith(('bannerPattern', 'bannerColor')))
+                actor['bannerPatternCount'] = count
+                for index in range(count):
+                    actor['bannerColor%d' % index] = index % 16
+                    actor['bannerPattern%d' % index] = ('bo', 'cre', 'flo', 'moj')[index % 4]
+                self.assertEqual('model_local', profile.coordinate_mode((name, 0), actor))
+                if count:
+                    missing = dict(actor)
+                    del missing['bannerPattern%d' % (count - 1)]
+                    self.assertIsNone(profile.coordinate_mode((name, 0), missing))
+            for invalid in (-1, 1000000, True, '2'):
+                actor = dict(record['actor'], bannerPatternCount=invalid)
+                self.assertIsNone(profile.coordinate_mode((name, 0), actor))
+
+    def test_banner_material_pose_refreshes_only_the_render_copy(self):
+        captures = json.loads((ROOT / 'tests/data/native_banner_310_r15.json').read_text(encoding='utf8'))
+        for name, record in captures.items():
+            actor = compose_actor(record['actor'], {'id': {'__type__': 8, '__value__': 'Banner'},
+                'opaque': {'__type__': 8, '__value__': 'preserved'}})
+            saved = copy.deepcopy(actor)
+            field = 'ground_sign_direction' if name.endswith('standing_banner') else 'facing_direction'
+            for direction in (range(16) if field == 'ground_sign_direction' else range(2, 6)):
+                value = material(name, {field: direction})
+                result = native_actor(value, actor)
+                self.assertEqual(direction, result['bannerDirection'])
+                for key in ('bannerPattern0', 'bannerPattern1', 'bannerBaseColor'):
+                    self.assertEqual(record['actor'][key], result[key])
+                self.assertEqual(saved, actor)
+                result['future'] = ['mutation']
+                self.assertNotIn('future', record['actor'])
+
+    def test_banner_adapter_preserves_typed_tags_and_byte_keys(self):
+        actor = {b'bannerDirection': {b'__type__': 3, b'__value__': 8},
+                 b'bannerPatternCount': 0, b'opaque': [b'value']}
+        value = material('standing_banner', {'ground_sign_direction': 12})
+        before = copy.deepcopy(actor)
+        result = native_actor(value, actor)
+        self.assertEqual({b'__type__': 3, b'__value__': 12}, result[b'bannerDirection'])
+        self.assertEqual(before, actor)
+
+    def test_banner_editor_transforms_refresh_world_render_pose_and_preserve_patterns(self):
+        from projection.storage import Selection
+        from projection.cell import foreground, actor_data
+        from projection.block_registry import states
+        captures = json.loads((ROOT / 'tests/data/native_banner_310_r15.json').read_text(encoding='utf8'))
+        for name, record in captures.items():
+            field = 'ground_sign_direction' if name.endswith('standing_banner') else 'facing_direction'
+            initial = 8 if field == 'ground_sign_direction' else 2
+            actor = compose_actor(record['actor'], {'id': {'__type__': 8, '__value__': 'Banner'}})
+            for transform in ('rotate_y90', 'rotate_y180', 'rotate_y270', 'mirror_x', 'mirror_z'):
+                editor = Editor(Document((4, 4, 4), {(1, 1, 1): make_cell(material(name, {field: initial}), nbt=actor)}))
+                original = dict(editor.document.blocks.items())
+                editor.selection = Selection(((1, 1, 1),))
+                editor._transform(transform)
+                value = next(iter(editor.document.blocks.values()))
+                value_material, saved_actor = foreground(value), actor_data(value)
+                rendered = native_actor(value_material, saved_actor)
+                self.assertEqual(states(value_material)[field], rendered['bannerDirection'])
+                for key in ('bannerPattern0', 'bannerPattern1', 'bannerColor0', 'bannerColor1', 'bannerBaseColor'):
+                    self.assertEqual(record['actor'][key], rendered[key])
+                self.assertEqual('model_local', production_profile(RUNTIME_VERSION).coordinate_mode(value_material, rendered))
+                editor.undo()
+                self.assertEqual(original, dict(editor.document.blocks.items()))
 
     def test_malformed_or_paired_chests_keep_the_existing_proxy(self):
         profile = NativeRenderProfile(model_local=('minecraft:chest',))

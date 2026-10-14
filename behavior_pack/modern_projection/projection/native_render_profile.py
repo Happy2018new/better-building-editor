@@ -2,7 +2,7 @@
 
 Enabling a name requires choosing its measured coordinate route. This module
 does not enable a renderer from the runtime version alone. Empty shulker
-actors, absent head meshes and stale banner patterns remain outside this set.
+actors and absent head meshes remain outside this set.
 """
 from collections import namedtuple
 import math
@@ -37,15 +37,16 @@ def _banner_payload(name, root):
         return False
     if not _integer(scalar(root, 'bannerDirection'), 0 if standing else 2, 15 if standing else 5):
         return False
-    # Only the actual item-placed two-pattern record has a color observation.
-    # Typed NBT writes produced a stale zero-pattern client payload in 3.10.
-    if not _integer(scalar(root, 'bannerPatternCount'), 2, 2):
+    # Check the observed repeated-field schema, not a fixed pattern list.
+    # Every pattern needs two fields, so malformed counts are bounded by payload.
+    count = scalar(root, 'bannerPatternCount')
+    if not _integer(count, 0, len(root)):
         return False
     if not _integer(scalar(root, 'bannerType'), 0, 0):
         return False
     if not _integer(scalar(root, 'bannerBaseColor'), 0, 15):
         return False
-    for index in range(2):
+    for index in range(count):
         if not _integer(scalar(root, 'bannerColor%d' % index), 0, 15):
             return False
         pattern = scalar(root, 'bannerPattern%d' % index)
@@ -142,10 +143,12 @@ def production_profile(runtime_version):
     Beds remain proxies: the captured single head actor does not establish
     independent head/foot geometry under partial occupancy. Empty shulker
     data and missing head meshes likewise do not establish a route. Native
-    chest UI depth differs from terrain; editor previews keep their proxies.
+    Chest and banner UI depth differ from terrain; editor native routes remain
+    restricted. Banner admission covers static pose and patterns, not waving.
     """
     if runtime_version != RUNTIME_VERSION:
         return None
     return NativeRenderProfile(model_local=(
-        'minecraft:chest', 'minecraft:copper_chest', 'minecraft:ender_chest'),
+        'minecraft:chest', 'minecraft:copper_chest', 'minecraft:ender_chest',
+        'minecraft:standing_banner', 'minecraft:wall_banner'),
         context=('minecraft:flower_pot',), scene_names=('minecraft:flower_pot',))
