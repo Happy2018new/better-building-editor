@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "runtime": "3.10.0.420447",
+  "family": "native banner/pole",
+  "observations": {
+    "standing_oblique": {
+      "source": "docs\\evidence\\native-render-profile-r15\\150-metrics-v5-standing-frame",
+      "image_sha256": "e40a2a29958aba0ce61811e6dc90f51729651b6a3df1562d8ecd13c06519a578",
+      "camera": [
+        35.0,
+        25.0,
+        2.0
+      ],
+      "points": [
+        [
+          944,
+          432
+        ],
+        [
+          1125,
+          485
+        ],
+        [
+          1300,
+          540
+        ]
+      ],
+      "pixels": [
+        [
+          103,
+          218,
+          255
+        ],
+        [
+          107,
+          114,
+          255
+        ],
+        [
+          111,
+          10,
+          255
+        ]
+      ],
+      "view_translation_plus_350": [
+        -193.1875,
+        -164.4375,
+        -135.6875
+      ],
+      "pole_point": [
+        935,
+        432
+      ],
+      "pole_pixel": [
+        1,
+        197,
+        255
+      ],
+      "matrix_row_scale": 7.078125
+    },
+    "standing_zero": {
+      "source": "docs\\evidence\\native-render-profile-r15\\152-metrics-v5-zero-frame",
+      "image_sha256": "630d569ad2fe023a318d308bba0e376db5a7c9d56c709b26a9c53470c9ff494d",
+      "camera": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "points": [
+        [
+          705,
+          600
+        ]
+      ],
+      "pixels": [
+        [
+          106,
+          131,
+          255
+        ]
+      ],
+      "view_translation_plus_350": [
+        -171.90625
+      ],
+      "pole_point": [
+        718,
+        600
+      ],
+      "pole_pixel": [
+        1,
+        197,
+        255
+      ],
+      "matrix_row_scale": 7.078125
+    },
+    "wall_zoom2": {
+      "source": "docs\\evidence\\native-render-profile-r15\\155-metrics-v5-wall-zero-frame",
+      "image_sha256": "2bac9fa0137b47b86cf84de85df7643b84f0b34428c46bb9ad61c9eac873851a",
+      "camera": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "points": [
+        [
+          705,
+          600
+        ]
+      ],
+      "pixels": [
+        [
+          115,
+          106,
+          255
+        ]
+      ],
+      "view_translation_plus_350": [
+        -100.6875
+      ],
+      "pole_point": [
+        710,
+        565
+      ],
+      "pole_pixel": [
+        1,
+        197,
+        255
+      ],
+      "matrix_row_scale": 7.078125
+    },
+    "wall_zoom1": {
+      "source": "docs\\evidence\\native-render-profile-r15\\157-metrics-v5-wall-zoom1-frame",
+      "image_sha256": "52596a5c6cd4016ff77dca05124fe705c3170267fac2b3d96fca23628c2ad55b",
+      "camera": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "points": [
+        [
+          857,
+          600
+        ]
+      ],
+      "pixels": [
+        [
+          115,
+          117,
+          255
+        ]
+      ],
+      "view_translation_plus_350": [
+        -100.34375
+      ],
+      "pole_point": [
+        860,
+        582
+      ],
+      "pole_pixel": [
+        0,
+        227,
+        255
+      ],
+      "matrix_row_scale": 3.546875
+    }
+  },
+  "camera_basis_toward_x": 0.5198367907256845,
+  "view_translation_zero_scale_intercept": -100.0,
+  "native_view_origin_candidate": 450.0,
+  "logical_block_scale_from_five_block_steps": [
+    11.061164008751833,
+    11.061164008751833
+  ],
+  "native_model_to_block_scale_candidate": 0.6399077885835193,
+  "quantization": {
+    "translation": 0.03125,
+    "matrix_row_scale": 0.015625
+  },
+  "production_acceptance": false,
+  "limits": "Measured matrix contract only; candidate must still pass depth, cut plane and world regression."
+}

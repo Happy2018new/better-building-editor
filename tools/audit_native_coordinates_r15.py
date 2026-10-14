@@ -113,7 +113,7 @@ work=b.projection_work
 tracker=b.projection_occupancy
 _result=json.dumps({'ready':s.ready,'preview_error':s.preview_error,'pending':s.preview_pending,
  'tile_running':s.tiles.running,'dirty':len(s.tiles.dirty),'model':s.model_name,
- 'editor_camera':s.camera_pose,
+ 'editor_camera':s.camera_pose,'editor_depth':s.camera_depth,'editor_depth_plane':s.depth_plane(),
  'bridge_engine_version':getattr(b,'engine_version',None),
  'geometry_receipts':getattr(sys,'_native_r15_geometry',[]),
  'profile':s.native_render_profile.identity if s.native_render_profile else None,

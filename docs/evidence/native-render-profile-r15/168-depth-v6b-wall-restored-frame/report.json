@@ -1,0 +1,269 @@
+{
+  "schema": 1,
+  "action": "capture",
+  "transform": "identity",
+  "public_blueprint": "test.entities.appearances",
+  "pixel_acceptance": false,
+  "form": "both",
+  "supports": true,
+  "before": {
+    "profile": [
+      2,
+      "3.10.0.420447",
+      [
+        "minecraft:standing_banner",
+        "minecraft:wall_banner"
+      ],
+      [],
+      [
+        "minecraft:standing_banner",
+        "minecraft:wall_banner"
+      ]
+    ],
+    "engine": "3.10.0.420447",
+    "top_ui": "navigatorScreen00",
+    "tile_running": false,
+    "projection": {
+      "ready": null,
+      "parts": [],
+      "preparing": false,
+      "error": null,
+      "active": false,
+      "failed": null,
+      "missing": true,
+      "bank": null,
+      "actor": null,
+      "builds": null
+    },
+    "editor_camera": [
+      -325.0,
+      25.0,
+      3.0
+    ],
+    "foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "geometry_receipts": [
+      {
+        "requested_name": "modern_projection_chunk_0_0_0_0_0",
+        "materials": [
+          [
+            "minecraft:stone",
+            0
+          ],
+          [
+            "minecraft:wall_banner",
+            2
+          ]
+        ],
+        "actors": [
+          "minecraft:wall_banner"
+        ],
+        "name": "modern_projection_chunk_0_0_0_0_0_r15_1791968038761000",
+        "result": "modern_projection_chunk_0_0_0_0_0_r15_1791968038761000"
+      },
+      {
+        "requested_name": "modern_projection_0",
+        "materials": [
+          [
+            "modern_projection:preview_outline",
+            0
+          ]
+        ],
+        "actors": [],
+        "name": "modern_projection_0_r15_1791968038941000",
+        "result": "modern_projection_0_r15_1791968038941000"
+      }
+    ],
+    "screen": [
+      499.0,
+      277.0
+    ],
+    "editor_depth_plane": null,
+    "camera": [
+      0.5,
+      -58.37998962402344,
+      0.5
+    ],
+    "dirty": 0,
+    "ready": true,
+    "bridge_engine_version": "3.10.0.420447",
+    "preview_error": "",
+    "rotation": [
+      -0.0,
+      179.99996948242188,
+      0.0
+    ],
+    "model": "modern_projection_chunk_0_0_0_0_0_r15_1791968038761000",
+    "pending": false,
+    "editor_depth": 0.0
+  },
+  "capture": {
+    "schema": 2,
+    "ok": true,
+    "reliable": true,
+    "background_only": true,
+    "backend": "Windows.Graphics.Capture",
+    "native_resolution": true,
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\native-render-profile-r15\\168-depth-v6b-wall-restored-frame\\frame.png",
+    "started_at": "2026-10-14T09:01:05.566181+00:00",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24ab046fdeca42e0a8bb417cc42cad5e\\session.json",
+    "owner": "native-render310-r15",
+    "game_pid": 46684,
+    "game_identity": "134364414621413948",
+    "window": {
+      "hwnd": 11933690,
+      "pid": 46684,
+      "process": "Minecraft.Windows.exe",
+      "title": "(1994, 1105) Minecraft",
+      "x": 189,
+      "y": 176,
+      "width": 1329,
+      "height": 736,
+      "minimized": false
+    },
+    "helper": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+      "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+      "sources": {
+        "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+        "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+        "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+        "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+        "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+        "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+        "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+        "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+        "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+      }
+    },
+    "foreground_before": {
+      "hwnd": 2624288,
+      "pid": 34800
+    },
+    "foreground_after": {
+      "hwnd": 2624288,
+      "pid": 34800
+    },
+    "foreground_unchanged": true,
+    "background_safe": true,
+    "helper_returncode": 0,
+    "helper_stderr": "",
+    "frame": {
+      "ok": true,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "request_qpc_100ns": 813937482242,
+      "frame_qpc_100ns": 813937610665,
+      "width": 1994,
+      "height": 1105
+    },
+    "width": 1994,
+    "height": 1105,
+    "variance": [
+      1507.8044749818628,
+      1123.7173647987813,
+      727.3659813877418
+    ],
+    "sha256": "b618b9de1f9f288c4a6a6e877d8982ed0a772d80b73873362e5a9c8ab55d1771",
+    "bytes": 244098,
+    "finished_at": "2026-10-14T09:01:06.384944+00:00",
+    "elapsed_seconds": 0.8187578999932157
+  },
+  "after": {
+    "profile": [
+      2,
+      "3.10.0.420447",
+      [
+        "minecraft:standing_banner",
+        "minecraft:wall_banner"
+      ],
+      [],
+      [
+        "minecraft:standing_banner",
+        "minecraft:wall_banner"
+      ]
+    ],
+    "engine": "3.10.0.420447",
+    "top_ui": "navigatorScreen00",
+    "tile_running": false,
+    "projection": {
+      "ready": null,
+      "parts": [],
+      "preparing": false,
+      "error": null,
+      "active": false,
+      "failed": null,
+      "missing": true,
+      "bank": null,
+      "actor": null,
+      "builds": null
+    },
+    "editor_camera": [
+      -325.0,
+      25.0,
+      3.0
+    ],
+    "foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "geometry_receipts": [
+      {
+        "requested_name": "modern_projection_chunk_0_0_0_0_0",
+        "materials": [
+          [
+            "minecraft:stone",
+            0
+          ],
+          [
+            "minecraft:wall_banner",
+            2
+          ]
+        ],
+        "actors": [
+          "minecraft:wall_banner"
+        ],
+        "name": "modern_projection_chunk_0_0_0_0_0_r15_1791968038761000",
+        "result": "modern_projection_chunk_0_0_0_0_0_r15_1791968038761000"
+      },
+      {
+        "requested_name": "modern_projection_0",
+        "materials": [
+          [
+            "modern_projection:preview_outline",
+            0
+          ]
+        ],
+        "actors": [],
+        "name": "modern_projection_0_r15_1791968038941000",
+        "result": "modern_projection_0_r15_1791968038941000"
+      }
+    ],
+    "screen": [
+      499.0,
+      277.0
+    ],
+    "editor_depth_plane": null,
+    "camera": [
+      0.5,
+      -58.37998962402344,
+      0.5
+    ],
+    "dirty": 0,
+    "ready": true,
+    "bridge_engine_version": "3.10.0.420447",
+    "preview_error": "",
+    "rotation": [
+      -0.0,
+      179.99996948242188,
+      0.0
+    ],
+    "model": "modern_projection_chunk_0_0_0_0_0_r15_1791968038761000",
+    "pending": false,
+    "editor_depth": 0.0
+  }
+}

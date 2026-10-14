@@ -120,7 +120,7 @@ def document(source, transform, form='both', supports=True):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('setup', 'palette', 'load', 'project', 'camera', 'capture', 'occupy', 'restore_occupancy', 'restore_source'))
+    parser.add_argument('action', choices=('setup', 'palette', 'load', 'project', 'camera', 'capture', 'depth', 'occupy', 'restore_occupancy', 'restore_source'))
     parser.add_argument('--session', required=True)
     parser.add_argument('--owner', required=True)
     parser.add_argument('--output', type=Path, required=True)
@@ -128,6 +128,7 @@ def main():
     parser.add_argument('--transform', choices=('identity', 'rotate_y90', 'rotate_y180', 'rotate_y270', 'mirror_x', 'mirror_z'), default='identity')
     parser.add_argument('--form', choices=('both', 'standing', 'wall'), default='both')
     parser.add_argument('--no-supports', action='store_true')
+    parser.add_argument('--depth', type=float, default=0.)
     parser.add_argument('--missing', action='store_true')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
@@ -166,6 +167,9 @@ _result=json.dumps(rows)
         report['result'] = audit.execute('project', coordinates.PROJECT % args.missing)
     elif args.action == 'camera':
         report['result'] = audit.execute('camera', coordinates.CAMERA.replace('target=(7.5,-55.8,1.5)', 'target=(7.5,-55.8,7.5)').replace('position=(9.5,-49.,-15.5)', 'position=(16.5,-45.,-11.5)'))
+    elif args.action == 'depth':
+        report['result'] = audit.execute('depth', CLIENT +
+            's.camera_depth=%r\ns.emit("view")\n_result=json.dumps({"depth":s.camera_depth,"plane":s.depth_plane()})' % args.depth)
     elif args.action in ('occupy', 'restore_occupancy'):
         local = audit.execute('positions', CLIENT + '_result=json.dumps(sys._native_banner_positions)')
         positions = tuple((p[0], p[1] - 57, p[2]) for p in local)

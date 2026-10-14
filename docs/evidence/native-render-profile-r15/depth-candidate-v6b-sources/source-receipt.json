@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "runtime": "3.10.0.420447",
+  "family": "banner/pole",
+  "production_acceptance": false,
+  "generator": "tools/generate_native_preview_depth_r15.py",
+  "arguments": ["--depth-mode", "worldview", "--block-scale", "0.64", "--view-origin", "450"],
+  "measurement": "docs/evidence/native-render-profile-r15/native-banner-depth-measurements.json",
+  "generic_actor_override": false,
+  "snapshot_normalization": "UTF-8, LF, trailing whitespace removed, one final newline",
+  "sources": [
+    {
+      "source": "modern_projection_native_preview_banner.vertex",
+      "live_sha256": "20656dc740939393e69199846f10011c93a43639c97528fc4c8c67bc31e2c738",
+      "snapshot_sha256": "ae1cae3345f8b063a9be166fddad7d100953b7c4a7c0369144e4dc26b75447cc",
+      "normalized_equal": true
+    },
+    {
+      "source": "modern_projection_native_preview_banner.fragment",
+      "live_sha256": "1737573e3092d66cf148557ee7b8d9d3f7a9a6ffe0c132ded9d06c488ff2cb6e",
+      "snapshot_sha256": "ca334cb7f38e0784537e93447e41df808af1839b50fcab099fb85fdf413c8e9e",
+      "normalized_equal": true
+    }
+  ]
+}

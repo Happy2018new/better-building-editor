@@ -1,4 +1,26 @@
-# Native rendering handoff — 2026-10-14 13:45 Asia/Shanghai
+# Native rendering handoff - current update 2026-10-14 17:13 Asia/Shanghai
+
+## Current state after resumed work
+
+All native-agent game sessions are stopped. The final v6b session
+`24ab046fdeca42e0a8bb417cc42cad5e` was stopped normally after the standing/wall
+editor depth controls. No source-world or occupancy journal remained in that
+fresh instance. The session below is historical and must not be reused.
+
+World-only banner production admission, dynamic pattern schema validation, and
+render-only `bannerDirection` adaptation are implemented and tested. See
+`BANNER_WORLD_QUALIFICATION.md`. Editor banner admission remains excluded.
+The isolated banner-family depth candidate now passes the inspected editor
+front/back, cut, and restore controls. See
+`BANNER_EDITOR_DEPTH_DIAGNOSTIC.md` and frames 159-182. Its 450 view origin and 0.64
+model scale were measured, not guessed; they are not generic actor constants.
+
+Next continuation should independently review/integrate this candidate, run
+its world full/missing/occupancy regression and production editor transforms,
+and qualify temporal motion. Do not restart the earlier exploratory local
+depth formulas or widen `scene_names` based only on these diagnostics.
+
+## Historical checkpoint - 2026-10-14 13:45 Asia/Shanghai
 
 Paused immediately at the user's request to preserve context and terminate sessions for a model change. No new tests, shared edits, reloads, or game launches should continue in this chat.
 

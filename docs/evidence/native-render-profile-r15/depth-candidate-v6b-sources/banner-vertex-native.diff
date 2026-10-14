@@ -1,0 +1,63 @@
+diff --git a/D:/MCStudioDownload/game/MinecraftPE_Netease/3.10.0.420447/data/shaders/glsl/banner.vertex b/D:/bbe-r15-native-production/resource_pack/shaders/glsl/modern_projection_native_preview_banner.vertex
+index 2cc30879..0901f41d 100644
+--- a/D:/MCStudioDownload/game/MinecraftPE_Netease/3.10.0.420447/data/shaders/glsl/banner.vertex
++++ b/D:/bbe-r15-native-production/resource_pack/shaders/glsl/modern_projection_native_preview_banner.vertex
+@@ -1,9 +1,11 @@
+ // __multiversion__
+ // This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+ 
++precision highp float;
+ #include "vertexVersionCentroid.h"
+ 
+ #include "uniformWorldConstants.h"
++#include "uniformShaderConstants.h"
+ #include "uniformEntityConstants.h"
+ #include "uniformPerFrameConstants.h"
+ #include "uniformBannerConstants.h"
+@@ -84,17 +86,43 @@ float lightIntensity() {
+ }
+ 
+ 
++
++varying highp float nativePreviewClip;
++// Terrain and native actors in one PaperDoll must share the same depth scale.
++// This branch is restricted to the existing tagged orthographic editor packet.
++void applyPreviewActorDepth(inout POS4 projected, POS4 localPosition) {
++    
++    nativePreviewClip=-1.0;
++    float tag = floor(CURRENT_COLOR.r*255.0+0.5);
++    if (abs(PROJ[3][3]) > 0.5 && tag >= 209.0 && tag <= 222.0) {
++        bool layoutPacket = fract(CURRENT_COLOR.r*255.0) > 0.125;
++        float distance = layoutPacket ?
++            (floor(CURRENT_COLOR.b*65536.0+0.5)-32768.0)/64.0 :
++            (floor(CURRENT_COLOR.g*255.0+0.5)*256.0+
++             floor(CURRENT_COLOR.b*255.0+0.5)-32768.0)/64.0;
++        vec3 viewZ = vec3(WORLDVIEW[0][2], WORLDVIEW[1][2], WORLDVIEW[2][2]);
++        float clip = ((WORLDVIEW*localPosition).z+450.0)/max(length(viewZ),0.00001)*0.64+distance;
++        nativePreviewClip=clip;
++        float centerDepth = PROJ[2][2]*(-350.0)+PROJ[3][2];
++        projected.z = (centerDepth+clip*PROJ[2][2]*0.04)/(1.0+abs(centerDepth));
++    }
++}
++
+ void main()
+ {
+ #ifdef USE_SKINNING
+ #if defined(LARGE_VERTEX_SHADER_UNIFORMS)
+-    POS4 pos = WORLDVIEWPROJ * BONES[int(BONEID_0)] * POSITION;
++    POS4 localPosition = BONES[int(BONEID_0)] * POSITION;
++    POS4 pos = WORLDVIEWPROJ * localPosition;
+ #else
+-	POS4 pos = WORLDVIEWPROJ * BONE * POSITION;
++	POS4 localPosition = BONE * POSITION;
++    POS4 pos = WORLDVIEWPROJ * localPosition;
+ #endif
+ #else
+-    POS4 pos = WORLDVIEWPROJ * POSITION;
++    POS4 localPosition = POSITION;
++    POS4 pos = WORLDVIEWPROJ * localPosition;
+ #endif
++    applyPreviewActorDepth(pos,localPosition);
+     gl_Position = pos;
+ 
+ #ifdef ENABLE_LIGHT
