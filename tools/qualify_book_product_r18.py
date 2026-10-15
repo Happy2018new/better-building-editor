@@ -140,6 +140,15 @@ def gate_text(manifest_path, manifest):
                     for name, value in values.items()))
 
 
+def body_admission_binding(path, current):
+    admitted = json.loads(path.read_bytes())
+    require(admitted.get('engine_version') == ENGINE_VERSION and admitted.get('stage') == 'product'
+            and admitted.get('reviewed') is True and admitted.get('product_qualified') is True
+            and admitted.get('qualified_sources') == current
+            and admitted.get('gates') == dict(body_boundary_pixels=True, source_closure=True, default_path=True),
+            'Independent table body admission differs from the installed implementation')
+
+
 def qualify(args):
     project = args.project.resolve(strict=True)
     require(not args.output.exists(), 'Keep book qualification output immutable; choose a fresh directory')
@@ -151,6 +160,11 @@ def qualify(args):
     require(reports['owner'].get('owner_path') == 'independent_book', 'Book owner evidence borrows another owner')
     current = book_sources(project)
     errors = resource_binding(reports, current)+source_binding(reports['owner'], current)
+    body_admission = getattr(args, 'body_admission', None)
+    if args.default_report is not None and args.write_gate:
+        require(body_admission is not None, 'Final book admission needs the independent table body admission')
+    if body_admission is not None:
+        body_admission_binding(body_admission, current)
     args.output.mkdir(parents=True)
     body, body_errors = body_binding(getattr(args, 'body_report', None), current,
                                      reports['owner'], args.output/'body-analysis.json')
@@ -205,7 +219,7 @@ def qualify(args):
         'limits': ['Project hinged book geometry using native artwork; no player-proximity reaction, page text or interaction.',
                    'Lectern page parity is the matched stationary reference view; other directions share the same rigid geometry.',
                    'The independent owner matrix and native close-up resource evidence are separately bound.']}
-    for name in ('body_report', 'default_body_report', 'motion_report'):
+    for name in ('body_report', 'default_body_report', 'motion_report', 'body_admission'):
         evidence = getattr(args, name, None)
         if evidence is not None:
             manifest['evidence'][name] = {'path': str(evidence.resolve()), 'sha256': sha(evidence)}
@@ -229,6 +243,7 @@ def main():
     parser.add_argument('--default-report', type=Path)
     parser.add_argument('--default-admission', type=Path)
     parser.add_argument('--body-report', type=Path)
+    parser.add_argument('--body-admission', type=Path)
     parser.add_argument('--motion-report', type=Path)
     parser.add_argument('--default-body-report', type=Path)
     parser.add_argument('--output', type=Path, required=True)

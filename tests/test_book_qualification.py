@@ -10,10 +10,27 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'tools'))
 from qualify_book_product_r18 import (default_binding, BODY_SOURCES, ENGINE_VERSION, OWNER_SOURCES, RESOURCE_KEYS,
                                       REQUIRED_GATES, body_binding, resource_binding, source_binding)
-from qualify_book_product_r18 import motion_binding
+from qualify_book_product_r18 import motion_binding, body_admission_binding
 
 
 class BookQualificationTests(unittest.TestCase):
+    def test_book_cannot_borrow_temporary_or_different_independent_body_admission(self):
+        current = {'body_files': {'table': 'a'*64}, 'owner_files': {'book': 'b'*64}}
+        good = dict(engine_version=ENGINE_VERSION, stage='product', reviewed=True,
+                    product_qualified=True, qualified_sources=current,
+                    gates=dict(body_boundary_pixels=True, source_closure=True, default_path=True))
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)/'qualification.json'
+            path.write_text(json.dumps(good), encoding='ascii')
+            body_admission_binding(path, current)
+            for field, value in (('stage', 'isolated_default_test'), ('reviewed', False),
+                                  ('product_qualified', False), ('qualified_sources', {}),
+                                  ('gates', dict(good['gates'], default_path=False))):
+                with self.subTest(field=field):
+                    path.write_text(json.dumps(dict(good, **{field: value})), encoding='ascii')
+                    with self.assertRaisesRegex(ValueError, 'Independent table body admission'):
+                        body_admission_binding(path, current)
+
     def test_old_owner_counts_cannot_admit_missing_boundary_pixels(self):
         self.assertIn('body_boundary_pixels', REQUIRED_GATES)
         passed, errors = body_binding(None, {}, {}, Path('unused'))

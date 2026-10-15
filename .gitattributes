@@ -269,3 +269,13 @@ docs/evidence/water-final-r19-projection-v1/** -text -diff whitespace=cr-at-eol
 docs/evidence/water-native-side-r20-v1/** -text -diff whitespace=cr-at-eol
 docs/evidence/water-ui-state-r20-v1/** -text -diff whitespace=cr-at-eol
 behavior_pack/modern_projection/projection/static_table_data.py text eol=lf
+# R20 book/body admissions and native capture receipts retain their exact bytes.
+tools/qualify_table_body_r20.py text eol=lf
+docs/evidence/book-motion-r20-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-owner-r20-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-reference-r20-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-frontal-lectern-r20-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-default-owner-r20-v2/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-default-admission-r20-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/table-body-default-admission-r20-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/table-body-product-r20/** -text -diff whitespace=cr-at-eol

@@ -17,6 +17,7 @@ factor control was rejected because it placed the book behind the table top.
 | `pitch75` | 349 | 16.9573219 s | 187.972 ms | 0 | 3 | Pass |
 | `baseline-negative` | 317 | 16.9633573 s | 115.151 ms | 100 | 100 | Reject |
 | `old-gap010` | 299 | 16.9512204 s | 151.5111 ms | 3 | 3 | Diagnostic Alias |
+| `default-body` | 453 | 16.9875996 s | 206.0507 ms | 0 | 5 | Pass |
 
 The original isolated-pixel threshold remains 8; the maximum permitted frame
 gap remains 250 ms. The prior detector required a brown center, which excluded
@@ -46,6 +47,15 @@ complete raw frames, per-frame receipts, and native manifests remain under:
 - `.runtime/book-r20-final-pitch75-v1`
 - `.runtime/book-r20-baseline-v1`
 - `.runtime/book-r20-old-gap010-v1`
+- `.runtime/book-r20-default-body-dense-v1`
+
+The later `default-body` run binds the same render resources and owner to the
+independently admitted table-body metadata (`PRODUCT_QUALIFIED = True`) in the
+disposable cold-start project. It uses final model names; its contact sheet
+was actually inspected. This closes the source-binding difference introduced
+by that metadata flag, while retaining the earlier high-pitch and negative
+controls. The burst still assigns a diagnostic book profile and does not
+replace the separately captured cold default owner and body matrices.
 
 The original reports and analyses retain their absolute source paths and
 SHA256 bindings. Replay the complete raw report with

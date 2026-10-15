@@ -40,8 +40,9 @@ class BookRenderPlanTests(unittest.TestCase):
                 self.assertIsNotNone(production_profile(book_profile.ENGINE_VERSION))
 
     def test_unqualified_companion_does_not_admit_any_production_engine(self):
-        for version in (None,'3.9.0.401155','3.10.0.420447','3.11.0.0'):
-            self.assertIsNone(production_profile(version))
+        with patch.object(book_profile, 'PRODUCT_QUALIFIED', False):
+            for version in (None,'3.9.0.401155','3.10.0.420447','3.11.0.0'):
+                self.assertIsNone(production_profile(version))
         for value in (0,-1,True,1.5):
             with self.assertRaises(ValueError):candidate_profile(value)
 

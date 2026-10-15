@@ -21,6 +21,7 @@ from projection import static_table, static_table_data, book_qualification_data
 
 
 class StaticTableTests(unittest.TestCase):
+    @patch.object(static_table_data, 'PRODUCT_QUALIFIED', False)
     def test_default_gate_preserves_native_identity_layers_and_actor(self):
         self.assertIs(static_table_data.PRODUCT_QUALIFIED, False)
         self.assertIs(static_table.CANDIDATE_ENABLED, False)
@@ -42,6 +43,7 @@ class StaticTableTests(unittest.TestCase):
             self.assertIsNone(table_proxy(('minecraft:enchanting_table', 0)))
 
     @patch.object(static_table_data, 'PRODUCT_QUALIFIED', True)
+    @patch.object(book_qualification_data, 'PRODUCT_QUALIFIED', False)
     def test_independent_body_gate_can_select_the_proxy(self):
         self.assertIs(book_qualification_data.PRODUCT_QUALIFIED, False)
         self.assertEqual((TABLE_PROXY, 0), table_proxy(('minecraft:enchanting_table', 0)))
@@ -132,6 +134,7 @@ class StaticTableTests(unittest.TestCase):
             self.assertNotIn((TABLE_PROXY, 0), palette['common'])
             self.assertTrue(palette['common'][('minecraft:stone', 0)])
 
+    @patch.object(static_table_data, 'PRODUCT_QUALIFIED', False)
     def test_closed_candidate_does_not_change_any_context_routing(self):
         doc = Document((4, 4, 4), {(1, 1, 1): ('minecraft:enchanting_table', 0),
                                   (1, 0, 1): ('minecraft:stone', 0)})
@@ -152,8 +155,18 @@ class StaticTableTests(unittest.TestCase):
         contract = json.loads((ROOT / 'tools/data/enchanting_body_candidate_r17.json').read_bytes())
         self.assertFalse(contract['product_qualified'])
         data_path = 'behavior_pack/modern_projection/projection/static_table_data.py'
-        self.assertEqual(hashlib.sha256((ROOT / data_path).read_bytes()).hexdigest(),
-                         contract['output_sha256'][data_path])
+        current = hashlib.sha256((ROOT / data_path).read_bytes()).hexdigest()
+        if static_table_data.PRODUCT_QUALIFIED:
+            admitted = json.loads((ROOT / 'docs/evidence/table-body-product-r20/qualification.json').read_bytes())
+            self.assertEqual('product', admitted['stage'])
+            self.assertTrue(admitted['product_qualified'])
+            self.assertTrue(admitted['reviewed'])
+            self.assertTrue(all(admitted['gates'].values()))
+            self.assertEqual(current, admitted['qualified_sources']['body_files'][data_path])
+            self.assertEqual(contract['output_sha256'][data_path],
+                             admitted['source_before']['body_files'][data_path])
+        else:
+            self.assertEqual(current, contract['output_sha256'][data_path])
 
 
 if __name__ == '__main__':

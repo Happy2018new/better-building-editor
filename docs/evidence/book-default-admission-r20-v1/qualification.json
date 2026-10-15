@@ -1,0 +1,221 @@
+{
+  "analyzer_sha256": {
+    "analyze_book_body_boundary_r19.py": "29970748529faa8eed26fcf16712acf7a1d0bc65347e5bb31eed1c31394d8979",
+    "analyze_book_motion_r20.py": "f176c86b3f61f4d5852ddfb019b22172478c00b17d6f401237a43b64ea66a3cd",
+    "analyze_book_surface_r17.py": "df63edadb41feb2422f5f0ac9cd3c43fb198e3d1f870b9db596fa1440e23366e",
+    "analyze_lectern_book_r17.py": "d46bf8e90acab58f86e3c163322973d0276c7f8f3d1cbeadacd7deef316df157",
+    "qualify_book_product_r18.py": "9581cf363a51efed996ffea1493340aa9327d34130262b37c57ab88657c84de2"
+  },
+  "body_sha256": {
+    "behavior_pack/modern_projection/projection/bridge.py": "007e4c236c904498d7afd9335fb91d7035a500f7b83ca766f2d66d39d703f6d7",
+    "behavior_pack/modern_projection/projection/entity_render.py": "a2cd09aa502b590429955e2adabd1523e05c619167d8b26f50c0f438a3d86722",
+    "behavior_pack/modern_projection/projection/geometry_palette.py": "e04a6a2d21a24c338bb10960f8b5706bec25b23b43d80f838698932aeb6059d1",
+    "behavior_pack/modern_projection/projection/occupancy_shader.py": "184af1d5fcd5c03b8595b98114c48bfb3c6035f2130d7d37d7fadb1eb5be52e3",
+    "behavior_pack/modern_projection/projection/render_context.py": "e874ac903eacd01bb1a4400e9385fe479a395b6cd0bc5174ce4276d538606fd8",
+    "behavior_pack/modern_projection/projection/static_table.py": "7db6db88876cd6f093fd813724f6c5baa2e82391b69d49b8f3bed31cbc8b6ea0",
+    "behavior_pack/modern_projection/projection/static_table_data.py": "70abfb0a8e26ddf3469e79c309f98e24531849222d98bd5d5e8c80b181a7c538",
+    "behavior_pack/netease_blocks/preview_enchanting_body.json": "526040566c3338d4d9982b6c70b527f2f73db9fd988730c38eb4aa277ee1647d",
+    "resource_pack/models/netease_block/preview_enchanting_body.json": "ac3a9caf01a1adccc63a32689f07e6ebc180e1f9d21e775b37866f8c6642fcf3",
+    "resource_pack/textures/blocks/modern_projection_enchanting_body.png": "6819569bfe34884a41307fad6fc387eef31e2e17e96292255109265c75e49ba3",
+    "tools/data/enchanting_body_candidate_r17.json": "9335c359a17ee009092f52729949d3188a3203385fa2f931cdc9fcda5626857e",
+    "tools/generate_enchanting_body_r17.py": "35f0579f0a80e61cb9be12522d582abf28f506e1d69b07e68ad2bc0037763c85"
+  },
+  "engine_version": "3.10.0.420447",
+  "errors": [],
+  "evidence": {
+    "body_report": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-r20-final-body-v1\\report.json",
+      "sha256": "b338b266fb71bb0eefcd03ea7b80f196cbdfda075c993a4c16af4e5ff1615c4f"
+    },
+    "lectern": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-r20-frontal-lectern-v1\\report.json",
+      "sha256": "9ac4234c89eef6a10b9aae88206e701fdfe2574d8ea66f380b4ba216f027cd78"
+    },
+    "motion_report": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-r20-final-dense-v1\\report.json",
+      "sha256": "e986abd9f5cfae98f0642a579cbbc001a67d95f4d5d19e2b14353849fb6da303"
+    },
+    "owner": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-r20-final-owner-v1\\report.json",
+      "sha256": "518415313999b3695dd63de72d987297f3e26c39f74a267e49f62ee1ae9ed2fd"
+    },
+    "surface": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-r20-final-reference-v1\\report.json",
+      "sha256": "a100756beade87ad5c54fbd07856f72a6e19dacf6feb3a205c9f860c17cc71ff"
+    }
+  },
+  "gates": {
+    "body_boundary_pixels": true,
+    "default_path": false,
+    "dense_cover_motion": true,
+    "lectern_page_surface": true,
+    "owner_matrix": true,
+    "raster_regression": true,
+    "source_closure": true
+  },
+  "implementation_sha256": {
+    "behavior_pack/modern_projection/projection/book_preview.py": "616de3ac3dc0e7aa0c312948752726f4355db55d902cb945b53b543db5825f2a",
+    "behavior_pack/modern_projection/projection/book_profile.py": "14d3cb65fb5f6ba45dfc237cd818019d213a2ba01bbab74ed49e32e43450c830",
+    "behavior_pack/modern_projection/projection/book_projection.py": "22714b4c135021a1d90b53196f151e942c06ccc7f7d0dab453de17d3b2344407",
+    "behavior_pack/modern_projection/projection/book_render_plan.py": "0651752d0eee500b95e9453b3f9c143583c3e1f669fe5436e8fc99782e0ab268",
+    "behavior_pack/modern_projection/projection/diagnostics.py": "4c99d8d6ea48a1768a1206b5f191342f50aa39ddbbf820249031f4e19a542b18",
+    "behavior_pack/modern_projection/projection/liquid_preview.py": "bbb8e7327dd842b42c153b9337c6c56464f5b1ca53b0bb7f8379b79b4e1856b6",
+    "behavior_pack/modern_projection/projection/liquid_projection.py": "2816a12c5c02f3cfe1394752946022891caed287b5a45f5b16623bd202a78b8e",
+    "behavior_pack/modern_projection/projection/liquid_render.py": "e86af5872ee34d74f73bc28de95133f581c5f99b0937423dfd733aeb44264b6e",
+    "behavior_pack/modern_projection/projection/liquid_transport.py": "b259a3f097015a8b841ee0e483c260262277d4866dbaf0cf6c22e84ccd14b65b",
+    "behavior_pack/modern_projection/projection/liquid_viewport.py": "d07472df91d4c4cd93c2d7d84cd37c34c00cdac72ade470d290a6e125b0531cf",
+    "behavior_pack/modern_projection/projection/occupancy.py": "2a451b6d141c734d32752e79cccc1593995cfa5473d17e715e1b8f680b4f598c",
+    "behavior_pack/modern_projection/projection/occupancy_shader.py": "184af1d5fcd5c03b8595b98114c48bfb3c6035f2130d7d37d7fadb1eb5be52e3",
+    "behavior_pack/modern_projection/projection/projection_companions.py": "828026f5d432b6cab1a201a20c609e7310b3498a84477974332db70cba062f1e",
+    "behavior_pack/modern_projection/projection/scene.py": "d05f811958c3a738d23d219debf02ea93ee17e9fef2be4c77ebb433f7fb80692",
+    "behavior_pack/modern_projection/projection/session.py": "76eac3818a3033746854168762cca3e498cb5a954b134b5bd6f82074a0c70287",
+    "behavior_pack/modern_projection/projection/ui.py": "b502a54c25e5ed7cfea7f45db5945994083dd59bc6fa205e26b9ee2c8279d7ef",
+    "behavior_pack/modern_projection/projection/world_projection.py": "fe8dd841c3184473a68e57aa538686172ffbec52e6974f3dc129a46fef273287"
+  },
+  "limits": [
+    "Project hinged book geometry using native artwork; no player-proximity reaction, page text or interaction.",
+    "Lectern page parity is the matched stationary reference view; other directions share the same rigid geometry.",
+    "The independent owner matrix and native close-up resource evidence are separately bound."
+  ],
+  "owned_registries": [
+    {
+      "entries": {
+        "modern_projection:preview_enchanting_body": {
+          "netease_model": "modern_projection:preview_enchanting_body",
+          "sound": "stone"
+        }
+      },
+      "path": "resource_pack/blocks.json",
+      "section": null
+    },
+    {
+      "entries": {
+        "modern_projection_enchanting_body": {
+          "textures": "textures/blocks/modern_projection_enchanting_body"
+        }
+      },
+      "path": "resource_pack/textures/terrain_texture.json",
+      "section": "texture_data"
+    }
+  ],
+  "product_qualified": false,
+  "resource_contract_sha256": "1754f445fd66c4aac605bf7c8d938f0a7fda20f3d9066b6b089bbd0195543322",
+  "resource_snapshot": {
+    "contract_present": true,
+    "contract_sha256": "1754f445fd66c4aac605bf7c8d938f0a7fda20f3d9066b6b089bbd0195543322",
+    "files": {
+      "resource_pack/models/modern_projection/book/enchanting_table_mesh.json": "8ddb4cc9feec47beeb63ad0d5b3e5e107ab22fddd3b591c9bdf6d1683ceff0b6",
+      "resource_pack/models/modern_projection/book/lectern_mesh.json": "81d5063dc3b35abbb2cb4d6f199ae9836ba774497a0235eaee11794097d89478",
+      "resource_pack/models/modern_projection/book/skeleton.json": "20a966711bc01cf74ced1159e371b07e0ec819dbd538c3514b0ffbe54d31beed",
+      "resource_pack/shaders/glsl/modern_projection_book_enchanting_table.vertex": "567a334bf1d2c1fd88fe9fed09e65323cf91c393c18553933d6e26db28cd03ca",
+      "resource_pack/shaders/glsl/modern_projection_book_enchanting_table_world.vertex": "8cc5fda98910c3a59c074d50ecd8fe651b95ea50d2776c60697ff4c23fcde8a3",
+      "resource_pack/shaders/glsl/modern_projection_book_geometry.fragment": "9e056d0664608b0a8fdddb2f07e31ddedb21fc707a9acfb03635497fc9caa44d",
+      "resource_pack/shaders/glsl/modern_projection_book_lectern.vertex": "4c1da29dd3337064dbe5f98046110df85c85eaedd9503106aa381a21c5e41e8c",
+      "resource_pack/shaders/glsl/modern_projection_book_lectern_world.vertex": "071ca39f4ee3d6b1ebfc2505d287efe8d44af183f6202a56207ac52ed1feb3f0",
+      "resource_pack/textures/models/modern_projection/book/native_book.png": "e8d23533b48976b578098db767e2c8161a31fa5d7b22bf576bf531b1bc7f000f"
+    },
+    "materials": {
+      "modern_projection_book_enchanting_table:entity_for_skeleton_alpha": {
+        "+states": [
+          "Blending",
+          "InvertCulling"
+        ],
+        "-states": [
+          "DisableDepthWrite",
+          "DisableCulling"
+        ],
+        "blendDst": "OneMinusSrcAlpha",
+        "blendSrc": "SourceAlpha",
+        "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+        "vertexShader": "shaders/glsl/modern_projection_book_enchanting_table.vertex"
+      },
+      "modern_projection_book_enchanting_table_world:entity_for_skeleton_alpha": {
+        "+states": [
+          "Blending",
+          "InvertCulling"
+        ],
+        "-states": [
+          "DisableDepthWrite",
+          "DisableCulling"
+        ],
+        "blendDst": "OneMinusSrcAlpha",
+        "blendSrc": "SourceAlpha",
+        "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+        "vertexShader": "shaders/glsl/modern_projection_book_enchanting_table_world.vertex"
+      },
+      "modern_projection_book_lectern:entity_for_skeleton_alpha": {
+        "+states": [
+          "Blending",
+          "InvertCulling"
+        ],
+        "-states": [
+          "DisableDepthWrite",
+          "DisableCulling"
+        ],
+        "blendDst": "OneMinusSrcAlpha",
+        "blendSrc": "SourceAlpha",
+        "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+        "vertexShader": "shaders/glsl/modern_projection_book_lectern.vertex"
+      },
+      "modern_projection_book_lectern_world:entity_for_skeleton_alpha": {
+        "+states": [
+          "Blending",
+          "InvertCulling"
+        ],
+        "-states": [
+          "DisableDepthWrite",
+          "DisableCulling"
+        ],
+        "blendDst": "OneMinusSrcAlpha",
+        "blendSrc": "SourceAlpha",
+        "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+        "vertexShader": "shaders/glsl/modern_projection_book_lectern_world.vertex"
+      }
+    },
+    "models": {
+      "modern_projection_book_enchanting_table": {
+        "animation": {},
+        "dy_load": true,
+        "material": "modern_projection_book_enchanting_table",
+        "mesh": "modern_projection/book/enchanting_table_mesh.json",
+        "skeleton": "modern_projection/book/skeleton.json",
+        "texture": {
+          "tex0": "modern_projection/book/native_book"
+        }
+      },
+      "modern_projection_book_enchanting_table_world": {
+        "animation": {},
+        "dy_load": true,
+        "material": "modern_projection_book_enchanting_table_world",
+        "mesh": "modern_projection/book/enchanting_table_mesh.json",
+        "skeleton": "modern_projection/book/skeleton.json",
+        "texture": {
+          "tex0": "modern_projection/book/native_book"
+        }
+      },
+      "modern_projection_book_lectern": {
+        "animation": {},
+        "dy_load": true,
+        "material": "modern_projection_book_lectern",
+        "mesh": "modern_projection/book/lectern_mesh.json",
+        "skeleton": "modern_projection/book/skeleton.json",
+        "texture": {
+          "tex0": "modern_projection/book/native_book"
+        }
+      },
+      "modern_projection_book_lectern_world": {
+        "animation": {},
+        "dy_load": true,
+        "material": "modern_projection_book_lectern_world",
+        "mesh": "modern_projection/book/lectern_mesh.json",
+        "skeleton": "modern_projection/book/skeleton.json",
+        "texture": {
+          "tex0": "modern_projection/book/native_book"
+        }
+      }
+    }
+  },
+  "reviewed": true,
+  "schema_version": 1,
+  "stage": "isolated_default_test"
+}
