@@ -1,0 +1,283 @@
+{
+  "affected_items": [
+    [
+      "minecraft:grass_block",
+      0
+    ]
+  ],
+  "affected_profiles": 1,
+  "affected_resources": 1,
+  "appearance_accepted": false,
+  "base_light_general_acceptance": false,
+  "candidate_bitmap_sha256": "ab130fe030a9686eb0f5817b37a652535747d6ed22abc07c6741ed48a504dd8b",
+  "catalog_sha256": "347ceedd30fb82700d8cb74b9e8bbec9cd0fd010a8f4aa5316a04d996919d95f",
+  "changed_resource_paths": [
+    "resource_pack/textures/models/modern_projection/frame_block_items/fda002ddc43224a7.png"
+  ],
+  "endpoint_checks": {
+    "east": {
+      "alpha_255_tinted_pixels": 45,
+      "alpha_zero_untinted_pixels": 211,
+      "hidden_base_rgb_preserved": true,
+      "old_atlas_wrong_polarity_reproduced": true,
+      "result_opaque": true
+    },
+    "north": {
+      "alpha_255_tinted_pixels": 45,
+      "alpha_zero_untinted_pixels": 211,
+      "hidden_base_rgb_preserved": true,
+      "old_atlas_wrong_polarity_reproduced": true,
+      "result_opaque": true
+    },
+    "south": {
+      "alpha_255_tinted_pixels": 45,
+      "alpha_zero_untinted_pixels": 211,
+      "hidden_base_rgb_preserved": true,
+      "old_atlas_wrong_polarity_reproduced": true,
+      "result_opaque": true
+    },
+    "west": {
+      "alpha_255_tinted_pixels": 45,
+      "alpha_zero_untinted_pixels": 211,
+      "hidden_base_rgb_preserved": true,
+      "old_atlas_wrong_polarity_reproduced": true,
+      "result_opaque": true
+    }
+  },
+  "generator_sha256": "049d2af19eaa16a56b159bc8f2b700dcb68881c56674b767fcfab4e4faadc622",
+  "limits": [
+    "Only installed binary-alpha endpoints are established; intermediate alpha is unverified",
+    "Wiki prose describes alpha-controlled tint, but its formula omits an alpha multiplier on the tint term",
+    "No candidate screenshot exists; the old native pixels failed and are not corrected",
+    "One successful top ROI does not establish a universal 0.93 lighting factor"
+  ],
+  "native_pixels_accepted": false,
+  "native_source_sha256": {
+    "vanilla/blocks.json": "cb3aad2d0d012bfb63a462ec9a5d8af54128c8afc26d74ac6f4ae074c9d50faa",
+    "vanilla/textures/blocks/dirt.png": "34bf03b346c0e86214a32117e3f892529da6b76ca8096347cbb6be3da313deab",
+    "vanilla/textures/blocks/grass_carried.png": "8d109d7f46dc9fe22d32c4375da4707aa7a80c14336a0f158e7e68fe519ad8fc",
+    "vanilla/textures/blocks/grass_side.tga": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+    "vanilla/textures/terrain_texture.json": "9ce3e389999a7aff19968a60fd21dad1811cf63ec3edd6afac0af0df649e212c"
+  },
+  "original_bitmap_sha256": "5cf02dbdd0f3478095ef5f86306596740862d63e079bc47335b0405985248647",
+  "production_qualified": false,
+  "resource": {
+    "bitmap_sha256": "5cf02dbdd0f3478095ef5f86306596740862d63e079bc47335b0405985248647",
+    "definition": {
+      "pack": "vanilla",
+      "value": {
+        "carried_textures": {
+          "down": "grass_carried_bottom",
+          "side": "grass_carried",
+          "up": "grass_carried_top"
+        },
+        "isotropic": {
+          "down": true,
+          "up": true
+        },
+        "sound": "grass",
+        "textures": {
+          "down": "grass_bottom",
+          "side": "grass_side",
+          "up": "grass_top"
+        }
+      }
+    },
+    "definition_key": "grass",
+    "faces": {
+      "down": {
+        "atlas_key": "grass_carried_bottom",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/dirt"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/dirt.png",
+        "sha256": "34bf03b346c0e86214a32117e3f892529da6b76ca8096347cbb6be3da313deab",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "east": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "north": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "south": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "up": {
+        "atlas_key": "grass_carried_top",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/grass_carried"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/grass_carried.png",
+        "sha256": "8d109d7f46dc9fe22d32c4375da4707aa7a80c14336a0f158e7e68fe519ad8fc",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "west": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      }
+    },
+    "material": "opaque",
+    "rectangles": {
+      "down": [
+        0.6851851851851852,
+        0.5277777777777778,
+        0.9814814814814815,
+        0.9722222222222222
+      ],
+      "east": [
+        0.018518518518518517,
+        0.5277777777777778,
+        0.3148148148148148,
+        0.9722222222222222
+      ],
+      "north": [
+        0.018518518518518517,
+        0.027777777777777776,
+        0.3148148148148148,
+        0.4722222222222222
+      ],
+      "south": [
+        0.35185185185185186,
+        0.027777777777777776,
+        0.6481481481481481,
+        0.4722222222222222
+      ],
+      "up": [
+        0.35185185185185186,
+        0.5277777777777778,
+        0.6481481481481481,
+        0.9722222222222222
+      ],
+      "west": [
+        0.6851851851851852,
+        0.027777777777777776,
+        0.9814814814814815,
+        0.4722222222222222
+      ]
+    },
+    "texture_selection": "carried_textures"
+  },
+  "resource_key": "fda002ddc43224a7",
+  "schema": 1,
+  "semantics": "overlay alpha=0 preserves hidden RGB; alpha=255 multiplies RGB by overlay_color; output alpha=255",
+  "source_sha256": "7a9a00fd65e6f9ca88d143e71311371a90b63e65c1855bcc790e47247f62481f",
+  "source_unchanged": true,
+  "unmodified": [
+    "top and bottom tiles and padding",
+    "UV rectangles",
+    "all meshes",
+    "all shaders including empirical 0.93",
+    "glint",
+    "production catalog and profile"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "appearance_accepted": false,
+  "base_light": 0.93,
+  "catalog_sha256": "347ceedd30fb82700d8cb74b9e8bbec9cd0fd010a8f4aa5316a04d996919d95f",
+  "files": {
+    "behavior_pack/modern_projection/projection/frame_block_item_data.py": "a736c6d9066261a6168720575d893310a25caf22aa6528ec8737b316723f226a",
+    "resource_pack/models/modern_projection/frame_block_items/0d8d479f3958fea7_mesh.json": "1e9a773e4e384bcfe0c5d0df37a02968cf4a6fef6a8ad9df41996174b878bd95",
+    "resource_pack/models/modern_projection/frame_block_items/1cc58135f7b22c54_mesh.json": "7c9bb5599b4ad1d0d8e557df9f7bf8a498aa232b1dd0e07b3d44b2eb40dd9fa0",
+    "resource_pack/models/modern_projection/frame_block_items/38e2e1ac2225803d_mesh.json": "827a2e2a0e4bddf19f3657ad223835a61cced0a171f4d462e0275b01fc441f7f",
+    "resource_pack/models/modern_projection/frame_block_items/d42c21bc99f284ca_mesh.json": "a26ad887d0211ed9f7ce706868aa011adadc9e02edf9705442b9a67496077d03",
+    "resource_pack/models/modern_projection/frame_block_items/fda002ddc43224a7_mesh.json": "81edf4323812533339d64733a0111306b59f579f7b2adce62106cbee5cc9e3d0",
+    "resource_pack/shaders/glsl/modern_projection_frame_block.vertex": "b4f7c615263be665fa8918e34f1e70ead226b76cd281fdecb99324c83407d94e",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_cutout.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_opaque.fragment": "eb4d34eabbb0aa184adc56f6241864b1a05c0a0da64eed81c553094ebee8c259",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_translucent.fragment": "2c7649c3599e4ed20d5d41e15fc5bb67aae99cf590b604b438d92a507b591149",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_world.vertex": "84d79511fba46b64614bfb99ec14820dd7a199f4ca09eff0fb91c90656b2d43d"
+  },
+  "holdouts": "Three new items, new camera angles and changed world time; no pixels captured",
+  "items": [
+    [
+      "minecraft:stone",
+      0
+    ],
+    [
+      "minecraft:quartz_block",
+      0
+    ],
+    [
+      "minecraft:grass_block",
+      0
+    ],
+    [
+      "minecraft:oak_log",
+      0
+    ],
+    [
+      "minecraft:oak_planks",
+      0
+    ]
+  ],
+  "light_candidate_manifest_sha256": "546a62fa45912556b23085a341ee2bcf5666736c47bfa34071cd04a7a073d9c9",
+  "mesh_sha256": {
+    "resource_pack/models/modern_projection/frame_block_items/0d8d479f3958fea7_mesh.json": "1e9a773e4e384bcfe0c5d0df37a02968cf4a6fef6a8ad9df41996174b878bd95",
+    "resource_pack/models/modern_projection/frame_block_items/1cc58135f7b22c54_mesh.json": "7c9bb5599b4ad1d0d8e557df9f7bf8a498aa232b1dd0e07b3d44b2eb40dd9fa0",
+    "resource_pack/models/modern_projection/frame_block_items/38e2e1ac2225803d_mesh.json": "827a2e2a0e4bddf19f3657ad223835a61cced0a171f4d462e0275b01fc441f7f",
+    "resource_pack/models/modern_projection/frame_block_items/d42c21bc99f284ca_mesh.json": "a26ad887d0211ed9f7ce706868aa011adadc9e02edf9705442b9a67496077d03",
+    "resource_pack/models/modern_projection/frame_block_items/fda002ddc43224a7_mesh.json": "81edf4323812533339d64733a0111306b59f579f7b2adce62106cbee5cc9e3d0"
+  },
+  "native_cause_established": false,
+  "pose": {
+    "accepted": false,
+    "center_offset_blocks": [
+      0.0,
+      0.0,
+      0.4375
+    ],
+    "scale_blocks": 0.25,
+    "schema": 1,
+    "shape": "full_cube",
+    "status": "single_native_front_fit_candidate_requires_independent_depth_holdouts"
+  },
+  "production_qualified": false,
+  "resource_sha256": "bfcdcb294332ec3e446b1b3100ff06b00a775c465c5de0a980de20c20b933048",
+  "schema": 1,
+  "selected_profile_source_sha256": "8ea5851e21bb86cb4449ea740ddee282b18e1977ec152d0d92b2249b5851a15a",
+  "training": "Original eight stone ROIs only; none is a holdout"
+}

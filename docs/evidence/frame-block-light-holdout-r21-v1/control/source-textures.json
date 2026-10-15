@@ -1,0 +1,857 @@
+{
+  "minecraft:grass_block": {
+    "atlas": "resource_pack/textures/models/modern_projection/frame_block_items/fda002ddc43224a7.png",
+    "atlas_sha256": "5cf02dbdd0f3478095ef5f86306596740862d63e079bc47335b0405985248647",
+    "faces": {
+      "down": {
+        "atlas_key": "grass_carried_bottom",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/dirt"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/dirt.png",
+        "sha256": "34bf03b346c0e86214a32117e3f892529da6b76ca8096347cbb6be3da313deab",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "east": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "north": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "south": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "up": {
+        "atlas_key": "grass_carried_top",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/grass_carried"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/grass_carried.png",
+        "sha256": "8d109d7f46dc9fe22d32c4375da4707aa7a80c14336a0f158e7e68fe519ad8fc",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "west": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      }
+    },
+    "known_degradations": [
+      "fixed_default_item_axes"
+    ],
+    "rectangles": {
+      "down": [
+        0.6851851851851852,
+        0.5277777777777778,
+        0.9814814814814815,
+        0.9722222222222222
+      ],
+      "east": [
+        0.018518518518518517,
+        0.5277777777777778,
+        0.3148148148148148,
+        0.9722222222222222
+      ],
+      "north": [
+        0.018518518518518517,
+        0.027777777777777776,
+        0.3148148148148148,
+        0.4722222222222222
+      ],
+      "south": [
+        0.35185185185185186,
+        0.027777777777777776,
+        0.6481481481481481,
+        0.4722222222222222
+      ],
+      "up": [
+        0.35185185185185186,
+        0.5277777777777778,
+        0.6481481481481481,
+        0.9722222222222222
+      ],
+      "west": [
+        0.6851851851851852,
+        0.027777777777777776,
+        0.9814814814814815,
+        0.4722222222222222
+      ]
+    }
+  },
+  "minecraft:oak_log": {
+    "atlas": "resource_pack/textures/models/modern_projection/frame_block_items/d42c21bc99f284ca.png",
+    "atlas_sha256": "d57aec959f7bd8a6c0f5bd7bc8779683cba9842aae62fa179644cb10a0816f5a",
+    "faces": {
+      "down": {
+        "atlas_key": "oak_log_top",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/log_oak_top"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/log_oak_top.png",
+        "sha256": "b955d6f267fc9a5b34aaa6ebae0db54b0bad45b4d46c2dbc80b904e79e3347d4",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "east": {
+        "atlas_key": "oak_log_side",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/log_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/log_oak.png",
+        "sha256": "7abc3068a65c71784b14562ba254e3420c6d6301c8eb33d29fd25084f7e95c86",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "north": {
+        "atlas_key": "oak_log_side",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/log_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/log_oak.png",
+        "sha256": "7abc3068a65c71784b14562ba254e3420c6d6301c8eb33d29fd25084f7e95c86",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "south": {
+        "atlas_key": "oak_log_side",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/log_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/log_oak.png",
+        "sha256": "7abc3068a65c71784b14562ba254e3420c6d6301c8eb33d29fd25084f7e95c86",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "up": {
+        "atlas_key": "oak_log_top",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/log_oak_top"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/log_oak_top.png",
+        "sha256": "b955d6f267fc9a5b34aaa6ebae0db54b0bad45b4d46c2dbc80b904e79e3347d4",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "west": {
+        "atlas_key": "oak_log_side",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/log_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/log_oak.png",
+        "sha256": "7abc3068a65c71784b14562ba254e3420c6d6301c8eb33d29fd25084f7e95c86",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      }
+    },
+    "known_degradations": [
+      "fixed_default_item_axes"
+    ],
+    "rectangles": {
+      "down": [
+        0.6851851851851852,
+        0.5277777777777778,
+        0.9814814814814815,
+        0.9722222222222222
+      ],
+      "east": [
+        0.018518518518518517,
+        0.5277777777777778,
+        0.3148148148148148,
+        0.9722222222222222
+      ],
+      "north": [
+        0.018518518518518517,
+        0.027777777777777776,
+        0.3148148148148148,
+        0.4722222222222222
+      ],
+      "south": [
+        0.35185185185185186,
+        0.027777777777777776,
+        0.6481481481481481,
+        0.4722222222222222
+      ],
+      "up": [
+        0.35185185185185186,
+        0.5277777777777778,
+        0.6481481481481481,
+        0.9722222222222222
+      ],
+      "west": [
+        0.6851851851851852,
+        0.027777777777777776,
+        0.9814814814814815,
+        0.4722222222222222
+      ]
+    }
+  },
+  "minecraft:oak_planks": {
+    "atlas": "resource_pack/textures/models/modern_projection/frame_block_items/38e2e1ac2225803d.png",
+    "atlas_sha256": "f6bef15d4d65e2689d2200d2a4459a7bd3b19bd64f6e464579be26566ec47973",
+    "faces": {
+      "down": {
+        "atlas_key": "oak_planks",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/planks_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/planks_oak.png",
+        "sha256": "6a3494fc450899887a54a558f23868b9136a8da92c4b818756a3add5fb6fc9f3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "east": {
+        "atlas_key": "oak_planks",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/planks_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/planks_oak.png",
+        "sha256": "6a3494fc450899887a54a558f23868b9136a8da92c4b818756a3add5fb6fc9f3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "north": {
+        "atlas_key": "oak_planks",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/planks_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/planks_oak.png",
+        "sha256": "6a3494fc450899887a54a558f23868b9136a8da92c4b818756a3add5fb6fc9f3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "south": {
+        "atlas_key": "oak_planks",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/planks_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/planks_oak.png",
+        "sha256": "6a3494fc450899887a54a558f23868b9136a8da92c4b818756a3add5fb6fc9f3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "up": {
+        "atlas_key": "oak_planks",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/planks_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/planks_oak.png",
+        "sha256": "6a3494fc450899887a54a558f23868b9136a8da92c4b818756a3add5fb6fc9f3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "west": {
+        "atlas_key": "oak_planks",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/planks_oak"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/planks_oak.png",
+        "sha256": "6a3494fc450899887a54a558f23868b9136a8da92c4b818756a3add5fb6fc9f3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      }
+    },
+    "known_degradations": [
+      "fixed_default_item_axes"
+    ],
+    "rectangles": {
+      "down": [
+        0.6851851851851852,
+        0.5277777777777778,
+        0.9814814814814815,
+        0.9722222222222222
+      ],
+      "east": [
+        0.018518518518518517,
+        0.5277777777777778,
+        0.3148148148148148,
+        0.9722222222222222
+      ],
+      "north": [
+        0.018518518518518517,
+        0.027777777777777776,
+        0.3148148148148148,
+        0.4722222222222222
+      ],
+      "south": [
+        0.35185185185185186,
+        0.027777777777777776,
+        0.6481481481481481,
+        0.4722222222222222
+      ],
+      "up": [
+        0.35185185185185186,
+        0.5277777777777778,
+        0.6481481481481481,
+        0.9722222222222222
+      ],
+      "west": [
+        0.6851851851851852,
+        0.027777777777777776,
+        0.9814814814814815,
+        0.4722222222222222
+      ]
+    }
+  },
+  "minecraft:quartz_block": {
+    "atlas": "resource_pack/textures/models/modern_projection/frame_block_items/0d8d479f3958fea7.png",
+    "atlas_sha256": "8c7c61cc8b3b8c9a503276361552a661bb18fb0e0e6d4a2261ef11d4297c45e5",
+    "faces": {
+      "down": {
+        "atlas_key": "flattened_quartz_block_top",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/quartz_block_top"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/quartz_block_top.png",
+        "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "east": {
+        "atlas_key": "flattened_quartz_block_side",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/quartz_block_side"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/quartz_block_side.png",
+        "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "north": {
+        "atlas_key": "flattened_quartz_block_side",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/quartz_block_side"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/quartz_block_side.png",
+        "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "south": {
+        "atlas_key": "flattened_quartz_block_side",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/quartz_block_side"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/quartz_block_side.png",
+        "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "up": {
+        "atlas_key": "flattened_quartz_block_top",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/quartz_block_top"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/quartz_block_top.png",
+        "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "west": {
+        "atlas_key": "flattened_quartz_block_side",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/quartz_block_side"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/quartz_block_side.png",
+        "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      }
+    },
+    "known_degradations": [
+      "fixed_default_item_axes"
+    ],
+    "rectangles": {
+      "down": [
+        0.6851851851851852,
+        0.5277777777777778,
+        0.9814814814814815,
+        0.9722222222222222
+      ],
+      "east": [
+        0.018518518518518517,
+        0.5277777777777778,
+        0.3148148148148148,
+        0.9722222222222222
+      ],
+      "north": [
+        0.018518518518518517,
+        0.027777777777777776,
+        0.3148148148148148,
+        0.4722222222222222
+      ],
+      "south": [
+        0.35185185185185186,
+        0.027777777777777776,
+        0.6481481481481481,
+        0.4722222222222222
+      ],
+      "up": [
+        0.35185185185185186,
+        0.5277777777777778,
+        0.6481481481481481,
+        0.9722222222222222
+      ],
+      "west": [
+        0.6851851851851852,
+        0.027777777777777776,
+        0.9814814814814815,
+        0.4722222222222222
+      ]
+    }
+  },
+  "minecraft:stone": {
+    "atlas": "resource_pack/textures/models/modern_projection/frame_block_items/1cc58135f7b22c54.png",
+    "atlas_sha256": "7bee6b6b35244747d9911074910d4a4e9ad4e60cb00c8a1826b79db39e72575e",
+    "faces": {
+      "down": {
+        "atlas_key": "infested_stone",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/stone"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/stone.png",
+        "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "east": {
+        "atlas_key": "infested_stone",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/stone"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/stone.png",
+        "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "north": {
+        "atlas_key": "infested_stone",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/stone"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/stone.png",
+        "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "south": {
+        "atlas_key": "infested_stone",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/stone"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/stone.png",
+        "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "up": {
+        "atlas_key": "infested_stone",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/stone"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/stone.png",
+        "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "west": {
+        "atlas_key": "infested_stone",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/stone"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/stone.png",
+        "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      }
+    },
+    "known_degradations": [
+      "fixed_default_item_axes"
+    ],
+    "rectangles": {
+      "down": [
+        0.6851851851851852,
+        0.5277777777777778,
+        0.9814814814814815,
+        0.9722222222222222
+      ],
+      "east": [
+        0.018518518518518517,
+        0.5277777777777778,
+        0.3148148148148148,
+        0.9722222222222222
+      ],
+      "north": [
+        0.018518518518518517,
+        0.027777777777777776,
+        0.3148148148148148,
+        0.4722222222222222
+      ],
+      "south": [
+        0.35185185185185186,
+        0.027777777777777776,
+        0.6481481481481481,
+        0.4722222222222222
+      ],
+      "up": [
+        0.35185185185185186,
+        0.5277777777777778,
+        0.6481481481481481,
+        0.9722222222222222
+      ],
+      "west": [
+        0.6851851851851852,
+        0.027777777777777776,
+        0.9814814814814815,
+        0.4722222222222222
+      ]
+    }
+  }
+}
