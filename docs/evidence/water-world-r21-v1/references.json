@@ -1,0 +1,24 @@
+{
+  "launch_inputs": {
+    "path": "../water-ui-state-r20-v1/launch-inputs.json",
+    "sha256": "55aee672562ccc964d54ed287dce67f6c43ca04b363de72592731cb9ac1259f5"
+  },
+  "prior_manifest": {
+    "path": "../water-ui-state-r20-v1/manifest.json",
+    "sha256": "2de33a4cdedcc133715f027c3263f0271e9ea58a13bbec84ef9d116f5632807d"
+  },
+  "source_archives_in_precedence_order": [
+    {
+      "path": "../water-final-r19-world-v1/launch-inputs.zip",
+      "sha256": "6dca345c19ecfec62e42444fadc7b2f01882d633672f744bf8f87cc0b1765e4e"
+    },
+    {
+      "path": "../water-native-side-r20-v1/launch-input-delta.zip",
+      "sha256": "7cfa041ed3e7527e6113662c9c3491bc358a7c5745d93d904e320ecc6b3cb85a"
+    },
+    {
+      "path": "../water-ui-state-r20-v1/resource-delta.zip",
+      "sha256": "12951def77523b58fa179b2fe872dac2dbd4904a8b7a4089839ab3115b585753"
+    }
+  ]
+}

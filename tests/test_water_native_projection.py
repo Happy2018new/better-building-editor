@@ -14,6 +14,7 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import water_native_projection as native
 from analyze_water_acceptance_r16 import side_checks
+from camera_projection import project_points
 
 
 CAMERA = {'position': [10., 20., 30.], 'rotation': [20., 35., 0.],
@@ -34,7 +35,62 @@ def readings(point_sets, origin=(3., 4., 5.)):
     return {'before': copy.deepcopy(reading), 'after': copy.deepcopy(reading)}
 
 
+def stone_calibration():
+    calibration = {'views': [], 'native_projection': {'rows': {}}}
+    for name, eye in (('front', [1.5, 1.5, 7.5]), ('right', [7.5, 1.5, 1.5]),
+                      ('tilted', [1.5, -1.5, 7.5])):
+        camera = {'position': eye, 'target': [1.5, 1.5, 1.5],
+                  'rotation': [0., 0., 0.], 'screen': [50., 40.], 'fov': 60.}
+        points = [(x, y, z) for x in (1., 2.) for y in (1., 2.) for z in (1., 2.)]
+        projected = project_points(points, eye, camera['target'], (200, 160), 70.)
+        for point in projected:
+            point['screenX'] += .5
+            point['screenY'] += .25
+        calibration['views'].append({'view': name, 'camera': camera,
+            'pose': {'target': camera['target']}, 'shown': {'width': 200, 'height': 160}})
+        reading = {'world_points': {'cube': points}, 'projection': {'cube': projected}}
+        calibration['native_projection']['rows'][name + '_shown'] = {'before': reading}
+    return calibration
+
+
 class NativeWaterProjectionTests(unittest.TestCase):
+    def test_stone_camera_fit_predicts_an_unseen_world_point_without_water_inputs(self):
+        calibration = stone_calibration()
+        with patch.object(native, 'validate_calibration', return_value={'stone': True}) as validate:
+            model = native.stone_camera_model(calibration, BINDING, 'source')
+        validate.assert_called_once_with(calibration, BINDING, 'source')
+        self.assertAlmostEqual(70., model['vertical_fov'], places=10)
+        np.testing.assert_allclose(model['center_physical_pixels'], [100.5, 80.25], rtol=0., atol=1e-10)
+        self.assertLess(model['maximum_residual_pixels'], 1e-10)
+        self.assertTrue(all(value < 1e-10 for value in model['held_out_maximum_pixels']))
+        camera = calibration['views'][2]['camera']
+        points = [(1.2, 1.3, 1.8), (1.9, 1.6, 1.1)]
+        projected = project_points(points, camera['position'], camera['target'], (200, 160), 70.)
+        expected = [(point['screenX'] + .5, point['screenY'] + .25) for point in projected]
+        np.testing.assert_allclose(native.stone_project(points, camera, (200, 160), model), expected, rtol=0., atol=1e-10)
+
+    def test_stone_model_rejects_non_perspective_native_coordinates_and_viewport_drift(self):
+        calibration = stone_calibration()
+        with patch.object(native, 'validate_calibration', return_value={}):
+            model = native.stone_camera_model(calibration, BINDING, 'source')
+            changed = copy.deepcopy(calibration)
+            changed['native_projection']['rows']['tilted_shown']['before']['projection']['cube'][0]['screenX'] += 1.
+            with self.assertRaisesRegex(ValueError, 'disagrees'):
+                native.stone_camera_model(changed, BINDING, 'source')
+            changed = copy.deepcopy(calibration)
+            changed['views'][1]['shown']['width'] = 201
+            with self.assertRaisesRegex(ValueError, 'one physical and engine viewport'):
+                native.stone_camera_model(changed, BINDING, 'source')
+            changed = copy.deepcopy(calibration)
+            changed['views'][0]['pose']['target'][0] = float('nan')
+            with self.assertRaisesRegex(ValueError, 'finite camera coordinates'):
+                native.stone_camera_model(changed, BINDING, 'source')
+        camera = calibration['views'][0]['camera']
+        for size, changed in (((400, 320), camera), ((200, 160), dict(camera, screen=[200., 160.])),
+                              ((200, 160), dict(camera, fov=61.))):
+            with self.subTest(size=size, camera=changed), self.assertRaisesRegex(ValueError, 'another physical or engine viewport'):
+                native.stone_project([(1., 1., 1.)], changed, size, model)
+
     def test_final_native_rejection_replaces_previously_passing_artifact(self):
         from verify_camera_projection import finalize_native_calibration
         evidence = {'passed': True, 'completed': True, 'restored': True,

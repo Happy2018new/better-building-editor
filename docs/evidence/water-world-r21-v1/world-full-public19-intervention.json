@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "diagnostic_only": true,
+  "production_qualified": false,
+  "report": "world-full-public19.json",
+  "game_pid": 53572,
+  "game_identity": "134365482282069586",
+  "host_pid": 13572,
+  "capture_child_pid": 50096,
+  "paused_at": 1792079162.2678943,
+  "resumed_at": 1792079211.2978315,
+  "host_paused_seconds": 49.02993726730347,
+  "game_paused": false,
+  "window_actions": [],
+  "reason": "An attempted single-frame host pause did not allow the capture child to exit. The host was resumed and later capture coordination uses batch boundaries only.",
+  "performance_without_intervention": false,
+  "image_admission": "Evaluate each original capture receipt, timestamp, camera binding, and content independently. No assumption that host suspension invalidates or validates a frame."
+}

@@ -78,13 +78,18 @@ def project(points, shape, row, source, size):
     camera = row['camera']
     origin = row['ready']['origin']
     points = [tuple(point[i] + origin[i] for i in range(3)) for point in points]
+    if source.get('_native_world_geometry') is not None:
+        from water_native_projection import stone_project
+        return stone_project(points, camera, size, source['_native_world_geometry'])
     projected = project_points(points, camera['position'], camera['target'], size,
                                source['camera_calibration']['vertical_fov'])
     return [(point['screenX'], point['screenY']) for point in projected]
 
 
 def expected_mask(row, source, size):
-    if row['case'].startswith('neighbor_'):
+    if (row['case'].startswith('neighbor_') or
+            (source.get('_native_world_geometry') is not None and row['route'] != 'editor'
+             and row['case'] == 'falling')):
         return unoccluded_neighbor_mask(row, source, size)
     image = Image.new('L', size)
     draw = ImageDraw.Draw(image)
@@ -226,9 +231,29 @@ def fixed_alpha_regions(images, regions):
     return {'regions': result, 'passed': bool(result) and all(row['passed'] for row in result.values())}
 
 
-def analyze(path):
+def analyze(path, native_world_geometry=False):
     source = json.loads(path.read_bytes())
+    source.pop('_native_world_geometry', None)
     failures = capture_failures(source['captures'], source['session_binding'])
+    oracle = None
+    if native_world_geometry:
+        try:
+            from water_native_projection import stone_camera_model
+            import water_native_projection
+            if not any(route in ('full', 'missing') for route in source.get('routes', ())):
+                raise ValueError('Native world geometry requires a world route')
+            reference = source['camera_calibration']
+            calibration_path = Path(reference['path'])
+            if hashlib.sha256(calibration_path.read_bytes()).hexdigest() != reference['sha256']:
+                raise ValueError('Native world geometry calibration bytes changed')
+            model = stone_camera_model(json.loads(calibration_path.read_bytes()),
+                source['session_binding'], source['source_contract_sha256'])
+            source['_native_world_geometry'] = model
+            oracle = {'kind': 'native_stone_camera_with_opaque_support_depth',
+                'calibration_sha256': reference['sha256'], 'model': model,
+                'helper_sha256': hashlib.sha256(Path(water_native_projection.__file__).read_bytes()).hexdigest()}
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            failures.append({'native_world_geometry': str(exc)})
     inputs = source.get('source_file_sha256_before')
     if (not isinstance(inputs, dict) or not inputs or source.get('source_unchanged') is not True
             or inputs != source.get('source_file_sha256_after') or inputs != source.get('launch_source_sha256')
@@ -304,6 +329,8 @@ def analyze(path):
               'product_style_accepted': False, 'evidence_valid': evidence_valid,
               'observed_product_gates': {'geometry': False, 'transparency': False, 'animation': False},
               'scope': 'Declared Java-style geometry and independent body/rear contribution; no native RGB comparison'}
+    if native_world_geometry:
+        output['geometry_oracle'] = oracle
     if not evidence_valid:
         return output
     images = {label: rgb(row['path']) for label, row in source['captures'].items()}
@@ -374,10 +401,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source', type=Path)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--native-world-geometry', action='store_true',
+                        help='Use independently calibrated native stone coordinates and opaque falling supports')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh analysis')
-    result = analyze(args.source)
+    result = analyze(args.source, native_world_geometry=args.native_world_geometry)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + '\n', encoding='ascii')
     print(json.dumps(result['observed_product_gates']))
 

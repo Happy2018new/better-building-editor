@@ -14,11 +14,38 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from analyze_product_water import analyze, contribution, fixed_alpha_regions, product_geometry
+import analyze_product_water as product_analysis
 from water_capture_contract import (camera_matches, calibrated_viewport_matches, scene_capture_state,
                                     stable_scene_predicate)
 
 
 class ProductWaterAnalysisTests(unittest.TestCase):
+    def test_native_world_mode_rejects_changed_calibration_without_analytic_fallback(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = self.evidence(directory)
+            calibration = Path(directory) / 'calibration.json'
+            calibration.write_text('{}', encoding='ascii')
+            source.update(routes=['full'], camera_calibration={'path': str(calibration), 'sha256': '0' * 64})
+            path = Path(directory) / 'source.json'
+            path.write_text(json.dumps(source), encoding='ascii')
+            result = analyze(path, native_world_geometry=True)
+            self.assert_rejected(result)
+            self.assertIsNone(result['geometry_oracle'])
+            self.assertEqual({'native_world_geometry': 'Native world geometry calibration bytes changed'},
+                             result['capture_failures'][0])
+
+    def test_native_world_mode_applies_opaque_falling_depth_only_to_world_route(self):
+        mask = np.ones((32, 32), dtype=bool)
+        row = {'route': 'full', 'case': 'falling', 'ready': {'shapes': []}}
+        with patch.object(product_analysis, 'unoccluded_neighbor_mask', return_value=mask) as depth:
+            self.assertFalse(product_analysis.expected_mask(row, {}, (32, 32)).any())
+            depth.assert_not_called()
+            self.assertIs(mask, product_analysis.expected_mask(row, {'_native_world_geometry': {}}, (32, 32)))
+            depth.assert_called_once()
+            self.assertFalse(product_analysis.expected_mask(dict(row, route='editor'),
+                             {'_native_world_geometry': {}}, (32, 32)).any())
+            depth.assert_called_once()
+
     def evidence(self, directory):
         path = Path(directory) / 'frame.png'
         image = Image.new('RGB', (32, 32), (30, 40, 50))

@@ -1,0 +1,239 @@
+{
+  "schema": 1,
+  "diagnostic_only": true,
+  "production_qualified": false,
+  "host_sha256": "25febe789e0e464c5db62e880fd17353205b210d3de0824c2974cb02d0df3a08",
+  "source_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\water-r20-state-v7\\calibration.json",
+  "source_sha256": "25b836ab5ad6da6a09104ce3a28e0eb0da370ebb05218544d796c7dbff758363",
+  "session_binding": {
+    "id": "583fe77f3ee2484d84ec2672b3bab670",
+    "owner": "water-r20-v7",
+    "game_pid": 53572,
+    "game_identity": "134365482282069586",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\583fe77f3ee2484d84ec2672b3bab670\\session.json"
+  },
+  "source_contract_sha256": "cb2b32de68b69f435d69b59cf296d8492d88984ddb96e10f020d7fdbd0aef806",
+  "stone_calibration_validation": {
+    "front": {
+      "native_api_mask_iou": 0.9745201989068344
+    },
+    "right": {
+      "native_api_mask_iou": 0.9745201989068344
+    },
+    "tilted": {
+      "native_api_mask_iou": 0.9692268348819367
+    }
+  },
+  "fit_input": "24 native stone cube corners; no water pixels or polygons",
+  "physical_size": [
+    1994,
+    1105
+  ],
+  "reported_fov": 60.0,
+  "silhouette_fov": 66.6,
+  "shared": {
+    "fit_views": [
+      "front",
+      "right",
+      "tilted"
+    ],
+    "scale_relative_fov90": 1.5426519348408148,
+    "vertical_fov": 65.9053871768296,
+    "center_physical_pixels": [
+      997.4998041788738,
+      553.4999933649261
+    ],
+    "evaluation": [
+      {
+        "view": "front",
+        "max_absolute_pixels": 8.354775673069526e-05,
+        "rms_pixels": 2.985343596330025e-05
+      },
+      {
+        "view": "right",
+        "max_absolute_pixels": 5.7873287005349994e-05,
+        "rms_pixels": 2.5381079710098622e-05
+      },
+      {
+        "view": "tilted",
+        "max_absolute_pixels": 7.179252816058579e-05,
+        "rms_pixels": 3.366548688367974e-05
+      }
+    ]
+  },
+  "individual": [
+    {
+      "fit_views": [
+        "front"
+      ],
+      "scale_relative_fov90": 1.5426521886241364,
+      "vertical_fov": 65.90537857228546,
+      "center_physical_pixels": [
+        997.4998016357422,
+        553.5000152587891
+      ],
+      "evaluation": [
+        {
+          "view": "front",
+          "max_absolute_pixels": 5.016984607664199e-05,
+          "rms_pixels": 2.2559157795755804e-05
+        },
+        {
+          "view": "right",
+          "max_absolute_pixels": 7.316326275486063e-05,
+          "rms_pixels": 3.152531729599e-05
+        },
+        {
+          "view": "tilted",
+          "max_absolute_pixels": 8.871229135820613e-05,
+          "rms_pixels": 4.779209209123245e-05
+        }
+      ]
+    },
+    {
+      "fit_views": [
+        "right"
+      ],
+      "scale_relative_fov90": 1.5426518617827316,
+      "vertical_fov": 65.90538965387022,
+      "center_physical_pixels": [
+        997.4998168945314,
+        553.4999999999999
+      ],
+      "evaluation": [
+        {
+          "view": "front",
+          "max_absolute_pixels": 8.058219123086019e-05,
+          "rms_pixels": 3.1192485648892455e-05
+        },
+        {
+          "view": "right",
+          "max_absolute_pixels": 4.148812126913981e-05,
+          "rms_pixels": 2.3017169068047424e-05
+        },
+        {
+          "view": "tilted",
+          "max_absolute_pixels": 8.159663843798626e-05,
+          "rms_pixels": 3.881825124601771e-05
+        }
+      ]
+    },
+    {
+      "fit_views": [
+        "tilted"
+      ],
+      "scale_relative_fov90": 1.5426517068619234,
+      "vertical_fov": 65.90539490647414,
+      "center_physical_pixels": [
+        997.4997940063474,
+        553.4999648378763
+      ],
+      "evaluation": [
+        {
+          "view": "front",
+          "max_absolute_pixels": 0.00012352556450423435,
+          "rms_pixels": 4.807833471160247e-05
+        },
+        {
+          "view": "right",
+          "max_absolute_pixels": 6.249040825423435e-05,
+          "rms_pixels": 3.823429557560627e-05
+        },
+        {
+          "view": "tilted",
+          "max_absolute_pixels": 5.25344726156618e-05,
+          "rms_pixels": 2.4197527288424087e-05
+        }
+      ]
+    }
+  ],
+  "leave_one_view_out": [
+    {
+      "fit_views": [
+        "right",
+        "tilted"
+      ],
+      "scale_relative_fov90": 1.5426517932709454,
+      "vertical_fov": 65.9053919767684,
+      "center_physical_pixels": [
+        997.4998054504392,
+        553.4999824185801
+      ],
+      "evaluation": [
+        {
+          "view": "front",
+          "max_absolute_pixels": 0.00010160477131648804,
+          "rms_pixels": 3.7333012245067675e-05
+        },
+        {
+          "view": "right",
+          "max_absolute_pixels": 4.949105323248659e-05,
+          "rms_pixels": 2.7567858001648346e-05
+        },
+        {
+          "view": "tilted",
+          "max_absolute_pixels": 6.742218010913348e-05,
+          "rms_pixels": 2.8607076270967517e-05
+        }
+      ]
+    },
+    {
+      "fit_views": [
+        "front",
+        "tilted"
+      ],
+      "scale_relative_fov90": 1.5426519756022585,
+      "vertical_fov": 65.9053857948094,
+      "center_physical_pixels": [
+        997.4997978210456,
+        553.4999900472209
+      ],
+      "evaluation": [
+        {
+          "view": "front",
+          "max_absolute_pixels": 8.481812585614534e-05,
+          "rms_pixels": 3.0532362680992726e-05
+        },
+        {
+          "view": "right",
+          "max_absolute_pixels": 6.627845141338184e-05,
+          "rms_pixels": 2.809375270203863e-05
+        },
+        {
+          "view": "tilted",
+          "max_absolute_pixels": 6.705914552185277e-05,
+          "rms_pixels": 3.2163536060193986e-05
+        }
+      ]
+    },
+    {
+      "fit_views": [
+        "front",
+        "right"
+      ],
+      "scale_relative_fov90": 1.542652025203434,
+      "vertical_fov": 65.90538411307742,
+      "center_physical_pixels": [
+        997.4998092651364,
+        553.5000076293945
+      ],
+      "evaluation": [
+        {
+          "view": "front",
+          "max_absolute_pixels": 6.474462043115636e-05,
+          "rms_pixels": 2.499858972392143e-05
+        },
+        {
+          "view": "right",
+          "max_absolute_pixels": 5.732569240990415e-05,
+          "rms_pixels": 2.5412673328060568e-05
+        },
+        {
+          "view": "tilted",
+          "max_absolute_pixels": 8.047996720961237e-05,
+          "rms_pixels": 4.23254247193502e-05
+        }
+      ]
+    }
+  ]
+}

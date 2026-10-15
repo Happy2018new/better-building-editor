@@ -1,13 +1,14 @@
 """Bind water side samples to the native camera API in the captured session."""
 import hashlib
 import json
+import math
 from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageChops, ImageDraw
 from scipy.ndimage import map_coordinates
 
-from water_capture_contract import camera_matches
+from water_capture_contract import camera_matches, calibrated_viewport_matches
 
 SCHEMA = 1
 UNITS = 'physical_pixels'
@@ -135,6 +136,64 @@ def validate_calibration(calibration, binding, source_contract):
                 require(iou >= MINIMUM_STONE_IOU, 'Native camera API hull disagrees with visible stone pixels')
                 result[row['view']] = {'native_api_mask_iou': iou}
     return result
+
+
+def stone_camera_model(calibration, binding, source_contract):
+    """Fit one focal scale and center from native stone corners, never water pixels."""
+    from camera_projection import project_points
+
+    validation = validate_calibration(calibration, binding, source_contract)
+    matrix, expected, views = [], [], []
+    for view in calibration['views']:
+        reading = calibration['native_projection']['rows'][view['view'] + '_shown']['before']
+        size = [view['shown']['width'], view['shown']['height']]
+        projected = project_points(reading['world_points']['cube'], view['camera']['position'],
+                                   view['pose']['target'], size, 90.)
+        actual = coordinates(reading, 'cube', size)
+        for point, xy in zip(projected, actual):
+            matrix.extend(((point['screenX'] - size[0] / 2., 1., 0.),
+                           (point['screenY'] - size[1] / 2., 0., 1.)))
+            expected.extend(xy)
+        views.append({'size': size, 'screen': view['camera']['screen'], 'fov': view['camera']['fov']})
+    require(len(matrix) == 48 and all(view == views[0] for view in views),
+            'Native stone model requires 24 corners in one physical and engine viewport')
+    matrix, expected = np.asarray(matrix), np.asarray(expected)
+    require(np.isfinite(matrix).all() and np.isfinite(expected).all(),
+            'Native stone model requires finite camera coordinates')
+    solution, residuals, rank, singular = np.linalg.lstsq(matrix, expected, rcond=None)
+    require(rank == 3 and np.isfinite(solution).all() and solution[0] > 0.,
+            'Native stone model has no finite perspective solution')
+    maximum = float(abs(matrix @ solution - expected).max())
+    require(maximum <= MAXIMUM_POINT_DRIFT,
+            'Native stone model disagrees with its native calibration coordinates')
+    held_out = []
+    for index in range(3):
+        selected = np.ones(len(matrix), dtype=bool)
+        selected[index * 16:(index + 1) * 16] = False
+        candidate = np.linalg.lstsq(matrix[selected], expected[selected], rcond=None)[0]
+        error = float(abs(matrix[~selected] @ candidate - expected[~selected]).max())
+        require(error <= MAXIMUM_POINT_DRIFT,
+                'Native stone model does not predict its held-out calibration view')
+        held_out.append(error)
+    return {'schema': SCHEMA, 'coordinate_units': UNITS, 'session_binding': binding,
+        'source_contract_sha256': source_contract, 'physical_size': views[0]['size'],
+        'engine_screen': views[0]['screen'], 'reported_fov': views[0]['fov'],
+        'scale_relative_fov90': float(solution[0]), 'center_physical_pixels': solution[1:].tolist(),
+        'vertical_fov': math.degrees(2. * math.atan(1. / float(solution[0]))),
+        'maximum_residual_pixels': maximum, 'held_out_maximum_pixels': held_out,
+        'stone_validation': validation, 'fit_input': '24 native stone corners; no water pixels'}
+
+
+def stone_project(points, camera, size, model):
+    from camera_projection import project_points
+
+    require(list(size) == model['physical_size'] and calibrated_viewport_matches(camera, model),
+            'Native stone model belongs to another physical or engine viewport')
+    projected = project_points(points, camera['position'], camera['target'], size, 90.)
+    basis = np.asarray([(point['screenX'] - size[0] / 2.,
+                         point['screenY'] - size[1] / 2.) for point in projected])
+    mapped = basis * model['scale_relative_fov90'] + np.asarray(model['center_physical_pixels'])
+    return [tuple(point) for point in mapped]
 
 
 def side_coordinates(source, label, images):

@@ -1,0 +1,115 @@
+{
+  "analyzer_sha256": "84d554a0280798061139d598388c56707553c204cea73481bdc02010120fdff9",
+  "blank": {
+    "declared": {
+      "bounds": [
+        840,
+        228,
+        1467,
+        623
+      ],
+      "pixels": 156126
+    },
+    "iou": 0.0,
+    "maximum_boundary_pixels": null,
+    "observed": {
+      "bounds": null,
+      "pixels": 0
+    },
+    "passed": false
+  },
+  "diagnostic_only": true,
+  "host_sha256": "364d0521819039d6d80c644cc18f0d4e115508b512d2f7248efd9e26a5d250be",
+  "occluded_pixels": 48684,
+  "original": {
+    "declared": {
+      "bounds": [
+        840,
+        228,
+        1468,
+        711
+      ],
+      "pixels": 204810
+    },
+    "iou": 0.749558263701008,
+    "maximum_boundary_pixels": 88,
+    "observed": {
+      "bounds": [
+        838,
+        223,
+        1474,
+        623
+      ],
+      "pixels": 160559
+    },
+    "passed": false
+  },
+  "production_qualified": false,
+  "removed_visible_water": {
+    "declared": {
+      "bounds": [
+        840,
+        228,
+        1467,
+        623
+      ],
+      "pixels": 156126
+    },
+    "iou": 0.776200648982617,
+    "maximum_boundary_pixels": 7,
+    "observed": {
+      "bounds": [
+        838,
+        223,
+        1474,
+        623
+      ],
+      "pixels": 129059
+    },
+    "passed": false
+  },
+  "schema": 1,
+  "solid_boxes": [
+    [
+      3.0,
+      2.0,
+      3.0,
+      4.0,
+      3.0,
+      4.0
+    ],
+    [
+      4.0,
+      2.0,
+      3.0,
+      5.0,
+      3.0,
+      4.0
+    ]
+  ],
+  "source_contract_sha256": "cb2b32de68b69f435d69b59cf296d8492d88984ddb96e10f020d7fdbd0aef806",
+  "source_report_sha256": "03e7d693141e72cd29a60779f3615135df68f76c152c187212db42948b7fa579",
+  "support_depth": {
+    "declared": {
+      "bounds": [
+        840,
+        228,
+        1467,
+        623
+      ],
+      "pixels": 156126
+    },
+    "iou": 0.9723902116978805,
+    "maximum_boundary_pixels": 7,
+    "observed": {
+      "bounds": [
+        838,
+        223,
+        1474,
+        623
+      ],
+      "pixels": 160559
+    },
+    "passed": false
+  }
+}

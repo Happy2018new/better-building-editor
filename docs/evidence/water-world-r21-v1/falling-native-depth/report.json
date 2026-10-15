@@ -1,0 +1,206 @@
+{
+  "analyzer_sha256": "84d554a0280798061139d598388c56707553c204cea73481bdc02010120fdff9",
+  "diagnostic_only": true,
+  "fit_report_sha256": "f8495556a3053b306a64e8ece9c6708cf379f9fef0992685aecc6080f7788496",
+  "fixed_removed_rectangle": [
+    890,
+    300,
+    1100,
+    450
+  ],
+  "geometry": {
+    "analytic_support_depth": {
+      "declared": {
+        "bounds": [
+          840,
+          228,
+          1467,
+          623
+        ],
+        "pixels": 156126
+      },
+      "iou": 0.9723902116978805,
+      "maximum_boundary_pixels": 7,
+      "observed": {
+        "bounds": [
+          838,
+          223,
+          1474,
+          623
+        ],
+        "pixels": 160559
+      },
+      "passed": false
+    },
+    "native_support_depth": {
+      "declared": {
+        "bounds": [
+          839,
+          225,
+          1474,
+          625
+        ],
+        "pixels": 160281
+      },
+      "iou": 0.9825865574155436,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          838,
+          223,
+          1474,
+          623
+        ],
+        "pixels": 160559
+      },
+      "passed": true
+    },
+    "native_union": {
+      "declared": {
+        "bounds": [
+          839,
+          225,
+          1474,
+          713
+        ],
+        "pixels": 209184
+      },
+      "iou": 0.754565039955963,
+      "maximum_boundary_pixels": 90,
+      "observed": {
+        "bounds": [
+          838,
+          223,
+          1474,
+          623
+        ],
+        "pixels": 160559
+      },
+      "passed": false
+    },
+    "original": {
+      "declared": {
+        "bounds": [
+          840,
+          228,
+          1468,
+          711
+        ],
+        "pixels": 204810
+      },
+      "iou": 0.749558263701008,
+      "maximum_boundary_pixels": 88,
+      "observed": {
+        "bounds": [
+          838,
+          223,
+          1474,
+          623
+        ],
+        "pixels": 160559
+      },
+      "passed": false
+    }
+  },
+  "host_sha256": "d8a34bc686cefa0fef0c37e43793ef05e1d761117e1a921701bae410fbc4dd6d",
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_report_sha256": "6712dda7be5d394075594d08239721edb7bc906b53db86083a88f816cada2687",
+  "native_support_occluded_pixels": 48903,
+  "native_vs_stone_fit_maximum_pixels": {
+    "full_falling_dry": 0.0001484203889958735,
+    "full_falling_wet": 0.0001484203889958735,
+    "full_falling_wet_section": 0.0001484203889958735,
+    "full_falling_wet_section_restored": 0.0001484203889958735
+  },
+  "negative_controls": {
+    "blank": {
+      "declared": {
+        "bounds": [
+          839,
+          225,
+          1474,
+          625
+        ],
+        "pixels": 160281
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "removed_fixed_rectangle": {
+      "declared": {
+        "bounds": [
+          839,
+          225,
+          1474,
+          625
+        ],
+        "pixels": 160281
+      },
+      "iou": 0.7879366491790717,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          838,
+          223,
+          1474,
+          623
+        ],
+        "pixels": 129059
+      },
+      "passed": false
+    }
+  },
+  "production_qualified": false,
+  "schema": 1,
+  "session_binding": {
+    "game_identity": "134365482282069586",
+    "game_pid": 53572,
+    "id": "583fe77f3ee2484d84ec2672b3bab670",
+    "owner": "water-r20-v7",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\583fe77f3ee2484d84ec2672b3bab670\\session.json"
+  },
+  "solid_boxes": [
+    [
+      3.0,
+      2.0,
+      3.0,
+      4.0,
+      3.0,
+      4.0
+    ],
+    [
+      4.0,
+      2.0,
+      3.0,
+      5.0,
+      3.0,
+      4.0
+    ]
+  ],
+  "source_contract_sha256": "cb2b32de68b69f435d69b59cf296d8492d88984ddb96e10f020d7fdbd0aef806",
+  "source_report_sha256": "5fb3106090229ef33e4fa953ef61901632c590fcb7188157b952b24c599e5d59",
+  "stone_calibration_validation": {
+    "front": {
+      "native_api_mask_iou": 0.9745201989068344
+    },
+    "right": {
+      "native_api_mask_iou": 0.9745201989068344
+    },
+    "tilted": {
+      "native_api_mask_iou": 0.9692268348819367
+    }
+  }
+}
