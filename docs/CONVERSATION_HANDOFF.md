@@ -1,5 +1,13 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 01:28 旗帜物品结论与顺序验证
+
+- 已在01:30截止前明确告知用户：原生旗帜方块的0/3/6层图案可在可旋转编辑器中显示，不等于框内旗帜物品已经支持。root亲自对照原生frame物品的底部中央短杆与wall-banner候选的突出上横杆，确认形态不同。后续需要独立物品外形／姿态适配；尚无证据必须重写全部图案着色，带图案盾牌也未完成。
+- shield v5站旗实验的前／斜原生3D候选只形成像素线，不作为物品形态通过。最后packet校准后的画面是95%加载页，明确无效；contract原因仍是假设。4个世界cell、slot35、camera、临时packet／item／doll／globals及原workspace均已恢复回读。普通stop超时后，exact生命周期记录MC39208为0xC0000409、MCDK40348为0，确认均退出再finalize stopped；无force，不称正常退出。
+- shield于01:26释放MC／WGC，下一独占冷启为intrinsic-glint v3。先检查2个有效页面及每页4组对照，再运行89页名称／aux审计，页恢复边界限制200k handles／3GiB提交余量；冷启仍须6GiB可用提交额度，临时并发上限2。后续root Shelf预旋转矩阵、item小型pose／人工附魔、讲台plain24、portal原生参数读取、snow完整生命周期、水world alpha按资源轮换，不提前占用。
+- root新增Shelf分析器3项回归验证，连同生成器5项均通过；新baked cuboid候选仍仅准备、未启动。水missing-world新包92原图／54行已由专项和root分别完整重放，92capture／3093source／18visibility／54lifecycle／native15均通过，生产资格仍False。共享index顺序shield→portal→water→book→root，按精确path提交，不整体stage。
+- 08:00休眠任务已再次读回为启用，trigger=2026-10-16T08:00:00+08:00、shutdown.exe /h、StartWhenAvailable=False；继续开发至截止，不push／合main。
+
 ## 2026-10-16 01:03 多实例异常后的资源与恢复安排
 
 - 00:55–00:57 item／glint／snow／portal新实例先后退出；item5172的Windows Application事件明确记录ucrtbase.dll／0xC0000409，glint29492保留0xC0000005退出码，其他未知。多份MCDK日志在00:56:40前后停止；没有证据确定共同根因，不把stop最终dead等同于正常关闭。Snow生命周期在两步后中断，completed／restored均False，原生进程已退不能补做恢复；失败世界及日志保留，不用新session假称恢复。
