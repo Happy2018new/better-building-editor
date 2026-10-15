@@ -89,8 +89,10 @@ def analyze(source,output,world_plain_only=False):
     result['resource_contract']=report.get('resource_contract')
     result['profile_mode']=report.get('profile_mode','candidate')
     result['view_configuration']=report.get('view_configuration',{})
-    plain_only=bool(world_plain_only or result['view_configuration'].get('native_target_plain'))
-    result['world_measured_modes']=['plain'] if plain_only else ['plain','enchanted']
+    target_mode=result['view_configuration'].get('native_target')
+    plain_only=bool(world_plain_only or result['view_configuration'].get('native_target_plain') or target_mode)
+    measured_modes=[target_mode or 'plain'] if plain_only else ['plain','enchanted']
+    result['world_measured_modes']=measured_modes
     result['requested_cases']=report.get('requested_cases',[case['id'] for case in report['cases']])
     result['completed_cases']=[case['id'] for case in report['cases']
                                if case.get('measurement_completed',report['completed'])]
@@ -121,9 +123,11 @@ def analyze(source,output,world_plain_only=False):
         with Image.open(texture_path).convert('RGBA') as texture:
             measured={'id':case['id'],'item':(name,aux),'routes':{}}
             observed_masks={}
-            native=case['native_reference']['prepare']['rows'][0]['position']
+            native_row=case['native_reference']['prepare']['rows'][0]
+            native=native_row['position']
+            native_mode=native_row['mode']
             positions=case['source'].get('targets',{'plain':(2,3,2),'enchanted':(5,3,2)})
-            origin=tuple(native[axis]-positions['plain'][axis] for axis in range(3))
+            origin=tuple(native[axis]-positions[native_mode][axis] for axis in range(3))
             facing=case['source'].get('facing',2)
             rotation=case['source'].get('rotation_degrees',0.)
             for route in ('editor','full','missing','native'):
@@ -142,9 +146,9 @@ def analyze(source,output,world_plain_only=False):
                 size=(shown.shape[1],shown.shape[0])
                 rows={}
                 for mode,position in positions.items():
-                    if route=='native' and mode!='plain':
+                    if route=='native' and mode!=native_mode:
                         continue
-                    if route!='editor' and plain_only and mode!='plain':
+                    if route!='editor' and plain_only and mode not in measured_modes:
                         continue
                     expected=expected_mask(position,row,texture,case_pose,size,calibration,facing,rotation)
                     body=body_measurement(shown,hidden,expected)
@@ -174,12 +178,12 @@ def analyze(source,output,world_plain_only=False):
             measured['native_edge_comparison']={}
             if not case['native_reference'].get('restored'):
                 failures.append(case['id']+' native reference was not restored')
-            native_mask=observed_masks[('native','plain')]
+            native_mask=observed_masks[('native',native_mode)]
             for route in ('full','missing'):
                 if not camera_matches(captures[case['id']+'_'+route+'_shown']['camera'],
                                       captures[case['id']+'_native_shown']['camera']):
                     failures.append(case['id']+' '+route+' native reference camera differs')
-                product=observed_masks[(route,'plain')]
+                product=observed_masks[(route,native_mode)]
                 measured['native_body_comparison'][route]=native_body_measurement(product,native_mask)
                 measured['native_body_comparison'][route]['negative_controls']={
                     'blank_rejected':not native_body_measurement(np.zeros_like(product),native_mask)['passed'],

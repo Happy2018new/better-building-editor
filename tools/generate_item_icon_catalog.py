@@ -29,6 +29,46 @@ SPECIAL_TAGS = {'minecraft:spawn_egg': 'tinted_spawn_egg',
 POSE = {'size_pixels': 8., 'thickness_pixels': .5, 'front_z_pixels': 14.75,
         'upward_base_rotation_degrees': 180., 'downward_base_rotation_degrees': 180., 'rotation_sign': -1.,
         'side_uv': 'opaque_texel_center_v1'}
+LIGHTING = {'schema': 1, 'model': 'nemc_entity_fancy_ambient_v1', 'ambient': .45,
+            'x_factor': -.1, 'z_factor': .1, 'scope': 'frame_layout_0',
+            'source': 'shaders/glsl/entityVertexUtil.h',
+            'source_sha256': '5618dc4f8f734c0e49ef44250c2d404bd1010bf761d9611335a6795c5aa964f6',
+            'glint_order': 'lit_base_then_tile_lit_squared_glint'}
+ORIENT = '''vec3 orientItem(vec3 point, float facing, float rotation, float itemLayout) {
+    if(facing<1.5 && itemLayout<0.5) point.xy=-point.xy;
+    if(itemLayout<0.5) rotation=-rotation;
+    point.xy=mat2(cos(rotation),sin(rotation),-sin(rotation),cos(rotation))*point.xy;
+    if(facing<0.5) point=vec3(point.x,point.z,-point.y);
+    else if(facing<1.5) point=vec3(point.x,-point.z,point.y);
+    else if(facing>2.5 && facing<3.5) point=vec3(-point.x,point.y,-point.z);
+    else if(facing>3.5 && facing<4.5) point=vec3(-point.z,point.y,point.x);
+    else if(facing>4.5) point=vec3(point.z,point.y,-point.x);
+    point.x=-point.x;
+    return point;
+}
+float frameIntensity(vec3 normal) {
+    vec3 N=normalize(normal);
+    N.y*=TILE_LIGHT_COLOR.w;
+    return (1.0+N.y)*0.275-N.x*N.x*0.1+N.z*N.z*0.1+0.45;
+}
+'''
+FRAME_LIGHT = '''itemLight=vec3(1.0);
+    itemTileLight=vec3(1.0);
+    if(itemLayout<0.5) {
+        itemTileLight=TILE_LIGHT_COLOR.xyz;
+        itemLight=itemTileLight*frameIntensity(itemNormal);
+    }
+'''
+WORLD_NORMAL = '''vec4 entityNormal=vec4(itemNormal,0.0);
+    #if defined(USE_SKINNING) && defined(NETEASE_SKINNING)
+    entityNormal.z=-entityNormal.z;
+    entityNormal=GetBoneMatForNetease(int(BONEID_0))*entityNormal;
+    #ifdef USE_INSTANCE
+    entityNormal=GetInstanceWorldMatForNetease()*entityNormal;
+    #endif
+    #endif
+    itemNormal=normalize((WORLD*entityNormal).xyz);
+    '''
 LAYOUT = '''float itemLayout=EXTRA_VECTOR2.x;
     if(slot>0.5) itemLayout=EXTRA_VECTOR2.y;
     if(slot>1.5) itemLayout=EXTRA_VECTOR2.z;
@@ -46,23 +86,36 @@ LAYOUT = '''float itemLayout=EXTRA_VECTOR2.x;
     }'''
 GLINT_TEXTURE = 'textures/misc/enchanted_item_glint'
 GLINT_RESOURCE = 'modern_projection/item_icons/enchanted_glint'
-GLINT = {'schema': 1, 'uv_scale': .5, 'rotations_degrees': (30., -30.),
-         'cycles_per_second': (.2, -.1), 'color': (.38, .19, .61),
-         'unscaled_offset_per_second': (.4, -.2),
+GLINT = {'schema': 1, 'uv_scale': .5, 'rotations_degrees': (80., -20.),
+         'cycles_per_second': (2. / 15., -4. / 11.), 'color': (.285, .1425, .4575),
+         'unscaled_offset_per_second': (4. / 15., -8. / 11.),
          'transform_order': 'center_rotate_offset_recenter_scale',
-         'clock_wrap_seconds': 210., 'blend': 'squared_two_native_texture_layers'}
+         'clock_wrap_seconds': 82.5, 'animation_clock': 'TOTAL_REAL_WORLD_TIME',
+         'scope': 'frame_layout_0', 'nonframe_transform': 'legacy_30_minus30_v1',
+         'nonframe_color': (.38, .19, .61),
+         'blend': 'squared_two_native_texture_layers'}
 ICON_GLINT = '''vec2 centered=itemUv-vec2(0.5);
-        float clock=mod(TIME,210.0);
-        // The 3.10 entity path scales after rotation, offset and recentering.
-        // These TIME offsets retain .2/-.1 texture cycles per second at scale .5;
-        // engine-owned UV_OFFSET / UV_ROTATION are not available on this route.
-        vec2 firstUv=mat2(0.866025403784439,-0.5,0.5,0.866025403784439)*centered;
-        vec2 secondUv=mat2(0.866025403784439,0.5,-0.5,0.866025403784439)*centered;
-        firstUv=(firstUv+vec2(clock*0.4,0.0)+vec2(0.5))*0.5;
-        secondUv=(secondUv-vec2(clock*0.2,0.0)+vec2(0.5))*0.5;
+        vec2 firstUv;
+        vec2 secondUv;
+        if(itemFrame>0.5) {
+            // Both observed native phase rates complete integer cycles in 82.5s.
+            float clock=mod(TOTAL_REAL_WORLD_TIME,82.5);
+            firstUv=mat2(0.173648177666930,-0.984807753012208,0.984807753012208,0.173648177666930)*centered;
+            secondUv=mat2(0.939692620785908,0.342020143325669,-0.342020143325669,0.939692620785908)*centered;
+            firstUv=(firstUv+vec2(clock*(4.0/15.0),0.0)+vec2(0.5))*0.5;
+            secondUv=(secondUv-vec2(clock*(8.0/11.0),0.0)+vec2(0.5))*0.5;
+        } else {
+            float clock=mod(TIME,210.0);
+            firstUv=mat2(0.866025403784439,-0.5,0.5,0.866025403784439)*centered;
+            secondUv=mat2(0.866025403784439,0.5,-0.5,0.866025403784439)*centered;
+            firstUv=(firstUv+vec2(clock*0.4,0.0)+vec2(0.5))*0.5;
+            secondUv=(secondUv-vec2(clock*0.2,0.0)+vec2(0.5))*0.5;
+        }
         float first=texture2D(TEXTURE_1,fract(firstUv)).r;
         float second=texture2D(TEXTURE_1,fract(secondUv)).r;
-        vec3 glint=vec3(0.38,0.19,0.61)*(first+second);
+        vec3 glintColor=vec3(0.38,0.19,0.61);
+        if(itemFrame>0.5) glintColor=vec3(0.285,0.1425,0.4575);
+        vec3 glint=glintColor*(first+second);
         rgb=clamp(rgb+glint*glint,0.0,1.0);'''
 
 
@@ -153,7 +206,7 @@ def build_catalog(raw, basic, install):
     glint_path = packs / 'vanilla' / (GLINT_TEXTURE+'.png')
     glint = dict(GLINT, texture_sha256=sha(glint_path.read_bytes()), texture_path=GLINT_TEXTURE,
                  source_pack='vanilla')
-    return {'schema': 1, 'engine_version': VERSION, 'pose': POSE, 'glint': glint,
+    return {'schema': 1, 'engine_version': VERSION, 'pose': POSE, 'lighting': LIGHTING, 'glint': glint,
             'source_texture_catalog_sha256': sha(encoded(raw)),
             'source_basic_catalog_sha256': sha(encoded(basic)),
             'measured_pairs': len(raw['rows']), 'loaded_vanilla_ids': len(infos),
@@ -178,6 +231,8 @@ def outputs(catalog, install):
         raise ValueError('Item icon catalog requires target-engine regeneration')
     if catalog.get('pose') != POSE:
         raise ValueError('Item icon pose contract requires regeneration from measured catalogs')
+    if catalog.get('lighting') != LIGHTING:
+        raise ValueError('Item lighting contract requires regeneration from measured native shaders')
     glint = catalog.get('glint',{})
     if any(json.dumps(glint.get(key)) != json.dumps(value) for key,value in GLINT.items()):
         raise ValueError('Item icon glint contract requires regeneration from measured catalogs')
@@ -186,18 +241,30 @@ def outputs(catalog, install):
     # Changing the legacy sprite skeleton must not silently change icon bounds.
     skeleton_path = 'resource_pack/models/'+ASSET+'/skeleton.json'
     result[skeleton_path] = (ROOT/'resource_pack/models/modern_projection/item_sprite/skeleton.json').read_bytes()
-    vertex = VERTEX.replace('    point.xy=mat2', '    '+LAYOUT+'\n'
-        '    if(facing<1.5 && itemLayout<0.5) point.xy=-point.xy;\n'
-        '    if(itemLayout<0.5) rotation=-rotation;\n'
-        '    point.xy=mat2')
+    start, end = VERTEX.index('    point.xy=mat2'), VERTEX.index('    vec3 cell=')
+    vertex = VERTEX[:start]+'    '+LAYOUT+'\n'\
+        '    itemFrame=itemLayout<0.5 ? 1.0 : 0.0;\n'\
+        '    point=orientItem(point,facing,rotation,itemLayout);\n'\
+        '    vec3 itemNormal=orientItem(NORMAL.xyz,facing,rotation,itemLayout);\n'+VERTEX[end:]
+    vertex = vertex.replace('void main() {', ORIENT+'void main() {').replace(
+        'varying highp float itemClip;',
+        'varying highp float itemClip;\nvarying highp float itemFrame;\nvarying highp vec3 itemLight;\nvarying highp vec3 itemTileLight;')
     result['resource_pack/shaders/glsl/modern_projection_item_icon.vertex'] = vertex.replace(
-        '// ITEM_COORDINATES', UI_COORDINATES).replace('// ITEM_DEPTH', UI_DEPTH).encode('ascii')
+        '// ITEM_COORDINATES', UI_COORDINATES).replace('// ITEM_DEPTH', UI_DEPTH).replace(
+        '    gl_Position=', '    '+FRAME_LIGHT+'    gl_Position=').encode('ascii')
     result['resource_pack/shaders/glsl/modern_projection_item_icon_world.vertex'] = vertex.replace(
-        '// ITEM_COORDINATES', WORLD_COORDINATES).replace('    // ITEM_DEPTH\n', '').encode('ascii')
+        '// ITEM_COORDINATES', WORLD_COORDINATES).replace('    // ITEM_DEPTH\n', '').replace(
+        '    gl_Position=', '    '+WORLD_NORMAL+FRAME_LIGHT+'    gl_Position=').encode('ascii')
     fragment = FRAGMENT.replace('uniform sampler2D TEXTURE_0;',
                                 'uniform sampler2D TEXTURE_0;\nuniform sampler2D TEXTURE_1;')
+    fragment = fragment.replace('#include "uniformPerFrameConstants.h"',
+        '#include "uniformPerFrameConstants.h"\n#include "uniformInterFrameConstants.h"')
     start, end = fragment.index('        // Period7'), fragment.index('\n    }',fragment.index('        // Period7'))
     fragment = fragment[:start]+'        '+ICON_GLINT+fragment[end:]
+    fragment = fragment.replace('varying highp float itemClip;',
+        'varying highp float itemClip;\nvarying highp float itemFrame;\nvarying highp vec3 itemLight;\nvarying highp vec3 itemTileLight;').replace(
+        'vec3 rgb=texel.rgb;', 'vec3 rgb=texel.rgb*itemLight;').replace(
+        '*(first+second);', '*(first+second)*itemTileLight;')
     result['resource_pack/shaders/glsl/modern_projection_item_icon.fragment'] = fragment.encode('ascii')
     glint_bitmap = (install/'data/resource_packs'/glint['source_pack']/(glint['texture_path']+'.png')).read_bytes()
     if sha(glint_bitmap) != glint['texture_sha256']:

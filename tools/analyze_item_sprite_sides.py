@@ -77,8 +77,9 @@ def analyze(source,output):
     key = next(row['resource'] for row in catalog['items'] if (row['name'],row['aux'])==(name,aux))
     texture = Image.open(ROOT/'resource_pack/textures/models/modern_projection/item_icons'/(key+'.png')).convert('RGBA')
     captures = {row['label']:row for row in report['captures']}
-    position = case['source'].get('targets',{'plain':(2,3,2)})['plain']
-    native = case['native_reference']['prepare']['rows'][0]['position']
+    native_row = case['native_reference']['prepare']['rows'][0]
+    position = case['source'].get('targets',{'plain':(2,3,2)})[native_row['mode']]
+    native = native_row['position']
     origin = tuple(native[axis]-position[axis] for axis in range(3))
     facing,rotation = case['source'].get('facing',2),case['source'].get('rotation_degrees',0.)
     result = {'schema':1,'production_qualified':False,

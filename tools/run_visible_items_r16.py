@@ -90,7 +90,9 @@ def run(args):
             'sha256':hashlib.sha256(args.candidate_geometry.read_bytes()).hexdigest(),'data':candidate}
     report['profile_mode']='production' if args.production_profile else 'candidate'
     report['view_configuration']={'angle_degrees':args.view_angle,'editor_zoom':args.editor_zoom,
-                                  'native_target_plain':args.native_target_plain}
+                                  'native_target_plain':args.native_target_plain,
+                                  'native_target':args.native_target}
+    native_mode=args.native_target or 'plain'
     def save(name, value):
         path = output / name
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -261,8 +263,9 @@ def run(args):
                     if args.view_angle:
                         angle=math.radians(args.view_angle)
                         offset=(math.sin(angle)*distance,offset[1],-math.cos(angle)*distance)
-                    if args.native_target_plain:
-                        center=tuple(local_plain[axis]+.5-normal[axis]*.4375 for axis in range(3))
+                    if args.native_target_plain or args.native_target:
+                        native_local=local_enchanted if native_mode=='enchanted' else local_plain
+                        center=tuple(native_local[axis]+.5-normal[axis]*.4375 for axis in range(3))
                 camera = check.run('foot=b.player_origin()\ns.origin=(foot[0]+5,foot[1]+18,foot[2]+5)\n'
                                   's.opacity=1.\ns.projection_missing=False\ns.projection_outline=False\nb.project()\n_result=s.origin')
                 world_state()
@@ -281,8 +284,9 @@ def run(args):
                 triplet(case_id + '_missing', 'missing')
                 if not is_slot:
                     origin = tuple(camera)
-                    position = tuple(origin[axis]+local_plain[axis] for axis in range(3))
-                    rows = [{'mode':'plain', 'position':position,
+                    native_local=local_enchanted if native_mode=='enchanted' else local_plain
+                    position = tuple(origin[axis]+native_local[axis] for axis in range(3))
+                    rows = [{'mode':native_mode, 'position':position,
                              'support':tuple(position[axis]-normal[axis] for axis in range(3)),
                              'rotation':source['rotation_degrees'] if is_orientation else 0.,
                              'frame_name':'minecraft:'+source['source_case'].removesuffix('_filled') if is_orientation else 'minecraft:frame',
@@ -389,9 +393,13 @@ if __name__ == '__main__':
     parser.add_argument('--view-angle', type=float, default=0.)
     parser.add_argument('--editor-zoom', type=float)
     parser.add_argument('--native-target-plain', action='store_true')
+    parser.add_argument('--native-target', choices=('plain','enchanted'),
+                        help='Center the camera and actual native reference on this fixture mode.')
     parser.add_argument('--maximum-handles', type=int, default=220000)
     parser.add_argument('--names', default='diamond_sword,apple,beef,diamond_pickaxe,iron_ingot,bed,bow,bucket,bone,bread,emerald,fishing_rod')
     args=parser.parse_args()
+    if args.native_target_plain and args.native_target:
+        parser.error('Use either --native-target-plain or --native-target')
     if args.burst_exe and (not args.burst_sha256 or len(args.burst_sha256)!=64 or
                           any(c not in '0123456789abcdefABCDEF' for c in args.burst_sha256)):
         parser.error('--burst-exe requires the reviewed --burst-sha256 before entering the game')

@@ -1,9 +1,11 @@
 """Dense native frames for glint motion; sparse screenshots can alias motion."""
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
+import time
 
 
 def validate(session, executable, expected_sha256):
@@ -23,6 +25,23 @@ def validate(session, executable, expected_sha256):
 
 def capture(session, output, executable, expected_sha256, duration_ms=8000):
     script=validate(session,executable,expected_sha256)
+    turnstile = os.environ.get('MCDEV_BURST_TURNSTILE')
+    if turnstile:
+        directory = Path(turnstile).resolve()
+        directory.mkdir(parents=True, exist_ok=True)
+        ready = directory / (output.name + '.ready.json')
+        release = directory / (output.name + '.allow')
+        if ready.exists() or release.exists():
+            raise ValueError('Choose a fresh dense-capture coordination directory')
+        ready.write_text(json.dumps({'owner': session['owner'], 'id': session['id'],
+            'game_pid': session['game_pid'], 'game_identity': session['game_identity'],
+            'output': str(output), 'duration_ms': duration_ms}, indent=2) + '\n', encoding='ascii')
+        print(json.dumps({'dense_capture_waiting': str(ready)}), flush=True)
+        deadline = time.monotonic() + 180.
+        while not release.is_file():
+            if time.monotonic() >= deadline:
+                raise TimeoutError('Dense-capture coordination window was not released')
+            time.sleep(.1)
     # This diagnostic compares motion at actual QPC intervals and grants no
     # animation qualification. Permit a bounded quarter-second background
     # stall; the measured cadence remains part of the report, not interpolated.

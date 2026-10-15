@@ -47,6 +47,7 @@ class IconCatalogTests(unittest.TestCase):
             skeleton.parent.mkdir(parents=True)
             skeleton.write_bytes(b'{"skeleton": [], "boundingbox": [[-2,-2,-2],[2,2,2]]}')
             catalog = {'schema':1, 'engine_version':ENGINE, 'pose':generator.POSE,
+                       'lighting':generator.LIGHTING,
                        'glint':dict(generator.GLINT, source_pack='vanilla',
                                     texture_path=generator.GLINT_TEXTURE,
                                     texture_sha256=generator.sha(native.read_bytes())),
@@ -139,6 +140,19 @@ class IconCatalogTests(unittest.TestCase):
                 self.assertEqual(groups(orientation_document('frame'+suffix)),
                                  groups(orientation_document('glow_frame'+suffix)))
 
+    def test_native_lighting_contract_rejects_unmeasured_or_shared_layout_models(self):
+        catalog = json.loads((ROOT/'tools/data/item_icon_catalog_nemc_3.10.0.420447.json').read_bytes())
+        self.assertEqual(generator.LIGHTING, catalog['lighting'])
+        self.assertEqual('frame_layout_0', catalog['lighting']['scope'])
+        stale = copy.deepcopy(catalog)
+        stale['lighting']['scope'] = 'all_visible_slots'
+        with self.assertRaisesRegex(ValueError, 'lighting contract'):
+            generator.outputs(stale, ROOT)
+        stale = copy.deepcopy(catalog)
+        stale['lighting']['model'] = 'unlit'
+        with self.assertRaisesRegex(ValueError, 'lighting contract'):
+            generator.outputs(stale, ROOT)
+
     def test_native_glint_uses_versioned_bitmap_squared_blend_and_continuous_clock_wrap(self):
         catalog = json.loads((ROOT/'tools/data/item_icon_catalog_nemc_3.10.0.420447.json').read_bytes())
         fragment = (ROOT/'resource_pack/shaders/glsl/modern_projection_item_icon.fragment').read_text(encoding='ascii')
@@ -148,7 +162,11 @@ class IconCatalogTests(unittest.TestCase):
         self.assertEqual('squared_two_native_texture_layers',catalog['glint']['blend'])
         for rate,offset in zip(catalog['glint']['cycles_per_second'],catalog['glint']['unscaled_offset_per_second']):
             self.assertEqual(rate,offset*catalog['glint']['uv_scale'])
-            self.assertEqual(round(rate*210.),rate*210.)
+            period = catalog['glint']['clock_wrap_seconds']
+            self.assertAlmostEqual(round(rate*period),rate*period,places=12)
+        self.assertEqual('TOTAL_REAL_WORLD_TIME', catalog['glint']['animation_clock'])
+        self.assertEqual('frame_layout_0', catalog['glint']['scope'])
+        self.assertIn('mod(TOTAL_REAL_WORLD_TIME,82.5)', fragment)
         self.assertEqual('center_rotate_offset_recenter_scale',catalog['glint']['transform_order'])
         stale=copy.deepcopy(catalog)
         stale['glint']['cycles_per_second']=[.1,-.05]
