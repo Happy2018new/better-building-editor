@@ -285,18 +285,18 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             return (all(session.scene_origin[i] <= pos[i] < session.scene_origin[i] + session.scene_size[i] for i in range(3)) and
                     session.visible_layer(pos[1]))
         layer = session.editor.layer if session.direct_mode in ('place', 'box', 'select', 'browse') else None
-        return pick_target(session.editor.document, origin, direction, visible, layer, session.grid)
+        return pick_target(session.editor.document, origin, direction, visible, layer, session.grid, detailed=True)
 
     def orbit_anchor(x, y):
         hit = hit_at(x, y)
         if hit is None:
             return
         origin, direction = camera.ray(x, y, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
-        pos, normal = hit
+        pos, normal, point = hit
         axis = next((i for i in range(3) if normal[i]), 1)
         if abs(direction[axis]) < 1e-8:
             return
-        face = pos[axis] + int(normal[axis] > 0)
+        face = point[axis] - session.scene_origin[axis]
         distance = (face-origin[axis]) / direction[axis]
         point = tuple(origin[i]+distance*direction[i] for i in range(3))
         camera.set_pivot(point, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
@@ -745,7 +745,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         hit = hit_at(x, y)
         if hit:
             before_revision = session.editor.revision
-            session.point_action(hit[0], hit[1])
+            session.point_action(*hit)
             session.pointer_stats[3] += int(session.editor.revision != before_revision)
             point = mouse.GetMousePosition()
             placed_pointer.current = (tuple(point) if session.direct_mode == 'place' and point is not None and

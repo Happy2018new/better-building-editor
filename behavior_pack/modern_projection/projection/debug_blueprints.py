@@ -33,6 +33,7 @@ from .debug_spawner_blueprints import METADATA as SPAWNER_METADATA, VISUAL_CASE 
 from .debug_portal_blueprints import METADATA as PORTAL_METADATA, VISUAL_CASE as PORTAL_VISUAL_CASE
 from .debug_compatibility_blueprints import (METADATA as COMPATIBILITY_METADATA,
                                             VISUAL_CASES as COMPATIBILITY_VISUAL_CASES)
+from .debug_slab_blueprints import METADATA as SLAB_METADATA, VISUAL_CASE as SLAB_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -43,6 +44,7 @@ BLUEPRINTS = (
     WATER_STYLE_METADATA,
     SNOW_METADATA,
     ('test.groups.parts', 'groups', '门、床与高植物', (32, 8, 24), 'minecraft:wooden_door'),
+    SLAB_METADATA,
     ('test.connections.context', 'connections', '楼梯、铁轨、墙与双箱', (32, 12, 32), 'minecraft:rail'),
     ('test.transforms.directions', 'transforms', '方向与镜像', (32, 12, 32), 'minecraft:oak_stairs'),
     ('test.entities.classic', 'entities', '方块实体 · 基础', (40, 10, 36), 'minecraft:chest'),
@@ -68,6 +70,7 @@ BLUEPRINTS = (
     PRODUCT_METADATA,
 ) + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA
 VISUAL_CASES = {
+    'slab_interactions': SLAB_VISUAL_CASE,
     'neighbor_actions': ACTION_MATRIX,
     'product_connections': PRODUCT_VISUAL_CASE,
     'botanical_neighbors': BOTANICAL_VISUAL_CASE,
@@ -337,6 +340,9 @@ def build(identity):
     if metadata is None:
         raise ValueError('找不到这份测试蓝图')
     fixture = Fixture(metadata)
+    if identity == SLAB_METADATA[0]:
+        from .debug_slab_blueprints import populate
+        return populate(fixture)
     if identity in COMPATIBILITY_VISUAL_CASES:
         from .debug_compatibility_blueprints import populate
         return populate(fixture, identity)

@@ -538,8 +538,8 @@ class Session(object):
         self.preview_pending = True
         self.bridge.later(.08, self._build_preview)
 
-    def point_edit(self, pos, erase=False):
-        result = self.editor.paint_at(pos, erase, False)
+    def point_edit(self, pos, erase=False, material=None):
+        result = self.editor.paint_at(pos, erase, False, material)
         if result:
             self.tiles.refresh([pos])
         self.publish_point_edit()
@@ -741,32 +741,48 @@ class Session(object):
         self.camera_focus_request = tuple(v + .5 for v in self.focused)
         self.emit('view')
 
-    def placement_target(self, pos, normal):
+    def _placement(self, pos, normal, hit_point=None):
         e = self.editor
         from .cell import can_compose
+        from .slab_placement import placed_slab, merged_slab, slab_half, fills_clicked_half
+        point = (tuple(hit_point[i] - pos[i] for i in range(3))
+                 if hit_point is not None else None)
+        material = placed_slab(e.material, normal, point)
+        clicked = e.document.get_layer(pos, e.edit_layer)
+        merged = (merged_slab(clicked, material) if fills_clicked_half(clicked, normal) else None)
         combine = e.edit_layer == 2 and can_compose(e.document.get(pos), e.material)
-        target = pos if e.edit_layer == 1 or combine else tuple(pos[i] + normal[i] for i in range(3))
+        target = pos if e.edit_layer == 1 or combine or merged is not None else tuple(pos[i] + normal[i] for i in range(3))
+        existing = e.document.get_layer(target, e.edit_layer)
+        if merged is None and slab_half(existing) is not None and slab_half(material) is not None:
+            if slab_half(existing) != slab_half(material):
+                merged = merged_slab(existing, material)
+        if merged is not None:
+            material = merged
         if not e.document.contains(target):
-            return target, '目标超出建筑范围'
+            return target, material, '目标超出建筑范围'
         if not self.visible_position(target):
-            return target, '目标位置不可见，请先后退或显示该图层'
+            return target, material, '目标位置不可见，请先后退或显示该图层'
         if target[1] in e.locked_layers:
-            return target, '目标图层已锁定'
-        if not combine and e.document.get_layer(target, e.edit_layer) != AIR:
-            return target, '放置位置已有方块，请使用换材质'
+            return target, material, '目标图层已锁定'
+        if not combine and merged is None and existing != AIR:
+            return target, material, '放置位置已有方块，请使用换材质'
         if not e._writable(target, False) or e.material == AIR:
-            return target, '放置条件不匹配，请检查材质与方块条件'
-        return target, None
+            return target, material, '放置条件不匹配，请检查材质与方块条件'
+        return target, material, None
 
-    def cursor_target(self, pos, normal=(0, 0, 0)):
+    def placement_target(self, pos, normal, hit_point=None):
+        target, unused_material, error = self._placement(pos, normal, hit_point)
+        return target, error
+
+    def cursor_target(self, pos, normal=(0, 0, 0), hit_point=None):
         if self.direct_mode == 'place':
-            return self.placement_target(pos, normal)
+            return self.placement_target(pos, normal, hit_point)
         if self.direct_mode in ('erase', 'paint'):
             if not self.editor._writable(pos, False):
                 return pos, '此位置受图层或方块条件限制'
         return pos, None
 
-    def point_action(self, pos, normal=(0, 0, 0)):
+    def point_action(self, pos, normal=(0, 0, 0), hit_point=None):
         """One click, one undo record. Dragging never reaches this method."""
         if self.edit_job is not None or self.io_job is not None:
             return False
@@ -785,13 +801,13 @@ class Session(object):
             return False
         self.focused = pos
         if mode == 'place':
-            target, error = self.placement_target(pos, normal)
+            target, material, error = self._placement(pos, normal, hit_point)
             if error:
                 e.message = error
             else:
                 e.select_box(target, target)
                 self.focused = target
-                return self.point_edit(target)
+                return self.point_edit(target, material=material)
         elif mode in ('paint', 'erase'):
             e.select_box(pos, pos)
             return self.point_edit(pos, mode == 'erase')

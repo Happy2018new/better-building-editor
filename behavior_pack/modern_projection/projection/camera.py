@@ -219,8 +219,31 @@ class OrbitCamera(object):
         return origin, tuple(-a for a in toward)
 
 
-def raycast(document, origin, direction, visible=None):
-    """Grid DDA returns the nearest visible voxel and its entered face normal."""
+def _block_hit(value, pos, origin, direction):
+    from .cell import layer
+    from .slab_placement import slab_half
+    half = slab_half(layer(value, 2))
+    lo = (0., .5 if half == 'top' else 0., 0.)
+    hi = (1., .5 if half == 'bottom' else 1., 1.)
+    near, far, normal = 0., float('inf'), (0, 0, 0)
+    for axis in range(3):
+        lower, upper = pos[axis] + lo[axis], pos[axis] + hi[axis]
+        if abs(direction[axis]) < 1e-9:
+            if not lower <= origin[axis] < upper:
+                return None
+            continue
+        a, b = (lower-origin[axis])/direction[axis], (upper-origin[axis])/direction[axis]
+        if min(a, b) > near:
+            near = min(a, b)
+            normal = tuple((-1 if direction[axis] > 0 else 1) if i == axis else 0 for i in range(3))
+        far = min(far, max(a, b))
+    if far < near:
+        return None
+    return pos, normal, tuple(origin[i] + near*direction[i] for i in range(3))
+
+
+def raycast(document, origin, direction, visible=None, detailed=False):
+    """Grid DDA with slab bounds; optionally retain the actual surface point."""
     near, far, normal = 0., float('inf'), (0, 0, 0)
     for axis in range(3):
         if abs(direction[axis]) < 1e-9:
@@ -247,7 +270,9 @@ def raycast(document, origin, direction, visible=None):
         if not document.contains(pos):
             return None
         if pos in document.blocks and (visible is None or visible(pos)):
-            return pos, normal
+            hit = _block_hit(document.get(pos), pos, origin, direction)
+            if hit is not None:
+                return hit if detailed else hit[:2]
         axis = min(range(3), key=lambda i: crossing[i])
         if crossing[axis] > far + 1e-7:
             return None
@@ -268,23 +293,19 @@ def layer_hit(document, origin, direction, layer):
     return point if document.contains(point) else None
 
 
-def pick_target(document, origin, direction, visible=None, layer=None, grid=True):
+def pick_target(document, origin, direction, visible=None, layer=None, grid=True, detailed=False):
     """Pick the nearest block or visible work-plane cell, including empty cells.
 
     A hidden grid keeps the old empty-space fallback. Existing blocks on the
     plane retain their entered face for placement; an empty plane cell stops
     clicks passing through to a tree/floor behind it.
     """
-    hit = raycast(document, origin, direction, visible)
+    hit = raycast(document, origin, direction, visible, detailed=True)
     pos = layer_hit(document, origin, direction, layer) if layer is not None else None
-    if pos is None or (visible is not None and not visible(pos)):
-        return hit
-    if hit is None:
-        return pos, (0, 0, 0)
-    if not grid or hit[0] == pos:
-        return hit
-    axis = next((i for i in range(3) if hit[1][i]), None)
-    distance = 0. if axis is None else (
-        hit[0][axis] + int(hit[1][axis] > 0) - origin[axis]) / direction[axis]
-    plane_distance = (layer - origin[1]) / direction[1]
-    return (pos, (0, 0, 0)) if plane_distance <= distance + 1e-7 else hit
+    if pos is not None and (visible is None or visible(pos)):
+        plane_distance = (layer - origin[1]) / direction[1]
+        axis = max(range(3), key=lambda i: abs(direction[i]))
+        distance = ((hit[2][axis] - origin[axis]) / direction[axis]) if hit else float('inf')
+        if hit is None or (grid and hit[0] != pos and plane_distance <= distance + 1e-7):
+            hit = pos, (0, 0, 0), tuple(origin[i] + plane_distance*direction[i] for i in range(3))
+    return hit if detailed or hit is None else hit[:2]

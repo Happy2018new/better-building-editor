@@ -522,7 +522,7 @@ class Editor(object):
         self.message = "已选择 %d 格" % len(self.selection)
         return len(self.selection)
 
-    def paint_at(self, pos, erase=False, respect_selection=True):
+    def paint_at(self, pos, erase=False, respect_selection=True, material=None):
         if not self.document.contains(pos):
             raise ValueError("目标超出建筑范围")
         if not self._writable(pos, respect_selection):
@@ -541,7 +541,8 @@ class Editor(object):
         def get_cell(target):
             return self.document.get(target) if self.document.contains(target) else None
 
-        changes = material_changes(get_cell, pos, AIR if erase else block(self.material), self.edit_layer)
+        requested = self.material if material is None else material
+        changes = material_changes(get_cell, pos, AIR if erase else block(requested), self.edit_layer)
         for target in changes:
             if not self.document.contains(target):
                 raise ValueError("多格方块对应部件超出建筑范围")
