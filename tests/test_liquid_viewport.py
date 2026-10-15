@@ -3,9 +3,11 @@ from pathlib import Path
 import sys
 import unittest
 from types import SimpleNamespace
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.camera import OrbitCamera
+from projection import liquid_transport
 from projection.liquid_viewport import LiquidControls, LiquidView, group_view
 from tests.test_liquid_render import Doll, Model, POSE, group
 
@@ -103,6 +105,176 @@ class LiquidControlsTests(unittest.TestCase):
             ready = self.update(now)
         self.assertTrue(ready)
 
+    def test_stable_depth_reuses_adapter_but_keeps_live_validation_and_callbacks(self):
+        self.settle()
+        renderer = self.entry['renderer']
+        old_payload = dict(self.model.values)
+        old_submissions = sum(len(control.doll.calls) for control in self.dolls)
+        view_at, pose_at = mock.Mock(return_value=self.view), mock.Mock(return_value=POSE)
+        with mock.patch.object(liquid_transport, 'validate_uniforms',
+                               wraps=liquid_transport.validate_uniforms) as source_validation, \
+                mock.patch.object(self.controls.renderer_factory, 'validate',
+                                  wraps=self.controls.renderer_factory.validate) as pose_validation, \
+                mock.patch.object(renderer, 'restore_publication',
+                                  wraps=renderer.restore_publication) as restore:
+            for tick in range(60):
+                self.assertTrue(self.controls.update(self.groups, view_at, pose_at,
+                                                     (-.5, -.25), .3 + tick / 60.))
+        self.assertEqual(0, source_validation.call_count)
+        self.assertEqual(60, pose_validation.call_count)
+        self.assertEqual(60, view_at.call_count)
+        self.assertEqual(60, pose_at.call_count)
+        self.assertEqual(60, restore.call_count)
+        self.assertEqual(old_payload, self.model.values)
+        self.assertEqual(old_submissions, sum(len(control.doll.calls) for control in self.dolls))
+
+    def test_equal_replacement_group_and_changed_depth_revalidate_the_adapter(self):
+        self.settle()
+        previous = self.entry['distance_request'][2]
+        self.groups[0] = self.groups[0]._replace(model_name=self.groups[0].model_name)
+        with mock.patch.object(liquid_transport, 'validate_uniforms',
+                               wraps=liquid_transport.validate_uniforms) as validation:
+            self.assertTrue(self.update(.3))
+            self.assertEqual(1, validation.call_count)
+            self.assertIsNot(previous, self.entry['distance_request'][2])
+            tag = self.model.values[(101, 4)][0]
+            self.view = self.view._replace(distance=-3.)
+            self.assertTrue(self.update(.4))
+            self.assertEqual(2, validation.call_count)
+            self.assertNotEqual(tag, self.model.values[(101, 4)][0])
+            self.assertTrue(self.update(.5))
+            self.assertEqual(2, validation.call_count)
+
+    def test_equal_distance_with_a_different_type_cannot_skip_validation(self):
+        self.settle()
+        with mock.patch.object(liquid_transport, 'validate_uniforms',
+                               wraps=liquid_transport.validate_uniforms) as validation:
+            self.view = self.view._replace(distance=0.)
+            self.assertTrue(self.update(.3))
+            self.view = self.view._replace(distance=0)
+            self.assertTrue(self.update(.4))
+            self.assertEqual(2, validation.call_count)
+            old_payload = dict(self.model.values)
+            self.view = self.view._replace(distance=False, position=(-200., -100.))
+            self.assertFalse(self.update(.5))
+            self.assertEqual(3, validation.call_count)
+        self.assertIn('signed16 depth range', self.controls.error)
+        self.assertNotIn('distance_request', self.entry)
+        self.assertEqual(old_payload, self.model.values)
+        self.assertNotEqual(self.view.position, self.dolls[0].position)
+        self.view = self.view._replace(distance=0.)
+        self.controls.retry()
+        self.assertTrue(self.update(.6))
+        self.assertIsNone(self.controls.error)
+
+    def test_mutable_nested_fields_and_numeric_subclasses_are_never_cached(self):
+        class TupleSubclass(tuple):
+            pass
+        class FloatSubclass(float):
+            pass
+        original = group()
+        for label, value, distance in (
+                ('key', original._replace(key=('nested', [])), -4.),
+                ('origin', original._replace(origin=list(original.origin)), -4.),
+                ('uniforms', original._replace(uniforms=TupleSubclass(original.uniforms)), -4.),
+                ('vec4', original._replace(uniforms=(TupleSubclass(original.uniforms[0]),)
+                                          + original.uniforms[1:]), -4.),
+                ('distance', original, FloatSubclass(-4.))):
+            with self.subTest(field=label):
+                self.setUp()
+                self.groups[0] = value
+                self.view = self.view._replace(distance=distance)
+                self.settle()
+                self.assertNotIn('distance_request', self.entry)
+                with mock.patch.object(liquid_transport, 'validate_uniforms',
+                                       wraps=liquid_transport.validate_uniforms) as validation:
+                    self.assertTrue(self.update(.3))
+                    self.assertTrue(self.update(.4))
+                self.assertEqual(2, validation.call_count)
+                self.assertNotIn('distance_request', self.entry)
+
+    def test_mutable_appearance_in_the_same_group_is_read_again_after_mutation(self):
+        class MutableAppearance(tuple):
+            def __new__(cls, values):
+                value = super().__new__(cls, values)
+                value.values = list(values)
+                return value
+            def __iter__(self):
+                return iter(self.values)
+            def __getitem__(self, index):
+                value = self.values[index]
+                return tuple(value) if isinstance(index, slice) else value
+        original = self.groups[0]
+        appearance = MutableAppearance(original.uniforms[3])
+        self.groups[0] = original._replace(uniforms=original.uniforms[:3] + (appearance,))
+        self.settle()
+        self.assertNotIn('distance_request', self.entry)
+        appearance.values[3] = .25
+        self.assertTrue(self.update(.3))
+        self.assertEqual(.25, self.model.values[(101, 4)][3])
+        self.assertNotIn('distance_request', self.entry)
+
+    def test_custom_distance_adapter_is_called_for_every_live_frame(self):
+        calls = []
+        def adapter(value, distance):
+            calls.append((value, distance))
+            return liquid_transport.with_preview_distance(value, distance)
+        self.settle()
+        self.controls.distance_adapter = adapter
+        for now in (.3, .4, .5):
+            self.assertTrue(self.update(now))
+            self.assertNotIn('distance_request', self.entry)
+        self.assertEqual(3, len(calls))
+
+    def test_depth_cache_ends_at_each_control_lifecycle_boundary(self):
+        for lifecycle in ('clip', 'missing_view', 'removed', 'unmounted',
+                          'retry', 'invalidate', 'close'):
+            with self.subTest(lifecycle=lifecycle):
+                self.setUp()
+                self.settle()
+                original_groups, original_view = self.groups, self.view
+                self.assertIn('distance_request', self.entry)
+                if lifecycle == 'clip':
+                    self.view = self.view._replace(clipped=True)
+                    self.update(.3)
+                elif lifecycle == 'missing_view':
+                    self.controls.update(self.groups, lambda origin: None, lambda view: POSE,
+                                         (-.5, -.25), .3)
+                elif lifecycle == 'removed':
+                    self.groups = {}
+                    self.update(.3)
+                elif lifecycle == 'unmounted':
+                    self.entry['dolls'][0].current = None
+                    self.update(.3)
+                else:
+                    getattr(self.controls, lifecycle)()
+                self.assertNotIn('distance_request', self.entry)
+                if lifecycle == 'close':
+                    continue
+                self.groups, self.view = original_groups, original_view
+                self.entry['dolls'][0].current = self.dolls[0]
+                with mock.patch.object(liquid_transport, 'validate_uniforms',
+                                       wraps=liquid_transport.validate_uniforms) as validation:
+                    self.update(.4)
+                self.assertEqual(1, validation.call_count)
+
+    def test_failed_publication_restore_drops_depth_cache_before_callbacks_and_retry(self):
+        self.settle()
+        renderer = self.entry['renderer']
+        view_at, pose_at = mock.Mock(return_value=self.view), mock.Mock(return_value=POSE)
+        old_payload = dict(self.model.values)
+        with mock.patch.object(renderer, 'restore_publication', return_value=False):
+            self.assertFalse(self.controls.update(self.groups, view_at, pose_at,
+                                                  (-.5, -.25), .3))
+        self.assertNotIn('distance_request', self.entry)
+        view_at.assert_not_called()
+        pose_at.assert_not_called()
+        self.assertEqual(old_payload, self.model.values)
+        with mock.patch.object(liquid_transport, 'validate_uniforms',
+                               wraps=liquid_transport.validate_uniforms) as validation:
+            self.assertTrue(self.update(.4))
+        self.assertEqual(1, validation.call_count)
+
     def test_independent_controls_apply_geometry_and_clipping_before_visible_payload(self):
         self.assertFalse(self.update(0.))
         self.assertTrue(all(control.position == (-.5, -.25) for control in self.surfaces))
@@ -198,10 +370,12 @@ class LiquidControlsTests(unittest.TestCase):
                 self.assertEqual(old_request, self.entry['ready_request'])
                 self.assertTrue(self.surfaces[old_front].visible)
                 self.assertEqual(old_calls, sum(len(control.doll.calls) for control in self.dolls))
+                self.assertNotIn('distance_request', self.entry)
                 self.assertFalse(self.update(.4))
                 self.controls.retry()
                 self.assertTrue(self.update(.5))
                 self.assertIsNone(self.controls.error)
+                self.assertIn('distance_request', self.entry)
                 self.assertTrue(all(control.position == self.view.position for control in self.dolls))
 
     def test_view_callback_failure_latches_once_and_removed_groups_still_hide(self):

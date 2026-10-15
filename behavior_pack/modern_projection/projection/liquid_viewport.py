@@ -2,10 +2,19 @@
 from collections import namedtuple
 
 from .camera import render_bounds
+from .cell import text_type
 from .liquid_render import SkeletonLiquidRenderer
-from .liquid_transport import with_preview_distance
+from .liquid_transport import RenderGroup, with_preview_distance
+from .storage import integer_types
 
 LiquidView = namedtuple('LiquidView', 'position size distance clipped')
+_IMMUTABLE_TYPES = frozenset(integer_types + (float, str, text_type, type(None)))
+
+
+def _immutable(value):
+    if type(value) is tuple:
+        return all(_immutable(item) for item in value)
+    return type(value) in _IMMUTABLE_TYPES
 
 
 def group_view(origin, camera, scene_origin, scene_size, viewport, unit):
@@ -50,6 +59,20 @@ class LiquidControls(object):
         entry['renderer'] = renderer
         return renderer
 
+    def _displayed(self, entry, group, distance):
+        cached = entry.get('distance_request')
+        if (self.distance_adapter is with_preview_distance and cached is not None
+                and cached[0] is group and type(cached[1]) is type(distance)
+                and cached[1] == distance):
+            return cached[2]
+        entry.pop('distance_request', None)
+        displayed = self.distance_adapter(group, distance)
+        # Namedtuple fields can still contain mutable values supplied by callers.
+        if (self.distance_adapter is with_preview_distance and type(group) is RenderGroup
+                and _immutable(distance) and all(_immutable(value) for value in group)):
+            entry['distance_request'] = group, distance, displayed
+        return displayed
+
     def update(self, groups, view_at, pose_at, clip_offset, now):
         if self.closed:
             return False
@@ -57,6 +80,7 @@ class LiquidControls(object):
         for key, entry in tuple(self.registry.items()):
             dolls, surfaces = entry['dolls'], entry['surfaces']
             if not all(ref.current for ref in dolls + surfaces):
+                entry.pop('distance_request', None)
                 self.pending = True
                 continue
             renderer = self._renderer(entry)
@@ -64,9 +88,11 @@ class LiquidControls(object):
                 self.pending = True
                 self.error = self.error or renderer.error
                 entry.pop('ready_request', None)
+                entry.pop('distance_request', None)
                 continue
             group = groups.get(key)
             if group is None:
+                entry.pop('distance_request', None)
                 renderer.update(None, None, now)
                 entry.pop('ready_request', None)
                 entry.pop('validation_error', None)
@@ -80,12 +106,14 @@ class LiquidControls(object):
             try:
                 view = view_at(group.origin)
                 if view is None or view.clipped:
+                    entry.pop('distance_request', None)
                     renderer.update(None, None, now)
                     entry.pop('ready_request', None)
                     continue
-                displayed = self.distance_adapter(group, view.distance)
+                displayed = self._displayed(entry, group, view.distance)
                 pose = self.renderer_factory.validate(displayed, pose_at(view))
             except ValueError as error:
+                entry.pop('distance_request', None)
                 message = str(error) or 'Invalid liquid UI request'
                 entry['validation_error'] = group, message
                 self.pending = True
@@ -121,6 +149,7 @@ class LiquidControls(object):
                 renderer.retry()
             entry.pop('ready_request', None)
             entry.pop('validation_error', None)
+            entry.pop('distance_request', None)
 
     def invalidate(self):
         for entry in self.registry.values():
@@ -131,10 +160,12 @@ class LiquidControls(object):
             entry.pop('clip_offset', None)
             entry.pop('ready_request', None)
             entry.pop('validation_error', None)
+            entry.pop('distance_request', None)
 
     def close(self):
         self.closed = True
         for entry in self.registry.values():
+            entry.pop('distance_request', None)
             renderer = entry.get('renderer')
             if renderer is not None:
                 renderer.close()
