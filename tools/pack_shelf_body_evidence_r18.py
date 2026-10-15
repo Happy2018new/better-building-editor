@@ -91,7 +91,15 @@ def freeze_matrix(report_path, review, project, output, experiment='direction'):
         'baked': ('Baked north/south matched bone controls, while east/west geometry differed and was rejected.',
                   'The baked coordinate candidate matches its bone-rotation control for north/south, but '
                   'east/west differs in silhouette and apparent depth. This experiment fails geometry acceptance '
-                  'and does not establish a lighting fix. Rotation sign and native face conventions remain open.')}
+                  'and does not establish a lighting fix. Rotation sign and native face conventions remain open.'),
+        'reverse': ('Reverse coordinates restored the silhouette but did not restore east/west front artwork.',
+                    'The reverse-coordinate candidate restores the east/west silhouette while moving the front '
+                    'artwork to another face. Neither this reverse candidate nor the original baked candidate '
+                    'qualifies. Bone-rotation AO controls retain their close silhouette but remain too bright.'),
+        'native_axes': ('Native-axis coordinates and face mapping require independent image acceptance.',
+                        'This experiment separates native cube coordinates from face naming, keeping the '
+                        'earlier baked and reverse failures intact. Its scores remain diagnostic; geometric '
+                        'or color agreement in this small matrix does not grant runtime admission.')}
     finding, description = findings[experiment]
     (output/'index.json').write_text(json.dumps({
         'schema_version': 1, 'production_qualified': False, 'observation': observation,
@@ -104,7 +112,8 @@ def freeze_matrix(report_path, review, project, output, experiment='direction'):
         indent=2)+'\n', encoding='ascii', newline='\n')
     (output/'README.md').write_text(
         '# Shelf direction and lighting diagnostic, R21\n\n'
-        'NEMC 3.10.0.420447. All 24 original PNGs, receipts, native projected-cell corners, '
+        'NEMC 3.10.0.420447. All ' + str(len(report['captures'])) +
+        ' original PNGs, receipts, native projected-cell corners, '
         'acquisition hosts, analysis and relevant oak candidate assets are preserved. '
         'The capture completed, restored its world/editor state and retained unchanged sources.\n\n'
         + description + ' '
@@ -114,7 +123,7 @@ def freeze_matrix(report_path, review, project, output, experiment='direction'):
         'background changes. Original exterior changed-pixel counts remain recorded. The complete '
         'source-hash contract is retained, but this is not a full executable product source archive.\n\n'
         'Replay with `python -B -X utf8 tools/pack_shelf_body_evidence_r18.py '
-        '--output docs/evidence/shelf-direction-r21-v1 --verify --replay`.\n',
+        '--output ' + output.as_posix() + ' --verify --replay`.\n',
         encoding='ascii', newline='\n')
     manifest = {path.relative_to(output).as_posix(): digest(path)
                 for path in output.rglob('*') if path.is_file()}
@@ -130,7 +139,7 @@ def main():
     parser.add_argument('--candidate', type=Path)
     parser.add_argument('--matrix-report', type=Path)
     parser.add_argument('--project', type=Path)
-    parser.add_argument('--experiment', choices=('direction', 'baked'), default='direction')
+    parser.add_argument('--experiment', choices=('direction', 'baked', 'reverse', 'native_axes'), default='direction')
     parser.add_argument('--verify', action='store_true')
     parser.add_argument('--replay', action='store_true')
     parser.add_argument('--output', type=Path, required=True)

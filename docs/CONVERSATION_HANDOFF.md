@@ -1,5 +1,13 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 02:38 真实图案盾schema与Shelf反向控制
+
+- shield通过原生crafter实物合成成功，oak_log→4oak_planks正例及真实盾＋三层蓝旗目标均通过。真实成品newAuxValue=0，typed userData Base=4、Damage=0、Patterns=[bo1,cr14,mc11]，GetContainerItem(True)与输出箱Item.tag一致；未向盾注入NBT。64格／库存／客户端均恢复，源码不变。MC38176 exact=0xC0000409、MCDK42764=0，normal stop后自行退出、再finalize，无force。schema已解锁，不等于编辑器图案盾成功；代理离线准备最短9图原生UI／绑定骨骼／框内参照／可旋转编辑器对照，先无绑定宿主负控。
+- root Shelf reverse32图completed／restored／source unchanged、cleanup空，独立分析及目检完成。反向坐标恢复东西轮廓（AO IoU>.9999），但正面纹理移到其他面，明确拒绝；原baked东西IoU约.6206。所有32原图及receipt／取得时host／相关候选资源保存为docs/evidence/shelf-reverse-r21-v1，365项manifest及像素重放通过。MC53788 exact=0xC0000409、MCDK54972=0；普通stop超时后仅finalize已退会话，无force。
+- root下一native-axis控制将坐标旋转与面名映射拆开，只在新副本生成；旧骨骼／baked／reverse路径不变。project .runtime/projects/shelf-r21-native-axes-v1，3272files，digest b82d3f2db9b85ab778f86a069d5fd2e74269b346d696803e9c3e59e421387a69；.runtime/start_shelf_native_axes_r21.py仅freeze，未launch。面向与光照结论待实图，不接产品路由。
+- item已提交f0eaf578，287文件包docs/evidence/frame-block-holdouts-r21-v1，80PNG／校准／原分析／typed Item.Block附魔链／精确WER及exit可独立重放。代理开始复用旧图分析三角度石头RGB／UV／面明暗，不追加MC；厚度质感及绝对光照仍开。
+- 当前独占MC／WGC给portal v8最短正面pair：session d3ee2a7633954945b0871526eee8b75f，MC50000／MCDK55092，已ready并立即retained双句柄。只两张候选／原生坐标图，恢复后停，不自动扩大。随后真实盾短实测、snow完整lifecycle等按资源轮换。08:00休眠，不push／合main。
+
 ## 2026-10-16 02:20 六例方块物品与分析器修正
 
 - 用户再次强调框内旗帜物品和旗帜方块不同；物品短杆、外形、姿态、厚度和共享深度必须独立验收。现有壁旗帜可保留原生图案，只能证明方块几何路线；带图案盾牌仍未完成。shield正在独立副本准备仅pole材质的hide／坐标编码，不改布面图案或直接猜测杆件变形。

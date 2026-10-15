@@ -105,6 +105,7 @@ def main():
     parser.add_argument('--compare-engine-direction', action='store_true')
     parser.add_argument('--compare-baked-rotation', action='store_true')
     parser.add_argument('--compare-reverse-baked-rotation', action='store_true')
+    parser.add_argument('--compare-native-axis-baked-rotation', action='store_true')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Use a fresh diagnostic directory')
@@ -212,6 +213,9 @@ def main():
                 if args.compare_reverse_baked_rotation:
                     variants.extend((front, suffix) for front in fronts
                                     for suffix in ('_baked_reverse', '_baked_reverse_ao'))
+                if args.compare_native_axis_baked_rotation:
+                    variants.extend((front, suffix) for front in fronts
+                                    for suffix in ('_baked_native_axes', '_baked_native_axes_ao'))
                 for front, suffix in variants:
                     directional = suffix.startswith('_directional')
                     identifier = 'modern_projection:preview_shelf_' + wood + '_' + front
