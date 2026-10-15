@@ -1,5 +1,16 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 06:20 原生参照收敛，继续开发至08:00
+
+- 本轮继续执行，不暂停；08:00+08休眠任务已读回Ready／Enabled、shutdown.exe /h、StartWhenAvailable=False。用户最新旗帜要求保持：物品展示框中的banner item不能复用standing_banner／wall_banner外形。真实框03／04原图可见窄长布、极短下杆；编辑器姿态、比例、厚度与共同深度仍独立待验。
+- Portal v11固定TIME64仅作诊断：gateway/front四原图root均已实际打开，并独立PIL／NumPy重算north内部41616像素。candidate/native各自间隔超过2秒的重复帧差为0，亮度比0.9989830198、exact比例0.8879757785、误差≤1比例0.9290657439、误差>4比例0.0352989235；无相位／曝光／空间拟合或剔除粒子。native later紫粒子覆盖另一面，不在本次上方north ROI内。不能由固定时间关闭动画、其他视角或编辑器资格。正常TIME窄候选接入由portal代理离线准备，独立native默认门保持False；旧profile的PRODUCT_QUALIFIED=True不是本次重开外观问题已关。
+- Portal session d3d945a0187c445c9aef9be2335c6f57，MC54892／134365757029793422、MCDK32688／134365757027068074。capture58005／analyze已结束；一次normal close22894超时exit1，exact observer34098 exit0记录MC 0xC0000409／MCDK0，两identity消失后normal finalize stopped。MC/WGC已释放，不称正常引擎退出。四图与分析留在.runtime/portal-fixed-time-{observed,control}-r21-v11。
+- Book attached v3取得有效原生书参照：root独立打开native_attached_empty／authored两原图，前者无书、后者页面／封皮清楚。probe15.57985s，completed／restored／source_unchanged=True、cleanup空；只解除oracle阻塞，不证明编辑器候选外观通过，也不将物品放置／north／attached camera共同变更归为单因。session c56d014517a1432ba7ceae2533486b5e，MC23412／134365760726660232、MCDK53980／134365760724538275；一次normal stop67304超时，exact observer29088保留MC 0xC0000409／MCDK0，06:17:41两者退出，所有launcher／probe／stop结束后finalize stopped。无新图矩阵；下一最短窗口为已冻world hidden/show五图，UI像素不在其范围。
+- Shelf两个新便携包已提交3fef3370：Skeleton 24原图证明normal／world旋转可用但候选仍偏亮；terrain v4两图读取到本体真实COLOR、texture1与flags。实际flags(51,0,51)=FANCY／FOG／TEXEL_AA／ATLAS_TEXTURE，lightmap为237，前竖面COLOR随顶点插值约203→164。不能使用entity fancy公式、单亮度系数或屏幕高度拟合冒充原生terrain等价；AO生成未从引擎导出。两session均已恢复／关闭，退出异常保留。index已归root。
+- 水旧v18／v19远距失败发生在10月14日，先于10月15日R18的专用±4 bounds修复；a8780a0及同场景117941→0→117941可逆像素证据已存在。不能继续写作“没有修复候选”或把旧失败称为±4后复现；广泛距离／加载上下文仍待验。R16 README已修正而历史raw不改。cache A/B与独立UI S→E提交候选均离线待命，后者默认未启用。
+- 当前唯一MC/WGC交shield-r20-v14-banner-pose-control：session5986a112da284ef7b0c5fe4d7b75d48e，MC52516／134365763868061053、MCDK39492／134365763865644150，exact observer63254。先negative→bind一次→zero实图，正面可用即停止；v15未获启动授权。后续按资源交Grass正面／同session最终glint、Water、正常TIME Portal、Snow两holdout及Book最短复验；未获明确grant不得launch。保留6GiB普通／9GiB Item/Water启动、总5MC及实际单MC/WGC排期，无激活／resize／桌面输入／force。主watcher的其他旧session权限错误保留；Portal专用PID6088覆盖此次owner且心跳有效。
+- 全回归此前3100tests／386.390s／OK(skipped1)，runtime imports234files／0violations；后续只做受改动影响的聚焦检查。dev不push／合main，原tools/diagnose_water_world_r16.py与tools/run_water_batch_r16.py的tracked WIP不动；五个用户probe及既有未跟踪证据保留。
+
 ## 2026-10-16 05:31 关闭异常精简便携证据归档
 
 - 两份既有转储的真实DbgEng输出、原C++异常字节和匹配运行库类型片段保存于[shutdown-cpp-exception-r21-v1](evidence/shutdown-cpp-exception-r21-v1/README.md)。2×13帧到首个game+0x17e530b，原记录0xE06D7363及类型描述符确认std::bad_function_call，随后terminate／abort／FAST_FAIL_FATAL_APP_EXIT=7；具体引擎原因、guard及WM_CLOSE因果仍unknown，不称栈损坏，不接受更深游戏展开。

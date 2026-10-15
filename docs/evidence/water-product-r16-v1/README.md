@@ -172,14 +172,36 @@ controls remain necessary; this replay does not qualify those missing routes.
 all 57 public case/route pairs under identical 35-source runtime closure.
 Geometry, all 12 fixed-body opacity controls, all 54 independent section
 controls and all 108 world lifecycle samples pass. The checkpoint intentionally
-remains unqualified: world side UV, cold world advance, distance/world-context
-visibility, three-route physical animation, biome, exact occupancy, reverse
+remains unqualified: world side UV, cold world advance, broader distance/world-
+context qualification, three-route physical animation, biome, exact occupancy, reverse
 neighbors, public gallery and ordinary cold-start default admission remain open.
 
-The v18 same-instance diagnostic confirms that the original foot remains fixed
+The R16 v18 same-instance diagnostic records the original foot remaining fixed
 while unchanged water is invisible at the far configured origin and visible at
-the near origin. It removes the earlier cross-instance uncertainty, but a
-horizontal/vertical range scan and chunk-context controls remain necessary.
+the near origin. It removes the earlier cross-instance uncertainty. These
+historical failures precede the subsequent product-owner bounds correction;
+they are not evidence of a failure after that correction.
+
+The chronology was rechecked against the raw first-capture receipts and commit
+metadata on 2026-10-16. All times below are UTC+08:00:
+
+| Evidence | First Capture | Observation |
+| --- | --- | --- |
+| `world-distance-v18-far.json` | 2026-10-14 22:55:42.747189 | Invisible water at the approximately 65.31-block fixture. |
+| `world-distance-v19-x63.json` | 2026-10-14 23:38:24.653385 | Later R16 far-origin diagnostic, still before the R18 bounds regression. |
+| [R18 visibility v4](../liquid-owner-r18-bounds-v1/reports/liquid-r18-visibility-v4.json) | 2026-10-15 11:08:55.399200 | Cold product-owner default +/-4 is visible at origin `(63,-61,3)`. |
+| [R18 visibility v5](../liquid-owner-r18-bounds-v1/reports/liquid-r18-visibility-v5.json) | 2026-10-15 11:12:33.556111 | Same-owner repeat preserves visibility after restoring the camera on near/return travel. |
+
+The [R18 bounds regression](../liquid-owner-r18-bounds-v1/README.md) measures
+117,941 independent wet-minus-hidden pixels at default +/-4, zero after changing
+only live bounds to +/-2, and 117,941 after restoring +/-4. Commit
+`a8780a0fc78dae2ef3c0ff4194e0a4c11cf0df4c`, dated 2026-10-15 13:09:56
+UTC+08:00, retains +/-4 in the isolated `ProductWorldLiquidRenderer`; the shared
+renderer still uses +/-2. The old R16 v18/v19 reports do not record an actual
+bounds readback. Their native-method listings do not establish bounds values.
+The narrow R18 fixture therefore has a reversible bounds correction, while
+horizontal/vertical range and chunk-context qualification remain open. The
+historical raw reports and failed measurements are unchanged.
 
 1. Preserve the clean v4 baseline and reject assertion-affected startup runs.
    Editor water is visible without shader changes; the root cause of the earlier
@@ -192,9 +214,10 @@ horizontal/vertical range scan and chunk-context controls remain necessary.
 4. Qualify the source/resource closure, then cold-start the ordinary default
    Session and verify editor, full projection, missing projection, biome and
    occupancy behavior without assigning a candidate profile.
-5. Characterize and resolve or explicitly bound the observed FreeModel/native
-   entity far-field visibility mismatch. Near-field fixture correction does
-   not prove equal render distances or restore distant custom water.
+5. Qualify the broader FreeModel/native-entity far-field behavior beyond the
+   passed R18 +/-4 fixture. Its reversible bounds correction establishes that
+   fixture's visibility, but does not prove equal render distances across
+   horizontal/vertical ranges or world-loading contexts.
 
 Full captures, receipts and source archives remain locally available. Compact
 review artifacts will be selected only after the final result is known.
