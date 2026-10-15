@@ -1,0 +1,277 @@
+
+************* Path validation summary **************
+Response                         Time (ms)     Location
+OK                                             C:\Windows\System32
+
+************* Path validation summary **************
+Response                         Time (ms)     Location
+OK                                             D:\MCStudioDownload\game\MinecraftPE_Netease\3.10.0.420447
+OK                                             C:\Windows\System32
+No .natvis files found at C:\Windows\System32\Visualizers.
+No .natvis files found at C:\Users\Happy2018new\AppData\Local\Dbg\Visualizers.
+
+Microsoft (R) Windows Debugger Version 10.0.26100.1 AMD64
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+
+Loading Dump File [C:\Users\Happy2018new\AppData\Local\CrashDumps\Minecraft.Windows.exe.25292.dmp]
+User Mini Dump File: Only registers, stack and portions of memory are available
+
+
+************* Path validation summary **************
+Response                         Time (ms)     Location
+OK                                             D:\MCStudioDownload\game\MinecraftPE_Netease\3.10.0.420447
+OK                                             C:\Windows\System32
+
+************* Path validation summary **************
+Response                         Time (ms)     Location
+OK                                             C:\Windows\System32
+Symbol search path is: C:\Windows\System32
+Executable search path is: D:\MCStudioDownload\game\MinecraftPE_Netease\3.10.0.420447;C:\Windows\System32
+Windows 10 Version 26200 MP (24 procs) Free x64
+Product: WinNt, suite: SingleUserTS Personal
+Edition build lab: 26100.1.amd64fre.ge_release.240331-1435
+Debug session time: Fri Oct 16 04:16:45.000 2026 (UTC + 8:00)
+System Uptime: 1 days 4:20:41.058
+Process Uptime: 0 days 0:08:42.000
+................................................................
+................................................................
+......
+Loading unloaded module list
+................................................................
+Unable to add extension DLL: ntsdexts
+Unable to add extension DLL: uext
+Unable to add extension DLL: exts
+This dump file has an exception of interest stored in it.
+The stored exception information can be accessed via .ecxr.
+(62cc.5dec): Security check failure or stack buffer overrun - code c0000409 (first/second chance not available)
+Subcode: 0x7 FAST_FAIL_FATAL_APP_EXIT 
+
++------------------------------------------------------------------------+
+| This target supports Hardware-enforced Stack Protection. A HW based    |
+| "Shadow Stack" may be available to assist in debugging and analysis.   |
+| See aka.ms/userhsp for more info.                                      |
+|                                                                        |
+| dps @ssp                                                               |
+|                                                                        |
++------------------------------------------------------------------------+
+
+For analysis of this file, run !analyze -v
+
+COMMAND: version
+Windows 10 Version 26200 MP (24 procs) Free x64
+Product: WinNt, suite: SingleUserTS Personal
+Edition build lab: 26100.1.amd64fre.ge_release.240331-1435
+Debug session time: Fri Oct 16 04:16:45.000 2026 (UTC + 8:00)
+System Uptime: 1 days 4:20:41.058
+Process Uptime: 0 days 0:08:42.000
+  Kernel time: 0 days 0:02:59.000
+  User time: 0 days 0:09:35.000
+User mini dump: C:\Users\Happy2018new\AppData\Local\CrashDumps\Minecraft.Windows.exe.25292.dmp
+
+Microsoft (R) Windows Debugger Version 10.0.26100.1 AMD64
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+command line: '"D:\Program\Python\python.exe" -B -X utf8 .runtime/shutdown-audit-r21-v2/debug_existing_dump.py --pid 25292 --label local'  Debugger Process 0x43D8 
+dbgeng:  image 10.0.26100.1, 
+        [path: C:\Windows\System32\dbgeng.dll]
+dbghelp: image 10.0.26100.9549, 
+        [path: C:\Windows\System32\dbghelp.dll]
+        DIA version: 33145
+Extension DLL search Path:
+    C:\Windows\System32\WINXP;C:\Windows\System32\winext;C:\Windows\System32\winext\arcade;C:\Windows\System32\pri;C:\Windows\System32;C:\Users\Happy2018new\AppData\Local\Dbg\EngineExtensions;C:\Users\Happy2018new\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\Happy2018new\.codex\tmp\arg0\codex-arg0VdTA76;C:\Users\Happy2018new\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\libheif\libheif\bin;C:\Users\Happy2018new\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\jxrlib\jxrlib\bin;C:\Users\Happy2018new\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\poppler\Library\bin;C:\Users\Happy2018new\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\override;C:\Python314\Scripts\;C:\Python314\;D:\Program\Python\Scripts\;D:\Program\Python\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\ProgramData\chocolatey\bin;D:\Program\Git\cmd;D:\Program\Bandizip\;D:\Program\Pandoc\;C:\Program Files\dotnet\;D:\Program\CMake\bin;D:\Windows Kits\10\Windows Performance Toolkit\;D:\Program\Git LFS;D:\Program\MiKTeX\miktex\bin\x64\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;D:\Program\Graphviz\bin;C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;D:\Program\NodeJS\;D:\Program\Go\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Happy2018new\.cargo\bin;C:\Users\Happy2018new\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\Happy2018new\AppData\Local\Microsoft\WindowsApps;D:\Program\Microsoft VS Code\bin;C:\Users\Happy2018new\AppData\Local\GitHubDesktop\bin;D:\Program\msys64\ucrt64\bin;D:\Program\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\bin\Hostx64\x64;C:\Sharing\ffmpeg\bin;C:\Users\Happy2018new\AppData\Roaming\Python\Python312\Scripts;D:\Program\PyCharm Community Edition 2024.3.3\bin;D:\Program\Java\bin;C:\Users\Happy2018new\Desktop\Tools\adb\platform-tools;C:\Program Files\Processing\;D:\Program\flutter\bin;C:\Users\Happy2018new\.dotnet\tools;C:\Users\Happy2018new\AppData\Roaming\npm;C:\Users\Happy2018new\go\bin;D:\Program\Lean\elan\bin;C:\Users\Happy2018new\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback;C:\Users\Happy2018new\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin;C:\Users\Happy2018new\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\git\cmd;C:\Users\Happy2018new\AppData\Local\OpenAI\Codex\bin\77fbd4d52e601e0a;C:\Users\Happy2018new\AppData\Local\OpenAI\Codex\bin\9614f1d9b40d9c4f
+Extension DLL chain:
+    dbghelp: image 10.0.26100.9549, API 10.0.6, 
+        [path: C:\Windows\System32\dbghelp.dll]
+
+COMMAND: .sympath
+Symbol search path is: C:\Windows\System32
+Expanded Symbol search path is: c:\windows\system32
+
+************* Path validation summary **************
+Response                         Time (ms)     Location
+OK                                             C:\Windows\System32
+
+COMMAND: .exepath
+Executable image search path is: D:\MCStudioDownload\game\MinecraftPE_Netease\3.10.0.420447;C:\Windows\System32
+Expanded Executable image search path is: d:\mcstudiodownload\game\minecraftpe_netease\3.10.0.420447;c:\windows\system32
+
+************* Path validation summary **************
+Response                         Time (ms)     Location
+OK                                             D:\MCStudioDownload\game\MinecraftPE_Netease\3.10.0.420447
+OK                                             C:\Windows\System32
+
+COMMAND: .ecxr
+rax=0000000000000001 rbx=0000003f458fe8d0 rcx=0000000000000007
+rdx=00000188d2000140 rsi=00000000ffffffff rdi=0000000000000000
+rip=00007ff96415527e rsp=0000003f458fdd60 rbp=0000003f458fdec0
+ r8=7ffffffffffffffc  r9=0000000000000002 r10=000000000000000d
+r11=00007ff692c52810 r12=0000003f458fe100 r13=0000003f458fe6f0
+r14=0000003f458ff090 r15=0000003f458fe0c0
+iopl=0         nv up ei pl nz na pe nc
+cs=0033  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00200202
+ucrtbase!abort+0x4e:
+00007ff9`6415527e cd29            int     29h
+
+COMMAND: kpn
+  *** Stack trace for last set context - .thread/.cxr resets it
+ # Child-SP          RetAddr               Call Site
+00 0000003f`458fdd60 00007ff9`6417218e     ucrtbase!abort+0x4e
+01 0000003f`458fdd90 00007ff9`435e186b     ucrtbase!terminate+0x1e
+02 0000003f`458fddc0 00007ff9`435e21a5     VCRUNTIME140_1+0x186b
+03 0000003f`458fdf70 00007ff9`435e21f6     VCRUNTIME140_1+0x21a5
+04 0000003f`458fe030 00007ff9`435e43f5     VCRUNTIME140_1+0x21f6
+05 0000003f`458fe080 00007ff9`666664af     VCRUNTIME140_1!_CxxFrameHandler4+0xa5
+06 0000003f`458fe100 00007ff9`665c4065     ntdll!_chkstk+0x9f
+07 0000003f`458fe130 00007ff9`66519f3d     ntdll!RtlWow64GetCurrentMachine+0x655
+08 0000003f`458fe890 00007ff9`637b408a     ntdll!RtlRaiseException+0x18d
+09 0000003f`458ff070 00007ff9`27765267     KERNELBASE!RaiseException+0x8a
+0a 0000003f`458ff170 00007ff9`263a94af     VCRUNTIME140!CxxThrowException+0x97
+0b 0000003f`458ff1d0 00007ff6`8b09530b     msvcp140!std::_Xbad_function_call+0x1f
+0c 0000003f`458ff220 00000000`00000000     Minecraft_Windows+0x17e530b
+
+COMMAND: .exr -1
+ExceptionAddress: 00007ff96415527e (ucrtbase!abort+0x000000000000004e)
+   ExceptionCode: c0000409 (Security check failure or stack buffer overrun)
+  ExceptionFlags: 00000001
+NumberParameters: 1
+   Parameter[0]: 0000000000000007
+Subcode: 0x7 FAST_FAIL_FATAL_APP_EXIT 
+
+COMMAND: lmv m ucrtbase
+start             end                 module name
+00007ff9`640b0000 00007ff9`641fc000   ucrtbase   (export symbols)       ucrtbase.dll
+    Loaded symbol image file: ucrtbase.dll
+    Mapped memory image file: c:\windows\system32\ucrtbase.dll
+    Image path: C:\Windows\System32\ucrtbase.dll
+    Image name: ucrtbase.dll
+    Image was built with /Brepro flag.
+    Timestamp:        3F426C5B (This is a reproducible build file hash, not a timestamp)
+    CheckSum:         00161322
+    ImageSize:        0014C000
+    File version:     10.0.26100.9711
+    Product version:  10.0.26100.9711
+    File flags:       0 (Mask 3F)
+    File OS:          40004 NT Win32
+    File type:        2.0 Dll
+    File date:        00000000.00000000
+    Translations:     0409.04b0
+    Information from resource tables:
+        CompanyName:      Microsoft Corporation
+        ProductName:      Microsoft? Windows? Operating System
+        InternalName:     ucrtbase.dll
+        OriginalFilename: ucrtbase.dll
+        ProductVersion:   10.0.26100.9711
+        FileVersion:      10.0.26100.9711 (WinBuild.160101.0800)
+        FileDescription:  Microsoft? C Runtime Library
+        LegalCopyright:   ? Microsoft Corporation. All rights reserved.
+
+COMMAND: lmv m VCRUNTIME140*
+start             end                 module name
+00007ff9`27760000 00007ff9`2777e000   VCRUNTIME140   (export symbols)       VCRUNTIME140.dll
+    Loaded symbol image file: VCRUNTIME140.dll
+    Mapped memory image file: d:\mcstudiodownload\game\minecraftpe_netease\3.10.0.420447\VCRUNTIME140.dll
+    Image path: D:\MCStudioDownload\game\MinecraftPE_Netease\3.10.0.420447\VCRUNTIME140.dll
+    Image name: VCRUNTIME140.dll
+    Image was built with /Brepro flag.
+    Timestamp:        98C03CC5 (This is a reproducible build file hash, not a timestamp)
+    CheckSum:         0001ED6B
+    ImageSize:        0001E000
+    File version:     14.42.34433.0
+    Product version:  14.42.34433.0
+    File flags:       0 (Mask 3F)
+    File OS:          4 Unknown Win32
+    File type:        2.0 Dll
+    File date:        00000000.00000000
+    Translations:     0409.04b0
+    Information from resource tables:
+        CompanyName:      Microsoft Corporation
+        ProductName:      Microsoft? Visual Studio?
+        InternalName:     vcruntime140.dll
+        OriginalFilename: vcruntime140.dll
+        ProductVersion:   14.42.34433.0
+        FileVersion:      14.42.34433.0
+        FileDescription:  Microsoft? C Runtime Library
+        LegalCopyright:   ? Microsoft Corporation. All rights reserved.
+00007ff9`435e0000 00007ff9`435ec000   VCRUNTIME140_1   (export symbols)       VCRUNTIME140_1.dll
+    Loaded symbol image file: VCRUNTIME140_1.dll
+    Mapped memory image file: c:\windows\system32\VCRUNTIME140_1.dll
+    Image path: C:\Windows\System32\VCRUNTIME140_1.dll
+    Image name: VCRUNTIME140_1.dll
+    Image was built with /Brepro flag.
+    Timestamp:        DC08A728 (This is a reproducible build file hash, not a timestamp)
+    CheckSum:         0001354B
+    ImageSize:        0000C000
+    File version:     14.51.36247.0
+    Product version:  14.51.36247.0
+    File flags:       0 (Mask 3F)
+    File OS:          4 Unknown Win32
+    File type:        2.0 Dll
+    File date:        00000000.00000000
+    Translations:     0409.04b0
+    Information from resource tables:
+        CompanyName:      Microsoft Corporation
+        ProductName:      Microsoft? Visual Studio?
+        InternalName:     vcruntime140_1.dll
+        OriginalFilename: vcruntime140_1.dll
+        ProductVersion:   14.51.36247.0
+        FileVersion:      14.51.36247.0
+        FileDescription:  Microsoft? C Runtime Library
+        LegalCopyright:   ? Microsoft Corporation. All rights reserved.
+
+COMMAND: lmv m Minecraft*
+start             end                 module name
+00007ff6`898b0000 00007ff6`a6b3e000   Minecraft_Windows   (no symbols)           
+    Loaded symbol image file: Minecraft.Windows.exe
+    Mapped memory image file: d:\mcstudiodownload\game\minecraftpe_netease\3.10.0.420447\Minecraft.Windows.exe
+    Image path: D:\MCStudioDownload\game\MinecraftPE_Netease\3.10.0.420447\Minecraft.Windows.exe
+    Image name: Minecraft.Windows.exe
+    Timestamp:        Wed Sep 23 20:07:52 2026 (6AB3C118)
+    CheckSum:         0786D387
+    ImageSize:        1D28E000
+    File version:     1.21.130.0
+    Product version:  1.21.130.0
+    File flags:       0 (Mask 3F)
+    File OS:          40004 NT Win32
+    File type:        1.0 App
+    File date:        00000000.00000000
+    Translations:     0409.04b0
+    Information from resource tables:
+        ProductName:      Minecraft
+        InternalName:     Minecraft
+        OriginalFilename: Minecraft
+        ProductVersion:   1.21.130.0
+        FileVersion:      1.21.130.0
+        FileDescription:  Minecraft
+        LegalCopyright:   ? Microsoft. All rights reserved.
+00007fff`e7750000 00007fff`fffec000   Minecraft_UnitTest_Shared   (deferred)             
+    Mapped memory image file: d:\mcstudiodownload\game\minecraftpe_netease\3.10.0.420447\Minecraft.UnitTest.Shared.dll
+    Image path: D:\MCStudioDownload\game\MinecraftPE_Netease\3.10.0.420447\Minecraft.UnitTest.Shared.dll
+    Image name: Minecraft.UnitTest.Shared.dll
+    Timestamp:        Wed Sep 23 20:05:58 2026 (6AB3C0A6)
+    CheckSum:         00000000
+    ImageSize:        1889C000
+    Translations:     0000.04b0 0000.04e4 0409.04b0 0409.04e4
+    Information from resource tables:
+
+Unloaded modules:
+00007ff8`df9e0000 00007ff8`e041d000   Minecraft.Entry.Test.UnitTest.S
+    Timestamp: Wed Sep 23 19:25:06 2026 (6AB3B712)
+    Checksum:  00000000
+    ImageSize:  00A3D000
+00007ff8`df9e0000 00007ff8`e041d000   Minecraft.Entry.Test.UnitTest.S
+    Timestamp: Wed Sep 23 19:25:06 2026 (6AB3B712)
+    Checksum:  00000000
+    ImageSize:  00A3D000
+
+COMMAND: lmv m native_focus_guard
+start             end                 module name
+00007ff9`464a0000 00007ff9`464a9000   native_focus_guard   (deferred)             
+    Mapped memory image file: D:\Happy2018new�θ����ļ�\GitHub\better-building-editor\docs\evidence\background-focus-r13-v1\inputs\native_focus_guard.dll
+    Image path: D:\Happy2018new�θ����ļ�\GitHub\better-building-editor\docs\evidence\background-focus-r13-v1\inputs\native_focus_guard.dll
+    Image name: native_focus_guard.dll
+    Timestamp:        Tue Oct 13 13:24:14 2026 (6ACDC07E)
+    CheckSum:         00000000
+    ImageSize:        00009000
+    Translations:     0000.04b0 0000.04e4 0409.04b0 0409.04e4
+    Information from resource tables:

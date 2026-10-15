@@ -1,0 +1,174 @@
+{
+  "cases": [
+    {
+      "pid": 2188,
+      "dump_sha256": "d63ff129f7ed32227c0b8596386b1ab7b9514521b303ea2a5490c27d1b4ecd94",
+      "record_address": "0x395315ef40",
+      "record_source": "captured dump memory at exception-context R14",
+      "record_hex": "63736de08100000000000000000000008a407b63f97f000004000000000000002005931900000000a0f0155339000000a0313d26f97f000000003726f97f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "code": "0xe06d7363",
+      "flags": "0x81",
+      "exception_address": "0x7ff9637b408a",
+      "parameters": [
+        "0x19930520",
+        "0x395315f0a0",
+        "0x7ff9263d31a0",
+        "0x7ff926370000"
+      ],
+      "exception_object_address": "0x395315f0a0",
+      "exception_object_captured_hex": "a8a63c26f97f000000000000000000000000000000000000a0f4689bf67f0000",
+      "throw_metadata_image": {
+        "name": "msvcp140.dll",
+        "sha256": "9057d39b36b6c7d054865ee2bf9cde7a490fe3b01ec4e82514687e24f576269f",
+        "base": "0x7ff926370000",
+        "throw_rva": "0x631a0",
+        "timestamp": 3269363215,
+        "image_size": 577536
+      },
+      "throw_info_hex": "000000007c4e000000000000c0310600",
+      "catchable_types": [
+        {
+          "catchable_type_rva": "0x631d8",
+          "raw_hex": "00000000f036080000000000ffffffff000000001800000000900300",
+          "type_descriptor_rva": "0x836f0",
+          "decorated_type": ".?AVbad_function_call@std@@"
+        },
+        {
+          "catchable_type_rva": "0x62c50",
+          "raw_hex": "000000007834080000000000ffffffff0000000018000000381b0000",
+          "type_descriptor_rva": "0x83478",
+          "decorated_type": ".?AVexception@std@@"
+        }
+      ],
+      "earliest_explainable_cpp_type": "std::bad_function_call",
+      "engine_return_address": "0x7ff68b09530b",
+      "engine_return_rva": "0x17e530b",
+      "engine_code_captured": false,
+      "engine_code_captured_hex": null
+    },
+    {
+      "pid": 25292,
+      "dump_sha256": "2cef55c51df3263a30465e73b8260392e27dd77e098223f088179e69cfeb68c2",
+      "record_address": "0x3f458ff090",
+      "record_source": "captured dump memory at exception-context R14",
+      "record_hex": "63736de08100000000000000000000008a407b63f97f000004000000000000002005931900000000f0f18f453f000000a0313d26f97f000000003726f97f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "code": "0xe06d7363",
+      "flags": "0x81",
+      "exception_address": "0x7ff9637b408a",
+      "parameters": [
+        "0x19930520",
+        "0x3f458ff1f0",
+        "0x7ff9263d31a0",
+        "0x7ff926370000"
+      ],
+      "exception_object_address": "0x3f458ff1f0",
+      "exception_object_captured_hex": "a8a63c26f97f000000000000000000000000000000000000a0f4689bf67f0000",
+      "throw_metadata_image": {
+        "name": "msvcp140.dll",
+        "sha256": "9057d39b36b6c7d054865ee2bf9cde7a490fe3b01ec4e82514687e24f576269f",
+        "base": "0x7ff926370000",
+        "throw_rva": "0x631a0",
+        "timestamp": 3269363215,
+        "image_size": 577536
+      },
+      "throw_info_hex": "000000007c4e000000000000c0310600",
+      "catchable_types": [
+        {
+          "catchable_type_rva": "0x631d8",
+          "raw_hex": "00000000f036080000000000ffffffff000000001800000000900300",
+          "type_descriptor_rva": "0x836f0",
+          "decorated_type": ".?AVbad_function_call@std@@"
+        },
+        {
+          "catchable_type_rva": "0x62c50",
+          "raw_hex": "000000007834080000000000ffffffff0000000018000000381b0000",
+          "type_descriptor_rva": "0x83478",
+          "decorated_type": ".?AVexception@std@@"
+        }
+      ],
+      "earliest_explainable_cpp_type": "std::bad_function_call",
+      "engine_return_address": "0x7ff68b09530b",
+      "engine_return_rva": "0x17e530b",
+      "engine_code_captured": false,
+      "engine_code_captured_hex": null
+    }
+  ],
+  "binary_inventory": [
+    {
+      "source": "C:\\Windows\\System32\\dbgeng.dll",
+      "copy": "inputs/binaries/dbgeng.dll",
+      "size": 7225344,
+      "sha256": "bfa188b10eb64a94f1eb59bfb0f8d85eb5dfc803cd0f6b5c554816fe311a236e",
+      "timestamp": 2979590039,
+      "image_size": 7454720
+    },
+    {
+      "source": "C:\\Windows\\System32\\dbghelp.dll",
+      "copy": "inputs/binaries/dbghelp.dll",
+      "size": 2317640,
+      "sha256": "2d2ec94891162a61d86789133623b47d64d74c15d6be99473b25ad7a6468cf39",
+      "timestamp": 1662766997,
+      "image_size": 2408448
+    },
+    {
+      "source": "C:\\Windows\\System32\\dbgcore.dll",
+      "copy": "inputs/binaries/dbgcore.dll",
+      "size": 241664,
+      "sha256": "4aa8f5241b94752cac649e61bdf57c8910e1dbf3d4e9759c658bb41a852f6cdf",
+      "timestamp": 3176677894,
+      "image_size": 241664
+    },
+    {
+      "source": "C:\\Windows\\System32\\DbgModel.dll",
+      "copy": "inputs/binaries/DbgModel.dll",
+      "size": 1142784,
+      "sha256": "b1711ae13f4385c2c12e694c8a549c01bcee1f77e149fb792329eefbe4e61798",
+      "timestamp": 2004329353,
+      "image_size": 1150976
+    },
+    {
+      "source": "C:\\Windows\\System32\\ucrtbase.dll",
+      "copy": "inputs/binaries/ucrtbase.dll",
+      "size": 1399656,
+      "sha256": "dedb7611e1abc1ff3852dcac3d4c93a048d729e25b061973b9969f22698f14ca",
+      "timestamp": 1061317723,
+      "image_size": 1359872
+    },
+    {
+      "source": "C:\\Windows\\System32\\VCRUNTIME140_1.dll",
+      "copy": "inputs/binaries/VCRUNTIME140_1.dll",
+      "size": 50112,
+      "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+      "timestamp": 3691554600,
+      "image_size": 49152
+    },
+    {
+      "source": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\msvcp140.dll",
+      "copy": "inputs/binaries/msvcp140.dll",
+      "size": 575592,
+      "sha256": "9057d39b36b6c7d054865ee2bf9cde7a490fe3b01ec4e82514687e24f576269f",
+      "timestamp": 3269363215,
+      "image_size": 577536
+    },
+    {
+      "source": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\VCRUNTIME140.dll",
+      "copy": "inputs/binaries/VCRUNTIME140.dll",
+      "size": 120432,
+      "sha256": "da72e6677bd1bcd01c453c1998aaa19aeaf6659f4774cf6848409da8232a95b2",
+      "timestamp": 2562735301,
+      "image_size": 122880
+    },
+    {
+      "source": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+      "copy": null,
+      "size": 126251024,
+      "sha256": "9be281dbe08bc591336680d5a50f94d87f3c57ee75b3afcb3cabdf03347e0269",
+      "reason_not_copied": "126 MB external image; private dumps also remain external"
+    }
+  ],
+  "conclusion": "std::bad_function_call reaches terminate/abort in both captured stacks",
+  "underlying_engine_cause": "unknown",
+  "guard_causality": "unknown",
+  "stack_corruption_established": false,
+  "game_unwind_beyond_return_accepted": false
+}

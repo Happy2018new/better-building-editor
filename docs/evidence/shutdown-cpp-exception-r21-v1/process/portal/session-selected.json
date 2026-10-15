@@ -1,0 +1,49 @@
+{
+  "id": "d3ce3a87949844aa8e95f052bab420ef",
+  "owner": "portal-r20-native-v10",
+  "created_at": 1792093070.8587432,
+  "game_pid": 2188,
+  "game_identity": "134365666754603117",
+  "mcdk_pid": 37656,
+  "mcdk_identity": "134365666752287808",
+  "noactivation": {
+    "schema": 1,
+    "requested": true,
+    "dll": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\background-focus-r13-v1\\inputs\\native_focus_guard.dll",
+      "sha256": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    },
+    "user_foreground_allowed": true,
+    "agent_activation_allowed": false,
+    "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+    "foreground": {
+      "hwnd": 7082340,
+      "pid": 7948,
+      "process": "LockApp.exe",
+      "identity": "134364982459186304",
+      "title": "Windows \u9ed8\u8ba4\u9501\u5c4f\u754c\u9762",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 15466786,
+        "pid": 2188,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 189,
+        "y": 176,
+        "width": 1329,
+        "height": 736,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  }
+}

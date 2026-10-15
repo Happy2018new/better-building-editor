@@ -1,0 +1,117 @@
+{
+  "pid": 2188,
+  "dump": "C:\\Users\\Happy2018new\\AppData\\Local\\CrashDumps\\Minecraft.Windows.exe.2188.dmp",
+  "dump_sha256": "d63ff129f7ed32227c0b8596386b1ab7b9514521b303ea2a5490c27d1b4ecd94",
+  "offline_dump_only": true,
+  "live_attach": false,
+  "started_utc": "2026-10-15T21:10:36.131320+00:00",
+  "argv": [
+    ".runtime/shutdown-audit-r21-v2/debug_existing_dump.py",
+    "--pid",
+    "2188",
+    "--label",
+    "local"
+  ],
+  "calls": [
+    {
+      "operation": "DebugCreate",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "QueryInterface 5182e668-105e-416e-ad92-24ef800424ba",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "QueryInterface 8c31e98c-983a-48a5-9016-6fe5d667a950",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "SetOutputCallbacks",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "SetSymbolOptions",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "SetSymbolPath",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "SetImagePath",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "OpenDumpFile existing dump",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "WaitForEvent",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute version",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute .sympath",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute .exepath",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute .ecxr",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute kpn",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute .exr -1",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute lmv m ucrtbase",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute lmv m VCRUNTIME140*",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute lmv m Minecraft*",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "Execute lmv m native_focus_guard",
+      "hresult": "0x00000000"
+    },
+    {
+      "operation": "EndSession passive",
+      "hresult": "0x00000000"
+    }
+  ],
+  "success": true,
+  "engine": {
+    "path": "C:\\Windows\\System32\\dbgeng.dll",
+    "sha256": "bfa188b10eb64a94f1eb59bfb0f8d85eb5dfc803cd0f6b5c554816fe311a236e"
+  },
+  "symbol_path": "C:\\Windows\\System32",
+  "commands": [
+    "version",
+    ".sympath",
+    ".exepath",
+    ".ecxr",
+    "kpn",
+    ".exr -1",
+    "lmv m ucrtbase",
+    "lmv m VCRUNTIME140*",
+    "lmv m Minecraft*",
+    "lmv m native_focus_guard"
+  ],
+  "finished_utc": "2026-10-15T21:10:39.820045+00:00",
+  "output_sha256": "971be1002554f356bed36542ab02d8dc6e6317abec5ad37d349ab3c8ab7883ed"
+}

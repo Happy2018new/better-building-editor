@@ -1,5 +1,11 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 05:31 关闭异常精简便携证据归档
+
+- 两份既有转储的真实DbgEng输出、原C++异常字节和匹配运行库类型片段保存于[shutdown-cpp-exception-r21-v1](evidence/shutdown-cpp-exception-r21-v1/README.md)。2×13帧到首个game+0x17e530b，原记录0xE06D7363及类型描述符确认std::bad_function_call，随后terminate／abort／FAST_FAIL_FATAL_APP_EXIT=7；具体引擎原因、guard及WM_CLOSE因果仍unknown，不称栈损坏，不接受更深游戏展开。
+- 36清单文件另manifest，1277882 bytes，manifest SHA256为9c335271a031729c350e90d7ef59e7a66b0e70877ea7661ea1bf5db8df322800；包无DLL／EXE／DMP／NuGet／PDB，原dump以私有路径及全SHA绑定。标准库verify仅重算包内原日志、XML过程身份和C++类型；真正DbgEng回放由独立replay入口要求外部匹配工具／dump／images。
+- 原文件完整核验曾通过；归档前再次核验时PID2188原路径文件已缺失，当前不能重跑全部original-input检查，不推断缺失原因。包内raw bytes不变，portable verify及stage blob独立导出验证照常执行。tools/pack_shutdown_audit_r21.py只复制固定manifest并校验，不操作游戏或共享index；本次不改product／guard／stop及两water tracked WIP。
+
 ## 2026-10-16 05:28 原生展示架terrain路由实图；宿主内存原因确认
 
 - 开发继续至08:00，休眠任务已再次读回enabled、08:00+08、shutdown.exe /h、StartWhenAvailable=False。最新旗帜物品形态要求保持：原生frame正／斜参考不等于编辑器attachment正面／比例／短杆／厚度完成。
