@@ -1,4 +1,4 @@
-"""Prepare clone-only GPU input readback for shelf and stone actor geometry."""
+"""Prepare clone-only GPU input readback for shelf and stone geometry."""
 import argparse
 import hashlib
 import json
@@ -14,9 +14,8 @@ FRAGMENT_NAME = 'shaders/glsl/modern_projection_shelf_inputs.fragment'
 MODES = {1: 'raw_normal', 2: 'entity_normal', 3: 'world_normal',
          4: 'light_rgb', 5: 'tile_light_rgb', 6: 'vertex_rgb', 7: 'flags',
          8: 'normal_w_and_light_direction'}
-MESH_MODES = dict(MODES)
-MESH_MODES[2] = 'normalized_local_normal'
-MESH_MODES[7] = 'mesh_flags'
+MESH_MODES = {4: 'light_rgb', 5: 'tile_light_rgb', 6: 'vertex_rgb',
+              7: 'mesh_flags', 8: 'vertex_alpha_tile_alpha_geometry_flag'}
 
 DECLARATIONS = '''
 uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
@@ -95,11 +94,19 @@ def mesh_vertex_wrapper(source):
     anchor = 'void main()\n{'
     if source.count(anchor) != 1 or 'attribute vec4 NORMAL;' in source:
         raise ValueError('Unexpected product terrain mesh vertex structure')
-    declarations = 'attribute vec4 NORMAL;\nvarying highp vec4 shelfInput;\n'
-    readback = READBACK.replace('entitySpaceNormal', 'NORMAL')
+    declarations = 'varying highp vec4 shelfInput;\n'
+    # Combined block meshes do not bind NORMAL, even when the material lists it.
+    readback = READBACK.replace('''        if (mode < 1.5) shelfInput = vec4(NORMAL.xyz*0.5+0.5, 1.0);
+        else if (mode < 2.5) shelfInput = vec4(normalize(entitySpaceNormal.xyz)*0.5+0.5, 1.0);
+        else if (mode < 3.5) shelfInput = vec4(normalize((WORLD*entitySpaceNormal).xyz)*0.5+0.5, 1.0);
+        else if (mode < 4.5)''', '        if (mode < 4.5)')
     readback = readback.replace('''            #ifdef COLOR_BASED
             shelfInput = vec4(COLOR.rgb, 1.0);
             #endif''', '            shelfInput = vec4(COLOR.rgb, 1.0);')
+    readback = readback.replace('vec4(NORMAL.w, entitySpaceNormal.w, TILE_LIGHT_COLOR.w, 1.0)',
+                               'vec4(COLOR.a, TILE_LIGHT_COLOR.a, COMMON_BLOCK_GEO_FLOAT1_1, 1.0)')
+    if 'NORMAL' in readback:
+        raise ValueError('Combined mesh input readback must not request NORMAL')
     end = source.rfind('}')
     source = source[:end]+readback+source[end:]
     return source.replace(anchor, declarations+'\n'+anchor, 1)
@@ -157,6 +164,8 @@ def prepare(source, output, native_root, route='actor'):
                 'limits': ['RGB values quantized to capture bytes; no absolute HDR measurement',
                            ('Missing COLOR_BASED is magenta in mode 6' if route == 'actor' else
                             'Mesh mode 6 reads the bound COLOR attribute regardless of COLOR_BASED'),
+                           ('Actor vertex exposes NORMAL' if route == 'actor' else
+                            'Combined mesh NORMAL is unavailable; modes 1-3 are not supported'),
                            'Native world shelf does not use these actor or mesh diagnostics',
                            'Input readback alone cannot qualify appearance or item contents']}
     (output/'shelf-input-contract.json').write_text(

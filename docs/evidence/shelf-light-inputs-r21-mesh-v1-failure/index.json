@@ -1,0 +1,35 @@
+{
+  "completed": false,
+  "restored": false,
+  "production_qualified": false,
+  "flag_readback_valid": false,
+  "captures": 2,
+  "failure": "Engine reports combined mesh has no NORMAL vertex field",
+  "limits": [
+    "Only native-world and empty controls were captured.",
+    "No diagnostic input or candidate appearance was captured.",
+    "Fixture cleanup was blocked by the repeated diagnostic modal.",
+    "Only the private diagnostic world remains modified.",
+    "Normal close and exact exit evidence do not establish a normal exit cause."
+  ],
+  "exact_exit": {
+    "game": {
+      "pid": 14124,
+      "identity": "134365673627738663",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+      "state": "exited",
+      "exit_code": 3221226505,
+      "exit_code_hex": "0xC0000409",
+      "observed_at": "2026-10-15T19:55:50.046916+00:00"
+    },
+    "mcdk": {
+      "pid": 54068,
+      "identity": "134365673625504001",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "state": "exited",
+      "exit_code": 0,
+      "exit_code_hex": "0x00000000",
+      "observed_at": "2026-10-15T19:55:51.048171+00:00"
+    }
+  }
+}

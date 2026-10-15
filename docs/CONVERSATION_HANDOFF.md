@@ -1,5 +1,14 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 04:01 mesh缺NORMAL实机失败，改读COLOR；讲台原生成书运行中
+
+- 用户对旗帜物品的提醒已核查属实：旧v3/v5候选都是站旗／壁旗palette几何，未独立实现物品网格和姿态，不能计作展示框旗帜完成。原生frame正面短下杆阳性，斜面内容缺失，厚度仍未确认。shield已保存.runtime/shield-banner-item-audit-r21/AUDIT.md并准备独立item接入；Scene selector仍未启动，冷启launcher继续离线准备。
+- root mesh v1实际失败：引擎assert `Mesh missing vertex field NORMAL required by shader. Skipping draw.`，ShaderBase.cpp @118。仅world／empty两图，candidate／输入图均没有；completed=False、restored=False，四个cleanup错误保留，隔离测试世界未恢复。合成编译通过不能证明实际mesh存在字段。精确modal收据与源保存于docs/evidence/shelf-light-inputs-r21-mesh-v1-failure，28manifest文件，不授任何资格。
+- 先普通stop超时，再仅该精确identity／text的modal IDIGNORE配合WM_CLOSE正常收尾，无激活或force。MC14124／134365673627738663 exact=0xC0000409，MCDK54068／134365673625504001=0，observer／capture／恢复尝试／close exec全部结束；两identity已空，normal finalize stopped。禁止把退出归因或fixture恢复写为成功。
+- 修正工具不再请求NORMAL；mesh只支持modes4／5／6／7／8（light、tile、COLOR、flags、alpha／common）。新副本.runtime/projects/shelf-r21-mesh-inputs-v2已冻结3274files／0a73baf891356da0f85900c05174a8bf92ffeb1411f2a3fd38c1cbac0224fcc6；12 GLES programs和72合成像素通过，未launch。下一最小south／modes6、7，先证明magenta材质选择和输入传递。
+- 唯一MC/WGC已明确交Book，仅book-r20-native-oracle-v1原生5图；6GiB、四reloadfalse、noactivation与exact observer照旧。Book cardinal40失败控制便携包提交542ea2eb。Portal v10八原图包提交cb61fa09，root57manifest与实际三report重放通过；front灰烟及不同phase限制保留，production=False。
+- root上轮40图failed-readback包及工具已提交f8506eb1。当前index由root预留保存本次失败与修正，其他代理未获得新stage窗口；仍保留原water两份tracked WIP，不push／合main，08:00休眠任务继续有效。
+
 ## 2026-10-16 03:48 恢复进度与失败读回纠正
 
 - 用户再次强调旗帜物品与旗帜方块在展示框中不同。shield代理继续离线独立核对物品几何、姿态、比例、短下杆、厚度；原生骨骼的图案阳性不能代替Scene深度与框内正面验收。

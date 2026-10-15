@@ -136,6 +136,8 @@ def main():
         from prepare_shelf_light_inputs_r21 import MARKER, MODES, MESH_MODES
         modes = MODES if args.input_route == 'actor' else MESH_MODES
         if args.input_modes:
+            if any(mode not in modes for mode in args.input_modes):
+                parser.error('Requested input mode is unavailable on the selected render route')
             modes = {mode: modes[mode] for mode in args.input_modes}
         report['shader_inputs'] = {'marker': MARKER, 'modes': modes, 'route': args.input_route}
     args.output.mkdir(parents=True)

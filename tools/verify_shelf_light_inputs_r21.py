@@ -28,7 +28,11 @@ def fixtures(flags, mesh=False):
     # Native lighting baseline fixtures assume FANCY is absent or an upward normal.
     if 'RNGL_LOCAL_LIGHT' in flags:
         rows = []
+    if mesh:
+        expected[-1] = [1., 1., 1.]
     for mode, rgb in enumerate(expected, 1):
+        if mesh and mode < 4:
+            continue
         rows.append({'name': 'input_'+str(mode), 'packet': [19491., float(mode), 0., 0.],
                      'local': [0.]*4, 'common': 1., 'vertex_color': [.8, .6, .4, 1.],
                      'shadow_color': [0.]*4, 'pixel': [180, 120, 60, 255],
