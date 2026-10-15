@@ -284,7 +284,8 @@ class ProjectionOccupancy(object):
                                       cauldron_profile=self.cauldron_profile,
                                       liquid_profile=self.liquid_profile,
                                       spawner_profile=self.spawner_profile,
-                                      portal_profile=self.portal_profile)
+                                      portal_profile=self.portal_profile,
+                                      visible_layer=self.visible_layer)
         for unused in builder.prepare():
             yield True
         self.prepared = builder.data

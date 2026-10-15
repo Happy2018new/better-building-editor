@@ -82,7 +82,7 @@ class Runtime:
         return True
 
     def geometry(self, output, name=None, context_document=None, prepared=None,
-                 render_origin=(0, 0, 0)):
+                 render_origin=(0, 0, 0), context_visible_layer=None):
         self.geometry_calls.append((name, {key: tuple(values) for key, values in output.common.items()}))
         self.geometry_origins.append(render_origin)
         return name

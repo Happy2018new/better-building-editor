@@ -131,7 +131,8 @@ class OccupancyShader(object):
         pos = next(iter(tracker.targets))
         seed.add(pos, tracker.document.blocks[pos])
         if not b.geometry(seed, name=self.names[spare], context_document=tracker.document,
-                          render_origin=tracker.origin):
+                          render_origin=tracker.origin,
+                          context_visible_layer=getattr(tracker, 'visible_layer', None)):
             raise ValueError('Could not prepare projection shader buffer')
         if attached and not self.local:
             self.parts[self.bank][model] = ((0, 0, 0), True)

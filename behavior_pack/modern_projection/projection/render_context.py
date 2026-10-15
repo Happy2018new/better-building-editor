@@ -1,4 +1,4 @@
-"""Prepare one missing-only mesh while retaining each cell's native neighbors."""
+"""Prepare missing-only meshes while retaining view-visible native neighbors."""
 from collections import OrderedDict
 from .cell import AIR, actor_data, background, foreground
 from .geometry_palette import prepare_palette
@@ -188,7 +188,7 @@ class ContextPaletteBuilder(object):
     """Read snapshot chunks directly and yield between small preparation units."""
     def __init__(self, document, targets, render_origin=(0, 0, 0), item_profile=None,
                  native_render_profile=None, cauldron_profile=None, liquid_profile=None,
-                 spawner_profile=None, portal_profile=None):
+                 spawner_profile=None, portal_profile=None, visible_layer=None):
         self.document, self.targets = document, targets
         self.item_profile = item_profile
         self.native_render_profile = native_render_profile
@@ -204,6 +204,9 @@ class ContextPaletteBuilder(object):
         if (tuple(targets.get('volume', ())) != self.logical_volume or
                 not 0 < sy <= MAX_LOGICAL_HEIGHT):
             raise ValueError('Context palettes require matching supported logical volumes')
+        # Snapshot view exclusions independently of the missing-only targets.
+        self.visible_layers = (None if visible_layer is None else
+                               frozenset(y for y in range(sy) if visible_layer(y)))
         self.cache, self.data = {}, None
         self.chest_identities = frozenset(identity for identity, value in enumerate(document.blocks.palette)
                                           if foreground(value)[0] in CHEST_PROXIES)
@@ -235,6 +238,8 @@ class ContextPaletteBuilder(object):
         return entry
 
     def material(self, x, y, z):
+        if self.visible_layers is not None and y not in self.visible_layers:
+            return None
         chunk, rendered_cells = self._chunk((x >> 4, y >> 4, z >> 4))
         if rendered_cells is None:
             return None
@@ -472,12 +477,13 @@ class ContextBatchBuilder(ContextPaletteBuilder):
 
 def prepare_context_batches(document, targets, render_origin=(0, 0, 0), item_profile=None,
                             native_render_profile=None, cauldron_profile=None, liquid_profile=None,
-                            spawner_profile=None, portal_profile=None):
+                            spawner_profile=None, portal_profile=None, visible_layer=None):
     builder = ContextBatchBuilder(document, targets, render_origin=render_origin,
                                   item_profile=item_profile,
                                   native_render_profile=native_render_profile,
                                   cauldron_profile=cauldron_profile, liquid_profile=liquid_profile,
-                                  spawner_profile=spawner_profile, portal_profile=portal_profile)
+                                  spawner_profile=spawner_profile, portal_profile=portal_profile,
+                                  visible_layer=visible_layer)
     for unused in builder.prepare():
         pass
     return builder.data

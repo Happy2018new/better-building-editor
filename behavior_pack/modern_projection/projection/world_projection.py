@@ -83,7 +83,7 @@ class WorldProjection(object):
     def active(self):
         return self.bridge.alive and self.bridge.projection_serial == self.serial
 
-    def visible_y(self, y):
+    def visible_layer(self, y):
         return y < self.document.size[1] and y not in self.hidden and (self.layer is None or y == self.layer)
 
     def prepare(self):
@@ -109,7 +109,7 @@ class WorldProjection(object):
             if not uniform:
                 chunk = tuple(chunk)
             for y in range(size[1]):
-                if not self.visible_y(start[1]+y):
+                if not self.visible_layer(start[1]+y):
                     continue
                 for z in range(size[2]):
                     for x in range(size[0]):
@@ -129,7 +129,8 @@ class WorldProjection(object):
                                       cauldron_profile=getattr(self, 'cauldron_profile', None),
                                       liquid_profile=getattr(self, 'liquid_profile', None),
                                       spawner_profile=getattr(self, 'spawner_profile', None),
-                                      portal_profile=getattr(self, 'portal_profile', None))
+                                      portal_profile=getattr(self, 'portal_profile', None),
+                                      visible_layer=self.visible_layer)
         for unused in builder.prepare():
             yield None
         self.prepared = builder.data

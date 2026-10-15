@@ -410,7 +410,7 @@ class ClientBridge(object):
         self.session.emit()
 
     def geometry(self, document, visible=None, name=None, context_document=None, prepared=None,
-                 render_origin=(0, 0, 0)):
+                 render_origin=(0, 0, 0), context_visible_layer=None):
         from .native_render_profile import for_preview
         preview_profile = for_preview(getattr(self.session, 'native_render_profile', None))
         if prepared is not None:
@@ -424,7 +424,8 @@ class ClientBridge(object):
                                            cauldron_profile=getattr(self.session, 'cauldron_profile', None),
                                            liquid_profile=getattr(self.session, 'liquid_profile', None),
                                            spawner_profile=getattr(self.session, 'spawner_profile', None),
-                                           portal_profile=getattr(self.session, 'portal_profile', None))
+                                           portal_profile=getattr(self.session, 'portal_profile', None),
+                                           visible_layer=context_visible_layer)
         else:
             from .geometry_palette import prepare_palette
             biome = getattr(document, 'biome', None)
