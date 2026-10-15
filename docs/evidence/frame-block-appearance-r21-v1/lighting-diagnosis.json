@@ -1,0 +1,32 @@
+{
+  "branch_limits": [
+    "Native !FANCY or RNGL_UNLIT branch returns 1",
+    "Native RNGL_LIGHT branch uses HIDE_COLOR directional lighting",
+    "FLIP_BACKFACES and USE_OVERLAY affect native lighting when enabled",
+    "Actual ordinary stone item-frame route, flags, vertex colors, TILE_LIGHT_COLOR and fog were not observed"
+  ],
+  "candidate_difference": "Specialized frame-block fragment multiplies texture by itemLight, has no native vertex COLOR term or explicit fog, and independently adds squared glint",
+  "compile_binding": "Shader verification rerun against the packaged candidate, frozen verifier/imports and exact frozen transitive engine headers; full report equals original candidate-v2 report",
+  "directional_match": "Candidate frameIntensity equals entityVertexUtil.h FANCY, non-RNGL_LIGHT and non-RNGL_UNLIT branch: (1+Ny*TILE_LIGHT_COLOR.w)*0.275 - Nx*Nx*0.1 + Nz*Nz*0.1 + 0.45",
+  "empirical_base_light": 0.93,
+  "factor_provenance": "Rounded inverse of observed approximately 1.0763 old flat-item brightness and current eight stone ROI gains 1.0704-1.0776; not a discovered native constant",
+  "holdouts_accepted": 0,
+  "native_cause_established": false,
+  "native_install": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447",
+  "native_source_binding": "Installed 3.10.0.420447 source snapshots read after the original capture; actual frame material route and flags were not logged",
+  "native_source_sha256": {
+    "data/resource_packs/vanilla/materials/entity.material": "5a3b5b0c6ae46e439ad26df811dfb657a8da229bcc5850a723bca579ebd788ac",
+    "data/resource_packs/vanilla_netease/shaders/glsl/entity.fragment": "4a618a80375acbe68014275df1f8c7e8ac4410558bd327696f450153ac85f335",
+    "data/resource_packs/vanilla_netease/shaders/glsl/entityFragmentUtil.h": "4fff1427b04f892b72e69ae8e8d4118891f90a8716fa4ac1c2789ebf9db8030d",
+    "data/resource_packs/vanilla_netease/shaders/glsl/entityVertexUtil.h": "5618dc4f8f734c0e49ef44250c2d404bd1010bf761d9611335a6795c5aa964f6"
+  },
+  "other_native_factors": [
+    "getLightColor multiplies TILE_LIGHT_COLOR.xyz",
+    "COLOR_BASED fragment route multiplies vertColor; item_in_hand declares COLOR_BASED, NO_TEXTURE and ITEM_IN_HAND",
+    "ITEM_IN_HAND may apply CHANGE_COLOR tint; entity.fragment applies fog before glint"
+  ],
+  "production_qualified": false,
+  "schema": 1,
+  "static_glint_limits": "Sequential enchanted quartz stills show volumetric glint but do not identify phase, brightness, motion direction or UV agreement",
+  "training_rois": 8
+}

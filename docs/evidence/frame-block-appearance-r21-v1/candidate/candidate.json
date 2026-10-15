@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "native_pixels_accepted": false,
+  "source_sha256": "36d897c8bd8e190c83d117b2c5ddc3c9feb454092b0e7f0a145c061c410c2c49",
+  "source_unchanged": true,
+  "base_light": 0.93,
+  "changed_paths": [
+    "resource_pack/shaders/glsl/modern_projection_frame_block_opaque.fragment"
+  ],
+  "files": {
+    "resource_pack/shaders/glsl/modern_projection_frame_block.vertex": "b4f7c615263be665fa8918e34f1e70ead226b76cd281fdecb99324c83407d94e",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_cutout.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_opaque.fragment": "eb4d34eabbb0aa184adc56f6241864b1a05c0a0da64eed81c553094ebee8c259",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_translucent.fragment": "2c7649c3599e4ed20d5d41e15fc5bb67aae99cf590b604b438d92a507b591149",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_world.vertex": "84d79511fba46b64614bfb99ec14820dd7a199f4ca09eff0fb91c90656b2d43d",
+    "behavior_pack/modern_projection/projection/frame_block_item_data.py": "7d9dc9548066f77c2976a529371fb1221e3bf3946cd37d1ab5f02753d2ca5707",
+    "resource_pack/models/modern_projection/frame_block_items/1cc58135f7b22c54_mesh.json": "7c9bb5599b4ad1d0d8e557df9f7bf8a498aa232b1dd0e07b3d44b2eb40dd9fa0",
+    "resource_pack/models/modern_projection/frame_block_items/0d8d479f3958fea7_mesh.json": "1e9a773e4e384bcfe0c5d0df37a02968cf4a6fef6a8ad9df41996174b878bd95"
+  },
+  "source_file_sha256": {
+    "resource_pack/shaders/glsl/modern_projection_frame_block.vertex": "b4f7c615263be665fa8918e34f1e70ead226b76cd281fdecb99324c83407d94e",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_cutout.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_opaque.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_translucent.fragment": "2c7649c3599e4ed20d5d41e15fc5bb67aae99cf590b604b438d92a507b591149",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_world.vertex": "84d79511fba46b64614bfb99ec14820dd7a199f4ca09eff0fb91c90656b2d43d",
+    "behavior_pack/modern_projection/projection/frame_block_item_data.py": "7d9dc9548066f77c2976a529371fb1221e3bf3946cd37d1ab5f02753d2ca5707",
+    "resource_pack/models/modern_projection/frame_block_items/1cc58135f7b22c54_mesh.json": "7c9bb5599b4ad1d0d8e557df9f7bf8a498aa232b1dd0e07b3d44b2eb40dd9fa0",
+    "resource_pack/models/modern_projection/frame_block_items/0d8d479f3958fea7_mesh.json": "1e9a773e4e384bcfe0c5d0df37a02968cf4a6fef6a8ad9df41996174b878bd95"
+  },
+  "generator_sha256": "657668a2fdb47edb7907a027b68e3dbc470ba4488c6e17344925211c66df41bd",
+  "items": [
+    [
+      "minecraft:stone",
+      0
+    ],
+    [
+      "minecraft:quartz_block",
+      0
+    ]
+  ],
+  "scope": "Opaque frame-block base RGB only; conditional itemFrame>0.5; vertex positions/normals and independent glint term unchanged",
+  "factor_provenance": "Rounded empirical 0.93 suggested by old flat-item absolute gain 1.0763 and current eight stone face ROI mean gains 1.0704-1.0776; not a discovered native constant",
+  "native_cause_established": false,
+  "training": "All eight stone face ROIs in frame-block-appearance-r21-v1; none is a holdout",
+  "required_holdouts": [
+    "Different ordinary block items with new camera angles",
+    "Same-session raw RGB and source texture samples without color normalization",
+    "Changed world-light conditions with actual native item reference",
+    "Frame-body and Shelf unchanged-source controls",
+    "Separate artificial block glint animation comparison"
+  ],
+  "limitations": [
+    "No new native capture; no postcapture corrected screenshot accepted",
+    "Native TILE_LIGHT_COLOR, vertex color and fog factors were not observed",
+    "Other materials, flat items, frame-body resources and Shelf resources are not corrected",
+    "Candidate directory is a resource override subset, not a prepared runnable project"
+  ]
+}

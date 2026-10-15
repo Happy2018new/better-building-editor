@@ -242,3 +242,21 @@ diagnostics, then measure grass, log and planks with glass separate. Keep the
 existing six-face/eight-rotation and lifecycle gates. Production admission
 also needs an explicit validated `(name, aux)` whitelist; an opaque-material
 toggle must not admit all 324 opaque resource candidates.
+
+## Raw Appearance Diagnostics
+
+The follow-up `docs/FRAME_BLOCK_APPEARANCE_R21.md` and independently replayable
+`docs/evidence/frame-block-appearance-r21-v1/` preserve eight large stone face
+ROIs across all three angles. Product/native mean gains remain 1.0704-1.0776,
+with raw RGB MAE 5.19-9.09 and maxima up to 28. No alignment, normalization
+or fitted color correction hides this failure. Corresponding texture patterns
+and silhouette agreement do not accept complete thickness or appearance.
+
+The installed standard native direction-light formula matches the candidate,
+but the actual native material branch, vertex color, light and fog values
+were not captured. The cause remains unresolved. A separate resource subset
+tests rounded empirical base RGB factor 0.93 on the itemFrame route only;
+independent glint and alpha remain unchanged. It is an unqualified experiment,
+and these eight existing ROIs are training diagnostics. No production source
+or gate changes. Different items/angles and changed-light native holdouts are
+required before any appearance acceptance.

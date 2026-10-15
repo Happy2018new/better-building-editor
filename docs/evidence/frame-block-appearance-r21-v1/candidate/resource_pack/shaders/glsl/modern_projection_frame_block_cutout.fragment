@@ -1,0 +1,52 @@
+// __multiversion__
+precision highp float;
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "uniformInterFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+#include "uniformWorldConstants.h"
+uniform sampler2D TEXTURE_0;
+uniform sampler2D TEXTURE_1;
+varying highp vec2 itemUv;
+varying highp vec2 itemGlintUv;
+varying highp float itemVisible;
+varying highp float itemEnchanted;
+varying highp float itemClip;
+varying highp float itemFrame;
+varying highp vec3 itemLight;
+varying highp vec3 itemTileLight;
+void main() {
+    if(itemVisible<0.5 || itemClip>0.0 || EXTRA_VECTOR4.w<=0.0) discard;
+    vec4 texel=texture2D(TEXTURE_0,itemUv);
+    if(texel.a<0.5) discard;
+    vec3 rgb=texel.rgb*itemLight;
+    if(itemEnchanted>0.5) {
+        vec2 centered=itemGlintUv-vec2(0.5);
+        vec2 firstUv;
+        vec2 secondUv;
+        if(itemFrame>0.5) {
+            // Both observed native phase rates complete integer cycles in 82.5s.
+            float clock=mod(TOTAL_REAL_WORLD_TIME,82.5);
+            firstUv=mat2(0.173648177666930,-0.984807753012208,0.984807753012208,0.173648177666930)*centered;
+            secondUv=mat2(0.939692620785908,0.342020143325669,-0.342020143325669,0.939692620785908)*centered;
+            firstUv=(firstUv+vec2(clock*(4.0/15.0),0.0)+vec2(0.5))*0.5;
+            secondUv=(secondUv-vec2(clock*(8.0/11.0),0.0)+vec2(0.5))*0.5;
+        } else {
+            float clock=mod(TIME,210.0);
+            firstUv=mat2(0.866025403784439,-0.5,0.5,0.866025403784439)*centered;
+            secondUv=mat2(0.866025403784439,0.5,-0.5,0.866025403784439)*centered;
+            firstUv=(firstUv+vec2(clock*0.4,0.0)+vec2(0.5))*0.5;
+            secondUv=(secondUv-vec2(clock*0.2,0.0)+vec2(0.5))*0.5;
+        }
+        float first=texture2D(TEXTURE_1,fract(firstUv)).r;
+        float second=texture2D(TEXTURE_1,fract(secondUv)).r;
+        vec3 glintColor=vec3(0.38,0.19,0.61);
+        if(itemFrame>0.5) glintColor=vec3(0.285,0.1425,0.4575);
+        vec3 glint=glintColor*(first+second)*itemTileLight;
+        rgb=clamp(rgb+glint*glint,0.0,1.0);
+    }
+    float alpha=EXTRA_VECTOR4.w*texel.a;
+    if(abs(PROJ[3][3])>0.5) alpha*=CURRENT_COLOR.a;
+    gl_FragColor=vec4(rgb,alpha);
+}
