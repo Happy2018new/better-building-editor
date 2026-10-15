@@ -1,0 +1,789 @@
+{
+  "schema": 1,
+  "fixture": "test.dynamic.portals",
+  "completed": true,
+  "restored": true,
+  "pixel_acceptance": false,
+  "cleanup_errors": [],
+  "captures": {
+    "end_gateway_candidate_front": {
+      "capture": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\water-r20-prime-v6\\portal-prime16\\end_gateway_candidate_front.png",
+        "started_at": "2026-10-15T14:17:07.174669+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\8447cbfbfa7c401aa8aa58ec9d9af69e\\session.json",
+        "owner": "water-r20-v6",
+        "game_pid": 17356,
+        "game_identity": "134365471611816471",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 20251758,
+          "pid": 17356,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 20251758,
+              "pid": 17356,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 20251758,
+              "pid": 17356,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 804783702079,
+          "frame_qpc_100ns": 804783793541,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          2378.86474808488,
+          3130.7751812832116,
+          8359.952193954401
+        ],
+        "sha256": "fb368d9eb6f730678099c3e4d31e4e095547a6a2d42c5447d71547e90c0b9965",
+        "bytes": 884399,
+        "finished_at": "2026-10-15T14:17:08.166108+00:00",
+        "elapsed_seconds": 0.9914339000097243
+      },
+      "camera": {
+        "face_points": [
+          [
+            "top",
+            [
+              {
+                "depth": 0.001590016414411366,
+                "isInScreen": true,
+                "screenX": 1167.9627685546875,
+                "screenY": 468.26812744140625
+              },
+              {
+                "depth": 0.0015900161815807223,
+                "isInScreen": true,
+                "screenX": 954.8839111328125,
+                "screenY": 468.2681579589844
+              },
+              {
+                "depth": 0.001990020275115967,
+                "isInScreen": true,
+                "screenX": 963.4071044921875,
+                "screenY": 485.3145446777344
+              },
+              {
+                "depth": 0.001990020275115967,
+                "isInScreen": true,
+                "screenX": 1133.8701171875,
+                "screenY": 485.31451416015625
+              }
+            ]
+          ],
+          [
+            "north",
+            [
+              {
+                "depth": 0.001590016414411366,
+                "isInScreen": true,
+                "screenX": 1167.962890625,
+                "screenY": 681.3468627929688
+              },
+              {
+                "depth": 0.0015900161815807223,
+                "isInScreen": true,
+                "screenX": 954.8839721679688,
+                "screenY": 681.3469848632812
+              },
+              {
+                "depth": 0.0015900161815807223,
+                "isInScreen": true,
+                "screenX": 954.8839111328125,
+                "screenY": 468.2681579589844
+              },
+              {
+                "depth": 0.001590016414411366,
+                "isInScreen": true,
+                "screenX": 1167.9627685546875,
+                "screenY": 468.26812744140625
+              }
+            ]
+          ]
+        ],
+        "position": [
+          3.799999952316284,
+          -44.400001525878906,
+          -1.0
+        ],
+        "rotation": [
+          0.0,
+          -179.99996948242188,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "requested": {
+          "position": [
+            3.8,
+            -44.4,
+            -1.0
+          ],
+          "rotation": [
+            -0.0,
+            180.0,
+            0.0
+          ]
+        }
+      },
+      "visibility": {
+        "dark_pixels": 39015,
+        "colored_dark_pixels": 12504,
+        "interior_pixels": 41616,
+        "face": "north",
+        "dark_ratio": 0.9375,
+        "colored_dark_ratio": 0.3004613610149942,
+        "white_ratio": 0.0,
+        "mean_rgb": [
+          10.632208765859286,
+          21.28645232602845,
+          22.689230103806228
+        ],
+        "visible": true
+      },
+      "player": null
+    },
+    "end_gateway_native_front": {
+      "capture": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\water-r20-prime-v6\\portal-prime16\\end_gateway_native_front.png",
+        "started_at": "2026-10-15T14:17:10.871121+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\8447cbfbfa7c401aa8aa58ec9d9af69e\\session.json",
+        "owner": "water-r20-v6",
+        "game_pid": 17356,
+        "game_identity": "134365471611816471",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 20251758,
+          "pid": 17356,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 20251758,
+              "pid": 17356,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 20251758,
+              "pid": 17356,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 804820106681,
+          "frame_qpc_100ns": 804820217191,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          2410.211335343429,
+          3181.820153839456,
+          8430.57342622428
+        ],
+        "sha256": "90d21ce72065fd0b77220f4ccf8308c5fe1535d37cfcb59f396eb677ddf9dc62",
+        "bytes": 914402,
+        "finished_at": "2026-10-15T14:17:11.779607+00:00",
+        "elapsed_seconds": 0.9084839999995893
+      },
+      "camera": {
+        "face_points": [
+          [
+            "top",
+            [
+              {
+                "depth": 0.001590016414411366,
+                "isInScreen": true,
+                "screenX": 1167.9627685546875,
+                "screenY": 468.26812744140625
+              },
+              {
+                "depth": 0.0015900161815807223,
+                "isInScreen": true,
+                "screenX": 954.8839111328125,
+                "screenY": 468.2681579589844
+              },
+              {
+                "depth": 0.001990020275115967,
+                "isInScreen": true,
+                "screenX": 963.4071044921875,
+                "screenY": 485.3145446777344
+              },
+              {
+                "depth": 0.001990020275115967,
+                "isInScreen": true,
+                "screenX": 1133.8701171875,
+                "screenY": 485.31451416015625
+              }
+            ]
+          ],
+          [
+            "north",
+            [
+              {
+                "depth": 0.001590016414411366,
+                "isInScreen": true,
+                "screenX": 1167.962890625,
+                "screenY": 681.3468627929688
+              },
+              {
+                "depth": 0.0015900161815807223,
+                "isInScreen": true,
+                "screenX": 954.8839721679688,
+                "screenY": 681.3469848632812
+              },
+              {
+                "depth": 0.0015900161815807223,
+                "isInScreen": true,
+                "screenX": 954.8839111328125,
+                "screenY": 468.2681579589844
+              },
+              {
+                "depth": 0.001590016414411366,
+                "isInScreen": true,
+                "screenX": 1167.9627685546875,
+                "screenY": 468.26812744140625
+              }
+            ]
+          ]
+        ],
+        "position": [
+          3.799999952316284,
+          -44.400001525878906,
+          -1.0
+        ],
+        "rotation": [
+          0.0,
+          -179.99996948242188,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "requested": {
+          "position": [
+            3.8,
+            -44.4,
+            -1.0
+          ],
+          "rotation": [
+            -0.0,
+            180.0,
+            0.0
+          ]
+        }
+      },
+      "visibility": {
+        "dark_pixels": 40279,
+        "colored_dark_pixels": 9590,
+        "interior_pixels": 41616,
+        "face": "north",
+        "dark_ratio": 0.9678729334871203,
+        "colored_dark_ratio": 0.230440215301807,
+        "white_ratio": 0.0,
+        "mean_rgb": [
+          7.28465013456363,
+          15.565095155709342,
+          15.342896962706652
+        ],
+        "visible": true
+      },
+      "player": null
+    }
+  },
+  "rows": {
+    "end_gateway": {
+      "ready": {
+        "active": true,
+        "error": "",
+        "preparing": false,
+        "ready": true
+      },
+      "native_blocks": [
+        {
+          "nbt_actual": null,
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:stone"
+          },
+          "pos": [
+            3,
+            -46,
+            3
+          ],
+          "block": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "nbt": null
+        },
+        {
+          "nbt_actual": {
+            "z": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "ExitPortal": [
+              {
+                "__type__": 3,
+                "__value__": 0
+              },
+              {
+                "__type__": 3,
+                "__value__": 0
+              },
+              {
+                "__type__": 3,
+                "__value__": 0
+              }
+            ],
+            "Age": {
+              "__type__": 3,
+              "__value__": 0
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "EndGateway"
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -45
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "EndGatewayBadPosChecked": {
+              "__type__": 1,
+              "__value__": 1
+            }
+          },
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:end_gateway"
+          },
+          "pos": [
+            3,
+            -45,
+            3
+          ],
+          "block": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "nbt": null
+        },
+        {
+          "nbt_actual": {
+            "z": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "ExitPortal": [
+              {
+                "__type__": 3,
+                "__value__": 0
+              },
+              {
+                "__type__": 3,
+                "__value__": 0
+              },
+              {
+                "__type__": 3,
+                "__value__": 0
+              }
+            ],
+            "Age": {
+              "__type__": 3,
+              "__value__": 0
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "EndGateway"
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -44
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "EndGatewayBadPosChecked": {
+              "__type__": 1,
+              "__value__": 1
+            }
+          },
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:end_gateway"
+          },
+          "pos": [
+            3,
+            -44,
+            3
+          ],
+          "block": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "nbt": null
+        },
+        {
+          "nbt_actual": null,
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:stone"
+          },
+          "pos": [
+            4,
+            -46,
+            3
+          ],
+          "block": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "nbt": null
+        },
+        {
+          "nbt_actual": {
+            "z": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "ExitPortal": [
+              {
+                "__type__": 3,
+                "__value__": 0
+              },
+              {
+                "__type__": 3,
+                "__value__": 0
+              },
+              {
+                "__type__": 3,
+                "__value__": 0
+              }
+            ],
+            "Age": {
+              "__type__": 3,
+              "__value__": 0
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "EndGateway"
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -45
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 4
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "EndGatewayBadPosChecked": {
+              "__type__": 1,
+              "__value__": 1
+            }
+          },
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:end_gateway"
+          },
+          "pos": [
+            4,
+            -45,
+            3
+          ],
+          "block": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "nbt": null
+        }
+      ],
+      "restore_native": [
+        {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "pos": [
+            4,
+            -45,
+            3
+          ]
+        },
+        {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "pos": [
+            4,
+            -46,
+            3
+          ]
+        },
+        {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "pos": [
+            3,
+            -44,
+            3
+          ]
+        },
+        {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "pos": [
+            3,
+            -45,
+            3
+          ]
+        },
+        {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "pos": [
+            3,
+            -46,
+            3
+          ]
+        }
+      ]
+    }
+  },
+  "host_sha256": "3b5f950da0c3cde97c9d8de71e56dad82dcb17583676075f5301c0e05c094b12",
+  "presence_failures": [],
+  "source_sha256": {
+    "behavior_pack/modern_projection/projection/portal_profile.py": "3b004cc75102ecdcc7a80516c128a7f7492a88f0ba8604a8fb2012ec1a5ffbfb",
+    "behavior_pack/modern_projection/projection/portal_render_plan.py": "4498d26d7f78e0d7783455630740ea62de6c3df9810f7ebe9839544b521a65e3",
+    "behavior_pack/modern_projection/projection/portal_preview.py": "d1abe1f557c72aa8f5c63618ed9076cbdb7231465e7eb52002b4366ab6da7bde",
+    "behavior_pack/modern_projection/projection/portal_projection.py": "b3815bec5c582810cd3922c5314e7831e2da6175c48dcc0ad2d4997f5cccb934",
+    "behavior_pack/modern_projection/projection/debug_portal_blueprints.py": "b606e96709d75b53a6f619a93c381f248cd040e0ac294c0371889d0196b5df53",
+    "behavior_pack/modern_projection/projection/liquid_preview.py": "bbb8e7327dd842b42c153b9337c6c56464f5b1ca53b0bb7f8379b79b4e1856b6",
+    "behavior_pack/modern_projection/projection/liquid_projection.py": "2816a12c5c02f3cfe1394752946022891caed287b5a45f5b16623bd202a78b8e",
+    "behavior_pack/modern_projection/projection/liquid_transport.py": "b259a3f097015a8b841ee0e483c260262277d4866dbaf0cf6c22e84ccd14b65b",
+    "behavior_pack/modern_projection/projection/liquid_viewport.py": "d07472df91d4c4cd93c2d7d84cd37c34c00cdac72ade470d290a6e125b0531cf",
+    "behavior_pack/modern_projection/projection/liquid_render.py": "e86af5872ee34d74f73bc28de95133f581c5f99b0937423dfd733aeb44264b6e",
+    "behavior_pack/modern_projection/projection/scene.py": "d05f811958c3a738d23d219debf02ea93ee17e9fef2be4c77ebb433f7fb80692",
+    "behavior_pack/modern_projection/projection/session.py": "76eac3818a3033746854168762cca3e498cb5a954b134b5bd6f82074a0c70287",
+    "behavior_pack/modern_projection/projection/world_projection.py": "fe8dd841c3184473a68e57aa538686172ffbec52e6974f3dc129a46fef273287",
+    "behavior_pack/modern_projection/projection/occupancy.py": "2a451b6d141c734d32752e79cccc1593995cfa5473d17e715e1b8f680b4f598c",
+    "behavior_pack/modern_projection/projection/geometry_palette.py": "e04a6a2d21a24c338bb10960f8b5706bec25b23b43d80f838698932aeb6059d1",
+    "behavior_pack/modern_projection/projection/render_context.py": "e874ac903eacd01bb1a4400e9385fe479a395b6cd0bc5174ce4276d538606fd8",
+    "behavior_pack/modern_projection/projection/tiles.py": "7c89f117d27bb182b8e65ba55224f159e7549dfbe420ea4bde27dd4e3f0b28fc",
+    "resource_pack/shaders/glsl/modern_projection_portal_geometry.vertex": "0cbe6ecafd949cb0eeda8982ad1e3b3b3b371232d7b1aeaea70220e7db8784d3",
+    "resource_pack/shaders/glsl/modern_projection_portal_geometry_world.vertex": "1681c036af85c74e46ac5454bffbc42923a9107edf511226064ad667995e7118",
+    "resource_pack/shaders/glsl/modern_projection_portal_starfield.fragment": "fb659c6e0471a9afef1ad5e7b5226dac2125b4f2c9f389c0ea761c434af5e98b",
+    "resource_pack/models/modern_projection/portal/skeleton.json": "20a966711bc01cf74ced1159e371b07e0ec819dbd538c3514b0ffbe54d31beed",
+    "resource_pack/models/modern_projection/portal/end_portal_mesh.json": "f92309ec7b21a28ed0bad8dad5857104a2b90fe6ab4d971e4e5ba0ccd3d9e28b",
+    "resource_pack/models/modern_projection/portal/end_gateway_mesh.json": "f71f8ef105ff824a0a16ffd5a0ceb3181b58c662fa0addce6c11b79baf48a694",
+    "resource_pack/textures/models/modern_projection/portal/end_sky.png": "3749aedacd0a9fbf4a9bce802fc2da247c3b2fb52b941d954dc467daf734efb8",
+    "resource_pack/textures/models/modern_projection/portal/end_portal_colors.png": "379f18fb9088106aff248ff49791234053c1fb5593d2086a9448d093b8141479"
+  },
+  "native_adapter": true,
+  "adapter": {
+    "end_gateway": "r19_native_portal_end_gateway_world",
+    "end_portal": "r19_native_portal_end_portal_world"
+  },
+  "all_surfaces_visible": true,
+  "source_unchanged": true
+}

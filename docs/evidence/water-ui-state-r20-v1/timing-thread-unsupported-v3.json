@@ -1,0 +1,255 @@
+{
+  "schema": 1,
+  "diagnostic_only": true,
+  "production_qualified": false,
+  "completed": true,
+  "restored": true,
+  "cleanup_errors": [],
+  "rows": [
+    {
+      "case": "pool",
+      "control": "wet",
+      "metrics": {
+        "time": 1792075657.8575795,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 246992896,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884341760,
+        "handles": 185470
+      },
+      "groups": 8
+    },
+    {
+      "case": "pool",
+      "control": "dry",
+      "metrics": {
+        "time": 1792075660.2386568,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 420311040,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884341760,
+        "handles": 185470
+      },
+      "groups": 0
+    },
+    {
+      "case": "flow_west",
+      "control": "wet",
+      "metrics": {
+        "time": 1792075661.9517152,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 422670336,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884341760,
+        "handles": 185470
+      },
+      "groups": 4
+    },
+    {
+      "case": "flow_west",
+      "control": "dry",
+      "metrics": {
+        "time": 1792075663.9895594,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 425426944,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884407296,
+        "handles": 185470
+      },
+      "groups": 0
+    },
+    {
+      "case": "pool",
+      "control": "wet",
+      "metrics": {
+        "time": 1792075666.202165,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 421871616,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884407296,
+        "handles": 185470
+      },
+      "groups": 8
+    },
+    {
+      "case": "pool",
+      "control": "dry",
+      "metrics": {
+        "time": 1792075668.3242989,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 422211584,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884407296,
+        "handles": 185470
+      },
+      "groups": 0
+    },
+    {
+      "case": "flow_east",
+      "control": "wet",
+      "metrics": {
+        "time": 1792075670.2249267,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 419983360,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884407296,
+        "handles": 185470
+      },
+      "groups": 4
+    },
+    {
+      "case": "flow_east",
+      "control": "dry",
+      "metrics": {
+        "time": 1792075672.318551,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 420352000,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884407296,
+        "handles": 185470
+      },
+      "groups": 0
+    },
+    {
+      "case": "pool",
+      "control": "wet",
+      "metrics": {
+        "time": 1792075674.068518,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 420421632,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884407296,
+        "handles": 185470
+      },
+      "groups": 8
+    },
+    {
+      "case": "pool",
+      "control": "dry",
+      "metrics": {
+        "time": 1792075676.0842643,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 420515840,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2884407296,
+        "handles": 185470
+      },
+      "groups": 0
+    },
+    {
+      "case": "flow_west",
+      "control": "wet",
+      "metrics": {
+        "time": 1792075677.887449,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 421552128,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2885033984,
+        "handles": 185470
+      },
+      "groups": 4
+    },
+    {
+      "case": "flow_west",
+      "control": "dry",
+      "metrics": {
+        "time": 1792075679.3684254,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 421756928,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2885033984,
+        "handles": 185470
+      },
+      "groups": 0
+    }
+  ],
+  "source_contract_sha256": "cb2b32de68b69f435d69b59cf296d8492d88984ddb96e10f020d7fdbd0aef806",
+  "host_sha256": "709fb2b1343d65f5f5a347da0d9acb01994ef2c39b3b01630424dc79ff5b5afe",
+  "install": {
+    "has_time_clock": true,
+    "version": "2.7.13 (default, Sep 23 2026, 19:07:30) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "timing": {
+    "stats": {
+      "DocumentLiquidShapes.surface": {
+        "maximum_wall_ms": 2.000093460083008,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 102,
+        "maximum_high_resolution_wall_ms": 1.3854000000037558
+      },
+      "LiquidPreview.signature": {
+        "maximum_wall_ms": 1.0001659393310547,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 4527,
+        "maximum_high_resolution_wall_ms": 0.32450000000494583
+      },
+      "Session.emit": {
+        "maximum_wall_ms": 1.0001659393310547,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 62,
+        "maximum_high_resolution_wall_ms": 0.4383999999788557
+      },
+      "LiquidProjection.advance": {
+        "maximum_wall_ms": 0.0,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 0,
+        "maximum_high_resolution_wall_ms": 0.0
+      },
+      "LiquidFaceTextures.surface": {
+        "maximum_wall_ms": 2.000093460083008,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 102,
+        "maximum_high_resolution_wall_ms": 1.4357999999958793
+      },
+      "LiquidPreview._start": {
+        "maximum_wall_ms": 1.0001659393310547,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 12,
+        "maximum_high_resolution_wall_ms": 0.7086999999899035
+      },
+      "BlockStore.copy": {
+        "maximum_wall_ms": 1.0001659393310547,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 36,
+        "maximum_high_resolution_wall_ms": 0.06669999999076026
+      },
+      "LiquidPreview.advance": {
+        "maximum_wall_ms": 3.000020980834961,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 4359,
+        "maximum_high_resolution_wall_ms": 2.881999999999607
+      },
+      "WorldLiquidRenderer.begin": {
+        "maximum_wall_ms": 0.0,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 0,
+        "maximum_high_resolution_wall_ms": 0.0
+      },
+      "WorldLiquidRenderer.advance": {
+        "maximum_wall_ms": 0.0,
+        "maximum_thread_cpu_ms": 0.0,
+        "calls": 0,
+        "maximum_high_resolution_wall_ms": 0.0
+      }
+    },
+    "clock_semantics": "Windows CPython 2.7 time.clock measures high-resolution elapsed wall time, not CPU time",
+    "thread_cpu_supported": false,
+    "outliers": [],
+    "clock": true
+  },
+  "close_restore": true,
+  "workspace_restore": true,
+  "source_unchanged": true
+}
