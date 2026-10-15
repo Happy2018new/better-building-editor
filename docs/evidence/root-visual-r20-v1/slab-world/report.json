@@ -1,0 +1,3579 @@
+{
+  "schema": 1,
+  "fixture": "test.groups.slabs",
+  "completed": true,
+  "restored": true,
+  "physical_input_verified": false,
+  "pixel_acceptance": false,
+  "source_sha256": {
+    "behavior_pack/modern_projection/projection/slab_placement.py": "abfe11663b3e546cbeb2dbea3ed6fa0a0ac74704408704c010dc3f6fbc305bb7",
+    "behavior_pack/modern_projection/projection/camera.py": "38cd20f3bfae44b9e48d5c0853faf5e965b7812472f87f5e342668ac28c30178",
+    "behavior_pack/modern_projection/projection/scene.py": "d05f811958c3a738d23d219debf02ea93ee17e9fef2be4c77ebb433f7fb80692",
+    "behavior_pack/modern_projection/projection/session.py": "76eac3818a3033746854168762cca3e498cb5a954b134b5bd6f82074a0c70287",
+    "behavior_pack/modern_projection/projection/model.py": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2",
+    "behavior_pack/modern_projection/projection/debug_slab_blueprints.py": "f27289fa1a16cbc7c9e64f52f7aa43a77e0d4651504838f5031c149736c97d2f",
+    "behavior_pack/modern_projection/projection/debug_blueprints.py": "a7ad46382499f8ad8d71d8c93d119d6c7bf98286dcbce2bea4805a198d6601a2",
+    "behavior_pack/modern_projection/projection/cell.py": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+    "behavior_pack/modern_projection/projection/block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a"
+  },
+  "captures": {
+    "gallery": {
+      "schema": 3,
+      "ok": true,
+      "reliable": true,
+      "background_only": false,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\gallery.png",
+      "started_at": "2026-10-15T13:02:53.843621+00:00",
+      "foreground_policy": "allow_user_foreground",
+      "user_foreground_allowed": true,
+      "agent_activation_allowed": false,
+      "activation_fallback": false,
+      "guarded_no_activation": true,
+      "window_coordinate_units": "physical_pixels",
+      "dpi_awareness": "per_monitor_v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\90c788cb324d4fe1873016e70cd786af\\session.json",
+      "owner": "root-portal-r20",
+      "game_pid": 23860,
+      "game_identity": "134365422126358320",
+      "noactivation_requested": true,
+      "window": {
+        "hwnd": 3148738,
+        "pid": 23860,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false
+      },
+      "helper": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+        "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+        "sources": {
+          "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+          "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+          "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+          "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+          "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+          "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+          "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+          "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+          "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+        }
+      },
+      "guard_before": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_before": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "guard_after": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_after": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "foreground_unchanged": true,
+      "background_safe": true,
+      "helper_returncode": 0,
+      "helper_stderr": "",
+      "frame": {
+        "ok": true,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "request_qpc_100ns": 760251199887,
+        "frame_qpc_100ns": 760251317006,
+        "width": 1994,
+        "height": 1105
+      },
+      "width": 1994,
+      "height": 1105,
+      "variance": [
+        1442.112587375326,
+        1051.3104245517306,
+        692.0428473129144
+      ],
+      "sha256": "7b7e4cdf2ac53f38d31ac460ff03d4ceb8db9f1c06d52742a3f47f93d3b1f1f9",
+      "bytes": 266721,
+      "finished_at": "2026-10-15T13:02:54.883767+00:00",
+      "elapsed_seconds": 1.0401429000048665
+    },
+    "top_face": {
+      "schema": 3,
+      "ok": true,
+      "reliable": true,
+      "background_only": false,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\top_face.png",
+      "started_at": "2026-10-15T13:03:03.237553+00:00",
+      "foreground_policy": "allow_user_foreground",
+      "user_foreground_allowed": true,
+      "agent_activation_allowed": false,
+      "activation_fallback": false,
+      "guarded_no_activation": true,
+      "window_coordinate_units": "physical_pixels",
+      "dpi_awareness": "per_monitor_v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\90c788cb324d4fe1873016e70cd786af\\session.json",
+      "owner": "root-portal-r20",
+      "game_pid": 23860,
+      "game_identity": "134365422126358320",
+      "noactivation_requested": true,
+      "window": {
+        "hwnd": 3148738,
+        "pid": 23860,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false
+      },
+      "helper": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+        "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+        "sources": {
+          "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+          "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+          "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+          "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+          "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+          "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+          "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+          "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+          "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+        }
+      },
+      "guard_before": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_before": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "guard_after": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_after": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "foreground_unchanged": true,
+      "background_safe": true,
+      "helper_returncode": 0,
+      "helper_stderr": "",
+      "frame": {
+        "ok": true,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "request_qpc_100ns": 760343623055,
+        "frame_qpc_100ns": 760343739620,
+        "width": 1994,
+        "height": 1105
+      },
+      "width": 1994,
+      "height": 1105,
+      "variance": [
+        1219.52315044845,
+        839.2016055032727,
+        457.8313207789959
+      ],
+      "sha256": "6ab5d7f48ba85e847c7d227cffc673c7973b44fd2b8517dd881f904d09e991ea",
+      "bytes": 224600,
+      "finished_at": "2026-10-15T13:03:04.054587+00:00",
+      "elapsed_seconds": 0.8170278999896254
+    },
+    "bottom_face": {
+      "schema": 3,
+      "ok": true,
+      "reliable": true,
+      "background_only": false,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\bottom_face.png",
+      "started_at": "2026-10-15T13:03:13.530042+00:00",
+      "foreground_policy": "allow_user_foreground",
+      "user_foreground_allowed": true,
+      "agent_activation_allowed": false,
+      "activation_fallback": false,
+      "guarded_no_activation": true,
+      "window_coordinate_units": "physical_pixels",
+      "dpi_awareness": "per_monitor_v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\90c788cb324d4fe1873016e70cd786af\\session.json",
+      "owner": "root-portal-r20",
+      "game_pid": 23860,
+      "game_identity": "134365422126358320",
+      "noactivation_requested": true,
+      "window": {
+        "hwnd": 3148738,
+        "pid": 23860,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false
+      },
+      "helper": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+        "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+        "sources": {
+          "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+          "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+          "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+          "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+          "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+          "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+          "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+          "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+          "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+        }
+      },
+      "guard_before": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_before": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "guard_after": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_after": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "foreground_unchanged": true,
+      "background_safe": true,
+      "helper_returncode": 0,
+      "helper_stderr": "",
+      "frame": {
+        "ok": true,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "request_qpc_100ns": 760447030470,
+        "frame_qpc_100ns": 760447131787,
+        "width": 1994,
+        "height": 1105
+      },
+      "width": 1994,
+      "height": 1105,
+      "variance": [
+        1225.4333190627526,
+        846.3715398871459,
+        465.5569150088542
+      ],
+      "sha256": "258f66cca2e149ba5cb8ce2db928b10b5f1d3fc56cf9e91fe864fa13e87d1a29",
+      "bytes": 224961,
+      "finished_at": "2026-10-15T13:03:14.423065+00:00",
+      "elapsed_seconds": 0.8930207999947015
+    },
+    "side_low": {
+      "schema": 3,
+      "ok": true,
+      "reliable": true,
+      "background_only": false,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\side_low.png",
+      "started_at": "2026-10-15T13:03:23.878668+00:00",
+      "foreground_policy": "allow_user_foreground",
+      "user_foreground_allowed": true,
+      "agent_activation_allowed": false,
+      "activation_fallback": false,
+      "guarded_no_activation": true,
+      "window_coordinate_units": "physical_pixels",
+      "dpi_awareness": "per_monitor_v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\90c788cb324d4fe1873016e70cd786af\\session.json",
+      "owner": "root-portal-r20",
+      "game_pid": 23860,
+      "game_identity": "134365422126358320",
+      "noactivation_requested": true,
+      "window": {
+        "hwnd": 3148738,
+        "pid": 23860,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false
+      },
+      "helper": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+        "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+        "sources": {
+          "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+          "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+          "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+          "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+          "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+          "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+          "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+          "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+          "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+        }
+      },
+      "guard_before": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_before": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "guard_after": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_after": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "foreground_unchanged": true,
+      "background_safe": true,
+      "helper_returncode": 0,
+      "helper_stderr": "",
+      "frame": {
+        "ok": true,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "request_qpc_100ns": 760551188290,
+        "frame_qpc_100ns": 760551311914,
+        "width": 1994,
+        "height": 1105
+      },
+      "width": 1994,
+      "height": 1105,
+      "variance": [
+        1227.8952179137557,
+        844.0192134521808,
+        459.57051353067646
+      ],
+      "sha256": "fce51928647996536d7a530d746fc82b360e83904e9ed0e2bb4be8f1eb95f22d",
+      "bytes": 224275,
+      "finished_at": "2026-10-15T13:03:24.820957+00:00",
+      "elapsed_seconds": 0.9422846000088612
+    },
+    "side_high": {
+      "schema": 3,
+      "ok": true,
+      "reliable": true,
+      "background_only": false,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\side_high.png",
+      "started_at": "2026-10-15T13:03:34.784440+00:00",
+      "foreground_policy": "allow_user_foreground",
+      "user_foreground_allowed": true,
+      "agent_activation_allowed": false,
+      "activation_fallback": false,
+      "guarded_no_activation": true,
+      "window_coordinate_units": "physical_pixels",
+      "dpi_awareness": "per_monitor_v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\90c788cb324d4fe1873016e70cd786af\\session.json",
+      "owner": "root-portal-r20",
+      "game_pid": 23860,
+      "game_identity": "134365422126358320",
+      "noactivation_requested": true,
+      "window": {
+        "hwnd": 3148738,
+        "pid": 23860,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false
+      },
+      "helper": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+        "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+        "sources": {
+          "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+          "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+          "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+          "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+          "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+          "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+          "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+          "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+          "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+        }
+      },
+      "guard_before": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_before": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "guard_after": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_after": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "foreground_unchanged": true,
+      "background_safe": true,
+      "helper_returncode": 0,
+      "helper_stderr": "",
+      "frame": {
+        "ok": true,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "request_qpc_100ns": 760660750122,
+        "frame_qpc_100ns": 760660825206,
+        "width": 1994,
+        "height": 1105
+      },
+      "width": 1994,
+      "height": 1105,
+      "variance": [
+        1227.7411686860898,
+        843.8810545035942,
+        459.3927564995634
+      ],
+      "sha256": "4157492321d82d9d285b771bc71b7879c50fd9df7de3787fadf5d61e0dac2c5e",
+      "bytes": 224194,
+      "finished_at": "2026-10-15T13:03:35.780872+00:00",
+      "elapsed_seconds": 0.9964260999986436
+    },
+    "wet_merge": {
+      "schema": 3,
+      "ok": true,
+      "reliable": true,
+      "background_only": false,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\wet_merge.png",
+      "started_at": "2026-10-15T13:03:45.232652+00:00",
+      "foreground_policy": "allow_user_foreground",
+      "user_foreground_allowed": true,
+      "agent_activation_allowed": false,
+      "activation_fallback": false,
+      "guarded_no_activation": true,
+      "window_coordinate_units": "physical_pixels",
+      "dpi_awareness": "per_monitor_v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\90c788cb324d4fe1873016e70cd786af\\session.json",
+      "owner": "root-portal-r20",
+      "game_pid": 23860,
+      "game_identity": "134365422126358320",
+      "noactivation_requested": true,
+      "window": {
+        "hwnd": 3148738,
+        "pid": 23860,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false
+      },
+      "helper": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+        "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+        "sources": {
+          "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+          "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+          "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+          "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+          "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+          "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+          "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+          "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+          "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+        }
+      },
+      "guard_before": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_before": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "guard_after": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_after": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "foreground_unchanged": true,
+      "background_safe": true,
+      "helper_returncode": 0,
+      "helper_stderr": "",
+      "frame": {
+        "ok": true,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "request_qpc_100ns": 760764221363,
+        "frame_qpc_100ns": 760764338645,
+        "width": 1994,
+        "height": 1105
+      },
+      "width": 1994,
+      "height": 1105,
+      "variance": [
+        1219.273159738924,
+        839.2524945984314,
+        458.3092842264343
+      ],
+      "sha256": "730b73d25da504b7ee7030c3b29a29af457ce0a66071e807e5bdfdd0b70ba348",
+      "bytes": 224590,
+      "finished_at": "2026-10-15T13:03:46.123130+00:00",
+      "elapsed_seconds": 0.8904760000004899
+    },
+    "full": {
+      "schema": 3,
+      "ok": true,
+      "reliable": true,
+      "background_only": false,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\full.png",
+      "started_at": "2026-10-15T13:03:55.864547+00:00",
+      "foreground_policy": "allow_user_foreground",
+      "user_foreground_allowed": true,
+      "agent_activation_allowed": false,
+      "activation_fallback": false,
+      "guarded_no_activation": true,
+      "window_coordinate_units": "physical_pixels",
+      "dpi_awareness": "per_monitor_v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\90c788cb324d4fe1873016e70cd786af\\session.json",
+      "owner": "root-portal-r20",
+      "game_pid": 23860,
+      "game_identity": "134365422126358320",
+      "noactivation_requested": true,
+      "window": {
+        "hwnd": 3148738,
+        "pid": 23860,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false
+      },
+      "helper": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+        "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+        "sources": {
+          "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+          "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+          "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+          "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+          "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+          "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+          "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+          "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+          "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+        }
+      },
+      "guard_before": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_before": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "guard_after": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_after": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "foreground_unchanged": true,
+      "background_safe": true,
+      "helper_returncode": 0,
+      "helper_stderr": "",
+      "frame": {
+        "ok": true,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "request_qpc_100ns": 760871101493,
+        "frame_qpc_100ns": 760871185369,
+        "width": 1994,
+        "height": 1105
+      },
+      "width": 1994,
+      "height": 1105,
+      "variance": [
+        2689.773027434308,
+        3232.5080639717685,
+        7497.543074015849
+      ],
+      "sha256": "e0e3fc8a6edc4863ca39e5c591f082b4d164b59c3ac1c3e994df6c8c7c48c8b0",
+      "bytes": 1181037,
+      "finished_at": "2026-10-15T13:03:56.937516+00:00",
+      "elapsed_seconds": 1.072965800005477
+    },
+    "missing": {
+      "schema": 3,
+      "ok": true,
+      "reliable": true,
+      "background_only": false,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\missing.png",
+      "started_at": "2026-10-15T13:04:03.019224+00:00",
+      "foreground_policy": "allow_user_foreground",
+      "user_foreground_allowed": true,
+      "agent_activation_allowed": false,
+      "activation_fallback": false,
+      "guarded_no_activation": true,
+      "window_coordinate_units": "physical_pixels",
+      "dpi_awareness": "per_monitor_v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\90c788cb324d4fe1873016e70cd786af\\session.json",
+      "owner": "root-portal-r20",
+      "game_pid": 23860,
+      "game_identity": "134365422126358320",
+      "noactivation_requested": true,
+      "window": {
+        "hwnd": 3148738,
+        "pid": 23860,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false
+      },
+      "helper": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+        "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+        "sources": {
+          "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+          "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+          "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+          "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+          "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+          "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+          "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+          "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+          "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+        }
+      },
+      "guard_before": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_before": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "guard_after": {
+        "foreground": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "windows": [
+          {
+            "hwnd": 3148738,
+            "pid": 23860,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_after": {
+        "hwnd": 1707284,
+        "pid": 19500
+      },
+      "foreground_unchanged": true,
+      "background_safe": true,
+      "helper_returncode": 0,
+      "helper_stderr": "",
+      "frame": {
+        "ok": true,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "request_qpc_100ns": 760942346491,
+        "frame_qpc_100ns": 760942456803,
+        "width": 1994,
+        "height": 1105
+      },
+      "width": 1994,
+      "height": 1105,
+      "variance": [
+        2720.0595350279846,
+        3267.941476640225,
+        7589.143917488577
+      ],
+      "sha256": "5d2636992ffc6e9c07bb89619075a550aa2f066998ec58cc5029197fcc3f2882",
+      "bytes": 1180800,
+      "finished_at": "2026-10-15T13:04:04.082387+00:00",
+      "elapsed_seconds": 1.063159999990603
+    }
+  },
+  "cases": {
+    "top_face": {
+      "target": [
+        3,
+        2,
+        4
+      ],
+      "expected": [
+        "minecraft:oak_double_slab",
+        0
+      ],
+      "isolated_public_fixture": {
+        "cells": {
+          "biome": "plains",
+          "blockCount": 1,
+          "cellVersion": 1,
+          "chunkEncoding": 1,
+          "chunks": [
+            [
+              0,
+              0,
+              0,
+              "1s:eJxjZHBmYmQAAAEgAEg="
+            ]
+          ],
+          "materials": [
+            [
+              "minecraft:air",
+              {}
+            ],
+            [
+              "minecraft:oak_slab",
+              {
+                "minecraft:vertical_half": "bottom"
+              }
+            ]
+          ],
+          "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+          "palette": [
+            0,
+            1
+          ],
+          "registry": {
+            "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+            "version": "NEMC 3.9.0.401155"
+          },
+          "size": [
+            24,
+            8,
+            20
+          ],
+          "version": 6
+        },
+        "kept": [
+          [
+            3,
+            2,
+            4
+          ]
+        ],
+        "source_cells": 496
+      },
+      "tap": {
+        "pan": [
+          0.0,
+          0.0
+        ],
+        "pivot": null,
+        "pointer_stats": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "pose": [
+          0.0,
+          90.0,
+          2.0
+        ],
+        "revision": 0,
+        "xy": [
+          71.25050000000002,
+          20.896187500000003
+        ],
+        "after": {
+          "cells": [
+            [
+              [
+                3,
+                2,
+                4
+              ],
+              [
+                "minecraft:oak_double_slab",
+                0
+              ]
+            ]
+          ],
+          "focused": [
+            3,
+            2,
+            4
+          ],
+          "message": "\u7ed8\u5236\u5355\u683c\uff0c\u5df2\u4fee\u6539 1 \u683c",
+          "pointer_stats": [
+            2,
+            2,
+            0,
+            2
+          ],
+          "revision": 1
+        }
+      },
+      "result": {
+        "background": [
+          "minecraft:air",
+          0
+        ],
+        "foreground": [
+          "minecraft:oak_double_slab",
+          0
+        ],
+        "undo": 1
+      },
+      "before": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHBmYmQAAAEgAEg="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "undo": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHBmYmQAAAEgAEg="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ],
+          [
+            "minecraft:oak_double_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1,
+          2
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "redo": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHBmYmIAAAEiAEk="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ],
+          [
+            "minecraft:oak_double_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1,
+          2
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      }
+    },
+    "bottom_face": {
+      "target": [
+        8,
+        2,
+        4
+      ],
+      "expected": [
+        "minecraft:oak_double_slab",
+        0
+      ],
+      "isolated_public_fixture": {
+        "cells": {
+          "biome": "plains",
+          "blockCount": 1,
+          "cellVersion": 1,
+          "chunkEncoding": 1,
+          "chunks": [
+            [
+              0,
+              0,
+              0,
+              "1s:eJxjZPBgYmQAAAE0AE0="
+            ]
+          ],
+          "materials": [
+            [
+              "minecraft:air",
+              {}
+            ],
+            [
+              "minecraft:oak_slab",
+              {
+                "minecraft:vertical_half": "top"
+              }
+            ]
+          ],
+          "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+          "palette": [
+            0,
+            1
+          ],
+          "registry": {
+            "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+            "version": "NEMC 3.9.0.401155"
+          },
+          "size": [
+            24,
+            8,
+            20
+          ],
+          "version": 6
+        },
+        "kept": [
+          [
+            8,
+            2,
+            4
+          ]
+        ],
+        "source_cells": 496
+      },
+      "tap": {
+        "pan": [
+          0.0,
+          0.0
+        ],
+        "pivot": null,
+        "pointer_stats": [
+          2,
+          2,
+          0,
+          2
+        ],
+        "pose": [
+          0.0,
+          -45.0,
+          2.0
+        ],
+        "revision": 0,
+        "xy": [
+          108.126125,
+          97.96438129718905
+        ],
+        "after": {
+          "cells": [
+            [
+              [
+                8,
+                2,
+                4
+              ],
+              [
+                "minecraft:oak_double_slab",
+                0
+              ]
+            ]
+          ],
+          "focused": [
+            8,
+            2,
+            4
+          ],
+          "message": "\u7ed8\u5236\u5355\u683c\uff0c\u5df2\u4fee\u6539 1 \u683c",
+          "pointer_stats": [
+            3,
+            3,
+            0,
+            3
+          ],
+          "revision": 1
+        }
+      },
+      "result": {
+        "background": [
+          "minecraft:air",
+          0
+        ],
+        "foreground": [
+          "minecraft:oak_double_slab",
+          0
+        ],
+        "undo": 1
+      },
+      "before": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZPBgYmQAAAE0AE0="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "top"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "undo": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZPBgYmQAAAE0AE0="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "top"
+            }
+          ],
+          [
+            "minecraft:oak_double_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1,
+          2
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "redo": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZPBgYmIAAAE2AE4="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "top"
+            }
+          ],
+          [
+            "minecraft:oak_double_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1,
+          2
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      }
+    },
+    "side_low": {
+      "target": [
+        4,
+        1,
+        4
+      ],
+      "expected": [
+        "minecraft:oak_slab",
+        0
+      ],
+      "isolated_public_fixture": {
+        "cells": {
+          "biome": "plains",
+          "blockCount": 1,
+          "cellVersion": 1,
+          "chunkEncoding": 1,
+          "chunks": [
+            [
+              0,
+              0,
+              0,
+              "1s:eJxjZHBmZGQAAAEdAEc="
+            ]
+          ],
+          "materials": [
+            [
+              "minecraft:air",
+              {}
+            ],
+            [
+              "minecraft:stone",
+              {}
+            ]
+          ],
+          "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+          "palette": [
+            0,
+            1
+          ],
+          "registry": {
+            "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+            "version": "NEMC 3.9.0.401155"
+          },
+          "size": [
+            24,
+            8,
+            20
+          ],
+          "version": 6
+        },
+        "kept": [
+          [
+            3,
+            1,
+            4
+          ]
+        ],
+        "source_cells": 496
+      },
+      "tap": {
+        "pan": [
+          0.0,
+          0.0
+        ],
+        "pivot": null,
+        "pointer_stats": [
+          3,
+          3,
+          0,
+          3
+        ],
+        "pose": [
+          90.0,
+          0.0,
+          2.0
+        ],
+        "revision": 0,
+        "xy": [
+          174.50225,
+          81.74096875
+        ],
+        "after": {
+          "cells": [
+            [
+              [
+                3,
+                1,
+                4
+              ],
+              [
+                "minecraft:stone",
+                0
+              ]
+            ],
+            [
+              [
+                4,
+                1,
+                4
+              ],
+              [
+                "minecraft:oak_slab",
+                0
+              ]
+            ]
+          ],
+          "focused": [
+            4,
+            1,
+            4
+          ],
+          "message": "\u7ed8\u5236\u5355\u683c\uff0c\u5df2\u4fee\u6539 1 \u683c",
+          "pointer_stats": [
+            4,
+            4,
+            0,
+            4
+          ],
+          "revision": 1
+        }
+      },
+      "result": {
+        "background": [
+          "minecraft:air",
+          0
+        ],
+        "foreground": [
+          "minecraft:oak_slab",
+          0
+        ],
+        "undo": 1
+      },
+      "before": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHBmZGQAAAEdAEc="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:stone",
+            {}
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "undo": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHBmZGQAAAEdAEc="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:stone",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1,
+          2
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "redo": {
+        "biome": "plains",
+        "blockCount": 2,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjYnBmZGRwYWRiAAADWgCP"
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:stone",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1,
+          2
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      }
+    },
+    "side_high": {
+      "target": [
+        4,
+        1,
+        4
+      ],
+      "expected": [
+        "minecraft:oak_slab",
+        1
+      ],
+      "isolated_public_fixture": {
+        "cells": {
+          "biome": "plains",
+          "blockCount": 1,
+          "cellVersion": 1,
+          "chunkEncoding": 1,
+          "chunks": [
+            [
+              0,
+              0,
+              0,
+              "1s:eJxjZHBmZGQAAAEdAEc="
+            ]
+          ],
+          "materials": [
+            [
+              "minecraft:air",
+              {}
+            ],
+            [
+              "minecraft:stone",
+              {}
+            ]
+          ],
+          "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+          "palette": [
+            0,
+            1
+          ],
+          "registry": {
+            "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+            "version": "NEMC 3.9.0.401155"
+          },
+          "size": [
+            24,
+            8,
+            20
+          ],
+          "version": 6
+        },
+        "kept": [
+          [
+            3,
+            1,
+            4
+          ]
+        ],
+        "source_cells": 496
+      },
+      "tap": {
+        "pan": [
+          0.0,
+          0.0
+        ],
+        "pivot": null,
+        "pointer_stats": [
+          4,
+          4,
+          0,
+          4
+        ],
+        "pose": [
+          90.0,
+          0.0,
+          2.0
+        ],
+        "revision": 0,
+        "xy": [
+          174.50225,
+          78.05340625
+        ],
+        "after": {
+          "cells": [
+            [
+              [
+                3,
+                1,
+                4
+              ],
+              [
+                "minecraft:stone",
+                0
+              ]
+            ],
+            [
+              [
+                4,
+                1,
+                4
+              ],
+              [
+                "minecraft:oak_slab",
+                1
+              ]
+            ]
+          ],
+          "focused": [
+            4,
+            1,
+            4
+          ],
+          "message": "\u7ed8\u5236\u5355\u683c\uff0c\u5df2\u4fee\u6539 1 \u683c",
+          "pointer_stats": [
+            5,
+            5,
+            0,
+            5
+          ],
+          "revision": 1
+        }
+      },
+      "result": {
+        "background": [
+          "minecraft:air",
+          0
+        ],
+        "foreground": [
+          "minecraft:oak_slab",
+          1
+        ],
+        "undo": 1
+      },
+      "before": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHBmZGQAAAEdAEc="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:stone",
+            {}
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "undo": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHBmZGQAAAEdAEc="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:stone",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "top"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1,
+          2
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "redo": {
+        "biome": "plains",
+        "blockCount": 2,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjYnBmZGRwYWRiAAADWgCP"
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:stone",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "top"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          1,
+          2
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      }
+    },
+    "wet_merge": {
+      "target": [
+        3,
+        2,
+        14
+      ],
+      "expected": [
+        "minecraft:oak_double_slab",
+        0
+      ],
+      "isolated_public_fixture": {
+        "cells": {
+          "biome": "plains",
+          "blockCount": 1,
+          "cellVersion": 1,
+          "chunkEncoding": 1,
+          "chunks": [
+            [
+              0,
+              0,
+              0,
+              "1s:eJxjZHjMxMgAAAOgAOg="
+            ]
+          ],
+          "materials": [
+            [
+              "minecraft:air",
+              {}
+            ],
+            [
+              "minecraft:oak_slab",
+              {
+                "minecraft:vertical_half": "bottom"
+              }
+            ],
+            [
+              "minecraft:water",
+              {
+                "liquid_depth": 0
+              }
+            ]
+          ],
+          "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+          "palette": [
+            0,
+            [
+              1,
+              2
+            ]
+          ],
+          "registry": {
+            "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+            "version": "NEMC 3.9.0.401155"
+          },
+          "size": [
+            24,
+            8,
+            20
+          ],
+          "version": 6
+        },
+        "kept": [
+          [
+            3,
+            2,
+            14
+          ]
+        ],
+        "source_cells": 496
+      },
+      "tap": {
+        "pan": [
+          0.0,
+          0.0
+        ],
+        "pivot": null,
+        "pointer_stats": [
+          5,
+          5,
+          0,
+          5
+        ],
+        "pose": [
+          0.0,
+          90.0,
+          2.0
+        ],
+        "revision": 0,
+        "xy": [
+          71.25050000000002,
+          94.6474375
+        ],
+        "after": {
+          "cells": [
+            [
+              [
+                3,
+                2,
+                14
+              ],
+              [
+                "minecraft:oak_double_slab",
+                0
+              ]
+            ]
+          ],
+          "focused": [
+            3,
+            2,
+            14
+          ],
+          "message": "\u7ed8\u5236\u5355\u683c\uff0c\u5df2\u4fee\u6539 1 \u683c",
+          "pointer_stats": [
+            6,
+            6,
+            0,
+            6
+          ],
+          "revision": 1
+        }
+      },
+      "result": {
+        "background": [
+          "minecraft:air",
+          0
+        ],
+        "foreground": [
+          "minecraft:oak_double_slab",
+          0
+        ],
+        "undo": 1
+      },
+      "before": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHjMxMgAAAOgAOg="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ],
+          [
+            "minecraft:water",
+            {
+              "liquid_depth": 0
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          [
+            1,
+            2
+          ]
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "undo": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHjMxMgAAAOgAOg="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ],
+          [
+            "minecraft:water",
+            {
+              "liquid_depth": 0
+            }
+          ],
+          [
+            "minecraft:oak_double_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          [
+            1,
+            2
+          ],
+          3
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      },
+      "redo": {
+        "biome": "plains",
+        "blockCount": 1,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjZHjMxMQAAAOiAOk="
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:oak_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ],
+          [
+            "minecraft:water",
+            {
+              "liquid_depth": 0
+            }
+          ],
+          [
+            "minecraft:oak_double_slab",
+            {
+              "minecraft:vertical_half": "bottom"
+            }
+          ]
+        ],
+        "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+        "palette": [
+          0,
+          [
+            1,
+            2
+          ],
+          3
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          8,
+          20
+        ],
+        "version": 6
+      }
+    },
+    "double_erase": {
+      "tap": {
+        "pan": [
+          -0.23401896851413298,
+          0.27
+        ],
+        "pivot": [
+          3.5000000000000018,
+          2.5,
+          14.5
+        ],
+        "pointer_stats": [
+          6,
+          6,
+          0,
+          6
+        ],
+        "pose": [
+          0.0,
+          90.0,
+          2.0
+        ],
+        "revision": 3,
+        "xy": [
+          71.25050000000002,
+          94.64743750000001
+        ],
+        "after": {
+          "cells": [],
+          "focused": [
+            3,
+            2,
+            14
+          ],
+          "message": "\u64e6\u9664\u5355\u683c\uff0c\u5df2\u4fee\u6539 1 \u683c",
+          "pointer_stats": [
+            7,
+            7,
+            0,
+            7
+          ],
+          "revision": 4
+        }
+      }
+    }
+  },
+  "cleanup_errors": [],
+  "fixture_baseline": {
+    "current_source": true,
+    "expected_document_id": 2592231422384,
+    "renderer_active": true,
+    "native_calls": [
+      {
+        "nonce": 1,
+        "states": 9,
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_0_0_0_0",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "fixture": "test.groups.slabs",
+        "common_cells": 272,
+        "extra_states": 1,
+        "extra_cells": 2,
+        "volume": [
+          16,
+          16,
+          8
+        ],
+        "submitted_materials": [
+          {
+            "indices": [
+              729
+            ],
+            "material": [
+              "minecraft:double_cut_copper_slab",
+              0
+            ]
+          },
+          {
+            "indices": [
+              569
+            ],
+            "material": [
+              "minecraft:cut_copper_slab",
+              0
+            ]
+          },
+          {
+            "indices": [
+              308,
+              313,
+              318,
+              388,
+              393,
+              398,
+              468,
+              473
+            ],
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          },
+          {
+            "indices": [
+              649
+            ],
+            "material": [
+              "minecraft:cut_copper_slab",
+              1
+            ]
+          },
+          {
+            "indices": [
+              17,
+              18,
+              19,
+              21,
+              22,
+              23,
+              25,
+              26,
+              27,
+              29,
+              30,
+              31,
+              33,
+              34,
+              35,
+              37,
+              38,
+              39,
+              41,
+              42,
+              43,
+              45,
+              46,
+              47,
+              49,
+              50,
+              51,
+              53,
+              54,
+              55,
+              57,
+              58,
+              59,
+              61,
+              62,
+              63,
+              81,
+              82,
+              83,
+              85,
+              86,
+              87,
+              89,
+              90,
+              91,
+              93,
+              94,
+              95,
+              97,
+              98,
+              99,
+              101,
+              102,
+              103,
+              105,
+              106,
+              107,
+              109,
+              110,
+              111,
+              113,
+              114,
+              115,
+              117,
+              118,
+              119,
+              121,
+              122,
+              123,
+              125,
+              126,
+              127,
+              145,
+              146,
+              147,
+              149,
+              150,
+              151,
+              153,
+              154,
+              155,
+              157,
+              158,
+              159,
+              161,
+              162,
+              163,
+              165,
+              166,
+              167,
+              169,
+              170,
+              171,
+              173,
+              174,
+              175,
+              177,
+              178,
+              179,
+              181,
+              182,
+              183,
+              185,
+              186,
+              187,
+              189,
+              190,
+              191,
+              209,
+              210,
+              211,
+              213,
+              214,
+              215,
+              217,
+              218,
+              219,
+              221,
+              222,
+              223,
+              225,
+              226,
+              227,
+              229,
+              230,
+              231,
+              233,
+              234,
+              235,
+              237,
+              238,
+              239,
+              241,
+              242,
+              243,
+              245,
+              246,
+              247,
+              249,
+              250,
+              251,
+              253,
+              254,
+              255
+            ],
+            "material": [
+              "minecraft:white_concrete",
+              0
+            ]
+          },
+          {
+            "indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              20,
+              24,
+              28,
+              32,
+              36,
+              40,
+              44,
+              48,
+              52,
+              56,
+              60,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              84,
+              88,
+              92,
+              96,
+              100,
+              104,
+              108,
+              112,
+              116,
+              120,
+              124,
+              128,
+              129,
+              130,
+              131,
+              132,
+              133,
+              134,
+              135,
+              136,
+              137,
+              138,
+              139,
+              140,
+              141,
+              142,
+              143,
+              144,
+              148,
+              152,
+              156,
+              160,
+              164,
+              168,
+              172,
+              176,
+              180,
+              184,
+              188,
+              192,
+              193,
+              194,
+              195,
+              196,
+              197,
+              198,
+              199,
+              200,
+              201,
+              202,
+              203,
+              204,
+              205,
+              206,
+              207,
+              208,
+              212,
+              216,
+              220,
+              224,
+              228,
+              232,
+              236,
+              240,
+              244,
+              248,
+              252
+            ],
+            "material": [
+              "minecraft:light_gray_concrete",
+              0
+            ]
+          },
+          {
+            "indices": [
+              724
+            ],
+            "material": [
+              "minecraft:oak_double_slab",
+              0
+            ]
+          },
+          {
+            "indices": [
+              564,
+              574
+            ],
+            "material": [
+              "minecraft:oak_slab",
+              0
+            ]
+          },
+          {
+            "indices": [
+              644,
+              654
+            ],
+            "material": [
+              "minecraft:oak_slab",
+              1
+            ]
+          }
+        ],
+        "common_materials": 9,
+        "mode": 0,
+        "actor_names": [],
+        "editor_id": 2592231420312,
+        "extra_materials": 1,
+        "document_id": 2592231422384,
+        "result": "modern_projection_chunk_0_0_0_0_0"
+      },
+      {
+        "nonce": 1,
+        "states": 2,
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_0_0_1_0",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "fixture": "test.groups.slabs",
+        "common_cells": 64,
+        "extra_states": 0,
+        "extra_cells": 0,
+        "volume": [
+          4,
+          16,
+          8
+        ],
+        "submitted_materials": [
+          {
+            "indices": [
+              5,
+              6,
+              7,
+              9,
+              10,
+              11,
+              13,
+              14,
+              15,
+              21,
+              22,
+              23,
+              25,
+              26,
+              27,
+              29,
+              30,
+              31,
+              37,
+              38,
+              39,
+              41,
+              42,
+              43,
+              45,
+              46,
+              47,
+              53,
+              54,
+              55,
+              57,
+              58,
+              59,
+              61,
+              62,
+              63
+            ],
+            "material": [
+              "minecraft:white_concrete",
+              0
+            ]
+          },
+          {
+            "indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              8,
+              12,
+              16,
+              17,
+              18,
+              19,
+              20,
+              24,
+              28,
+              32,
+              33,
+              34,
+              35,
+              36,
+              40,
+              44,
+              48,
+              49,
+              50,
+              51,
+              52,
+              56,
+              60
+            ],
+            "material": [
+              "minecraft:light_gray_concrete",
+              0
+            ]
+          }
+        ],
+        "common_materials": 2,
+        "mode": 0,
+        "actor_names": [],
+        "editor_id": 2592231420312,
+        "extra_materials": 0,
+        "document_id": 2592231422384,
+        "result": "modern_projection_chunk_0_0_0_1_0"
+      },
+      {
+        "nonce": 1,
+        "states": 2,
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_1_0_0_0",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "fixture": "test.groups.slabs",
+        "common_cells": 128,
+        "extra_states": 0,
+        "extra_cells": 0,
+        "volume": [
+          16,
+          8,
+          8
+        ],
+        "submitted_materials": [
+          {
+            "indices": [
+              17,
+              18,
+              19,
+              21,
+              22,
+              23,
+              25,
+              26,
+              27,
+              29,
+              30,
+              31,
+              33,
+              34,
+              35,
+              37,
+              38,
+              39,
+              41,
+              42,
+              43,
+              45,
+              46,
+              47,
+              49,
+              50,
+              51,
+              53,
+              54,
+              55,
+              57,
+              58,
+              59,
+              61,
+              62,
+              63,
+              81,
+              82,
+              83,
+              85,
+              86,
+              87,
+              89,
+              90,
+              91,
+              93,
+              94,
+              95,
+              97,
+              98,
+              99,
+              101,
+              102,
+              103,
+              105,
+              106,
+              107,
+              109,
+              110,
+              111,
+              113,
+              114,
+              115,
+              117,
+              118,
+              119,
+              121,
+              122,
+              123,
+              125,
+              126,
+              127
+            ],
+            "material": [
+              "minecraft:white_concrete",
+              0
+            ]
+          },
+          {
+            "indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              20,
+              24,
+              28,
+              32,
+              36,
+              40,
+              44,
+              48,
+              52,
+              56,
+              60,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              84,
+              88,
+              92,
+              96,
+              100,
+              104,
+              108,
+              112,
+              116,
+              120,
+              124
+            ],
+            "material": [
+              "minecraft:light_gray_concrete",
+              0
+            ]
+          }
+        ],
+        "common_materials": 2,
+        "mode": 0,
+        "actor_names": [],
+        "editor_id": 2592231420312,
+        "extra_materials": 0,
+        "document_id": 2592231422384,
+        "result": "modern_projection_chunk_0_1_0_0_0"
+      },
+      {
+        "nonce": 1,
+        "states": 2,
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_1_0_1_0",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "fixture": "test.groups.slabs",
+        "common_cells": 32,
+        "extra_states": 0,
+        "extra_cells": 0,
+        "volume": [
+          4,
+          8,
+          8
+        ],
+        "submitted_materials": [
+          {
+            "indices": [
+              5,
+              6,
+              7,
+              9,
+              10,
+              11,
+              13,
+              14,
+              15,
+              21,
+              22,
+              23,
+              25,
+              26,
+              27,
+              29,
+              30,
+              31
+            ],
+            "material": [
+              "minecraft:white_concrete",
+              0
+            ]
+          },
+          {
+            "indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              8,
+              12,
+              16,
+              17,
+              18,
+              19,
+              20,
+              24,
+              28
+            ],
+            "material": [
+              "minecraft:light_gray_concrete",
+              0
+            ]
+          }
+        ],
+        "common_materials": 2,
+        "mode": 0,
+        "actor_names": [],
+        "editor_id": 2592231420312,
+        "extra_materials": 0,
+        "document_id": 2592231422384,
+        "result": "modern_projection_chunk_0_1_0_1_0"
+      }
+    ],
+    "document_render_actor_cells": 0,
+    "edit_active": false,
+    "size": [
+      24,
+      8,
+      20
+    ],
+    "io_active": false,
+    "mounting": false,
+    "parts": [
+      {
+        "render_layout": [
+          [
+            16,
+            8,
+            16
+          ],
+          [
+            16,
+            16,
+            8
+          ]
+        ],
+        "actor_cells": 0,
+        "current_signature": true,
+        "cache_current": true,
+        "key": [
+          0,
+          0,
+          0
+        ],
+        "size": [
+          16,
+          8,
+          16
+        ],
+        "count": 272,
+        "name": "modern_projection_chunk_0_0_0_0_0",
+        "common_cells": 272,
+        "extra_cells": 2,
+        "signature": [
+          2592231420312,
+          0,
+          [],
+          false,
+          -1,
+          false,
+          140697246208024,
+          [
+            3,
+            "3.10.0.420447",
+            [
+              "minecraft:chest",
+              "minecraft:copper_chest",
+              "minecraft:ender_chest",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              "minecraft:flower_pot"
+            ],
+            [
+              "minecraft:flower_pot",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              450.0,
+              0.64,
+              "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+              "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+              "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+              true
+            ]
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+            "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+            "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+            "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+            "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+          ],
+          [],
+          [
+            1,
+            "3.10.0.420447",
+            "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+            "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "native_artwork_layered_starfield_v1",
+            128
+          ]
+        ],
+        "pending": false
+      },
+      {
+        "render_layout": [
+          [
+            16,
+            8,
+            4
+          ],
+          [
+            4,
+            16,
+            8
+          ]
+        ],
+        "actor_cells": 0,
+        "current_signature": true,
+        "cache_current": true,
+        "key": [
+          0,
+          0,
+          1
+        ],
+        "size": [
+          16,
+          8,
+          4
+        ],
+        "count": 64,
+        "name": "modern_projection_chunk_0_0_0_1_0",
+        "common_cells": 64,
+        "extra_cells": 0,
+        "signature": [
+          2592231420312,
+          0,
+          [],
+          false,
+          -1,
+          false,
+          140697246208024,
+          [
+            3,
+            "3.10.0.420447",
+            [
+              "minecraft:chest",
+              "minecraft:copper_chest",
+              "minecraft:ender_chest",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              "minecraft:flower_pot"
+            ],
+            [
+              "minecraft:flower_pot",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              450.0,
+              0.64,
+              "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+              "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+              "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+              true
+            ]
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+            "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+            "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+            "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+            "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+          ],
+          [],
+          [
+            1,
+            "3.10.0.420447",
+            "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+            "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "native_artwork_layered_starfield_v1",
+            128
+          ]
+        ],
+        "pending": false
+      },
+      {
+        "render_layout": [
+          [
+            8,
+            8,
+            16
+          ],
+          [
+            16,
+            8,
+            8
+          ]
+        ],
+        "actor_cells": 0,
+        "current_signature": true,
+        "cache_current": true,
+        "key": [
+          1,
+          0,
+          0
+        ],
+        "size": [
+          8,
+          8,
+          16
+        ],
+        "count": 128,
+        "name": "modern_projection_chunk_0_1_0_0_0",
+        "common_cells": 128,
+        "extra_cells": 0,
+        "signature": [
+          2592231420312,
+          0,
+          [],
+          false,
+          -1,
+          false,
+          140697246208024,
+          [
+            3,
+            "3.10.0.420447",
+            [
+              "minecraft:chest",
+              "minecraft:copper_chest",
+              "minecraft:ender_chest",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              "minecraft:flower_pot"
+            ],
+            [
+              "minecraft:flower_pot",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              450.0,
+              0.64,
+              "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+              "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+              "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+              true
+            ]
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+            "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+            "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+            "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+            "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+          ],
+          [],
+          [
+            1,
+            "3.10.0.420447",
+            "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+            "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "native_artwork_layered_starfield_v1",
+            128
+          ]
+        ],
+        "pending": false
+      },
+      {
+        "render_layout": [
+          [
+            8,
+            8,
+            4
+          ],
+          [
+            4,
+            8,
+            8
+          ]
+        ],
+        "actor_cells": 0,
+        "current_signature": true,
+        "cache_current": true,
+        "key": [
+          1,
+          0,
+          1
+        ],
+        "size": [
+          8,
+          8,
+          4
+        ],
+        "count": 32,
+        "name": "modern_projection_chunk_0_1_0_1_0",
+        "common_cells": 32,
+        "extra_cells": 0,
+        "signature": [
+          2592231420312,
+          0,
+          [],
+          false,
+          -1,
+          false,
+          140697246208024,
+          [
+            3,
+            "3.10.0.420447",
+            [
+              "minecraft:chest",
+              "minecraft:copper_chest",
+              "minecraft:ender_chest",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              "minecraft:flower_pot"
+            ],
+            [
+              "minecraft:flower_pot",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              450.0,
+              0.64,
+              "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+              "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+              "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+              true
+            ]
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+            "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+            "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+            "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+            "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+          ],
+          [],
+          [
+            1,
+            "3.10.0.420447",
+            "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+            "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "native_artwork_layered_starfield_v1",
+            128
+          ]
+        ],
+        "pending": false
+      }
+    ],
+    "expected_metadata": {
+      "blocks": 496,
+      "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+      "size": [
+        24,
+        8,
+        20
+      ]
+    },
+    "preview_error": "",
+    "metadata": {
+      "blocks": 496,
+      "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+      "size": [
+        24,
+        8,
+        20
+      ]
+    },
+    "blocks": 496,
+    "expected_editor_id": 2592231420312,
+    "renderer_age": 0.05099987983703613,
+    "document_actor_cells": 0,
+    "model_revision_current": true,
+    "running": false,
+    "preview_pending": false,
+    "editor_id": 2592231420312,
+    "document_id": 2592231422384,
+    "name": "\u534a\u7816\u653e\u7f6e\u3001\u5408\u5e76\u4e0e\u7834\u574f",
+    "liquid": {
+      "controls_pending": true,
+      "enabled": false,
+      "owned": false,
+      "groups": 0,
+      "error": "",
+      "plan_ready": false
+    },
+    "document_background_cells": 2,
+    "tile_builds": 14,
+    "all_parts_current": true,
+    "model_name": "modern_projection_chunk_0_0_0_0_0",
+    "world_actors": 0,
+    "dirty": 0,
+    "page": "workspace",
+    "native_evidence": "current_source_submission",
+    "fixture": "test.groups.slabs",
+    "seconds": 3.459635499995784,
+    "paper_dolls": 11,
+    "screenshot": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\report_test_groups_slabs.jpg",
+      "bytes": 46591,
+      "sha256": "d106cd4484b445e5af1823617e18d8ee540c0b10ea3506d13d2b0dcc5619f7a4",
+      "mime": "image/jpeg",
+      "size": [
+        866,
+        480
+      ],
+      "variance": [
+        1110.1830254374695,
+        837.8110828881083,
+        558.5284786127548
+      ],
+      "tree": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\slab-interactions-r20-v2\\report_test_groups_slabs.tree.json"
+    }
+  },
+  "source_unchanged": true
+}

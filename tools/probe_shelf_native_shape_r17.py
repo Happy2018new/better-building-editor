@@ -48,6 +48,18 @@ saved=sys._liquid_pose_world
 info=api.GetEngineCompFactory().CreateBlockInfo(saved['player'])
 _result=json.dumps(info.GetBlockNew(tuple(saved['origin']),saved['dimension']))
 '''
+STATE_MAP = '''import json
+import mod.server.extraServerApi as api
+state=api.GetEngineCompFactory().CreateBlockState(api.GetLevelId())
+rows=[]
+for wood in %r:
+ for aux in range(32):
+  name='minecraft:'+wood+'_shelf'
+  actual=state.GetBlockStatesFromAuxValue(name,aux)
+  assert actual is not None,(name,aux)
+  rows.append({'wood':wood,'name':name,'aux':aux,'states':actual})
+_result=json.dumps(rows)
+'''
 
 
 def main():
@@ -56,6 +68,8 @@ def main():
     parser.add_argument('--owner', required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--capture-exe', type=Path, required=True)
+    parser.add_argument('--state-map-only', action='store_true',
+                        help='Read the installed engine state mapping without world or camera writes')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh observation directory')
@@ -73,6 +87,12 @@ def main():
     def persist():
         (args.output / 'report.json').write_text(json.dumps(report, indent=2) + '\n', encoding='ascii')
     with native.Client(timeout=40) as client:
+        if args.state_map_only:
+            report['state_mapping'] = native.run(client, STATE_MAP % (WOODS,), True)
+            report.update(completed=True, restored=True, read_only=True)
+            persist()
+            print(json.dumps({'states':len(report['state_mapping']), 'read_only':True}))
+            return
         environment = world = saved = workspace_saved = False
         try:
             report['workspace'] = native.run(client, CLOSE_WORKSPACE)

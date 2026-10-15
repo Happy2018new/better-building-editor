@@ -22,6 +22,15 @@ SOURCES = tuple('behavior_pack/modern_projection/projection/' + name + '.py' for
 
 
 class SlabCheck(BlueprintCheck):
+    def assert_document(self, data, label):
+        self.run('''from modern_projection.projection.model import Document
+expected=Document.from_data(json.loads(%r))
+actual=s.editor.document
+assert actual.size==expected.size and actual.name==expected.name and actual.biome==expected.biome,%r
+assert actual.blocks==expected.blocks,%r
+_result=True
+''' % (json.dumps(data), label, label))
+
     def dispatch(self, cmd, node, value):
         request = {'cmd': cmd, 'seq': uuid.uuid4().hex, 'id': node, 'value': value}
         result = self.run('scope={}\n'
@@ -114,6 +123,14 @@ def main():
                 )
                 for identity,pose,point,target,name,aux in cases:
                     check.fixture(report['fixture'])
+                    keep = ((3,1,4),) if identity.startswith('side_') else (target,)
+                    isolated = check.run('''from modern_projection.projection.model import Document
+source=s.editor.document
+keep=%r
+cells=dict((pos,source.get(pos)) for pos in keep)
+s._loaded(Document(source.size,cells,name=source.name,biome=source.biome))
+_result={'kept':keep,'source_cells':len(source.blocks),'cells':s.editor.document.to_data()}
+''' % (keep,))
                     check.run('''s.grid=False
 s.editor.material=('minecraft:oak_slab',0)
 s.editor.edit_layer=2
@@ -123,6 +140,7 @@ _result=True
                     check.pose(*pose)
                     before = check.run('_result=s.editor.document.to_data()')
                     row=report['cases'][identity]={'target':target,'expected':(name,aux),
+                                                  'isolated_public_fixture':isolated,
                                                   'tap':check.tap(point)}
                     row['result']=check.run('''from modern_projection.projection.cell import foreground,background,AIR
 value=s.editor.document.get(%r)
@@ -130,14 +148,16 @@ assert foreground(value)==%r,(foreground(value),s.editor.message)
 assert background(value)==AIR
 _result={'foreground':foreground(value),'background':background(value),'undo':len(s.editor.undo_stack)}
 ''' % (target,(name,aux)))
+                    merged = check.run('_result=s.editor.document.to_data()')
+                    row['before'] = before
                     check.settle()
                     report['captures'][identity]=capture(args.session,args.owner,args.output/(identity+'.png'),WGC)
                     row['undo']=check.run('s.action(s.editor.undo)\n_result=s.editor.document.to_data()')
-                    if row['undo']!=before:
-                        raise ValueError('Undo did not restore the complete slab document: '+identity)
+                    check.assert_document(before, 'Undo: '+identity)
                     check.run('s.action(s.editor.redo)\n_result=True')
                     check.settle()
                     row['redo']=check.run('_result=s.editor.document.to_data()')
+                    check.assert_document(merged, 'Redo: '+identity)
                     save(args.output/'report.json',report)
                 # Erasing a merged double is one operation, with full undo data.
                 check.run('s.choose_mode("erase")\ns.erase_scope="single"\n_result=True')
@@ -146,8 +166,61 @@ _result={'foreground':foreground(value),'background':background(value),'undo':le
                 report['cases']['double_erase']={'tap':check.tap((3.5,3.,14.5))}
                 check.run('assert s.editor.document.get((3,2,14))==("minecraft:air",0)\n_result=True')
                 check.run('s.action(s.editor.undo)\n_result=True')
-                if check.run('_result=s.editor.document.to_data()')!=before:
-                    raise ValueError('Double-slab erase undo did not restore exact data')
+                check.assert_document(before, 'Double-slab erase undo')
+                layer_cases = (
+                    ('front_side_low',0,((3,1,4),),(90.,0.),(4.,1.25,4.5),(4,1,4),
+                     'minecraft:oak_slab',0,'minecraft:oak_slab',0),
+                    ('front_side_high',0,((3,1,4),),(90.,0.),(4.,1.75,4.5),(4,1,4),
+                     'minecraft:oak_slab',0,'minecraft:oak_slab',1),
+                    ('background_side_low',1,((3,1,4),),(90.,0.),(4.,1.25,4.5),(3,1,4),
+                     'minecraft:oak_slab',0,'minecraft:oak_slab',0),
+                    ('background_side_high',1,((3,1,4),),(90.,0.),(4.,1.75,4.5),(3,1,4),
+                     'minecraft:oak_slab',0,'minecraft:oak_slab',1),
+                    ('front_wet_merge',0,((3,2,14),),(0.,90.),(3.5,2.5,14.5),(3,2,14),
+                     'minecraft:oak_slab',0,'minecraft:oak_double_slab',0),
+                    ('different_material',2,((3,2,4),),(0.,90.),(3.5,2.5,4.5),(3,3,4),
+                     'minecraft:birch_slab',0,'minecraft:birch_slab',0),
+                    ('locked_merge',2,((3,2,4),),(0.,90.),(3.5,2.5,4.5),(3,2,4),
+                     'minecraft:oak_slab',0,'minecraft:oak_slab',0),
+                    ('masked_merge',2,((3,2,4),),(0.,90.),(3.5,2.5,4.5),(3,2,4),
+                     'minecraft:oak_slab',0,'minecraft:oak_slab',0),
+                )
+                for identity,layer,keep,pose,point,target,material,material_aux,name,aux in layer_cases:
+                    check.fixture(report['fixture'])
+                    row=report['cases'][identity]={'layer':layer,'target':target,'expected':(name,aux)}
+                    row['isolated_public_fixture']=check.run('''from modern_projection.projection.model import Document
+source=s.editor.document
+cells=dict((pos,source.get(pos)) for pos in %r)
+s._loaded(Document(source.size,cells,name=source.name,biome=source.biome))
+s.grid=False;s.editor.edit_layer=%r;s.editor.material=%r
+s.choose_mode('place')
+if %r:s.editor.locked_layers.add(2)
+if %r:s.editor.mask='air'
+_result=s.editor.document.to_data()
+''' % (keep,layer,(material,material_aux),identity=='locked_merge',identity=='masked_merge'))
+                    check.pose(*pose)
+                    before=check.run('_result=s.editor.document.to_data()')
+                    row['tap']=check.tap(point)
+                    unchanged=identity in ('locked_merge','masked_merge')
+                    row['result']=check.run('''from modern_projection.projection.cell import foreground,background
+value=s.editor.document.get(%r)
+assert s.editor.document.get_layer(%r,%r)==%r
+assert len(s.editor.undo_stack)==%r
+if %r:assert background(value)==('minecraft:water',0)
+if %r:assert foreground(value)==('minecraft:stone',0)
+if %r:assert s.editor.document.get((3,2,4))==('minecraft:oak_slab',0)
+_result={'foreground':foreground(value),'background':background(value),'undo':len(s.editor.undo_stack)}
+''' % (target,target,layer,(name,aux),0 if unchanged else 1,
+       identity=='front_wet_merge',layer==1,identity=='different_material'))
+                    if unchanged:
+                        check.assert_document(before,identity)
+                    else:
+                        after=check.run('_result=s.editor.document.to_data()')
+                        check.run('s.action(s.editor.undo)\n_result=True')
+                        check.assert_document(before,'Undo: '+identity)
+                        check.run('s.action(s.editor.redo)\n_result=True')
+                        check.assert_document(after,'Redo: '+identity)
+                    save(args.output/'report.json',report)
             # Independent full/missing projections use the unmodified public gallery.
             for route in (route for route in args.routes if route!='editor'):
                 check.fixture(report['fixture'])

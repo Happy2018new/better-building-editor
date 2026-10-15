@@ -17,7 +17,7 @@ FAMILIES = ('end_portal', 'end_gateway')
 FRAGMENT = '''// __multiversion__
 precision highp float;
 #define main nativePortalMain
-#include "end_portal.fragment"
+#include "r19_native_portal_original.h"
 #undef main
 #include "uniformExtraVectorConstants.h"
 #include "uniformWorldConstants.h"
@@ -38,12 +38,14 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def layered_mesh(source, layers):
+def layered_mesh(source, layers, first_layer=0):
     """Encode plane distance in unused Z, clear plane preceding star layers."""
+    if not 1 <= layers <= 31 or first_layer < 0 or first_layer+layers > 32:
+        raise ValueError('Star plane distances must precede the clear plane')
     result = deepcopy(source)
     for part in result['mesh']:
         vertices, indices = [], []
-        for layer in (32,) + tuple(range(layers)):
+        for layer in (32,) + tuple(range(first_layer, first_layer+layers)):
             offset = len(vertices)
             for original in part['vertices']:
                 vertex = deepcopy(original)
@@ -62,7 +64,10 @@ varying highp float portalClip;'''
     new = old + '''
 varying vec2 colorLookupUV;
 varying highp vec2 parallaxUV;
-varying lowp vec4 encodedPlane;'''
+varying lowp vec4 encodedPlane;
+#ifdef FOG
+varying vec4 fogColor;
+#endif'''
     if source.count(old) != 1:
         raise ValueError('The frozen portal vertex interface changed')
     source = source.replace(old, new)
@@ -92,6 +97,9 @@ varying lowp vec4 encodedPlane;'''
     parallaxUV.y+=TIME/256.0;
     colorLookupUV=(vec2(mod(planeDistance,4.0),mod(floor(planeDistance/4.0),4.0))+0.5)/4.0;
     encodedPlane=vec4((planeNormal+vec3(1.0))*0.5,planeDistance/32.0);
+    #ifdef FOG
+    fogColor=vec4(0.0);
+    #endif
     if(portalVisible<0.5) gl_Position=vec4(2.0,2.0,2.0,1.0);
     portalClip=-1.0;'''
     if source.count(end) != 1:
@@ -99,12 +107,13 @@ varying lowp vec4 encodedPlane;'''
     return source.replace(end, replacement)
 
 
-def generate(project, native, output, layers):
-    if not 1 <= layers <= 31:
+def generate(project, native, output, layers, first_layer=0):
+    if not 1 <= layers <= 31 or first_layer < 0 or first_layer+layers > 32:
         raise ValueError('Native plane distances must precede the clear plane')
     output.mkdir(parents=True, exist_ok=False)
     sources = ('shaders/glsl/end_portal.vertex', 'shaders/glsl/end_portal.fragment',
-               'resource_packs/vanilla/materials/portal.material')
+               'resource_packs/vanilla/materials/portal.material',
+               'resource_packs/vanilla/textures/entity/end_portal.png')
     inputs = {name: sha(native / name) for name in sources}
     installed = json.loads((project / 'resource_pack/models/netease_models.json').read_bytes())
     current_materials = json.loads((project / 'resource_pack/materials/entity.material').read_bytes())['materials']
@@ -112,6 +121,13 @@ def generate(project, native, output, layers):
     vertex_path = 'resource_pack/shaders/glsl/' + PREFIX + 'world.vertex'
     (output / vertex_path).parent.mkdir(parents=True, exist_ok=True)
     (output / vertex_path).write_text(vertex, encoding='ascii', newline='\n')
+    native_fragment = native / 'shaders/glsl/end_portal.fragment'
+    bundled_fragment = output / 'resource_pack/shaders/glsl/r19_native_portal_original.h'
+    bundled_fragment.write_bytes(native_fragment.read_bytes())
+    starfield_path = 'modern_projection/portal/r19_native_starfield'
+    starfield = output / ('resource_pack/textures/models/' + starfield_path + '.png')
+    starfield.parent.mkdir(parents=True, exist_ok=True)
+    starfield.write_bytes((native / sources[-1]).read_bytes())
     fragment_path = 'resource_pack/shaders/glsl/' + PREFIX + 'native.fragment'
     (output / fragment_path).write_text(FRAGMENT, encoding='ascii', newline='\n')
     models, materials = {}, {}
@@ -121,8 +137,9 @@ def generate(project, native, output, layers):
         name = PREFIX + family + '_world'
         mesh_path = 'modern_projection/portal/' + PREFIX + family + '_mesh.json'
         source_mesh = json.loads((project / 'resource_pack/models' / model['mesh']).read_bytes())
-        write_json(output / 'resource_pack/models' / mesh_path, layered_mesh(source_mesh, layers))
+        write_json(output / 'resource_pack/models' / mesh_path, layered_mesh(source_mesh, layers, first_layer))
         model.update(mesh=mesh_path, material=name)
+        model['texture']['tex0'] = starfield_path
         models[name] = model
         material = deepcopy(current_materials[original + ':entity_for_skeleton_alpha'])
         material.update(vertexShader=vertex_path.removeprefix('resource_pack/'),
@@ -133,8 +150,10 @@ def generate(project, native, output, layers):
     write_json(output / 'resource_pack/materials/entity.material', {'materials': dict(materials, version='1.0.0')})
     contract = {'schema': 1, 'stage': 'diagnostic_only', 'production_qualified': False,
                 'native_source_sha256': inputs, 'models': models, 'materials': materials,
-                'layers': layers, 'native_fragment_used_verbatim': True,
+                'layers': layers, 'first_layer': first_layer, 'native_fragment_used_verbatim': True,
+                'bundled_native_fragment_sha256': sha(bundled_fragment),
                 'limits': ['World only; preview clipping remains unadapted.',
+                           'Native fog varying is neutral in this near-field diagnostic.',
                            'Plane count, color indexing and model-to-native ray coordinates require live validation.',
                            'No native appearance equivalence or qualification is asserted.'],
                 'output_sha256': {p.relative_to(output).as_posix(): sha(p)
@@ -163,11 +182,12 @@ def main():
     parser.add_argument('--native-data', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--layers', type=int, default=16)
+    parser.add_argument('--first-layer', type=int, default=0)
     parser.add_argument('--install-clone', action='store_true')
     args = parser.parse_args()
     if args.install_clone and (args.project / '.git').exists():
         parser.error('Diagnostic aliases may only be installed in a disposable clone')
-    result = generate(args.project, args.native_data, args.output, args.layers)
+    result = generate(args.project, args.native_data, args.output, args.layers, args.first_layer)
     if args.install_clone:
         install(args.output, args.project)
     print(json.dumps({'models': len(result['models']), 'layers': result['layers'],

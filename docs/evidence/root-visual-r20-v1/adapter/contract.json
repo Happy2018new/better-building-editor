@@ -1,0 +1,108 @@
+{
+  "bundled_native_fragment_sha256": "2bf100b065c37fb018aecb93dc0bdbb36ef8555422847c59ede9b47efadfe116",
+  "layers": 16,
+  "limits": [
+    "World only; preview clipping remains unadapted.",
+    "Native fog varying is neutral in this near-field diagnostic.",
+    "Plane count, color indexing and model-to-native ray coordinates require live validation.",
+    "No native appearance equivalence or qualification is asserted."
+  ],
+  "materials": {
+    "r19_native_portal_end_gateway_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendDst": "SourceAlpha",
+      "blendSrc": "One",
+      "depthFunc": "LessEqual",
+      "fragmentShader": "shaders/glsl/r19_native_portal_native.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/r19_native_portal_world.vertex"
+    },
+    "r19_native_portal_end_portal_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendDst": "SourceAlpha",
+      "blendSrc": "One",
+      "depthFunc": "LessEqual",
+      "fragmentShader": "shaders/glsl/r19_native_portal_native.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/r19_native_portal_world.vertex"
+    }
+  },
+  "models": {
+    "r19_native_portal_end_gateway_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "r19_native_portal_end_gateway_world",
+      "mesh": "modern_projection/portal/r19_native_portal_end_gateway_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/r19_native_starfield",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    },
+    "r19_native_portal_end_portal_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "r19_native_portal_end_portal_world",
+      "mesh": "modern_projection/portal/r19_native_portal_end_portal_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/r19_native_starfield",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    }
+  },
+  "native_fragment_used_verbatim": true,
+  "native_source_sha256": {
+    "resource_packs/vanilla/materials/portal.material": "e0c87e1c4c746aac17cf0f69c045bbb9fe4425eda9fe23127ef91dfb2bd0f160",
+    "resource_packs/vanilla/textures/entity/end_portal.png": "0a104fb3c20586b91dfd939da6b7023d2888334067cafc5b04d5eb9e712749ff",
+    "shaders/glsl/end_portal.fragment": "2bf100b065c37fb018aecb93dc0bdbb36ef8555422847c59ede9b47efadfe116",
+    "shaders/glsl/end_portal.vertex": "1893e42435fcb4361c95dac32980a83cb0c63345383e5d03b93f8e98ecefb0e3"
+  },
+  "output_sha256": {
+    "resource_pack/materials/entity.material": "c625ff808b1b11306d0d52d075b7395717f82f4294b4aed32834bd01c3332e73",
+    "resource_pack/models/modern_projection/portal/r19_native_portal_end_gateway_mesh.json": "d4a36d5eba86f535bccf23b7459522f7219eaa52116da352b9b382ed3b717b7e",
+    "resource_pack/models/modern_projection/portal/r19_native_portal_end_portal_mesh.json": "8067c8c03f109759397779ad59e48615dccb3c2fdfece63b6d598cbcee4aea99",
+    "resource_pack/models/netease_models.json": "650d66e5a845db7822e2085abc4c09f9f5a489940b40e8041539a452507e9121",
+    "resource_pack/shaders/glsl/r19_native_portal_native.fragment": "380ab07892e358dcb926d03f0f9e00b78e93ca8e426312a7e38b6b36658bdb06",
+    "resource_pack/shaders/glsl/r19_native_portal_original.h": "2bf100b065c37fb018aecb93dc0bdbb36ef8555422847c59ede9b47efadfe116",
+    "resource_pack/shaders/glsl/r19_native_portal_world.vertex": "45badb1413783aade19116916e8d1224f777b7e8a37ca61927970131c29e7067",
+    "resource_pack/textures/models/modern_projection/portal/r19_native_starfield.png": "0a104fb3c20586b91dfd939da6b7023d2888334067cafc5b04d5eb9e712749ff"
+  },
+  "production_qualified": false,
+  "schema": 1,
+  "stage": "diagnostic_only"
+}
