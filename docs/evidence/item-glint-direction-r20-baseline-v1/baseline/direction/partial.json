@@ -1,0 +1,178 @@
+{
+  "native": {
+    "parameters": [
+      0.08534789844435849,
+      0.4917528625539169,
+      0.13338859449171506,
+      0.9666441787214692,
+      0.4692084961834209,
+      -0.17233793076365428,
+      -0.3635524388691056,
+      0.2947318837573635
+    ],
+    "layers": [
+      {
+        "wave_vector": [
+          0.08534789844435849,
+          0.4917528625539169
+        ],
+        "texture_cycles_per_second": 0.13338859449171506,
+        "uv_scale": 0.49910433939091337,
+        "wave_angle_degrees": 80.15391066539057,
+        "phase_velocity_uv_per_second": [
+          -0.04570132974070907,
+          -0.26331942709949246
+        ],
+        "phase_speed_uv_per_second": 0.2672559302018834,
+        "motion_angle_degrees": -99.84608933460945
+      },
+      {
+        "wave_vector": [
+          0.4692084961834209,
+          -0.17233793076365428
+        ],
+        "texture_cycles_per_second": -0.3635524388691056,
+        "uv_scale": 0.49985695480867864,
+        "wave_angle_degrees": -20.168030910279512,
+        "phase_velocity_uv_per_second": [
+          0.6827181548197359,
+          -0.25075895908419144
+        ],
+        "phase_speed_uv_per_second": 0.7273129549798023,
+        "motion_angle_degrees": -20.168030910279512
+      }
+    ],
+    "nrmse": 0.05600773557696367,
+    "fit_valid": true,
+    "uv_samples": 84,
+    "frames": 69,
+    "duration_seconds": 7.969546599997557,
+    "training_uv_samples": 70,
+    "training_frames": 65,
+    "rgb_temporal_gains": [
+      20.725699282516395,
+      5.2003492460687175,
+      50.3188929354003
+    ],
+    "fit_scope": "Positive-gain squared sum of the actual two native texture layers; temporal mean removes static base"
+  },
+  "world": {
+    "parameters": [
+      0.42729287697981416,
+      0.246644176477299,
+      0.19993993168638743,
+      0.6781025297620784,
+      0.4277107949419012,
+      -0.2465658141824582,
+      -0.09996454068596278,
+      0.5364872145646747
+    ],
+    "layers": [
+      {
+        "wave_vector": [
+          0.42729287697981416,
+          0.246644176477299
+        ],
+        "texture_cycles_per_second": 0.19993993168638743,
+        "uv_scale": 0.4933685767333096,
+        "wave_angle_degrees": 29.99462124372761,
+        "phase_velocity_uv_per_second": [
+          -0.3509798806726216,
+          -0.202594399046556
+        ],
+        "phase_speed_uv_per_second": 0.40525469418873217,
+        "motion_angle_degrees": -150.0053787562724
+      },
+      {
+        "wave_vector": [
+          0.4277107949419012,
+          -0.2465658141824582
+        ],
+        "texture_cycles_per_second": -0.09996454068596278,
+        "uv_scale": 0.49369142673667277,
+        "wave_angle_degrees": -29.96249786178488,
+        "phase_velocity_uv_per_second": [
+          0.17542238665579085,
+          -0.10112712632724276
+        ],
+        "phase_speed_uv_per_second": 0.2024838497738027,
+        "motion_angle_degrees": -29.96249786178488
+      }
+    ],
+    "nrmse": 0.02017780794084704,
+    "fit_valid": true,
+    "uv_samples": 84,
+    "frames": 71,
+    "duration_seconds": 7.848360599993612,
+    "training_uv_samples": 70,
+    "training_frames": 65,
+    "rgb_temporal_gains": [
+      36.81332740736774,
+      9.215542886131585,
+      71.44165894529682
+    ],
+    "fit_scope": "Positive-gain squared sum of the actual two native texture layers; temporal mean removes static base"
+  },
+  "world_missing": {
+    "parameters": [
+      0.4272674336589893,
+      0.24681895478553598,
+      0.19996368846540535,
+      -1.285632186671104,
+      0.4273913293501168,
+      -0.24681046429421358,
+      -0.09999932495739328,
+      0.5183904291157222
+    ],
+    "layers": [
+      {
+        "wave_vector": [
+          0.4272674336589893,
+          0.24681895478553598
+        ],
+        "texture_cycles_per_second": 0.19996368846540535,
+        "uv_scale": 0.4934339432051298,
+        "wave_angle_degrees": 30.01367481530276,
+        "phase_velocity_uv_per_second": [
+          -0.3509076924598744,
+          -0.20270833453755854
+        ],
+        "phase_speed_uv_per_second": 0.40524915486463947,
+        "motion_angle_degrees": -149.98632518469722
+      },
+      {
+        "wave_vector": [
+          0.4273913293501168,
+          -0.24681046429421358
+        ],
+        "texture_cycles_per_second": -0.09999932495739328,
+        "uv_scale": 0.4935369831013531,
+        "wave_angle_degrees": -30.005626676792183,
+        "phase_velocity_uv_per_second": [
+          0.17546211966525216,
+          -0.10132607810850507
+        ],
+        "phase_speed_uv_per_second": 0.20261769306325186,
+        "motion_angle_degrees": -30.00562667679219
+      }
+    ],
+    "nrmse": 0.02128060280015628,
+    "fit_valid": true,
+    "uv_samples": 84,
+    "frames": 82,
+    "duration_seconds": 7.969560400000773,
+    "training_uv_samples": 70,
+    "training_frames": 65,
+    "rgb_temporal_gains": [
+      36.81207209821148,
+      9.207526723474302,
+      75.9384512944974
+    ],
+    "fit_scope": "Positive-gain squared sum of the actual two native texture layers; temporal mean removes static base"
+  },
+  "editor": {
+    "fit_valid": false,
+    "error": "Too few independently visible glint samples",
+    "layers": []
+  }
+}

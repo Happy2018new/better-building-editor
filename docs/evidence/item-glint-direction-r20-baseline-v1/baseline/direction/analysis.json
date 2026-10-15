@@ -1,0 +1,269 @@
+{
+  "schema": 1,
+  "source_sha256": "2b1d7c3cbcf715e8bf6bd6a629b92877c5af977a424ecb0711925ef5aa863f3f",
+  "limits": {
+    "maximum_fit_nrmse": 0.15,
+    "maximum_direction_error_degrees": 15.0,
+    "minimum_speed_ratio": 0.8,
+    "maximum_speed_ratio": 1.25,
+    "minimum_glint_gain_ratio": 0.8,
+    "maximum_glint_gain_ratio": 1.25,
+    "minimum_duration_seconds": 7.0,
+    "maximum_frame_gap_seconds": 0.25
+  },
+  "routes": {
+    "native": {
+      "parameters": [
+        0.08534789844435849,
+        0.4917528625539169,
+        0.13338859449171506,
+        0.9666441787214692,
+        0.4692084961834209,
+        -0.17233793076365428,
+        -0.3635524388691056,
+        0.2947318837573635
+      ],
+      "layers": [
+        {
+          "wave_vector": [
+            0.08534789844435849,
+            0.4917528625539169
+          ],
+          "texture_cycles_per_second": 0.13338859449171506,
+          "uv_scale": 0.49910433939091337,
+          "wave_angle_degrees": 80.15391066539057,
+          "phase_velocity_uv_per_second": [
+            -0.04570132974070907,
+            -0.26331942709949246
+          ],
+          "phase_speed_uv_per_second": 0.2672559302018834,
+          "motion_angle_degrees": -99.84608933460945
+        },
+        {
+          "wave_vector": [
+            0.4692084961834209,
+            -0.17233793076365428
+          ],
+          "texture_cycles_per_second": -0.3635524388691056,
+          "uv_scale": 0.49985695480867864,
+          "wave_angle_degrees": -20.168030910279512,
+          "phase_velocity_uv_per_second": [
+            0.6827181548197359,
+            -0.25075895908419144
+          ],
+          "phase_speed_uv_per_second": 0.7273129549798023,
+          "motion_angle_degrees": -20.168030910279512
+        }
+      ],
+      "nrmse": 0.05600773557696367,
+      "fit_valid": true,
+      "uv_samples": 84,
+      "frames": 69,
+      "duration_seconds": 7.969546599997557,
+      "training_uv_samples": 70,
+      "training_frames": 65,
+      "rgb_temporal_gains": [
+        20.725699282516395,
+        5.2003492460687175,
+        50.3188929354003
+      ],
+      "fit_scope": "Positive-gain squared sum of the actual two native texture layers; temporal mean removes static base"
+    },
+    "world": {
+      "parameters": [
+        0.42729287697981416,
+        0.246644176477299,
+        0.19993993168638743,
+        0.6781025297620784,
+        0.4277107949419012,
+        -0.2465658141824582,
+        -0.09996454068596278,
+        0.5364872145646747
+      ],
+      "layers": [
+        {
+          "wave_vector": [
+            0.42729287697981416,
+            0.246644176477299
+          ],
+          "texture_cycles_per_second": 0.19993993168638743,
+          "uv_scale": 0.4933685767333096,
+          "wave_angle_degrees": 29.99462124372761,
+          "phase_velocity_uv_per_second": [
+            -0.3509798806726216,
+            -0.202594399046556
+          ],
+          "phase_speed_uv_per_second": 0.40525469418873217,
+          "motion_angle_degrees": -150.0053787562724
+        },
+        {
+          "wave_vector": [
+            0.4277107949419012,
+            -0.2465658141824582
+          ],
+          "texture_cycles_per_second": -0.09996454068596278,
+          "uv_scale": 0.49369142673667277,
+          "wave_angle_degrees": -29.96249786178488,
+          "phase_velocity_uv_per_second": [
+            0.17542238665579085,
+            -0.10112712632724276
+          ],
+          "phase_speed_uv_per_second": 0.2024838497738027,
+          "motion_angle_degrees": -29.96249786178488
+        }
+      ],
+      "nrmse": 0.02017780794084704,
+      "fit_valid": true,
+      "uv_samples": 84,
+      "frames": 71,
+      "duration_seconds": 7.848360599993612,
+      "training_uv_samples": 70,
+      "training_frames": 65,
+      "rgb_temporal_gains": [
+        36.81332740736774,
+        9.215542886131585,
+        71.44165894529682
+      ],
+      "fit_scope": "Positive-gain squared sum of the actual two native texture layers; temporal mean removes static base"
+    },
+    "world_missing": {
+      "parameters": [
+        0.4272674336589893,
+        0.24681895478553598,
+        0.19996368846540535,
+        -1.285632186671104,
+        0.4273913293501168,
+        -0.24681046429421358,
+        -0.09999932495739328,
+        0.5183904291157222
+      ],
+      "layers": [
+        {
+          "wave_vector": [
+            0.4272674336589893,
+            0.24681895478553598
+          ],
+          "texture_cycles_per_second": 0.19996368846540535,
+          "uv_scale": 0.4934339432051298,
+          "wave_angle_degrees": 30.01367481530276,
+          "phase_velocity_uv_per_second": [
+            -0.3509076924598744,
+            -0.20270833453755854
+          ],
+          "phase_speed_uv_per_second": 0.40524915486463947,
+          "motion_angle_degrees": -149.98632518469722
+        },
+        {
+          "wave_vector": [
+            0.4273913293501168,
+            -0.24681046429421358
+          ],
+          "texture_cycles_per_second": -0.09999932495739328,
+          "uv_scale": 0.4935369831013531,
+          "wave_angle_degrees": -30.005626676792183,
+          "phase_velocity_uv_per_second": [
+            0.17546211966525216,
+            -0.10132607810850507
+          ],
+          "phase_speed_uv_per_second": 0.20261769306325186,
+          "motion_angle_degrees": -30.00562667679219
+        }
+      ],
+      "nrmse": 0.02128060280015628,
+      "fit_valid": true,
+      "uv_samples": 84,
+      "frames": 82,
+      "duration_seconds": 7.969560400000773,
+      "training_uv_samples": 70,
+      "training_frames": 65,
+      "rgb_temporal_gains": [
+        36.81207209821148,
+        9.207526723474302,
+        75.9384512944974
+      ],
+      "fit_scope": "Positive-gain squared sum of the actual two native texture layers; temporal mean removes static base"
+    },
+    "editor": {
+      "fit_valid": false,
+      "error": "Too few independently visible glint samples",
+      "layers": []
+    }
+  },
+  "analyzer_sha256": "f13c2096d4c2928fed65f3555a680fe16f1166ce633d388bf5e3f8f6cbc69e1a",
+  "global_search": true,
+  "comparison": {
+    "world": {
+      "reference_layer_order": [
+        0,
+        1
+      ],
+      "layers": [
+        {
+          "direction_error_degrees": 50.15928942166295,
+          "speed_ratio": 1.5163543569738769,
+          "passed": false
+        },
+        {
+          "direction_error_degrees": 9.79446695150537,
+          "speed_ratio": 0.27839989427855816,
+          "passed": false
+        }
+      ],
+      "passed": false
+    },
+    "world_missing": {
+      "reference_layer_order": [
+        0,
+        1
+      ],
+      "layers": [
+        {
+          "direction_error_degrees": 50.14023585008778,
+          "speed_ratio": 1.5163336303090333,
+          "passed": false
+        },
+        {
+          "direction_error_degrees": 9.837595766512663,
+          "speed_ratio": 0.27858391862259435,
+          "passed": false
+        }
+      ],
+      "passed": false
+    },
+    "editor": {
+      "passed": false,
+      "status": "NO_MEASURABLE_GLINT"
+    }
+  },
+  "negative_controls": {
+    "time_reversed_rejected": true,
+    "wrong_uv_rotation_rejected": true
+  },
+  "production_qualified": false,
+  "brightness_comparison": {
+    "world": {
+      "red_green_gain_product_over_native": [
+        1.7762164212438614,
+        1.7721007667125845
+      ],
+      "passed": false,
+      "scope": "Red/green dynamic additive amplitude; blue can saturate and static base is excluded"
+    },
+    "world_missing": {
+      "red_green_gain_product_over_native": [
+        1.776155853485006,
+        1.7705593004998408
+      ],
+      "passed": false,
+      "scope": "Red/green dynamic additive amplitude; blue can saturate and static base is excluded"
+    },
+    "editor": {
+      "passed": false,
+      "status": "NO_VALID_TEXTURE_FIT"
+    }
+  },
+  "brightness_accepted": false,
+  "base_evidence_valid": true,
+  "direction_and_speed_accepted": false,
+  "scope": "Both signed texture phase velocities in source UVs; no full product or brightness acceptance"
+}

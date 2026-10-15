@@ -1,0 +1,81 @@
+// __multiversion__
+precision highp float;
+#include "neteaseModelVertexUtil.h"
+#include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+varying highp vec2 itemUv;
+varying highp float itemVisible;
+varying highp float itemEnchanted;
+varying highp float itemClip;
+varying highp vec3 itemLight;
+varying highp vec3 itemTileLight;
+vec3 orientItem(vec3 point, float facing, float rotation, float itemLayout) {
+    if(facing<1.5 && itemLayout<0.5) point.xy=-point.xy;
+    if(itemLayout<0.5) rotation=-rotation;
+    point.xy=mat2(cos(rotation),sin(rotation),-sin(rotation),cos(rotation))*point.xy;
+    if(facing<0.5) point=vec3(point.x,point.z,-point.y);
+    else if(facing<1.5) point=vec3(point.x,-point.z,point.y);
+    else if(facing>2.5 && facing<3.5) point=vec3(-point.x,point.y,-point.z);
+    else if(facing>3.5 && facing<4.5) point=vec3(-point.z,point.y,point.x);
+    else if(facing>4.5) point=vec3(point.z,point.y,-point.x);
+    point.x=-point.x;
+    return point;
+}
+float frameIntensity(vec3 normal) {
+    vec3 N=normalize(normal);
+    N.y*=TILE_LIGHT_COLOR.w;
+    return (1.0+N.y)*0.275-N.x*N.x*0.1+N.z*N.z*0.1+0.45;
+}
+void main() {
+    float slot=floor(POSITION.x/2.0);
+    float code=EXTRA_VECTOR1.x;
+    if(slot>0.5) code=EXTRA_VECTOR1.y;
+    if(slot>1.5) code=EXTRA_VECTOR1.z;
+    if(slot>2.5) code=EXTRA_VECTOR1.w;
+    float address=mod(code,64.0);
+    float facing=mod(floor(code/64.0),8.0);
+    float rotation=mod(floor(code/512.0),8.0)*0.7853981633974483;
+    itemEnchanted=floor(code/4096.0);
+    bool tagged=abs(EXTRA_VECTOR4.x-39687.0)<0.25 || mod(EXTRA_VECTOR4.x,256.0)==135.0;
+    itemVisible=tagged && slot<EXTRA_VECTOR4.y-0.5 && facing<5.5 ? 1.0 : 0.0;
+    vec3 point=vec3(mod(POSITION.x,2.0)-0.5,POSITION.y-0.5,POSITION.z);
+    float itemLayout=EXTRA_VECTOR2.x;
+    if(slot>0.5) itemLayout=EXTRA_VECTOR2.y;
+    if(slot>1.5) itemLayout=EXTRA_VECTOR2.z;
+    if(slot>2.5) itemLayout=EXTRA_VECTOR2.w;
+    if(itemLayout>0.5 && itemLayout<3.5) {
+        point.xy*=0.5;
+        point.x+=(itemLayout-2.0)*0.3;
+        point.z=0.3125;
+    } else if(itemLayout>3.5) {
+        float index=itemLayout-4.0;
+        point.xy*=0.6;
+        point.x+=(mod(index,2.0)-0.5)*0.5;
+        point.y+=(floor(index/2.0)-0.5)*0.5;
+        point.z=0.05;
+    }
+    point=orientItem(point,facing,rotation,itemLayout);
+    vec3 itemNormal=orientItem(NORMAL.xyz,facing,rotation,itemLayout);
+    vec3 cell=vec3(mod(address,4.0),floor(address/16.0),mod(floor(address/4.0),4.0));
+    vec3 localPoint=cell+vec3(0.5)+point-vec3(2.0);
+    vec4 entityPoint=vec4(localPoint,1.0);
+    entityPoint=vec4(-localPoint.x,-localPoint.z+1.5,-localPoint.y,1.0);
+    itemLight=vec3(1.0);
+    itemTileLight=vec3(1.0);
+    if(itemLayout<0.5) {
+        itemTileLight=TILE_LIGHT_COLOR.xyz;
+        itemLight=itemTileLight*frameIntensity(itemNormal);
+    }
+    gl_Position=WORLDVIEWPROJ*entityPoint;
+    itemClip=-1.0;
+    if(abs(PROJ[3][3])>0.5 && mod(EXTRA_VECTOR4.x,256.0)==135.0) {
+        float distance=(floor(EXTRA_VECTOR4.x/256.0)-32768.0)/64.0;
+        vec3 viewPoint=vec3(-localPoint.x,-localPoint.z,-localPoint.y);
+        vec3 viewZ=vec3(WORLDVIEW[0][2],WORLDVIEW[1][2],WORLDVIEW[2][2]);
+        itemClip=dot(normalize(viewZ),viewPoint)+distance;
+        float centerDepth=PROJ[2][2]*(-350.0)+PROJ[3][2];
+        gl_Position.z=(centerDepth+itemClip*PROJ[2][2]*0.04)/(1.0+abs(centerDepth));
+    }
+    itemUv=TEXCOORD_0;
+    gl_PointSize=1.0;
+}

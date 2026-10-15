@@ -284,3 +284,9 @@ behavior_pack/modern_projection/projection/diagnostics.py -text whitespace=cr-at
 behavior_pack/modern_projection/projection/occupancy_shader.py -text whitespace=cr-at-eol
 behavior_pack/modern_projection/projection/projection_companions.py -text whitespace=cr-at-eol
 behavior_pack/modern_projection/projection/ui.py -text whitespace=cr-at-eol
+# Glint direction replay binds lossless frame crops and frozen source bytes.
+docs/evidence/item-glint-direction-r20-*/** -text -diff whitespace=cr-at-eol
+tools/analyze_item_glint_direction_r20.py text eol=lf
+tools/pack_item_glint_direction_r20.py text eol=lf
+tools/verify_item_glint_direction_r20.py text eol=lf
+tests/test_item_glint_direction.py text eol=lf
