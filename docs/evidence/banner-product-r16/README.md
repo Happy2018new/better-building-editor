@@ -1,5 +1,13 @@
 # Banner Product Acceptance, Round 16
 
+Updated 2026-10-15 after the enchanting-table body adapter changed the shared
+palette preparation source. The 26 editor, 16 world and 3 opacity captures were
+rerun on the ordinary default profile and visually reviewed. The editor run
+also supplies the default-path evidence; it does not inject a candidate.
+Full-resolution captures for this revision remain in
+`.runtime/banner-table-r18-{editor,world,opacity}-v1`. Reports and contact sheets
+below now bind this revision. The earlier archive described below is historical.
+
 The default editor admits standing and wall banners only on NEMC
 `3.10.0.420447`. It uses the measured banner-only preview depth mapping
 (`450.0` origin and `0.64` scale), authentic item-placed actor payloads, and

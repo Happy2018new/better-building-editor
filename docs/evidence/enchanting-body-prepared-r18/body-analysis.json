@@ -1,0 +1,460 @@
+{
+  "schema": 1,
+  "source_sha256": "7ce30a355991c15d2aa8d63edf6d60894777930aa552b1ce1320c3077fe48df2",
+  "product_qualified": false,
+  "scope": "Red motif placement and cyan-support intersection; not book or complete texture acceptance.",
+  "views": {
+    "south": {
+      "reference": {
+        "pixels": 7566,
+        "bounds": [
+          49,
+          82,
+          271,
+          192
+        ],
+        "center": [
+          159.97092254824213,
+          122.27108115252445
+        ],
+        "image_crop": [
+          837,
+          402,
+          1157,
+          792
+        ]
+      },
+      "candidates": {
+        "live_south": {
+          "unshifted_iou": 0.22510166653376923,
+          "best_translation_pixels": [
+            0,
+            -27
+          ],
+          "translated_iou": 0.7978001404165691,
+          "observed": {
+            "pixels": 7798,
+            "bounds": [
+              50,
+              104,
+              270,
+              219
+            ],
+            "center": [
+              159.62169787124904,
+              147.9557578866376
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21705,
+          "support_recall": 0.7677954388389772,
+          "support_intersection_passed": false
+        },
+        "roundtrip_south": {
+          "unshifted_iou": 0.22510166653376923,
+          "best_translation_pixels": [
+            0,
+            -27
+          ],
+          "translated_iou": 0.7978001404165691,
+          "observed": {
+            "pixels": 7798,
+            "bounds": [
+              50,
+              104,
+              270,
+              219
+            ],
+            "center": [
+              159.62169787124904,
+              147.9557578866376
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21705,
+          "support_recall": 0.7677954388389772,
+          "support_intersection_passed": false
+        },
+        "prepared_south": {
+          "unshifted_iou": 0.9691949262231426,
+          "best_translation_pixels": [
+            0,
+            0
+          ],
+          "translated_iou": 0.9691949262231426,
+          "observed": {
+            "pixels": 7648,
+            "bounds": [
+              49,
+              82,
+              271,
+              192
+            ],
+            "center": [
+              159.87055439330544,
+              122.44782949790795
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21705,
+          "support_recall": 1.0,
+          "support_intersection_passed": true
+        }
+      }
+    },
+    "north": {
+      "reference": {
+        "pixels": 7566,
+        "bounds": [
+          49,
+          82,
+          271,
+          192
+        ],
+        "center": [
+          159.86439333862015,
+          122.29037800687286
+        ],
+        "image_crop": [
+          837,
+          402,
+          1157,
+          792
+        ]
+      },
+      "candidates": {
+        "live_north": {
+          "unshifted_iou": 0.22863299018434283,
+          "best_translation_pixels": [
+            0,
+            -27
+          ],
+          "translated_iou": 0.7939874155208576,
+          "observed": {
+            "pixels": 7830,
+            "bounds": [
+              50,
+              105,
+              270,
+              219
+            ],
+            "center": [
+              159.69578544061304,
+              147.742656449553
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21635,
+          "support_recall": 0.7797088051767969,
+          "support_intersection_passed": false
+        },
+        "roundtrip_north": {
+          "unshifted_iou": 0.22863299018434283,
+          "best_translation_pixels": [
+            0,
+            -27
+          ],
+          "translated_iou": 0.7939874155208576,
+          "observed": {
+            "pixels": 7830,
+            "bounds": [
+              50,
+              105,
+              270,
+              219
+            ],
+            "center": [
+              159.69578544061304,
+              147.742656449553
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21635,
+          "support_recall": 0.7797088051767969,
+          "support_intersection_passed": false
+        },
+        "prepared_north": {
+          "unshifted_iou": 0.968167701863354,
+          "best_translation_pixels": [
+            0,
+            0
+          ],
+          "translated_iou": 0.968167701863354,
+          "observed": {
+            "pixels": 7644,
+            "bounds": [
+              49,
+              82,
+              271,
+              192
+            ],
+            "center": [
+              159.98220826792254,
+              122.4551282051282
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21635,
+          "support_recall": 1.0,
+          "support_intersection_passed": true
+        }
+      }
+    },
+    "east": {
+      "reference": {
+        "pixels": 7597,
+        "bounds": [
+          49,
+          81,
+          272,
+          192
+        ],
+        "center": [
+          159.96617085691722,
+          122.13294721600631
+        ],
+        "image_crop": [
+          837,
+          402,
+          1157,
+          792
+        ]
+      },
+      "candidates": {
+        "live_east": {
+          "unshifted_iou": 0.22770624701955175,
+          "best_translation_pixels": [
+            0,
+            -27
+          ],
+          "translated_iou": 0.7907488986784141,
+          "observed": {
+            "pixels": 7850,
+            "bounds": [
+              50,
+              104,
+              271,
+              219
+            ],
+            "center": [
+              159.84624203821656,
+              147.6951592356688
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21723,
+          "support_recall": 0.7798186254200616,
+          "support_intersection_passed": false
+        },
+        "roundtrip_east": {
+          "unshifted_iou": 0.22770624701955175,
+          "best_translation_pixels": [
+            0,
+            -27
+          ],
+          "translated_iou": 0.7907488986784141,
+          "observed": {
+            "pixels": 7850,
+            "bounds": [
+              50,
+              104,
+              271,
+              219
+            ],
+            "center": [
+              159.84624203821656,
+              147.6951592356688
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21723,
+          "support_recall": 0.7798186254200616,
+          "support_intersection_passed": false
+        },
+        "prepared_east": {
+          "unshifted_iou": 0.9725019364833463,
+          "best_translation_pixels": [
+            0,
+            0
+          ],
+          "translated_iou": 0.9725019364833463,
+          "observed": {
+            "pixels": 7682,
+            "bounds": [
+              49,
+              81,
+              272,
+              192
+            ],
+            "center": [
+              160.03644884144754,
+              122.29653736006249
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21723,
+          "support_recall": 1.0,
+          "support_intersection_passed": true
+        }
+      }
+    },
+    "west": {
+      "reference": {
+        "pixels": 7444,
+        "bounds": [
+          49,
+          82,
+          271,
+          192
+        ],
+        "center": [
+          160.64911337990327,
+          122.91147232670608
+        ],
+        "image_crop": [
+          837,
+          402,
+          1157,
+          792
+        ]
+      },
+      "candidates": {
+        "live_west": {
+          "unshifted_iou": 0.23129635601418896,
+          "best_translation_pixels": [
+            0,
+            -27
+          ],
+          "translated_iou": 0.800636642301344,
+          "observed": {
+            "pixels": 7829,
+            "bounds": [
+              50,
+              105,
+              270,
+              219
+            ],
+            "center": [
+              159.6244731127858,
+              147.73495976497637
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21630,
+          "support_recall": 0.767128987517337,
+          "support_intersection_passed": false
+        },
+        "roundtrip_west": {
+          "unshifted_iou": 0.23129635601418896,
+          "best_translation_pixels": [
+            0,
+            -27
+          ],
+          "translated_iou": 0.800636642301344,
+          "observed": {
+            "pixels": 7829,
+            "bounds": [
+              50,
+              105,
+              270,
+              219
+            ],
+            "center": [
+              159.6244731127858,
+              147.73495976497637
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21630,
+          "support_recall": 0.767128987517337,
+          "support_intersection_passed": false
+        },
+        "prepared_west": {
+          "unshifted_iou": 0.9570743094280897,
+          "best_translation_pixels": [
+            0,
+            0
+          ],
+          "translated_iou": 0.9570743094280897,
+          "observed": {
+            "pixels": 7647,
+            "bounds": [
+              49,
+              82,
+              271,
+              192
+            ],
+            "center": [
+              159.86739897999215,
+              122.4433111023931
+            ],
+            "image_crop": [
+              837,
+              402,
+              1157,
+              792
+            ]
+          },
+          "support_interior_pixels": 21630,
+          "support_recall": 1.0,
+          "support_intersection_passed": true
+        }
+      }
+    }
+  }
+}

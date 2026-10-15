@@ -2,7 +2,7 @@
   "schema": 1,
   "engine": "3.10.0.420447",
   "fixture": "test.entities.banners",
-  "candidate": true,
+  "candidate": false,
   "completed": true,
   "restored": true,
   "captures": {
@@ -12,11 +12,17 @@
           3,
           "3.10.0.420447",
           [
+            "minecraft:chest",
+            "minecraft:copper_chest",
+            "minecraft:ender_chest",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
-          [],
           [
+            "minecraft:flower_pot"
+          ],
+          [
+            "minecraft:flower_pot",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
@@ -27,8 +33,8 @@
             0.64,
             "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
             "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
-            "Pending",
-            false
+            "9d134731ef546f9d276628ac87299c4da54cbbf8de74fcd4ee0ac92c26b6724f",
+            true
           ]
         ],
         "engine": "3.10.0.420447",
@@ -38,7 +44,7 @@
           "ready": true,
           "parts": [
             [
-              "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
+              "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
               [
                 0,
                 0,
@@ -47,7 +53,7 @@
               true
             ],
             [
-              "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
+              "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
               [
                 0,
                 0,
@@ -62,7 +68,7 @@
           "failed": null,
           "missing": false,
           "bank": null,
-          "actor": "-9223372036854775807",
+          "actor": "-9223372036854775792",
           "builds": null
         },
         "editor_camera": [
@@ -71,13 +77,13 @@
           2.0
         ],
         "foot": [
-          -5.5,
-          135.0,
-          163.5
+          0.5,
+          100.0,
+          0.5
         ],
         "geometry_receipts": [
           {
-            "requested_name": "modern_projection_chunk_0_0_0_0_0",
+            "requested_name": "modern_projection_chunk_1_0_0_0_0",
             "materials": [
               [
                 "minecraft:standing_banner",
@@ -96,20 +102,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
-            "result": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000"
-          },
-          {
-            "requested_name": "modern_projection_0",
-            "materials": [
-              [
-                "modern_projection:preview_outline",
-                0
-              ]
-            ],
-            "actors": [],
-            "name": "modern_projection_0_r15_1791975239384000",
-            "result": "modern_projection_0_r15_1791975239384000"
+            "name": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
+            "result": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_c_0_0_0",
@@ -120,8 +114,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
-            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000"
+            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
+            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_o_0_0_0",
@@ -139,8 +133,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
-            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000"
+            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
+            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000"
           },
           {
             "requested_name": "modern_projection_buffer_0_1_c_0_0_0",
@@ -151,8 +145,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000",
-            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000"
+            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000",
+            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000"
           }
         ],
         "screen": [
@@ -161,9 +155,9 @@
         ],
         "editor_depth_plane": null,
         "camera": [
-          9.5,
-          178.0,
-          150.0
+          14.5,
+          143.0,
+          -13.0
         ],
         "dirty": 0,
         "ready": true,
@@ -174,7 +168,7 @@
           -158.74949645996094,
           -1.3882293387723621e-05
         ],
-        "model": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
+        "model": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
         "pending": false,
         "editor_depth": 0.0
       },
@@ -185,8 +179,8 @@
         "background_only": false,
         "backend": "Windows.Graphics.Capture",
         "native_resolution": true,
-        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\banner-product-r16-opacity-v2\\opacity_1_0.png",
-        "started_at": "2026-10-14T10:54:11.415686+00:00",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\banner-table-r18-opacity-v1\\opacity_1_0.png",
+        "started_at": "2026-10-15T00:56:19.648486+00:00",
         "foreground_policy": "allow_user_foreground",
         "user_foreground_allowed": true,
         "agent_activation_allowed": false,
@@ -194,14 +188,14 @@
         "guarded_no_activation": true,
         "window_coordinate_units": "physical_pixels",
         "dpi_awareness": "per_monitor_v2",
-        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\3eee72642e774ed180e92e6ef46cdd8f\\session.json",
-        "owner": "banner-special-r16",
-        "game_pid": 39900,
-        "game_identity": "134364487287508183",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4255a6c3d4bd48b2bda63ce72714e8bc\\session.json",
+        "owner": "root-table-final-r17",
+        "game_pid": 21600,
+        "game_identity": "134364925223438179",
         "noactivation_requested": true,
         "window": {
-          "hwnd": 10161018,
-          "pid": 39900,
+          "hwnd": 14684580,
+          "pid": 21600,
           "process": "Minecraft.Windows.exe",
           "title": "(1994, 1105) Minecraft",
           "x": 283,
@@ -227,13 +221,13 @@
         },
         "guard_before": {
           "foreground": {
-            "hwnd": 14424058,
-            "pid": 34500
+            "hwnd": 264296,
+            "pid": 3864
           },
           "windows": [
             {
-              "hwnd": 10161018,
-              "pid": 39900,
+              "hwnd": 14684580,
+              "pid": 21600,
               "process": "Minecraft.Windows.exe",
               "title": "(1994, 1105) Minecraft",
               "x": 283,
@@ -248,18 +242,18 @@
           "window_noactivate": true
         },
         "foreground_before": {
-          "hwnd": 14424058,
-          "pid": 34500
+          "hwnd": 264296,
+          "pid": 3864
         },
         "guard_after": {
           "foreground": {
-            "hwnd": 14424058,
-            "pid": 34500
+            "hwnd": 264296,
+            "pid": 3864
           },
           "windows": [
             {
-              "hwnd": 10161018,
-              "pid": 39900,
+              "hwnd": 14684580,
+              "pid": 21600,
               "process": "Minecraft.Windows.exe",
               "title": "(1994, 1105) Minecraft",
               "x": 283,
@@ -274,8 +268,8 @@
           "window_noactivate": true
         },
         "foreground_after": {
-          "hwnd": 14424058,
-          "pid": 34500
+          "hwnd": 264296,
+          "pid": 3864
         },
         "foreground_unchanged": true,
         "background_safe": true,
@@ -285,33 +279,39 @@
           "ok": true,
           "backend": "Windows.Graphics.Capture",
           "native_resolution": true,
-          "request_qpc_100ns": 881824086830,
-          "frame_qpc_100ns": 881824154102,
+          "request_qpc_100ns": 324201051304,
+          "frame_qpc_100ns": 324201162047,
           "width": 1994,
           "height": 1105
         },
         "width": 1994,
         "height": 1105,
         "variance": [
-          1447.621446731992,
-          2086.929968327778,
-          3691.5284428782415
+          667.4572736325798,
+          507.4484247379075,
+          520.1485473674533
         ],
-        "sha256": "bd89c9c180a84783b861b971aff9e9ad7245283a570f8dc0c39a2fcb7698c6f2",
-        "bytes": 1475458,
-        "finished_at": "2026-10-14T10:54:12.506482+00:00",
-        "elapsed_seconds": 1.0907955000002403
+        "sha256": "d65d0b7bc168d6fdca70b93b8bf52f574ee072819dd3624ac8aaf650e8ea764d",
+        "bytes": 1163878,
+        "finished_at": "2026-10-15T00:56:20.590808+00:00",
+        "elapsed_seconds": 0.9423030999969342
       },
       "after": {
         "profile": [
           3,
           "3.10.0.420447",
           [
+            "minecraft:chest",
+            "minecraft:copper_chest",
+            "minecraft:ender_chest",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
-          [],
           [
+            "minecraft:flower_pot"
+          ],
+          [
+            "minecraft:flower_pot",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
@@ -322,8 +322,8 @@
             0.64,
             "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
             "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
-            "Pending",
-            false
+            "9d134731ef546f9d276628ac87299c4da54cbbf8de74fcd4ee0ac92c26b6724f",
+            true
           ]
         ],
         "engine": "3.10.0.420447",
@@ -333,7 +333,7 @@
           "ready": true,
           "parts": [
             [
-              "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
+              "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
               [
                 0,
                 0,
@@ -342,7 +342,7 @@
               true
             ],
             [
-              "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
+              "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
               [
                 0,
                 0,
@@ -357,7 +357,7 @@
           "failed": null,
           "missing": false,
           "bank": null,
-          "actor": "-9223372036854775807",
+          "actor": "-9223372036854775792",
           "builds": null
         },
         "editor_camera": [
@@ -366,13 +366,13 @@
           2.0
         ],
         "foot": [
-          -5.5,
-          135.0,
-          163.5
+          0.5,
+          100.0,
+          0.5
         ],
         "geometry_receipts": [
           {
-            "requested_name": "modern_projection_chunk_0_0_0_0_0",
+            "requested_name": "modern_projection_chunk_1_0_0_0_0",
             "materials": [
               [
                 "minecraft:standing_banner",
@@ -391,20 +391,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
-            "result": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000"
-          },
-          {
-            "requested_name": "modern_projection_0",
-            "materials": [
-              [
-                "modern_projection:preview_outline",
-                0
-              ]
-            ],
-            "actors": [],
-            "name": "modern_projection_0_r15_1791975239384000",
-            "result": "modern_projection_0_r15_1791975239384000"
+            "name": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
+            "result": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_c_0_0_0",
@@ -415,8 +403,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
-            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000"
+            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
+            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_o_0_0_0",
@@ -434,8 +422,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
-            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000"
+            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
+            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000"
           },
           {
             "requested_name": "modern_projection_buffer_0_1_c_0_0_0",
@@ -446,8 +434,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000",
-            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000"
+            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000",
+            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000"
           }
         ],
         "screen": [
@@ -456,9 +444,9 @@
         ],
         "editor_depth_plane": null,
         "camera": [
-          9.5,
-          178.0,
-          150.0
+          14.5,
+          143.0,
+          -13.0
         ],
         "dirty": 0,
         "ready": true,
@@ -469,7 +457,7 @@
           -158.74949645996094,
           -1.3882293387723621e-05
         ],
-        "model": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
+        "model": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
         "pending": false,
         "editor_depth": 0.0
       }
@@ -480,11 +468,17 @@
           3,
           "3.10.0.420447",
           [
+            "minecraft:chest",
+            "minecraft:copper_chest",
+            "minecraft:ender_chest",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
-          [],
           [
+            "minecraft:flower_pot"
+          ],
+          [
+            "minecraft:flower_pot",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
@@ -495,8 +489,8 @@
             0.64,
             "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
             "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
-            "Pending",
-            false
+            "9d134731ef546f9d276628ac87299c4da54cbbf8de74fcd4ee0ac92c26b6724f",
+            true
           ]
         ],
         "engine": "3.10.0.420447",
@@ -506,7 +500,7 @@
           "ready": true,
           "parts": [
             [
-              "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
+              "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
               [
                 0,
                 0,
@@ -515,7 +509,7 @@
               true
             ],
             [
-              "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
+              "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
               [
                 0,
                 0,
@@ -530,7 +524,7 @@
           "failed": null,
           "missing": false,
           "bank": null,
-          "actor": "-9223372036854775807",
+          "actor": "-9223372036854775792",
           "builds": null
         },
         "editor_camera": [
@@ -539,13 +533,13 @@
           2.0
         ],
         "foot": [
-          -5.5,
-          135.0,
-          163.5
+          0.5,
+          100.0,
+          0.5
         ],
         "geometry_receipts": [
           {
-            "requested_name": "modern_projection_chunk_0_0_0_0_0",
+            "requested_name": "modern_projection_chunk_1_0_0_0_0",
             "materials": [
               [
                 "minecraft:standing_banner",
@@ -564,20 +558,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
-            "result": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000"
-          },
-          {
-            "requested_name": "modern_projection_0",
-            "materials": [
-              [
-                "modern_projection:preview_outline",
-                0
-              ]
-            ],
-            "actors": [],
-            "name": "modern_projection_0_r15_1791975239384000",
-            "result": "modern_projection_0_r15_1791975239384000"
+            "name": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
+            "result": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_c_0_0_0",
@@ -588,8 +570,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
-            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000"
+            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
+            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_o_0_0_0",
@@ -607,8 +589,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
-            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000"
+            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
+            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000"
           },
           {
             "requested_name": "modern_projection_buffer_0_1_c_0_0_0",
@@ -619,8 +601,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000",
-            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000"
+            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000",
+            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000"
           }
         ],
         "screen": [
@@ -629,9 +611,9 @@
         ],
         "editor_depth_plane": null,
         "camera": [
-          9.5,
-          178.0,
-          150.0
+          14.5,
+          143.0,
+          -13.0
         ],
         "dirty": 0,
         "ready": true,
@@ -642,7 +624,7 @@
           -158.74949645996094,
           -1.3882293387723621e-05
         ],
-        "model": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
+        "model": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
         "pending": false,
         "editor_depth": 0.0
       },
@@ -653,8 +635,8 @@
         "background_only": false,
         "backend": "Windows.Graphics.Capture",
         "native_resolution": true,
-        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\banner-product-r16-opacity-v2\\opacity_0_45.png",
-        "started_at": "2026-10-14T10:54:16.463600+00:00",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\banner-table-r18-opacity-v1\\opacity_0_45.png",
+        "started_at": "2026-10-15T00:56:24.228041+00:00",
         "foreground_policy": "allow_user_foreground",
         "user_foreground_allowed": true,
         "agent_activation_allowed": false,
@@ -662,14 +644,14 @@
         "guarded_no_activation": true,
         "window_coordinate_units": "physical_pixels",
         "dpi_awareness": "per_monitor_v2",
-        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\3eee72642e774ed180e92e6ef46cdd8f\\session.json",
-        "owner": "banner-special-r16",
-        "game_pid": 39900,
-        "game_identity": "134364487287508183",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4255a6c3d4bd48b2bda63ce72714e8bc\\session.json",
+        "owner": "root-table-final-r17",
+        "game_pid": 21600,
+        "game_identity": "134364925223438179",
         "noactivation_requested": true,
         "window": {
-          "hwnd": 10161018,
-          "pid": 39900,
+          "hwnd": 14684580,
+          "pid": 21600,
           "process": "Minecraft.Windows.exe",
           "title": "(1994, 1105) Minecraft",
           "x": 283,
@@ -695,13 +677,13 @@
         },
         "guard_before": {
           "foreground": {
-            "hwnd": 14424058,
-            "pid": 34500
+            "hwnd": 264296,
+            "pid": 3864
           },
           "windows": [
             {
-              "hwnd": 10161018,
-              "pid": 39900,
+              "hwnd": 14684580,
+              "pid": 21600,
               "process": "Minecraft.Windows.exe",
               "title": "(1994, 1105) Minecraft",
               "x": 283,
@@ -716,18 +698,18 @@
           "window_noactivate": true
         },
         "foreground_before": {
-          "hwnd": 14424058,
-          "pid": 34500
+          "hwnd": 264296,
+          "pid": 3864
         },
         "guard_after": {
           "foreground": {
-            "hwnd": 14424058,
-            "pid": 34500
+            "hwnd": 264296,
+            "pid": 3864
           },
           "windows": [
             {
-              "hwnd": 10161018,
-              "pid": 39900,
+              "hwnd": 14684580,
+              "pid": 21600,
               "process": "Minecraft.Windows.exe",
               "title": "(1994, 1105) Minecraft",
               "x": 283,
@@ -742,8 +724,8 @@
           "window_noactivate": true
         },
         "foreground_after": {
-          "hwnd": 14424058,
-          "pid": 34500
+          "hwnd": 264296,
+          "pid": 3864
         },
         "foreground_unchanged": true,
         "background_safe": true,
@@ -753,33 +735,39 @@
           "ok": true,
           "backend": "Windows.Graphics.Capture",
           "native_resolution": true,
-          "request_qpc_100ns": 881873420896,
-          "frame_qpc_100ns": 881873547354,
+          "request_qpc_100ns": 324247129643,
+          "frame_qpc_100ns": 324247221849,
           "width": 1994,
           "height": 1105
         },
         "width": 1994,
         "height": 1105,
         "variance": [
-          1400.9561713414712,
-          2021.163639786356,
-          3605.2868929936994
+          626.6927731950051,
+          475.4071447151492,
+          491.2424953829082
         ],
-        "sha256": "f51416dc6493f6d8c5ddd31d10ddaef320a4ba0c3b9229350de38717b56611ad",
-        "bytes": 1489466,
-        "finished_at": "2026-10-14T10:54:17.441770+00:00",
-        "elapsed_seconds": 0.9781619000132196
+        "sha256": "b639b4e325749b8e2a030b6442f9b081dca3af0da1df7a1eb59ae7bc26183235",
+        "bytes": 1160363,
+        "finished_at": "2026-10-15T00:56:25.203943+00:00",
+        "elapsed_seconds": 0.9758913000005123
       },
       "after": {
         "profile": [
           3,
           "3.10.0.420447",
           [
+            "minecraft:chest",
+            "minecraft:copper_chest",
+            "minecraft:ender_chest",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
-          [],
           [
+            "minecraft:flower_pot"
+          ],
+          [
+            "minecraft:flower_pot",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
@@ -790,8 +778,8 @@
             0.64,
             "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
             "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
-            "Pending",
-            false
+            "9d134731ef546f9d276628ac87299c4da54cbbf8de74fcd4ee0ac92c26b6724f",
+            true
           ]
         ],
         "engine": "3.10.0.420447",
@@ -801,7 +789,7 @@
           "ready": true,
           "parts": [
             [
-              "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
+              "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
               [
                 0,
                 0,
@@ -810,7 +798,7 @@
               true
             ],
             [
-              "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
+              "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
               [
                 0,
                 0,
@@ -825,7 +813,7 @@
           "failed": null,
           "missing": false,
           "bank": null,
-          "actor": "-9223372036854775807",
+          "actor": "-9223372036854775792",
           "builds": null
         },
         "editor_camera": [
@@ -834,13 +822,13 @@
           2.0
         ],
         "foot": [
-          -5.5,
-          135.0,
-          163.5
+          0.5,
+          100.0,
+          0.5
         ],
         "geometry_receipts": [
           {
-            "requested_name": "modern_projection_chunk_0_0_0_0_0",
+            "requested_name": "modern_projection_chunk_1_0_0_0_0",
             "materials": [
               [
                 "minecraft:standing_banner",
@@ -859,20 +847,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
-            "result": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000"
-          },
-          {
-            "requested_name": "modern_projection_0",
-            "materials": [
-              [
-                "modern_projection:preview_outline",
-                0
-              ]
-            ],
-            "actors": [],
-            "name": "modern_projection_0_r15_1791975239384000",
-            "result": "modern_projection_0_r15_1791975239384000"
+            "name": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
+            "result": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_c_0_0_0",
@@ -883,8 +859,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
-            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000"
+            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
+            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_o_0_0_0",
@@ -902,8 +878,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
-            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000"
+            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
+            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000"
           },
           {
             "requested_name": "modern_projection_buffer_0_1_c_0_0_0",
@@ -914,8 +890,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000",
-            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000"
+            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000",
+            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000"
           }
         ],
         "screen": [
@@ -924,9 +900,9 @@
         ],
         "editor_depth_plane": null,
         "camera": [
-          9.5,
-          178.0,
-          150.0
+          14.5,
+          143.0,
+          -13.0
         ],
         "dirty": 0,
         "ready": true,
@@ -937,7 +913,7 @@
           -158.74949645996094,
           -1.3882293387723621e-05
         ],
-        "model": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
+        "model": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
         "pending": false,
         "editor_depth": 0.0
       }
@@ -948,11 +924,17 @@
           3,
           "3.10.0.420447",
           [
+            "minecraft:chest",
+            "minecraft:copper_chest",
+            "minecraft:ender_chest",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
-          [],
           [
+            "minecraft:flower_pot"
+          ],
+          [
+            "minecraft:flower_pot",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
@@ -963,8 +945,8 @@
             0.64,
             "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
             "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
-            "Pending",
-            false
+            "9d134731ef546f9d276628ac87299c4da54cbbf8de74fcd4ee0ac92c26b6724f",
+            true
           ]
         ],
         "engine": "3.10.0.420447",
@@ -974,7 +956,7 @@
           "ready": true,
           "parts": [
             [
-              "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
+              "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
               [
                 0,
                 0,
@@ -983,7 +965,7 @@
               true
             ],
             [
-              "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
+              "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
               [
                 0,
                 0,
@@ -998,7 +980,7 @@
           "failed": null,
           "missing": false,
           "bank": null,
-          "actor": "-9223372036854775807",
+          "actor": "-9223372036854775792",
           "builds": null
         },
         "editor_camera": [
@@ -1007,13 +989,13 @@
           2.0
         ],
         "foot": [
-          -5.5,
-          135.0,
-          163.5
+          0.5,
+          100.0,
+          0.5
         ],
         "geometry_receipts": [
           {
-            "requested_name": "modern_projection_chunk_0_0_0_0_0",
+            "requested_name": "modern_projection_chunk_1_0_0_0_0",
             "materials": [
               [
                 "minecraft:standing_banner",
@@ -1032,20 +1014,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
-            "result": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000"
-          },
-          {
-            "requested_name": "modern_projection_0",
-            "materials": [
-              [
-                "modern_projection:preview_outline",
-                0
-              ]
-            ],
-            "actors": [],
-            "name": "modern_projection_0_r15_1791975239384000",
-            "result": "modern_projection_0_r15_1791975239384000"
+            "name": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
+            "result": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_c_0_0_0",
@@ -1056,8 +1026,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
-            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000"
+            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
+            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_o_0_0_0",
@@ -1075,8 +1045,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
-            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000"
+            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
+            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000"
           },
           {
             "requested_name": "modern_projection_buffer_0_1_c_0_0_0",
@@ -1087,8 +1057,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000",
-            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000"
+            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000",
+            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000"
           }
         ],
         "screen": [
@@ -1097,9 +1067,9 @@
         ],
         "editor_depth_plane": null,
         "camera": [
-          9.5,
-          178.0,
-          150.0
+          14.5,
+          143.0,
+          -13.0
         ],
         "dirty": 0,
         "ready": true,
@@ -1110,7 +1080,7 @@
           -158.74949645996094,
           -1.3882293387723621e-05
         ],
-        "model": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
+        "model": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
         "pending": false,
         "editor_depth": 0.0
       },
@@ -1121,8 +1091,8 @@
         "background_only": false,
         "backend": "Windows.Graphics.Capture",
         "native_resolution": true,
-        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\banner-product-r16-opacity-v2\\opacity_0_0.png",
-        "started_at": "2026-10-14T10:54:21.707748+00:00",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\banner-table-r18-opacity-v1\\opacity_0_0.png",
+        "started_at": "2026-10-15T00:56:29.379095+00:00",
         "foreground_policy": "allow_user_foreground",
         "user_foreground_allowed": true,
         "agent_activation_allowed": false,
@@ -1130,14 +1100,14 @@
         "guarded_no_activation": true,
         "window_coordinate_units": "physical_pixels",
         "dpi_awareness": "per_monitor_v2",
-        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\3eee72642e774ed180e92e6ef46cdd8f\\session.json",
-        "owner": "banner-special-r16",
-        "game_pid": 39900,
-        "game_identity": "134364487287508183",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4255a6c3d4bd48b2bda63ce72714e8bc\\session.json",
+        "owner": "root-table-final-r17",
+        "game_pid": 21600,
+        "game_identity": "134364925223438179",
         "noactivation_requested": true,
         "window": {
-          "hwnd": 10161018,
-          "pid": 39900,
+          "hwnd": 14684580,
+          "pid": 21600,
           "process": "Minecraft.Windows.exe",
           "title": "(1994, 1105) Minecraft",
           "x": 283,
@@ -1163,13 +1133,13 @@
         },
         "guard_before": {
           "foreground": {
-            "hwnd": 14424058,
-            "pid": 34500
+            "hwnd": 5377172,
+            "pid": 3864
           },
           "windows": [
             {
-              "hwnd": 10161018,
-              "pid": 39900,
+              "hwnd": 14684580,
+              "pid": 21600,
               "process": "Minecraft.Windows.exe",
               "title": "(1994, 1105) Minecraft",
               "x": 283,
@@ -1184,18 +1154,18 @@
           "window_noactivate": true
         },
         "foreground_before": {
-          "hwnd": 14424058,
-          "pid": 34500
+          "hwnd": 5377172,
+          "pid": 3864
         },
         "guard_after": {
           "foreground": {
-            "hwnd": 14424058,
-            "pid": 34500
+            "hwnd": 264296,
+            "pid": 3864
           },
           "windows": [
             {
-              "hwnd": 10161018,
-              "pid": 39900,
+              "hwnd": 14684580,
+              "pid": 21600,
               "process": "Minecraft.Windows.exe",
               "title": "(1994, 1105) Minecraft",
               "x": 283,
@@ -1210,10 +1180,10 @@
           "window_noactivate": true
         },
         "foreground_after": {
-          "hwnd": 14424058,
-          "pid": 34500
+          "hwnd": 264296,
+          "pid": 3864
         },
-        "foreground_unchanged": true,
+        "foreground_unchanged": false,
         "background_safe": true,
         "helper_returncode": 0,
         "helper_stderr": "",
@@ -1221,33 +1191,39 @@
           "ok": true,
           "backend": "Windows.Graphics.Capture",
           "native_resolution": true,
-          "request_qpc_100ns": 881926569291,
-          "frame_qpc_100ns": 881926637448,
+          "request_qpc_100ns": 324299422484,
+          "frame_qpc_100ns": 324299524055,
           "width": 1994,
           "height": 1105
         },
         "width": 1994,
         "height": 1105,
         "variance": [
-          1401.2072087090894,
-          1982.5356196229773,
-          3529.4537267859773
+          606.400624237909,
+          462.0680861165118,
+          478.9017412421324
         ],
-        "sha256": "79ddc2fe8597e63e714cc2ca14733aba5d974e4457f9820730f8aca68de918fb",
-        "bytes": 1475496,
-        "finished_at": "2026-10-14T10:54:22.755537+00:00",
-        "elapsed_seconds": 1.0477866000001086
+        "sha256": "50f7a3a2cce50faf0f359e08448b0e9ec0ffe2926fe25e9d8538fe11b1a90d5b",
+        "bytes": 1145726,
+        "finished_at": "2026-10-15T00:56:30.439994+00:00",
+        "elapsed_seconds": 1.0608900999977777
       },
       "after": {
         "profile": [
           3,
           "3.10.0.420447",
           [
+            "minecraft:chest",
+            "minecraft:copper_chest",
+            "minecraft:ender_chest",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
-          [],
           [
+            "minecraft:flower_pot"
+          ],
+          [
+            "minecraft:flower_pot",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
@@ -1258,8 +1234,8 @@
             0.64,
             "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
             "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
-            "Pending",
-            false
+            "9d134731ef546f9d276628ac87299c4da54cbbf8de74fcd4ee0ac92c26b6724f",
+            true
           ]
         ],
         "engine": "3.10.0.420447",
@@ -1269,7 +1245,7 @@
           "ready": true,
           "parts": [
             [
-              "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
+              "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
               [
                 0,
                 0,
@@ -1278,7 +1254,7 @@
               true
             ],
             [
-              "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
+              "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
               [
                 0,
                 0,
@@ -1293,7 +1269,7 @@
           "failed": null,
           "missing": false,
           "bank": null,
-          "actor": "-9223372036854775807",
+          "actor": "-9223372036854775792",
           "builds": null
         },
         "editor_camera": [
@@ -1302,13 +1278,13 @@
           2.0
         ],
         "foot": [
-          -5.5,
-          135.0,
-          163.5
+          0.5,
+          100.0,
+          0.5
         ],
         "geometry_receipts": [
           {
-            "requested_name": "modern_projection_chunk_0_0_0_0_0",
+            "requested_name": "modern_projection_chunk_1_0_0_0_0",
             "materials": [
               [
                 "minecraft:standing_banner",
@@ -1327,20 +1303,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
-            "result": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000"
-          },
-          {
-            "requested_name": "modern_projection_0",
-            "materials": [
-              [
-                "modern_projection:preview_outline",
-                0
-              ]
-            ],
-            "actors": [],
-            "name": "modern_projection_0_r15_1791975239384000",
-            "result": "modern_projection_0_r15_1791975239384000"
+            "name": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
+            "result": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_c_0_0_0",
@@ -1351,8 +1315,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000",
-            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1791975244296000"
+            "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000",
+            "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025773598000"
           },
           {
             "requested_name": "modern_projection_buffer_0_0_o_0_0_0",
@@ -1370,8 +1334,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000",
-            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1791975244297000"
+            "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000",
+            "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025773599000"
           },
           {
             "requested_name": "modern_projection_buffer_0_1_c_0_0_0",
@@ -1382,8 +1346,8 @@
               ]
             ],
             "actors": [],
-            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000",
-            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1791975244544000"
+            "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000",
+            "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025773811000"
           }
         ],
         "screen": [
@@ -1392,9 +1356,9 @@
         ],
         "editor_depth_plane": null,
         "camera": [
-          9.5,
-          178.0,
-          150.0
+          14.5,
+          143.0,
+          -13.0
         ],
         "dirty": 0,
         "ready": true,
@@ -1405,7 +1369,7 @@
           -158.74949645996094,
           -1.3882293387723621e-05
         ],
-        "model": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
+        "model": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
         "pending": false,
         "editor_depth": 0.0
       }
@@ -1414,7 +1378,7 @@
   "rows": {
     "identity": {
       "loaded": {
-        "profile": "model_local",
+        "profile": "production",
         "engine": "3.10.0.420447",
         "materials": [
           [
@@ -1438,11 +1402,17 @@
           3,
           "3.10.0.420447",
           [
+            "minecraft:chest",
+            "minecraft:copper_chest",
+            "minecraft:ender_chest",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
-          [],
           [
+            "minecraft:flower_pot"
+          ],
+          [
+            "minecraft:flower_pot",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
@@ -1453,8 +1423,8 @@
             0.64,
             "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
             "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
-            "Pending",
-            false
+            "9d134731ef546f9d276628ac87299c4da54cbbf8de74fcd4ee0ac92c26b6724f",
+            true
           ]
         ],
         "size": [
@@ -1468,11 +1438,17 @@
           3,
           "3.10.0.420447",
           [
+            "minecraft:chest",
+            "minecraft:copper_chest",
+            "minecraft:ender_chest",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
-          [],
           [
+            "minecraft:flower_pot"
+          ],
+          [
+            "minecraft:flower_pot",
             "minecraft:standing_banner",
             "minecraft:wall_banner"
           ],
@@ -1483,8 +1459,8 @@
             0.64,
             "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
             "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
-            "Pending",
-            false
+            "9d134731ef546f9d276628ac87299c4da54cbbf8de74fcd4ee0ac92c26b6724f",
+            true
           ]
         ],
         "engine": "3.10.0.420447",
@@ -1508,13 +1484,13 @@
           2.0
         ],
         "foot": [
-          -5.5,
-          135.0,
-          163.5
+          0.5,
+          100.0,
+          0.5
         ],
         "geometry_receipts": [
           {
-            "requested_name": "modern_projection_chunk_0_0_0_0_0",
+            "requested_name": "modern_projection_chunk_1_0_0_0_0",
             "materials": [
               [
                 "minecraft:standing_banner",
@@ -1533,20 +1509,8 @@
               "minecraft:standing_banner",
               "minecraft:wall_banner"
             ],
-            "name": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
-            "result": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000"
-          },
-          {
-            "requested_name": "modern_projection_0",
-            "materials": [
-              [
-                "modern_projection:preview_outline",
-                0
-              ]
-            ],
-            "actors": [],
-            "name": "modern_projection_0_r15_1791975239384000",
-            "result": "modern_projection_0_r15_1791975239384000"
+            "name": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
+            "result": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000"
           }
         ],
         "screen": [
@@ -1555,20 +1519,20 @@
         ],
         "editor_depth_plane": null,
         "camera": [
-          -5.5,
-          136.62001037597656,
-          163.5
+          0.5,
+          101.62001037597656,
+          0.5
         ],
         "dirty": 0,
         "ready": true,
         "bridge_engine_version": "3.10.0.420447",
         "preview_error": "",
         "rotation": [
-          -0.0,
-          179.99996948242188,
-          0.0
+          26.904348373413086,
+          -158.74949645996094,
+          -1.3882293387723621e-05
         ],
-        "model": "modern_projection_chunk_0_0_0_0_0_r15_1791975239189000",
+        "model": "modern_projection_chunk_1_0_0_0_0_r15_1792025769694000",
         "pending": false,
         "editor_depth": 0.0
       },
@@ -5240,11 +5204,10 @@
   "cleanup_errors": [],
   "manual_pixel_acceptance": false,
   "source_sha256": {
-    "behavior_pack/modern_projection/projection/banner_render_contract.py": "33a8975141dbd6540df574260d04b1848580c2207a202e9beac9d24225403516",
     "behavior_pack/modern_projection/projection/native_render_profile.py": "b8ddee769323cae4e861f49bf9ae4d6ce5813948d9f09c186441dccf122f220d",
     "behavior_pack/modern_projection/projection/debug_banner_blueprints.py": "11612ec4b9fdaec3234e891894d9ca4c9045fb931c9f8f7aff63e07f09b24b21",
     "behavior_pack/modern_projection/projection/banner_fixture_data.py": "708be74bb7a29e6ec8bbda287bb6fcd78030a213f1678710566d07e7d3e390ba",
-    "behavior_pack/modern_projection/projection/entity_render.py": "9c4a9a9047be43688b029aeaae16158e1963a42a58030980cc557b2bdf708885",
+    "behavior_pack/modern_projection/projection/entity_render.py": "a2cd09aa502b590429955e2adabd1523e05c619167d8b26f50c0f438a3d86722",
     "resource_pack/shaders/glsl/modern_projection_native_preview_banner.vertex": "137ea11c5aad76d04c2ecf25387af34046dacf8518668b6e39047f8e3ece0207",
     "resource_pack/shaders/glsl/modern_projection_native_preview_banner.fragment": "4f4842911fedc5e9552de62b897c1549745cb4e5bcd22684468075a0b487025b"
   },
@@ -5263,7 +5226,9 @@
         "minecraft:flower_pot"
       ],
       [
-        "minecraft:flower_pot"
+        "minecraft:flower_pot",
+        "minecraft:standing_banner",
+        "minecraft:wall_banner"
       ],
       [
         1,
@@ -5272,8 +5237,8 @@
         0.64,
         "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
         "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
-        "Pending",
-        false
+        "9d134731ef546f9d276628ac87299c4da54cbbf8de74fcd4ee0ac92c26b6724f",
+        true
       ]
     ],
     "engine": "3.10.0.420447",
@@ -5294,34 +5259,206 @@
     "editor_camera": [
       35.0,
       25.0,
-      1.0
+      2.0
     ],
     "foot": [
-      -5.5,
-      135.0,
-      163.5
+      0.5,
+      100.0,
+      0.5
     ],
-    "geometry_receipts": [],
+    "geometry_receipts": [
+      {
+        "requested_name": "modern_projection_chunk_1_0_0_0_0",
+        "materials": [
+          [
+            "minecraft:standing_banner",
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ],
+          [
+            "minecraft:wall_banner",
+            3
+          ]
+        ],
+        "actors": [
+          "minecraft:standing_banner",
+          "minecraft:wall_banner"
+        ],
+        "name": "modern_projection_chunk_1_0_0_0_0_r15_1792025727648000",
+        "result": "modern_projection_chunk_1_0_0_0_0_r15_1792025727648000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_0_c_0_0_0",
+        "materials": [
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        "actors": [],
+        "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025731861000",
+        "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025731861000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_0_o_0_0_0",
+        "materials": [
+          [
+            "minecraft:standing_banner",
+            0
+          ],
+          [
+            "minecraft:wall_banner",
+            3
+          ]
+        ],
+        "actors": [
+          "minecraft:standing_banner",
+          "minecraft:wall_banner"
+        ],
+        "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025731862000",
+        "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025731862000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_1_c_0_0_0",
+        "materials": [
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        "actors": [],
+        "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025732108000",
+        "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025732108000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_0_c_0_0_0",
+        "materials": [
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        "actors": [],
+        "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025740767000",
+        "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025740767000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_0_o_0_0_0",
+        "materials": [
+          [
+            "minecraft:standing_banner",
+            0
+          ],
+          [
+            "minecraft:wall_banner",
+            3
+          ]
+        ],
+        "actors": [
+          "minecraft:standing_banner",
+          "minecraft:wall_banner"
+        ],
+        "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025740768000",
+        "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025740768000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_1_c_0_0_0",
+        "materials": [
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        "actors": [],
+        "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025741009000",
+        "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025741009000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_1_c_0_0_0",
+        "materials": [
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        "actors": [],
+        "name": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025751348000",
+        "result": "modern_projection_buffer_0_1_c_0_0_0_r15_1792025751348000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_1_o_0_0_0",
+        "materials": [
+          [
+            "minecraft:standing_banner",
+            0
+          ],
+          [
+            "minecraft:wall_banner",
+            3
+          ]
+        ],
+        "actors": [
+          "minecraft:standing_banner",
+          "minecraft:wall_banner"
+        ],
+        "name": "modern_projection_buffer_0_1_o_0_0_0_r15_1792025751349000",
+        "result": "modern_projection_buffer_0_1_o_0_0_0_r15_1792025751349000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_0_c_0_0_0",
+        "materials": [
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        "actors": [],
+        "name": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025758750000",
+        "result": "modern_projection_buffer_0_0_c_0_0_0_r15_1792025758750000"
+      },
+      {
+        "requested_name": "modern_projection_buffer_0_0_o_0_0_0",
+        "materials": [
+          [
+            "minecraft:standing_banner",
+            0
+          ],
+          [
+            "minecraft:wall_banner",
+            3
+          ]
+        ],
+        "actors": [
+          "minecraft:standing_banner",
+          "minecraft:wall_banner"
+        ],
+        "name": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025758751000",
+        "result": "modern_projection_buffer_0_0_o_0_0_0_r15_1792025758751000"
+      }
+    ],
     "screen": [
       499.0,
       277.0
     ],
     "editor_depth_plane": null,
     "camera": [
-      -5.5,
-      136.62001037597656,
-      163.5
+      0.5,
+      101.62001037597656,
+      0.5
     ],
     "dirty": 0,
     "ready": true,
     "bridge_engine_version": "3.10.0.420447",
     "preview_error": "",
     "rotation": [
-      -0.0,
-      179.99996948242188,
-      0.0
+      26.904348373413086,
+      -158.74949645996094,
+      -1.3882293387723621e-05
     ],
-    "model": "modern_projection_chunk_1_0_0_0_0",
+    "model": "modern_projection_chunk_1_0_0_0_0_r15_1792025727648000",
     "pending": false,
     "editor_depth": 0.0
   },

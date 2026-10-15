@@ -81,6 +81,20 @@ support=(saved['origin'][0],saved['origin'][1]-1,saved['origin'][2])
 assert info.SetBlockNew(support,{'name':'minecraft:air','aux':0},0,saved['dimension'],True,False)
 _result=True
 '''
+PROXY = '''saved=sys._liquid_pose_client
+block=factory.CreateBlock(level)
+palette=block.GetBlockPaletteBetweenPos(tuple(saved['origin']),tuple(saved['origin']),False)
+raw=palette.SerializeBlockPalette()
+raw['common']={(%r,0):[0]}
+raw['extra']={}
+raw['actor']={}
+assert palette.DeserializeBlockPalette(raw)
+name=saved['paths'][0]['requested']+'_proxy'
+result=factory.CreateBlockGeometry(level).CombineBlockPaletteToGeometry(palette,name,0)
+assert result is not None
+saved['paths'].append({'path':'proxy','requested':name,'returned':result})
+_result={'raw':repr(raw),'path':saved['paths'][-1]}
+'''
 
 
 def main():
@@ -94,10 +108,13 @@ def main():
                                  'minecraft:lectern', 'minecraft:cyan_concrete'))
     parser.add_argument('--body-offsets',type=float,nargs='+',default=(),
                         help='Diagnostic vertical offsets for a separately generated body; support stays fixed.')
+    parser.add_argument('--proxy-block', help='Optional registered internal body candidate; never placed in the real world.')
     args = parser.parse_args()
     session = json.loads(args.session.read_bytes())
     if session['owner'] != args.owner or args.output.exists():
         parser.error('Use the owned session and a fresh output')
+    if args.proxy_block and not args.proxy_block.startswith('modern_projection:preview_'):
+        parser.error('Only an internal preview block can be used as a body candidate')
     os.environ.update(MCDEV_SESSION_FILE=str(args.session.resolve()),
                       MCDEV_OWNER=args.owner, MCDEV_ALLOW_USER_FOREGROUND='1')
     project = Path(session['project'])
@@ -139,6 +156,8 @@ def main():
             saved = True
             time.sleep(1.)
             report['palette'] = native.run(client, PALETTE % ('shelf_body_' + uuid.uuid4().hex))
+            if args.proxy_block:
+                report['proxy'] = native.run(client, PROXY % args.proxy_block)
             def frame(label, view):
                 if not native.run(client, WORLD_VISIBLE):
                     raise RuntimeError('Workspace obscures the native body capture')
@@ -163,8 +182,11 @@ def main():
                 native.run(client, native.ATTACH % (key,(-.5,-1.,-.5),(0.,0.,0.,0.),[]))
                 for view in VIEWS:
                     frame(key, view)
-            for offset in args.body_offsets:
-                native.run(client,native.ATTACH % ('body_only',(-.5,offset,-.5),(0.,0.,0.,0.),[]))
+            separate = [('body_only', offset, 'separate_'+str(offset)) for offset in args.body_offsets]
+            if args.proxy_block:
+                separate.append(('proxy', 0., 'proxy'))
+            for key, offset, label in separate:
+                native.run(client,native.ATTACH % (key,(-.5,offset,-.5),(0.,0.,0.,0.),[]))
                 native.run(client,'''saved=sys._liquid_pose_client
 render=factory.CreateActorRender(saved['entity'])
 path=next(row for row in saved['paths'] if row['path']=='support_only')
@@ -172,7 +194,7 @@ assert render.AddActorBlockGeometry(path['returned'],(-.5,-1.,-.5),(0.,180.,0.))
 _result={'body_offset':%r,'support_offset':(-.5,-1.,-.5)}
 ''' % offset)
                 for view in VIEWS:
-                    frame('separate_'+str(offset),view)
+                    frame(label,view)
             report['completed'] = True
         except Exception as error:
             report['error'] = type(error).__name__ + ': ' + str(error)

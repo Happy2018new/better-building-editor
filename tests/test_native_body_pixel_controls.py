@@ -1,12 +1,15 @@
 """Static world colors cannot substitute for a visible native body or support."""
 from pathlib import Path
+import hashlib
 import sys
+import tempfile
 import unittest
 
 from PIL import Image
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from analyze_native_palette_body_r16 import colors
+from analyze_enchanting_body_r17 import motif, support_mask
 
 
 class NativeBodyPixelControls(unittest.TestCase):
@@ -26,6 +29,23 @@ class NativeBodyPixelControls(unittest.TestCase):
         support=sky.copy()
         support.paste((10,100,110),(5,5,15,15))
         self.assertEqual(100,colors(support,sky,(0,0,1,1),cyan))
+
+    def test_table_reference_requires_visible_motif_and_connected_support(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'control.png'
+            picture=Image.new('RGB',(640,800),(180,210,240))
+            picture.paste((10,100,110),(220,300,420,330))
+            def record():
+                picture.save(path)
+                return {'path':str(path),'reliable':True,
+                        'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
+            with self.assertRaisesRegex(ValueError,'Red table-body reference is absent'):
+                motif(record())
+            # A disconnected cyan trim cannot substitute for the lower support.
+            with self.assertRaisesRegex(ValueError,'Cyan support positive control is absent'):
+                support_mask(record())
+            picture.paste((10,100,110),(220,500,420,800))
+            self.assertEqual(28000,int(support_mask(record()).sum()))
 
 
 if __name__=='__main__':

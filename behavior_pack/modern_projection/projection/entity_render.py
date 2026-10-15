@@ -8,8 +8,9 @@ from .visible_actor import chest_is_single, render_actor, entity_nbt
 from .static_skull import SKULL_PROXIES, skull_proxy
 from .static_bed import BED_PROXIES, bed_proxy, palette_bed_colors
 from .native_render_profile import coordinate_mode
+from .static_table import TABLE_PROXY, table_proxy
 
-SCHEMA_VERSION = 5
+SCHEMA_VERSION = 6
 SHULKER_COLORS = ('undyed', 'white', 'orange', 'magenta', 'light_blue', 'yellow',
                   'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue',
                   'brown', 'green', 'red', 'black')
@@ -37,7 +38,7 @@ INTERNAL_BLOCKS = frozenset(
     [name for names in SHULKER_PROXIES.values() for name in names] +
     [name for names in CHEST_PROXIES.values() for name in names.values()] +
     [name for names in SKULL_PROXIES.values() for name in names.values()] +
-    list(BED_PROXIES.values()))
+    list(BED_PROXIES.values()) + [TABLE_PROXY])
 
 
 def native_actor(material, actor):
@@ -149,6 +150,9 @@ def chest_proxy(material, actor, inferred_part=None):
 
 
 def static_proxy(material, actor, inferred_part=None, inferred_bed_color=None):
+    table = table_proxy(material)
+    if table is not None:
+        return table
     bed = bed_proxy(material, actor, inferred_bed_color)
     if bed is not None:
         return bed
@@ -243,7 +247,8 @@ def prepare_static_entities(entries, actors, volume=None, inferred_chest_parts=N
     bed_colors = palette_bed_colors(entries, actors, volume)
     for value, positions in entries.items():
         if (value[0] not in SHULKER_PROXIES and value[0] not in CHEST_PROXIES and
-                value[0] not in SKULL_PROXIES and value[0] != 'minecraft:bed'):
+                value[0] not in SKULL_PROXIES and
+                value[0] not in ('minecraft:bed', 'minecraft:enchanting_table')):
             result.setdefault(value, []).extend(positions)
             continue
         payloads = actors.get(value[0], actors.get(value[0].encode('utf8'), {}))
