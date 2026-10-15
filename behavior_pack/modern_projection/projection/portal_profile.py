@@ -8,6 +8,10 @@ PORTAL_NAMES = frozenset(('minecraft:end_portal', 'minecraft:end_gateway'))
 PREFIX = 'modern_projection_portal_'
 PRODUCT_QUALIFIED = True
 QUALIFICATION_SHA256 = '36ecdb6c95b5926a01e5e6ff4215881a85b2d261df1ea7059b1ea331c057e915'
+NATIVE_PREFIX = 'modern_projection_portal_native_'
+NATIVE_STYLE = 'native_ray_planes_candidate_r21'
+NATIVE_PRODUCT_QUALIFIED = False
+NATIVE_QUALIFICATION_SHA256 = ''
 
 
 class PortalProfile(object):
@@ -23,18 +27,31 @@ class PortalProfile(object):
     def ui_offset(size):
         return 0., min(size) / 4.
 
-    def __init__(self, max_groups=128):
+    def __init__(self, max_groups=128, prefix=PREFIX, style=STYLE):
         if (type(max_groups) is bool or not isinstance(max_groups, integer_types) or
                 max_groups < 1):
             raise ValueError('Portal surface profile needs a positive owned model budget')
-        self.models = dict((name, PREFIX + name) for name in ('end_portal', 'end_gateway'))
-        self.world_models = dict((name, PREFIX + name + '_world') for name in self.models)
+        self.models = dict((name, prefix + name) for name in ('end_portal', 'end_gateway'))
+        self.world_models = dict((name, prefix + name + '_world') for name in self.models)
         self.max_groups = max_groups
-        self.identity = (SCHEMA_VERSION, ENGINE_VERSION, STYLE, max_groups)
+        self.identity = (SCHEMA_VERSION, ENGINE_VERSION, style, max_groups)
 
 
 def candidate_profile(max_groups=128):
     return PortalProfile(max_groups)
+
+
+def native_candidate_profile(max_groups=128):
+    return PortalProfile(max_groups, NATIVE_PREFIX, NATIVE_STYLE)
+
+
+def native_production_profile(engine_version=None, max_groups=128):
+    if engine_version != ENGINE_VERSION or NATIVE_PRODUCT_QUALIFIED is not True:
+        return None
+    if (len(NATIVE_QUALIFICATION_SHA256) != 64 or
+            any(value not in '0123456789abcdef' for value in NATIVE_QUALIFICATION_SHA256)):
+        raise ValueError('Native portal surfaces need their own visible qualification')
+    return native_candidate_profile(max_groups)
 
 
 def production_profile(engine_version=None, max_groups=128):

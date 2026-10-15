@@ -1,0 +1,197 @@
+{
+  "clock": "TIME / 256.0",
+  "copied_inputs": {
+    "resource_pack/models/modern_projection/portal/r19_native_portal_end_gateway_mesh.json": "d4a36d5eba86f535bccf23b7459522f7219eaa52116da352b9b382ed3b717b7e",
+    "resource_pack/models/modern_projection/portal/r19_native_portal_end_portal_mesh.json": "8067c8c03f109759397779ad59e48615dccb3c2fdfece63b6d598cbcee4aea99",
+    "resource_pack/textures/models/modern_projection/portal/r19_native_starfield.png": "0a104fb3c20586b91dfd939da6b7023d2888334067cafc5b04d5eb9e712749ff"
+  },
+  "engine": "3.10.0.420447",
+  "fragment_only_include_path_renamed": true,
+  "limits": [
+    "Native UI matrix bindings and orthographic appearance have not been qualified.",
+    "Native FOG varying remains neutral; distant fog is not qualified.",
+    "Normal-TIME animation, editor/full/missing and lifecycle remain open.",
+    "The legacy PRODUCT_QUALIFIED flag does not close the reopened appearance issue."
+  ],
+  "materials": {
+    "modern_projection_portal_native_end_gateway:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendDst": "SourceAlpha",
+      "blendSrc": "One",
+      "depthFunc": "LessEqual",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_native_surface.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_native_ui.vertex"
+    },
+    "modern_projection_portal_native_end_gateway_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendDst": "SourceAlpha",
+      "blendSrc": "One",
+      "depthFunc": "LessEqual",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_native_surface.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_native_world.vertex"
+    },
+    "modern_projection_portal_native_end_portal:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendDst": "SourceAlpha",
+      "blendSrc": "One",
+      "depthFunc": "LessEqual",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_native_surface.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_native_ui.vertex"
+    },
+    "modern_projection_portal_native_end_portal_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendDst": "SourceAlpha",
+      "blendSrc": "One",
+      "depthFunc": "LessEqual",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_native_surface.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_native_world.vertex"
+    }
+  },
+  "models": {
+    "modern_projection_portal_native_end_gateway": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_portal_native_end_gateway",
+      "mesh": "modern_projection/portal/native_end_gateway_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/native_starfield",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    },
+    "modern_projection_portal_native_end_gateway_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_portal_native_end_gateway_world",
+      "mesh": "modern_projection/portal/native_end_gateway_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/native_starfield",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    },
+    "modern_projection_portal_native_end_portal": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_portal_native_end_portal",
+      "mesh": "modern_projection/portal/native_end_portal_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/native_starfield",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    },
+    "modern_projection_portal_native_end_portal_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_portal_native_end_portal_world",
+      "mesh": "modern_projection/portal/native_end_portal_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/native_starfield",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    }
+  },
+  "native_header_source_sha256": "2bf100b065c37fb018aecb93dc0bdbb36ef8555422847c59ede9b47efadfe116",
+  "native_header_verbatim": true,
+  "native_product_qualified": false,
+  "normal_time": true,
+  "old_default_profile_changed": false,
+  "output_sha256": {
+    "resource_pack/materials/entity.material": "e9f89aca8f19a881a0b55722449ab532e296a4b2cddb91b7adba3dded19f32ec",
+    "resource_pack/models/modern_projection/portal/native_end_gateway_mesh.json": "d4a36d5eba86f535bccf23b7459522f7219eaa52116da352b9b382ed3b717b7e",
+    "resource_pack/models/modern_projection/portal/native_end_portal_mesh.json": "8067c8c03f109759397779ad59e48615dccb3c2fdfece63b6d598cbcee4aea99",
+    "resource_pack/models/netease_models.json": "0cfd32f1d6f9ca25861d2bfb43edab9237575bf158cfe768a8fa7fe2d986cb44",
+    "resource_pack/shaders/glsl/modern_projection_portal_native_original.h": "2bf100b065c37fb018aecb93dc0bdbb36ef8555422847c59ede9b47efadfe116",
+    "resource_pack/shaders/glsl/modern_projection_portal_native_surface.fragment": "1bb3c7956e436daa4146cfb4b92fb262e2f9cd3a474dd87fe2d7f27610464fc7",
+    "resource_pack/shaders/glsl/modern_projection_portal_native_ui.vertex": "9a12f2a574fc1abd1971952bbfcb177f593574e5c7f2269a5810d5a8f87eb386",
+    "resource_pack/shaders/glsl/modern_projection_portal_native_world.vertex": "55a378caac27cdbb48b3075801236c2c89f133c5210cb498f8ad436bffafd88e",
+    "resource_pack/textures/models/modern_projection/portal/native_starfield.png": "0a104fb3c20586b91dfd939da6b7023d2888334067cafc5b04d5eb9e712749ff"
+  },
+  "schema": 1,
+  "stage": "candidate_only",
+  "ui_geometry_and_depth_source_sha256": "0cbe6ecafd949cb0eeda8982ad1e3b3b3b371232d7b1aeaea70220e7db8784d3",
+  "ui_plane_basis": "preview_entity_axes_P_normal",
+  "ui_ray_basis": "inverse_WORLDVIEW_linear_times_WORLDVIEW_entity_point",
+  "ui_world_identity_assumed": false,
+  "unchanged_dependencies": {
+    "resource_pack/models/modern_projection/portal/skeleton.json": "20a966711bc01cf74ced1159e371b07e0ec819dbd538c3514b0ffbe54d31beed",
+    "resource_pack/textures/models/modern_projection/portal/end_portal_colors.png": "379f18fb9088106aff248ff49791234053c1fb5593d2086a9448d093b8141479"
+  },
+  "world_only_fixed_time_reference": "portal-r21-fixed-time-v11 north/front",
+  "world_vertex_source_sha256": "55a378caac27cdbb48b3075801236c2c89f133c5210cb498f8ad436bffafd88e",
+  "world_vertex_verbatim": true
+}
