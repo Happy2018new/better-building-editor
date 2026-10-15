@@ -1,5 +1,88 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-15 18:12 用户要求暂停：API 不稳定（最高优先级）
+
+用户要求“保存所有上下文和 mc 进程，创建对应提交，然后终止开发，之后再继续”。**当前只完成保存和提交，不再开发、启动测试、启动游戏或恢复代理；等待用户明确继续。** 此安排覆盖下方所有继续至 23:30／次日 07:00 的历史安排。
+
+- 分支仍为 `dev`，不推送、不合入 `main`，不切分支、不删除现有工作目录或测试副本。
+- 三个代理 `book_owner_r18`、`item_glint_r18`、`liquid_product_r18` 已停止／中断；旧嵌套任务亦无活动代理，不恢复。
+- 计划任务 `Codex-BetterBuildingEditor-R20-Hibernate-20261016` 已禁用并读回 `Disabled`。本次暂停不再自动休眠，避免用户回来前丢失实例。
+- 仅停止了身份匹配的宿主编排 Python PID4912（`item_edge_r19_candidate_stage_v6.py`），阻止其自动关游戏；子采集 PID16940 已结束。没有关闭下表 MC／MCDK。
+- 无凭据实例快照保存在 `.runtime/pause-r19-20261015-1805/instances.json`；采集后核对两个游戏和两个 MCDK 均存活。当前窗口枚举均为空，**存活不等于能可靠截图或已就绪**。不能绕过窗口／身份保护去运行恢复脚本。
+
+| 保留所有者 | 项目副本 | MC PID／原生创建身份 | MCDK PID／原生创建身份 | session 文件（仅路径，不提交凭据） |
+| --- | --- | --- | --- | --- |
+| `book-motion-r19` | `D:/bbe-r15-native-production` | `31116`／`134365299406499400` | `45044`／`134365299404663953`，端口63200 | `C:/Users/Happy2018new/.pyreact-debug/instances/d0ec1d51ff0144bba9ede1ef973f86d4/session.json` |
+| `item-plane-r19` | `D:/bbe-r18-item-glint` | `32324`／`134365320812982299` | `56236`／`134365320811292356`，端口19370 | `C:/Users/Happy2018new/.pyreact-debug/instances/cfdc3dc8aefb40f9ae8e823c496c9271/session.json` |
+
+### 恢复工作时首先处理
+
+1. 先核对 session、owner、进程原生创建身份和可用窗口，不凭旧 PID 或 `state=ready` 直接复用。零线程／零句柄残留对象不是活跃引擎，不终止未知／用户进程。最多三个活动代理、禁止嵌套、最多五个活跃 MC 的原限制保留，除非用户另行修改。
+2. **item v6 侧视恢复未完成**：`.runtime/item-plane-r19-side-v6/report.json` 为 `completed=False`，仅1图；窗口先最小化、随后不可用，保护机制拒绝 stop projection／blueprint restore／profile restore。可能遗留测试投影、原生方块 journal、保存的蓝图／profile／相机 globals。下次先检查并恢复，不能直接叠加新测试。宿主编排为 `.runtime/item_edge_r19_candidate_stage_v6.py`，阶段目录 `.runtime/item-edge-r19-candidate-control-v6/`。
+3. `.runtime/item-plane-r19-front-v6/report.json` 已完成，14图、`source_unchanged=True`、`cleanup_errors=[]`；**尚未像素分析和归档，不是冷候选验收成功**。侧视失败不能被正面完成掩盖。
+4. 暂停期间不修改游戏状态。恢复时仍不主动激活、调整窗口尺寸或投递桌面输入；用户自行切前台不暂停、不关游戏。背景白图／陈旧图必须拒收并报告，不能把新QPC当新内容。
+
+### 已保存的代码、诊断与未关闭事项
+
+- 已提交 `1bbf7c2d feat: add slab placement merging and public regression fixtures`：62个单半砖家族、面／高度放置、半高命中、同材质合并、三图层／撤回、公开 `test.groups.slabs`。`.runtime/slab-world-r19-v1/report.json` 已完成恢复、三图，但人眼像素复核及编辑器实际命中矩阵仍待。pointer工具调用语义Scene回调，不能充当物理鼠标验收；未来隔离支撑避免侧面／底面被其他格遮挡。
+- 已提交 `9998a120 test: verify final item glint animation across render paths`：只关闭最终shader四路连续附魔采样条件，不关闭边缘／姿态／厚度／特殊物品或生产默认。
+- 书台体的 target-only overlay 及强制 `body_boundary_pixels` 门正在保存为检查点，**书与台体生产gate仍False**。五向边界v2的占据残留／支撑变化／恢复变化均0，旧错误负控7337／10008／10006／9957／9972px。原始本地诊断 `docs/evidence/book-body-owner-r19-v{1,2}` 不整体提交（各1712文件，含未经发布脱敏的调用资料）；保留本地原件和工具供恢复分析。
+- 书旋转闪动已复现为封面内部白色细点／斜线，稳定owner／camera追踪不支持整个owner闪烁。active17s／330帧；有效frozen96帧局部变化0；当前冷baseline17s／541帧、最大间隔48.49ms并恢复。depth1冷试仅1张陈旧森林帧，拒收；不声称深度系数已定位／已修复。`docs/evidence/book-motion-owner-r19-*` 和 `.runtime/book-r19-checkpoint.json` 留本地，后者部分旧字段以本节为准。旧热ReloadAllShaders超时恢复失败的实例已停止，磁盘原字节已恢复。
+- 物品框边因果对照已在 `docs/evidence/item-rim-r19-plane-v1` 脱敏归档并独立重放：原7370px，向外0.25模型像素为7804px、逐像素等于原生；移走框体恢复端点，恢复基线变化0。只有item副本的一张钻石剑mesh front15→14.75（SHA `7b444e21182cd5d666301b1e8a81c7d3e18a52752900a4fe896e94093aaddcec`），共享generator／catalog／资源未改；冷候选侧面／全矩阵仍待，gate=False。0.5及更大偏移局部门失败，不采用。
+- 水最终冻结合同 `20ab6570d676d884753b89ca2d6f35508e17e7dfac47909c245e26e86a5cf272`（3060文件），owner合同 `8dc274619c113161d933e9f08d6ff0420cf2890ff4bbee15970a85dc84b13c25`。editor48图有限通过；world v4的south/east .830878/.644174原失败保留。原生API标定发现旧解析投影最多4.46px误差；以固定原生网格跨会话重放v4为.949223/.937050，只是oracle诊断，不资格化。v5六张水图均陈旧标定帧、v6首帧全白，全部拒收。所有水实例已停止；三个脱敏包 `water-final-r19-{editor,world,projection}-v1` 保存有效与失败证据，生产gate=False，未修改shader。`.runtime/water-native-projection-r19-v7.py`／`water-final-r19-world-v7/plan.json` **仅准备未运行**；其临时提高z序方案尚未解决不干扰后台约束，恢复后不能默认执行。
+- 末地折跃门过密是用户指出、root此前漏检的现有缺陷，不能改称已自主发现。`.runtime/portal-native-reference-r19-v1/native-compare.png` 的有效正面对照显示原生大星点与旧细噪点不同；斜视空缺／相机读回滞后拒收。`generate_portal_native_adapter_r19.py` 只向 `D:/bbe-r19-integrated-product` 生成顶点接口适配＋`#include "end_portal.fragment"` 的诊断别名，未改原生fragment正文；ES100 fragment／ES300各链接通过不代表外观通过。冷试 `.runtime/portal-native-adapter-r19-cold-v1` 首张后台图空白，已恢复并停止自有进程。共享portal资源／旧资格未改，**不刷新hash掩盖密度缺陷**；最新editor31／world28图已看但资格更新暂停。刷怪笼共享来源复验仍待。
+
+### 验证与保留边界
+
+全量回归已完成 **2937项、456.083秒、OK、1 skipped**，日志 `.runtime/r19-alltests-v1.log`；之后暂停收尾的90项定点回归全部通过。源文件、运行时ready、像素通过和产品默认准入严格分开。
+
+暂停归档已独立重放：item局部框边包、水editor包、水world包、水projection包均通过各自验证器；这是证据完整性／有限条件重算，**不改变生产gate=False**。item manifest116项、水editor129项／world58项／projection65项，均逐字节核对Git暂存内容与清单SHA／大小一致，并扫描文本及ZIP内部文本的凭据模式，未发现待发布凭据。相关 `.gitattributes` 保持原始证据字节，未用换行规范化改写归档。业务定点review实际解析4文件，唯一advisory为既有 `prepare_context_batches` 9参数签名；不在暂停收尾中重构接口。之前单文件路径导致0文件解析的报告不算有效review。
+
+已保存提交：`1bbf7c2d`（半砖）、`9888e98e`（台体独立归属／边界像素门及书闪动诊断工具）、`bc62f0bb`（框边因果对照／局部物品门）、`d49b2c53`（水最终来源三包／oracle诊断）。末地原生适配工具及本节另以 `test:`／`docs:` 检查点提交；完整顺序以 `git log` 为准。全部仅在本地`dev`，无推送或合并。
+
+最终无凭据实例／报告摘要同时保存为 [暂停实例快照](evidence/development-pause-r19-v1/instances.json)。`.runtime/pause-r19-20261015-1805` 另保留最终身份核对、剩余工作区完整清单、未提交tracked差异补丁和近期提交列表；这是本机续接备份，不替代已提交源码。原始book／item／portal诊断仍留原路径，未经发布脱敏的session／调用资料不整体加入Git。
+
+保留而不混入本轮提交的原WIP：`tools/diagnose_water_world_r16.py`、`tools/run_water_batch_r16.py`、五个用户 `tools/p0_palette_*probe.py`、其他旧未跟踪证据／工具。暂停提交按书边界、物品局部门、水证据、portal诊断及交接分组，不整体stage仓库；未提交原始证据仍保留在原路径，不删除。恢复时先读本节及统一清单，再取已执行报告，避免因429重放世界写入／启动操作。
+
+## 2026-10-15 17:55 增量（优先于以下进行中状态）
+
+仍 `dev`、最多三个代理／五个活跃 MC、23:30 保存汇报后无缝继续至次日 07:00 休眠；不 push／合 main。最新提交 **9998a120**（物品最终 shader 四路连续动画证据）。root 全量测试已完成 **2937 项，456s，OK，1 skipped**，不是仍运行。
+
+- **用户新增视觉纠正：折跃门过密。** root 此前看图却未识别，已向用户承认漏检，不得声称此前已发现。暂停本轮 portal 资格更新。`.runtime/portal-native-reference-r19-v1` 12 张已完成恢复；正面实图清楚证实原生大星点与自定义细噪点不同，但后续斜视出现空场景、相机读回滞后一帧，**不算完整原生矩阵**。原资格文件未刷新。新 `tools/probe_portal_reference_r19.py` 用公共 `test.dynamic.portals` 派生结构、同坐标真实世界替换及服务端 journal 恢复；新增相机等待及图像可见门。
+- **原生 shader 路线：** API 明确 Combine 仍排除末地门／折跃门。安装包原生 vertex 依赖 chunk/COLOR/UV1 平面元数据，不能直接接受现有四格模型 payload；native material 是 `One/SourceAlpha` 叠层，并非现有三层 SourceAlpha 混合。新 `tools/generate_portal_native_adapter_r19.py` 只在 `D:/bbe-r19-integrated-product` 冷副本预注册 `r19_native_portal_*`，通过 wrapper **include 未修改的安装包 `end_portal.fragment`**，补 highp、可见性和透明度，vertex 适配格位／层深。ES100 fragment、ES300 plain/skinning/instance 编译及链接通过；ES100 skinning 仍是原生 mat3x4 基线限制。16 个星空层及颜色索引／ray 坐标是待验证假设，**无原生同等外观声明／不改共享产品资源或 gate**。
+- root 冷 alias 启动 `.runtime/r19_root_native_stage.py`／exec76507，输出 `.runtime/r19-reference-control-v2`，探针目标 `.runtime/portal-native-adapter-r19-cold-v1`；先取现有进程／报告／finally，不重放启动。冷副本 3065 文件合同 `c4f48048ad6bda71f5c916d8a51f9d7f23b39d72723648e686ea0dd05ed07110`；旧 3061 合同不再用于此副本。
+- **物品框边根因成立：** 原生 mask7804、旧7370，移开 owned 框体恢复7795；法线前移 **0.25 模型像素** 后7804且逐像素与原生相同，局部门全过、恢复0差。证据 `docs/evidence/item-rim-r19-plane-v1` 已脱敏可重算。只在 item clone 改一张剑 mesh front15→14.75，尚未同步共享生成器／catalog／mesh。多次冷候选遇 MCDK 退出、原生断言或全白后台图，**没有冷候选通过**，gate=False。代理继续定位，不将高 QPC 当新鲜像素。
+- **水 oracle 原因已缩小，不能乱改 shader：** v4 world 原阈值 south .830878/east .644174 失败仍保留。v5 六张 PNG 完全相同且仍石块标定画面，**全部作废**；native uniforms256组正确。独立原生石块 API 投影内参与旧解析模型最多差4.46px；用 v5 固定原生网格在同 pose 的旧有效 v4 图上跨会话诊断，south/east corr .9492/.9371、固定 texel-center均1.0，强指向采样投影 oracle，不是 shader 单格错位。跨会话诊断不能资格化。v6第一张标定也全白，已恢复停止；代理继续先做背景 render-ready／wet-dry-section 硬门后同会话验收。
+- 水自有三包：`water-final-r19-editor-v1`（48+6张）、`water-final-r19-world-v1`（12+6张）、`water-final-r19-projection-v1`（65项，明确拒绝v5）。代理均离线重放通过；root还需独立检查，不以验证器通过宣称水产品已关。源码冻结仍20ab6570，水gate=False。
+- **背景捕获失效已向用户明确报告**：流体陈旧画面及物品空白均拒收，不能静默算通过。不激活窗口；用户自己切前台仍允许。当前 agents 反复 headerless429；用 followup 恢复，先读已执行报告，不重放命令。book 最新 `book-motion-r19`／session d0ec1d51…／PID31116，冷 baseline17s/541帧通过恢复，depth1 exec5522待取；旧热 ReloadAllShaders 超时恢复失败已保留，原磁盘 bytes 恢复后旧49372正常停止。
+- 半砖 world host 探针 `.runtime/slab-world-r19-v1` completed/restored/source_unchanged=True、无清理错；仅 gallery/full/missing 三图，未做人眼最终验收，editor pointer 矩阵尚未跑。root旧MC15212已退出，managed stop先超10s后实际消失；不要重复用旧身份。
+
+## 2026-10-15 16:55 增量（优先于以下进行中状态）
+
+期限仍为今天 23:30 保存／汇报后无缝继续，次日 **2026-10-16 07:00 休眠**，原计划任务保留。最多三个活动子代理、禁止嵌套，最多五个活跃 MC 引擎含用户游戏。零线程、零句柄残留单列、不占活跃槽；以下历史五实例计数已被纠正。仍在 `dev`，不 push／合 main。
+
+- **用户明确的两项失败仍开：** 编辑器附魔台书自转闪动；展示框右框边截断旋转剑尖／边缘（用户图 `codex-clipboard-45b38bfc-…png`）。前者由 book 做固定机位连续 WGC／冻结姿态／原生参照；后者由 item 做同朝向和角度的真实框对照，已在哨兵复现，停止扩大矩阵。全局 2px 轮廓容差会漏过局部剑尖遮挡，必须加入交叠区域硬门。另一 top/bottom 原生哨兵不可见，属于夹具无效，不能记通过。
+- **三个活动代理：** `book_owner_r18`、`item_glint_r18`、`liquid_product_r18`。水多次被同类 429 中断，root 已 followup；先取既有采样／finally，不重放世界写入。无需恢复旧嵌套代理。
+- **物品连续动画有限关闭：** 最终 shader `3c288ec…` 四路连续采样均达原有 ≥7s、间隔 ≤250ms、每个重叠 1s 窗口变化 >5% 门槛；root 已实看 editor/full/missing/native 四张对照图并独立核对 48 项 manifest、10 项执行源、仅两个认证字段脱敏。归档 `docs/evidence/item-glint-r19-dense-v1`，原 1277 文件留 ignored runtime。自定义比原生亮；此结果不关闭框边遮挡、全部姿态／特殊物品，也不启用生产 gate。
+- **台体有限诊断：** target-only overlay 的五向 occupied residue、support changed、restore changed 均 0；旧 context 负控每向 7337–10008 像素。首次 down 共面导致负控无信号的失败保留，修正机位后通过。book clone 仍旧 scene/session 来源，两个生产 gate 仍 False；最终全量来源回归另做。
+- **水 editor：** 全量同步 3060 源后冷启，新冻结合同 `20ab6570d676d884753b89ca2d6f35508e17e7dfac47909c245e26e86a5cf272`；48 图全部完成恢复。九核心水例适用像素通过（几何 IoU .9553–.9898，池水 south/east UV corr .96375/.98291，隐藏／恢复 RMSE=0）。动画本轮冻结未验，world／普通默认及生命周期仍开。旧编辑器无水失败缺少原生模型读回，未确认为产品已修复；不能用本次通过改写旧失败。
+- **半砖：** 新 `slab_placement.py`、真实半高 raycast／hit point、同材质互补合并、三图层及 undo 已接线，12 项专项离线通过，遍历 dump 的 62 个单半砖家族；公开 `test.groups.slabs` 已接入。实机 UI／完整与缺失投影尚待。
+- **实例：** book MC49372／session `64353c37…`，water MC50016／session `a2cb3356e3c24efba4eea98d512bfc5e`，item MC42228／identity `134365272447609747`。PID 只供此次核对，后续仍按 session／owner／创建身份路由。root 尚未启动自己的实例，计划最多第四个活跃引擎。
+- 全量回归 exec55598 写 `.runtime/r19-alltests-v1.log`，尚需取最终结果。共享 `render_context.py`／scene/session 改动使 portal/spawner 的旧来源校验失败；先实机回归再更新资格，不只刷新 hash。不要整体 stage 用户 palette probes 或原 water WIP。
+
+## 2026-10-15 16:00 新轮继续开发（优先于以下历史安排）
+
+最新期限：今天 23:30 保存本轮进度并汇报，随后无缝继续到次日 **2026-10-16 07:00**，届时休眠。已登记并读回计划任务 `Codex-BetterBuildingEditor-R20-Hibernate-20261016`，状态 Ready，触发 `2026-10-16T07:00:00+08:00`，动作 `C:\\WINDOWS\\System32\\shutdown.exe /h`。不要沿用下面 13:30／08:00 的历史截止安排。最多三个活动子代理、禁止嵌套，全机最多五个 MC（残留和用户实例均计入）。仍在 `dev`，没有 push／合 main 授权。
+
+- 三个代理已恢复：`liquid_product_r18` 做 editor pool 单一 wet/dry 正负控定位；`book_owner_r18` 离线解决台体／邻域的边界归属，保持两个 gate=False；`item_glint_r18` 准备最终 shader 连续动画验收。root 维护公共文档，并审计半砖的实际命中／放置／合并链。
+- 新增要求已进入统一待办顶部：`F04-S04-SLAB` 半砖专项；`F02-CONNECTED` 在 NBT／动态外观之后核销连缀变换；`PROJECTION-ROTATE` 最后实施。不得把单块姿态合法等同这些交互已实现。
+- 当前全机五个 MC：三个历史拒绝访问残留继续保留；PID10284 非 root／这三个代理启动，按未知或用户实例保留；PID24608 是 water 本次受管启动。item 等待 water 完成最小对照释放／交接槽位，不额外启动。PID 仅用于这次核对，后续必须重新验证 session／owner／创建身份。
+- 工作区原有 `tools/diagnose_water_world_r16.py`、`tools/run_water_batch_r16.py` 和五个用户 palette probes 及其他旧证据均保留，不整体 stage。当前基线 `8c91e9e5`。上轮全量 2,911 项通过（1 跳过）是旧来源结果，新改动仍须按影响验证。
+
+16:30 更新：用户纠正实例计数后，root 重新核对三个旧条目均为 **0 线程、0 句柄、无窗口、32 KiB 工作集**，单列为残留对象，不再当作三个活跃引擎占槽。实际活跃实例启动／停止仍由 session／owner／创建身份验证，不能据此清理未知进程。
+
+Codex 429 调查：已安装 `0.162.0-alpha.17.2`，当前 provider 的全局配置为 request retries=40／stream retries=200，实际日志 stream 上限100。用无认证、仅本机的 stub 做同配置对照：带 `Retry-After: 1` 的429实际请求8次（7次重试），不带该响应头只请求1次即结束；真实失败 request id `4b65ad7a-cf8e-4401-9c21-cbcbabd1d50a` 的头亦无 `Retry-After`。故增大次数不能独立修复此错误；未改全局配置、未使用付费接口测试。证据留 ignored `.runtime/codex-retry-local-probe-*`。代理中断后先查已启动采集／finally状态，再继续同一任务，禁止重放启动或修改世界操作。
+
 ## 2026-10-15 13:10 收尾检查点（当前状态）
 
 本节覆盖以下历史状态。今天13:30截止、不休眠；最多3个活动子代理、5个MC；继续在`dev`，不push／合main。本轮登记的自有MC／MCDK父进程已停止，但最终核对发现三条残留Minecraft子进程，详见下文；不能宣称系统里没有MC，也不能按五个空槽启动。五个用户palette probes及其他未纳入提交的WIP保留。子代理不再开游戏，只做最终归档／身份核对。
