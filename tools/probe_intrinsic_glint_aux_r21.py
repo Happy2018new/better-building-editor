@@ -33,6 +33,8 @@ def probe(args):
         if hashlib.sha256(Path(__file__).with_name(name).read_bytes()).hexdigest() != base['binding'][key]:
             raise ValueError('A native classification source changed')
     cases = requests(base, json.loads(TEXTURES.read_text(encoding='utf8')))
+    if args.include_name:
+        cases = [case for case in cases if case[0] in args.include_name]
     session = load_session(args.session, args.owner, live=True)
     project = Path(session['project'])
     frozen = json.loads(args.project_manifest.read_text(encoding='ascii'))
@@ -44,6 +46,7 @@ def probe(args):
               'source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'sampler_sha256': base['binding']['sampler_sha256'],
               'analyzer_sha256': base['binding']['analyzer_sha256'],
+              'included_names': args.include_name,
               'requests': cases, 'pages': [], 'completed': False,
               'production_qualified': False}
     path = args.output / 'summary.json'
@@ -94,4 +97,5 @@ if __name__ == '__main__':
     parser.add_argument('--project-manifest', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--wgc', type=Path, required=True)
+    parser.add_argument('--include-name', action='append', default=[])
     probe(parser.parse_args())

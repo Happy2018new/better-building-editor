@@ -318,3 +318,5 @@ tests/test_shelf_body_generation.py text eol=lf
 docs/evidence/water-missing-world-r21-v1/** -text -diff whitespace=cr-at-eol
 tools/pack_water_missing_r21.py text eol=lf
 docs/evidence/lectern-body-candidate-r21-*/** -text -diff whitespace=cr-at-eol
+# Intrinsic glint replay preserves original acquisition and distinct stricter analysis bytes.
+docs/evidence/intrinsic-item-glint-r21-*/** -text -diff whitespace=cr-at-eol

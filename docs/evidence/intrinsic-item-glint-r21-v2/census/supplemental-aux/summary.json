@@ -1,0 +1,1561 @@
+{
+  "schema": 1,
+  "full_census_sha256": "3719dbb448e441f934c8a7b639fae8aa91acf99b38e6138e1610fc5273171053",
+  "source_sha256": "eeb92c9e56d485544fee16a567c568a41fb98b9931f5ab1854932118e12d7f6f",
+  "sampler_sha256": "40a840256274d7a95a90cdd1d95e78d0e1502e38823e3f11281b681b5f95885f",
+  "analyzer_sha256": "e0514487644e7a4b9a1d017454a9c0cd057f3dae1798c02c9bfb3f9acae06732",
+  "included_names": [
+    "minecraft:debug_stick"
+  ],
+  "requests": [
+    [
+      "minecraft:debug_stick",
+      1,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      2,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      3,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      4,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      5,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      6,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      7,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      8,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      9,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      10,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      11,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      12,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      13,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      14,
+      false
+    ],
+    [
+      "minecraft:debug_stick",
+      15,
+      false
+    ]
+  ],
+  "pages": [
+    {
+      "path": "page-000",
+      "restored": true,
+      "report_sha256": "5113082ffbd759869cda845ce3d8cd2e24393ee8b0ed2988bdb75ee2077b0a4e",
+      "analysis_sha256": "82bfb30886db5f477d20a06742195080cb825c46e074ba2647ebbfcf55d9bde6",
+      "handles_before": {
+        "pid": 38104,
+        "identity": "134365588860810832",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "handle_count": 835,
+        "status": "live"
+      },
+      "system_memory_before": {
+        "observed_at": "2026-10-15T17:46:10.392487+00:00",
+        "commit_total_bytes": 34101407744,
+        "commit_limit_bytes": 42198994944,
+        "commit_available_bytes": 8097587200,
+        "physical_available_bytes": 2475683840
+      },
+      "handles_after": {
+        "pid": 38104,
+        "identity": "134365588860810832",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "handle_count": 835,
+        "status": "live"
+      },
+      "system_memory_after": {
+        "observed_at": "2026-10-15T17:46:17.899616+00:00",
+        "commit_total_bytes": 34126848000,
+        "commit_limit_bytes": 42198994944,
+        "commit_available_bytes": 8072146944,
+        "physical_available_bytes": 2519629824
+      },
+      "rows": [
+        {
+          "index": 4,
+          "name": "minecraft:debug_stick",
+          "aux": 1,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2734,
+          "physical_bounds": {
+            "False": [
+              1320,
+              192,
+              1457,
+              329
+            ],
+            "True": [
+              1481,
+              192,
+              1618,
+              329
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 97,
+            "mean": 0.9413557668861253,
+            "changed_over_3": 102,
+            "samples": 8202
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.53145574250183,
+            "changed_over_3": 5234,
+            "samples": 5468
+          },
+          "forced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.496159473299194,
+            "changed_over_3": 5233,
+            "samples": 5468
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5106,
+            "matching_samples": 5106,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38916271482864156,
+              0.09989125438625994
+            ],
+            "residual_p95": 1.0298306906745498,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5104,
+            "matching_samples": 5104,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38896651910213703,
+              0.09974191427395301
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 18,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 18,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 18,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 5,
+          "name": "minecraft:debug_stick",
+          "aux": 2,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2734,
+          "physical_bounds": {
+            "False": [
+              1642,
+              192,
+              1779,
+              329
+            ],
+            "True": [
+              1803,
+              192,
+              1940,
+              329
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 99,
+            "mean": 1.3997805413313826,
+            "changed_over_3": 153,
+            "samples": 8202
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.50768105340161,
+            "changed_over_3": 5233,
+            "samples": 5468
+          },
+          "forced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.423920994879296,
+            "changed_over_3": 5201,
+            "samples": 5468
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5102,
+            "matching_samples": 5102,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3889891245128858,
+              0.09971033185331951
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5065,
+            "matching_samples": 5065,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38905038554682486,
+              0.09977334049842523
+            ],
+            "residual_p95": 1.0300994356355826,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.44762160709487,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 6,
+          "name": "minecraft:debug_stick",
+          "aux": 3,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2706,
+          "physical_bounds": {
+            "False": [
+              32,
+              392,
+              169,
+              529
+            ],
+            "True": [
+              193,
+              392,
+              330,
+              529
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 101,
+            "mean": 0.9201773835920177,
+            "changed_over_3": 105,
+            "samples": 8118
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.65909090909091,
+            "changed_over_3": 5175,
+            "samples": 5412
+          },
+          "forced_temporal_deltas": {
+            "maximum": 72,
+            "mean": 21.68070953436807,
+            "changed_over_3": 5184,
+            "samples": 5412
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5044,
+            "matching_samples": 5044,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3893009422481522,
+              0.09975118340283122
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5042,
+            "matching_samples": 5042,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3893491696093878,
+              0.0996720110001863
+            ],
+            "residual_p95": 1.0300994356355826,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 7,
+          "name": "minecraft:debug_stick",
+          "aux": 4,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2715,
+          "physical_bounds": {
+            "False": [
+              354,
+              392,
+              491,
+              529
+            ],
+            "True": [
+              515,
+              392,
+              652,
+              529
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 76,
+            "mean": 0.8411295273173727,
+            "changed_over_3": 102,
+            "samples": 8145
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.604972375690608,
+            "changed_over_3": 5197,
+            "samples": 5430
+          },
+          "forced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.623020257826887,
+            "changed_over_3": 5202,
+            "samples": 5430
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5054,
+            "matching_samples": 5054,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.389378832263641,
+              0.09965529389280617
+            ],
+            "residual_p95": 1.0298306906745498,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5064,
+            "matching_samples": 5064,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38970081266464746,
+              0.09974031824672652
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.09239451760279,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 8,
+          "name": "minecraft:debug_stick",
+          "aux": 5,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2709,
+          "physical_bounds": {
+            "False": [
+              676,
+              392,
+              813,
+              529
+            ],
+            "True": [
+              837,
+              392,
+              974,
+              529
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 112,
+            "mean": 0.91275993601575,
+            "changed_over_3": 102,
+            "samples": 8127
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.59892949427833,
+            "changed_over_3": 5192,
+            "samples": 5418
+          },
+          "forced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.624769287559985,
+            "changed_over_3": 5194,
+            "samples": 5418
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5052,
+            "matching_samples": 5052,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3896072577521722,
+              0.09976458062691931
+            ],
+            "residual_p95": 1.0298306906745498,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5056,
+            "matching_samples": 5056,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3896834988889939,
+              0.09995139872674731
+            ],
+            "residual_p95": 1.0298306906745498,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 9,
+          "name": "minecraft:debug_stick",
+          "aux": 6,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2709,
+          "physical_bounds": {
+            "False": [
+              998,
+              392,
+              1135,
+              529
+            ],
+            "True": [
+              1159,
+              392,
+              1296,
+              529
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 97,
+            "mean": 0.8380706287683032,
+            "changed_over_3": 102,
+            "samples": 8127
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.601513473606495,
+            "changed_over_3": 5191,
+            "samples": 5418
+          },
+          "forced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.619785898855667,
+            "changed_over_3": 5190,
+            "samples": 5418
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5057,
+            "matching_samples": 5057,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38932749939323213,
+              0.09997488849764272
+            ],
+            "residual_p95": 1.0298306906745498,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5060,
+            "matching_samples": 5060,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38908687121266156,
+              0.0998807071423277
+            ],
+            "residual_p95": 1.0298306906745498,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 18,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 18,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 18,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 10,
+          "name": "minecraft:debug_stick",
+          "aux": 7,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2725,
+          "physical_bounds": {
+            "False": [
+              1320,
+              392,
+              1457,
+              529
+            ],
+            "True": [
+              1481,
+              392,
+              1618,
+              529
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 97,
+            "mean": 0.9202446483180429,
+            "changed_over_3": 102,
+            "samples": 8175
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.62,
+            "changed_over_3": 5222,
+            "samples": 5450
+          },
+          "forced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.576880733944954,
+            "changed_over_3": 5215,
+            "samples": 5450
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5092,
+            "matching_samples": 5092,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38917062678972686,
+              0.10002022487268791
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5086,
+            "matching_samples": 5086,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38913361059345447,
+              0.099854751640406
+            ],
+            "residual_p95": 1.0223058317656544,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.21171728030099,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 11,
+          "name": "minecraft:debug_stick",
+          "aux": 8,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2723,
+          "physical_bounds": {
+            "False": [
+              1642,
+              392,
+              1779,
+              529
+            ],
+            "True": [
+              1803,
+              392,
+              1940,
+              529
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 99,
+            "mean": 1.398457583547558,
+            "changed_over_3": 153,
+            "samples": 8169
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.600624311421228,
+            "changed_over_3": 5211,
+            "samples": 5446
+          },
+          "forced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.52240176276166,
+            "changed_over_3": 5176,
+            "samples": 5446
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5079,
+            "matching_samples": 5079,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3890364269890645,
+              0.09984337832779086
+            ],
+            "residual_p95": 1.0230314431604368,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5045,
+            "matching_samples": 5045,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38913322559441177,
+              0.09979247440452167
+            ],
+            "residual_p95": 1.0298306906745498,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.09239451760279,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.21478097285676,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 12,
+          "name": "minecraft:debug_stick",
+          "aux": 9,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2706,
+          "physical_bounds": {
+            "False": [
+              32,
+              592,
+              169,
+              729
+            ],
+            "True": [
+              193,
+              592,
+              330,
+              729
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 101,
+            "mean": 0.9045331362404533,
+            "changed_over_3": 102,
+            "samples": 8118
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.67609016999261,
+            "changed_over_3": 5177,
+            "samples": 5412
+          },
+          "forced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.698447893569845,
+            "changed_over_3": 5178,
+            "samples": 5412
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5043,
+            "matching_samples": 5043,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38942870994829065,
+              0.09956701609962403
+            ],
+            "residual_p95": 1.0300994356355826,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5046,
+            "matching_samples": 5046,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3894102862020724,
+              0.09953510818881889
+            ],
+            "residual_p95": 1.0298306906745498,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 13,
+          "name": "minecraft:debug_stick",
+          "aux": 10,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2716,
+          "physical_bounds": {
+            "False": [
+              354,
+              592,
+              491,
+              729
+            ],
+            "True": [
+              515,
+              592,
+              652,
+              729
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 76,
+            "mean": 0.8406971035837015,
+            "changed_over_3": 102,
+            "samples": 8148
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.606590574374078,
+            "changed_over_3": 5194,
+            "samples": 5432
+          },
+          "forced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.63475699558174,
+            "changed_over_3": 5200,
+            "samples": 5432
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5060,
+            "matching_samples": 5060,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38957742389605116,
+              0.0995227323774182
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5070,
+            "matching_samples": 5070,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3895546009495817,
+              0.09966942602015119
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 14,
+          "name": "minecraft:debug_stick",
+          "aux": 11,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2709,
+          "physical_bounds": {
+            "False": [
+              676,
+              592,
+              813,
+              729
+            ],
+            "True": [
+              837,
+              592,
+              974,
+              729
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 112,
+            "mean": 0.8947951273532669,
+            "changed_over_3": 102,
+            "samples": 8127
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.613325950535252,
+            "changed_over_3": 5186,
+            "samples": 5418
+          },
+          "forced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.620708748615726,
+            "changed_over_3": 5194,
+            "samples": 5418
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5056,
+            "matching_samples": 5056,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3895413103748871,
+              0.09975224334634931
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5053,
+            "matching_samples": 5053,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3896405984158264,
+              0.09995978132459661
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 18,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 18,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 18,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 15,
+          "name": "minecraft:debug_stick",
+          "aux": 12,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2709,
+          "physical_bounds": {
+            "False": [
+              998,
+              592,
+              1135,
+              729
+            ],
+            "True": [
+              1159,
+              592,
+              1296,
+              729
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 97,
+            "mean": 0.8199827734711456,
+            "changed_over_3": 102,
+            "samples": 8127
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.60095976375046,
+            "changed_over_3": 5194,
+            "samples": 5418
+          },
+          "forced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.614433370247323,
+            "changed_over_3": 5193,
+            "samples": 5418
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5055,
+            "matching_samples": 5055,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3893012383005161,
+              0.09992839568198487
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5056,
+            "matching_samples": 5056,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38911103130467933,
+              0.09977962414902815
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.21171728030099,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 16,
+          "name": "minecraft:debug_stick",
+          "aux": 13,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2724,
+          "physical_bounds": {
+            "False": [
+              1320,
+              592,
+              1457,
+              729
+            ],
+            "True": [
+              1481,
+              592,
+              1618,
+              729
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 97,
+            "mean": 0.916421928536466,
+            "changed_over_3": 102,
+            "samples": 8172
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.623348017621144,
+            "changed_over_3": 5227,
+            "samples": 5448
+          },
+          "forced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.575256975036712,
+            "changed_over_3": 5218,
+            "samples": 5448
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5088,
+            "matching_samples": 5088,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3894965815543463,
+              0.0998880982279894
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5082,
+            "matching_samples": 5082,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3893195096874288,
+              0.09986248367798234
+            ],
+            "residual_p95": 1.015318462778822,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.21171728030099,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.13410373555496,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 86.21171728030099,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 17,
+          "name": "minecraft:debug_stick",
+          "aux": 14,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2723,
+          "physical_bounds": {
+            "False": [
+              1642,
+              592,
+              1779,
+              729
+            ],
+            "True": [
+              1803,
+              592,
+              1940,
+              729
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 100,
+            "mean": 1.4267352185089974,
+            "changed_over_3": 156,
+            "samples": 8169
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.591076019096583,
+            "changed_over_3": 5214,
+            "samples": 5446
+          },
+          "forced_temporal_deltas": {
+            "maximum": 71,
+            "mean": 21.532133676092545,
+            "changed_over_3": 5181,
+            "samples": 5446
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5077,
+            "matching_samples": 5077,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.38934529753780167,
+              0.09992959706783269
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5046,
+            "matching_samples": 5046,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3892691522336398,
+              0.0996696242150701
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        },
+        {
+          "index": 18,
+          "name": "minecraft:debug_stick",
+          "aux": 15,
+          "real_ench_user_data": false,
+          "native_set_succeeded": true,
+          "body_pixels": 2726,
+          "physical_bounds": {
+            "False": [
+              32,
+              792,
+              169,
+              929
+            ],
+            "True": [
+              193,
+              792,
+              330,
+              929
+            ]
+          },
+          "paired_deltas": {
+            "maximum": 101,
+            "mean": 0.8991195891415994,
+            "changed_over_3": 102,
+            "samples": 8178
+          },
+          "unforced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.55906089508437,
+            "changed_over_3": 5220,
+            "samples": 5452
+          },
+          "forced_temporal_deltas": {
+            "maximum": 70,
+            "mean": 21.586390315480557,
+            "changed_over_3": 5221,
+            "samples": 5452
+          },
+          "classification": "intrinsic_glint_native_confirmed",
+          "unforced_glint_signature": {
+            "moving_samples": 5072,
+            "matching_samples": 5072,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3893571421760569,
+              0.09947517117092862
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "forced_glint_signature": {
+            "moving_samples": 5076,
+            "matching_samples": 5076,
+            "matching_fraction": 1.0,
+            "channel_ratios": [
+              0.3891486009698987,
+              0.09952462425104945
+            ],
+            "residual_p95": 1.0295619457135174,
+            "detected": true
+          },
+          "paired_glint_signatures": [
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 58.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.014780972856755,
+              "detected": false
+            },
+            {
+              "moving_samples": 17,
+              "matching_samples": 0,
+              "matching_fraction": 0.0,
+              "channel_ratios": null,
+              "residual_p95": 57.13716742811072,
+              "detected": false
+            }
+          ],
+          "visual_qualification": false,
+          "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+        }
+      ]
+    }
+  ],
+  "completed": true,
+  "production_qualified": false,
+  "project_source_unchanged": true,
+  "coverage": {
+    "observed_pairs": 15,
+    "classifications": {
+      "intrinsic_glint_native_confirmed": 15
+    },
+    "intrinsic_pairs": [
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 1
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 2
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 3
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 4
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 5
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 6
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 7
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 8
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 9
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 10
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 11
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 12
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 13
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 14
+      },
+      {
+        "name": "minecraft:debug_stick",
+        "aux": 15
+      }
+    ]
+  }
+}

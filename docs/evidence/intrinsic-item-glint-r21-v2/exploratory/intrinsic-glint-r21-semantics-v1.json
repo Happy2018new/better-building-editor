@@ -1,0 +1,846 @@
+{
+  "schema": 1,
+  "engine_version": "3.10.0.420447",
+  "session_id": "4fb00133bf6d45ab91672e5522e29d44",
+  "owner": "root-shelf-r20-v1",
+  "completed": true,
+  "visual_qualification": false,
+  "method": "Native item dictionary readback; no pixel inference",
+  "host_source_sha256": "7faa8ad91eb5a578f0867e3714cf504b4ab3453b6fcaf6913640a3ea2b80ed78",
+  "cases": [
+    [
+      "minecraft:diamond_sword",
+      0,
+      false
+    ],
+    [
+      "minecraft:diamond_sword",
+      0,
+      true
+    ],
+    [
+      "minecraft:apple",
+      0,
+      false
+    ],
+    [
+      "minecraft:golden_apple",
+      0,
+      false
+    ],
+    [
+      "minecraft:enchanted_golden_apple",
+      0,
+      false
+    ],
+    [
+      "minecraft:nether_star",
+      0,
+      false
+    ],
+    [
+      "minecraft:end_crystal",
+      0,
+      false
+    ],
+    [
+      "minecraft:lodestone_compass",
+      0,
+      false
+    ],
+    [
+      "minecraft:compass",
+      0,
+      false
+    ],
+    [
+      "minecraft:recovery_compass",
+      0,
+      false
+    ],
+    [
+      "minecraft:enchanted_book",
+      0,
+      false
+    ],
+    [
+      "minecraft:written_book",
+      0,
+      false
+    ],
+    [
+      "minecraft:experience_bottle",
+      0,
+      false
+    ],
+    [
+      "minecraft:ominous_bottle",
+      0,
+      false
+    ],
+    [
+      "minecraft:mojang_banner_pattern",
+      0,
+      false
+    ],
+    [
+      "minecraft:potion",
+      0,
+      false
+    ],
+    [
+      "minecraft:potion",
+      5,
+      false
+    ],
+    [
+      "minecraft:splash_potion",
+      5,
+      false
+    ],
+    [
+      "minecraft:lingering_potion",
+      5,
+      false
+    ]
+  ],
+  "reply_is_error": false,
+  "native": {
+    "slot": 35,
+    "rows": [
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:diamond_sword",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:diamond_sword",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:diamond_sword",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 1561,
+          "itemId": 276,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:diamond_sword",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": true,
+        "enchant_return": true,
+        "write_return": true,
+        "native_enchant_data": [
+          [
+            9,
+            1
+          ]
+        ],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:diamond_sword",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:diamond_sword",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:diamond_sword",
+          "isDiggerItem": false,
+          "enchantData": [
+            [
+              9,
+              1
+            ]
+          ],
+          "durability": 1561,
+          "itemId": 276,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": {
+            "ench": [
+              {
+                "lvl": {
+                  "__type__": 2,
+                  "__value__": 1
+                },
+                "id": {
+                  "__type__": 2,
+                  "__value__": 9
+                },
+                "modEnchant": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              }
+            ]
+          },
+          "modItemId": "",
+          "itemName": "minecraft:diamond_sword",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:apple",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:apple",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:apple",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 260,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:apple",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:golden_apple",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:golden_apple",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:golden_apple",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 322,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:golden_apple",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:enchanted_golden_apple",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:enchanted_golden_apple",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:enchanted_golden_apple",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 466,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:appleenchanted",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:nether_star",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:nether_star",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:nether_star",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 399,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:netherstar",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:end_crystal",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:end_crystal",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:end_crystal",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 426,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:end_crystal",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:lodestone_compass",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:lodestone_compass",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:lodestone_compass",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 741,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:lodestonecompass",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:compass",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:compass",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:compass",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 345,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:compass",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:recovery_compass",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:recovery_compass",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:recovery_compass",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 778,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:recovery_compass",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:enchanted_book",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:enchanted_book",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:enchanted_book",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 403,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:enchanted_book",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:written_book",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:written_book",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:written_book",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 387,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:written_book",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:experience_bottle",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:experience_bottle",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:experience_bottle",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 384,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:experience_bottle",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:ominous_bottle",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:ominous_bottle",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:ominous_bottle",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": -1,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:ominous_bottle",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:mojang_banner_pattern",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:mojang_banner_pattern",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:mojang_banner_pattern",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 434,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:banner_pattern",
+          "auxValue": 3,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:potion",
+          "auxValue": 0,
+          "userData": {}
+        },
+        "requested_name": "minecraft:potion",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:potion",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 373,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:potion",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "requested_aux": 0
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:potion",
+          "auxValue": 5,
+          "userData": {}
+        },
+        "requested_name": "minecraft:potion",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:potion",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 373,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 5,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:potion",
+          "auxValue": 5,
+          "showInHand": true
+        },
+        "requested_aux": 5
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:splash_potion",
+          "auxValue": 5,
+          "userData": {}
+        },
+        "requested_name": "minecraft:splash_potion",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:splash_potion",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 438,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 5,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:splash_potion",
+          "auxValue": 5,
+          "showInHand": true
+        },
+        "requested_aux": 5
+      },
+      {
+        "added_real_enchantment": false,
+        "enchant_return": null,
+        "write_return": true,
+        "native_enchant_data": [],
+        "input": {
+          "count": 1,
+          "enchantData": [],
+          "itemName": "minecraft:lingering_potion",
+          "auxValue": 5,
+          "userData": {}
+        },
+        "requested_name": "minecraft:lingering_potion",
+        "readback": {
+          "count": 1,
+          "newItemName": "minecraft:lingering_potion",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 441,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 5,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:lingering_potion",
+          "auxValue": 5,
+          "showInHand": true
+        },
+        "requested_aux": 5
+      }
+    ],
+    "clear_return": true,
+    "inventory_before": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "native_version": "1.21.130.0",
+    "inventory_after": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "restored": true
+  }
+}

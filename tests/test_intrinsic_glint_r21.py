@@ -19,6 +19,7 @@ import audit_intrinsic_glint_r21 as audit
 import probe_intrinsic_glint_r21 as probe
 from probe_intrinsic_glint_aux_r21 import requests as auxiliary_requests
 from analyze_intrinsic_glint_ui_r21 import GLINT_COLOR, classify, glint_signature
+from reanalyze_intrinsic_glint_r21 import strict_signature
 from census_intrinsic_glint_ui_r21 import requests, resource_stop
 from projection.item_sprite_plan import _contents, sprite_content, sprite_item
 from projection.intrinsic_item_glint import CONFIRMED_PAIRS, item_glint
@@ -179,6 +180,14 @@ class PublicCensusTests(unittest.TestCase):
 
 
 class NativeGlintSignatureTests(unittest.TestCase):
+    def test_weak_prismarine_animation_cannot_match_intrinsic_glint_without_green_motion(self):
+        base = np.full((16, 16, 3), 90, dtype=np.int16)
+        animated = base + (4, 0, 10)
+        self.assertTrue(glint_signature([base, animated, base])['detected'])
+        self.assertFalse(strict_signature([base, animated, base])['detected'])
+        glint = np.round(base + GLINT_COLOR * 50).astype(np.int16)
+        self.assertTrue(strict_signature([base, glint, base])['detected'])
+
     def test_indicator_motion_needs_all_three_same_phase_glint_pairs_for_a_negative(self):
         row = {'name': 'minecraft:recovery_compass', 'native_set_succeeded': True,
                'unforced_glint_signature': {'detected': False, 'matching_samples': 0},
@@ -258,8 +267,11 @@ class PerItemQualificationTests(unittest.TestCase):
             self.assertTrue(item_glint(item))
             self.assertEqual(before, item)
             self.assertFalse(item['isEnchanted'])
-        self.assertFalse(item_glint({'newItemName': 'minecraft:nether_star', 'newAuxValue': 1,
+        self.assertEqual(128, len(CONFIRMED_PAIRS))
+        self.assertFalse(item_glint({'newItemName': 'minecraft:nether_star', 'newAuxValue': 16,
                                     'isEnchanted': False}))
+        self.assertFalse(item_glint({'newItemName': 'minecraft:double_stone_block_slab2',
+                                    'newAuxValue': 2, 'isEnchanted': False}))
 
     def test_intrinsic_glint_reaches_frame_shelf_and_campfire_uniform_inputs(self):
         key = ('minecraft:nether_star', 0)

@@ -1,0 +1,3400 @@
+{
+  "schema": 3,
+  "report_sha256": "48f38d462262616581db45238ec915126fb329cb557f5ab23fab0afdcab92487",
+  "gui_scale": 4,
+  "rows": [
+    {
+      "index": 0,
+      "name": "minecraft:diamond_sword",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 4343,
+      "physical_bounds": {
+        "False": [
+          32,
+          192,
+          147,
+          307
+        ],
+        "True": [
+          193,
+          192,
+          308,
+          307
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 201,
+        "mean": 48.79054417069614,
+        "changed_over_3": 13029,
+        "samples": 13029
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 8686
+      },
+      "forced_temporal_deltas": {
+        "maximum": 82,
+        "mean": 21.789891779875664,
+        "changed_over_3": 7725,
+        "samples": 8686
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 5302,
+        "matching_samples": 5302,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.38964964100027577,
+          0.09724190956218685
+        ],
+        "residual_p95": 1.0448804084923404,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 2030,
+          "matching_samples": 1980,
+          "matching_fraction": 0.9753694581280788,
+          "channel_ratios": [
+            0.39068281608243094,
+            0.09830858921909648
+          ],
+          "residual_p95": 0.8653587745229778,
+          "detected": true
+        },
+        {
+          "moving_samples": 2642,
+          "matching_samples": 2577,
+          "matching_fraction": 0.9753974261922785,
+          "channel_ratios": [
+            0.39215837197297115,
+            0.09823033159483899
+          ],
+          "residual_p95": 0.8505509271701157,
+          "detected": true
+        },
+        {
+          "moving_samples": 2249,
+          "matching_samples": 2192,
+          "matching_fraction": 0.9746554024010672,
+          "channel_ratios": [
+            0.39109655631172285,
+            0.09876015798198129
+          ],
+          "residual_p95": 0.7696855683955903,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 1,
+      "name": "minecraft:golden_apple",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 5941,
+      "physical_bounds": {
+        "False": [
+          354,
+          192,
+          469,
+          307
+        ],
+        "True": [
+          515,
+          192,
+          630,
+          307
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 193,
+        "mean": 54.03927509397969,
+        "changed_over_3": 17823,
+        "samples": 17823
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 11882
+      },
+      "forced_temporal_deltas": {
+        "maximum": 87,
+        "mean": 25.584581720249115,
+        "changed_over_3": 10698,
+        "samples": 11882
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 5912,
+        "matching_samples": 5912,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3884261708054601,
+          0.09698083384535967
+        ],
+        "residual_p95": 1.0448804084923404,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 4063,
+          "matching_samples": 4049,
+          "matching_fraction": 0.9965542702436623,
+          "channel_ratios": [
+            0.3910959536669685,
+            0.09849291970267797
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 3912,
+          "matching_samples": 3905,
+          "matching_fraction": 0.9982106339468303,
+          "channel_ratios": [
+            0.39108950512451673,
+            0.09851371173664256
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 3482,
+          "matching_samples": 3468,
+          "matching_fraction": 0.9959793222286043,
+          "channel_ratios": [
+            0.39100138310799615,
+            0.09849647285782179
+          ],
+          "residual_p95": 0.7755979575382952,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 2,
+      "name": "minecraft:stone",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8976,
+      "physical_bounds": {
+        "False": [
+          676,
+          192,
+          791,
+          307
+        ],
+        "True": [
+          837,
+          192,
+          952,
+          307
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 160,
+        "mean": 52.53865864527629,
+        "changed_over_3": 26928,
+        "samples": 26928
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 17952
+      },
+      "forced_temporal_deltas": {
+        "maximum": 110,
+        "mean": 22.73301024955437,
+        "changed_over_3": 15756,
+        "samples": 17952
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 14504,
+        "matching_samples": 14504,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3890174982022848,
+          0.09705756856290614
+        ],
+        "residual_p95": 1.0601988712711652,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8975,
+          "matching_samples": 8852,
+          "matching_fraction": 0.9862952646239554,
+          "channel_ratios": [
+            0.39117483749685406,
+            0.09853929081404113
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        },
+        {
+          "moving_samples": 8911,
+          "matching_samples": 8788,
+          "matching_fraction": 0.9861968353720121,
+          "channel_ratios": [
+            0.39059696659136267,
+            0.09817491106907496
+          ],
+          "residual_p95": 0.8500403117441522,
+          "detected": true
+        },
+        {
+          "moving_samples": 8967,
+          "matching_samples": 8843,
+          "matching_fraction": 0.9861715177874428,
+          "channel_ratios": [
+            0.39108844854368413,
+            0.09852244421999055
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 3,
+      "name": "minecraft:enchanted_golden_apple",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 5891,
+      "physical_bounds": {
+        "False": [
+          998,
+          192,
+          1113,
+          307
+        ],
+        "True": [
+          1159,
+          192,
+          1274,
+          307
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 123,
+        "mean": 1.098285520285181,
+        "changed_over_3": 237,
+        "samples": 17673
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 87,
+        "mean": 25.623238838906808,
+        "changed_over_3": 10631,
+        "samples": 11782
+      },
+      "forced_temporal_deltas": {
+        "maximum": 87,
+        "mean": 25.571974197929045,
+        "changed_over_3": 10599,
+        "samples": 11782
+      },
+      "classification": "intrinsic_glint_native_confirmed",
+      "unforced_glint_signature": {
+        "moving_samples": 5826,
+        "matching_samples": 5826,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3885568510354925,
+          0.09705720881839619
+        ],
+        "residual_p95": 1.0448804084923404,
+        "detected": true
+      },
+      "forced_glint_signature": {
+        "moving_samples": 5793,
+        "matching_samples": 5793,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.38860376415280146,
+          0.09699641401553492
+        ],
+        "residual_p95": 1.0445579145391017,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 49,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 120.35071217414674,
+          "detected": false
+        },
+        {
+          "moving_samples": 15,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 120.35071217414674,
+          "detected": false
+        },
+        {
+          "moving_samples": 35,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 120.35071217414674,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Unforced temporal RGB modulation fits the controlled native purple glint signature"
+    },
+    {
+      "index": 4,
+      "name": "minecraft:andesite_double_slab",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8976,
+      "physical_bounds": {
+        "False": [
+          1320,
+          192,
+          1435,
+          307
+        ],
+        "True": [
+          1481,
+          192,
+          1596,
+          307
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 166,
+        "mean": 56.50493909685086,
+        "changed_over_3": 26928,
+        "samples": 26928
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 17952
+      },
+      "forced_temporal_deltas": {
+        "maximum": 134,
+        "mean": 30.305425579322637,
+        "changed_over_3": 16324,
+        "samples": 17952
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 14801,
+        "matching_samples": 14801,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3890505085902144,
+          0.0973274781907224
+        ],
+        "residual_p95": 1.0744423542058588,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8842,
+          "matching_samples": 8542,
+          "matching_fraction": 0.9660710246550555,
+          "channel_ratios": [
+            0.3907269299650574,
+            0.09830621503731252
+          ],
+          "residual_p95": 0.8801397473797365,
+          "detected": true
+        },
+        {
+          "moving_samples": 8817,
+          "matching_samples": 8521,
+          "matching_fraction": 0.9664284904162413,
+          "channel_ratios": [
+            0.39074520505775145,
+            0.09820983169361906
+          ],
+          "residual_p95": 0.8801397473797365,
+          "detected": true
+        },
+        {
+          "moving_samples": 8791,
+          "matching_samples": 8493,
+          "matching_fraction": 0.9661016949152542,
+          "channel_ratios": [
+            0.39083600591404594,
+            0.09825781435434416
+          ],
+          "residual_p95": 0.8801397473797365,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 5,
+      "name": "minecraft:andesite_slab",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 5789,
+      "physical_bounds": {
+        "False": [
+          1642,
+          192,
+          1757,
+          307
+        ],
+        "True": [
+          1803,
+          192,
+          1918,
+          307
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 160,
+        "mean": 54.55023895894512,
+        "changed_over_3": 17367,
+        "samples": 17367
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 11578
+      },
+      "forced_temporal_deltas": {
+        "maximum": 127,
+        "mean": 29.572551390568318,
+        "changed_over_3": 10575,
+        "samples": 11578
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 9430,
+        "matching_samples": 9430,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.38905222467718953,
+          0.09711960390918037
+        ],
+        "residual_p95": 1.0443429185702762,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 5673,
+          "matching_samples": 5487,
+          "matching_fraction": 0.9672131147540983,
+          "channel_ratios": [
+            0.39094593768401814,
+            0.09869376486222975
+          ],
+          "residual_p95": 0.8653587745229778,
+          "detected": true
+        },
+        {
+          "moving_samples": 5620,
+          "matching_samples": 5449,
+          "matching_fraction": 0.9695729537366548,
+          "channel_ratios": [
+            0.39063199264627324,
+            0.0980369059392235
+          ],
+          "residual_p95": 0.8801397473797365,
+          "detected": true
+        },
+        {
+          "moving_samples": 5628,
+          "matching_samples": 5443,
+          "matching_fraction": 0.9671286425017769,
+          "channel_ratios": [
+            0.39131775414335046,
+            0.09870487257832304
+          ],
+          "residual_p95": 0.8653587745229778,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 6,
+      "name": "minecraft:andesite_stairs",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8189,
+      "physical_bounds": {
+        "False": [
+          32,
+          339,
+          147,
+          454
+        ],
+        "True": [
+          193,
+          339,
+          308,
+          454
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 156,
+        "mean": 0.7237757968005861,
+        "changed_over_3": 585,
+        "samples": 24567
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 16378
+      },
+      "forced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 16378
+      },
+      "classification": "unresolved",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 159,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 36.1454447729105,
+          "detected": false
+        },
+        {
+          "moving_samples": 159,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 36.1454447729105,
+          "detected": false
+        },
+        {
+          "moving_samples": 159,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 36.1454447729105,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Pixel controls are insufficient; preserve the item as unresolved"
+    },
+    {
+      "index": 7,
+      "name": "minecraft:andesite_wall",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 7975,
+      "physical_bounds": {
+        "False": [
+          354,
+          339,
+          469,
+          454
+        ],
+        "True": [
+          515,
+          339,
+          630,
+          454
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 84,
+        "mean": 1.9924764890282132,
+        "changed_over_3": 2574,
+        "samples": 23925
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 15950
+      },
+      "forced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 15950
+      },
+      "classification": "unresolved",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 737,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 44.50739048642838,
+          "detected": false
+        },
+        {
+          "moving_samples": 737,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 44.50739048642838,
+          "detected": false
+        },
+        {
+          "moving_samples": 737,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 44.50739048642838,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Pixel controls are insufficient; preserve the item as unresolved"
+    },
+    {
+      "index": 8,
+      "name": "minecraft:angler_pottery_sherd",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8205,
+      "physical_bounds": {
+        "False": [
+          676,
+          339,
+          791,
+          454
+        ],
+        "True": [
+          837,
+          339,
+          952,
+          454
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 160,
+        "mean": 60.030225472273,
+        "changed_over_3": 24615,
+        "samples": 24615
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 16410
+      },
+      "forced_temporal_deltas": {
+        "maximum": 126,
+        "mean": 37.60524070688604,
+        "changed_over_3": 15331,
+        "samples": 16410
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 14524,
+        "matching_samples": 14524,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.38900880192329856,
+          0.09777104823354574
+        ],
+        "residual_p95": 1.0443429185702762,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8198,
+          "matching_samples": 8149,
+          "matching_fraction": 0.9940229324225421,
+          "channel_ratios": [
+            0.39084027822017847,
+            0.09838387456981414
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        },
+        {
+          "moving_samples": 8198,
+          "matching_samples": 8149,
+          "matching_fraction": 0.9940229324225421,
+          "channel_ratios": [
+            0.392212721941548,
+            0.09881826415181579
+          ],
+          "residual_p95": 0.7011556033324382,
+          "detected": true
+        },
+        {
+          "moving_samples": 8198,
+          "matching_samples": 8149,
+          "matching_fraction": 0.9940229324225421,
+          "channel_ratios": [
+            0.3902191191915349,
+            0.09783046365109511
+          ],
+          "residual_p95": 0.8653587745229778,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 9,
+      "name": "minecraft:anvil",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 6032,
+      "physical_bounds": {
+        "False": [
+          998,
+          339,
+          1113,
+          454
+        ],
+        "True": [
+          1159,
+          339,
+          1274,
+          454
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 221,
+        "mean": 77.00707338638374,
+        "changed_over_3": 18096,
+        "samples": 18096
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 12064
+      },
+      "forced_temporal_deltas": {
+        "maximum": 139,
+        "mean": 29.92224801061008,
+        "changed_over_3": 11022,
+        "samples": 12064
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 9307,
+        "matching_samples": 9304,
+        "matching_fraction": 0.9996776619748576,
+        "channel_ratios": [
+          0.3891491450059123,
+          0.09719529523023039
+        ],
+        "residual_p95": 1.209083579682881,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 3963,
+          "matching_samples": 3897,
+          "matching_fraction": 0.9833459500378501,
+          "channel_ratios": [
+            0.3909182689300849,
+            0.0984684104679318
+          ],
+          "residual_p95": 0.9545821015855935,
+          "detected": true
+        },
+        {
+          "moving_samples": 3777,
+          "matching_samples": 3709,
+          "matching_fraction": 0.9819962933545142,
+          "channel_ratios": [
+            0.39092810601753875,
+            0.0981903958979324
+          ],
+          "residual_p95": 1.0285944638538025,
+          "detected": true
+        },
+        {
+          "moving_samples": 3994,
+          "matching_samples": 3927,
+          "matching_fraction": 0.9832248372558838,
+          "channel_ratios": [
+            0.39073880328341787,
+            0.09821494620337409
+          ],
+          "residual_p95": 0.9843321687718344,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 10,
+      "name": "minecraft:apple",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 5898,
+      "physical_bounds": {
+        "False": [
+          1320,
+          339,
+          1435,
+          454
+        ],
+        "True": [
+          1481,
+          339,
+          1596,
+          454
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 126,
+        "mean": 62.867412682265176,
+        "changed_over_3": 17694,
+        "samples": 17694
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 11796
+      },
+      "forced_temporal_deltas": {
+        "maximum": 73,
+        "mean": 27.632332994235334,
+        "changed_over_3": 11109,
+        "samples": 11796
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 7731,
+        "matching_samples": 7731,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.38894835472312533,
+          0.09654257866769758
+        ],
+        "residual_p95": 1.0744423542058588,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 4861,
+          "matching_samples": 4840,
+          "matching_fraction": 0.9956799012548858,
+          "channel_ratios": [
+            0.39160238355189053,
+            0.09885358622653938
+          ],
+          "residual_p95": 0.7317925288900824,
+          "detected": true
+        },
+        {
+          "moving_samples": 4335,
+          "matching_samples": 4314,
+          "matching_fraction": 0.9951557093425606,
+          "channel_ratios": [
+            0.3904545530796051,
+            0.09787207461578327
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        },
+        {
+          "moving_samples": 4281,
+          "matching_samples": 4260,
+          "matching_fraction": 0.9950946040644709,
+          "channel_ratios": [
+            0.3903838636451453,
+            0.09792229072703909
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 11,
+      "name": "minecraft:archer_pottery_sherd",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8198,
+      "physical_bounds": {
+        "False": [
+          1642,
+          339,
+          1757,
+          454
+        ],
+        "True": [
+          1803,
+          339,
+          1918,
+          454
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 127,
+        "mean": 50.0276490200862,
+        "changed_over_3": 24594,
+        "samples": 24594
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 16396
+      },
+      "forced_temporal_deltas": {
+        "maximum": 74,
+        "mean": 17.890644059526714,
+        "changed_over_3": 13871,
+        "samples": 16396
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 12348,
+        "matching_samples": 12348,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3887510854463355,
+          0.09734760333449115
+        ],
+        "residual_p95": 1.0443429185702762,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8133,
+          "matching_samples": 8069,
+          "matching_fraction": 0.9921308250338129,
+          "channel_ratios": [
+            0.39138706665669065,
+            0.09884583915602893
+          ],
+          "residual_p95": 0.7755979575382952,
+          "detected": true
+        },
+        {
+          "moving_samples": 8133,
+          "matching_samples": 8069,
+          "matching_fraction": 0.9921308250338129,
+          "channel_ratios": [
+            0.39066475290551067,
+            0.09821187448120723
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        },
+        {
+          "moving_samples": 8126,
+          "matching_samples": 8069,
+          "matching_fraction": 0.9929854787103126,
+          "channel_ratios": [
+            0.391921165309043,
+            0.09923479275587008
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 12,
+      "name": "minecraft:armadillo_scute",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 3117,
+      "physical_bounds": {
+        "False": [
+          32,
+          487,
+          147,
+          602
+        ],
+        "True": [
+          193,
+          487,
+          308,
+          602
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 121,
+        "mean": 48.606245321356006,
+        "changed_over_3": 9351,
+        "samples": 9351
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 6234
+      },
+      "forced_temporal_deltas": {
+        "maximum": 86,
+        "mean": 17.013153673403913,
+        "changed_over_3": 5343,
+        "samples": 6234
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 4875,
+        "matching_samples": 4875,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3885574668145588,
+          0.09682570329230836
+        ],
+        "residual_p95": 1.0147809728567587,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 3096,
+          "matching_samples": 3052,
+          "matching_fraction": 0.9857881136950905,
+          "channel_ratios": [
+            0.39086716498423396,
+            0.09833984952837371
+          ],
+          "residual_p95": 0.8653587745229778,
+          "detected": true
+        },
+        {
+          "moving_samples": 3096,
+          "matching_samples": 3052,
+          "matching_fraction": 0.9857881136950905,
+          "channel_ratios": [
+            0.39152539223032135,
+            0.0997365561559725
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 3096,
+          "matching_samples": 3052,
+          "matching_fraction": 0.9857881136950905,
+          "channel_ratios": [
+            0.3922405901516624,
+            0.0994310825640272
+          ],
+          "residual_p95": 0.7317925288900824,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 13,
+      "name": "minecraft:armadillo_spawn_egg",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 6263,
+      "physical_bounds": {
+        "False": [
+          354,
+          487,
+          469,
+          602
+        ],
+        "True": [
+          515,
+          487,
+          630,
+          602
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 126,
+        "mean": 53.38655596359572,
+        "changed_over_3": 18789,
+        "samples": 18789
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 12526
+      },
+      "forced_temporal_deltas": {
+        "maximum": 94,
+        "mean": 30.30448666773112,
+        "changed_over_3": 11572,
+        "samples": 12526
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 10863,
+        "matching_samples": 10863,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3892296042903435,
+          0.0974804016336418
+        ],
+        "residual_p95": 1.0295619457135174,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 6091,
+          "matching_samples": 6091,
+          "matching_fraction": 1.0,
+          "channel_ratios": [
+            0.3905130328835017,
+            0.09787251629627058
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        },
+        {
+          "moving_samples": 6263,
+          "matching_samples": 6263,
+          "matching_fraction": 1.0,
+          "channel_ratios": [
+            0.3918845582498851,
+            0.09938485214436096
+          ],
+          "residual_p95": 0.7011556033324382,
+          "detected": true
+        },
+        {
+          "moving_samples": 6263,
+          "matching_samples": 6263,
+          "matching_fraction": 1.0,
+          "channel_ratios": [
+            0.39080724268281875,
+            0.09862248613831782
+          ],
+          "residual_p95": 0.7755979575382952,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 14,
+      "name": "minecraft:armor_stand",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 4710,
+      "physical_bounds": {
+        "False": [
+          676,
+          487,
+          791,
+          602
+        ],
+        "True": [
+          837,
+          487,
+          952,
+          602
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 215,
+        "mean": 64.4550601556971,
+        "changed_over_3": 14130,
+        "samples": 14130
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 9420
+      },
+      "forced_temporal_deltas": {
+        "maximum": 111,
+        "mean": 47.349150743099784,
+        "changed_over_3": 8636,
+        "samples": 9420
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 7654,
+        "matching_samples": 7654,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3893167937872511,
+          0.09711698946982854
+        ],
+        "residual_p95": 1.1040983606557384,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 4673,
+          "matching_samples": 4658,
+          "matching_fraction": 0.9967900706184464,
+          "channel_ratios": [
+            0.39092273193748467,
+            0.0985124483254297
+          ],
+          "residual_p95": 0.7755979575382952,
+          "detected": true
+        },
+        {
+          "moving_samples": 4316,
+          "matching_samples": 4308,
+          "matching_fraction": 0.9981464318813716,
+          "channel_ratios": [
+            0.3902821700521785,
+            0.09778608231528406
+          ],
+          "residual_p95": 0.8943832303144319,
+          "detected": true
+        },
+        {
+          "moving_samples": 4673,
+          "matching_samples": 4658,
+          "matching_fraction": 0.9967900706184464,
+          "channel_ratios": [
+            0.39112818498883734,
+            0.09848895786038382
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 15,
+      "name": "minecraft:arms_up_pottery_sherd",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8133,
+      "physical_bounds": {
+        "False": [
+          998,
+          487,
+          1113,
+          602
+        ],
+        "True": [
+          1159,
+          487,
+          1274,
+          602
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 126,
+        "mean": 54.02487806877331,
+        "changed_over_3": 24399,
+        "samples": 24399
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 16266
+      },
+      "forced_temporal_deltas": {
+        "maximum": 98,
+        "mean": 36.244067379810645,
+        "changed_over_3": 15226,
+        "samples": 16266
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 14696,
+        "matching_samples": 14696,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.38853483376283415,
+          0.09652336076469459
+        ],
+        "residual_p95": 1.0448804084923404,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8133,
+          "matching_samples": 8090,
+          "matching_fraction": 0.9947128980695931,
+          "channel_ratios": [
+            0.39167182810493584,
+            0.098617535534275
+          ],
+          "residual_p95": 0.7317925288900824,
+          "detected": true
+        },
+        {
+          "moving_samples": 8133,
+          "matching_samples": 8090,
+          "matching_fraction": 0.9947128980695931,
+          "channel_ratios": [
+            0.3902529741616937,
+            0.0977237560680248
+          ],
+          "residual_p95": 0.8500403117441522,
+          "detected": true
+        },
+        {
+          "moving_samples": 8133,
+          "matching_samples": 8090,
+          "matching_fraction": 0.9947128980695931,
+          "channel_ratios": [
+            0.39123971851814326,
+            0.09862719661495943
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 16,
+      "name": "minecraft:arrow",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 1976,
+      "physical_bounds": {
+        "False": [
+          1320,
+          487,
+          1435,
+          602
+        ],
+        "True": [
+          1481,
+          487,
+          1596,
+          602
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 216,
+        "mean": 55.72267206477733,
+        "changed_over_3": 5781,
+        "samples": 5928
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 3952
+      },
+      "forced_temporal_deltas": {
+        "maximum": 65,
+        "mean": 9.902074898785425,
+        "changed_over_3": 2552,
+        "samples": 3952
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 2001,
+        "matching_samples": 2001,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3850746769712934,
+          0.09382429780147447
+        ],
+        "residual_p95": 1.1193227626981992,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 1079,
+          "matching_samples": 1079,
+          "matching_fraction": 1.0,
+          "channel_ratios": [
+            0.39048887067679783,
+            0.0982939012260028
+          ],
+          "residual_p95": 0.8367374361730712,
+          "detected": true
+        },
+        {
+          "moving_samples": 1079,
+          "matching_samples": 1079,
+          "matching_fraction": 1.0,
+          "channel_ratios": [
+            0.3907210130737752,
+            0.09843765868152561
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 1079,
+          "matching_samples": 1079,
+          "matching_fraction": 1.0,
+          "channel_ratios": [
+            0.39010846380757885,
+            0.09827133600584928
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 17,
+      "name": "minecraft:axolotl_bucket",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8303,
+      "physical_bounds": {
+        "False": [
+          1642,
+          487,
+          1757,
+          602
+        ],
+        "True": [
+          1803,
+          487,
+          1918,
+          602
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 255,
+        "mean": 37.90894857280501,
+        "changed_over_3": 24615,
+        "samples": 24909
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 16606
+      },
+      "forced_temporal_deltas": {
+        "maximum": 63,
+        "mean": 11.098398169336384,
+        "changed_over_3": 11414,
+        "samples": 16606
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 7289,
+        "matching_samples": 7289,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3888848934138695,
+          0.0978044969912496
+        ],
+        "residual_p95": 1.0147809728567587,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 4939,
+          "matching_samples": 4889,
+          "matching_fraction": 0.9898764932172505,
+          "channel_ratios": [
+            0.39147079606379714,
+            0.09878426785499914
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 5315,
+          "matching_samples": 5271,
+          "matching_fraction": 0.9917215428033866,
+          "channel_ratios": [
+            0.3913587321926088,
+            0.0992651192905761
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 5538,
+          "matching_samples": 5488,
+          "matching_fraction": 0.9909714698447093,
+          "channel_ratios": [
+            0.3926208874433911,
+            0.09941457338592485
+          ],
+          "residual_p95": 0.7011556033324382,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 18,
+      "name": "minecraft:axolotl_spawn_egg",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 7151,
+      "physical_bounds": {
+        "False": [
+          32,
+          634,
+          147,
+          749
+        ],
+        "True": [
+          193,
+          634,
+          308,
+          749
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 175,
+        "mean": 43.643359903043866,
+        "changed_over_3": 21453,
+        "samples": 21453
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 14302
+      },
+      "forced_temporal_deltas": {
+        "maximum": 100,
+        "mean": 17.41071178856104,
+        "changed_over_3": 11160,
+        "samples": 14302
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 6640,
+        "matching_samples": 6640,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3890980630429776,
+          0.09796259365062254
+        ],
+        "residual_p95": 1.0298306906745498,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 4208,
+          "matching_samples": 4151,
+          "matching_fraction": 0.9864543726235742,
+          "channel_ratios": [
+            0.3912944245126863,
+            0.09876926808272378
+          ],
+          "residual_p95": 0.7755979575382952,
+          "detected": true
+        },
+        {
+          "moving_samples": 3774,
+          "matching_samples": 3724,
+          "matching_fraction": 0.9867514573396926,
+          "channel_ratios": [
+            0.39083191468787176,
+            0.09840646947307347
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        },
+        {
+          "moving_samples": 4890,
+          "matching_samples": 4833,
+          "matching_fraction": 0.9883435582822085,
+          "channel_ratios": [
+            0.39214843858804754,
+            0.09831075106735944
+          ],
+          "residual_p95": 0.7011556033324382,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 19,
+      "name": "minecraft:azalea",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 6490,
+      "physical_bounds": {
+        "False": [
+          354,
+          634,
+          469,
+          749
+        ],
+        "True": [
+          515,
+          634,
+          630,
+          749
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 232,
+        "mean": 91.33076527991783,
+        "changed_over_3": 19470,
+        "samples": 19470
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 12980
+      },
+      "forced_temporal_deltas": {
+        "maximum": 183,
+        "mean": 41.72218798151002,
+        "changed_over_3": 12161,
+        "samples": 12980
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 11560,
+        "matching_samples": 11559,
+        "matching_fraction": 0.9999134948096886,
+        "channel_ratios": [
+          0.3889008467241229,
+          0.09749648248214578
+        ],
+        "residual_p95": 1.4477291050792798,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 6354,
+          "matching_samples": 5620,
+          "matching_fraction": 0.8844822159269752,
+          "channel_ratios": [
+            0.39106541466908323,
+            0.09846059807802167
+          ],
+          "residual_p95": 20.31905401773716,
+          "detected": false
+        },
+        {
+          "moving_samples": 6473,
+          "matching_samples": 5714,
+          "matching_fraction": 0.8827437046191874,
+          "channel_ratios": [
+            0.3908691737172286,
+            0.098428433441344
+          ],
+          "residual_p95": 20.35990325181402,
+          "detected": false
+        },
+        {
+          "moving_samples": 6474,
+          "matching_samples": 5715,
+          "matching_fraction": 0.8827618164967562,
+          "channel_ratios": [
+            0.39112572900015347,
+            0.09836665682889392
+          ],
+          "residual_p95": 20.351169040580476,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 20,
+      "name": "minecraft:azalea_leaves",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 6455,
+      "physical_bounds": {
+        "False": [
+          676,
+          634,
+          791,
+          749
+        ],
+        "True": [
+          837,
+          634,
+          952,
+          749
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 126,
+        "mean": 1.359721146398141,
+        "changed_over_3": 642,
+        "samples": 19365
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 12910
+      },
+      "forced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 12910
+      },
+      "classification": "unresolved",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 11,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 60.1268476216071,
+          "detected": false
+        },
+        {
+          "moving_samples": 11,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 60.1268476216071,
+          "detected": false
+        },
+        {
+          "moving_samples": 11,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 60.1268476216071,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Pixel controls are insufficient; preserve the item as unresolved"
+    },
+    {
+      "index": 21,
+      "name": "minecraft:azalea_leaves_flowered",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 6740,
+      "physical_bounds": {
+        "False": [
+          998,
+          634,
+          1113,
+          749
+        ],
+        "True": [
+          1159,
+          634,
+          1274,
+          749
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 189,
+        "mean": 2.333382789317507,
+        "changed_over_3": 975,
+        "samples": 20220
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 13480
+      },
+      "forced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 13480
+      },
+      "classification": "unresolved",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 90,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 56.44665412523515,
+          "detected": false
+        },
+        {
+          "moving_samples": 90,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 56.44665412523515,
+          "detected": false
+        },
+        {
+          "moving_samples": 90,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 56.44665412523515,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Pixel controls are insufficient; preserve the item as unresolved"
+    },
+    {
+      "index": 22,
+      "name": "minecraft:azure_bluet",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 2242,
+      "physical_bounds": {
+        "False": [
+          1320,
+          634,
+          1435,
+          749
+        ],
+        "True": [
+          1481,
+          634,
+          1596,
+          749
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 212,
+        "mean": 4.421944692239072,
+        "changed_over_3": 216,
+        "samples": 6726
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 4484
+      },
+      "forced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 4484
+      },
+      "classification": "unresolved",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 22,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 70.37274926095137,
+          "detected": false
+        },
+        {
+          "moving_samples": 22,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 70.37274926095137,
+          "detected": false
+        },
+        {
+          "moving_samples": 22,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 70.37274926095137,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Pixel controls are insufficient; preserve the item as unresolved"
+    },
+    {
+      "index": 23,
+      "name": "minecraft:baked_potato",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 6152,
+      "physical_bounds": {
+        "False": [
+          1642,
+          634,
+          1757,
+          749
+        ],
+        "True": [
+          1803,
+          634,
+          1918,
+          749
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 169,
+        "mean": 55.3331707845687,
+        "changed_over_3": 18456,
+        "samples": 18456
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 12304
+      },
+      "forced_temporal_deltas": {
+        "maximum": 57,
+        "mean": 21.124512353706113,
+        "changed_over_3": 11081,
+        "samples": 12304
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 9264,
+        "matching_samples": 9264,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.38852039804846733,
+          0.09669571251769558
+        ],
+        "residual_p95": 1.0448804084923404,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 5255,
+          "matching_samples": 5218,
+          "matching_fraction": 0.9929590865842055,
+          "channel_ratios": [
+            0.39031382840651274,
+            0.09789574966614589
+          ],
+          "residual_p95": 0.8500403117441522,
+          "detected": true
+        },
+        {
+          "moving_samples": 5591,
+          "matching_samples": 5554,
+          "matching_fraction": 0.9933822214272938,
+          "channel_ratios": [
+            0.39114409591778493,
+            0.09869008858624735
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 5584,
+          "matching_samples": 5554,
+          "matching_fraction": 0.9946275071633238,
+          "channel_ratios": [
+            0.39127764687559863,
+            0.09869378644205531
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 24,
+      "name": "minecraft:balloon",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 0,
+      "physical_bounds": {
+        "False": [
+          32,
+          781,
+          147,
+          896
+        ],
+        "True": [
+          193,
+          781,
+          308,
+          896
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 0
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 0
+      },
+      "forced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 0
+      },
+      "classification": "unresolved",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 0,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": null,
+          "detected": false
+        },
+        {
+          "moving_samples": 0,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": null,
+          "detected": false
+        },
+        {
+          "moving_samples": 0,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": null,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Pixel controls are insufficient; preserve the item as unresolved"
+    },
+    {
+      "index": 25,
+      "name": "minecraft:bamboo",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 2998,
+      "physical_bounds": {
+        "False": [
+          354,
+          781,
+          469,
+          896
+        ],
+        "True": [
+          515,
+          781,
+          630,
+          896
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 8994
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 5996
+      },
+      "forced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 5996
+      },
+      "classification": "unresolved",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 0,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": null,
+          "detected": false
+        },
+        {
+          "moving_samples": 0,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": null,
+          "detected": false
+        },
+        {
+          "moving_samples": 0,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": null,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Pixel controls are insufficient; preserve the item as unresolved"
+    },
+    {
+      "index": 26,
+      "name": "minecraft:bamboo_block",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8975,
+      "physical_bounds": {
+        "False": [
+          676,
+          781,
+          791,
+          896
+        ],
+        "True": [
+          837,
+          781,
+          952,
+          896
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 173,
+        "mean": 56.9513834726091,
+        "changed_over_3": 26925,
+        "samples": 26925
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 17950
+      },
+      "forced_temporal_deltas": {
+        "maximum": 133,
+        "mean": 30.221949860724234,
+        "changed_over_3": 16465,
+        "samples": 17950
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 15632,
+        "matching_samples": 15632,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.38901665653637163,
+          0.09717981570052558
+        ],
+        "residual_p95": 1.0739048642837972,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8971,
+          "matching_samples": 8754,
+          "matching_fraction": 0.975810946382789,
+          "channel_ratios": [
+            0.39065750839586505,
+            0.09810174061232921
+          ],
+          "residual_p95": 0.8653587745229778,
+          "detected": true
+        },
+        {
+          "moving_samples": 8974,
+          "matching_samples": 8754,
+          "matching_fraction": 0.9754847336750613,
+          "channel_ratios": [
+            0.3908852438793573,
+            0.09843865166110981
+          ],
+          "residual_p95": 0.8500403117441522,
+          "detected": true
+        },
+        {
+          "moving_samples": 8969,
+          "matching_samples": 8748,
+          "matching_fraction": 0.9753595718586241,
+          "channel_ratios": [
+            0.39069463228048984,
+            0.0981146016049756
+          ],
+          "residual_p95": 0.8653587745229778,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 27,
+      "name": "minecraft:bamboo_button",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 513,
+      "physical_bounds": {
+        "False": [
+          998,
+          781,
+          1113,
+          896
+        ],
+        "True": [
+          1159,
+          781,
+          1274,
+          896
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 98,
+        "mean": 45.89798570500325,
+        "changed_over_3": 1539,
+        "samples": 1539
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 1026
+      },
+      "forced_temporal_deltas": {
+        "maximum": 49,
+        "mean": 14.975633528265107,
+        "changed_over_3": 846,
+        "samples": 1026
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 740,
+        "matching_samples": 740,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3864756610114354,
+          0.09764641298001935
+        ],
+        "residual_p95": 1.0147809728567587,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 498,
+          "matching_samples": 494,
+          "matching_fraction": 0.9919678714859438,
+          "channel_ratios": [
+            0.3905515004450493,
+            0.0989588868014846
+          ],
+          "residual_p95": 0.7033727492609517,
+          "detected": true
+        },
+        {
+          "moving_samples": 506,
+          "matching_samples": 502,
+          "matching_fraction": 0.9920948616600791,
+          "channel_ratios": [
+            0.3919968680719288,
+            0.0989746454587043
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 511,
+          "matching_samples": 507,
+          "matching_fraction": 0.9921722113502935,
+          "channel_ratios": [
+            0.3906538476321499,
+            0.09885248965212862
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 28,
+      "name": "minecraft:bamboo_chest_raft",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 9637,
+      "physical_bounds": {
+        "False": [
+          1320,
+          781,
+          1435,
+          896
+        ],
+        "True": [
+          1481,
+          781,
+          1596,
+          896
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 203,
+        "mean": 62.243575109819794,
+        "changed_over_3": 28911,
+        "samples": 28911
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 19274
+      },
+      "forced_temporal_deltas": {
+        "maximum": 111,
+        "mean": 36.696689841236896,
+        "changed_over_3": 17663,
+        "samples": 19274
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 16043,
+        "matching_samples": 16043,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.38900843206329383,
+          0.09679640676360501
+        ],
+        "residual_p95": 1.0897608169846809,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8500,
+          "matching_samples": 8458,
+          "matching_fraction": 0.9950588235294118,
+          "channel_ratios": [
+            0.39083046088401957,
+            0.09888066558398571
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 8272,
+          "matching_samples": 8237,
+          "matching_fraction": 0.9957688588007737,
+          "channel_ratios": [
+            0.39037104053766286,
+            0.09797370324111414
+          ],
+          "residual_p95": 0.8500403117441522,
+          "detected": true
+        },
+        {
+          "moving_samples": 8460,
+          "matching_samples": 8418,
+          "matching_fraction": 0.9950354609929078,
+          "channel_ratios": [
+            0.39074436361095244,
+            0.09874132085602996
+          ],
+          "residual_p95": 0.7755979575382952,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 29,
+      "name": "minecraft:bamboo_door",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 6460,
+      "physical_bounds": {
+        "False": [
+          1642,
+          781,
+          1757,
+          896
+        ],
+        "True": [
+          1803,
+          781,
+          1918,
+          896
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 227,
+        "mean": 62.00908152734778,
+        "changed_over_3": 19380,
+        "samples": 19380
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 12920
+      },
+      "forced_temporal_deltas": {
+        "maximum": 94,
+        "mean": 24.618034055727556,
+        "changed_over_3": 11720,
+        "samples": 12920
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 9514,
+        "matching_samples": 9514,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3881610416242509,
+          0.09682336982517765
+        ],
+        "residual_p95": 1.0448804084923404,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 5568,
+          "matching_samples": 5568,
+          "matching_fraction": 1.0,
+          "channel_ratios": [
+            0.39052311585340543,
+            0.09821462395531401
+          ],
+          "residual_p95": 0.8199408761085749,
+          "detected": true
+        },
+        {
+          "moving_samples": 5899,
+          "matching_samples": 5899,
+          "matching_fraction": 1.0,
+          "channel_ratios": [
+            0.3908715206609998,
+            0.09863185865192473
+          ],
+          "residual_p95": 0.7755979575382952,
+          "detected": true
+        },
+        {
+          "moving_samples": 5912,
+          "matching_samples": 5912,
+          "matching_fraction": 1.0,
+          "channel_ratios": [
+            0.39086479184686673,
+            0.09851300561772372
+          ],
+          "residual_p95": 0.7755979575382952,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 30,
+      "name": "minecraft:bamboo_double_slab",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8951,
+      "physical_bounds": {
+        "False": [
+          32,
+          929,
+          147,
+          1044
+        ],
+        "True": [
+          193,
+          929,
+          308,
+          1044
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 172,
+        "mean": 51.40360481138048,
+        "changed_over_3": 26853,
+        "samples": 26853
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 17902
+      },
+      "forced_temporal_deltas": {
+        "maximum": 110,
+        "mean": 22.347391352921463,
+        "changed_over_3": 15738,
+        "samples": 17902
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 13870,
+        "matching_samples": 13870,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3890800514805131,
+          0.097210157021842
+        ],
+        "residual_p95": 1.0448804084923404,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8759,
+          "matching_samples": 8536,
+          "matching_fraction": 0.974540472656696,
+          "channel_ratios": [
+            0.39102024334973673,
+            0.09848457083211624
+          ],
+          "residual_p95": 0.8500403117441522,
+          "detected": true
+        },
+        {
+          "moving_samples": 8625,
+          "matching_samples": 8415,
+          "matching_fraction": 0.9756521739130435,
+          "channel_ratios": [
+            0.3907008421262522,
+            0.09834046520316206
+          ],
+          "residual_p95": 0.8653587745229778,
+          "detected": true
+        },
+        {
+          "moving_samples": 8765,
+          "matching_samples": 8540,
+          "matching_fraction": 0.9743297204791785,
+          "channel_ratios": [
+            0.39112674851522045,
+            0.09845084003523791
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 31,
+      "name": "minecraft:bamboo_fence",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 4209,
+      "physical_bounds": {
+        "False": [
+          354,
+          929,
+          469,
+          1044
+        ],
+        "True": [
+          515,
+          929,
+          630,
+          1044
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 207,
+        "mean": 0.5633167023045854,
+        "changed_over_3": 156,
+        "samples": 12627
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 8418
+      },
+      "forced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 8418
+      },
+      "classification": "unresolved",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 37,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 97.74168234345603,
+          "detected": false
+        },
+        {
+          "moving_samples": 37,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 97.74168234345603,
+          "detected": false
+        },
+        {
+          "moving_samples": 37,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 97.74168234345603,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Pixel controls are insufficient; preserve the item as unresolved"
+    },
+    {
+      "index": 32,
+      "name": "minecraft:bamboo_fence_gate",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 2470,
+      "physical_bounds": {
+        "False": [
+          676,
+          929,
+          791,
+          1044
+        ],
+        "True": [
+          837,
+          929,
+          952,
+          1044
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 154,
+        "mean": 0.4234817813765182,
+        "changed_over_3": 150,
+        "samples": 7410
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 4940
+      },
+      "forced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 4940
+      },
+      "classification": "unresolved",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 35,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 55.76861058855147,
+          "detected": false
+        },
+        {
+          "moving_samples": 35,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 55.76861058855147,
+          "detected": false
+        },
+        {
+          "moving_samples": 35,
+          "matching_samples": 0,
+          "matching_fraction": 0.0,
+          "channel_ratios": null,
+          "residual_p95": 55.76861058855147,
+          "detected": false
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Pixel controls are insufficient; preserve the item as unresolved"
+    },
+    {
+      "index": 33,
+      "name": "minecraft:bamboo_hanging_sign",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 7706,
+      "physical_bounds": {
+        "False": [
+          998,
+          929,
+          1113,
+          1044
+        ],
+        "True": [
+          1159,
+          929,
+          1274,
+          1044
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 175,
+        "mean": 52.0057530928281,
+        "changed_over_3": 23118,
+        "samples": 23118
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 15412
+      },
+      "forced_temporal_deltas": {
+        "maximum": 94,
+        "mean": 25.276732416298987,
+        "changed_over_3": 13907,
+        "samples": 15412
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 10198,
+        "matching_samples": 10198,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3890620362462129,
+          0.09813764423494659
+        ],
+        "residual_p95": 1.0298710024187046,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 5738,
+          "matching_samples": 5687,
+          "matching_fraction": 0.9911118856744511,
+          "channel_ratios": [
+            0.39082045927384884,
+            0.09827438700211111
+          ],
+          "residual_p95": 0.7755979575382952,
+          "detected": true
+        },
+        {
+          "moving_samples": 6435,
+          "matching_samples": 6378,
+          "matching_fraction": 0.9911421911421912,
+          "channel_ratios": [
+            0.39103186733948786,
+            0.09863916297689168
+          ],
+          "residual_p95": 0.7608169846815365,
+          "detected": true
+        },
+        {
+          "moving_samples": 6500,
+          "matching_samples": 6463,
+          "matching_fraction": 0.9943076923076923,
+          "channel_ratios": [
+            0.39085548960367117,
+            0.09855130382109029
+          ],
+          "residual_p95": 0.7317925288900824,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 34,
+      "name": "minecraft:bamboo_mosaic",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8927,
+      "physical_bounds": {
+        "False": [
+          1320,
+          929,
+          1435,
+          1044
+        ],
+        "True": [
+          1481,
+          929,
+          1596,
+          1044
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 163,
+        "mean": 52.46562861730331,
+        "changed_over_3": 26781,
+        "samples": 26781
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 17854
+      },
+      "forced_temporal_deltas": {
+        "maximum": 111,
+        "mean": 22.6914416937381,
+        "changed_over_3": 15680,
+        "samples": 17854
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 14159,
+        "matching_samples": 14159,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3887847631909564,
+          0.09720730564919126
+        ],
+        "residual_p95": 1.0443966675624818,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8847,
+          "matching_samples": 8390,
+          "matching_fraction": 0.9483440714366452,
+          "channel_ratios": [
+            0.39099354093822664,
+            0.0985473370254823
+          ],
+          "residual_p95": 3.484385917763903,
+          "detected": true
+        },
+        {
+          "moving_samples": 8734,
+          "matching_samples": 8270,
+          "matching_fraction": 0.9468742844057706,
+          "channel_ratios": [
+            0.3906184666806387,
+            0.0983528531831555
+          ],
+          "residual_p95": 4.283808116097831,
+          "detected": true
+        },
+        {
+          "moving_samples": 8784,
+          "matching_samples": 8329,
+          "matching_fraction": 0.9482012750455373,
+          "channel_ratios": [
+            0.39108715189805565,
+            0.0984700131146838
+          ],
+          "residual_p95": 3.2269148078473635,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    },
+    {
+      "index": 35,
+      "name": "minecraft:bamboo_mosaic_double_slab",
+      "aux": 0,
+      "real_ench_user_data": false,
+      "native_set_succeeded": true,
+      "body_pixels": 8951,
+      "physical_bounds": {
+        "False": [
+          1642,
+          929,
+          1757,
+          1044
+        ],
+        "True": [
+          1803,
+          929,
+          1918,
+          1044
+        ]
+      },
+      "paired_deltas": {
+        "maximum": 160,
+        "mean": 52.52191561464269,
+        "changed_over_3": 26853,
+        "samples": 26853
+      },
+      "unforced_temporal_deltas": {
+        "maximum": 0,
+        "mean": 0.0,
+        "changed_over_3": 0,
+        "samples": 17902
+      },
+      "forced_temporal_deltas": {
+        "maximum": 111,
+        "mean": 22.660429002346106,
+        "changed_over_3": 15720,
+        "samples": 17902
+      },
+      "classification": "no_intrinsic_glint_in_this_probe",
+      "unforced_glint_signature": {
+        "moving_samples": 0,
+        "matching_samples": 0,
+        "matching_fraction": 0.0,
+        "channel_ratios": null,
+        "residual_p95": null,
+        "detected": false
+      },
+      "forced_glint_signature": {
+        "moving_samples": 14211,
+        "matching_samples": 14211,
+        "matching_fraction": 1.0,
+        "channel_ratios": [
+          0.3889048461355444,
+          0.09707799028824443
+        ],
+        "residual_p95": 1.0448804084923404,
+        "detected": true
+      },
+      "paired_glint_signatures": [
+        {
+          "moving_samples": 8876,
+          "matching_samples": 8700,
+          "matching_fraction": 0.9801712483100495,
+          "channel_ratios": [
+            0.3912150052732306,
+            0.09854462538474004
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        },
+        {
+          "moving_samples": 8760,
+          "matching_samples": 8584,
+          "matching_fraction": 0.9799086757990868,
+          "channel_ratios": [
+            0.3906692796079385,
+            0.09820924869107096
+          ],
+          "residual_p95": 0.8653587745229778,
+          "detected": true
+        },
+        {
+          "moving_samples": 8826,
+          "matching_samples": 8643,
+          "matching_fraction": 0.9792658055744392,
+          "channel_ratios": [
+            0.39109281078127445,
+            0.09849360750643449
+          ],
+          "residual_p95": 0.835259338887397,
+          "detected": true
+        }
+      ],
+      "visual_qualification": false,
+      "reason": "Only the forced pass animates; actual item state is recorded"
+    }
+  ],
+  "production_qualified": false,
+  "signature": {
+    "normalized_squared_color": [
+      0.38806772373018006,
+      0.09701693093254501,
+      1.0
+    ],
+    "maximum_channel_residual": 2.5,
+    "minimum_moving_samples": 64,
+    "minimum_matching_fraction": 0.9,
+    "nonclipped_channel_maximum": 248,
+    "minimum_blue_delta": 5
+  },
+  "native_controls_passed": true,
+  "conclusion": "Native UI item behavior only; production editor/world pixels remain unqualified"
+}
