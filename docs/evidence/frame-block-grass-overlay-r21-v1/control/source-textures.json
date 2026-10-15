@@ -1,0 +1,189 @@
+{
+  "minecraft:grass_block": {
+    "appearance_accepted": false,
+    "atlas": "resource_pack/textures/models/modern_projection/frame_block_items/fda002ddc43224a7.png",
+    "atlas_sha256": "ab130fe030a9686eb0f5817b37a652535747d6ed22abc07c6741ed48a504dd8b",
+    "faces": {
+      "down": {
+        "atlas_key": "grass_carried_bottom",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/dirt"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/dirt.png",
+        "sha256": "34bf03b346c0e86214a32117e3f892529da6b76ca8096347cbb6be3da313deab",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "east": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "north": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "south": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "up": {
+        "atlas_key": "grass_carried_top",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": "textures/blocks/grass_carried"
+        },
+        "native_flipbooks": [],
+        "operations": [],
+        "path": "vanilla/textures/blocks/grass_carried.png",
+        "sha256": "8d109d7f46dc9fe22d32c4375da4707aa7a80c14336a0f158e7e68fe519ad8fc",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      },
+      "west": {
+        "atlas_key": "grass_carried",
+        "atlas_pack": "vanilla",
+        "degradation": [],
+        "entry": {
+          "textures": {
+            "overlay_color": "#79c05a",
+            "path": "textures/blocks/grass_side"
+          }
+        },
+        "native_flipbooks": [],
+        "operations": [
+          "alpha_mask_overlay_pending_native_pixels"
+        ],
+        "path": "vanilla/textures/blocks/grass_side.tga",
+        "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+        "size": [
+          16,
+          16
+        ],
+        "source_size": [
+          16,
+          16
+        ]
+      }
+    },
+    "original_atlas_sha256": "5cf02dbdd0f3478095ef5f86306596740862d63e079bc47335b0405985248647",
+    "overlay_recipe": "bake_texture from corrected shared generator fd71754e",
+    "rectangles": {
+      "down": [
+        0.6851851851851852,
+        0.5277777777777778,
+        0.9814814814814815,
+        0.9722222222222222
+      ],
+      "east": [
+        0.018518518518518517,
+        0.5277777777777778,
+        0.3148148148148148,
+        0.9722222222222222
+      ],
+      "north": [
+        0.018518518518518517,
+        0.027777777777777776,
+        0.3148148148148148,
+        0.4722222222222222
+      ],
+      "south": [
+        0.35185185185185186,
+        0.027777777777777776,
+        0.6481481481481481,
+        0.4722222222222222
+      ],
+      "up": [
+        0.35185185185185186,
+        0.5277777777777778,
+        0.6481481481481481,
+        0.9722222222222222
+      ],
+      "west": [
+        0.6851851851851852,
+        0.027777777777777776,
+        0.9814814814814815,
+        0.4722222222222222
+      ]
+    }
+  }
+}

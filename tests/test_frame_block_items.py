@@ -4,6 +4,7 @@ from io import BytesIO
 import json
 from pathlib import Path
 import sys
+from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
@@ -155,6 +156,90 @@ class FrameBlockResources(unittest.TestCase):
         self.assertNotIn('resource_pack/models/netease_models.json', files)
         self.assertNotIn('resource_pack/materials/entity.material', files)
         self.assertEqual(.5, source.POSE['scale_blocks'])
+
+    def test_resource_cache_keeps_historical_and_measured_poses_separate(self):
+        image = Image.new('RGBA', (2, 2), (90, 80, 70, 255))
+        blocks = {'stone': {'pack': 'fixture', 'value': {'textures': 'fixture'}}}
+        cache = {}
+        with patch.object(generator, 'resolve_face', return_value=(image, {'path': 'fixture'})):
+            old = generator.resolve_block(None, blocks, {}, 'minecraft:stone', cache)
+            measured = generator.resolve_block(None, blocks, {}, 'minecraft:stone', cache,
+                                               generator.MEASURED_POSE)
+            self.assertEqual(old, generator.resolve_block(None, blocks, {}, 'minecraft:stone', cache))
+        self.assertNotEqual(old[0], measured[0])
+        self.assertEqual(old[1:], measured[1:])
+        self.assertEqual(generator.sha(generator.encoded({'bitmap_sha256': old[1]['bitmap_sha256'],
+            'material': 'opaque', 'pose': generator.POSE}))[:16], old[0])
+        self.assertEqual(.5, generator.POSE['scale_blocks'])
+
+    def test_narrow_measured_entry_rebakes_three_profiles_and_never_qualifies_them(self):
+        import prepare_frame_block_measured_r21 as candidate
+        catalog = copy.deepcopy(self.catalog)
+        selected = [row for row in catalog['items'] if (row['name'], row['aux']) in candidate.ITEMS]
+        catalog.update(items=selected, resources={})
+        blocks = {row['definition_key']: {'pack': 'fixture', 'value': {'textures': row['definition_key']}}
+                  for row in selected}
+
+        def face(unused_packs, unused_terrain, key):
+            raw = Image.new('RGBA', (2, 2))
+            raw.putdata(((100, 80, 60, 0), (200, 200, 200, 255)) * 2)
+            entry = {'overlay_color': '#80ff40'} if key == 'grass' else {}
+            if not entry:
+                raw.putalpha(255)
+                raw.putpixel((0, 0), (sum(map(ord, key)) % 255, 80, 60, 255))
+            image, operations = generator.bake_texture(raw, entry)
+            record = {'atlas_key': key, 'path': 'fixture/textures/blocks/' + key + '.png',
+                      'operations': operations}
+            return image, record
+
+        with patch.object(generator, 'source_records', return_value=(None, blocks, {}, catalog['source_sha256'])), \
+                patch.object(generator, 'resolve_face', side_effect=face):
+            cache = {}
+            for row in selected:
+                key, entry, unused_bitmap = generator.resolve_block(
+                    None, blocks, {}, row['block_material'][0], cache)
+                row.update(resource=key, observed_item_texture='textures/blocks/' + row['definition_key'],
+                           texture_selection='textures')
+                catalog['resources'][key] = entry
+            before = copy.deepcopy(catalog)
+            files, measured = candidate.resources(catalog, None)
+            self.assertEqual(before, catalog)
+            self.assertEqual(set(candidate.ITEMS), {(row['name'], row['aux']) for row in measured['items']})
+            self.assertEqual(3, len(measured['resources']))
+            self.assertTrue(set(measured['resources']).isdisjoint(catalog['resources']))
+            namespace = {}
+            exec(files['behavior_pack/modern_projection/projection/frame_block_item_data.py'], namespace)
+            self.assertEqual(set(candidate.ITEMS), set(namespace['ITEMS']))
+            self.assertIs(namespace['PRODUCTION_QUALIFIED'], False)
+            self.assertIs(namespace['POSE']['accepted'], False)
+            self.assertEqual((), namespace['QUALIFIED_MATERIALS'])
+            for key in measured['resources']:
+                mesh = json.loads(files['resource_pack/models/' + generator.ASSET + '/' + key + '_mesh.json'])
+                vertices = np.array([row['pos'] for row in mesh['mesh'][0]['vertices'][:24]])
+                np.testing.assert_allclose(vertices.max(0) - vertices.min(0), (.25,) * 3)
+                np.testing.assert_allclose((vertices.max(0) + vertices.min(0)) / 2., (.5, .5, .4375))
+            registration = json.loads(files['tools/data/frame_block_item_registrations_nemc_' + ENGINE + '.json'])
+            self.assertEqual(6, len(registration['models']))
+            self.assertEqual(2, len(registration['materials']))
+            self.assertTrue(all('_opaque' in key for key in registration['materials']))
+            self.assertNotIn('resource_pack/models/netease_models.json', files)
+            grass = next(row for row in measured['items'] if row['name'] == 'minecraft:grass_block')
+            atlas = Image.open(BytesIO(files['resource_pack/textures/models/' + generator.ASSET + '/' + grass['resource'] + '.png']))
+            u0, v0, unused_u1, unused_v1 = measured['resources'][grass['resource']]['rectangles']['north']
+            x, y = round(u0 * atlas.width), round(v0 * atlas.height)
+            self.assertEqual((100, 80, 60, 255), atlas.getpixel((x, y)))
+            self.assertEqual((100, 200, 50, 255), atlas.getpixel((x + 1, y)))
+            with TemporaryDirectory() as temporary:
+                path, output = Path(temporary) / 'catalog.json', Path(temporary) / 'candidate'
+                path.write_bytes(generator.encoded(catalog))
+                self.assertTrue(candidate.prepare(None, path, output)['prepared'])
+                self.assertTrue(candidate.prepare(None, path, output, check=True)['checked'])
+                with self.assertRaises(ValueError):
+                    candidate.prepare(None, path, output)
+            for invalid in (dict(catalog, production_qualified=True),
+                            dict(catalog, items=selected[:-1]), dict(catalog, items=selected + selected[:1])):
+                with self.assertRaises(ValueError):
+                    candidate.measured_catalog(invalid, None)
 
 
 class FrameBlockAdmission(unittest.TestCase):

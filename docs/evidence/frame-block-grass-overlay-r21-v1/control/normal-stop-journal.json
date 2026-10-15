@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "session": "00ce7bfc3c644385a9ac1bbe8a59117a",
+  "owner": "item-r20",
+  "normal_close_requests": 1,
+  "force_stop": false,
+  "first_stop": {
+    "exec_session": 37266,
+    "exit_code": 1,
+    "stdout": "[instances] Game has not closed; inspect it or explicitly use stop --force\r\n",
+    "wait_after_timeout_without_repeating_close": true
+  },
+  "exact_observer": {
+    "path": "exact-exit.json",
+    "completed": true,
+    "game_pid": 3388,
+    "game_identity": "134365774254541407",
+    "game_exit_code": 3221226505,
+    "game_exit_code_hex": "0xC0000409",
+    "game_observed_at": "2026-10-15T22:57:15.981781+00:00",
+    "mcdk_pid": 3908,
+    "mcdk_identity": "134365774248978715",
+    "mcdk_exit_code": 0,
+    "mcdk_exit_code_hex": "0x00000000",
+    "mcdk_observed_at": "2026-10-15T22:57:16.983788+00:00"
+  },
+  "finalization": {
+    "after_both_exact_processes_exited": true,
+    "normal_stop_exit_code": 0,
+    "session_state": "stopped",
+    "ready": false,
+    "additional_close_requested": false
+  },
+  "limits": [
+    "Game exited abnormally after the one normal close request; do not describe this as a clean game exit.",
+    "All three grass phase reports completed restoration and source checks before the close request."
+  ]
+}

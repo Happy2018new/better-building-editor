@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "prepared": true,
+  "started": false,
+  "owner": "item-r20",
+  "source_sha256": "0a44ccc95c9e21a5362bb319b1e04b6348db0c62795d47795767d6fb9b7b580d",
+  "original_plan_sha256": "9a2b2501f30f1c0e04fcb8bf8f5e3f0ef704b356f3bb3a6508de3c99fa82eb1b",
+  "unchanged_capture_host_sha256": "ab75ed52ce3748b67bb7b2ca81def6505825b4fced445c7540c93d590f0cd16e",
+  "environment_override": {"OPENBLAS_NUM_THREADS": "1"},
+  "files": {
+    ".runtime/frame_block_grass_r21_run_v2.py": "c668de7398e23af0c79b00d06a95d794e3fe68d6e1f05b88998bc20c967c588c",
+    ".runtime/frame_block_grass_r21_run.py": "0048b97ffce747ba171cd3a8fac9f6a1d97b09ff900409fa7fb6e048091285d4",
+    ".runtime/frame_block_grass_r21_review.py": "f301587c1dc90d9c85721b01d963465455907e9e0989a8710487abaac4c8246a",
+    ".runtime/projects/frame-block-grass-overlay-r21-v1/tools/frame_block_light_r21_host.py": "ab75ed52ce3748b67bb7b2ca81def6505825b4fced445c7540c93d590f0cd16e"
+  },
+  "scope": [
+    "Set OPENBLAS_NUM_THREADS=1 before importing the original launcher or NumPy",
+    "Original start, capture host, exact observer and reviewer subprocesses inherit this process environment",
+    "Replace the imported launcher's preflight function only inside the dedicated wrapper process",
+    "Retain every raw CIM row and count effective games conservatively",
+    "Exclude only rows with HandleCount=0, ThreadCount=0 and no live process identity"
+  ],
+  "unchanged": [
+    "Original plan and all original manifest bytes",
+    "Frozen source snapshot and capture host code",
+    "All frozen observer and analysis dependencies",
+    "Game executable, WGC, MCDK and guard binary hashes",
+    "9 GiB launch and 6 GiB runtime commit gates",
+    "Normal stop and exact exit observation requirements",
+    "Front completion, restoration and actual image inspection before either 75 degree phase"
+  ],
+  "production_qualified": false,
+  "appearance_accepted": false,
+  "process_or_window_mutation": false,
+  "limits": [
+    "This amendment creates no launch or capture",
+    "No process is terminated or manipulated to improve capacity",
+    "Preflight observations are read-only and stale before any later scheduled launch"
+  ]
+}

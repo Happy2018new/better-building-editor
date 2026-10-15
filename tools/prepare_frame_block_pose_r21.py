@@ -13,9 +13,7 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection import frame_block_item_data as source
 
 ITEMS = (('minecraft:stone', 0), ('minecraft:quartz_block', 0))
-POSE = {'schema': 1, 'shape': 'full_cube', 'scale_blocks': .25,
-        'center_offset_blocks': [0., 0., .4375], 'accepted': False,
-        'status': 'single_native_front_fit_candidate_requires_independent_depth_holdouts'}
+POSE = deepcopy(generator.MEASURED_POSE)
 
 
 def digest(data):

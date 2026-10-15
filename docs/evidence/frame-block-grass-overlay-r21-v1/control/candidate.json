@@ -1,0 +1,48 @@
+{
+  "appearance_accepted": false,
+  "atlas_sha256": "ab130fe030a9686eb0f5817b37a652535747d6ed22abc07c6741ed48a504dd8b",
+  "base_light": 0.93,
+  "base_light_general_acceptance": false,
+  "files": {
+    "behavior_pack/modern_projection/projection/frame_block_item_data.py": "7ba6ec7cce9593202eb2670caf08a98e3a6a4e6b1ef1461dd6729d7eb3bc0757",
+    "resource_pack/models/modern_projection/frame_block_items/fda002ddc43224a7_mesh.json": "81edf4323812533339d64733a0111306b59f579f7b2adce62106cbee5cc9e3d0",
+    "resource_pack/shaders/glsl/modern_projection_frame_block.vertex": "b4f7c615263be665fa8918e34f1e70ead226b76cd281fdecb99324c83407d94e",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_cutout.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_opaque.fragment": "eb4d34eabbb0aa184adc56f6241864b1a05c0a0da64eed81c553094ebee8c259",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_translucent.fragment": "2c7649c3599e4ed20d5d41e15fc5bb67aae99cf590b604b438d92a507b591149",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_world.vertex": "84d79511fba46b64614bfb99ec14820dd7a199f4ca09eff0fb91c90656b2d43d",
+    "resource_pack/textures/models/modern_projection/frame_block_items/fda002ddc43224a7.png": "ab130fe030a9686eb0f5817b37a652535747d6ed22abc07c6741ed48a504dd8b"
+  },
+  "items": [
+    [
+      "minecraft:grass_block",
+      0
+    ]
+  ],
+  "limits": [
+    "Only overlay alpha polarity changed relative to the captured baseline",
+    "Existing empirical 0.93 remains unaccepted and unchanged",
+    "New pixels required for every view"
+  ],
+  "mesh_sha256": {
+    "resource_pack/models/modern_projection/frame_block_items/fda002ddc43224a7_mesh.json": "81edf4323812533339d64733a0111306b59f579f7b2adce62106cbee5cc9e3d0"
+  },
+  "native_pixels_accepted": false,
+  "overlay_candidate_sha256": "4ca455ff29fdd1aeb7153891fc64363a7903507b126e5c84892d6ac40c6bc703",
+  "pose": {
+    "accepted": false,
+    "center_offset_blocks": [
+      0.0,
+      0.0,
+      0.4375
+    ],
+    "scale_blocks": 0.25,
+    "schema": 1,
+    "shape": "full_cube",
+    "status": "single_native_front_fit_candidate_requires_independent_depth_holdouts"
+  },
+  "production_qualified": false,
+  "resource_sha256": "1f158f571f478f42ee2add2b00957dd7a0d825a4b00161ae2a5a859c69978e4d",
+  "schema": 1,
+  "source_sha256": "7a9a00fd65e6f9ca88d143e71311371a90b63e65c1855bcc790e47247f62481f"
+}

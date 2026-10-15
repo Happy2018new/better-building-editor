@@ -28,6 +28,9 @@ DEFINITION_ALIASES = {'grass_block': 'grass', 'sea_lantern': 'seaLantern'}
 POSE = {'schema': 1, 'shape': 'full_cube', 'scale_blocks': .5,
         'center_offset_blocks': [0., 0., .1875], 'accepted': False,
         'status': 'provisional_3d_pose_requires_native_six_face_rotation_depth_controls'}
+MEASURED_POSE = {'schema': 1, 'shape': 'full_cube', 'scale_blocks': .25,
+        'center_offset_blocks': [0., 0., .4375], 'accepted': False,
+        'status': 'measured_stone_quartz_grass_candidate_requires_full_native_gates'}
 MATERIALS = ('opaque', 'cutout', 'translucent')
 FACE_GLINT_UV = '''vec2 blockFaceUv(vec3 position, vec3 normal) {
     vec3 point=(vec3(mod(position.x,2.0)-0.5,position.y-0.5,position.z)-vec3(%s))/%s+vec3(0.5);
@@ -241,9 +244,10 @@ def cube_mesh(rectangles, texture, pose=POSE):
     return {'mesh': [{'material': texture, 'vertices': vertices, 'indices': indices}]}
 
 
-def resolve_block(packs, blocks, terrain, name, cache):
-    if name in cache:
-        return cache[name]
+def resolve_block(packs, blocks, terrain, name, cache, pose=POSE):
+    cache_key = (name, sha(encoded(pose)))
+    if cache_key in cache:
+        return cache[cache_key]
     short = name.removeprefix('minecraft:')
     definition_key = DEFINITION_ALIASES.get(short, short)
     definition = blocks.get(definition_key)
@@ -257,12 +261,12 @@ def resolve_block(packs, blocks, terrain, name, cache):
     if short == 'glass' or short.endswith('_stained_glass'):
         kind = 'cutout' if kind != 'translucent' else kind
     bitmap, rectangles = atlas_image(images)
-    resource = sha(encoded({'bitmap_sha256': sha(bitmap), 'material': kind, 'pose': POSE}))[:16]
+    resource = sha(encoded({'bitmap_sha256': sha(bitmap), 'material': kind, 'pose': pose}))[:16]
     entry = {'bitmap_sha256': sha(bitmap), 'rectangles': rectangles,
              'material': kind, 'faces': faces, 'definition': definition,
              'definition_key': definition_key, 'texture_selection': selection}
-    cache[name] = (resource, entry, bitmap)
-    return cache[name]
+    cache[cache_key] = (resource, entry, bitmap)
+    return cache[cache_key]
 
 
 def observe(raw, basic, install):
@@ -325,10 +329,13 @@ def observe(raw, basic, install):
                 'artificial_enchantment_payload', 'glint_six_face_uv_rotation_occlusion']}
 
 
-def outputs(catalog, install):
+def outputs(catalog, install, pose=POSE, material_kinds=MATERIALS):
     if (catalog.get('schema') != 1 or catalog.get('engine_version') != VERSION or
-            catalog.get('pose') != POSE or catalog.get('palette_sha256') != block_registry.fingerprint()):
+            catalog.get('pose') != pose or catalog.get('palette_sha256') != block_registry.fingerprint()):
         raise ValueError('Frame block catalog version, pose or palette requires regeneration')
+    if (not material_kinds or set(material_kinds) - set(MATERIALS) or
+            any(row['material'] not in material_kinds for row in catalog['resources'].values())):
+        raise ValueError('Frame block material scope does not cover catalog resources')
     packs, blocks, terrain, sources = source_records(install)
     if sources != catalog['source_sha256']:
         raise ValueError('Native block definitions or terrain atlas changed')
@@ -344,7 +351,7 @@ def outputs(catalog, install):
                 shape_reason(block[0], catalog['native_items'].get(item[0], {}), metadata)):
             raise ValueError('Unverified or duplicate native item-to-cube mapping')
         seen.add(item)
-        resource, entry, unused_bitmap = resolve_block(packs, blocks, terrain, block[0], resolved)
+        resource, entry, unused_bitmap = resolve_block(packs, blocks, terrain, block[0], resolved, pose)
         observed_paths = {Path(face['path']).with_suffix('').as_posix().split('/', 1)[1]
                           for face in entry['faces'].values()}
         if (row['resource'] != resource or row['definition_key'] != entry['definition_key'] or
@@ -358,8 +365,8 @@ def outputs(catalog, install):
         vertex = (ROOT / ('resource_pack/shaders/glsl/modern_projection_item_icon' + route + '.vertex')).read_text(encoding='ascii')
         vertex = vertex.replace('varying highp vec2 itemUv;',
                                 'varying highp vec2 itemUv;\nvarying highp vec2 itemGlintUv;')
-        face_uv = FACE_GLINT_UV % (','.join(repr(value) for value in POSE['center_offset_blocks']),
-                                   repr(POSE['scale_blocks']))
+        face_uv = FACE_GLINT_UV % (','.join(repr(value) for value in pose['center_offset_blocks']),
+                                   repr(pose['scale_blocks']))
         vertex = vertex.replace('void main() {', face_uv + 'void main() {')
         vertex = vertex.replace('itemUv=TEXCOORD_0;',
                                 'itemUv=TEXCOORD_0;\n    itemGlintUv=blockFaceUv(POSITION.xyz,NORMAL.xyz);')
@@ -368,7 +375,7 @@ def outputs(catalog, install):
     fragment = fragment.replace('varying highp vec2 itemUv;',
                                 'varying highp vec2 itemUv;\nvarying highp vec2 itemGlintUv;')
     fragment = fragment.replace('vec2 centered=itemUv-', 'vec2 centered=itemGlintUv-')
-    for kind in MATERIALS:
+    for kind in material_kinds:
         source = fragment.replace('if(texel.a<0.5)', 'if(texel.a<=0.0)') if kind == 'translucent' else fragment
         result['resource_pack/shaders/glsl/modern_projection_frame_block_' + kind + '.fragment'] = source.encode('ascii')
     for resource, entry in sorted(catalog['resources'].items()):
@@ -385,14 +392,14 @@ def outputs(catalog, install):
             raise ValueError('Native carried face atlas changed')
         texture = ASSET + '/' + resource
         result['resource_pack/textures/models/' + texture + '.png'] = bitmap
-        result['resource_pack/models/' + texture + '_mesh.json'] = encoded(cube_mesh(rectangles, texture))
+        result['resource_pack/models/' + texture + '_mesh.json'] = encoded(cube_mesh(rectangles, texture, pose))
         for suffix in ('', '_world'):
             model = PREFIX + resource + suffix
             material = 'modern_projection_frame_block_' + entry['material'] + suffix
             registry[model] = {'dy_load': True, 'mesh': texture + '_mesh.json',
                 'skeleton': ASSET + '/skeleton.json', 'animation': {}, 'material': material,
                 'texture': {'tex0': texture, 'tex1': 'modern_projection/item_icons/enchanted_glint'}}
-    for kind in MATERIALS:
+    for kind in material_kinds:
         for route in ('', '_world'):
             materials['modern_projection_frame_block_' + kind + route + ':entity_for_skeleton_alpha'] = {
                 'vertexShader': 'shaders/glsl/modern_projection_frame_block' + route + '.vertex',
@@ -423,7 +430,7 @@ def outputs(catalog, install):
         'PALETTE_SHA256 = ' + repr(block_registry.fingerprint()) + '\n'
         'RESOURCE_SHA256 = ' + repr(contract) + '\nPRODUCTION_QUALIFIED = False\n'
         'QUALIFICATION_SHA256 = None\nQUALIFICATION_RESOURCE_SHA256 = None\nQUALIFIED_MATERIALS = ()\n'
-        'POSE = ' + repr(POSE) + '\nITEMS = ' + repr(profiles) + '\n'
+        'POSE = ' + repr(pose) + '\nITEMS = ' + repr(profiles) + '\n'
         'UNSUPPORTED = ' + repr(catalog['unsupported']) + '\n').encode('ascii')
     return result
 
