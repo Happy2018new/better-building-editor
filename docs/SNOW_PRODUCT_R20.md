@@ -309,3 +309,55 @@ state under success and injected acquisition failure. This is probe-only work;
 the product source, image coordinates and acceptance thresholds are unchanged.
 Native verification of both the new reference isolation and the earlier camera
 recovery remains open.
+
+## V6 Minimal Native Lifecycle Accepted
+
+The frozen v6 run completes the single `blue_orchid h0` editor lifecycle on
+NEMC 3.10.0.420447 / Minecraft 1.21.130.0. The child process exits 0 after
+107.56971399999748 seconds. The original report records `completed=true`,
+`passed=true`, `restored=true`, all nine steps passed, and no cleanup errors.
+All four independent controls pass. Snow-side recall and complete-hull precision
+are both 1.0. The final saved-library-load mask has recall and precision 1.0
+against its combined control, and both original images were independently
+opened by the coordinating agent. This verifies the probe's placeholder
+isolation and ordered camera recovery for this one native lifecycle.
+
+The actual wrapper `receipt.json`, rather than the report's top level, retains
+`process_completed=true`, exit 0, `source_unchanged=true`,
+`host_data_unchanged=true`, and the original report SHA256. A post-close source
+audit verifies the same 3,116-file product contract
+`342accbbbded82443a1341dab92553435b6a9d3b596be15df87052e364d0a466`.
+All four reload settings remain false. All 210 canonical execution-boundary
+commit samples exceed 6 GiB; the minimum is 7,127,699,456 bytes. Persistent
+library writes and product qualification changes remain false.
+
+The original 16 captures retain actual source, preview state, camera and
+placeholder observations before pixel validation. The empty-scene placeholder
+is hidden and read back uniformly; its original fiber is later unmounted, so
+cleanup records it as removed without writing through an obsolete native path.
+The first ordinary close times out. The exact owned game and MCDK handles then
+report exit codes `0xC0000409` and `0`, respectively; the code alone does not
+establish cause. A later ordinary stop finalizes stopped metadata. Both exact
+identities and the observer are absent before the MC/WGC slot is returned.
+No force stop is used.
+
+`docs/evidence/snow-lifecycle-r20-v6-subset-v1` preserves the original raw report,
+receipt, captures, masks, ready image, exact process exits, frozen plan and its
+explicit launcher-only amendment. It binds the full source inventory while
+retaining only used assets and pure replay inputs. Its standalone replay runs
+the unchanged pinned AST definitions of the existing lifecycle analyzer and
+geometry helpers without importing game-facing modules:
+
+```powershell
+python -I -X utf8 docs/evidence/snow-lifecycle-r20-v6-subset-v1/verify_package.py --pixels
+```
+
+Independent replay after relocation to Temp passes all 16 original native
+captures. Targeted negative checks reject changed process identity, pictured
+native clock, control camera, actual camera observation, missing capture
+observation, visible empty placeholder and modified raw image bytes.
+
+Only the `blue_orchid h0` nine-step editor subset is accepted. Full snow
+acceptance remains open, including other plants and snow heights, positions,
+neighborhoods, and complete editor/full/missing projection integration. Native
+random plant placement offsets are outside the declared centered style.

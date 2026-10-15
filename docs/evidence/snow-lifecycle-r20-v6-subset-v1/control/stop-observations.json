@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "kind": "transcribed_tool_results_not_original_command_logs",
+  "owner": "snow-r20-v6",
+  "normal_close_attempts": 1,
+  "first_stop": {
+    "exec_session": 17940,
+    "exit_code": 1,
+    "output": "[instances] Game has not closed; inspect it or explicitly use stop --force"
+  },
+  "force_used": false,
+  "exact_exits_evidence": "process-exits.json",
+  "metadata_finalization": {
+    "tool_chunk": "4fe788",
+    "exit_code": 0,
+    "state": "stopped",
+    "performed_after_exact_exit_evidence": true
+  },
+  "final_identity_check": {
+    "tool_chunk": "8abeb1",
+    "exit_code": 0,
+    "frozen_sdk_process_identity": {
+      "39520": null,
+      "13568": null,
+      "45504": null
+    }
+  },
+  "native_workflow_exec": {
+    "exec_session": 17131,
+    "exit_code": 0,
+    "drained": true
+  },
+  "all_relevant_execs_drained": true,
+  "exit_cause_established": false
+}
