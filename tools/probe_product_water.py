@@ -237,6 +237,8 @@ def main():
                         help='Hide all fixture water above the support layer and restore all three owners')
     parser.add_argument('--opaque-side-controls', action='store_true',
                         help='Measure pool UV repetition at alpha one, independently of its backdrop')
+    parser.add_argument('--native-side-projection', action='store_true',
+                        help='Use same-session WorldToScreenPoint samples validated against native stone pixels')
     parser.add_argument('--measure-budgets', action='store_true',
                         help='Measure game-thread owner calls without IPC or capture costs')
     parser.add_argument('--oblique-bodies', action='store_true',
@@ -276,6 +278,8 @@ def main():
         parser.error('Opacity controls require a frozen animation phase')
     if args.opaque_side_controls and not args.frozen:
         parser.error('Opaque side controls require a frozen animation phase')
+    if args.native_side_projection and (not args.opaque_side_controls or not args.visibility_controls):
+        parser.error('Native side projection requires independent opaque and visibility controls')
     if args.production_default and args.frozen:
         parser.error('The ordinary default entry uses animated production models')
     if not 0 <= args.world_fixture_lift_y <= 128:
@@ -317,6 +321,7 @@ def main():
               'production_default_requested': args.production_default,
               'visibility_controls_requested': args.visibility_controls,
               'opaque_side_controls_requested': args.opaque_side_controls,
+              'native_side_projection_requested': args.native_side_projection,
               'owner_timing_requested': args.measure_budgets,
               'owned_native_assertion_checks': 0,
               'fixture_view': {'world_lift_y': args.world_fixture_lift_y,
@@ -351,6 +356,11 @@ def main():
                or view['shown']['size'] != report['camera_calibration']['capture_size']
                for view in calibration['views']):
             parser.error('Camera calibration changed its FOV or viewport between controls')
+    if args.native_side_projection:
+        from water_native_projection import SCHEMA, UNITS, side_query_code, validate_calibration
+        if set(routes) - {'editor'}:
+            validate_calibration(calibration, report['session_binding'], report['source_contract_sha256'])
+        report['native_side_projection'] = {'schema': SCHEMA, 'coordinate_units': UNITS, 'rows': {}}
     started = time.monotonic()
     record = lambda: base.write(args.output, report)
 
@@ -515,6 +525,21 @@ def main():
                             row['camera']['target'] = row['camera_expected']['target']
                         time.sleep(.35)
                         capture(label, row)
+                        if (args.native_side_projection and route != 'editor'
+                                and identity == 'pool' and control == 'dry'):
+                            opaque_label = route + '_pool_wet_side_opaque'
+                            if opaque_label not in report['captures']:
+                                raise RuntimeError('Native side sampling requires its earlier opaque PNG')
+                            native_reading = {'before': check.run(side_query_code())}
+                            native_reading.update(after=check.run(side_query_code()),
+                                session_binding=report['session_binding'],
+                                source_contract_sha256=report['source_contract_sha256'],
+                                capture_sha256=report['captures'][opaque_label]['sha256'],
+                                dry_capture_sha256=report['captures'][label]['sha256'],
+                                capture_size=[report['captures'][opaque_label]['width'],
+                                              report['captures'][opaque_label]['height']])
+                            report['native_side_projection']['rows'][opaque_label] = native_reading
+                            record()
                         if args.opaque_side_controls and identity == 'pool' and control == 'wet':
                             command = workspace.SCENE_ALPHA if route == 'editor' else workspace.WORLD_ALPHA
                             for alpha, phase in ((1., 'side_opaque'), (-1., 'side_default_restored')):

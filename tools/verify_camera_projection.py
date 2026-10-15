@@ -190,6 +190,21 @@ def analyze_calibration(evidence, signal_cache=None):
     return evidence
 
 
+def finalize_native_calibration(evidence, output):
+    from water_native_projection import validate_calibration
+    native = evidence['native_projection']
+    try:
+        native['validation'] = validate_calibration(evidence, native['session_binding'],
+                                                    native['source_contract_sha256'])
+    except (ValueError, KeyError, TypeError, OSError) as error:
+        evidence['passed'] = False
+        native.pop('validation', None)
+        native['validation_error'] = str(error)
+        raise
+    finally:
+        write_json(output, evidence)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
@@ -199,6 +214,10 @@ def main():
                         help='Calibration-only tilted camera below the cube to use a sky background')
     parser.add_argument('--fixture-lift-y', type=int, default=0,
                         help='Fixed world-space lift of the entire cube and camera fixture, chosen before capture')
+    parser.add_argument('--native-api', action='store_true',
+                        help='Bind native WorldToScreenPoint cube corners to each exact PNG and session')
+    parser.add_argument('--native-capture-exe', type=Path,
+                        help='Owner-bound WGC executable required by --native-api')
     parser.add_argument('--replay', type=Path, help='Reanalyze preserved native captures without calling a game')
     args = parser.parse_args()
     if args.replay is not None:
@@ -210,12 +229,36 @@ def main():
         return 0 if evidence['passed'] else 1
     if not -64 <= args.fixture_lift_y <= 64:
         parser.error('Fixture lift must be between -64 and 64 blocks')
+    if args.native_api and (not args.native_resolution or args.native_capture_exe is None):
+        parser.error('Native camera API evidence requires --native-resolution and --native-capture-exe')
     evidence = {'schema': 1, 'passed': False, 'completed': False, 'views': [],
                 'scope': 'Exact full native client cube; world blocks and player position untouched',
                 'session_file': os.environ.get('MCDEV_SESSION_FILE'),
                 'native_resolution': args.native_resolution,
                 'skyward_tilted': args.skyward_tilted,
                 'fixture_lift_y': args.fixture_lift_y}
+    if args.native_api:
+        from _session import load_session
+        from probe_product_water import snapshot_sources, snapshot_digest
+        from water_native_projection import SCHEMA, UNITS, cube_query_code
+        session = load_session(os.environ['MCDEV_SESSION_FILE'], os.environ['MCDEV_OWNER'], live=True)
+        evidence['native_projection'] = {'schema': SCHEMA, 'coordinate_units': UNITS, 'rows': {},
+            'session_binding': {key: session[key] for key in
+                ('id', 'owner', 'game_pid', 'game_identity', 'session_file')},
+            'source_contract_sha256': snapshot_digest(snapshot_sources(Path(__file__).resolve().parents[1]))}
+
+    def capture_frame(check, label):
+        if not args.native_api:
+            return check.capture(label)
+        from capture_native_window import capture as native_capture
+        reading = {'before': check.run(cube_query_code())}
+        capture = native_capture(session['session_file'], session['owner'],
+            args.output.with_name(args.output.stem + '_' + label + '.png'), args.native_capture_exe)
+        capture['size'] = [capture['width'], capture['height']]
+        reading.update(after=check.run(cube_query_code()), capture_sha256=capture['sha256'])
+        evidence['native_projection']['rows'][label] = reading
+        write_json(args.output, evidence)
+        return capture
     installed = saved = environment_saved = options_saved = False
     signal_cache = []
     try:
@@ -248,11 +291,11 @@ def main():
                     camera = check.wait('cube camera ' + label, lambda value: camera_matches(value, pose),
                                         lambda: check.run(CAMERA))
                     time.sleep(.4)
-                    shown = check.capture(label + '_shown')
+                    shown = capture_frame(check, label + '_shown')
                     try:
                         check.run('assert b.factory.CreateActorRender(b.entity).SetNotRenderAtAll(True)\n_result=True')
                         time.sleep(.25)
-                        hidden = check.capture(label + '_hidden')
+                        hidden = capture_frame(check, label + '_hidden')
                     finally:
                         check.run('assert b.factory.CreateActorRender(b.entity).SetNotRenderAtAll(False)\n_result=True')
                     after = check.run(CAMERA)
@@ -317,6 +360,8 @@ def main():
         raise
     finally:
         write_json(args.output, evidence)
+    if args.native_api:
+        finalize_native_calibration(evidence, args.output)
     print(json.dumps(evidence), flush=True)
     return 0 if evidence['passed'] else 1
 

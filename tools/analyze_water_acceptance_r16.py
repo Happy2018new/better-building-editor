@@ -85,11 +85,28 @@ def side_checks(source, images):
             sample_row = row
         shapes = {tuple(shape['position']): shape for shape in row['ready']['shapes']
                   if shape['texture'] == 'flowing_water_grey' and shape['faces'] & 30}
+        native_coordinates = None
+        if source.get('native_side_projection_requested') and route != 'editor':
+            from water_native_projection import side_coordinates
+            try:
+                native_coordinates = side_coordinates(source, opaque_label, images)
+            except (ValueError, KeyError, TypeError) as error:
+                for face in ('south', 'east'):
+                    results[label + '_' + face] = {'passed': False, 'error': str(error),
+                        'oracle': 'native_api', 'opaque_control': opaque_label}
+                continue
         for face, positions in ((2, ((3, 3, 4), (4, 3, 4))),
                                 (4, ((4, 3, 3), (4, 3, 4)))):
             try:
-                first, second = (side_sample(surface, shapes[position], face, sample_row, source)
-                                 for position in positions)
+                if native_coordinates is None:
+                    first, second = (side_sample(surface, shapes[position], face, sample_row, source)
+                                     for position in positions)
+                else:
+                    from water_native_projection import grids, sample
+                    plan = grids()
+                    keys = ['original_%s_%s' % ('south' if face == 2 else 'east',
+                            '_'.join(map(str, position))) for position in positions]
+                    first, second = (sample(surface, native_coordinates[key], plan[key]['dimensions']) for key in keys)
             except ValueError as error:
                 results[label + '_' + ('south' if face == 2 else 'east')] = {
                     'passed': False, 'error': str(error), 'opaque_control': opaque_label}
@@ -98,6 +115,7 @@ def side_checks(source, images):
             measured['background_control'] = dry_label
             measured['surface_opacity'] = 1. if source.get('opaque_side_controls_requested') else .45
             measured['opaque_control'] = opaque_label if source.get('opaque_side_controls_requested') else None
+            measured['oracle'] = 'native_api' if native_coordinates is not None else 'analytic'
             measured['negative_mirrored'] = repetition(first, second[:, ::-1])
             measured['negative_constant'] = repetition(first, np.full_like(second, second.mean()))
             measured['negative_wrong_phase'] = repetition(first, np.roll(second, 5, axis=1))
@@ -177,6 +195,9 @@ def replay(path):
             result['visibility'][label] = measured
     if source.get('frozen'):
         result['side_uv'] = side_checks(source, images)
+        if source.get('native_side_projection_requested'):
+            result['analytic_side_uv_diagnostic'] = side_checks(
+                dict(source, native_side_projection_requested=False), images)
     if source.get('owner_timing_requested'):
         result['budgets'] = budget_checks(source)
     for label, row in source['rows'].items():

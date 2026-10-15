@@ -1,0 +1,2567 @@
+{
+  "schema": 1,
+  "passed": true,
+  "completed": true,
+  "views": [
+    {
+      "view": "front",
+      "pose": {
+        "position": [
+          6.5,
+          12.5,
+          12.5
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          12.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          6.5,
+          12.5,
+          12.5
+        ],
+        "rotation": [
+          0.0,
+          1.3660377589985728e-05,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            910,
+            465,
+            1084,
+            640
+          ],
+          "max_boundary_error_pixels": 11
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            840,
+            395,
+            1154,
+            710
+          ],
+          "max_boundary_error_pixels": 81
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_front_signal.png",
+      "shown": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_front_shown.png",
+        "started_at": "2026-10-15T13:11:18.781123+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1923941738814bd187e51921b7d4c759\\session.json",
+        "owner": "water-r20-v2",
+        "game_pid": 53056,
+        "game_identity": "134365433509367662",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 14944856,
+          "pid": 53056,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 765300398149,
+          "frame_qpc_100ns": 765300505961,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          538.3623385853954,
+          736.9997094588252,
+          1253.2278172226963
+        ],
+        "sha256": "eaee1123958063d6fd1a9cdd59694837afddec6913b6efe753f0e26144d370d7",
+        "bytes": 89624,
+        "finished_at": "2026-10-15T13:11:19.760269+00:00",
+        "elapsed_seconds": 0.9791449999902397,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "hidden": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_front_hidden.png",
+        "started_at": "2026-10-15T13:11:21.036016+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1923941738814bd187e51921b7d4c759\\session.json",
+        "owner": "water-r20-v2",
+        "game_pid": 53056,
+        "game_identity": "134365433509367662",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 14944856,
+          "pid": 53056,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 765322992725,
+          "frame_qpc_100ns": 765323111694,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          567.6970821465154,
+          749.4766892107469,
+          1546.5433815759402
+        ],
+        "sha256": "bc34f36ef2b9e868f878623e11a52a17b0ee4df1989b3acdf1d7d1660e69741b",
+        "bytes": 234694,
+        "finished_at": "2026-10-15T13:11:21.994215+00:00",
+        "elapsed_seconds": 0.9581958999915514,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "outline_comparison": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_front_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          920,
+          474,
+          1075,
+          629
+        ],
+        "predicted_bounds": [
+          920,
+          476,
+          1074,
+          629
+        ],
+        "boundary_rms_pixels": 1.118033988749895,
+        "mask_iou": 0.9808092581800016,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "view": "right",
+      "pose": {
+        "position": [
+          12.5,
+          12.5,
+          6.5
+        ],
+        "rotation": [
+          -0.0,
+          270.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          12.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          12.5,
+          12.5,
+          6.5
+        ],
+        "rotation": [
+          0.0,
+          -90.0,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            910,
+            465,
+            1084,
+            640
+          ],
+          "max_boundary_error_pixels": 11
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            840,
+            395,
+            1154,
+            710
+          ],
+          "max_boundary_error_pixels": 81
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_right_signal.png",
+      "shown": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_right_shown.png",
+        "started_at": "2026-10-15T13:11:27.645238+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1923941738814bd187e51921b7d4c759\\session.json",
+        "owner": "water-r20-v2",
+        "game_pid": 53056,
+        "game_identity": "134365433509367662",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 14944856,
+          "pid": 53056,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 765387901694,
+          "frame_qpc_100ns": 765388019735,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          578.7035214630448,
+          802.8495595021593,
+          1433.6667648676303
+        ],
+        "sha256": "c04609bb264794eb548a7249c10c2e21b5b07417acb929f98579d92f832ec2be",
+        "bytes": 152327,
+        "finished_at": "2026-10-15T13:11:28.493498+00:00",
+        "elapsed_seconds": 0.8482565000012983,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "hidden": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_right_hidden.png",
+        "started_at": "2026-10-15T13:11:29.514966+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1923941738814bd187e51921b7d4c759\\session.json",
+        "owner": "water-r20-v2",
+        "game_pid": 53056,
+        "game_identity": "134365433509367662",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 14944856,
+          "pid": 53056,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 765407396563,
+          "frame_qpc_100ns": 765407473883,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          568.5173133848713,
+          750.0217614253213,
+          1546.9867090512987
+        ],
+        "sha256": "8d1da4477d76774742291d7e9ee47655ab83c4a6f9aead74a8d95124ab0f9b3e",
+        "bytes": 238677,
+        "finished_at": "2026-10-15T13:11:30.449761+00:00",
+        "elapsed_seconds": 0.9348026000079699,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "outline_comparison": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_right_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          920,
+          474,
+          1075,
+          629
+        ],
+        "predicted_bounds": [
+          920,
+          476,
+          1074,
+          629
+        ],
+        "boundary_rms_pixels": 1.118033988749895,
+        "mask_iou": 0.9808092581800016,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "view": "tilted",
+      "pose": {
+        "position": [
+          6.5,
+          9.5,
+          12.5
+        ],
+        "rotation": [
+          -26.56505012512207,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          12.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          6.5,
+          9.5,
+          12.5
+        ],
+        "rotation": [
+          -26.565046310424805,
+          1.3660379408975132e-05,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            917,
+            453,
+            1077,
+            646
+          ],
+          "max_boundary_error_pixels": 12
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            853,
+            373,
+            1141,
+            720
+          ],
+          "max_boundary_error_pixels": 91
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_tilted_signal.png",
+      "shown": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_tilted_shown.png",
+        "started_at": "2026-10-15T13:11:36.034504+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1923941738814bd187e51921b7d4c759\\session.json",
+        "owner": "water-r20-v2",
+        "game_pid": 53056,
+        "game_identity": "134365433509367662",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 14944856,
+          "pid": 53056,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 765472784966,
+          "frame_qpc_100ns": 765472866759,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          558.6869099320376,
+          703.4018914047263,
+          1260.9870381775208
+        ],
+        "sha256": "a80a561282781c91a38dafebf41064e9636301fbd78c4ad6e2d72ecf3011782f",
+        "bytes": 92498,
+        "finished_at": "2026-10-15T13:11:37.149168+00:00",
+        "elapsed_seconds": 1.114658700011205,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "hidden": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_tilted_hidden.png",
+        "started_at": "2026-10-15T13:11:38.216911+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1923941738814bd187e51921b7d4c759\\session.json",
+        "owner": "water-r20-v2",
+        "game_pid": 53056,
+        "game_identity": "134365433509367662",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 14944856,
+          "pid": 53056,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1707284,
+            "pid": 19500
+          },
+          "windows": [
+            {
+              "hwnd": 14944856,
+              "pid": 53056,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1707284,
+          "pid": 19500
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 765494379863,
+          "frame_qpc_100ns": 765494502763,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          526.8570409215232,
+          609.5337360319597,
+          1004.4309665585039
+        ],
+        "sha256": "f485280474248947136b6e196310d2b42d5a089b89b3dc0a462fb227a0744f5f",
+        "bytes": 89840,
+        "finished_at": "2026-10-15T13:11:39.152741+00:00",
+        "elapsed_seconds": 0.9358298000006471,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "outline_comparison": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-r20-final-v2\\calibration_tilted_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          927,
+          464,
+          1068,
+          634
+        ],
+        "predicted_bounds": [
+          927,
+          465,
+          1067,
+          634
+        ],
+        "boundary_rms_pixels": 0.7071067811865476,
+        "mask_iou": 0.9867616218105557,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    }
+  ],
+  "scope": "Exact full native client cube; world blocks and player position untouched",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1923941738814bd187e51921b7d4c759\\session.json",
+  "native_resolution": true,
+  "skyward_tilted": true,
+  "fixture_lift_y": 64,
+  "native_projection": {
+    "schema": 1,
+    "coordinate_units": "physical_pixels",
+    "rows": {
+      "front_shown": {
+        "before": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 619.062744140625,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832763671875,
+                "screenX": 920.0166015625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.93731689453125,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.0168151855469,
+                "screenX": 920.0166015625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 1063.0625,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 1074.9830322265625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.9372863769531,
+                "screenX": 1063.0625,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.01678466796875,
+                "screenX": 1074.9830322265625,
+                "depth": 0.002190021798014641
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            0.0,
+            1.3660377589985728e-05,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            6.5,
+            12.5,
+            12.5
+          ]
+        },
+        "after": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 619.062744140625,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832763671875,
+                "screenX": 920.0166015625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.93731689453125,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.0168151855469,
+                "screenX": 920.0166015625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 1063.0625,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 1074.9830322265625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.9372863769531,
+                "screenX": 1063.0625,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.01678466796875,
+                "screenX": 1074.9830322265625,
+                "depth": 0.002190021798014641
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            0.0,
+            1.3660377589985728e-05,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            6.5,
+            12.5,
+            12.5
+          ]
+        },
+        "capture_sha256": "eaee1123958063d6fd1a9cdd59694837afddec6913b6efe753f0e26144d370d7"
+      },
+      "front_hidden": {
+        "before": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 619.062744140625,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832763671875,
+                "screenX": 920.0166015625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.93731689453125,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.0168151855469,
+                "screenX": 920.0166015625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 1063.0625,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 1074.9830322265625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.9372863769531,
+                "screenX": 1063.0625,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.01678466796875,
+                "screenX": 1074.9830322265625,
+                "depth": 0.002190021798014641
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            0.0,
+            1.3660377589985728e-05,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            6.5,
+            12.5,
+            12.5
+          ]
+        },
+        "after": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 619.062744140625,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832763671875,
+                "screenX": 920.0166015625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.93731689453125,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.0168151855469,
+                "screenX": 920.0166015625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 1063.0625,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 1074.9830322265625,
+                "depth": 0.002190021798014641
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.9372863769531,
+                "screenX": 1063.0625,
+                "depth": 0.0025900257751345634
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.01678466796875,
+                "screenX": 1074.9830322265625,
+                "depth": 0.002190021798014641
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            0.0,
+            1.3660377589985728e-05,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            6.5,
+            12.5,
+            12.5
+          ]
+        },
+        "capture_sha256": "bc34f36ef2b9e868f878623e11a52a17b0ee4df1989b3acdf1d7d1660e69741b"
+      },
+      "right_shown": {
+        "before": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 1063.0625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 931.9371337890625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.9372863769531,
+                "screenX": 1063.0625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.93731689453125,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 1074.9830322265625,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 920.0166625976562,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.01678466796875,
+                "screenX": 1074.9830322265625,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.0168151855469,
+                "screenX": 920.0166015625,
+                "depth": 0.0021900220308452845
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            0.0,
+            -90.0,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            12.5,
+            12.5,
+            6.5
+          ]
+        },
+        "after": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 1063.0625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 931.9371337890625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.9372863769531,
+                "screenX": 1063.0625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.93731689453125,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 1074.9830322265625,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 920.0166625976562,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.01678466796875,
+                "screenX": 1074.9830322265625,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.0168151855469,
+                "screenX": 920.0166015625,
+                "depth": 0.0021900220308452845
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            0.0,
+            -90.0,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            12.5,
+            12.5,
+            6.5
+          ]
+        },
+        "capture_sha256": "c04609bb264794eb548a7249c10c2e21b5b07417acb929f98579d92f832ec2be"
+      },
+      "right_hidden": {
+        "before": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 1063.0625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 931.9371337890625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.9372863769531,
+                "screenX": 1063.0625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.93731689453125,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 1074.9830322265625,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 920.0166625976562,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.01678466796875,
+                "screenX": 1074.9830322265625,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.0168151855469,
+                "screenX": 920.0166015625,
+                "depth": 0.0021900220308452845
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            0.0,
+            -90.0,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            12.5,
+            12.5,
+            6.5
+          ]
+        },
+        "after": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 1063.0625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 619.0626831054688,
+                "screenX": 931.9371337890625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.9372863769531,
+                "screenX": 1063.0625,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 487.93731689453125,
+                "screenX": 931.9370727539062,
+                "depth": 0.0025900262407958508
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 1074.9830322265625,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 630.9832153320312,
+                "screenX": 920.0166625976562,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.01678466796875,
+                "screenX": 1074.9830322265625,
+                "depth": 0.0021900220308452845
+              },
+              {
+                "isInScreen": true,
+                "screenY": 476.0168151855469,
+                "screenX": 920.0166015625,
+                "depth": 0.0021900220308452845
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            0.0,
+            -90.0,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            12.5,
+            12.5,
+            6.5
+          ]
+        },
+        "capture_sha256": "8d1da4477d76774742291d7e9ee47655ab83c4a6f9aead74a8d95124ab0f9b3e"
+      },
+      "tilted_shown": {
+        "before": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 635.9820556640625,
+                "screenX": 936.021240234375,
+                "depth": 0.0027627521194517612
+              },
+              {
+                "isInScreen": true,
+                "screenY": 585.0671997070312,
+                "screenX": 926.913330078125,
+                "depth": 0.0024049775674939156
+              },
+              {
+                "isInScreen": true,
+                "screenY": 527.6722412109375,
+                "screenX": 939.7472534179688,
+                "depth": 0.0029416391626000404
+              },
+              {
+                "isInScreen": true,
+                "screenY": 465.3294372558594,
+                "screenX": 931.7813720703125,
+                "depth": 0.0025838648434728384
+              },
+              {
+                "isInScreen": true,
+                "screenY": 635.9820556640625,
+                "screenX": 1058.978271484375,
+                "depth": 0.0027627521194517612
+              },
+              {
+                "isInScreen": true,
+                "screenY": 585.0671997070312,
+                "screenX": 1068.0863037109375,
+                "depth": 0.0024049775674939156
+              },
+              {
+                "isInScreen": true,
+                "screenY": 527.6722412109375,
+                "screenX": 1055.2523193359375,
+                "depth": 0.0029416391626000404
+              },
+              {
+                "isInScreen": true,
+                "screenY": 465.3294372558594,
+                "screenX": 1063.21826171875,
+                "depth": 0.0025838648434728384
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            -26.565046310424805,
+            1.3660379408975132e-05,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            6.5,
+            9.5,
+            12.5
+          ]
+        },
+        "after": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 635.9820556640625,
+                "screenX": 936.021240234375,
+                "depth": 0.0027627521194517612
+              },
+              {
+                "isInScreen": true,
+                "screenY": 585.0671997070312,
+                "screenX": 926.913330078125,
+                "depth": 0.0024049775674939156
+              },
+              {
+                "isInScreen": true,
+                "screenY": 527.6722412109375,
+                "screenX": 939.7472534179688,
+                "depth": 0.0029416391626000404
+              },
+              {
+                "isInScreen": true,
+                "screenY": 465.3294372558594,
+                "screenX": 931.7813720703125,
+                "depth": 0.0025838648434728384
+              },
+              {
+                "isInScreen": true,
+                "screenY": 635.9820556640625,
+                "screenX": 1058.978271484375,
+                "depth": 0.0027627521194517612
+              },
+              {
+                "isInScreen": true,
+                "screenY": 585.0671997070312,
+                "screenX": 1068.0863037109375,
+                "depth": 0.0024049775674939156
+              },
+              {
+                "isInScreen": true,
+                "screenY": 527.6722412109375,
+                "screenX": 1055.2523193359375,
+                "depth": 0.0029416391626000404
+              },
+              {
+                "isInScreen": true,
+                "screenY": 465.3294372558594,
+                "screenX": 1063.21826171875,
+                "depth": 0.0025838648434728384
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            -26.565046310424805,
+            1.3660379408975132e-05,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            6.5,
+            9.5,
+            12.5
+          ]
+        },
+        "capture_sha256": "a80a561282781c91a38dafebf41064e9636301fbd78c4ad6e2d72ecf3011782f"
+      },
+      "tilted_hidden": {
+        "before": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 635.9820556640625,
+                "screenX": 936.021240234375,
+                "depth": 0.0027627521194517612
+              },
+              {
+                "isInScreen": true,
+                "screenY": 585.0671997070312,
+                "screenX": 926.913330078125,
+                "depth": 0.0024049775674939156
+              },
+              {
+                "isInScreen": true,
+                "screenY": 527.6722412109375,
+                "screenX": 939.7472534179688,
+                "depth": 0.0029416391626000404
+              },
+              {
+                "isInScreen": true,
+                "screenY": 465.3294372558594,
+                "screenX": 931.7813720703125,
+                "depth": 0.0025838648434728384
+              },
+              {
+                "isInScreen": true,
+                "screenY": 635.9820556640625,
+                "screenX": 1058.978271484375,
+                "depth": 0.0027627521194517612
+              },
+              {
+                "isInScreen": true,
+                "screenY": 585.0671997070312,
+                "screenX": 1068.0863037109375,
+                "depth": 0.0024049775674939156
+              },
+              {
+                "isInScreen": true,
+                "screenY": 527.6722412109375,
+                "screenX": 1055.2523193359375,
+                "depth": 0.0029416391626000404
+              },
+              {
+                "isInScreen": true,
+                "screenY": 465.3294372558594,
+                "screenX": 1063.21826171875,
+                "depth": 0.0025838648434728384
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            -26.565046310424805,
+            1.3660379408975132e-05,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            6.5,
+            9.5,
+            12.5
+          ]
+        },
+        "after": {
+          "origin": [
+            5,
+            11,
+            5
+          ],
+          "world_points": {
+            "cube": [
+              [
+                6.0,
+                12.0,
+                6.0
+              ],
+              [
+                6.0,
+                12.0,
+                7.0
+              ],
+              [
+                6.0,
+                13.0,
+                6.0
+              ],
+              [
+                6.0,
+                13.0,
+                7.0
+              ],
+              [
+                7.0,
+                12.0,
+                6.0
+              ],
+              [
+                7.0,
+                12.0,
+                7.0
+              ],
+              [
+                7.0,
+                13.0,
+                6.0
+              ],
+              [
+                7.0,
+                13.0,
+                7.0
+              ]
+            ]
+          },
+          "projection": {
+            "cube": [
+              {
+                "isInScreen": true,
+                "screenY": 635.9820556640625,
+                "screenX": 936.021240234375,
+                "depth": 0.0027627521194517612
+              },
+              {
+                "isInScreen": true,
+                "screenY": 585.0671997070312,
+                "screenX": 926.913330078125,
+                "depth": 0.0024049775674939156
+              },
+              {
+                "isInScreen": true,
+                "screenY": 527.6722412109375,
+                "screenX": 939.7472534179688,
+                "depth": 0.0029416391626000404
+              },
+              {
+                "isInScreen": true,
+                "screenY": 465.3294372558594,
+                "screenX": 931.7813720703125,
+                "depth": 0.0025838648434728384
+              },
+              {
+                "isInScreen": true,
+                "screenY": 635.9820556640625,
+                "screenX": 1058.978271484375,
+                "depth": 0.0027627521194517612
+              },
+              {
+                "isInScreen": true,
+                "screenY": 585.0671997070312,
+                "screenX": 1068.0863037109375,
+                "depth": 0.0024049775674939156
+              },
+              {
+                "isInScreen": true,
+                "screenY": 527.6722412109375,
+                "screenX": 1055.2523193359375,
+                "depth": 0.0029416391626000404
+              },
+              {
+                "isInScreen": true,
+                "screenY": 465.3294372558594,
+                "screenX": 1063.21826171875,
+                "depth": 0.0025838648434728384
+              }
+            ]
+          },
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0,
+          "camera_rotation": [
+            -26.565046310424805,
+            1.3660379408975132e-05,
+            -1.3660377589985728e-05
+          ],
+          "camera_position": [
+            6.5,
+            9.5,
+            12.5
+          ]
+        },
+        "capture_sha256": "f485280474248947136b6e196310d2b42d5a089b89b3dc0a462fb227a0744f5f"
+      }
+    },
+    "session_binding": {
+      "id": "1923941738814bd187e51921b7d4c759",
+      "owner": "water-r20-v2",
+      "game_pid": 53056,
+      "game_identity": "134365433509367662",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1923941738814bd187e51921b7d4c759\\session.json"
+    },
+    "source_contract_sha256": "638fb53a241c79788efd342eeea4826c2275884fd2b0380e157d245d98a295ba",
+    "validation": {
+      "front": {
+        "native_api_mask_iou": 0.9745201989068344
+      },
+      "right": {
+        "native_api_mask_iou": 0.9745201989068344
+      },
+      "tilted": {
+        "native_api_mask_iou": 0.9692268348819367
+      }
+    }
+  },
+  "environment": {
+    "rules": {
+      "command_blocks_enabled": true,
+      "mob_griefing": true,
+      "enable": true,
+      "keep_inventory": true,
+      "entities_drop_loot": true,
+      "daylight_cycle": false,
+      "random_tick_speed": 1,
+      "mob_spawn": true,
+      "weather_cycle": false,
+      "show_days_played": false,
+      "recipes_unlock": true,
+      "is_flat_world": true,
+      "always_day": false,
+      "skip_night_by_sleeping": true,
+      "player_sleeping_percentage": 100
+    },
+    "raining": false,
+    "thunder": false,
+    "time": 0
+  },
+  "capture_options": {
+    "clouds_during_capture": 0,
+    "clouds_before": 0
+  },
+  "weather_settle_seconds": 10.0,
+  "fixture": {
+    "cube_material": [
+      "minecraft:stone",
+      0
+    ],
+    "projection_origin": [
+      5,
+      11,
+      5
+    ],
+    "cube_cell": [
+      1,
+      1,
+      1
+    ],
+    "cube_size": [
+      3,
+      3,
+      3
+    ],
+    "player_origin": [
+      0,
+      -60,
+      0
+    ]
+  },
+  "fov_convention": "calibrated_vertical",
+  "reported_fov": 60.0,
+  "screen_aspect": 1.8014440433212997,
+  "reported_fov_is_effective": false,
+  "runtime_minecraft_version": "1.21.130.0",
+  "vertical_fov": 66.6,
+  "individual_fitted_vertical_fov": [
+    66.3,
+    66.3,
+    66.6
+  ],
+  "limits": {
+    "boundary_rms_pixels": 2,
+    "mask_iou": 0.95,
+    "outline_recall_2px": 0.985,
+    "outline_precision_2px": 0.985,
+    "source": "Native JPEG edge extraction; complete hull must agree within two pixels in all three views"
+  },
+  "environment_restored": true,
+  "capture_options_restored": true,
+  "projection_restored": true,
+  "camera_restored": true,
+  "visual_restored": true,
+  "editor_restored": true,
+  "cleanup_errors": [],
+  "restored": true
+}
