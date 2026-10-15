@@ -4,6 +4,7 @@ precision highp float;
 #include "uniformExtraVectorConstants.h"
 #include "uniformShaderConstants.h"
 varying highp vec2 itemUv;
+varying highp vec2 itemGlintUv;
 varying highp float itemVisible;
 varying highp float itemEnchanted;
 varying highp float itemClip;
@@ -26,6 +27,15 @@ float frameIntensity(vec3 normal) {
     vec3 N=normalize(normal);
     N.y*=TILE_LIGHT_COLOR.w;
     return (1.0+N.y)*0.275-N.x*N.x*0.1+N.z*N.z*0.1+0.45;
+}
+vec2 blockFaceUv(vec3 position, vec3 normal) {
+    vec3 point=(vec3(mod(position.x,2.0)-0.5,position.y-0.5,position.z)-vec3(0.0,0.0,0.1875))/0.5+vec3(0.5);
+    if(normal.z<-0.5) return vec2(point.x,1.0-point.y);
+    if(normal.z>0.5) return vec2(1.0-point.x,1.0-point.y);
+    if(normal.x<-0.5) return vec2(1.0-point.z,1.0-point.y);
+    if(normal.x>0.5) return vec2(point.z,1.0-point.y);
+    if(normal.y>0.5) return vec2(point.x,1.0-point.z);
+    return vec2(point.x,point.z);
 }
 void main() {
     float slot=floor(POSITION.x/2.0);
@@ -86,5 +96,6 @@ void main() {
     gl_Position=WORLDVIEWPROJ*entityPoint;
     itemClip=-1.0;
     itemUv=TEXCOORD_0;
+    itemGlintUv=blockFaceUv(POSITION.xyz,NORMAL.xyz);
     gl_PointSize=1.0;
 }

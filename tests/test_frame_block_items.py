@@ -50,7 +50,7 @@ class FrameBlockResources(unittest.TestCase):
         self.assertGreater(len({row['name'] for row in self.catalog['items']}), 300)
         for row in source.ITEMS.values():
             self.assertEqual(('frame',), row['content_families'])
-            self.assertIs(row['supports_enchantment'], False)
+            self.assertIs(row['supports_enchantment'], True)
         for row in self.catalog['items']:
             self.assertTrue(row['observed_item_texture'].startswith('textures/blocks/'))
             self.assertIn(row['resource'], self.catalog['resources'])
@@ -151,6 +151,9 @@ class FrameBlockAdmission(unittest.TestCase):
         self.assertIsNone(sprite_content(foreground(empty), actor_data(empty), profile.items))
         self.assertEqual(before, orientation_document('frame_f2_r3').to_data())
         self.assertIsNotNone(actor_data(doc.get((5, 3, 3))))
+        enchanted = document('frame_f2_r3', 'minecraft:quartz_block', enchanted=True)
+        cell = enchanted.get((2, 3, 3))
+        self.assertTrue(sprite_content(foreground(cell), actor_data(cell), profile.items)[3])
         with self.assertRaises(ValueError):
             document('frame_f2_r3', 'minecraft:oak_stairs', 0)
 
@@ -168,10 +171,35 @@ class FrameBlockAdmission(unittest.TestCase):
         item = {'newItemName': 'minecraft:stone', 'newAuxValue': 0, 'isEnchanted': False, 'userData': {}}
         for family in ('shelf', 'campfire'):
             self.assertIsNone(sprite_item(item, candidate_profile(ENGINE).items, family))
-        self.assertIsNone(sprite_content(frame(), actor(item='minecraft:stone',
-            user_data={'ench': tag(9, [tag(10, {})])}), profile.items))
+        for name in ('stone', 'quartz_block'):
+            payload = actor(item='minecraft:' + name,
+                user_data={'ench': tag(9, [tag(10, {'id': tag(2, 9), 'lvl': tag(2, 3)})])})
+            saved = copy.deepcopy(payload)
+            self.assertTrue(sprite_content(frame(), payload, profile.items)[3])
+            document = Document((1, 1, 1), {(0, 0, 0): make_cell(frame(), nbt=payload)})
+            groups = tuple(row for row in iter_render_steps(document, profile) if row)
+            self.assertEqual(1, int(groups[0].uniforms[0][0]) // 4096)
+            self.assertEqual(saved, payload)
         self.assertIsNone(sprite_content(frame(), actor(item='minecraft:stone',
             user_data={'CustomColor': tag(3, 123)}), profile.items))
+
+    def test_artificially_enchanted_quartz_block_keeps_all_48_pose_codes_and_icon_ownership(self):
+        profile = frame_block_candidate_profile(ENGINE)
+        for facing in range(6):
+            for rotation in range(8):
+                payload = actor(rotation * 45., 'minecraft:quartz_block',
+                    {'ench': tag(9, [tag(10, {'id': tag(2, 9), 'lvl': tag(2, 3)})])})
+                saved = copy.deepcopy(payload)
+                document = Document((1, 1, 1), {(0, 0, 0): make_cell(frame(facing), nbt=payload)})
+                groups = tuple(row for row in iter_render_steps(document, profile) if row)
+                self.assertEqual(float(4096 + facing * 64 + rotation * 512), groups[0].uniforms[0][0])
+                self.assertEqual(saved, payload)
+        combined = candidate_profile(ENGINE)
+        quartz = combined.items.get(('minecraft:quartz', 0))
+        quartz_block = combined.items.get(('minecraft:quartz_block', 0))
+        self.assertIsNotNone(quartz)
+        self.assertEqual('frame_block_cube', quartz_block['family'])
+        self.assertNotEqual(quartz['ui_model'], quartz_block['ui_model'])
 
     def test_world_missing_targets_and_cutaway_do_not_leak_neighbor_block_items(self):
         profile = frame_block_candidate_profile(ENGINE)

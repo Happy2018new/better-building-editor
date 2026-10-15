@@ -29,6 +29,16 @@ POSE = {'schema': 1, 'shape': 'full_cube', 'scale_blocks': .5,
         'center_offset_blocks': [0., 0., .1875], 'accepted': False,
         'status': 'provisional_3d_pose_requires_native_six_face_rotation_depth_controls'}
 MATERIALS = ('opaque', 'cutout', 'translucent')
+FACE_GLINT_UV = '''vec2 blockFaceUv(vec3 position, vec3 normal) {
+    vec3 point=(vec3(mod(position.x,2.0)-0.5,position.y-0.5,position.z)-vec3(%s))/%s+vec3(0.5);
+    if(normal.z<-0.5) return vec2(point.x,1.0-point.y);
+    if(normal.z>0.5) return vec2(1.0-point.x,1.0-point.y);
+    if(normal.x<-0.5) return vec2(1.0-point.z,1.0-point.y);
+    if(normal.x>0.5) return vec2(point.z,1.0-point.y);
+    if(normal.y>0.5) return vec2(point.x,1.0-point.z);
+    return vec2(point.x,point.z);
+}
+'''
 
 
 def sha(data):
@@ -311,7 +321,8 @@ def observe(raw, basic, install):
             'production_qualified': False, 'qualification_sha256': None,
             'qualification_resource_sha256': None, 'qualified_materials': [],
             'required_native_gates': ['six_faces', 'eight_rotations', 'three_dimensional_thickness',
-                'frame_body_depth', 'editor_shared_depth', 'world_full_missing', 'material_specific_alpha']}
+                'frame_body_depth', 'editor_shared_depth', 'world_full_missing', 'material_specific_alpha',
+                'artificial_enchantment_payload', 'glint_six_face_uv_rotation_occlusion']}
 
 
 def outputs(catalog, install):
@@ -344,9 +355,19 @@ def outputs(catalog, install):
     result['resource_pack/models/' + ASSET + '/skeleton.json'] = (
         ROOT / 'resource_pack/models/modern_projection/item_icons/skeleton.json').read_bytes()
     for route in ('', '_world'):
-        result['resource_pack/shaders/glsl/modern_projection_frame_block' + route + '.vertex'] = (
-            ROOT / ('resource_pack/shaders/glsl/modern_projection_item_icon' + route + '.vertex')).read_bytes()
+        vertex = (ROOT / ('resource_pack/shaders/glsl/modern_projection_item_icon' + route + '.vertex')).read_text(encoding='ascii')
+        vertex = vertex.replace('varying highp vec2 itemUv;',
+                                'varying highp vec2 itemUv;\nvarying highp vec2 itemGlintUv;')
+        face_uv = FACE_GLINT_UV % (','.join(repr(value) for value in POSE['center_offset_blocks']),
+                                   repr(POSE['scale_blocks']))
+        vertex = vertex.replace('void main() {', face_uv + 'void main() {')
+        vertex = vertex.replace('itemUv=TEXCOORD_0;',
+                                'itemUv=TEXCOORD_0;\n    itemGlintUv=blockFaceUv(POSITION.xyz,NORMAL.xyz);')
+        result['resource_pack/shaders/glsl/modern_projection_frame_block' + route + '.vertex'] = vertex.encode('ascii')
     fragment = (ROOT / 'resource_pack/shaders/glsl/modern_projection_item_icon.fragment').read_text(encoding='ascii')
+    fragment = fragment.replace('varying highp vec2 itemUv;',
+                                'varying highp vec2 itemUv;\nvarying highp vec2 itemGlintUv;')
+    fragment = fragment.replace('vec2 centered=itemUv-', 'vec2 centered=itemGlintUv-')
     for kind in MATERIALS:
         source = fragment.replace('if(texel.a<0.5)', 'if(texel.a<=0.0)') if kind == 'translucent' else fragment
         result['resource_pack/shaders/glsl/modern_projection_frame_block_' + kind + '.fragment'] = source.encode('ascii')
@@ -388,7 +409,8 @@ def outputs(catalog, install):
         profiles[key] = {'ui_model': PREFIX + resource, 'world_model': PREFIX + resource + '_world',
             'resource_key': key, 'observed_aux': tuple(sorted(set(auxiliaries))), 'max_durability': 0,
             'family': 'frame_block_cube', 'content_families': ('frame',),
-            'supports_enchantment': False, 'material': catalog['resources'][resource]['material'],
+            'supports_enchantment': True, 'glint_uv': 'face_local_unit_square_candidate',
+            'material': catalog['resources'][resource]['material'],
             'texture_sha256': catalog['resources'][resource]['bitmap_sha256']}
     result['tools/data/frame_block_item_registrations_nemc_' + VERSION + '.json'] = encoded(
         {'schema': 1, 'engine_version': VERSION, 'models': registry, 'materials': materials})

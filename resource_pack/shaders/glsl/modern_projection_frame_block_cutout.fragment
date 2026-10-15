@@ -9,6 +9,7 @@ precision highp float;
 uniform sampler2D TEXTURE_0;
 uniform sampler2D TEXTURE_1;
 varying highp vec2 itemUv;
+varying highp vec2 itemGlintUv;
 varying highp float itemVisible;
 varying highp float itemEnchanted;
 varying highp float itemClip;
@@ -21,7 +22,7 @@ void main() {
     if(texel.a<0.5) discard;
     vec3 rgb=texel.rgb*itemLight;
     if(itemEnchanted>0.5) {
-        vec2 centered=itemUv-vec2(0.5);
+        vec2 centered=itemGlintUv-vec2(0.5);
         vec2 firstUv;
         vec2 secondUv;
         if(itemFrame>0.5) {

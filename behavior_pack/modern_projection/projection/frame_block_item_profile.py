@@ -17,7 +17,7 @@ def candidate_items(engine_version, materials=MATERIALS):
     for key, row in source.ITEMS.items():
         if (row.get('family') != 'frame_block_cube' or
                 row.get('content_families') != ('frame',) or
-                row.get('supports_enchantment') is not False or
+                row.get('supports_enchantment') is not True or
                 row.get('material') not in MATERIALS):
             raise ValueError('Frame block resources exceed their independent content scope')
         if row['material'] in materials:

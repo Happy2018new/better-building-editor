@@ -93,7 +93,10 @@ def run(args):
     report['view_configuration']={'angle_degrees':args.view_angle,'editor_zoom':args.editor_zoom,
                                   'native_target_plain':args.native_target_plain,
                                   'native_target':args.native_target}
-    native_mode=args.native_target or 'plain'
+    native_mode='enchanted' if args.frame_block_enchanted else args.native_target or 'plain'
+    if args.frame_block_item:
+        report['frame_block_candidate']={'name':args.frame_block_item,'aux':args.frame_block_aux,
+                                         'artificially_enchanted':args.frame_block_enchanted}
     def save(name, value):
         path = output / name
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -186,7 +189,8 @@ def run(args):
             check.fixture('test.entities.item_contents')
             compiler_lines = Path(session['log']).read_text(encoding='utf8', errors='replace').splitlines()
             report['native_item_shader_errors'] = [line for line in compiler_lines
-                if 'Compiler error shaders/glsl/modern_projection_item_icon' in line]
+                if 'Compiler error shaders/glsl/modern_projection_item_icon' in line or
+                   'Compiler error shaders/glsl/modern_projection_frame_block' in line]
             assert not report['native_item_shader_errors'], report['native_item_shader_errors']
             if not args.skip_closeup:
                 closeup(check, client, session, report, STATE, CAMERA, output, args.wgc,
@@ -234,8 +238,8 @@ def run(args):
                             "doc=catalogue_document(%r,%r)\n" % (source['fixture'], source['id']))
                 if args.frame_block_item:
                     doc_code = ("from modern_projection.projection.debug_frame_block_items import document\n"
-                                "doc=document(%r,%r,%r)\n" %
-                                (source['id'],args.frame_block_item,args.frame_block_aux))
+                                "doc=document(%r,%r,%r,enchanted=%r)\n" %
+                                (source['id'],args.frame_block_item,args.frame_block_aux,args.frame_block_enchanted))
                 pose = (35.,25.,3.5) if is_slot else (180.,0.,3.5)
                 face=source['facing'] if is_orientation else 2
                 normal=((0,-1,0),(0,1,0),(0,0,-1),(0,0,1),(-1,0,0),(1,0,0))[face]
@@ -280,7 +284,7 @@ def run(args):
                         angle=math.radians(args.view_angle)
                         offset=(math.sin(angle)*distance,offset[1],-math.cos(angle)*distance)
                     if args.native_target_plain or args.native_target:
-                        native_local=local_enchanted if native_mode=='enchanted' else local_plain
+                        native_local=local_enchanted if native_mode=='enchanted' and not args.frame_block_item else local_plain
                         center=tuple(native_local[axis]+.5-normal[axis]*.4375 for axis in range(3))
                 camera = check.run('foot=b.player_origin()\ns.origin=(foot[0]+5,foot[1]+18,foot[2]+5)\n'
                                   's.opacity=1.\ns.projection_missing=False\ns.projection_outline=False\nb.project()\n_result=s.origin')
@@ -300,7 +304,7 @@ def run(args):
                 triplet(case_id + '_missing', 'missing')
                 if not is_slot:
                     origin = tuple(camera)
-                    native_local=local_enchanted if native_mode=='enchanted' else local_plain
+                    native_local=local_enchanted if native_mode=='enchanted' and not args.frame_block_item else local_plain
                     position = tuple(origin[axis]+native_local[axis] for axis in range(3))
                     rows = [{'mode':native_mode, 'position':position,
                              'support':tuple(position[axis]-normal[axis] for axis in range(3)),
@@ -362,7 +366,8 @@ def run(args):
             report['logs'] = client.call('get_latest_error_logs', {'max_count': 60})
             compiler_lines = Path(session['log']).read_text(encoding='utf8', errors='replace').splitlines()
             report['native_item_shader_errors'] = [line for line in compiler_lines
-                if 'Compiler error shaders/glsl/modern_projection_item_icon' in line]
+                if 'Compiler error shaders/glsl/modern_projection_item_icon' in line or
+                   'Compiler error shaders/glsl/modern_projection_frame_block' in line]
             assert not report['native_item_shader_errors'], report['native_item_shader_errors']
             report['completed'] = True
         except Exception as error:
@@ -411,6 +416,8 @@ if __name__ == '__main__':
     parser.add_argument('--candidate-geometry',type=Path)
     parser.add_argument('--frame-block-item', help='Observed ordinary block item ID; standalone frame candidate only.')
     parser.add_argument('--frame-block-aux', type=int, default=0)
+    parser.add_argument('--frame-block-enchanted', action='store_true',
+                        help='Artificially enchant the block through the native inventory API.')
     parser.add_argument('--near-distance', type=float, default=8.)
     parser.add_argument('--view-angle', type=float, default=0.)
     parser.add_argument('--editor-zoom', type=float)
@@ -420,6 +427,8 @@ if __name__ == '__main__':
     parser.add_argument('--maximum-handles', type=int, default=220000)
     parser.add_argument('--names', default='diamond_sword,apple,beef,diamond_pickaxe,iron_ingot,bed,bow,bucket,bone,bread,emerald,fishing_rod')
     args=parser.parse_args()
+    if args.frame_block_enchanted and not args.frame_block_item:
+        parser.error('--frame-block-enchanted requires --frame-block-item')
     if args.frame_block_item:
         if ':' not in args.frame_block_item:
             args.frame_block_item='minecraft:'+args.frame_block_item

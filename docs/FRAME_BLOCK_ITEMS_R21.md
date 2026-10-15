@@ -66,10 +66,16 @@ including square source images; those are labeled
 `animated_texture_frozen_source_snapshot`. This does not assert their native
 animation starts at that snapshot. Grass-style alpha-mask overlay baking is
 labeled `alpha_mask_overlay_pending_native_pixels` and remains unaccepted.
-This initial static checkpoint does not yet route block enchantments. Artificially
-enchanted ordinary blocks, especially quartz block, are requested follow-up work,
-not a final exclusion. Arbitrary unknown item metadata still needs explicit
-semantics. Shelf and campfire content are outside this frame adapter's scope.
+Artificially enchanted ordinary blocks, including quartz block, retain their
+real `ench` payload and route the glint bit through the existing transport.
+Ordinary quartz is still owned by the flat icon adapter; `quartz_block` uses
+six-face geometry. Each cube face computes independent unit-square glint UV
+from its local geometry and normal, so atlas padding and neighboring faces do
+not compress the glint pattern. GLES 2/3 GPU readback verifies all 96 mesh
+vertices, including all four transport slots. Native glint direction, phase,
+brightness and occlusion remain unaccepted; the inherited flat-item candidate
+is not native block glint evidence. Arbitrary unknown item metadata still needs
+explicit semantics. Shelf and campfire are outside this frame adapter's scope.
 
 ## Verification and First Native Matrix
 
@@ -91,6 +97,11 @@ Use a new isolated cold clone with all four automatic reload options false.
 The first bounded capture uses `run_visible_items_r16.py` with
 `--frame-block-item stone --frame-block-aux 0 --orientation-matrix --icons-only
 --skip-closeup --orientation-cases frame_f2_r0 --near-distance 3 --editor-zoom 5`.
+Repeat with `--frame-block-item quartz_block --frame-block-enchanted` for the
+artificial-enchantment comparison. The host uses native
+`AddEnchantToInvItem(9,3)` before insertion and validates the typed enchantment
+readback. A failure to create that item is a failed capture, not an exemption
+from the requested support.
 The ordinary block and empty-frame control preserve the native orientation
 template. The native comparison inserts actual inventory items through
 `PlayerUseItemToPos`, validates typed name/aux, then restores confirmed-air
