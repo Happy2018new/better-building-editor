@@ -30,11 +30,35 @@ def pixels(report, label, directory):
         return np.asarray(picture.convert('RGB').crop(bounds))
 
 
-def compare(reference, candidate, empty):
+def cell_scope(report, case, shape):
+    corners = case.get('cell_projection')
+    if corners is None:
+        return None
+    if len(corners) != 8 or any(row['screen'].get('isInScreen') is not True for row in corners):
+        raise ValueError('Shelf cell corners are missing or outside the viewport')
+    target = report['captures'][case['label'] + '_world']['before']['target_screen']
+    origin = (round(target['screenX'] - 190), round(target['screenY'] - 170))
+    points = [(row['screen']['screenX'] - origin[0], row['screen']['screenY'] - origin[1])
+              for row in corners]
+    mask = Image.new('1', (shape[1], shape[0]))
+    draw = ImageDraw.Draw(mask)
+    for face in ((0, 1, 3, 2), (4, 5, 7, 6), (0, 1, 5, 4),
+                 (2, 3, 7, 6), (0, 2, 6, 4), (1, 3, 7, 5)):
+        draw.polygon([points[index] for index in face], fill=1)
+    return np.asarray(mask, dtype=bool)
+
+
+def compare(reference, candidate, empty, scope=None):
     if reference.shape != candidate.shape or reference.shape != empty.shape:
         raise ValueError('Shelf frames have different dimensions')
     native_mask = np.max(np.abs(reference.astype(float) - empty), axis=2) > 12
     candidate_mask = np.max(np.abs(candidate.astype(float) - empty), axis=2) > 12
+    outside = None
+    if scope is not None:
+        outside = {'native': int(np.count_nonzero(native_mask & ~scope)),
+                   'candidate': int(np.count_nonzero(candidate_mask & ~scope))}
+        native_mask &= scope
+        candidate_mask &= scope
     union = native_mask | candidate_mask
     if np.count_nonzero(native_mask) < 100 or np.count_nonzero(candidate_mask) < 100:
         raise ValueError('Missing native or candidate shelf content')
@@ -61,6 +85,8 @@ def compare(reference, candidate, empty):
         else:
             correlations.append(float(np.corrcoef(first[:, channel], second[:, channel])[0, 1]))
     return {'native_pixels': int(native_mask.sum()), 'candidate_pixels': int(candidate_mask.sum()),
+            'scope': 'native_projected_cell' if scope is not None else 'legacy_crop',
+            'changed_pixels_outside_scope': outside,
             'unshifted_iou': float(np.count_nonzero(common) / np.count_nonzero(union)),
             'native_bounds': bounds, 'middle_pixels': int(middle.sum()),
             'middle_rgb_gain': gain.tolist(), 'middle_channel_correlation': correlations,
@@ -82,13 +108,14 @@ def analyze(source, output):
         label = case['label']
         native = pixels(report, label + '_world', source.parent)
         empty = pixels(report, label + '_empty', source.parent)
+        scope = cell_scope(report, case, native.shape)
         records = {}
         samples = [('world', native)]
         for key in report['captures']:
             if key.startswith(label + '_') and key not in (label + '_world', label + '_empty'):
                 front = key[len(label) + 1:]
                 candidate = pixels(report, key, source.parent)
-                records[front] = compare(native, candidate, empty)
+                records[front] = compare(native, candidate, empty, scope)
                 samples.append((front, candidate))
         if not records:
             raise ValueError('No candidate artwork for ' + label)
@@ -121,7 +148,8 @@ def analyze(source, output):
     result = {'schema_version': 1, 'production_qualified': False,
               'source_report_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
               'cases': rows, 'limits': ['Scores identify artwork candidates only; no runtime admission.',
-                                      'Per-channel normalization is diagnostic and does not qualify lighting.']}
+                                      'Per-channel normalization is diagnostic and does not qualify lighting.',
+                                      'Projected-cell scores exclude exterior background changes; exterior counts remain diagnostic.']}
     (output / 'review.json').write_text(json.dumps(result, indent=2) + '\n', encoding='ascii')
     print(json.dumps([{'case': row['label'], 'best': row['best_diagnostic_match'],
                        'margin': row['diagnostic_rmse_margin']} for row in rows]))

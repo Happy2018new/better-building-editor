@@ -71,6 +71,16 @@ changed=state.SetBlockStates(tuple(saved['origin']),requested,saved['dimension']
 _result=json.dumps({'changed':changed,'requested':requested,
  'actual':state.GetBlockStates(tuple(saved['origin']),saved['dimension'])})
 '''
+CELL_PROJECTION = '''cam=factory.CreateCamera(level)
+origin=tuple(sys._liquid_pose_client['origin'])
+corners=[]
+for x in (0.,1.):
+ for y in (0.,1.):
+  for z in (0.,1.):
+   point=tuple(origin[i]+value for i,value in enumerate((x,y,z)))
+   corners.append({'world':point,'screen':cam.WorldToScreenPoint(*point)})
+_result=json.dumps(corners)
+'''
 
 
 def matrix_cases(matrix):
@@ -183,6 +193,7 @@ def main():
                         'states': states, 'replication': wait_for(material), 'candidate_paths': {}}
                 case['camera'] = native.run(client, native.CAMERA.replace(
                     'offset=(3.,3.,5.)', 'offset=' + repr(VIEWS[direction])))
+                case['cell_projection'] = native.run(client, CELL_PROJECTION)
                 report['cases'].append(case)
                 frame(label + '_world', case)
                 native.run(client, native.CLEAR, True)
