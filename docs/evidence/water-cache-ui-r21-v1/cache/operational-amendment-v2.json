@@ -1,0 +1,82 @@
+{
+  "active_game_limit": 2,
+  "external_dependencies_sha256": {
+    ".agents/skills/pyreact-debugging/scripts/_session.py": "9bf1400cda12457ec1b3dd2351fed366c10ad069c781565eabb12e45b2431313",
+    ".agents/skills/pyreact-debugging/scripts/_window.py": "9fdb52e92aeb9930d8faffb81ab2023aaec68383b71b6fab9172643270e0826e",
+    ".agents/skills/pyreact-debugging/scripts/instances.py": "bd8fbeba3145cef771c0abd1859ca9f02520855b1db75e9ef76c7cee232ebfaa",
+    ".agents/skills/pyreact-debugging/scripts/mcdk.py": "347e01d51324924a84a05cf08c342b46d6e1fab589d446705eadde2cd8a587d3",
+    ".agents/skills/pyreact-debugging/scripts/setup_mcdk.py": "1e46a69c633368f967d87a04733681d4fe1b2e6f3cc2f4fc832194497021fbdf",
+    "tools/analyze_intrinsic_glint_ui_r21.py": "e0514487644e7a4b9a1d017454a9c0cd057f3dae1798c02c9bfb3f9acae06732",
+    "tools/capture_native_window.py": "d4b260037600609914c6191e864945712550cbe65f737cad26dfd6c9723b0b87",
+    "tools/census_intrinsic_glint_ui_r21.py": "890f467fec8eb946cc9bc4eefb85e2d2a922b15e012204f083936972a9258f65",
+    "tools/check_native_dialogs.py": "b1e2ad442cf67fc19a0f6315fadcdf707a1770c6006a0376adfc8a948b0df007",
+    "tools/diagnose_window_dpi.py": "b23015302c5691772032072c81d6e3e0740867e0e8690b08b78fc8f7b348b261",
+    "tools/dismiss_owned_disabled_skin_assert.py": "212aecf2d5f62ef4a67c50923ae11b8d1959b2f45408230405cb228f2db82e73",
+    "tools/freeze_intrinsic_glint_project_r21.py": "506bacac59eded4c1d1b5c6b260893c4b54eff50765ced4b1c36ad9e2e41fc5f",
+    "tools/mcdk.py": "b457026c01b26ccffd972089d7e55382011bba93f73d495131fafc0abebcafd5",
+    "tools/observe_owned_startup.py": "950cb24da27c18cc84736600c76013adabd1bb1a3d0c1a50a4ad806fac294ba7",
+    "tools/probe_intrinsic_glint_r21.py": "7faa8ad91eb5a578f0867e3714cf504b4ab3453b6fcaf6913640a3ea2b80ed78",
+    "tools/probe_intrinsic_glint_ui_r21.py": "40a840256274d7a95a90cdd1d95e78d0e1502e38823e3f11281b681b5f95885f",
+    "tools/read_owned_startup_handles.py": "05b0a230669bb0086c3b712f46eb32b66c5cfede269d128be53c4562b7705534",
+    "tools/watch_intrinsic_glint_exit_r21.py": "aa436ee9a0f496554c69330d8456fa21b6bb551b63032f0b5a453ad9748646aa",
+    "tools/watch_owned_disabled_skin_assert_r20.py": "704cc3de732c3315d046dbcee393d72cb34fd60f232e16f64978b3e61f9cad89"
+  },
+  "frozen_project_changed": false,
+  "host_environment": {
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "max_owned_handles": 210000,
+  "minimum_launch_commit_gib": 9,
+  "minimum_phase_commit_gib": 6,
+  "noactivation": {
+    "dll": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\background-focus-r13-v1\\inputs\\native_focus_guard.dll",
+      "sha256": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    }
+  },
+  "observer": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\watch_intrinsic_glint_exit_r21.py",
+    "required_before_launch": true,
+    "retained_handles_before_ab": true,
+    "sha256": "aa436ee9a0f496554c69330d8456fa21b6bb551b63032f0b5a453ad9748646aa"
+  },
+  "operational_files_sha256": {
+    ".runtime/water-r21-depth-cache-v1/README.md": "b0a71f0a2b2679230359b23f0e36124d2eba57bead85a871fc1e22bb8da914ca",
+    ".runtime/water-r21-depth-cache-v1/host.py": "c747d500464a07c93d5dc65607f1ce369965e5e0f74ce2823ac80d7d20c6e019"
+  },
+  "operational_owner": "water-r20-depth-cache-ab-v1",
+  "original_files_sha256": {
+    "baseline_viewport.py": "d07472df91d4c4cd93c2d7d84cd37c34c00cdac72ade470d290a6e125b0531cf",
+    "launch-inputs.json": "af61d6532f05920c6c037405bcc8f907b6110b06f099a32413b8d0651133e14e",
+    "launch-mcdev.json": "1d35e8f7c93b83302b79b170a629378236aa029320c93c22df9c3e806fda8fd2",
+    "plan-receipt.json": "0a1a0abe215a9934e349f1bf88b186ca0f70f7036e12c3e310a0b3ea69c56b5f",
+    "plan.json": "d841ba845a2e98ec070a34a9e4d2a26a09fb9e9bb74c1256da551957fcb16b6c"
+  },
+  "original_owner": "water-r21-depth-cache-ab-v1",
+  "prepared_only": true,
+  "prior_amendment": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\water-r21-depth-cache-ab-v1\\operational-amendment-v1.json",
+    "sha256": "c681a3331a3faf9f4d49f02614f4b87dae6ea0cf37047204ddef1b29ae1f7c59"
+  },
+  "process_gate": "Exclude only HandleCount=0/ThreadCount=0 with no live creation identity; count unresolved rows conservatively",
+  "production_qualified": false,
+  "reason": "Preserve the covered owner; bound dedicated host BLAS threads and classify effective live processes",
+  "runtime_action": false,
+  "schema": 1,
+  "started": false,
+  "superseded_host_sha256": "e54ec5b4f7560eab009305dec96a7cad9e29ef1b8b18a67faeab2e3cec17a7a2",
+  "superseded_operational_files_sha256": {
+    ".runtime/water-r21-depth-cache-v1/README.md": "61f103a76eb06da1d140dc77313e1a1e7c097cbe696e92bf9575d14511d1de6a",
+    ".runtime/water-r21-depth-cache-v1/host.py": "3188eab1f727096364b039236cb8cd437380003efb766f77dcbf58d15e7ebd50"
+  },
+  "watcher": {
+    "host_sha256": "704cc3de732c3315d046dbcee393d72cb34fd60f232e16f64978b3e61f9cad89",
+    "maximum_age_seconds": 60,
+    "required_owner_coverage": "water-r20-*",
+    "status": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\disabled-skin-watch-r20-v2\\status.json"
+  }
+}

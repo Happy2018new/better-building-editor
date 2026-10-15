@@ -1,0 +1,29 @@
+{
+  "assessment": "inconclusive_for_invisible_state_repair_baseline_has_signal",
+  "candidate_repeat_wet_difference": 0,
+  "final_skeleton_wet_difference": 0,
+  "independent_water_changed_pixels": {
+    "candidate": 96436,
+    "candidate_repeat": 96436,
+    "final_skeleton": 96436,
+    "skeleton_baseline": 96436,
+    "skeleton_restore": 96436
+  },
+  "pixel_difference_threshold": 8,
+  "production_qualified": false,
+  "repair_accepted": false,
+  "required_visual_review": [
+    "any cow pixels reject",
+    "wrong water geometry rejects",
+    "depth/occlusion change rejects",
+    "failed skeleton restoration rejects"
+  ],
+  "roi": [
+    470,
+    354,
+    1540,
+    848
+  ],
+  "schema": 1,
+  "skeleton_restore_wet_difference": 0
+}

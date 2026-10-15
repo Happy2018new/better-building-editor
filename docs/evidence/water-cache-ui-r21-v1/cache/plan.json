@@ -1,0 +1,35 @@
+{
+  "baseline_ref": "0898a8f6",
+  "baseline_source_sha256": "d07472df91d4c4cd93c2d7d84cd37c34c00cdac72ade470d290a6e125b0531cf",
+  "candidate_ref": "a09aa9b9",
+  "candidate_source_sha256": "0f28e9f1bbc7faf6456de793b0d29378a7cc2bc0768c5ff07b4b61e404cda9d0",
+  "changed_source_paths_from_original_water_clone": [
+    "behavior_pack/modern_projection/projection/liquid_viewport.py"
+  ],
+  "clip_control": "natural owner callback result with clipped=True",
+  "depth_change": "session.move_depth(1), then restore the original target",
+  "fixture": "water_style_flow_east_wet",
+  "forced_stop": false,
+  "host_files_sha256": {
+    ".runtime/water-r21-depth-cache-ab-v1/baseline_viewport.py": "d07472df91d4c4cd93c2d7d84cd37c34c00cdac72ade470d290a6e125b0531cf",
+    ".runtime/water-r21-depth-cache-v1/embedded_ab.py": "96fb05f814958dbc5b7c7604579ea745fa0ef185dd5e8f8d5a332a8a9ffd765f",
+    ".runtime/water-r21-depth-cache-v1/host.py": "e54ec5b4f7560eab009305dec96a7cad9e29ef1b8b18a67faeab2e3cec17a7a2"
+  },
+  "invalid_control": "natural owner callback result with distance=512, then controls.retry()",
+  "launch_config_sha256": "1d35e8f7c93b83302b79b170a629378236aa029320c93c22df9c3e806fda8fd2",
+  "launch_inputs_sha256": "af61d6532f05920c6c037405bcc8f907b6110b06f099a32413b8d0651133e14e",
+  "natural_steady_ticks_per_side": 60,
+  "original_elapsed_failures_resolved": false,
+  "owner": "water-r21-depth-cache-ab-v1",
+  "prepared_only": true,
+  "production_qualified": false,
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-depth-cache-r21",
+  "runtime_action": false,
+  "schema": 1,
+  "screenshots": [],
+  "source_contract_sha256": "dfe714e3b5b0807aed1b906f53095f7b26dd2f733d19552c7181457ce5b7c642",
+  "source_files": 3093,
+  "started": false,
+  "warmup_ticks": 5,
+  "window_actions": []
+}

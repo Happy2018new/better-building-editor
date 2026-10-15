@@ -1,0 +1,42 @@
+{
+  "exact_exit_receipt": {
+    "completed": true,
+    "opened_at": "2026-10-15T23:23:12.702927+00:00",
+    "owner": "water-r20-depth-cache-ab-v1",
+    "process_or_window_mutation": false,
+    "processes": {
+      "game": {
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "identity": "134365801198650139",
+        "observed_at": "2026-10-15T23:38:24.080947+00:00",
+        "pid": 8756,
+        "state": "exited"
+      },
+      "mcdk": {
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "identity": "134365801196531006",
+        "observed_at": "2026-10-15T23:38:24.083154+00:00",
+        "pid": 48772,
+        "state": "exited"
+      }
+    },
+    "schema": 1,
+    "session": "d88c93b78e304410b24e1c2feabc6010"
+  },
+  "exact_exits_observed": true,
+  "finalized": true,
+  "finished": 1792107504.1584978,
+  "force": false,
+  "host_sha256": "0a957cac386af5546266d29f4b6907ac98eeea7d1b2da3e9c4bedd7a3a09da40",
+  "normal_close_error": "Traceback (most recent call last):\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\water-r21-depth-cache-runtime-retry-v1\\normal_close.py\", line 37, in main\n    closed = instances.stop(session, force=False)\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py\", line 525, in stop\n    raise RuntimeError(\"Game has not closed; inspect it or explicitly use stop --force\")\nRuntimeError: Game has not closed; inspect it or explicitly use stop --force\n",
+  "normal_close_started": 1792107472.5263414,
+  "one_normal_close_only": true,
+  "owner": "water-r20-depth-cache-ab-v1",
+  "schema": 1,
+  "session": "d88c93b78e304410b24e1c2feabc6010",
+  "window_activation": false
+}
