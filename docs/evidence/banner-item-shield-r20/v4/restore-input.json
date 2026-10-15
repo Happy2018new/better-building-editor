@@ -1,0 +1,58 @@
+{
+  "code_sha256": "39809ab23edc2484f6aa91a4a3ccb4e9edd4db997b8ed1098cffdd847aec702a",
+  "code": "import json, sys\nimport mod.server.extraServerApi as api\nfactory = api.GetEngineCompFactory()\nplayer = api.GetPlayerList()[0]\nitems = factory.CreateItem(player)\nsaved = sys._shield_r20_craft\nbanner = saved['retrigger_banner']\nassert not items.GetPlayerUIItem(player, 33, True)\nassert items.SetPlayerUIItem(player, 33, banner, False)\ndel saved['retrigger_banner']\n_result = json.dumps({'restored_input': True,\n                      'banner': items.GetPlayerUIItem(player, 33, True)})\n",
+  "result": {
+    "restored_input": true,
+    "banner": {
+      "count": 1,
+      "newItemName": "minecraft:banner",
+      "isDiggerItem": false,
+      "enchantData": [],
+      "durability": 0,
+      "itemId": 446,
+      "customTips": "",
+      "extraId": "",
+      "newAuxValue": 4,
+      "modEnchantData": [],
+      "modId": "",
+      "userData": {
+        "Patterns": [
+          {
+            "Color": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "Pattern": {
+              "__type__": 8,
+              "__value__": "bo"
+            }
+          },
+          {
+            "Color": {
+              "__type__": 3,
+              "__value__": 14
+            },
+            "Pattern": {
+              "__type__": 8,
+              "__value__": "cr"
+            }
+          },
+          {
+            "Color": {
+              "__type__": 3,
+              "__value__": 11
+            },
+            "Pattern": {
+              "__type__": 8,
+              "__value__": "mc"
+            }
+          }
+        ]
+      },
+      "modItemId": "",
+      "itemName": "minecraft:banner",
+      "auxValue": 4,
+      "showInHand": true
+    }
+  }
+}

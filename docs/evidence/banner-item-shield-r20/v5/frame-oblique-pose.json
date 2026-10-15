@@ -1,0 +1,17 @@
+{
+  "code_sha256": "066a55e0c53dd002356d1cfb3e449de0cdd22100c3caa3379313ec412b67240c",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\nassert hasattr(sys, '_shield_frame_camera_v5_r20')\ncam = api.GetEngineCompFactory().CreateCamera(api.GetLevelId())\ntarget = (3.5, -57.5, 3.05)\ncamera = (5.6, -57.2, -.4)\nrot = api.GetRotFromDir(tuple(target[i] - camera[i] for i in range(3)))\nassert cam.SetCameraPos(camera)\nassert cam.SetCameraRotation((rot[0], rot[1] + 180., 0.))\n_result = json.dumps({'target': target, 'camera': camera, 'pose': 'oblique'})\n",
+  "result": {
+    "camera": [
+      5.6,
+      -57.2,
+      -0.4
+    ],
+    "target": [
+      3.5,
+      -57.5,
+      3.05
+    ],
+    "pose": "oblique"
+  }
+}

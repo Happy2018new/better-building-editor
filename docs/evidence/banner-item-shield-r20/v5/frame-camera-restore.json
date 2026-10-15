@@ -1,0 +1,8 @@
+{
+  "code_sha256": "4fbfc248cd947eb4f2dce9b6f96e34b00f7565b38d8c56b91c586eb2ca410cdc",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\ncam = api.GetEngineCompFactory().CreateCamera(api.GetLevelId())\ncam.LockModCameraPitch(False)\ncam.LockModCameraYaw(False)\ncam.ResetCameraPos()\ncam.UnDepartCamera()\ndel sys._shield_frame_camera_v5_r20\n_result = json.dumps({'camera_restored': True, 'global_removed': True})\n",
+  "result": {
+    "camera_restored": true,
+    "global_removed": true
+  }
+}

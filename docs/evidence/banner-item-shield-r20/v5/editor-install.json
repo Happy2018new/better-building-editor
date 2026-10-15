@@ -1,0 +1,163 @@
+{
+  "code_sha256": "33c764ff9c97676ae5004349a2aa98cfc0b82c7f6c7735ff73d25b314f72bb1c",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nfrom modern_projection.projection.model import Document\nfrom modern_projection.projection.cell import make_cell\nfrom modern_projection.projection.debug_blueprints import material\nfrom modern_projection.projection.debug_banner_blueprints import observations\nfrom modern_projection.projection.entity_overlays import banner_item\nfrom modern_projection.projection.visible_actor import compose_actor\nowner = api.GetSystem('ModernProjection', 'ModernProjectionClientSystem')\ns, b = owner.session, owner.bridge\nassert not hasattr(sys, '_shield_banner_geometry_r20')\nassert not s.busy and s.edit_job is None and s.io_job is None and not s.projection_active\nassert navigator.top is None or navigator.top.key == 'modern_projection_workspace'\nfields = ('page', 'name', 'view', 'focus_view', 'section', 'solo_layer', 'focused', 'box_anchor',\n          'canvas_x', 'canvas_z', 'paste_origin', 'paste_pinned', 'camera_pose', 'camera_yaw',\n          'camera_pitch', 'zoom', 'camera_pan', 'camera_pivot', 'camera_depth', 'camera_depth_pose',\n          'camera_focus_request', 'camera_reset_animated', 'progress', 'direct_mode', 'grid')\nsaved = {'editor': s.editor, 'fields': dict((key, getattr(s, key)) for key in fields),\n         'workspace': navigator.contains('modern_projection_workspace'), 'rows': [],\n         'controls': [], 'step': 0}\nsys._shield_banner_geometry_r20 = saved\nobserved = observations()\nfor label, row in (('standing_pattern', observed[1]), ('wall_pattern', observed[4]),\n                   ('standing_plain', observed[0])):\n    mat = material(row['name'], row['states'])\n    item = banner_item(mat, compose_actor(row['actor'], row['nbt']))\n    doc = Document((1, 2, 1), name='Native banner item comparison ' + label)\n    doc.blocks[(0, 1, 0)] = make_cell(mat, nbt=row['actor'])\n    model = b.geometry(doc, name='shield_r20_v5_' + label)\n    assert model\n    saved['rows'].append({'label': label, 'item': item, 'model': model,\n                          'native_actor': row['actor'], 'material': mat})\ndoc = Document((1, 1, 1), name='Temporary native banner item comparison')\ndoc.blocks[(0, 0, 0)] = material('stone')\ns._loaded(doc)\ns.grid = False\ns.camera_view(0., 0., 2.)\nowner.open_workspace()\n_result = json.dumps({'rows': saved['rows'], 'main_scene': 'stone only'})\n",
+  "result": {
+    "main_scene": "stone only",
+    "rows": [
+      {
+        "item": {
+          "newAuxValue": 4,
+          "newItemName": "minecraft:banner",
+          "isEnchanted": false,
+          "userData": {
+            "Patterns": [
+              {
+                "Color": {
+                  "__type__": 3,
+                  "__value__": 1
+                },
+                "Pattern": {
+                  "__type__": 8,
+                  "__value__": "bo"
+                }
+              },
+              {
+                "Color": {
+                  "__type__": 3,
+                  "__value__": 14
+                },
+                "Pattern": {
+                  "__type__": 8,
+                  "__value__": "cr"
+                }
+              },
+              {
+                "Color": {
+                  "__type__": 3,
+                  "__value__": 11
+                },
+                "Pattern": {
+                  "__type__": 8,
+                  "__value__": "mc"
+                }
+              }
+            ],
+            "Type": {
+              "__type__": 3,
+              "__value__": 0
+            }
+          }
+        },
+        "model": "shield_r20_v5_standing_pattern",
+        "native_actor": {
+          "bannerType": 0,
+          "bannerPatternCount": 3,
+          "bannerBaseColor": 4,
+          "bannerPattern2": "mc",
+          "bannerPattern0": "bo",
+          "bannerPattern1": "cr",
+          "bannerDirection": 8,
+          "bannerColor1": 14,
+          "bannerColor0": 1,
+          "bannerIsStanding": true,
+          "bannerColor2": 11
+        },
+        "material": [
+          "minecraft:standing_banner",
+          8
+        ],
+        "label": "standing_pattern"
+      },
+      {
+        "item": {
+          "newAuxValue": 4,
+          "newItemName": "minecraft:banner",
+          "isEnchanted": false,
+          "userData": {
+            "Patterns": [
+              {
+                "Color": {
+                  "__type__": 3,
+                  "__value__": 1
+                },
+                "Pattern": {
+                  "__type__": 8,
+                  "__value__": "bo"
+                }
+              },
+              {
+                "Color": {
+                  "__type__": 3,
+                  "__value__": 14
+                },
+                "Pattern": {
+                  "__type__": 8,
+                  "__value__": "cr"
+                }
+              },
+              {
+                "Color": {
+                  "__type__": 3,
+                  "__value__": 11
+                },
+                "Pattern": {
+                  "__type__": 8,
+                  "__value__": "mc"
+                }
+              }
+            ],
+            "Type": {
+              "__type__": 3,
+              "__value__": 0
+            }
+          }
+        },
+        "model": "shield_r20_v5_wall_pattern",
+        "native_actor": {
+          "bannerType": 0,
+          "bannerPatternCount": 3,
+          "bannerBaseColor": 4,
+          "bannerPattern2": "mc",
+          "bannerPattern0": "bo",
+          "bannerPattern1": "cr",
+          "bannerDirection": 2,
+          "bannerColor1": 14,
+          "bannerColor0": 1,
+          "bannerIsStanding": false,
+          "bannerColor2": 11
+        },
+        "material": [
+          "minecraft:wall_banner",
+          2
+        ],
+        "label": "wall_pattern"
+      },
+      {
+        "item": {
+          "newAuxValue": 4,
+          "newItemName": "minecraft:banner",
+          "isEnchanted": false,
+          "userData": {
+            "Type": {
+              "__type__": 3,
+              "__value__": 0
+            }
+          }
+        },
+        "model": "shield_r20_v5_standing_plain",
+        "native_actor": {
+          "bannerType": 0,
+          "bannerBaseColor": 4,
+          "bannerPatternCount": 0,
+          "bannerIsStanding": true,
+          "bannerDirection": 8
+        },
+        "material": [
+          "minecraft:standing_banner",
+          8
+        ],
+        "label": "standing_plain"
+      }
+    ]
+  }
+}

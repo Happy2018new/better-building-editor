@@ -1,0 +1,51 @@
+{
+  "code_sha256": "9714a4c0852cb4ade8f76bf640f0989586796aa64398dc7736e2cc64afdc8fc3",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\nsaved = sys._shield_banner_geometry_r20\nnode = api.GetTopUINode()\nassert node is not None and not saved['controls']\nsaved['node'] = node\nfor index, row in enumerate(saved['rows']):\n    control = node.CreateChildControl('PyreactBase.paperDoll', 'r20v5_' + row['label'], None, True)\n    assert control is not None\n    control.SetPosition((125. + 50. * index, 62.))\n    control.SetSize((80., 140.))\n    control.SetLayer(100)\n    control.SetVisible(True)\n    doll = control.asNeteasePaperDoll()\n    assert doll is not None\n    saved['controls'].append({'control': control, 'doll': doll, 'model': row['model'], 'label': row['label']})\ncontrol = node.CreateChildControl('PyreactBase.item', 'r20v5_native_item', None, True)\nassert control is not None\ncontrol.SetPosition((280., 90.))\ncontrol.SetSize((60., 100.))\ncontrol.SetLayer(100)\ncontrol.SetVisible(True)\nitem = saved['rows'][0]['item']\nreturned = control.asItemRenderer().SetUiItem('minecraft:banner', item['newAuxValue'], False, item['userData'])\nassert returned\nsaved['native_item_control'] = control\n_result = json.dumps({'controls': len(saved['controls']), 'native_item': item, 'native_ui_returned': returned})\n",
+  "result": {
+    "native_item": {
+      "newAuxValue": 4,
+      "newItemName": "minecraft:banner",
+      "isEnchanted": false,
+      "userData": {
+        "Patterns": [
+          {
+            "Color": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "Pattern": {
+              "__type__": 8,
+              "__value__": "bo"
+            }
+          },
+          {
+            "Color": {
+              "__type__": 3,
+              "__value__": 14
+            },
+            "Pattern": {
+              "__type__": 8,
+              "__value__": "cr"
+            }
+          },
+          {
+            "Color": {
+              "__type__": 3,
+              "__value__": 11
+            },
+            "Pattern": {
+              "__type__": 8,
+              "__value__": "mc"
+            }
+          }
+        ],
+        "Type": {
+          "__type__": 3,
+          "__value__": 0
+        }
+      }
+    },
+    "native_ui_returned": true,
+    "controls": 3
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "code_sha256": "81c313ee62d9bffdfee33c399291f8db4328beec2c5439956247bebbb01b94c5",
+  "code": "import json, sys\nsaved = sys._shield_banner_geometry_r20\nstates = [('large_front', 0., 0., 4.), ('large_yaw45', 45., 15., 4.),\n          ('large_back', 180., 0., 4.)]\nassert saved['step'] < len(states)\nlabel, yaw, pitch, scale = states[saved['step']]\nresults = []\nfor row in saved['controls']:\n    params = {'block_geometry_model_name': row['model'], 'scale': scale,\n              'init_rot_x': -90. + pitch, 'init_rot_y': 0., 'init_rot_z': yaw}\n    returned = row['doll'].RenderBlockGeometryModel(params)\n    assert returned\n    results.append({'label': row['label'], 'params': params, 'returned': returned})\nsaved['step'] += 1\nsaved['last_label'] = label\n_result = json.dumps({'label': label, 'step': saved['step'], 'results': results})\n",
+  "result": {
+    "step": 2,
+    "results": [
+      {
+        "params": {
+          "init_rot_z": 45.0,
+          "init_rot_x": -75.0,
+          "block_geometry_model_name": "shield_r20_v5_standing_pattern",
+          "init_rot_y": 0.0,
+          "scale": 4.0
+        },
+        "returned": true,
+        "label": "standing_pattern"
+      },
+      {
+        "params": {
+          "init_rot_z": 45.0,
+          "init_rot_x": -75.0,
+          "block_geometry_model_name": "shield_r20_v5_wall_pattern",
+          "init_rot_y": 0.0,
+          "scale": 4.0
+        },
+        "returned": true,
+        "label": "wall_pattern"
+      },
+      {
+        "params": {
+          "init_rot_z": 45.0,
+          "init_rot_x": -75.0,
+          "block_geometry_model_name": "shield_r20_v5_standing_plain",
+          "init_rot_y": 0.0,
+          "scale": 4.0
+        },
+        "returned": true,
+        "label": "standing_plain"
+      }
+    ],
+    "label": "large_yaw45"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "code_sha256": "b19a1241d7110d74f15055b676ecb252da0ac867d4cb4b8667383a5abe704e31",
+  "code": "import json, sys\nsaved = sys._shield_banner_geometry_r20\nremoved = []\nfor control in saved.get('packets', []):\n    control.SetVisible(False)\n    returned = saved['node'].RemoveChildControl(control)\n    assert returned\n    removed.append(returned)\nsaved['packets'] = []\n_result = json.dumps({'packets_removed': removed})\n",
+  "result": {
+    "packets_removed": [
+      true,
+      true,
+      true
+    ]
+  }
+}

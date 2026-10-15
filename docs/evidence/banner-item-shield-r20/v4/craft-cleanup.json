@@ -1,0 +1,64 @@
+{
+  "code_sha256": "c7c0dc481af56f48ab114b63d8eb47d822a250e528dc6776d3031db08066c333",
+  "code": "import json, sys\nimport mod.server.extraServerApi as api\nfactory = api.GetEngineCompFactory()\nplayer = api.GetPlayerList()[0]\nitems = factory.CreateItem(player)\nsaved = sys._shield_r20_craft\nrestored = []\nfor slot, value in sorted(saved['ui'].items()):\n    returned = items.SetPlayerUIItem(player, slot, value, False)\n    actual = items.GetPlayerUIItem(player, slot, True)\n    restored.append({'slot': slot, 'returned': returned, 'actual': actual, 'expected': value})\nassert all(row['actual'] == row['expected'] for row in restored)\ninventory_type = api.GetMinecraftEnum().ItemPosType.INVENTORY\nactual_inventory = [items.GetPlayerItem(inventory_type, index, True) for index in range(36)]\nassert actual_inventory == saved['inventory']\ndel sys._shield_r20_craft\n_result = json.dumps({'restored': True, 'rows': restored, 'inventory_unchanged': True})\n",
+  "result": {
+    "rows": [
+      {
+        "slot": 32,
+        "expected": null,
+        "actual": null,
+        "returned": true
+      },
+      {
+        "slot": 33,
+        "expected": null,
+        "actual": null,
+        "returned": true
+      },
+      {
+        "slot": 34,
+        "expected": null,
+        "actual": null,
+        "returned": true
+      },
+      {
+        "slot": 35,
+        "expected": null,
+        "actual": null,
+        "returned": true
+      },
+      {
+        "slot": 36,
+        "expected": null,
+        "actual": null,
+        "returned": true
+      },
+      {
+        "slot": 37,
+        "expected": null,
+        "actual": null,
+        "returned": true
+      },
+      {
+        "slot": 38,
+        "expected": null,
+        "actual": null,
+        "returned": true
+      },
+      {
+        "slot": 39,
+        "expected": null,
+        "actual": null,
+        "returned": true
+      },
+      {
+        "slot": 40,
+        "expected": null,
+        "actual": null,
+        "returned": true
+      }
+    ],
+    "inventory_unchanged": true,
+    "restored": true
+  }
+}

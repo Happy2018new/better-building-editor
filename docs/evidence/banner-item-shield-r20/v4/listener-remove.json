@@ -1,0 +1,85 @@
+{
+  "code_sha256": "2e269ed9e5e3f9818dcaef6164b6a673ebd56efd5d198a0361806b16ba01a474",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\nprobe = sys._shield_craft_listener_r20\nowner = api.GetSystem('ModernProjection', 'ModernProjectionClientSystem')\nowner.UnListenForEvent(api.GetEngineNamespace(), api.GetEngineSystemName(),\n                       'CraftUpdateResultItemClientEvent', probe, probe.on_result)\nevents = probe.events\ndel sys._shield_craft_listener_r20\n_result = json.dumps({'listener_removed': True, 'events': events})\n",
+  "result": {
+    "listener_removed": true,
+    "events": [
+      {
+        "phase": "baseline",
+        "args": {
+          "playerId": "-8589934591",
+          "itemDict": {
+            "count": 1,
+            "enchantData": [],
+            "newItemName": "minecraft:shield",
+            "durability": 336,
+            "customTips": "",
+            "extraId": "",
+            "newAuxValue": 0,
+            "modEnchantData": [],
+            "itemName": "minecraft:shield",
+            "auxValue": 0,
+            "showInHand": true
+          }
+        }
+      },
+      {
+        "phase": "opt_in",
+        "args": {
+          "playerId": "-8589934591",
+          "itemDict": {
+            "count": 0,
+            "enchantData": [],
+            "newItemName": "minecraft:air",
+            "durability": 0,
+            "customTips": "",
+            "extraId": "",
+            "newAuxValue": 0,
+            "modEnchantData": [],
+            "itemName": "minecraft:air",
+            "auxValue": 0,
+            "showInHand": true
+          }
+        }
+      },
+      {
+        "phase": "opt_in",
+        "args": {
+          "playerId": "-8589934591",
+          "itemDict": {
+            "count": 1,
+            "enchantData": [],
+            "newItemName": "minecraft:shield",
+            "durability": 336,
+            "customTips": "",
+            "extraId": "",
+            "newAuxValue": 0,
+            "modEnchantData": [],
+            "itemName": "minecraft:shield",
+            "auxValue": 0,
+            "showInHand": true
+          }
+        }
+      },
+      {
+        "phase": "opt_in",
+        "args": {
+          "playerId": "-8589934591",
+          "itemDict": {
+            "count": 0,
+            "enchantData": [],
+            "newItemName": "minecraft:air",
+            "durability": 0,
+            "customTips": "",
+            "extraId": "",
+            "newAuxValue": 0,
+            "modEnchantData": [],
+            "itemName": "minecraft:air",
+            "auxValue": 0,
+            "showInHand": true
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "owner": "shield-r20-v5",
+  "product_qualified": false,
+  "tracked_product_changes": false,
+  "source_unchanged": true,
+  "source_contract_sha256": "1e02191ffdb34b759e51ff77e5e2c2ebd56286d908f340491c647bea145c6320",
+  "decision": "native_item_geometry_unverified; separate item adapter or another native item route still required",
+  "front_frame_reference": "plain and patterned native banner items visible with short lower central stalk",
+  "oblique_frame_reference": "frame bodies visible but both banner contents absent; not a thickness positive",
+  "native_ui_reference": "native banner item visible; selected payload rendered plain blue in v5, unlike patterned v1 positive",
+  "block_geometry_comparison": "standing and wall controls returned true but collapsed to near-pixel lines in both poses; no silhouette conclusion",
+  "packet_calibration": "all API returns true; subsequent WGC rejected for foreground change and saved loading screen; failed acceptance",
+  "packet_root_cause": "not established",
+  "evidence": [
+    {
+      "image": "native-frame-front.png",
+      "receipt": "native-frame-front.capture.json",
+      "visually_inspected": true,
+      "sha256": "3ae3a9d7ece5d566ecae3e91fa743605f657db28f836274bccc7d64bdccdff2a"
+    },
+    {
+      "image": "native-frame-oblique.png",
+      "receipt": "native-frame-oblique.capture.json",
+      "visually_inspected": true,
+      "sha256": "fa3b1a21a092174fbdfb36d4cd83b8f038c788b7ac16493fdd7cd22100918751"
+    },
+    {
+      "image": "editor-standing-front.png",
+      "receipt": "editor-standing-front.capture.json",
+      "visually_inspected": true,
+      "sha256": "c8ef0ddc702d564c860de9d7613d82eee534bfaa95925a771a7f79ad14982f37"
+    },
+    {
+      "image": "editor-standing-oblique.png",
+      "receipt": "editor-standing-oblique.capture.json",
+      "visually_inspected": true,
+      "sha256": "9629e70eefa0cb3cb4062289b2bb33c6ba7409d7a9db161a3a96f2e05edeb47c"
+    }
+  ],
+  "restoration": {
+    "camera": "frame-camera-restore.json",
+    "world_inventory": "frame-block-restore.json",
+    "editor": "editor-restore.json",
+    "hud": "hud-verify.json"
+  },
+  "processes_no_longer_live": true,
+  "forced": false,
+  "game_exit_code": "0xC0000409",
+  "mcdk_exit_code": "0x00000000",
+  "game_exit_classification": "abnormal; not normal shutdown",
+  "log": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\a9de480a088547e1b24cf5017e719de5\\mcdk.log",
+    "sha256": "7e8aa1713a9056fb16e5e4903c81d156b92e073befb0a6b4e749c1c9537c7140",
+    "selected_lines": [
+      "[Python] =====> ModernProjection Client Destroy <=====",
+      "[Python] OperationHistoryFactory Reset",
+      "[Python] =====> ModernProjection Server Destroy <=====",
+      "\u001b[32m[MCP] [INFO]\u001b[0m \u001b[90m2026-10-16 01:26:22 Stopping MCP server on 127.0.0.1:63005\u001b[0m",
+      "\u001b[32m[MCP] [INFO]\u001b[0m \u001b[90m2026-10-16 01:26:22 MCP server stopped\u001b[0m"
+    ]
+  },
+  "open": [
+    "correct_native_banner_item_geometry",
+    "item_pattern_payload_stability",
+    "standing_block_shape_vs_item_shape",
+    "six_faces_eight_rotations",
+    "thickness",
+    "shared_depth",
+    "projection_full_missing",
+    "authentic_patterned_shield_data"
+  ]
+}

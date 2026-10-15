@@ -1,0 +1,71 @@
+{
+  "code_sha256": "d46362681c9c87fc9c500219f69537caf6c7b4f5942efa930a41921980b3b9bc",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\nfrom modern_projection.projection.preview_depth import depth_color\nsaved = sys._shield_banner_geometry_r20\nowner = api.GetSystem('ModernProjection', 'ModernProjectionClientSystem')\nsaved['packets'] = []\nresults = []\nfor index, row in enumerate(saved['controls']):\n    tint = saved['node'].CreateChildControl('PyreactBase.image', 'r20v5_packet_%d' % index, None, True)\n    assert tint is not None\n    saved['packets'].append(tint)\n    tint.SetPosition((120. + 50. * index, 62.))\n    tint.SetSize((1., 1.))\n    tint.SetLayer(119 + 2 * index)\n    tint.SetVisible(True)\n    image = tint.asImage()\n    image.SetSprite('textures/modern_projection/transparent')\n    layout = owner.bridge.model_layouts[row['model']]\n    color = depth_color(0., owner.session.editor.document.biome, (layout[0][1], layout[1][2]))\n    image.SetSpriteColor(color)\n    row['control'].SetLayer(120 + 2 * index)\n    params = {'block_geometry_model_name': row['model'], 'scale': 4., 'init_rot_x': -90., 'init_rot_y': 0., 'init_rot_z': 0.}\n    returned = row['doll'].RenderBlockGeometryModel(params)\n    assert returned\n    results.append({'label': row['label'], 'layout': layout, 'packet': color, 'returned': returned})\n_result = json.dumps({'results': results})\n",
+  "result": {
+    "results": [
+      {
+        "layout": [
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            1,
+            2
+          ]
+        ],
+        "returned": true,
+        "packet": [
+          0.8205882352941176,
+          1.52587890625e-05,
+          0.5
+        ],
+        "label": "standing_pattern"
+      },
+      {
+        "layout": [
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            1,
+            2
+          ]
+        ],
+        "returned": true,
+        "packet": [
+          0.8205882352941176,
+          1.52587890625e-05,
+          0.5
+        ],
+        "label": "wall_pattern"
+      },
+      {
+        "layout": [
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            1,
+            2
+          ]
+        ],
+        "returned": true,
+        "packet": [
+          0.8205882352941176,
+          1.52587890625e-05,
+          0.5
+        ],
+        "label": "standing_plain"
+      }
+    ]
+  }
+}

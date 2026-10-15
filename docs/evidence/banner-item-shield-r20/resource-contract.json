@@ -1,0 +1,150 @@
+{
+  "runtime": "3.10.0.420447",
+  "assets": [
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\resource_packs\\vanilla\\attachables\\shield.entity.json",
+      "sha256": "82f9fefdc9170549049f0976c850490e5ad5dd9c7d0750b10cd53f088220ed33",
+      "bytes": 2666
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\resource_packs\\vanilla\\models\\entity\\shield.geo.json",
+      "sha256": "3649162db8208c55593e46e7d572cd6448d9a2cf673cc559b78895d7d086daae",
+      "bytes": 735
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\resource_packs\\vanilla\\render_controllers\\shield.render_controllers.json",
+      "sha256": "342823ccd8a4a89b13608a2134a2c98c8c454b79c7919c738e5e7bc0f18e19a4",
+      "bytes": 461
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\resource_packs\\vanilla\\textures\\item_texture.json",
+      "sha256": "e975c373a1812c2aa0b806e7d5b175f93a0a8a6e8cf5a29c45efafdb44ae2cfa",
+      "bytes": 68216
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\shaders\\glsl\\banner.vertex",
+      "sha256": "3e75b319a523ac2d05720816bff1614ee34b6d6d2a46e7e0311fb1781d4c8197",
+      "bytes": 2925
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\shaders\\glsl\\banner.fragment",
+      "sha256": "be9220d3f76e25b72155b704026f44f6332cf558e217963af2e2985f127d9aa8",
+      "bytes": 953
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\shaders\\glsl\\pattern.vertex",
+      "sha256": "1ce9109a7ddc12723e76ee7706e124ed966f41833e3c5f028143377d064b1a78",
+      "bytes": 3061
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\shaders\\glsl\\pattern.fragment",
+      "sha256": "76d690532c852b76d5fcff4d337ab6c8cc883dad159a4aa1b5cecc32e90b02f0",
+      "bytes": 2194
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\resource_packs\\vanilla\\materials\\entity.material",
+      "sha256": "5a3b5b0c6ae46e439ad26df811dfb657a8da229bcc5850a723bca579ebd788ac",
+      "bytes": 31792
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\resource_packs\\vanilla\\animation_controllers\\shield.animation_controllers.json",
+      "sha256": "faf15576f21a49fb231b570f1fba2a9ebf51b7f3667af3ed959173b576887505",
+      "bytes": 1298
+    }
+  ],
+  "render_controller_exact": {
+    "format_version": "1.10",
+    "render_controllers": {
+      "controller.render.shield": {
+        "geometry": "geometry.default",
+        "materials": [
+          {
+            "*": "variable.is_patterned ? (variable.is_enchanted ? material.pattern_enchanted : material.pattern) : (variable.is_enchanted ? material.enchanted : material.default)"
+          }
+        ],
+        "textures": [
+          "texture.default",
+          "texture.enchanted",
+          "texture.pattern"
+        ]
+      }
+    }
+  },
+  "attachable_materials_exact": {
+    "default": "entity_alphatest",
+    "enchanted": "entity_alphatest_glint",
+    "pattern": "pattern",
+    "pattern_enchanted": "pattern_glint"
+  },
+  "attachable_textures_exact": {
+    "default": "textures/entity/shield",
+    "enchanted": "textures/misc/enchanted_item_glint",
+    "pattern": "atlas.shield"
+  },
+  "geometry_exact": {
+    "format_version": "1.16.0",
+    "minecraft:geometry": [
+      {
+        "description": {
+          "identifier": "geometry.shield",
+          "texture_width": 64,
+          "texture_height": 64
+        },
+        "bones": [
+          {
+            "name": "shield",
+            "binding": "q.item_slot_to_bone_name(c.item_slot)",
+            "pivot": [
+              1.0,
+              15.5,
+              3.0
+            ],
+            "cubes": [
+              {
+                "origin": [
+                  0.0,
+                  25.0,
+                  0.0
+                ],
+                "size": [
+                  2.0,
+                  6.0,
+                  6.0
+                ],
+                "uv": [
+                  26,
+                  0
+                ]
+              },
+              {
+                "origin": [
+                  -5.0,
+                  17.0,
+                  -1.0
+                ],
+                "size": [
+                  12.0,
+                  22.0,
+                  1.0
+                ],
+                "uv": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "pattern_fragment_exact_functions": "vec4 getPatternColor(int layer, vec2 texcoord) {\n\tvec2 tex = (PATTERN_UV_OFFSETS_AND_SCALES[layer].zw * texcoord) + PATTERN_UV_OFFSETS_AND_SCALES[layer].xy;\n\tvec4 resultColor = PATTERN_COLORS[layer];\n\treturn texture2D(TEXTURE_2, tex) * resultColor;\n}\n\nvec4 getBaseColor(vec2 texcoord) {\n\treturn texture2D(TEXTURE_0, texcoord);\n}\n\nvec4 getAppliedPatternColor(vec2 texcoord0) {\n\tvec4 resultColor = getBaseColor(texcoord0);\n#ifndef DISABLE_TINTING\n\tint patternCount = int(PATTERN_COUNT);\n\tfor (int i = 0; i < patternCount; i++) {\n\t\tvec4 pattern = getPatternColor(i, texcoord0);\n\t\tresultColor = mix(resultColor, pattern, pattern.a);\n\t}\n\tresultColor.a = 1.0;\n#endif\n\n\treturn resultColor;\n}\n\n",
+  "finding": "is_patterned is read but not assigned in the inspected shield JSON; engine-provided pattern uniforms are not an NBT schema",
+  "inspected_json": [
+    "attachable",
+    "render_controller",
+    "animation_controller",
+    "animations"
+  ],
+  "source_status": "exact installed native resources; no full game source copied"
+}

@@ -1,0 +1,54 @@
+{
+  "code_sha256": "45d6fa38169caff522eedeb051eea7873a02c2cf1baf5e212016953eb55a54ca",
+  "code": "import json, sys\nimport mod.server.extraServerApi as api\nfactory = api.GetEngineCompFactory()\nplayer = api.GetPlayerList()[0]\ninfo, items = factory.CreateBlockInfo(player), factory.CreateItem(player)\nsaved = sys._shield_banner_frame_r20\nrows = []\nfor row in reversed(saved['journal']):\n    assert row['block']['name'] == 'minecraft:air' and not row['nbt']\n    info.SetBlockNew(row['pos'], row['block'], 0, 0, True, True)\n    actual = info.GetBlockNew(row['pos'], 0)\n    assert actual == row['block']\n    assert not info.GetBlockEntityData(0, row['pos'])\n    rows.append({'pos': row['pos'], 'actual': actual})\ninventory_type = api.GetMinecraftEnum().ItemPosType.INVENTORY\nassert items.GetPlayerItem(inventory_type, 35, True) == saved['inventory']\ndel sys._shield_banner_frame_r20\n_result = json.dumps({'restored_cells': rows, 'inventory_unchanged': True, 'global_removed': True})\n",
+  "result": {
+    "global_removed": true,
+    "inventory_unchanged": true,
+    "restored_cells": [
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          4,
+          -58,
+          3
+        ]
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          4,
+          -58,
+          4
+        ]
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          2,
+          -58,
+          3
+        ]
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          2,
+          -58,
+          4
+        ]
+      }
+    ]
+  }
+}

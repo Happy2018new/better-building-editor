@@ -1,0 +1,18 @@
+{
+  "code_sha256": "3a43a7a827fe44176c4d9137f8d673e3febd47886f32f924b880b8d3a7e2c9c6",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\nprobe = sys._shield_craft_listener_r20\nassert probe.phase == 'baseline' and probe.opt_in is None\nowner = api.GetSystem('ModernProjection', 'ModernProjectionClientSystem')\nowner.UnListenForEvent(api.GetEngineNamespace(), api.GetEngineSystemName(),\n                       'CraftUpdateResultItemClientEvent', probe, probe.on_result)\nprobe.phase = 'opt_in'\ncomp = api.GetEngineCompFactory().CreateItem(api.GetLevelId())\nmethod = comp.GetUserDataInEvent\ndeclaration = {'component_type': type(comp).__name__,\n               'method_type': type(method).__name__,\n               'module': getattr(method, '__module__', None),\n               'doc': getattr(method, '__doc__', None)}\nprobe.opt_in = method('CraftUpdateResultItemClientEvent')\nowner.ListenForEvent(api.GetEngineNamespace(), api.GetEngineSystemName(),\n                     'CraftUpdateResultItemClientEvent', probe, probe.on_result)\n_result = json.dumps({'phase': probe.phase, 'returned': probe.opt_in,\n                      'declaration': declaration,\n                      'before_listen': True,\n                      'event_count_before_retrigger': len(probe.events),\n                      'cleanup': 'UnListenForEvent removes listener; no public undo for event opt-in found; stop owned game after restoration',\n                      'top_ui': api.GetTopUI()})\n",
+  "result": {
+    "top_ui": "crafting_screen",
+    "returned": true,
+    "event_count_before_retrigger": 1,
+    "before_listen": true,
+    "cleanup": "UnListenForEvent removes listener; no public undo for event opt-in found; stop owned game after restoration",
+    "declaration": {
+      "module": "client.component.itemCompClient",
+      "method_type": "instancemethod",
+      "component_type": "ItemCompClient",
+      "doc": "\n\t\t@classify_path \u7269\u54c1\n\t\t@state 1.23 \u4fee\u590d likaiyu \u4fee\u590d\u4e86\u53ef\u80fd\u5bf9\u90e8\u5206\u4e8b\u4ef6\u65e0\u6548\u7684\u95ee\u9898\n\t\t@state 1.20 \u65b0\u589e czh \u53ef\u4ee5\u7528\u7269\u54c1\u76f8\u5173\u5ba2\u6237\u7aef\u4e8b\u4ef6\u7684\u53c2\u6570\u4e2d\u83b7\u53d6userData\n\t\t@description \u4f7f\u7269\u54c1\u76f8\u5173\u5ba2\u6237\u7aef\u4e8b\u4ef6\u7684<a href=\"../../../mcguide/20-\u73a9\u6cd5\u5f00\u53d1/10-\u57fa\u672c\u6982\u5ff5/1-\u6211\u7684\u4e16\u754c\u57fa\u7840\u6982\u5ff5.html#\u7269\u54c1\u4fe1\u606f\u5b57\u5178#\u7269\u54c1\u4fe1\u606f\u5b57\u5178\">\u7269\u54c1\u4fe1\u606f\u5b57\u5178</a>\u53c2\u6570\u5e26\u6709userData\u3002\u5728mod\u521d\u59cb\u5316\u65f6\u8c03\u7528\u5373\u53ef\n\t\t@param eventName str \u5f15\u64ce\u4e8b\u4ef6\u540d\n\t\t@return bool \u662f\u5426\u6210\u529f\n\t\t@example\n\t\timport mod.client.extraClientApi as clientApi\n\t\tcomp = clientApi.GetEngineCompFactory().CreateItem(levelId)\n\t\t# \u8fd9\u6837\u8c03\u7528\u4e4b\u540e\uff0cActorAcquiredItemClientEvent\u4e8b\u4ef6\u7684itemDict\u53c2\u6570\u4f1a\u5e26\u6709userData\u5b57\u6bb5\n\t\tcomp.GetUserDataInEvent(\"ActorAcquiredItemClientEvent\")\n\t\t/example\n\t\t"
+    },
+    "phase": "opt_in"
+  }
+}

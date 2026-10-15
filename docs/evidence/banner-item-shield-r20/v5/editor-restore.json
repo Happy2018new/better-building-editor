@@ -1,0 +1,15 @@
+{
+  "code_sha256": "230ea802be4112bb91e7e65a5cbfedaec89dc2503e7845444d1550a2548e0f53",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nsaved = sys._shield_banner_geometry_r20\nowner = api.GetSystem('ModernProjection', 'ModernProjectionClientSystem')\ns = owner.session\nremoved = []\nfor row in saved['controls']:\n    row['control'].SetVisible(False)\n    returned = saved['node'].RemoveChildControl(row['control'])\n    assert returned\n    removed.append(returned)\ns.tiles.cancel()\ns.editor = saved['editor']\nfor key, value in saved['fields'].items():\n    setattr(s, key, value)\ns.model_revision = None\ns.camera_reset_revision += 1\ns.refresh_preview()\ns.emit()\nif not saved['workspace'] and navigator.contains('modern_projection_workspace'):\n    navigator.pop()\nassert s.editor is saved['editor']\nassert navigator.contains('modern_projection_workspace') == saved['workspace']\n_result = json.dumps({'controls_removed': removed, 'editor_restored': True,\n                      'workspace_restored': True, 'step': saved['step'],\n                      'last_label': saved.get('last_label')})\ndel sys._shield_banner_geometry_r20\n",
+  "result": {
+    "last_label": "large_yaw45",
+    "workspace_restored": true,
+    "editor_restored": true,
+    "step": 2,
+    "controls_removed": [
+      true,
+      true,
+      true
+    ]
+  }
+}

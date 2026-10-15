@@ -1,0 +1,18 @@
+{
+  "code_sha256": "130e77e75b86e7eb59d494e698ae7b56a9f26680467585e6351397a428c813dc",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\nfactory = api.GetEngineCompFactory()\nassert not hasattr(sys, '_shield_frame_camera_v5_r20')\nsys._shield_frame_camera_v5_r20 = {'step': 0}\ncam = factory.CreateCamera(api.GetLevelId())\ntarget = (3.5, -57.5, 3.05)\ncamera = (3.5, -57.5, -1.0)\nrot = api.GetRotFromDir(tuple(target[i] - camera[i] for i in range(3)))\ncam.DepartCamera()\ncam.LockModCameraPitch(True)\ncam.LockModCameraYaw(True)\nassert cam.SetCameraPos(camera)\nassert cam.SetCameraRotation((rot[0], rot[1] + 180., 0.))\n_result = json.dumps({'target': target, 'camera': camera, 'pose': 'front', 'top_ui': api.GetTopUI()})\n",
+  "result": {
+    "camera": [
+      3.5,
+      -57.5,
+      -1.0
+    ],
+    "top_ui": "hud_screen",
+    "target": [
+      3.5,
+      -57.5,
+      3.05
+    ],
+    "pose": "front"
+  }
+}

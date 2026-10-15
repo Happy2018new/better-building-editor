@@ -1,0 +1,278 @@
+{
+  "code_sha256": "74352dc0edb685d361d82c1aa651360788eee21c46192c9002419e8117d6d153",
+  "code": "import json, sys, math\nimport mod.server.extraServerApi as api\nfactory = api.GetEngineCompFactory()\nplayer = api.GetPlayerList()[0]\ninfo = factory.CreateBlockInfo(player)\nitems = factory.CreateItem(player)\ndimension = factory.CreateDimension(player).GetEntityDimensionId()\nassert dimension == 0\nassert not hasattr(sys, '_shield_banner_frame_r20')\nfoot = factory.CreatePos(player).GetFootPos()\norigin = (int(math.floor(foot[0])) + 2, int(math.floor(foot[1])) + 2,\n          int(math.floor(foot[2])) + 3)\ninventory_type = api.GetMinecraftEnum().ItemPosType.INVENTORY\nsaved = {'journal': [], 'inventory': items.GetPlayerItem(inventory_type, 35, True),\n         'origin': origin, 'rows': []}\nsys._shield_banner_frame_r20 = saved\npatterns = [{'Color': color, 'Pattern': pattern}\n            for color, pattern in ((1, 'bo'), (14, 'cr'), (11, 'mc'))]\nfor index, (label, user_data) in enumerate((('plain', None), ('multilayer', {'Patterns': patterns}))):\n    pos = (origin[0] + index * 2, origin[1], origin[2])\n    support = (pos[0], pos[1], pos[2] + 1)\n    for target in (support, pos):\n        before = info.GetBlockNew(target, dimension)\n        assert before and before['name'] == 'minecraft:air', (target, before)\n        saved['journal'].append({'pos': target, 'block': before,\n                                 'nbt': info.GetBlockEntityData(dimension, target)})\n    info.SetBlockNew(support, {'name': 'minecraft:cyan_concrete', 'aux': 0}, 0, dimension, True, True)\n    assert items.SetInvItemNum(35, 0)\n    assert items.SpawnItemToPlayerInv({'itemName': 'minecraft:frame', 'count': 1, 'auxValue': 0}, player, 35)\n    assert info.PlayerUseItemToPos(support, inventory_type, 35, 2)\n    assert info.GetBlockNew(pos, dimension)['name'] == 'minecraft:frame'\n    assert items.SetInvItemNum(35, 0)\n    item = {'itemName': 'minecraft:banner', 'auxValue': 4, 'count': 1}\n    if user_data:\n        item['userData'] = user_data\n    assert items.SpawnItemToPlayerInv(item, player, 35)\n    readback = items.GetPlayerItem(inventory_type, 35, True)\n    assert info.PlayerUseItemToPos(pos, inventory_type, 35, 2)\n    actual_item = factory.CreateBlockEntity(factory.GetLevelId() if hasattr(factory, 'GetLevelId') else api.GetLevelId()).GetFrameItem(pos, dimension)\n    saved['rows'].append({'label': label, 'pos': pos, 'support': support,\n                          'inventory': readback, 'item_api': actual_item,\n                          'block': info.GetBlockNew(pos, dimension),\n                          'nbt': info.GetBlockEntityData(dimension, pos)})\nassert items.SetInvItemNum(35, 0)\nif saved['inventory']:\n    assert items.SpawnItemToPlayerInv(saved['inventory'], player, 35)\n_result = json.dumps({'origin': origin, 'rows': saved['rows']})\n",
+  "result": {
+    "origin": [
+      2,
+      -58,
+      3
+    ],
+    "rows": [
+      {
+        "support": [
+          2,
+          -58,
+          4
+        ],
+        "pos": [
+          2,
+          -58,
+          3
+        ],
+        "label": "plain",
+        "inventory": {
+          "count": 1,
+          "newItemName": "minecraft:banner",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 446,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 4,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:banner",
+          "auxValue": 4,
+          "showInHand": true
+        },
+        "item_api": {
+          "count": 1,
+          "newItemName": "minecraft:banner",
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 446,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 4,
+          "modEnchantData": [],
+          "modId": "",
+          "modItemId": "",
+          "itemName": "minecraft:banner",
+          "auxValue": 4,
+          "showInHand": true
+        },
+        "nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 3
+          },
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 4
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:banner"
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -58
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 2
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          }
+        },
+        "block": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        }
+      },
+      {
+        "support": [
+          4,
+          -58,
+          4
+        ],
+        "pos": [
+          4,
+          -58,
+          3
+        ],
+        "label": "multilayer",
+        "inventory": {
+          "count": 1,
+          "newItemName": "minecraft:banner",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 446,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 4,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": {
+            "Patterns": [
+              {
+                "Color": {
+                  "__type__": 3,
+                  "__value__": 1
+                },
+                "Pattern": {
+                  "__type__": 8,
+                  "__value__": "bo"
+                }
+              },
+              {
+                "Color": {
+                  "__type__": 3,
+                  "__value__": 14
+                },
+                "Pattern": {
+                  "__type__": 8,
+                  "__value__": "cr"
+                }
+              },
+              {
+                "Color": {
+                  "__type__": 3,
+                  "__value__": 11
+                },
+                "Pattern": {
+                  "__type__": 8,
+                  "__value__": "mc"
+                }
+              }
+            ]
+          },
+          "modItemId": "",
+          "itemName": "minecraft:banner",
+          "auxValue": 4,
+          "showInHand": true
+        },
+        "item_api": {
+          "count": 1,
+          "newItemName": "minecraft:banner",
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 446,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 4,
+          "modEnchantData": [],
+          "modId": "",
+          "modItemId": "",
+          "itemName": "minecraft:banner",
+          "auxValue": 4,
+          "showInHand": true
+        },
+        "nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 3
+          },
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "tag": {
+              "Patterns": [
+                {
+                  "Color": {
+                    "__type__": 3,
+                    "__value__": 1
+                  },
+                  "Pattern": {
+                    "__type__": 8,
+                    "__value__": "bo"
+                  }
+                },
+                {
+                  "Color": {
+                    "__type__": 3,
+                    "__value__": 14
+                  },
+                  "Pattern": {
+                    "__type__": 8,
+                    "__value__": "cr"
+                  }
+                },
+                {
+                  "Color": {
+                    "__type__": 3,
+                    "__value__": 11
+                  },
+                  "Pattern": {
+                    "__type__": 8,
+                    "__value__": "mc"
+                  }
+                }
+              ]
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 4
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:banner"
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -58
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          }
+        },
+        "block": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        }
+      }
+    ]
+  }
+}

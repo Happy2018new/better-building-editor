@@ -1,0 +1,7 @@
+{
+  "code_sha256": "fb067851cbaa7cdb8870dafea6106320a7ea0ad6fbcec04d98c804bdebfcfee5",
+  "code": "import json, sys\nsaved = sys._shield_banner_geometry_r20\ncontrol = saved['native_item_control']\ncontrol.SetVisible(False)\nassert saved['node'].RemoveChildControl(control)\ndel saved['native_item_control']\n_result = json.dumps({'native_item_control_removed': True})\n",
+  "result": {
+    "native_item_control_removed": true
+  }
+}

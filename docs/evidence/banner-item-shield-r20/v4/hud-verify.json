@@ -1,0 +1,8 @@
+{
+  "code_sha256": "7518ef27e627b19a80d2c9106a6559947895a70320d96e5e8e0526577b809d5f",
+  "code": "import json, sys\nimport mod.client.extraClientApi as api\nassert api.GetTopUI() == 'hud_screen', api.GetTopUI()\nassert not hasattr(sys, '_shield_craft_listener_r20')\nassert not hasattr(sys, '_shield_banner_geometry_r20')\n_result = json.dumps({'top_ui': api.GetTopUI(), 'temporary_globals_absent': True})\n",
+  "result": {
+    "temporary_globals_absent": true,
+    "top_ui": "hud_screen"
+  }
+}
