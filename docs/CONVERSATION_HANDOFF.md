@@ -1,5 +1,16 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 04:25 真实mesh读回成功，隐藏层修复已提交
+
+- 最新用户提醒继续有效：旗帜物品在展示框里的姿态、比例、短下杆与厚度独立于旗帜方块。旧v3/v5方块palette形态不合格；Shield正在独立clone准备保留真实typed Item.tag三层Patterns的原生item绑定测试。原clone的banner/banner_pole通用override有block preview坐标，独立native baseline会明确移除这两定义并冻结哈希，不改产品或v9盾clone。
+- Shelf mesh v2实际28图完成、恢复、source unchanged，cleanup空；未标记magenta与flags证明着色器选中，flag_readback_valid=True。固定20×20 ROI：南/西shelf COLOR均204，stone南204/西153，light与TILE均237；说明custom shelf缺方向面色变化。ALWAYS_LIT尚未读回，不能把237直接当最终乘数。证据包docs/evidence/shelf-light-inputs-r21-mesh-v2的97manifest文件已从workspace外独立verify/replay通过，生产资格仍False。
+- 该root session 653a425634ba4142b0a0d38792f5cc09的普通stop77700返回1；observer15096记录MC25292/134365684836208781退出0xC0000409，MCDK15328/134365684834005180退出0。原identity缺失后normal-only finalize返回0/state stopped，未force；8图与28图capture及stop/observer均结束。生命周期异常保留，不能说正常退出。
+- Water稳定distance纯adapter缓存本地提交a09aa9b9，精确两path；默认同group实例/同distance类型值且字段全部内置不可变才复用。每帧renderer验证/view/pose/恢复保留，自定义adapter不缓存，生命周期清缓存。Agent116相关tests、root77tests通过；60帧源adapter重复校验60→0，其余逐帧调用不减且payload一致。旧370/435等owner elapsed异常未关闭，实机A/B只在离线准备。
+- Book隐藏层邻域修复已提交c946307911a205d4c957de1f919ba8308061c2dd，5业务+2tests。Context builder仅过滤完全隐藏层的邻居，不用missing-only target作为过滤；full/missing/fallback均传view predicate，visible occupied非target邻居保留。9新tests含原[4421,8517]→[4421]与hidden→show→hidden native入参恢复，root49tests通过；agent相关236+新增1通过。实机复测未关闭。
+- Book原生长标题尝试在loot阶段被截断，严格检查失败，仅2张empty lectern图；恢复/source unchanged/cleanup空。MC19168 exact0xC0000409/MCDK1336=0并finalize；短标题R21 Book A独立3033file clone digest cef24117…已离线冻结，严格request/loot/inventory/client/server对照保留，未启动。
+- MC/WGC已交Item，只noon-grass-log。原start因cold clone缺observer文件exit1；外部已核对aa436ee9… observer在session3c5e4322c1754a3ba47deafd63134878 retained exact handles（MC12392/134365692453392148，MCDK48596/134365692451350981），amendment明确保留启动失败。首组采集105.45s因可用commit降至4.86GiB而停止，grass完整、log部分，18图，completed=False/source unchanged/cleanup空。此刻正在normal close/审图，不准其他MC启动；phase不能计整组通过。
+- 下一运行排Snow v5最小blue_orchid h0、Shield v9 Scene selector、Book短标题oracle；所有人须等root明确交棒。新shelf_r21只离线准备具有真实normal的独立body skeleton替代路线，不动全局biome或其他专项。共享index此刻root专用保存本证据，08:00休眠任务继续有效，不push/合main，不动原water两个tracked WIP。
+
 ## 2026-10-16 04:01 mesh缺NORMAL实机失败，改读COLOR；讲台原生成书运行中
 
 - 用户对旗帜物品的提醒已核查属实：旧v3/v5候选都是站旗／壁旗palette几何，未独立实现物品网格和姿态，不能计作展示框旗帜完成。原生frame正面短下杆阳性，斜面内容缺失，厚度仍未确认。shield已保存.runtime/shield-banner-item-audit-r21/AUDIT.md并准备独立item接入；Scene selector仍未启动，冷启launcher继续离线准备。

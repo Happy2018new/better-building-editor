@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "session": "653a425634ba4142b0a0d38792f5cc09",
+  "owner": "root-shelf-r20-mesh-inputs-v2",
+  "first_stop": {
+    "exec_session": 77700,
+    "exit_code": 1,
+    "message": "[instances] Game has not closed; inspect it or explicitly use stop --force"
+  },
+  "exact_observer": {
+    "exec_session": 15096,
+    "exit_code": 0,
+    "game_exit_code_hex": "0xC0000409",
+    "mcdk_exit_code_hex": "0x00000000"
+  },
+  "original_process_identities_absent_before_finalize": true,
+  "normal_only_finalize_exit_code": 0,
+  "session_state_after_finalize": "stopped",
+  "force_used": false,
+  "capture_execs": {
+    "61367": {"exit_code": 0, "captures": 8},
+    "81628": {"exit_code": 0, "captures": 28}
+  },
+  "all_owned_execs_ended": true,
+  "normal_lifecycle_qualified": false
+}

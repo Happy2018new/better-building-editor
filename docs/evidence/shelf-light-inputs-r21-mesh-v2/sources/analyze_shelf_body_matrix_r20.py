@@ -1,0 +1,183 @@
+"""Review matched shelf candidates; role scores remain diagnostic observations."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+
+import numpy as np
+from PIL import Image, ImageDraw
+
+
+def pixels(report, label, directory):
+    receipt = report['captures'][label]
+    source = directory / Path(receipt['path']).name
+    if not source.is_file():
+        source = Path(receipt['path'])
+    if receipt.get('reliable') is not True:
+        raise ValueError('Unreliable shelf capture: ' + label)
+    if hashlib.sha256(source.read_bytes()).hexdigest() != receipt['sha256']:
+        raise ValueError('Shelf capture bytes changed: ' + label)
+    projection = receipt['before']['target_screen']
+    if projection.get('isInScreen') is not True:
+        raise ValueError('Shelf target is outside the captured viewport')
+    with Image.open(source) as picture:
+        # Native WorldToScreenPoint returns physical pixels, not logical UI units.
+        center_x, center_y = projection['screenX'], projection['screenY']
+        bounds = (round(center_x - 190), round(center_y - 170),
+                  round(center_x + 190), round(center_y + 130))
+        if min(bounds) < 0 or bounds[2] > picture.width or bounds[3] > picture.height:
+            raise ValueError('Shelf review crop extends beyond the viewport')
+        return np.asarray(picture.convert('RGB').crop(bounds))
+
+
+def cell_scope(report, case, shape):
+    corners = case.get('cell_projection')
+    if corners is None:
+        return None
+    if len(corners) != 8 or any(row['screen'].get('isInScreen') is not True for row in corners):
+        raise ValueError('Shelf cell corners are missing or outside the viewport')
+    target = report['captures'][case['label'] + '_world']['before']['target_screen']
+    origin = (round(target['screenX'] - 190), round(target['screenY'] - 170))
+    points = [(row['screen']['screenX'] - origin[0], row['screen']['screenY'] - origin[1])
+              for row in corners]
+    mask = Image.new('1', (shape[1], shape[0]))
+    draw = ImageDraw.Draw(mask)
+    for face in ((0, 1, 3, 2), (4, 5, 7, 6), (0, 1, 5, 4),
+                 (2, 3, 7, 6), (0, 2, 6, 4), (1, 3, 7, 5)):
+        draw.polygon([points[index] for index in face], fill=1)
+    return np.asarray(mask, dtype=bool)
+
+
+def compare(reference, candidate, empty, scope=None):
+    if reference.shape != candidate.shape or reference.shape != empty.shape:
+        raise ValueError('Shelf frames have different dimensions')
+    native_mask = np.max(np.abs(reference.astype(float) - empty), axis=2) > 12
+    candidate_mask = np.max(np.abs(candidate.astype(float) - empty), axis=2) > 12
+    outside = None
+    if scope is not None:
+        outside = {'native': int(np.count_nonzero(native_mask & ~scope)),
+                   'candidate': int(np.count_nonzero(candidate_mask & ~scope))}
+        native_mask &= scope
+        candidate_mask &= scope
+    union = native_mask | candidate_mask
+    if np.count_nonzero(native_mask) < 100 or np.count_nonzero(candidate_mask) < 100:
+        raise ValueError('Missing native or candidate shelf content')
+    ys, xs = np.nonzero(native_mask)
+    left, top, right, bottom = int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1
+    width, height = right - left, bottom - top
+    bounds = [left, top, right, bottom]
+    common = native_mask & candidate_mask
+    # Score the shelf's middle backing; outer rails are shared by all roles.
+    middle = np.zeros_like(common)
+    middle[top + int(height * .31):top + int(height * .66),
+           left + int(width * .08):left + int(width * .92)] = True
+    middle &= common
+    if np.count_nonzero(middle) < 100:
+        raise ValueError('Shelf middle artwork is too small to inspect')
+    first = reference[middle].astype(float)
+    second = candidate[middle].astype(float)
+    gain = np.sum(first * second, axis=0) / np.maximum(np.sum(second * second, axis=0), 1.)
+    normalized = second * gain
+    correlations = []
+    for channel in range(3):
+        if min(np.std(first[:, channel]), np.std(second[:, channel])) < 1e-6:
+            correlations.append(None)
+        else:
+            correlations.append(float(np.corrcoef(first[:, channel], second[:, channel])[0, 1]))
+    return {'native_pixels': int(native_mask.sum()), 'candidate_pixels': int(candidate_mask.sum()),
+            'scope': 'native_projected_cell' if scope is not None else 'legacy_crop',
+            'changed_pixels_outside_scope': outside,
+            'unshifted_iou': float(np.count_nonzero(common) / np.count_nonzero(union)),
+            'native_bounds': bounds, 'middle_pixels': int(middle.sum()),
+            'middle_rgb_gain': gain.tolist(), 'middle_channel_correlation': correlations,
+            'middle_normalized_rmse': float(np.sqrt(np.mean((first - normalized) ** 2))),
+            'middle_raw_rmse': float(np.sqrt(np.mean((first - second) ** 2)))}
+
+
+def oak_silhouette(reference, candidate, scope):
+    """Separate measured oak from sky/grass drift, without granting admission."""
+    if scope is None or reference.shape != candidate.shape or scope.shape != reference.shape[:2]:
+        raise ValueError('Oak diagnostic needs matching images and a projected cell')
+
+    def mask(array):
+        red, green, blue = np.moveaxis(array.astype(float), 2, 0)
+        return scope & (red > green * 1.08) & (green > blue * 1.2)
+
+    first, second = mask(reference), mask(candidate)
+    if first.sum() < 100:
+        raise ValueError('No usable native oak color reference')
+    union = first | second
+    return {'diagnostic_only': True, 'predicate': 'R>1.08G and G>1.2B inside native projected cell',
+            'native_pixels': int(first.sum()), 'candidate_pixels': int(second.sum()),
+            'unshifted_iou': float((first & second).sum() / union.sum())}
+
+
+def analyze(source, output):
+    report = json.loads(source.read_bytes())
+    if not all(report.get(key) is True for key in ('completed', 'restored', 'source_unchanged')):
+        raise ValueError('Shelf measurement did not complete and restore unchanged sources')
+    if report.get('cleanup_errors'):
+        raise ValueError('Shelf measurement has cleanup errors')
+    output.mkdir(parents=True, exist_ok=False)
+    rows = []
+    tiles = []
+    max_columns = 0
+    for case in report['cases']:
+        label = case['label']
+        native = pixels(report, label + '_world', source.parent)
+        empty = pixels(report, label + '_empty', source.parent)
+        scope = cell_scope(report, case, native.shape)
+        records = {}
+        samples = [('world', native)]
+        for key in report['captures']:
+            if key.startswith(label + '_') and key not in (label + '_world', label + '_empty'):
+                front = key[len(label) + 1:]
+                candidate = pixels(report, key, source.parent)
+                records[front] = compare(native, candidate, empty, scope)
+                if case['material']['name'] == 'minecraft:oak_shelf' and scope is not None:
+                    records[front]['oak_silhouette_diagnostic'] = oak_silhouette(native, candidate, scope)
+                samples.append((front, candidate))
+        if not records:
+            raise ValueError('No candidate artwork for ' + label)
+        ranking = sorted(records, key=lambda key: records[key]['middle_normalized_rmse'])
+        row = {'label': label, 'states': case['states'], 'scores': records,
+               'best_diagnostic_match': ranking[0],
+               'diagnostic_rmse_margin': (records[ranking[1]]['middle_normalized_rmse'] -
+                                          records[ranking[0]]['middle_normalized_rmse'])
+               if len(ranking) > 1 else None}
+        rows.append(row)
+        left, top, right, bottom = records[ranking[0]]['native_bounds']
+        bounds = (max(0, left - 8), max(0, top - 8), min(native.shape[1], right + 8),
+                  min(native.shape[0], bottom + 8))
+        row['review_bounds'] = list(bounds)
+        for front, array in samples:
+            crop = Image.fromarray(array).crop(bounds)
+            crop.save(output / (label + '_' + front + '.png'))
+        tiles.append((label, [(front, Image.fromarray(array).crop(bounds)) for front, array in samples]))
+        max_columns = max(max_columns, len(samples))
+    tile_width = max(picture.width for unused, samples in tiles for unused, picture in samples)
+    tile_height = max(picture.height for unused, samples in tiles for unused, picture in samples) + 42
+    sheet = Image.new('RGB', (max_columns * tile_width, len(tiles) * tile_height), '#252525')
+    draw = ImageDraw.Draw(sheet)
+    for y, (label, samples) in enumerate(tiles):
+        for x, (front, picture) in enumerate(samples):
+            draw.text((x * tile_width + 3, y * tile_height + 3), label, fill='white')
+            draw.text((x * tile_width + 3, y * tile_height + 19), front, fill='white')
+            sheet.paste(picture, (x * tile_width, y * tile_height + 40))
+    sheet.save(output / 'review.png')
+    result = {'schema_version': 1, 'production_qualified': False,
+              'source_report_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
+              'cases': rows, 'limits': ['Scores identify artwork candidates only; no runtime admission.',
+                                      'Per-channel normalization is diagnostic and does not qualify lighting.',
+                                      'Projected-cell scores exclude exterior background changes; exterior counts remain diagnostic.']}
+    (output / 'review.json').write_text(json.dumps(result, indent=2) + '\n', encoding='ascii')
+    print(json.dumps([{'case': row['label'], 'best': row['best_diagnostic_match'],
+                       'margin': row['diagnostic_rmse_margin']} for row in rows]))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('report', type=Path)
+    parser.add_argument('output', type=Path)
+    args = parser.parse_args()
+    analyze(args.report, args.output)

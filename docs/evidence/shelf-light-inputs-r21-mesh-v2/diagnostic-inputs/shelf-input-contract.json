@@ -1,0 +1,24 @@
+{
+  "production_qualified": false,
+  "source_unchanged": true,
+  "vertex_sha256": "0eae45cf748d5b70a18d4040a463a8b8e3746b1748ee6464ac4c54dcd65f8809",
+  "fragment_sha256": "8c1c7a5f6bc17c9826085da7a0816aa64b910cb9068bdc0b34853f801c4f9077",
+  "marker": 19491.0,
+  "modes": {
+    "4": "light_rgb",
+    "5": "tile_light_rgb",
+    "6": "vertex_rgb",
+    "7": "mesh_flags",
+    "8": "vertex_alpha_tile_alpha_geometry_flag"
+  },
+  "route": "mesh",
+  "unmarked_selector": "magenta",
+  "scope": "Private diagnostic materials; product routing unchanged",
+  "limits": [
+    "RGB values quantized to capture bytes; no absolute HDR measurement",
+    "Mesh mode 6 reads the bound COLOR attribute regardless of COLOR_BASED",
+    "Combined mesh NORMAL is unavailable; modes 1-3 are not supported",
+    "Native world shelf does not use these actor or mesh diagnostics",
+    "Input readback alone cannot qualify appearance or item contents"
+  ]
+}

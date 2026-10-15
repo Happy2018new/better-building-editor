@@ -1,0 +1,55 @@
+{
+  "production_qualified": false,
+  "observation": {
+    "report_sha256": "c4869ffd2ab048fa7842c58a85eae9d4acb9fee6d33b361b70ae89f1e8ff84c0",
+    "reported_captures": 28,
+    "preserved_labels": [
+      "oak_0_south_empty",
+      "oak_0_south_shelf_input_4",
+      "oak_0_south_shelf_input_5",
+      "oak_0_south_shelf_input_6",
+      "oak_0_south_shelf_input_7",
+      "oak_0_south_shelf_input_8",
+      "oak_0_south_stone_input_4",
+      "oak_0_south_stone_input_5",
+      "oak_0_south_stone_input_6",
+      "oak_0_south_stone_input_7",
+      "oak_0_south_stone_input_8",
+      "oak_0_south_unpowered",
+      "oak_0_south_unpowered_ao",
+      "oak_0_south_world",
+      "oak_8_west_empty",
+      "oak_8_west_shelf_input_4",
+      "oak_8_west_shelf_input_5",
+      "oak_8_west_shelf_input_6",
+      "oak_8_west_shelf_input_7",
+      "oak_8_west_shelf_input_8",
+      "oak_8_west_stone_input_4",
+      "oak_8_west_stone_input_5",
+      "oak_8_west_stone_input_6",
+      "oak_8_west_stone_input_7",
+      "oak_8_west_stone_input_8",
+      "oak_8_west_unpowered",
+      "oak_8_west_unpowered_ao",
+      "oak_8_west_world"
+    ],
+    "omitted_labels": []
+  },
+  "flag_readback_valid": true,
+  "shader_inputs": {
+    "marker": 19491.0,
+    "modes": {
+      "4": "light_rgb",
+      "5": "tile_light_rgb",
+      "6": "vertex_rgb",
+      "7": "mesh_flags",
+      "8": "vertex_alpha_tile_alpha_geometry_flag"
+    },
+    "route": "mesh"
+  },
+  "limits": [
+    "Input colors are captured bytes, not HDR or lighting acceptance.",
+    "Center samples use fixed ROIs without alignment or color fitting.",
+    "Only diagnostic shader inputs are copied, not a full runnable project."
+  ]
+}
