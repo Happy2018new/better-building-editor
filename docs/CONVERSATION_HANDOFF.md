@@ -1,5 +1,18 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 04:45 全回归完成，草侧面修正；盾Scene输入失败
+
+- 继续开发至08:00并休眠，不暂停。已再次读回计划任务enabled、08:00+08触发、shutdown.exe /h、StartWhenAvailable=False。最新旗帜提醒继续有效：物品展示框里的旗帜物品不能套用站旗／壁旗的形态；姿态、比例、短杆、厚度须独立原生对照。
+- 全回归exec68094已exit0，3100 tests／386.390s／OK(skipped=1)；运行时import audit 234files／0violations。回归结束后canonical available commit约6.5GiB，允许Shield同session继续，未重复launch。
+- Shield v9 Scene session165570e1c0644a79bd92131ce080e71c，owner shield-r20-v9-scene-selector，MC32680／134365700173522004，MCDK39608／134365700171342703。第一次inspect即Private host model creation failed／SetModel=-1，未binding／capture／进入selector矩阵。只读核对实际RP model registry存在且SHA与clone一致，不能归因注册缺失。journal恢复后workspace=false／mounted=false／config=null／error=null，已发一次normal close并超时；observer15674仍持有exact handles，等待原identity退出再normal finalize。此刻MC/WGC尚未释放，其他人禁止launch。
+- Item草侧面overlay alpha极性最小修正fd71754e已提交，只有generator＋test两path，17tests通过，index已归还。生产catalog/profile/assets未改。草旧实图轮廓IoU .9995305但侧面绿泥土／灰草边错误；0.93不能认作通用光照因子。修正候选atlas SHA ab130fe0…；新的三角度grass-only对照仅离线准备，未授权launch。
+- Item不完整holdout便携包.runtime/frame-block-light-holdout-r21-package-stage-v2已由root从Temp用python -I独立重放通过，333files／24rawPNG／11analysis images、camera及修正atlas均复现。phase／appearance／production均False，MC0xC0000409／MCDK0原样；未stage。manifest SHA 3baf371437d06e00733a014a7c74e30c6c5ac9c5f7eb91df98f6441407befac0。
+- Shelf真实native fragment-only读回clone v2已离线冻结3113files／20dff43b8bf742d693c8000faad0085d49b855e091535dfbfda387ef998228ed，未launch。保留native vertex，仅四条物理16px stripes读取magenta／light／TILE／FANCY+RNGL+ALWAYS_LIT。14程序／40 GLES像素通过，GLES100 skinning与原生相同BONES_70错误单列；新增分析器按物理x确定stripe并拒绝仍有纹理的错误路径，4针对tests通过。不能以237直接推最终亮度。
+- Shelf独立显式normal骨骼已准备8资源overlay，cold clone3150files／283f4a732c9a737f7a313dae4690718317e6ce1ff987ebb0054ff038eb86ca8b，source fd71754e。入口.runtime/shelf-skeleton-r21-native-v1/run.py；首south三图native／empty／magenta，root开原图并记录review后才能details九图。12聚焦tests通过，无MC／index授权，生产仍False。
+- Book短title oracle cef24117…与hidden/show cyan c13cddcb…两cold clone/host冻结未变，下一窗口先短title；原长title失败便携包正离线保存。Snow v5的2035／2035外溢像素由empty_model占位文字消失解释，不能改旧失败；probe-only原fiber隐藏／读回／安全恢复8tests通过，v6冻结中，未授权launch。
+- Water离线operational amendment已完成，owner water-r20-depth-cache-ab-v1匹配现有watcher；原五plan文件和3093source／dfe714e3…保持。入口host.py launch --scheduled-by-root先验外部exact observer闭包，双句柄retained后才run；9GiB launch／6GiB runtime不降。receipt SHA c681a333…；七phase／abort／Py2／缺失observer拒绝路径通过，未launch。旧耗时／外观／production仍开。
+- 当前index由root保存本轮native-light工具与交接；不push／合main，不动两原water tracked WIP及既有未追踪证据。
+
 ## 2026-10-16 04:25 真实mesh读回成功，隐藏层修复已提交
 
 - 最新用户提醒继续有效：旗帜物品在展示框里的姿态、比例、短下杆与厚度独立于旗帜方块。旧v3/v5方块palette形态不合格；Shield正在独立clone准备保留真实typed Item.tag三层Patterns的原生item绑定测试。原clone的banner/banner_pole通用override有block preview坐标，独立native baseline会明确移除这两定义并冻结哈希，不改产品或v9盾clone。
