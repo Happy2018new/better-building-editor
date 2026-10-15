@@ -14,6 +14,12 @@
 - **验证：** gate最后改动后全量2,911项通过（1跳过，225.560秒），日志`.runtime/r18-final-after-body-gate-alltests.log`，exec22133已exit0；故障注入traceback不等于失败，结论见日志247／249行。四个已启用锅／旗帜／末地表面／刷怪笼工作区及staged来源验证通过，book仍disabled；默认台体gate没有通过更新hash掩盖视觉失败。水两份归档重验通过，matrix348 PNG／348 receipts及bounds44图的像素重算均保留。
 - **残留MC条目：** PID40520（02:25:33.684379+08:00）→父33752／session `9f5a6c7618df46069ef40b84ba98fc02`；PID3264（11:39:03.455412）→父46700／session `6d2af456cfda4e6886f875a6f35a99ba`；PID39028（11:54:53.833073）→父44588／session `9111908a4fd8432eb90a85e5bc8e9f5e`。三个父进程的原生creation identity均与session逐字匹配，子条目创建均在原父存活期。子条目本身OpenProcess(QUERY_LIMITED_INFORMATION)全部拒绝（error5），CIM路径null，无法取得原生creation identity，不得把`process_identity=None`误记为退出。当前未清理，继续计入最多5实例上限；下轮先核对本机实际状态，不复用旧PID、不杀无明确身份的用户进程。
 
+13:20收尾补充：root按CIM的名称、父PID和精确CreationDate重新匹配上述三个自有残留，受保护地各尝试一次CIM Terminate；三者均返回`2`（Access denied）且仍被列出，回收未成功。没有更改系统权限、终止其他游戏或重启电脑。已确认的台体边界入口是`render_layout.context_center/local_context_center`及`modern_projection_biome_blocks.fragment`的闭区间裁剪；同坐标的两侧面不能仅靠位置区分归属。对应native vertex输入没有显式NORMAL attribute，不能未经验证就套用法线偏移；任何后续共享shader修改须重新核对受影响的既有资格。
+
+准入待补项：`qualify_book_product_r18.py`已有owner、书面raster、讲台页面、来源和default五类门，但当前占据读回通过并不能拦住上述台体邻面残留。`analyze_book_body_occupancy_r18.py`现是单独的残留计量诊断，尚未整合成底面／四侧像素残留的硬性准入。保持两个生产gate关闭；修复时须将有效正负控、支持面保留和残留失败一起纳入，不把人工review标记或owner=0当作自动兜底。
+
+水editor定位入口已核对：`tools/probe_liquid_workspace.py`的STATE目前记录`renderer.visible/poses/uniforms`缓存和Doll位置／尺寸，没有逐bank实际`GetModelId()`；`SkeletonLiquidRenderer`已有`dolls`与`ids`可用于比较实际ID／缓存ID。下一次只跑pool wet/dry正负控，先加入实际ID、必要的原生状态／payload读回，再分离材质、深度及Panel布局。`LiquidControls._renderer`用两bank PaperDoll，`LiquidTile`的Doll zIndex=306；这些是定位入口，不是已确定根因。不以新增缓存日志代替原始截图像素，也不先重跑348图。
+
 已保存提交：`0327d438`（Shelf／阴影控制）、`1fdebea8`（关闭未资格台体与书边界回归）、`a8780a0f`（独立水owner与矩阵）、`0387b4e8`（附魔变换与可见性／动画分离）、`9338a59f`（保存此前同主题dense／占据／侧视工具）、`c923e225`（脱敏物品实机归档）。全部留在`dev`，没有push或合main；另有本节／清单／盘点文档提交。此前水诊断两文件和其他未纳入的WIP保留，不将其混入这些已核对范围。
 
 下轮先读统一清单固定工作包，再按以上最小失败定位继续；不重复整批已完成调查。三个代理均已完成，没有运行中的本轮采集／分析／全量测试exec。不要恢复旧代理的嵌套任务。
