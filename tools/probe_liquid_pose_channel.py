@@ -102,6 +102,7 @@ SPAWN_STANDALONE = '''saved=sys._liquid_pose_client
 saved['standalone']=api.GetSystem('ModernProjection','ModernProjectionClientSystem').CreateClientEntityByTypeStr(
  %r,tuple(saved['origin']),(0.,0.))
 assert saved['standalone']
+factory.CreateModel(saved['standalone']).SetEntityShadowShow(False)
 render=factory.CreateActorRender(saved['standalone'])
 assert render.SetNotRenderAtAll(False)
 _result=json.dumps({'entity':saved['standalone']})
@@ -139,6 +140,7 @@ for key,palette in (('live',live),('roundtrip',copy)):
 saved['paths']=paths
 saved['entity']=api.GetSystem('ModernProjection','ModernProjectionClientSystem').CreateClientEntityByTypeStr('modern_projection:anchor',origin,(0.,0.))
 assert saved['entity']
+factory.CreateModel(saved['entity']).SetEntityShadowShow(False)
 _result=json.dumps({'deserialized':deserialized,'roundtrip_equal':copy.SerializeBlockPalette()==raw,
  'paths':paths,'entity':saved['entity'],'carrier_position':position,
  'source':'constructed_from_live_single_cell' if any(position) else 'native_live_single_cell'})

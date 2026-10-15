@@ -70,6 +70,7 @@ for key,position in (('body_only',origin),('support_only',low)):
 saved['entity']=api.GetSystem('ModernProjection','ModernProjectionClientSystem').CreateClientEntityByTypeStr(
  'modern_projection:anchor',origin,(0.,0.))
 assert saved['entity']
+factory.CreateModel(saved['entity']).SetEntityShadowShow(False)
 _result=json.dumps({'volume':raw['volume'],'common':repr(raw['common']),
  'extra':repr(raw.get('extra',{})),'actor':repr(raw.get('actor',{})),
  'roundtrip_equal':copy.SerializeBlockPalette()==raw,
@@ -109,6 +110,8 @@ def main():
     parser.add_argument('--body-offsets',type=float,nargs='+',default=(),
                         help='Diagnostic vertical offsets for a separately generated body; support stays fixed.')
     parser.add_argument('--proxy-block', help='Optional registered internal body candidate; never placed in the real world.')
+    parser.add_argument('--shadow-control', action='store_true',
+                        help='Capture an explicit shadow on/off negative control after the body matrix.')
     args = parser.parse_args()
     session = json.loads(args.session.read_bytes())
     if session['owner'] != args.owner or args.output.exists():
@@ -125,6 +128,7 @@ def main():
               'session': {key: session[key] for key in ('id','owner','game_pid','game_identity')},
               'cleanup_errors': []}
     report['block'] = args.block
+    report['entity_shadow_enabled'] = False
     def persist():
         native.write(args.output, report)
     with native.Client(timeout=40) as client:
@@ -195,6 +199,17 @@ _result={'body_offset':%r,'support_offset':(-.5,-1.,-.5)}
 ''' % offset)
                 for view in VIEWS:
                     frame(label,view)
+            if args.shadow_control:
+                native.run(client, native.ATTACH % ('prepared',(-.5,-1.,-.5),(0.,0.,0.,0.),[]))
+                for view in VIEWS:
+                    for enabled, label in ((True, 'shadow_on'), (False, 'shadow_off')):
+                        native.run(client, '''saved=sys._liquid_pose_client
+factory.CreateModel(saved['entity']).SetEntityShadowShow(%r)
+_result=True
+''' % enabled)
+                        frame(label, view)
+                        report['captures'][label+'_'+view]['entity_shadow_enabled'] = enabled
+                        persist()
             report['completed'] = True
         except Exception as error:
             report['error'] = type(error).__name__ + ': ' + str(error)

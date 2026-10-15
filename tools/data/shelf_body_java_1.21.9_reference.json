@@ -1,0 +1,426 @@
+{
+  "attribution": "Minecraft shelf models, Mojang AB; preserved resource data from misode/mcmeta.",
+  "conversion": "Preserve 32x32 native texels and solid geometry. Split backing into three disjoint solid slabs to avoid a zero-thickness front plane in block geometry.",
+  "models": {
+    "body": {
+      "display": {
+        "fixed": {
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "translation": [
+            0,
+            0,
+            -4
+          ]
+        },
+        "gui": {
+          "rotation": [
+            30,
+            225,
+            0
+          ],
+          "scale": [
+            0.625,
+            0.625,
+            0.625
+          ],
+          "translation": [
+            2.5,
+            -1.5,
+            0
+          ]
+        }
+      },
+      "elements": [
+        {
+          "faces": {
+            "down": {
+              "cullface": "down",
+              "texture": "#all",
+              "uv": [
+                16,
+                6,
+                8,
+                4.5
+              ]
+            },
+            "east": {
+              "cullface": "east",
+              "texture": "#all",
+              "uv": [
+                8,
+                0,
+                9.5,
+                8
+              ]
+            },
+            "south": {
+              "cullface": "south",
+              "texture": "#all",
+              "uv": [
+                8,
+                0,
+                16,
+                8
+              ]
+            },
+            "up": {
+              "cullface": "up",
+              "texture": "#all",
+              "uv": [
+                16,
+                5,
+                8,
+                3.5
+              ]
+            },
+            "west": {
+              "cullface": "west",
+              "texture": "#all",
+              "uv": [
+                14.5,
+                0,
+                16,
+                8
+              ]
+            }
+          },
+          "from": [
+            0,
+            0,
+            13
+          ],
+          "name": "shelf_body",
+          "to": [
+            16,
+            16,
+            16
+          ]
+        },
+        {
+          "faces": {
+            "down": {
+              "cullface": "down",
+              "texture": "#all",
+              "uv": [
+                16,
+                4.5,
+                8,
+                3.5
+              ]
+            },
+            "east": {
+              "cullface": "east",
+              "texture": "#all",
+              "uv": [
+                1.5,
+                6,
+                2.5,
+                8
+              ]
+            },
+            "north": {
+              "texture": "#all",
+              "uv": [
+                0,
+                6,
+                8,
+                8
+              ]
+            },
+            "up": {
+              "texture": "#all",
+              "uv": [
+                8,
+                3.5,
+                16,
+                4.5
+              ]
+            },
+            "west": {
+              "cullface": "west",
+              "texture": "#all",
+              "uv": [
+                5.5,
+                6,
+                6.5,
+                8
+              ]
+            }
+          },
+          "from": [
+            0,
+            0,
+            11
+          ],
+          "name": "shelf_bottom",
+          "to": [
+            16,
+            4,
+            13
+          ]
+        },
+        {
+          "faces": {
+            "down": {
+              "texture": "#all",
+              "uv": [
+                8,
+                5,
+                16,
+                6
+              ]
+            },
+            "east": {
+              "cullface": "east",
+              "texture": "#all",
+              "uv": [
+                1.5,
+                0,
+                2.5,
+                2
+              ]
+            },
+            "north": {
+              "texture": "#all",
+              "uv": [
+                0,
+                0,
+                8,
+                2
+              ]
+            },
+            "up": {
+              "cullface": "up",
+              "texture": "#all",
+              "uv": [
+                16,
+                6,
+                8,
+                5
+              ]
+            },
+            "west": {
+              "cullface": "west",
+              "texture": "#all",
+              "uv": [
+                5.5,
+                0,
+                6.5,
+                2
+              ]
+            }
+          },
+          "from": [
+            0,
+            12,
+            11
+          ],
+          "name": "shelf_top",
+          "to": [
+            16,
+            16,
+            13
+          ]
+        }
+      ],
+      "parent": "block/block",
+      "textures": {
+        "particle": "#particle"
+      }
+    },
+    "center": {
+      "elements": [
+        {
+          "faces": {
+            "north": {
+              "texture": "#all",
+              "uv": [
+                0,
+                12,
+                8,
+                16
+              ]
+            }
+          },
+          "from": [
+            0,
+            4,
+            13
+          ],
+          "to": [
+            16,
+            12,
+            13
+          ]
+        }
+      ],
+      "parent": "block/block",
+      "textures": {
+        "particle": "#particle"
+      }
+    },
+    "left": {
+      "elements": [
+        {
+          "faces": {
+            "north": {
+              "texture": "#all",
+              "uv": [
+                0,
+                8,
+                8,
+                12
+              ]
+            }
+          },
+          "from": [
+            0,
+            4,
+            13
+          ],
+          "to": [
+            16,
+            12,
+            13
+          ]
+        }
+      ],
+      "parent": "block/block",
+      "textures": {
+        "particle": "#particle"
+      }
+    },
+    "right": {
+      "elements": [
+        {
+          "faces": {
+            "north": {
+              "texture": "#all",
+              "uv": [
+                8,
+                8,
+                16,
+                12
+              ]
+            }
+          },
+          "from": [
+            0,
+            4,
+            13
+          ],
+          "to": [
+            16,
+            12,
+            13
+          ]
+        }
+      ],
+      "parent": "block/block",
+      "textures": {
+        "particle": "#particle"
+      }
+    },
+    "unconnected": {
+      "elements": [
+        {
+          "faces": {
+            "north": {
+              "texture": "#all",
+              "uv": [
+                8,
+                12,
+                16,
+                16
+              ]
+            }
+          },
+          "from": [
+            0,
+            4,
+            13
+          ],
+          "to": [
+            16,
+            12,
+            13
+          ]
+        }
+      ],
+      "parent": "block/block",
+      "textures": {
+        "particle": "#particle"
+      }
+    },
+    "unpowered": {
+      "elements": [
+        {
+          "faces": {
+            "north": {
+              "texture": "#all",
+              "uv": [
+                0,
+                2,
+                8,
+                6
+              ]
+            }
+          },
+          "from": [
+            0,
+            4,
+            13
+          ],
+          "to": [
+            16,
+            12,
+            13
+          ]
+        }
+      ],
+      "parent": "block/block",
+      "textures": {
+        "particle": "#particle"
+      }
+    }
+  },
+  "native_match_qualified": false,
+  "reference_version": "Java 1.21.9",
+  "schema_version": 1,
+  "source_files": {
+    "body": {
+      "sha256": "64d931f8b952af11aa55aa1732acab521092b5b457765014cc2413276d99fa00",
+      "url": "https://raw.githubusercontent.com/misode/mcmeta/1.21.9-assets/assets/minecraft/models/block/template_shelf_body.json"
+    },
+    "center": {
+      "sha256": "bb2a7ca24de9357b09cbef65bb1ce6d1d6e0ee1f93d328e9b6a6de3c3276ac7c",
+      "url": "https://raw.githubusercontent.com/misode/mcmeta/1.21.9-assets/assets/minecraft/models/block/template_shelf_center.json"
+    },
+    "left": {
+      "sha256": "096bffd8a310e90beb5c002969c9e051dbdeb8ee48b4b39b9ef51bc638d25323",
+      "url": "https://raw.githubusercontent.com/misode/mcmeta/1.21.9-assets/assets/minecraft/models/block/template_shelf_left.json"
+    },
+    "right": {
+      "sha256": "efa1b6b30db9dacfa94b5dc157fb1187ed43c4e7ebfe382605849a8da9f67cec",
+      "url": "https://raw.githubusercontent.com/misode/mcmeta/1.21.9-assets/assets/minecraft/models/block/template_shelf_right.json"
+    },
+    "unconnected": {
+      "sha256": "8cbfe23ccbaf2073f920006b85ee28b930961c87b8ca5650681f902f275f0e43",
+      "url": "https://raw.githubusercontent.com/misode/mcmeta/1.21.9-assets/assets/minecraft/models/block/template_shelf_unconnected.json"
+    },
+    "unpowered": {
+      "sha256": "34da584696029ed972dce3c012b20cd825d3f97161391021b400d6c305b1fe11",
+      "url": "https://raw.githubusercontent.com/misode/mcmeta/1.21.9-assets/assets/minecraft/models/block/template_shelf_unpowered.json"
+    }
+  },
+  "target_engine": "3.10.0.420447"
+}

@@ -252,3 +252,13 @@ behavior_pack/netease_blocks/preview_item_minecraft_diamond_sword_0_*.json -text
 resource_pack/blocks.json -text whitespace=cr-at-eol
 resource_pack/textures/terrain_texture.json -text whitespace=cr-at-eol
 resource_pack/shaders/glsl/modern_projection_item_sprite.fragment -text whitespace=cr-at-eol
+# Book admission binds raw report, receipt, and resource fingerprints.
+docs/evidence/book-product-r18/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-owner-r18-v2/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-default-r18-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-default-admission-r18-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/book-body-*/** -text -diff whitespace=cr-at-eol
+docs/evidence/liquid-owner-r18-*/** -text -diff whitespace=cr-at-eol
+docs/evidence/shelf-body-r18-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/item-glint-r18-v1/** -text -diff whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/static_table_data.py text eol=lf
