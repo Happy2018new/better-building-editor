@@ -5,6 +5,7 @@ import copy
 import hashlib
 import json
 import sys
+import time
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -14,7 +15,8 @@ sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(ROOT / 'behavior_pack'))
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from run_snow_scene_lifecycle_r20 import (BIND_SOURCE, MEMORY_LIBRARY, RESTORE_LIBRARY,
-    RESTORE_CAMERA_POSE, RESTORE_CAMERA_PAN, CAMERA_STATE, STEPS, camera_stable, snow_control_checks)
+    RESTORE_CAMERA_POSE, RESTORE_CAMERA_PAN, CAMERA_STATE, STEPS, camera_stable, snow_control_checks,
+    INSTALL_EMPTY_PLACEHOLDER_GUARD, HIDE_EMPTY_PLACEHOLDER, RESTORE_EMPTY_PLACEHOLDER)
 from projection.camera import OrbitCamera
 from projection import block_registry as registry
 from projection.cell import make_cell
@@ -24,6 +26,119 @@ from test_complete_cell_workflows_r11 import WorkflowBridge
 
 
 class SnowLifecycleProbeR20Tests(unittest.TestCase):
+    def placeholder_scope(self, visible=True):
+        class Native:
+            def __init__(self):
+                self.visible, self.writes = visible, []
+
+            def GetVisible(self):
+                return self.visible
+
+            def SetVisible(self, value):
+                self.writes.append(value)
+                self.visible = value
+
+        native = Native()
+        mapped = SimpleNamespace(key=None, native_path='/viewport/empty', child_fibers=[])
+        empty = SimpleNamespace(key='empty_model', native_path=None, child_fibers=[mapped])
+        root = SimpleNamespace(key='root', native_path=None, child_fibers=[empty])
+        host = SimpleNamespace(_root_fiber=root, GetBaseUIControl=lambda path: native)
+        session = object()
+        scope = dict(sys=SimpleNamespace(), s=session, owner=SimpleNamespace(session=session),
+                     navigator=SimpleNamespace(top=SimpleNamespace(_host=host)), json=json)
+        exec(INSTALL_EMPTY_PLACEHOLDER_GUARD, scope)
+        return scope, host, empty, mapped, native
+
+    def test_placeholder_guard_preserves_original_visibility_across_repeated_captures(self):
+        for visible in (True, False):
+            with self.subTest(original_visible=visible):
+                scope, unused_host, unused_empty, unused_mapped, native = self.placeholder_scope(visible)
+                exec(HIDE_EMPTY_PLACEHOLDER, scope)
+                first = json.loads(scope['_result'])['nodes'][0]
+                self.assertEqual(visible, first['original_visible'])
+                self.assertFalse(native.visible)
+                exec(HIDE_EMPTY_PLACEHOLDER, scope)
+                self.assertEqual(visible, json.loads(scope['_result'])['nodes'][0]['original_visible'])
+                exec(RESTORE_EMPTY_PLACEHOLDER, scope)
+                self.assertEqual(visible, native.visible)
+                self.assertEqual('restored', json.loads(scope['_result'])['nodes'][0]['action'])
+                self.assertFalse(hasattr(scope['sys'], '_snow_empty_placeholder_guard'))
+
+    def test_placeholder_guard_does_not_restore_a_reused_path_after_unmount(self):
+        scope, host, old_empty, mapped, native = self.placeholder_scope()
+        exec(HIDE_EMPTY_PLACEHOLDER, scope)
+        new_mapped = SimpleNamespace(key=None, native_path=mapped.native_path, child_fibers=[])
+        replacement = SimpleNamespace(key='different_ui', native_path=None, child_fibers=[new_mapped])
+        host._root_fiber.child_fibers = [replacement]
+        native.visible, native.writes = False, []
+        exec(RESTORE_EMPTY_PLACEHOLDER, scope)
+        self.assertEqual('removed', json.loads(scope['_result'])['nodes'][0]['action'])
+        self.assertEqual([], native.writes)
+        self.assertFalse(native.visible)
+
+    def test_placeholder_guard_tracks_new_fiber_at_the_same_path_and_refuses_other_host(self):
+        scope, host, unused_empty, mapped, native = self.placeholder_scope()
+        exec(HIDE_EMPTY_PLACEHOLDER, scope)
+        new_mapped = SimpleNamespace(key=None, native_path=mapped.native_path, child_fibers=[])
+        new_empty = SimpleNamespace(key='empty_model', native_path=None, child_fibers=[new_mapped])
+        host._root_fiber.child_fibers = [new_empty]
+        native.visible = True
+        exec(HIDE_EMPTY_PLACEHOLDER, scope)
+        scope['navigator'].top._host = object()
+        with self.assertRaises(AssertionError):
+            exec(HIDE_EMPTY_PLACEHOLDER, scope)
+        exec(RESTORE_EMPTY_PLACEHOLDER, scope)
+        rows = json.loads(scope['_result'])['nodes']
+        self.assertEqual(['removed', 'restored'], [row['action'] for row in rows])
+        self.assertTrue(native.visible)
+
+    def test_placeholder_hide_failure_keeps_original_visibility_available_for_cleanup(self):
+        scope, unused_host, unused_empty, unused_mapped, native = self.placeholder_scope()
+        original_set = native.SetVisible
+        native.SetVisible = lambda value: None
+        with self.assertRaisesRegex(AssertionError, 'did not hide'):
+            exec(HIDE_EMPTY_PLACEHOLDER, scope)
+        native.SetVisible = original_set
+        exec(RESTORE_EMPTY_PLACEHOLDER, scope)
+        self.assertTrue(native.visible)
+        self.assertTrue(json.loads(scope['_result'])['restored'])
+
+    def test_failed_native_capture_retains_actual_source_camera_and_placeholder_receipt(self):
+        import run_snow_scene_lifecycle_r20 as probe
+        from verify_debug_blueprints import STATUS
+        module = ast.parse(Path(probe.__file__).read_text(encoding='utf8'))
+        main = next(node for node in module.body if isinstance(node, ast.FunctionDef) and node.name == 'main')
+        guarded = next(node for node in main.body if isinstance(node, ast.ClassDef) and node.name == 'GuardedCheck')
+        snapshots = []
+
+        class BaseCheck:
+            def run(self, code):
+                return {BIND_SOURCE: {'cells': [[[1, 1, 1], 'snow']]},
+                        STATUS: {'current_source': True}, CAMERA_STATE: {'pan': [0., -.12]},
+                        HIDE_EMPTY_PLACEHOLDER: {'matched': 1, 'nodes': [{'before': True, 'after': False}]}}[code]
+
+            def capture(self, label, tree):
+                raise RuntimeError('injected native capture failure')
+
+        report = {'resource_checks': [], 'capture_observations': []}
+        scope = dict(SignCheck=BaseCheck, args=SimpleNamespace(minimum_commit_gib=6., max_handles=215000,
+            output=Path('unused.json')), report=report, started=time.monotonic(), time=time,
+            session={'game_pid': 123, 'session_file': 'fake', 'owner': 'fake'},
+            assertion_dialogs=lambda: [], transport=SimpleNamespace(metrics=lambda *args: {'handles': 100}),
+            commit_at_boundary=lambda: {'commit_available_bytes': 8 * 1024 ** 3},
+            write_json=lambda path, value: snapshots.append(copy.deepcopy(value)),
+            BIND_SOURCE=BIND_SOURCE, CAMERA_STATE=CAMERA_STATE, STATUS=STATUS,
+            HIDE_EMPTY_PLACEHOLDER=HIDE_EMPTY_PLACEHOLDER)
+        exec(compile(ast.Module(body=[guarded], type_ignores=[]), probe.__file__, 'exec'), scope)
+        with self.assertRaisesRegex(RuntimeError, 'injected native capture failure'):
+            scope['GuardedCheck']().capture('control_snow')
+        observed = snapshots[-1]['capture_observations'][-1]
+        self.assertEqual('before_native_capture', observed['phase'])
+        self.assertEqual({'pan': [0., -.12]}, observed['camera_state'])
+        self.assertTrue(observed['state']['current_source'])
+        self.assertEqual(1, observed['empty_placeholder']['matched'])
+        self.assertEqual(1, len(observed['source']['cells']))
+
     def test_library_camera_restore_does_not_rebase_unsettled_pan_during_zoom(self):
         path = ROOT / 'behavior_pack/modern_projection/projection/scene.py'
         module = ast.parse(path.read_text(encoding='utf8'))

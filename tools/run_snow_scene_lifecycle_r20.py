@@ -7,6 +7,65 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 
+INSTALL_EMPTY_PLACEHOLDER_GUARD = '''assert not hasattr(sys,'_snow_empty_placeholder_guard')
+assert owner.session is s
+class SnowEmptyPlaceholderGuard(object):
+ def __init__(self,host):self.host=host;self.records=[]
+ def walk(self,fiber):
+  if fiber is None:return
+  yield fiber
+  for child in fiber.child_fibers:
+   for node in self.walk(child):yield node
+ def hide(self):
+  assert navigator.top._host is self.host,'Snow placeholder host changed'
+  matches=[fiber for fiber in self.walk(self.host._root_fiber) if fiber.key=='empty_model']
+  assert len(matches)<=1,'Multiple snow empty placeholders'
+  rows=[]
+  for fiber in matches:
+   mapped=next((node for node in self.walk(fiber) if node.native_path),None)
+   assert mapped is not None,'Snow empty placeholder has no native node'
+   path=mapped.native_path
+   control=self.host.GetBaseUIControl(path)
+   assert control is not None
+   before=control.GetVisible()
+   saved=next((row for row in self.records if row['fiber'] is fiber and row['mapped'] is mapped and row['path']==path),None)
+   if saved is None:
+    saved={'fiber':fiber,'mapped':mapped,'path':path,'before':before}
+    self.records.append(saved)
+   control.SetVisible(False)
+   after=control.GetVisible()
+   assert not after,'Snow empty placeholder did not hide'
+   rows.append({'fiber_id':id(fiber),'native_fiber_id':id(mapped),'path':path,
+    'original_visible':saved['before'],'before':before,'after':after})
+  return {'host_id':id(self.host),'matched':len(matches),'nodes':rows,'product_source_changed':False}
+ def restore(self):
+  current=list(self.walk(self.host._root_fiber))
+  rows=[]
+  for saved in self.records:
+   fiber,mapped,path=saved['fiber'],saved['mapped'],saved['path']
+   row={'fiber_id':id(fiber),'native_fiber_id':id(mapped),'path':path,'original_visible':saved['before']}
+   owned=any(node is fiber for node in current) and any(node is mapped for node in self.walk(fiber))
+   if not owned or mapped.native_path!=path:
+    row['action']='removed'
+   else:
+    control=self.host.GetBaseUIControl(path)
+    assert control is not None,'Owned snow placeholder native node missing'
+    control.SetVisible(saved['before'])
+    row.update(action='restored',after=control.GetVisible())
+    assert row['after']==saved['before'],'Snow placeholder visibility did not restore'
+   rows.append(row)
+  return {'host_id':id(self.host),'nodes':rows,'restored':True}
+sys._snow_empty_placeholder_guard=SnowEmptyPlaceholderGuard(navigator.top._host)
+del SnowEmptyPlaceholderGuard
+_result=True
+'''
+
+HIDE_EMPTY_PLACEHOLDER = '''_result=json.dumps(sys._snow_empty_placeholder_guard.hide())'''
+
+RESTORE_EMPTY_PLACEHOLDER = '''_result=json.dumps(sys._snow_empty_placeholder_guard.restore())
+del sys._snow_empty_placeholder_guard
+'''
+
 MEMORY_LIBRARY = '''import copy
 assert not hasattr(sys,'_snow_lifecycle_saved')
 sys._snow_lifecycle_saved={'bridge':s.bridge,'library':s.library,'serial':s.library_serial}
@@ -163,7 +222,7 @@ def main():
     sys.path.insert(0, str(args.project.resolve(strict=True) / 'tools'))
     sys.path.insert(0, str(args.project.resolve() / '.agents/skills/pyreact-debugging/scripts'))
     from _session import load_session
-    from verify_debug_blueprints import Client, INSTALL_PROBE, RESTORE, write_json
+    from verify_debug_blueprints import Client, INSTALL_PROBE, RESTORE, STATUS, write_json
     from verify_sign_visuals import SignCheck
     from verify_centered_snow_profiles import shape_metrics, save_mask
     from verify_snow_plant_visibility import (LOAD, capture_frame, cross_assets,
@@ -186,7 +245,9 @@ def main():
               'game_identity': session['game_identity'], 'plant': args.plant, 'height': args.height,
               'persistent_library_writes': False, 'qualification_changed': False,
               'assets': asset_record, 'declared_editor_pan': [0., -.12],
-              'minimum_available_commit_gib': args.minimum_commit_gib, 'resource_checks': []}
+              'minimum_available_commit_gib': args.minimum_commit_gib, 'resource_checks': [],
+              'empty_placeholder_diagnostic': {'product_source_changed': False,
+                  'uniform_before_every_capture': True}, 'capture_observations': []}
     started = time.monotonic()
 
     class GuardedCheck(SignCheck):
@@ -212,11 +273,22 @@ def main():
             metrics = transport.metrics(session['session_file'], session['owner'])
             if metrics['handles'] >= args.max_handles:
                 raise RuntimeError('Snow lifecycle native handle budget reached; restore')
-            return super().capture(label, tree)
+            observed = {'label': label, 'phase': 'before_placeholder_hide',
+                'source': self.run(BIND_SOURCE), 'state': self.run(STATUS),
+                'camera_state': self.run(CAMERA_STATE)}
+            report['capture_observations'].append(observed)
+            write_json(args.output, report)
+            observed['empty_placeholder'] = self.run(HIDE_EMPTY_PLACEHOLDER)
+            observed['phase'] = 'before_native_capture'
+            write_json(args.output, report)
+            picture = super().capture(label, tree)
+            observed.update(phase='captured_before_validation', screenshot=picture)
+            write_json(args.output, report)
+            return picture
 
     with Client(timeout=30) as client:
         check = GuardedCheck(client, args.output, args.timeout, native_resolution=True, background_only=True)
-        installed = library_saved = options_saved = frames_installed = False
+        installed = library_saved = options_saved = frames_installed = placeholder_guard = False
         original_open = None
         try:
             check.run(INSTALL_PROBE)
@@ -231,6 +303,8 @@ def main():
             check.require_native_response = True
             check.run('owner.open_workspace()\n_result=True')
             check.wait('open snow lifecycle editor', lambda nav: nav['open'] and not nav['transition'], check.navigation)
+            check.run(INSTALL_EMPTY_PLACEHOLDER_GUARD)
+            placeholder_guard = True
             blank = crop = None
             masks, controls = {}, {}
             for kind in ('blank', 'plant', 'snow', 'covered'):
@@ -244,6 +318,9 @@ def main():
                 camera = check.wait('settle snow control pan',
                     lambda value: camera_stable(value, declared['target'], (0., -.12), declared['pivot']),
                     lambda: check.run(CAMERA_STATE))
+                report['active_control'] = {'kind': kind, 'source': source, 'state': state,
+                    'camera_state': camera, 'phase': 'before_validation'}
+                write_json(args.output, report)
                 expected = None
                 if kind == 'plant':
                     expected = editor_cross_above_snow(crop, camera, source['focus'], -1, model, texture)
@@ -282,6 +359,7 @@ def main():
                     'checks': comparison, 'passed': comparison['passed']}
                 if expected is not None:
                     report['controls'][kind]['expected_alpha'] = save_mask(expected, args.output, 'control_' + kind)
+                report['active_control'] = None
                 write_json(args.output, report)
             check.run('from modern_projection.projection.model import Document\n'
                       'from modern_projection.projection.cell import foreground\n'
@@ -335,6 +413,10 @@ def main():
             if prior[0] is not None:
                 report['error'] = prior[0].__name__ + ': ' + str(prior[1])
             actions = []
+            if placeholder_guard:
+                def restore_placeholder():
+                    report['empty_placeholder_diagnostic']['cleanup'] = check.run(RESTORE_EMPTY_PLACEHOLDER)
+                actions.append(('empty_placeholder', restore_placeholder))
             if frames_installed:
                 actions.append(('render_observer', lambda: check.run(REMOVE)))
             if options_saved:

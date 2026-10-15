@@ -263,3 +263,49 @@ codes, not a proven exit cause. A second ordinary stop finalizes stale instance
 metadata. No force termination or window mutation is used. Full snow acceptance
 remains open, including the complete nine-step native workflow and broader
 plant/height/position/neighborhood coverage.
+
+## V5 Empty-Scene Reference Contamination
+
+The v5 cold run keeps the same 3,116-file product source contract and all four
+reload settings disabled. Its ready image shows the actual loaded world.
+The lifecycle ends after 35.57 seconds at the snow control, before any editing
+step, with `completed=false`, `passed=false`, `restored=true` and no cleanup
+errors. All 55 commit samples exceed the 6 GiB execution gate, with a minimum
+of 7,378,378,752 bytes. Product and host-data hashes remain unchanged.
+
+Both fresh native snow captures contain 22,503 changed pixels, side recall
+1.0, and hull precision 0.909567613207128 against the unchanged 0.98 gate.
+All 2,035 pixels outside the three-pixel hull tolerance are ink visible in
+the blank reference and replaced by the ordinary viewport background in the
+snow image. Actual original images and unshifted ROI crops show the removed
+empty-scene cube and text. The change detector counted that disappearing
+placeholder as object pixels. No unexplained outside pixels remain, but this
+diagnosis does not accept or repair the failed original acquisition.
+
+The failed snow control did not persist its own source/state/camera observation.
+The preceding plant camera exactly replays the recorded snow metrics; it is
+explicitly labeled as a prior observation, not a newly measured snow camera.
+`docs/evidence/snow-control-r20-v5-failure-v1` preserves 58 manifested files,
+3,959,614 bytes, including all seven original lifecycle captures, ready image,
+reports, clocks, original pure geometry inputs and exact process exits.
+Its standalone replay also succeeds after relocation and rejects raw-byte
+tampering:
+
+```powershell
+python -X utf8 docs/evidence/snow-control-r20-v5-failure-v1/verify_package.py --pixels
+```
+
+The next probe uniformly hides only the existing native `empty_model` node
+before every capture. It dynamically finds the current owned fiber and records
+the original visibility, fiber identity, native path and hide readback. Cleanup
+restores only the same still-mounted fiber/path; removed nodes are recorded as
+removed, and reused paths are never written through old references. Actual
+source, preview state and camera are persisted before every capture and pixel
+validation, including failed controls. Host checks cover repeated captures,
+initially hidden nodes, remount, path reuse, changed host, failed hiding, and
+native-capture abort. The exact main `finally` also restores placeholder
+visibility and the existing factory/editor/library/options/listener/navigation
+state under success and injected acquisition failure. This is probe-only work;
+the product source, image coordinates and acceptance thresholds are unchanged.
+Native verification of both the new reference isolation and the earlier camera
+recovery remains open.

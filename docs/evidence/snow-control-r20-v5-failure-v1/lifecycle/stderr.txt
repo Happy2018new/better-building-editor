@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\snow-r20-v5-control\external-host\tools\run_snow_scene_lifecycle_r20.py", line 373, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\snow-r20-v5-control\external-host\tools\run_snow_scene_lifecycle_r20.py", line 269, in main
+    picture, response = capture_response(check, 'control_' + kind, blank, crop, before,
+                        ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                          validate=validate_control)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\projects\snow-r20-v4\tools\native_draw_response.py", line 106, in capture_response
+    raise RuntimeError('Native visible response failed; retained evidence '+str(path))
+RuntimeError: Native visible response failed; retained evidence D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\snow-lifecycle-r20-blue-orchid-v5\report_control_snow_response_error.json

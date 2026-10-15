@@ -1,0 +1,526 @@
+{
+  "passed": false,
+  "reason": "Native draw did not visibly respond before deadline",
+  "reference": {
+    "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\snow-lifecycle-r20-blue-orchid-v5\\report_control_blank_native.png",
+    "bytes": 233934,
+    "sha256": "668d90d91e67ca58f1c1660c08fce0d1aa8503457fd81abe8d5cea1aeef47216",
+    "mime": "image/png",
+    "size": [
+      1994,
+      1105
+    ],
+    "variance": [
+      1229.1600447405074,
+      840.0846130013546,
+      442.73817666170976
+    ],
+    "compact_screenshot": null,
+    "capture": {
+      "schema": 3,
+      "ok": true,
+      "reliable": true,
+      "background_only": false,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\snow-lifecycle-r20-blue-orchid-v5\\report_control_blank_native.png",
+      "started_at": "2026-10-15T20:30:11.781398+00:00",
+      "foreground_policy": "allow_user_foreground",
+      "user_foreground_allowed": true,
+      "agent_activation_allowed": false,
+      "activation_fallback": false,
+      "guarded_no_activation": true,
+      "window_coordinate_units": "physical_pixels",
+      "dpi_awareness": "per_monitor_v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\544acec5478c43a68a0e1eb81253f2b6\\session.json",
+      "owner": "snow-r20-v5",
+      "game_pid": 53124,
+      "game_identity": "134365696670921131",
+      "noactivation_requested": true,
+      "window": {
+        "hwnd": 14748512,
+        "pid": 53124,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false
+      },
+      "helper": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\snow-r20-v4\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+        "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+        "sources": {
+          "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+          "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+          "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+          "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+          "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+          "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+          "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+          "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+          "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+        }
+      },
+      "guard_before": {
+        "foreground": {
+          "hwnd": 7082340,
+          "pid": 7948
+        },
+        "windows": [
+          {
+            "hwnd": 14748512,
+            "pid": 53124,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_before": {
+        "hwnd": 7082340,
+        "pid": 7948
+      },
+      "guard_after": {
+        "foreground": {
+          "hwnd": 7082340,
+          "pid": 7948
+        },
+        "windows": [
+          {
+            "hwnd": 14748512,
+            "pid": 53124,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "foreground_after": {
+        "hwnd": 7082340,
+        "pid": 7948
+      },
+      "foreground_unchanged": true,
+      "background_safe": true,
+      "helper_returncode": 0,
+      "helper_stderr": "",
+      "frame": {
+        "ok": true,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "request_qpc_100ns": 1028611701856,
+        "frame_qpc_100ns": 1028611805873,
+        "width": 1994,
+        "height": 1105
+      },
+      "width": 1994,
+      "height": 1105,
+      "variance": [
+        1229.1600447405074,
+        840.0846130013546,
+        442.73817666170976
+      ],
+      "sha256": "668d90d91e67ca58f1c1660c08fce0d1aa8503457fd81abe8d5cea1aeef47216",
+      "bytes": 233934,
+      "finished_at": "2026-10-15T20:30:12.642765+00:00",
+      "elapsed_seconds": 0.8613648000027752
+    },
+    "requested_label": "control_blank",
+    "capture_sequence": 1,
+    "background_only": true
+  },
+  "reference_clock": {
+    "crop": [
+      598,
+      71,
+      1395,
+      104
+    ],
+    "sha256": "24e0ff892bfd919b637ac6d95bc46b965bfc62d2275cad5557a9cde845d8127c"
+  },
+  "crop": [
+    470,
+    355,
+    1540,
+    846
+  ],
+  "attempts": [
+    {
+      "capture": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\snow-lifecycle-r20-blue-orchid-v5\\report_control_snow_native.png",
+        "bytes": 227466,
+        "sha256": "e56188458224bea7282b2aa4adb2335bcff1a39ec51a676579a6f2684b3276b9",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ],
+        "variance": [
+          1248.9869549709467,
+          864.3934300467938,
+          475.67318256757864
+        ],
+        "compact_screenshot": null,
+        "capture": {
+          "schema": 3,
+          "ok": true,
+          "reliable": true,
+          "background_only": false,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\snow-lifecycle-r20-blue-orchid-v5\\report_control_snow_native.png",
+          "started_at": "2026-10-15T20:30:33.576995+00:00",
+          "foreground_policy": "allow_user_foreground",
+          "user_foreground_allowed": true,
+          "agent_activation_allowed": false,
+          "activation_fallback": false,
+          "guarded_no_activation": true,
+          "window_coordinate_units": "physical_pixels",
+          "dpi_awareness": "per_monitor_v2",
+          "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\544acec5478c43a68a0e1eb81253f2b6\\session.json",
+          "owner": "snow-r20-v5",
+          "game_pid": 53124,
+          "game_identity": "134365696670921131",
+          "noactivation_requested": true,
+          "window": {
+            "hwnd": 14748512,
+            "pid": 53124,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false
+          },
+          "helper": {
+            "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\snow-r20-v4\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+            "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+            "sources": {
+              "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+              "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+              "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+              "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+              "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+              "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+              "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+              "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+              "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+            }
+          },
+          "guard_before": {
+            "foreground": {
+              "hwnd": 7082340,
+              "pid": 7948
+            },
+            "windows": [
+              {
+                "hwnd": 14748512,
+                "pid": 53124,
+                "process": "Minecraft.Windows.exe",
+                "title": "(1994, 1105) Minecraft",
+                "x": 283,
+                "y": 264,
+                "width": 1994,
+                "height": 1105,
+                "minimized": false,
+                "noactivate": true
+              }
+            ],
+            "background_safe": true,
+            "window_noactivate": true
+          },
+          "foreground_before": {
+            "hwnd": 7082340,
+            "pid": 7948
+          },
+          "guard_after": {
+            "foreground": {
+              "hwnd": 7082340,
+              "pid": 7948
+            },
+            "windows": [
+              {
+                "hwnd": 14748512,
+                "pid": 53124,
+                "process": "Minecraft.Windows.exe",
+                "title": "(1994, 1105) Minecraft",
+                "x": 283,
+                "y": 264,
+                "width": 1994,
+                "height": 1105,
+                "minimized": false,
+                "noactivate": true
+              }
+            ],
+            "background_safe": true,
+            "window_noactivate": true
+          },
+          "foreground_after": {
+            "hwnd": 7082340,
+            "pid": 7948
+          },
+          "foreground_unchanged": true,
+          "background_safe": true,
+          "helper_returncode": 0,
+          "helper_stderr": "",
+          "frame": {
+            "ok": true,
+            "backend": "Windows.Graphics.Capture",
+            "native_resolution": true,
+            "request_qpc_100ns": 1028832114164,
+            "frame_qpc_100ns": 1028832226270,
+            "width": 1994,
+            "height": 1105
+          },
+          "width": 1994,
+          "height": 1105,
+          "variance": [
+            1248.9869549709467,
+            864.3934300467938,
+            475.67318256757864
+          ],
+          "sha256": "e56188458224bea7282b2aa4adb2335bcff1a39ec51a676579a6f2684b3276b9",
+          "bytes": 227466,
+          "finished_at": "2026-10-15T20:30:34.734091+00:00",
+          "elapsed_seconds": 1.1570825999951921
+        },
+        "requested_label": "control_snow",
+        "capture_sequence": 1,
+        "background_only": true
+      },
+      "render_frames": {
+        "before": 2951,
+        "after": 3428,
+        "source": "GameRenderTickEvent"
+      },
+      "clock": {
+        "crop": [
+          598,
+          71,
+          1395,
+          104
+        ],
+        "sha256": "740b76a217643809c6dc312f1ab7a3c590549e8e8b41d621f40dfc310197d3be"
+      },
+      "changed_pixels": 22503,
+      "native_clock_advanced": true,
+      "validation": {
+        "passed": false,
+        "expected_visible_side_pixels": 18628,
+        "side_recall": 1.0,
+        "full_hull_diagnostic": {
+          "passed": false,
+          "expected_pixels": 37636,
+          "observed_pixels": 22503,
+          "recall": 0.6799606759485599,
+          "precision": 0.909567613207128,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "minimum_side_recall": 0.9,
+        "minimum_hull_precision": 0.98,
+        "full_hull_recall_required": false,
+        "method": "Independent affine snow sides and complete hull; white top contrast is not guaranteed"
+      }
+    },
+    {
+      "capture": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\snow-lifecycle-r20-blue-orchid-v5\\report_control_snow_2_native.png",
+        "bytes": 227444,
+        "sha256": "3630dfcb20b8e068b9bfbccd85e05b6d6b01a90fce0cc41183557c5f764e0822",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ],
+        "variance": [
+          1248.9160340207961,
+          864.3200245721898,
+          475.595554403943
+        ],
+        "compact_screenshot": null,
+        "capture": {
+          "schema": 3,
+          "ok": true,
+          "reliable": true,
+          "background_only": false,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\snow-lifecycle-r20-blue-orchid-v5\\report_control_snow_2_native.png",
+          "started_at": "2026-10-15T20:30:36.102272+00:00",
+          "foreground_policy": "allow_user_foreground",
+          "user_foreground_allowed": true,
+          "agent_activation_allowed": false,
+          "activation_fallback": false,
+          "guarded_no_activation": true,
+          "window_coordinate_units": "physical_pixels",
+          "dpi_awareness": "per_monitor_v2",
+          "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\544acec5478c43a68a0e1eb81253f2b6\\session.json",
+          "owner": "snow-r20-v5",
+          "game_pid": 53124,
+          "game_identity": "134365696670921131",
+          "noactivation_requested": true,
+          "window": {
+            "hwnd": 14748512,
+            "pid": 53124,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false
+          },
+          "helper": {
+            "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\snow-r20-v4\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+            "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+            "sources": {
+              "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+              "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+              "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+              "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+              "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+              "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+              "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+              "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+              "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+            }
+          },
+          "guard_before": {
+            "foreground": {
+              "hwnd": 7082340,
+              "pid": 7948
+            },
+            "windows": [
+              {
+                "hwnd": 14748512,
+                "pid": 53124,
+                "process": "Minecraft.Windows.exe",
+                "title": "(1994, 1105) Minecraft",
+                "x": 283,
+                "y": 264,
+                "width": 1994,
+                "height": 1105,
+                "minimized": false,
+                "noactivate": true
+              }
+            ],
+            "background_safe": true,
+            "window_noactivate": true
+          },
+          "foreground_before": {
+            "hwnd": 7082340,
+            "pid": 7948
+          },
+          "guard_after": {
+            "foreground": {
+              "hwnd": 7082340,
+              "pid": 7948
+            },
+            "windows": [
+              {
+                "hwnd": 14748512,
+                "pid": 53124,
+                "process": "Minecraft.Windows.exe",
+                "title": "(1994, 1105) Minecraft",
+                "x": 283,
+                "y": 264,
+                "width": 1994,
+                "height": 1105,
+                "minimized": false,
+                "noactivate": true
+              }
+            ],
+            "background_safe": true,
+            "window_noactivate": true
+          },
+          "foreground_after": {
+            "hwnd": 7082340,
+            "pid": 7948
+          },
+          "foreground_unchanged": true,
+          "background_safe": true,
+          "helper_returncode": 0,
+          "helper_stderr": "",
+          "frame": {
+            "ok": true,
+            "backend": "Windows.Graphics.Capture",
+            "native_resolution": true,
+            "request_qpc_100ns": 1028859040306,
+            "frame_qpc_100ns": 1028859134796,
+            "width": 1994,
+            "height": 1105
+          },
+          "width": 1994,
+          "height": 1105,
+          "variance": [
+            1248.9160340207961,
+            864.3200245721898,
+            475.595554403943
+          ],
+          "sha256": "3630dfcb20b8e068b9bfbccd85e05b6d6b01a90fce0cc41183557c5f764e0822",
+          "bytes": 227444,
+          "finished_at": "2026-10-15T20:30:37.432977+00:00",
+          "elapsed_seconds": 1.3306985999952303
+        },
+        "requested_label": "control_snow",
+        "capture_sequence": 2,
+        "background_only": true
+      },
+      "render_frames": {
+        "before": 2951,
+        "after": 3727,
+        "source": "GameRenderTickEvent"
+      },
+      "clock": {
+        "crop": [
+          598,
+          71,
+          1395,
+          104
+        ],
+        "sha256": "58e1cc34d1de42069e7715567140de11a89ab7fd66a0a0bf2f9122ca3aaa4200"
+      },
+      "changed_pixels": 22503,
+      "native_clock_advanced": true,
+      "validation": {
+        "passed": false,
+        "expected_visible_side_pixels": 18628,
+        "side_recall": 1.0,
+        "full_hull_diagnostic": {
+          "passed": false,
+          "expected_pixels": 37636,
+          "observed_pixels": 22503,
+          "recall": 0.6799606759485599,
+          "precision": 0.909567613207128,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "minimum_side_recall": 0.9,
+        "minimum_hull_precision": 0.98,
+        "full_hull_recall_required": false,
+        "method": "Independent affine snow sides and complete hull; white top contrast is not guaranteed"
+      }
+    }
+  ],
+  "seconds": 6.0,
+  "minimum_changed_pixels": 80
+}

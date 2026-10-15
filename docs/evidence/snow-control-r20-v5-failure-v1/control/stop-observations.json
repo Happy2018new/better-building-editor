@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "provenance": "Transcribed completed exec tool results; exact process exit observations are original process-exits.json bytes",
+  "owner": "snow-r20-v5",
+  "session": "544acec5478c43a68a0e1eb81253f2b6",
+  "normal_stop_first": {
+    "exec_session": 39495,
+    "returncode": 1,
+    "stderr": "[instances] Game has not closed; inspect it or explicitly use stop --force",
+    "force_requested": false
+  },
+  "normal_stop_finalize": {
+    "returncode": 0,
+    "state": "stopped",
+    "force_requested": false
+  },
+  "final_identity_check": {
+    "game_pid": 53124,
+    "game_expected_identity": "134365696670921131",
+    "game_actual_identity": null,
+    "mcdk_pid": 596,
+    "mcdk_expected_identity": "134365696668814748",
+    "mcdk_actual_identity": null,
+    "watcher_pid": 23788,
+    "watcher_actual_identity": null,
+    "returncode": 0
+  },
+  "all_start_capture_stop_observation_execs_ended": true,
+  "force_stop_used": false
+}
