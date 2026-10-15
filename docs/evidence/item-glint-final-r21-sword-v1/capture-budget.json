@@ -1,0 +1,3823 @@
+{
+  "samples": [
+    {
+      "index": 0,
+      "label": "runner.before",
+      "host_monotonic": 110874.1124491,
+      "commit": {
+        "observed_at": "2026-10-15T22:43:45.386699+00:00",
+        "commit_total_bytes": 34677719040,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7521091584,
+        "physical_available_bytes": 1482633216
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104225.3874738
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 1,
+      "label": "sparse:camera_front_shown.png.before",
+      "host_monotonic": 110880.8072793,
+      "commit": {
+        "observed_at": "2026-10-15T22:43:52.081669+00:00",
+        "commit_total_bytes": 34643693568,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7555117056,
+        "physical_available_bytes": 1440006144
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 828,
+        "recorded_at": 1792104232.0823047
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 2,
+      "label": "sparse:camera_front_shown.png.after",
+      "host_monotonic": 110881.8094956,
+      "commit": {
+        "observed_at": "2026-10-15T22:43:53.083863+00:00",
+        "commit_total_bytes": 34651205632,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7547604992,
+        "physical_available_bytes": 1496776704
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104233.0845215
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 3,
+      "label": "sparse:camera_front_hidden.png.before",
+      "host_monotonic": 110882.2749475,
+      "commit": {
+        "observed_at": "2026-10-15T22:43:53.549437+00:00",
+        "commit_total_bytes": 34644021248,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7554789376,
+        "physical_available_bytes": 1485488128
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104233.549974
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 4,
+      "label": "sparse:camera_front_hidden.png.after",
+      "host_monotonic": 110883.1455513,
+      "commit": {
+        "observed_at": "2026-10-15T22:43:54.420147+00:00",
+        "commit_total_bytes": 34645352448,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7553458176,
+        "physical_available_bytes": 1491943424
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104234.4205747
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 5,
+      "label": "sparse:camera_right_shown.png.before",
+      "host_monotonic": 110884.8675429,
+      "commit": {
+        "observed_at": "2026-10-15T22:43:56.142070+00:00",
+        "commit_total_bytes": 34645417984,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7553392640,
+        "physical_available_bytes": 1496129536
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104236.1425695
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 6,
+      "label": "sparse:camera_right_shown.png.after",
+      "host_monotonic": 110885.7487675,
+      "commit": {
+        "observed_at": "2026-10-15T22:43:57.022940+00:00",
+        "commit_total_bytes": 34656530432,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7542280192,
+        "physical_available_bytes": 1487990784
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104237.023793
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 7,
+      "label": "sparse:camera_right_hidden.png.before",
+      "host_monotonic": 110886.3015636,
+      "commit": {
+        "observed_at": "2026-10-15T22:43:57.575863+00:00",
+        "commit_total_bytes": 34643906560,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7554904064,
+        "physical_available_bytes": 1493938176
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104237.5765893
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 8,
+      "label": "sparse:camera_right_hidden.png.after",
+      "host_monotonic": 110887.6580817,
+      "commit": {
+        "observed_at": "2026-10-15T22:43:58.932051+00:00",
+        "commit_total_bytes": 34695163904,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7503646720,
+        "physical_available_bytes": 1446264832
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104238.9331036
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 9,
+      "label": "sparse:camera_tilted_shown.png.before",
+      "host_monotonic": 110889.6426574,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:00.917163+00:00",
+        "commit_total_bytes": 34698563584,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7500247040,
+        "physical_available_bytes": 1455861760
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104240.917683
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 10,
+      "label": "sparse:camera_tilted_shown.png.after",
+      "host_monotonic": 110890.9123594,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:02.186264+00:00",
+        "commit_total_bytes": 34742321152,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7456489472,
+        "physical_available_bytes": 1386049536
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104242.1873794
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 11,
+      "label": "sparse:camera_tilted_hidden.png.before",
+      "host_monotonic": 110891.4481555,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:02.722325+00:00",
+        "commit_total_bytes": 34784968704,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7413841920,
+        "physical_available_bytes": 1353293824
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104242.7231772
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 12,
+      "label": "sparse:camera_tilted_hidden.png.after",
+      "host_monotonic": 110892.6019028,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:03.876112+00:00",
+        "commit_total_bytes": 34788487168,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7410323456,
+        "physical_available_bytes": 1344364544
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104243.876923
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 13,
+      "label": "sparse:testing_page.png.before",
+      "host_monotonic": 110923.6328515,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:34.907393+00:00",
+        "commit_total_bytes": 34880565248,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7318245376,
+        "physical_available_bytes": 1468665856
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104274.907878
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 14,
+      "label": "sparse:testing_page.png.after",
+      "host_monotonic": 110924.4785434,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:35.752971+00:00",
+        "commit_total_bytes": 34899709952,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7299100672,
+        "physical_available_bytes": 1447559168
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104275.7535696
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 15,
+      "label": "sparse:test_entities_item_contents.png.before",
+      "host_monotonic": 110928.1338599,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:39.408066+00:00",
+        "commit_total_bytes": 34909650944,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7289159680,
+        "physical_available_bytes": 1445412864
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104279.408885
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 16,
+      "label": "sparse:test_entities_item_contents.png.after",
+      "host_monotonic": 110929.4512138,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:40.725457+00:00",
+        "commit_total_bytes": 34875633664,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7323176960,
+        "physical_available_bytes": 1480736768
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104280.7262363
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 17,
+      "label": "sparse:editor_0.png.before",
+      "host_monotonic": 110933.4413451,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:44.715870+00:00",
+        "commit_total_bytes": 34863001600,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7335809024,
+        "physical_available_bytes": 1464074240
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104284.7163718
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 18,
+      "label": "sparse:editor_0.png.after",
+      "host_monotonic": 110934.3195298,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:45.594126+00:00",
+        "commit_total_bytes": 34878697472,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7320113152,
+        "physical_available_bytes": 1456074752
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104285.5945556
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 19,
+      "label": "sparse:editor_1.png.before",
+      "host_monotonic": 110935.2687523,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:46.543214+00:00",
+        "commit_total_bytes": 34869096448,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7329714176,
+        "physical_available_bytes": 1457152000
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104286.5437784
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 20,
+      "label": "sparse:editor_1.png.after",
+      "host_monotonic": 110936.1181562,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:47.392568+00:00",
+        "commit_total_bytes": 34887168000,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7311642624,
+        "physical_available_bytes": 1446641664
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104287.3931828
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 21,
+      "label": "sparse:editor_2.png.before",
+      "host_monotonic": 110936.9797491,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:48.254029+00:00",
+        "commit_total_bytes": 34878980096,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7319830528,
+        "physical_available_bytes": 1457971200
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104288.254775
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 22,
+      "label": "sparse:editor_2.png.after",
+      "host_monotonic": 110938.1080157,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:49.382351+00:00",
+        "commit_total_bytes": 34877157376,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7321653248,
+        "physical_available_bytes": 1456185344
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104289.3830423
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 23,
+      "label": "sparse:editor_3.png.before",
+      "host_monotonic": 110938.9766302,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:50.251119+00:00",
+        "commit_total_bytes": 34871558144,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7327252480,
+        "physical_available_bytes": 1468383232
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104290.2516568
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 24,
+      "label": "sparse:editor_3.png.after",
+      "host_monotonic": 110940.0189883,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:51.293413+00:00",
+        "commit_total_bytes": 34877505536,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7321305088,
+        "physical_available_bytes": 1466372096
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104291.2940145
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 25,
+      "label": "sparse:editor_4.png.before",
+      "host_monotonic": 110940.918534,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:52.192870+00:00",
+        "commit_total_bytes": 34875273216,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7323537408,
+        "physical_available_bytes": 1457950720
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104292.19356
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 26,
+      "label": "sparse:editor_4.png.after",
+      "host_monotonic": 110942.1928368,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:53.467200+00:00",
+        "commit_total_bytes": 34874941440,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7323869184,
+        "physical_available_bytes": 1468399616
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104293.4678624
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 27,
+      "label": "sparse:editor_5.png.before",
+      "host_monotonic": 110943.0908793,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:54.365429+00:00",
+        "commit_total_bytes": 34882240512,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7316570112,
+        "physical_available_bytes": 1465774080
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104294.3659062
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 28,
+      "label": "sparse:editor_5.png.after",
+      "host_monotonic": 110944.2587655,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:55.533060+00:00",
+        "commit_total_bytes": 34877046784,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7321763840,
+        "physical_available_bytes": 1456500736
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104295.5337913
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 29,
+      "label": "sparse:editor_6.png.before",
+      "host_monotonic": 110945.1336973,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:56.408213+00:00",
+        "commit_total_bytes": 34874171392,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7324639232,
+        "physical_available_bytes": 1457840128
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104296.4087234
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 30,
+      "label": "sparse:editor_6.png.after",
+      "host_monotonic": 110945.9847813,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:57.259129+00:00",
+        "commit_total_bytes": 34879401984,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7319408640,
+        "physical_available_bytes": 1457315840
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104297.2598062
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 31,
+      "label": "sparse:editor_7.png.before",
+      "host_monotonic": 110947.3878062,
+      "commit": {
+        "observed_at": "2026-10-15T22:44:58.662264+00:00",
+        "commit_total_bytes": 34872651776,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7326158848,
+        "physical_available_bytes": 1465819136
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104298.6628327
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 32,
+      "label": "sparse:editor_7.png.after",
+      "host_monotonic": 110948.8426284,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:00.117050+00:00",
+        "commit_total_bytes": 34890539008,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7308271616,
+        "physical_available_bytes": 1451290624
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104300.1176548
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 33,
+      "label": "sparse:editor_8.png.before",
+      "host_monotonic": 110950.2725181,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:01.546967+00:00",
+        "commit_total_bytes": 34863558656,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7335251968,
+        "physical_available_bytes": 1471926272
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104301.5475442
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 34,
+      "label": "sparse:editor_8.png.after",
+      "host_monotonic": 110951.1437693,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:02.418149+00:00",
+        "commit_total_bytes": 34880733184,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7318077440,
+        "physical_available_bytes": 1448550400
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104302.4187944
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 35,
+      "label": "sparse:editor_9.png.before",
+      "host_monotonic": 110952.1109268,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:03.385499+00:00",
+        "commit_total_bytes": 34875248640,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7323561984,
+        "physical_available_bytes": 1462521856
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104303.3859525
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 36,
+      "label": "sparse:editor_9.png.after",
+      "host_monotonic": 110953.4916453,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:04.766269+00:00",
+        "commit_total_bytes": 34878607360,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7320203264,
+        "physical_available_bytes": 1471770624
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104304.7666721
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 37,
+      "label": "sparse:editor_10.png.before",
+      "host_monotonic": 110954.3933791,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:05.667931+00:00",
+        "commit_total_bytes": 34877870080,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7320940544,
+        "physical_available_bytes": 1469591552
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104305.6684055
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 38,
+      "label": "sparse:editor_10.png.after",
+      "host_monotonic": 110955.5530278,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:06.827045+00:00",
+        "commit_total_bytes": 34992058368,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7206752256,
+        "physical_available_bytes": 1409536000
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104306.828048
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 39,
+      "label": "sparse:editor_11.png.before",
+      "host_monotonic": 110956.5830405,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:07.857432+00:00",
+        "commit_total_bytes": 34914000896,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7284809728,
+        "physical_available_bytes": 1412001792
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104307.8580637
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 40,
+      "label": "sparse:editor_11.png.after",
+      "host_monotonic": 110957.5730581,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:08.847585+00:00",
+        "commit_total_bytes": 34840711168,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7358099456,
+        "physical_available_bytes": 1474732032
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104308.8480844
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 41,
+      "label": "sparse:editor_12.png.before",
+      "host_monotonic": 110958.5511909,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:09.825716+00:00",
+        "commit_total_bytes": 34838798336,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7360012288,
+        "physical_available_bytes": 1490436096
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104309.8262172
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 42,
+      "label": "sparse:editor_12.png.after",
+      "host_monotonic": 110959.5075644,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:10.782058+00:00",
+        "commit_total_bytes": 34836209664,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7362600960,
+        "physical_available_bytes": 1491505152
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104310.7825902
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 43,
+      "label": "sparse:editor_13.png.before",
+      "host_monotonic": 110960.4402692,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:11.714342+00:00",
+        "commit_total_bytes": 34829484032,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7369326592,
+        "physical_available_bytes": 1483554816
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104311.7152958
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 44,
+      "label": "sparse:editor_13.png.after",
+      "host_monotonic": 110961.2950745,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:12.569395+00:00",
+        "commit_total_bytes": 34827558912,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7371251712,
+        "physical_available_bytes": 1474666496
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104312.570101
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 45,
+      "label": "sparse:editor_14.png.before",
+      "host_monotonic": 110962.2395961,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:13.513821+00:00",
+        "commit_total_bytes": 34809880576,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7388930048,
+        "physical_available_bytes": 1494474752
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104313.514623
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 46,
+      "label": "sparse:editor_14.png.after",
+      "host_monotonic": 110964.2884688,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:15.562888+00:00",
+        "commit_total_bytes": 34808594432,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7390216192,
+        "physical_available_bytes": 1477898240
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104315.5634935
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 47,
+      "label": "sparse:editor_15.png.before",
+      "host_monotonic": 110965.2171118,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:16.491625+00:00",
+        "commit_total_bytes": 34800164864,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7398645760,
+        "physical_available_bytes": 1480237056
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104316.4921384
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 48,
+      "label": "sparse:editor_15.png.after",
+      "host_monotonic": 110966.0803177,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:17.354127+00:00",
+        "commit_total_bytes": 34805780480,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7393030144,
+        "physical_available_bytes": 1470685184
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104317.355339
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 49,
+      "label": "sparse:editor_16.png.before",
+      "host_monotonic": 110966.9815786,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:18.256035+00:00",
+        "commit_total_bytes": 34797187072,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7401623552,
+        "physical_available_bytes": 1478365184
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104318.2566051
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 50,
+      "label": "sparse:editor_16.png.after",
+      "host_monotonic": 110968.3448256,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:19.618709+00:00",
+        "commit_total_bytes": 34802081792,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7396728832,
+        "physical_available_bytes": 1498828800
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104319.6198483
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 51,
+      "label": "sparse:editor_17.png.before",
+      "host_monotonic": 110969.2563677,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:20.530720+00:00",
+        "commit_total_bytes": 34813427712,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7385382912,
+        "physical_available_bytes": 1495072768
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104320.531392
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 52,
+      "label": "sparse:editor_17.png.after",
+      "host_monotonic": 110970.3541834,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:21.628538+00:00",
+        "commit_total_bytes": 34836041728,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7362768896,
+        "physical_available_bytes": 1475207168
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104321.6292083
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 53,
+      "label": "sparse:editor_18.png.before",
+      "host_monotonic": 110971.3211026,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:22.595644+00:00",
+        "commit_total_bytes": 34787274752,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7411535872,
+        "physical_available_bytes": 1526562816
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104322.5961292
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 54,
+      "label": "sparse:editor_18.png.after",
+      "host_monotonic": 110972.1395304,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:23.413813+00:00",
+        "commit_total_bytes": 34770595840,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7428214784,
+        "physical_available_bytes": 1525792768
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104323.4145558
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 55,
+      "label": "sparse:editor_19.png.before",
+      "host_monotonic": 110973.0797471,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:24.354260+00:00",
+        "commit_total_bytes": 34775343104,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7423467520,
+        "physical_available_bytes": 1540395008
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104324.3547714
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 56,
+      "label": "sparse:editor_19.png.after",
+      "host_monotonic": 110973.9755895,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:25.249921+00:00",
+        "commit_total_bytes": 34762051584,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7436759040,
+        "physical_available_bytes": 1537888256
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104325.2506154
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 57,
+      "label": "dense:motion_editor.before",
+      "host_monotonic": 110974.4836647,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:25.758144+00:00",
+        "commit_total_bytes": 34754732032,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7444078592,
+        "physical_available_bytes": 1551298560
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104325.7586915
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 58,
+      "label": "dense:motion_editor.after",
+      "host_monotonic": 110989.6687651,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:40.943195+00:00",
+        "commit_total_bytes": 34720272384,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7478538240,
+        "physical_available_bytes": 1457405952
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104340.943791
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 59,
+      "label": "sparse:editor_items_hidden.png.before",
+      "host_monotonic": 110990.4364741,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:41.710965+00:00",
+        "commit_total_bytes": 34725425152,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7473385472,
+        "physical_available_bytes": 1485508608
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104341.7115006
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 60,
+      "label": "sparse:editor_items_hidden.png.after",
+      "host_monotonic": 110991.3750354,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:42.649470+00:00",
+        "commit_total_bytes": 34730942464,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7467868160,
+        "physical_available_bytes": 1510309888
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104342.650062
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 61,
+      "label": "sparse:editor_cutaway.png.before",
+      "host_monotonic": 110992.4160201,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:43.690479+00:00",
+        "commit_total_bytes": 34753003520,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7445807104,
+        "physical_available_bytes": 1493700608
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104343.691046
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 62,
+      "label": "sparse:editor_cutaway.png.after",
+      "host_monotonic": 110993.3921141,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:44.666210+00:00",
+        "commit_total_bytes": 34833342464,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7365468160,
+        "physical_available_bytes": 1437691904
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104344.6671355
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 63,
+      "label": "sparse:editor_restored.png.before",
+      "host_monotonic": 110994.3247296,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:45.599213+00:00",
+        "commit_total_bytes": 34828857344,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7369953280,
+        "physical_available_bytes": 1462431744
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104345.599756
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 64,
+      "label": "sparse:editor_restored.png.after",
+      "host_monotonic": 110995.145147,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:46.419215+00:00",
+        "commit_total_bytes": 34834739200,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7364071424,
+        "physical_available_bytes": 1452322816
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104346.4201727
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 65,
+      "label": "sparse:world_0.png.before",
+      "host_monotonic": 110999.160676,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:50.435096+00:00",
+        "commit_total_bytes": 34879590400,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7319220224,
+        "physical_available_bytes": 1444626432
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104350.435702
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 66,
+      "label": "sparse:world_0.png.after",
+      "host_monotonic": 111000.0357647,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:51.310331+00:00",
+        "commit_total_bytes": 34894966784,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7303843840,
+        "physical_available_bytes": 1443332096
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104351.3107889
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 67,
+      "label": "sparse:world_1.png.before",
+      "host_monotonic": 111001.2302504,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:52.504734+00:00",
+        "commit_total_bytes": 34900811776,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7297998848,
+        "physical_available_bytes": 1453240320
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104352.5052764
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 68,
+      "label": "sparse:world_1.png.after",
+      "host_monotonic": 111002.0807396,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:53.355203+00:00",
+        "commit_total_bytes": 34913480704,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7285329920,
+        "physical_available_bytes": 1435394048
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104353.355766
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 69,
+      "label": "sparse:world_2.png.before",
+      "host_monotonic": 111003.338916,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:54.613503+00:00",
+        "commit_total_bytes": 34890301440,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7308509184,
+        "physical_available_bytes": 1455190016
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104354.6139429
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 70,
+      "label": "sparse:world_2.png.after",
+      "host_monotonic": 111004.5612742,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:55.835750+00:00",
+        "commit_total_bytes": 34884030464,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7314780160,
+        "physical_available_bytes": 1472741376
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104355.8363008
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 71,
+      "label": "sparse:world_3.png.before",
+      "host_monotonic": 111005.7576428,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:57.031994+00:00",
+        "commit_total_bytes": 34877325312,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7321485312,
+        "physical_available_bytes": 1482924032
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104357.0326686
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 72,
+      "label": "sparse:world_3.png.after",
+      "host_monotonic": 111006.6199194,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:57.893925+00:00",
+        "commit_total_bytes": 34887069696,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7311740928,
+        "physical_available_bytes": 1482354688
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104357.8949459
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 73,
+      "label": "sparse:world_4.png.before",
+      "host_monotonic": 111007.8904157,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:59.164378+00:00",
+        "commit_total_bytes": 34887020544,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7311790080,
+        "physical_available_bytes": 1485504512
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104359.165441
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 74,
+      "label": "sparse:world_4.png.after",
+      "host_monotonic": 111008.7054082,
+      "commit": {
+        "observed_at": "2026-10-15T22:45:59.979805+00:00",
+        "commit_total_bytes": 34894581760,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7304228864,
+        "physical_available_bytes": 1472421888
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104359.9804342
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 75,
+      "label": "sparse:world_5.png.before",
+      "host_monotonic": 111009.8545716,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:01.129194+00:00",
+        "commit_total_bytes": 34884595712,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7314214912,
+        "physical_available_bytes": 1480654848
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104361.1295972
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 76,
+      "label": "sparse:world_5.png.after",
+      "host_monotonic": 111010.7620227,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:02.036280+00:00",
+        "commit_total_bytes": 34863849472,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7334961152,
+        "physical_available_bytes": 1498136576
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104362.0370488
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 77,
+      "label": "sparse:world_6.png.before",
+      "host_monotonic": 111011.9621809,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:03.236499+00:00",
+        "commit_total_bytes": 34883186688,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7315623936,
+        "physical_available_bytes": 1481654272
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104363.2372067
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 78,
+      "label": "sparse:world_6.png.after",
+      "host_monotonic": 111013.2924113,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:04.566610+00:00",
+        "commit_total_bytes": 34941083648,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7257726976,
+        "physical_available_bytes": 1433174016
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104364.567433
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 79,
+      "label": "sparse:world_7.png.before",
+      "host_monotonic": 111014.536969,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:05.811249+00:00",
+        "commit_total_bytes": 35007016960,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7191793664,
+        "physical_available_bytes": 1367564288
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 830,
+        "recorded_at": 1792104365.8119943
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 80,
+      "label": "sparse:world_7.png.after",
+      "host_monotonic": 111015.4854799,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:06.759980+00:00",
+        "commit_total_bytes": 35003580416,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7195230208,
+        "physical_available_bytes": 1368633344
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 829,
+        "recorded_at": 1792104366.7605062
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 81,
+      "label": "sparse:world_8.png.before",
+      "host_monotonic": 111016.6118226,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:07.886159+00:00",
+        "commit_total_bytes": 34984878080,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7213932544,
+        "physical_available_bytes": 1390764032
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104367.886849
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 82,
+      "label": "sparse:world_8.png.after",
+      "host_monotonic": 111017.5177222,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:08.792025+00:00",
+        "commit_total_bytes": 34986979328,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7211831296,
+        "physical_available_bytes": 1391329280
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104368.7927482
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 83,
+      "label": "sparse:world_9.png.before",
+      "host_monotonic": 111018.7855501,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:10.059971+00:00",
+        "commit_total_bytes": 34984484864,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7214325760,
+        "physical_available_bytes": 1406111744
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104370.0605764
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 84,
+      "label": "sparse:world_9.png.after",
+      "host_monotonic": 111019.6849907,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:10.959099+00:00",
+        "commit_total_bytes": 34983874560,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7214936064,
+        "physical_available_bytes": 1393156096
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104370.9600158
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 85,
+      "label": "sparse:world_10.png.before",
+      "host_monotonic": 111020.8425191,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:12.117060+00:00",
+        "commit_total_bytes": 34978668544,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7220142080,
+        "physical_available_bytes": 1399312384
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104372.1175458
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 86,
+      "label": "sparse:world_10.png.after",
+      "host_monotonic": 111021.6729812,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:12.947001+00:00",
+        "commit_total_bytes": 34981875712,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7216934912,
+        "physical_available_bytes": 1403682816
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104372.948006
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 87,
+      "label": "sparse:world_11.png.before",
+      "host_monotonic": 111022.8874451,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:14.161951+00:00",
+        "commit_total_bytes": 34975019008,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7223791616,
+        "physical_available_bytes": 1432346624
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104374.1624715
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 88,
+      "label": "sparse:world_11.png.after",
+      "host_monotonic": 111023.8772263,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:15.151663+00:00",
+        "commit_total_bytes": 34975813632,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7222996992,
+        "physical_available_bytes": 1413734400
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104375.1522527
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 89,
+      "label": "sparse:world_12.png.before",
+      "host_monotonic": 111025.1081491,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:16.382565+00:00",
+        "commit_total_bytes": 34974130176,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7224680448,
+        "physical_available_bytes": 1420361728
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104376.3831754
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 90,
+      "label": "sparse:world_12.png.after",
+      "host_monotonic": 111025.9944992,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:17.268832+00:00",
+        "commit_total_bytes": 34979418112,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7219392512,
+        "physical_available_bytes": 1413238784
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104377.2695248
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 91,
+      "label": "sparse:world_13.png.before",
+      "host_monotonic": 111027.2468825,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:18.521452+00:00",
+        "commit_total_bytes": 34972106752,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7226703872,
+        "physical_available_bytes": 1421242368
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104378.5219069
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 92,
+      "label": "sparse:world_13.png.after",
+      "host_monotonic": 111028.1800861,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:19.454741+00:00",
+        "commit_total_bytes": 34974715904,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7224094720,
+        "physical_available_bytes": 1417277440
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104379.45511
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 93,
+      "label": "sparse:world_14.png.before",
+      "host_monotonic": 111029.4150607,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:20.689521+00:00",
+        "commit_total_bytes": 34969194496,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7229616128,
+        "physical_available_bytes": 1416912896
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104380.6900873
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 94,
+      "label": "sparse:world_14.png.after",
+      "host_monotonic": 111030.2879244,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:21.562250+00:00",
+        "commit_total_bytes": 34980843520,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7217967104,
+        "physical_available_bytes": 1418842112
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104381.5629504
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 95,
+      "label": "sparse:world_15.png.before",
+      "host_monotonic": 111031.4995813,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:22.773855+00:00",
+        "commit_total_bytes": 34975735808,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7223074816,
+        "physical_available_bytes": 1424867328
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104382.7746072
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 96,
+      "label": "sparse:world_15.png.after",
+      "host_monotonic": 111032.4529588,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:23.727389+00:00",
+        "commit_total_bytes": 34974277632,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7224532992,
+        "physical_available_bytes": 1426198528
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104383.7279854
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 97,
+      "label": "sparse:world_16.png.before",
+      "host_monotonic": 111033.6472014,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:24.921690+00:00",
+        "commit_total_bytes": 34969460736,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7229349888,
+        "physical_available_bytes": 1435688960
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104384.9222276
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 98,
+      "label": "sparse:world_16.png.after",
+      "host_monotonic": 111034.4926856,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:25.767210+00:00",
+        "commit_total_bytes": 34970963968,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7227846656,
+        "physical_available_bytes": 1416548352
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104385.767711
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 99,
+      "label": "sparse:world_17.png.before",
+      "host_monotonic": 111035.7114789,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:26.985897+00:00",
+        "commit_total_bytes": 34968981504,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7229829120,
+        "physical_available_bytes": 1420836864
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104386.9865048
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 100,
+      "label": "sparse:world_17.png.after",
+      "host_monotonic": 111036.6042942,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:27.878668+00:00",
+        "commit_total_bytes": 34972147712,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7226662912,
+        "physical_available_bytes": 1426890752
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104387.879317
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 101,
+      "label": "sparse:world_18.png.before",
+      "host_monotonic": 111037.8010332,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:29.075305+00:00",
+        "commit_total_bytes": 34947289088,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7251521536,
+        "physical_available_bytes": 1453572096
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104389.0760586
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 102,
+      "label": "sparse:world_18.png.after",
+      "host_monotonic": 111038.6515337,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:29.925923+00:00",
+        "commit_total_bytes": 34948345856,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7250464768,
+        "physical_available_bytes": 1437818880
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104389.92656
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 103,
+      "label": "sparse:world_19.png.before",
+      "host_monotonic": 111039.8907502,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:31.165257+00:00",
+        "commit_total_bytes": 34951372800,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7247437824,
+        "physical_available_bytes": 1444589568
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104391.1657767
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 104,
+      "label": "sparse:world_19.png.after",
+      "host_monotonic": 111040.7981062,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:32.072641+00:00",
+        "commit_total_bytes": 34955333632,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7243476992,
+        "physical_available_bytes": 1438380032
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104392.0731294
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 105,
+      "label": "dense:motion_world.before",
+      "host_monotonic": 111041.2601263,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:32.534692+00:00",
+        "commit_total_bytes": 34946228224,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7252582400,
+        "physical_available_bytes": 1441456128
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104392.535153
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 106,
+      "label": "dense:motion_world.after",
+      "host_monotonic": 111053.9265012,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:45.200940+00:00",
+        "commit_total_bytes": 34916311040,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7282499584,
+        "physical_available_bytes": 1379782656
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104405.2015278
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 107,
+      "label": "sparse:world_items_hidden.png.before",
+      "host_monotonic": 111054.8828455,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:46.157288+00:00",
+        "commit_total_bytes": 34909151232,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7289659392,
+        "physical_available_bytes": 1478311936
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104406.157872
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 108,
+      "label": "sparse:world_items_hidden.png.after",
+      "host_monotonic": 111055.7664124,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:47.040617+00:00",
+        "commit_total_bytes": 34924695552,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7274115072,
+        "physical_available_bytes": 1463013376
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104407.0414379
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 109,
+      "label": "sparse:world_occupied.png.before",
+      "host_monotonic": 111058.0022521,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:49.276847+00:00",
+        "commit_total_bytes": 34921357312,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7277453312,
+        "physical_available_bytes": 1457188864
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104409.277278
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 110,
+      "label": "sparse:world_occupied.png.after",
+      "host_monotonic": 111058.8065646,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:50.080670+00:00",
+        "commit_total_bytes": 34925678592,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7273132032,
+        "physical_available_bytes": 1451536384
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104410.0815902
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 111,
+      "label": "sparse:world_restored.png.before",
+      "host_monotonic": 111060.4090519,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:51.683283+00:00",
+        "commit_total_bytes": 34923151360,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7275659264,
+        "physical_available_bytes": 1453395968
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104411.6840744
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 112,
+      "label": "sparse:world_restored.png.after",
+      "host_monotonic": 111061.4491284,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:52.723646+00:00",
+        "commit_total_bytes": 34879574016,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7319236608,
+        "physical_available_bytes": 1500811264
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104412.724154
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 113,
+      "label": "sparse:world_missing_0.png.before",
+      "host_monotonic": 111062.9197337,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:54.194217+00:00",
+        "commit_total_bytes": 34870198272,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7328612352,
+        "physical_available_bytes": 1507745792
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104414.1947591
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 114,
+      "label": "sparse:world_missing_0.png.after",
+      "host_monotonic": 111063.7882537,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:55.062717+00:00",
+        "commit_total_bytes": 34872549376,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7326261248,
+        "physical_available_bytes": 1510346752
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104415.06328
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 115,
+      "label": "sparse:world_missing_1.png.before",
+      "host_monotonic": 111064.9596969,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:56.234105+00:00",
+        "commit_total_bytes": 34870738944,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7328071680,
+        "physical_available_bytes": 1500286976
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104416.234723
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 116,
+      "label": "sparse:world_missing_1.png.after",
+      "host_monotonic": 111065.8730497,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:57.146951+00:00",
+        "commit_total_bytes": 34880552960,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7318257664,
+        "physical_available_bytes": 1493872640
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104417.1480753
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 117,
+      "label": "sparse:world_missing_2.png.before",
+      "host_monotonic": 111067.1295392,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:58.403810+00:00",
+        "commit_total_bytes": 34876461056,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7322349568,
+        "physical_available_bytes": 1492111360
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104418.404565
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 118,
+      "label": "sparse:world_missing_2.png.after",
+      "host_monotonic": 111067.9743328,
+      "commit": {
+        "observed_at": "2026-10-15T22:46:59.248758+00:00",
+        "commit_total_bytes": 34883391488,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7315419136,
+        "physical_available_bytes": 1486503936
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104419.249359
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 119,
+      "label": "sparse:world_missing_3.png.before",
+      "host_monotonic": 111069.124378,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:00.398680+00:00",
+        "commit_total_bytes": 34884026368,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7314784256,
+        "physical_available_bytes": 1497436160
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104420.3994045
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 120,
+      "label": "sparse:world_missing_3.png.after",
+      "host_monotonic": 111069.9770931,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:01.251335+00:00",
+        "commit_total_bytes": 34823020544,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7375790080,
+        "physical_available_bytes": 1535971328
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104421.252116
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 121,
+      "label": "sparse:world_missing_4.png.before",
+      "host_monotonic": 111071.2106018,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:02.484840+00:00",
+        "commit_total_bytes": 34819788800,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7379021824,
+        "physical_available_bytes": 1540489216
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104422.485628
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 122,
+      "label": "sparse:world_missing_4.png.after",
+      "host_monotonic": 111072.0873806,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:03.361993+00:00",
+        "commit_total_bytes": 34827067392,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7371743232,
+        "physical_available_bytes": 1545617408
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104423.3624072
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 123,
+      "label": "sparse:world_missing_5.png.before",
+      "host_monotonic": 111073.348658,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:04.623033+00:00",
+        "commit_total_bytes": 34824089600,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7374721024,
+        "physical_available_bytes": 1554145280
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104424.6236837
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 124,
+      "label": "sparse:world_missing_5.png.after",
+      "host_monotonic": 111074.1416767,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:05.415777+00:00",
+        "commit_total_bytes": 34827374592,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7371436032,
+        "physical_available_bytes": 1548779520
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104425.4167018
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 125,
+      "label": "sparse:world_missing_6.png.before",
+      "host_monotonic": 111075.3881094,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:06.662547+00:00",
+        "commit_total_bytes": 34826539008,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7372271616,
+        "physical_available_bytes": 1539469312
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104426.663136
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 126,
+      "label": "sparse:world_missing_6.png.after",
+      "host_monotonic": 111076.3626196,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:07.636968+00:00",
+        "commit_total_bytes": 34831495168,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7367315456,
+        "physical_available_bytes": 1527930880
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104427.6376424
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 127,
+      "label": "sparse:world_missing_7.png.before",
+      "host_monotonic": 111077.6801489,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:08.954507+00:00",
+        "commit_total_bytes": 34824409088,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7374401536,
+        "physical_available_bytes": 1539497984
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104428.9551754
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 128,
+      "label": "sparse:world_missing_7.png.after",
+      "host_monotonic": 111078.5533109,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:09.827512+00:00",
+        "commit_total_bytes": 34828992512,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7369818112,
+        "physical_available_bytes": 1537212416
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104429.8283367
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 129,
+      "label": "sparse:world_missing_8.png.before",
+      "host_monotonic": 111079.6584735,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:10.933053+00:00",
+        "commit_total_bytes": 34820788224,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7378022400,
+        "physical_available_bytes": 1551585280
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104430.9334998
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 130,
+      "label": "sparse:world_missing_8.png.after",
+      "host_monotonic": 111080.5948638,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:11.868661+00:00",
+        "commit_total_bytes": 34830049280,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7368761344,
+        "physical_available_bytes": 1546354688
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104431.8698893
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 131,
+      "label": "sparse:world_missing_9.png.before",
+      "host_monotonic": 111081.885523,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:13.159828+00:00",
+        "commit_total_bytes": 34826665984,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7372144640,
+        "physical_available_bytes": 1539092480
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104433.1605487
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 132,
+      "label": "sparse:world_missing_9.png.after",
+      "host_monotonic": 111082.8085879,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:14.083041+00:00",
+        "commit_total_bytes": 34834735104,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7364075520,
+        "physical_available_bytes": 1535881216
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104434.0836115
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 133,
+      "label": "sparse:world_missing_10.png.before",
+      "host_monotonic": 111084.0315024,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:15.305674+00:00",
+        "commit_total_bytes": 34829684736,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7369125888,
+        "physical_available_bytes": 1531580416
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104435.3065274
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 134,
+      "label": "sparse:world_missing_10.png.after",
+      "host_monotonic": 111084.9597775,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:16.234139+00:00",
+        "commit_total_bytes": 34848153600,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7350657024,
+        "physical_available_bytes": 1507905536
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104436.2348037
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 135,
+      "label": "sparse:world_missing_11.png.before",
+      "host_monotonic": 111086.2394741,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:17.513943+00:00",
+        "commit_total_bytes": 34834862080,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7363948544,
+        "physical_available_bytes": 1515601920
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104437.5145006
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 136,
+      "label": "sparse:world_missing_11.png.after",
+      "host_monotonic": 111087.1049161,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:18.378634+00:00",
+        "commit_total_bytes": 34837250048,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7361560576,
+        "physical_available_bytes": 1527635968
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104438.3799403
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 137,
+      "label": "sparse:world_missing_12.png.before",
+      "host_monotonic": 111088.3916195,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:19.666119+00:00",
+        "commit_total_bytes": 34836480000,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7362330624,
+        "physical_available_bytes": 1525907456
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104439.666646
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 138,
+      "label": "sparse:world_missing_12.png.after",
+      "host_monotonic": 111089.3532359,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:20.627390+00:00",
+        "commit_total_bytes": 34839928832,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7358881792,
+        "physical_available_bytes": 1513078784
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104440.6282606
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 139,
+      "label": "sparse:world_missing_13.png.before",
+      "host_monotonic": 111090.5091062,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:21.783485+00:00",
+        "commit_total_bytes": 34833129472,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7365681152,
+        "physical_available_bytes": 1514557440
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104441.7841318
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 140,
+      "label": "sparse:world_missing_13.png.after",
+      "host_monotonic": 111091.4464147,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:22.720826+00:00",
+        "commit_total_bytes": 34844545024,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7354265600,
+        "physical_available_bytes": 1512566784
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104442.7214403
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 141,
+      "label": "sparse:world_missing_14.png.before",
+      "host_monotonic": 111092.5546139,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:23.829116+00:00",
+        "commit_total_bytes": 34829123584,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7369687040,
+        "physical_available_bytes": 1526640640
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104443.8296387
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 142,
+      "label": "sparse:world_missing_14.png.after",
+      "host_monotonic": 111093.3983582,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:24.672917+00:00",
+        "commit_total_bytes": 34833330176,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7365480448,
+        "physical_available_bytes": 1520840704
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104444.6733844
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 143,
+      "label": "sparse:world_missing_15.png.before",
+      "host_monotonic": 111094.5912098,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:25.865526+00:00",
+        "commit_total_bytes": 34827182080,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7371628544,
+        "physical_available_bytes": 1522143232
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104445.8662364
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 144,
+      "label": "sparse:world_missing_15.png.after",
+      "host_monotonic": 111095.544191,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:26.818715+00:00",
+        "commit_total_bytes": 34832715776,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7366094848,
+        "physical_available_bytes": 1511026688
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104446.819216
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 145,
+      "label": "sparse:world_missing_16.png.before",
+      "host_monotonic": 111096.7631755,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:28.037540+00:00",
+        "commit_total_bytes": 34826956800,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7371853824,
+        "physical_available_bytes": 1512431616
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104448.0382004
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 146,
+      "label": "sparse:world_missing_16.png.after",
+      "host_monotonic": 111097.6295782,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:28.903832+00:00",
+        "commit_total_bytes": 34830450688,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7368359936,
+        "physical_available_bytes": 1521868800
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104448.9046028
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 147,
+      "label": "sparse:world_missing_17.png.before",
+      "host_monotonic": 111098.7465718,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:30.021031+00:00",
+        "commit_total_bytes": 34826543104,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7372267520,
+        "physical_available_bytes": 1522180096
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104450.0215986
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 148,
+      "label": "sparse:world_missing_17.png.after",
+      "host_monotonic": 111099.6234145,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:30.897811+00:00",
+        "commit_total_bytes": 34833801216,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7365009408,
+        "physical_available_bytes": 1525833728
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104450.8984404
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 149,
+      "label": "sparse:world_missing_18.png.before",
+      "host_monotonic": 111100.7161486,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:31.990375+00:00",
+        "commit_total_bytes": 34791469056,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7407341568,
+        "physical_available_bytes": 1561878528
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104451.9911747
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 150,
+      "label": "sparse:world_missing_18.png.after",
+      "host_monotonic": 111101.6440194,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:32.918218+00:00",
+        "commit_total_bytes": 34788466688,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7410343936,
+        "physical_available_bytes": 1541861376
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104452.919039
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 151,
+      "label": "sparse:world_missing_19.png.before",
+      "host_monotonic": 111102.7621921,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:34.036631+00:00",
+        "commit_total_bytes": 34783440896,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7415369728,
+        "physical_available_bytes": 1548656640
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104454.0372186
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 152,
+      "label": "sparse:world_missing_19.png.after",
+      "host_monotonic": 111103.6516541,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:34.926102+00:00",
+        "commit_total_bytes": 34789494784,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7409315840,
+        "physical_available_bytes": 1554829312
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104454.9266808
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 153,
+      "label": "dense:motion_world_missing.before",
+      "host_monotonic": 111104.147732,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:35.422154+00:00",
+        "commit_total_bytes": 34789437440,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7409373184,
+        "physical_available_bytes": 1549889536
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104455.4227579
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 154,
+      "label": "dense:motion_world_missing.after",
+      "host_monotonic": 111116.6008,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:47.875226+00:00",
+        "commit_total_bytes": 34791751680,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7407058944,
+        "physical_available_bytes": 1448595456
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 837,
+        "recorded_at": 1792104467.875826
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 155,
+      "label": "sparse:native_before_fill.png.before",
+      "host_monotonic": 111119.009193,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:50.283491+00:00",
+        "commit_total_bytes": 34834599936,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7364210688,
+        "physical_available_bytes": 1509130240
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 838,
+        "recorded_at": 1792104470.2842188
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 156,
+      "label": "sparse:native_before_fill.png.after",
+      "host_monotonic": 111120.5368312,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:51.811067+00:00",
+        "commit_total_bytes": 34946367488,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7252443136,
+        "physical_available_bytes": 1443823616
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 837,
+        "recorded_at": 1792104471.811855
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 157,
+      "label": "sparse:native_0.png.before",
+      "host_monotonic": 111122.0659489,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:53.340488+00:00",
+        "commit_total_bytes": 34864398336,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7334412288,
+        "physical_available_bytes": 1464238080
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 838,
+        "recorded_at": 1792104473.340975
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 158,
+      "label": "sparse:native_0.png.after",
+      "host_monotonic": 111123.6412778,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:54.915753+00:00",
+        "commit_total_bytes": 34848284672,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7350525952,
+        "physical_available_bytes": 1490173952
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 837,
+        "recorded_at": 1792104474.9163039
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 159,
+      "label": "sparse:native_1.png.before",
+      "host_monotonic": 111124.5687298,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:55.843033+00:00",
+        "commit_total_bytes": 34846273536,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7352537088,
+        "physical_available_bytes": 1475833856
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 838,
+        "recorded_at": 1792104475.8437529
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 160,
+      "label": "sparse:native_1.png.after",
+      "host_monotonic": 111125.43528,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:56.709796+00:00",
+        "commit_total_bytes": 34851753984,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7347056640,
+        "physical_available_bytes": 1469194240
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 837,
+        "recorded_at": 1792104476.710306
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 161,
+      "label": "sparse:native_2.png.before",
+      "host_monotonic": 111126.3771989,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:57.651558+00:00",
+        "commit_total_bytes": 34840313856,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7358496768,
+        "physical_available_bytes": 1490505728
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 838,
+        "recorded_at": 1792104477.652225
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 162,
+      "label": "sparse:native_2.png.after",
+      "host_monotonic": 111127.283115,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:58.557653+00:00",
+        "commit_total_bytes": 34856329216,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7342481408,
+        "physical_available_bytes": 1469870080
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 837,
+        "recorded_at": 1792104478.558141
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 163,
+      "label": "sparse:native_3.png.before",
+      "host_monotonic": 111128.2908736,
+      "commit": {
+        "observed_at": "2026-10-15T22:47:59.565394+00:00",
+        "commit_total_bytes": 34844073984,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7354736640,
+        "physical_available_bytes": 1476489216
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 838,
+        "recorded_at": 1792104479.5659
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 164,
+      "label": "sparse:native_3.png.after",
+      "host_monotonic": 111129.2256229,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:00.500001+00:00",
+        "commit_total_bytes": 34853519360,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7345291264,
+        "physical_available_bytes": 1470406656
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 837,
+        "recorded_at": 1792104480.5006487
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 165,
+      "label": "sparse:native_4.png.before",
+      "host_monotonic": 111130.1604289,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:01.434908+00:00",
+        "commit_total_bytes": 34852298752,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7346511872,
+        "physical_available_bytes": 1463775232
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 842,
+        "recorded_at": 1792104481.4354553
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 166,
+      "label": "sparse:native_4.png.after",
+      "host_monotonic": 111131.6757417,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:02.949971+00:00",
+        "commit_total_bytes": 34859745280,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7339065344,
+        "physical_available_bytes": 1452539904
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 841,
+        "recorded_at": 1792104482.9507625
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 167,
+      "label": "sparse:native_5.png.before",
+      "host_monotonic": 111132.6010098,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:03.875578+00:00",
+        "commit_total_bytes": 34859732992,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7339077632,
+        "physical_available_bytes": 1450340352
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 842,
+        "recorded_at": 1792104483.8760362
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 168,
+      "label": "sparse:native_5.png.after",
+      "host_monotonic": 111133.6167327,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:04.890985+00:00",
+        "commit_total_bytes": 34872827904,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7325982720,
+        "physical_available_bytes": 1441611776
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 841,
+        "recorded_at": 1792104484.891758
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 169,
+      "label": "sparse:native_6.png.before",
+      "host_monotonic": 111134.6207081,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:05.895248+00:00",
+        "commit_total_bytes": 34882142208,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7316668416,
+        "physical_available_bytes": 1444134912
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 842,
+        "recorded_at": 1792104485.895734
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 170,
+      "label": "sparse:native_6.png.after",
+      "host_monotonic": 111135.6227872,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:06.897074+00:00",
+        "commit_total_bytes": 34879782912,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7319027712,
+        "physical_available_bytes": 1429983232
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 841,
+        "recorded_at": 1792104486.8978121
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 171,
+      "label": "sparse:native_7.png.before",
+      "host_monotonic": 111136.6877766,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:07.962129+00:00",
+        "commit_total_bytes": 34963742720,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7235067904,
+        "physical_available_bytes": 1393893376
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 842,
+        "recorded_at": 1792104487.9627993
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 172,
+      "label": "sparse:native_7.png.after",
+      "host_monotonic": 111137.8620495,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:09.135800+00:00",
+        "commit_total_bytes": 34875588608,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7323222016,
+        "physical_available_bytes": 1404116992
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 841,
+        "recorded_at": 1792104489.1370702
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 173,
+      "label": "sparse:native_8.png.before",
+      "host_monotonic": 111138.7975825,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:10.072059+00:00",
+        "commit_total_bytes": 34850738176,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7348072448,
+        "physical_available_bytes": 1434435584
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 842,
+        "recorded_at": 1792104490.0726087
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 174,
+      "label": "sparse:native_8.png.after",
+      "host_monotonic": 111139.7295904,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:11.003882+00:00",
+        "commit_total_bytes": 34858307584,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7340503040,
+        "physical_available_bytes": 1410904064
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 841,
+        "recorded_at": 1792104491.0046122
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 175,
+      "label": "sparse:native_9.png.before",
+      "host_monotonic": 111140.7899904,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:12.064495+00:00",
+        "commit_total_bytes": 34849378304,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7349432320,
+        "physical_available_bytes": 1428533248
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 842,
+        "recorded_at": 1792104492.065016
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 176,
+      "label": "sparse:native_9.png.after",
+      "host_monotonic": 111141.7392234,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:13.013658+00:00",
+        "commit_total_bytes": 34865954816,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7332855808,
+        "physical_available_bytes": 1433509888
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 845,
+        "recorded_at": 1792104493.014247
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 177,
+      "label": "sparse:native_10.png.before",
+      "host_monotonic": 111142.7075886,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:13.981965+00:00",
+        "commit_total_bytes": 34904997888,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7293812736,
+        "physical_available_bytes": 1408094208
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 847,
+        "recorded_at": 1792104493.982611
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 178,
+      "label": "sparse:native_10.png.after",
+      "host_monotonic": 111143.6565434,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:14.930703+00:00",
+        "commit_total_bytes": 34863554560,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7335256064,
+        "physical_available_bytes": 1409900544
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 841,
+        "recorded_at": 1792104494.9315689
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 179,
+      "label": "sparse:native_11.png.before",
+      "host_monotonic": 111144.6343922,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:15.908802+00:00",
+        "commit_total_bytes": 34854817792,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7343992832,
+        "physical_available_bytes": 1422577664
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 834,
+        "recorded_at": 1792104495.9094179
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 180,
+      "label": "sparse:native_11.png.after",
+      "host_monotonic": 111145.5827681,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:16.856452+00:00",
+        "commit_total_bytes": 34863493120,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7335317504,
+        "physical_available_bytes": 1416101888
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 833,
+        "recorded_at": 1792104496.8577902
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 181,
+      "label": "sparse:native_12.png.before",
+      "host_monotonic": 111146.5630066,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:17.837407+00:00",
+        "commit_total_bytes": 34841018368,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7357792256,
+        "physical_available_bytes": 1431916544
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104497.8380327
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 182,
+      "label": "sparse:native_12.png.after",
+      "host_monotonic": 111147.4312743,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:18.705059+00:00",
+        "commit_total_bytes": 34838265856,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7360544768,
+        "physical_available_bytes": 1425661952
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104498.7062957
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 183,
+      "label": "sparse:native_13.png.before",
+      "host_monotonic": 111148.402172,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:19.676657+00:00",
+        "commit_total_bytes": 34836832256,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7361978368,
+        "physical_available_bytes": 1432432640
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104499.6771986
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 184,
+      "label": "sparse:native_13.png.after",
+      "host_monotonic": 111149.3528673,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:20.627013+00:00",
+        "commit_total_bytes": 34847477760,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7351332864,
+        "physical_available_bytes": 1414516736
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104500.6278923
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 185,
+      "label": "sparse:native_14.png.before",
+      "host_monotonic": 111150.2439668,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:21.518508+00:00",
+        "commit_total_bytes": 34902302720,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7296507904,
+        "physical_available_bytes": 1374552064
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104501.5189924
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 186,
+      "label": "sparse:native_14.png.after",
+      "host_monotonic": 111151.1939664,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:22.468184+00:00",
+        "commit_total_bytes": 34859851776,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7338958848,
+        "physical_available_bytes": 1418772480
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104502.468991
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 187,
+      "label": "sparse:native_15.png.before",
+      "host_monotonic": 111152.2317416,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:23.506351+00:00",
+        "commit_total_bytes": 34856071168,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7342739456,
+        "physical_available_bytes": 1421742080
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104503.506768
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 188,
+      "label": "sparse:native_15.png.after",
+      "host_monotonic": 111153.2357403,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:24.509655+00:00",
+        "commit_total_bytes": 34963185664,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7235624960,
+        "physical_available_bytes": 1338396672
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104504.5107615
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 189,
+      "label": "sparse:native_16.png.before",
+      "host_monotonic": 111154.1844317,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:25.458203+00:00",
+        "commit_total_bytes": 35144953856,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7053856768,
+        "physical_available_bytes": 1224454144
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 832,
+        "recorded_at": 1792104505.4594524
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 190,
+      "label": "sparse:native_16.png.after",
+      "host_monotonic": 111155.34359,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:26.617948+00:00",
+        "commit_total_bytes": 34940575744,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7258234880,
+        "physical_available_bytes": 1353940992
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 831,
+        "recorded_at": 1792104506.6186154
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 191,
+      "label": "sparse:native_17.png.before",
+      "host_monotonic": 111156.2336381,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:27.508100+00:00",
+        "commit_total_bytes": 34951622656,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7247187968,
+        "physical_available_bytes": 1337704448
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104507.5086637
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 192,
+      "label": "sparse:native_17.png.after",
+      "host_monotonic": 111157.1684946,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:28.442772+00:00",
+        "commit_total_bytes": 34937925632,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7260884992,
+        "physical_available_bytes": 1344696320
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104508.4435196
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 193,
+      "label": "sparse:native_18.png.before",
+      "host_monotonic": 111158.1104309,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:29.384504+00:00",
+        "commit_total_bytes": 34935332864,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7263477760,
+        "physical_available_bytes": 1353592832
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104509.3854556
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 194,
+      "label": "sparse:native_18.png.after",
+      "host_monotonic": 111159.4963138,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:30.770564+00:00",
+        "commit_total_bytes": 34934218752,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7264591872,
+        "physical_available_bytes": 1356955648
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104510.7713392
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 195,
+      "label": "sparse:native_19.png.before",
+      "host_monotonic": 111160.4552957,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:31.729767+00:00",
+        "commit_total_bytes": 34916343808,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7282466816,
+        "physical_available_bytes": 1370460160
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104511.7303202
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 196,
+      "label": "sparse:native_19.png.after",
+      "host_monotonic": 111161.7860444,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:33.060379+00:00",
+        "commit_total_bytes": 34936950784,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7261859840,
+        "physical_available_bytes": 1340301312
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104513.0610697
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 197,
+      "label": "dense:motion_native.before",
+      "host_monotonic": 111162.3413956,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:33.615888+00:00",
+        "commit_total_bytes": 34934382592,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7264428032,
+        "physical_available_bytes": 1356951552
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104513.6164222
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 198,
+      "label": "dense:motion_native.after",
+      "host_monotonic": 111174.4054777,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:45.679547+00:00",
+        "commit_total_bytes": 34959609856,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7239200768,
+        "physical_available_bytes": 1201266688
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104525.6805012
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 199,
+      "label": "sparse:native_items_hidden.png.before",
+      "host_monotonic": 111175.9471578,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:47.221674+00:00",
+        "commit_total_bytes": 34953351168,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7245459456,
+        "physical_available_bytes": 1228582912
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 836,
+        "recorded_at": 1792104527.2221844
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    },
+    {
+      "index": 200,
+      "label": "sparse:native_items_hidden.png.after",
+      "host_monotonic": 111176.844834,
+      "commit": {
+        "observed_at": "2026-10-15T22:48:48.118819+00:00",
+        "commit_total_bytes": 34961223680,
+        "commit_limit_bytes": 42198810624,
+        "commit_available_bytes": 7237586944,
+        "physical_available_bytes": 1233133568
+      },
+      "process": {
+        "pid": 3388,
+        "handles": 835,
+        "recorded_at": 1792104528.1198566
+      },
+      "commit_passed": true,
+      "handles_passed": true
+    }
+  ]
+}

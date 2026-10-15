@@ -1,5 +1,14 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 06:57 最终普通剑光效通过，继续至08:00
+
+- 本轮不暂停。08:00+08休眠任务已再次读回Enabled、shutdown.exe /h、StartWhenAvailable=False。dev不push／合main；两原water tracked WIP、五用户probe、旧raw均不动。仍单MC/WGC排程、普通6GiB／Item与Water启动9GiB、BLAS单线程、无激活／resize／桌面输入／force。
+- 最终 `.75` 普通剑候选四路径采集314.460s完成、恢复、source unchanged、cleanup空。201个边界全过，最低可用commit7,053,856,768B。两冻结分析器都exit0，sparse evidence／本体控制／native reference有效，direction/speed及动态红绿亮度通过原门槛，双negative通过；最大方向差0.118432°、速度比1.000288–1.014178、R/G增益比0.998051–1.001407。native73有效帧／7.921s／maxgap224.2332ms，未放宽250ms。参数3／7独立保留，不跨路径phase对齐、不recolor／retime／删帧／验收集调参。closeup-only的static_pose_accepted=False、all_native_bodies/edges=False、production=False均保留；不覆盖方块glint或全姿态。root实际打开native/editor/full/missing四原图与native/editor dense裁图，并独立check1693原始输入和3828冻结source通过。精简本地重放包docs/evidence/item-glint-final-r21-sword-v1需保留.runtime原始367MB，并非脱机自包含；manifest70e2d2a23770df896ebd4e7a490f5c3c2e35e68b53c3118b6f97b76249d99b11。
+- 当前唯一runtime在Item session00ce7bfc3c644385a9ac1bbe8a59117a，game3388／134365774254541407、MCDK3908／134365774248978715、observer46480／134365774958680491。grass front93–96s后，left75 93.3945s、right75 95.298s均completed／restored／source unchanged、cleanup空，侧视像素分析尚待。一次normal close exec37266已超时exit1，尚待原identity退出与finalize，未释放MC/WGC；不重复close或force。只有显式handoff后才给Portal v12正常TIME六图grant。
+- Portal17源／资源／test／工具／doc已root审查、逐byte stage核对并提交fc5d7025。保留四条继承空白行而不改实测shader字节。新候选门False，旧legacy门True不等于本次外观验收。v12 watcher55680／134365769130132257已独立核对owner启动参数及新心跳，errors／assertions／recoveries空；3692文件digest a568dddc531e7eea610d24f18b12369adddb6de081105f52834611d7f8217918，正常TIME，尚未launch。之后按资源安排Shelf三图、Water cache/S+E、Banner scale三图、Snow两holdout与Book五图；未grant不得自行launch。
+- 用户最新旗帜区别已再次审计：旧v3/v5确实误用standing/wall block原型；现v11/v14/v16为exact typed banner的原生item binding，未打开成生产。真实frame03/04蓝布屏幕34×69／38×76约1:2，有极短下杆；比例／姿态／厚度仍独立待验。盾牌真实合成typed Base/Patterns已经取得，原生附件图案／侧边／背把手已有正例，但同payload UI白底差异未解释。editor08/09仅raw overlay，v9 Scene在SetModel=-1失败、未bind；不能说已接入Scene。两产品ITEMS均无条目、UNSUPPORTED=patterned_geometry。
+- Book attached v3已由代理整理24file／1,295,294B脱机重放包.runtime/native-book-attached-v3-review-pack-v1，manifest784e752589e89658840f3f1a5a886a354143aab773c1ffcff35255e60238d13c；仅native oracle解除，candidate/Scene/production/单因/正常退出均False。root待独立Temp replay再保存。现有world hidden/show五图入口冻结不变。Shelf V5六源／test仍未stage；state-guard helper仅接受完整south/unpowered/type0或空states，其余原样保留。Water两阶段及Snow仍离线准备，原冻结不变。
+
 ## 2026-10-16 06:20 原生参照收敛，继续开发至08:00
 
 - 本轮继续执行，不暂停；08:00+08休眠任务已读回Ready／Enabled、shutdown.exe /h、StartWhenAvailable=False。用户最新旗帜要求保持：物品展示框中的banner item不能复用standing_banner／wall_banner外形。真实框03／04原图可见窄长布、极短下杆；编辑器姿态、比例、厚度与共同深度仍独立待验。
