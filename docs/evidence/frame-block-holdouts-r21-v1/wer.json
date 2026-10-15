@@ -1,0 +1,74 @@
+{
+  "cause_established": false,
+  "events": [
+    {
+      "data": {
+        "AppName": "Minecraft.Windows.exe",
+        "AppPath": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "AppTimeStamp": "6ab3c118",
+        "AppVersion": "1.21.130.0",
+        "ExceptionCode": "c0000409",
+        "FaultingOffset": "00000000000a527e",
+        "IntegratorReportId": "e0c38d48-65ef-44ac-98c4-3a3169051883",
+        "ModuleName": "ucrtbase.dll",
+        "ModulePath": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+        "ModuleTimeStamp": "3f426c5b",
+        "ModuleVersion": "10.0.26100.9711",
+        "PackageFullName": null,
+        "PackageRelativeAppId": null,
+        "ProcessCreationTime": "0x1dd5ccfb680b405",
+        "ProcessId": "0x3b28"
+      },
+      "event_id": 1000,
+      "path": "wer/event-80432.xml",
+      "record_id": 80432,
+      "time": "2026-10-15T18:14:17.8046502Z"
+    },
+    {
+      "data": {
+        "AnalysisSymbol": null,
+        "AttachedFiles": "\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.d28a2a9e-7827-4598-8ed0-7867d90bd4f5.tmp.mdmp\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.3e3ec702-15b2-46df-83dd-eb14ec600586.tmp.WERInternalMetadata.xml\nWPR_initiated_DiagTrackMiniLogger_OneTrace_User_Logger_20261005_1_EC_0_inject.etl\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.6398312d-52b5-4ae4-83d1-831fde01765b.tmp.etl\nWPR_initiated_DiagTrackMiniLogger_WPR System Collector_inject.etl\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.335dc832-57a1-4ed7-8784-ee9ae319c06b.tmp.etl\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.0ae61d85-adb5-4b0b-8ee0-d6dcab44a8a5.tmp.csv\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.38ea8686-d12a-4b0f-8d44-a4d9f74802f9.tmp.txt\n\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\Temp\\WER.2dfc0959-591d-42a8-ab7e-f43bd30fd7b2.tmp.xml",
+        "Bucket": "2279403368182633794",
+        "BucketType": "5",
+        "CabGuid": "0",
+        "CabId": "0",
+        "EventName": "BEX64",
+        "HashedBucket": "19234f1aed43a677cfa211495c5ad542",
+        "P1": "Minecraft.Windows.exe",
+        "P10": null,
+        "P2": "1.21.130.0",
+        "P3": "6ab3c118",
+        "P4": "ucrtbase.dll",
+        "P5": "10.0.26100.9711",
+        "P6": "3f426c5b",
+        "P7": "00000000000a527e",
+        "P8": "c0000409",
+        "P9": "0000000000000007",
+        "Rechecking": "0",
+        "ReportId": "e0c38d48-65ef-44ac-98c4-3a3169051883",
+        "ReportStatus": "2147487744",
+        "Response": "\u4e0d\u53ef\u7528",
+        "StorePath": "\\\\?\\C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\AppCrash_Minecraft.Window_57909220ce783ae01e7574fe7cf91d6b0d11277_ba4eb2f3_e44bbe66-7c66-40db-96f8-ebb692277a3b"
+      },
+      "event_id": 1001,
+      "path": "wer/event-80433.xml",
+      "record_id": 80433,
+      "time": "2026-10-15T18:14:38.3928173Z"
+    }
+  ],
+  "matched_by": [
+    "ProcessId",
+    "ProcessCreationTime"
+  ],
+  "process": {
+    "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+    "exit_code": 3221226505,
+    "exit_code_hex": "0xC0000409",
+    "identity": "134365611080856581",
+    "observed_at": "2026-10-15T18:14:41.838365+00:00",
+    "pid": 15144,
+    "state": "exited"
+  },
+  "schema": 1,
+  "xml_encoding": "UTF-8 export of EventLogRecord.ToXml(); not an EVTX byte copy"
+}

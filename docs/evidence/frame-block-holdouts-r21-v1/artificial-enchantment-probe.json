@@ -1,0 +1,443 @@
+{
+  "schema": 1,
+  "completed": true,
+  "passed": true,
+  "restored": true,
+  "production_qualified": false,
+  "pixel_acceptance": false,
+  "cleanup_errors": [],
+  "owner": "item-r20",
+  "session_id": "ab3c0f6726404e5cafb5bad52fe4f99b",
+  "game_pid": 15144,
+  "game_identity": "134365611080856581",
+  "process_before": {
+    "pid": 15144,
+    "handles": 875,
+    "recorded_at": 1792087597.5310187
+  },
+  "commit_before": {
+    "observed_at": "2026-10-15T18:06:37.531644+00:00",
+    "commit_total_bytes": 33189462016,
+    "commit_limit_bytes": 42198994944,
+    "commit_available_bytes": 9009532928,
+    "physical_available_bytes": 1181417472
+  },
+  "host_tool_sha256": "c6fa3cf312784737324a0dcd7a53d89b136b2cfac3b3877b0c18d4749239f901",
+  "native_fixture_sha256": "8334484fcf5836df8dcf816beb123fa7ceaf33ea0cdeffb2360f7d17e6455d73",
+  "scope": "Native inventory plain quartz insertion, declared synthetic tag write onto preserved actual Item.Block, actual server/client NBT readback; no WGC",
+  "public_api_rejection_evidence": "docs/evidence/frame-block-candidate-r21-v1/quartz-enchantment-rejection.json",
+  "prepare": {
+    "slot": 0,
+    "rows": [
+      {
+        "frame_name": "minecraft:frame",
+        "placed_material": [
+          "minecraft:frame",
+          2
+        ],
+        "rotation": 0.0,
+        "item_name": "minecraft:quartz_block",
+        "support": [
+          8,
+          -39,
+          9
+        ],
+        "artificial_enchantment": true,
+        "face": 2,
+        "item_aux": 0,
+        "placed_block": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        },
+        "position": [
+          8,
+          -39,
+          8
+        ],
+        "mode": "enchanted"
+      }
+    ],
+    "placement": "native PlayerUseItemToPos on support face2",
+    "player_placement": {
+      "platform": [
+        8,
+        -40,
+        5
+      ],
+      "foot_before": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "write_return": true,
+      "foot_during": [
+        8.5,
+        -39.0,
+        5.5
+      ]
+    },
+    "coordinates_confirmed_air": true
+  },
+  "fill": {
+    "observed": [
+      {
+        "item_api": {
+          "count": 1,
+          "newItemName": "minecraft:quartz_block",
+          "enchantData": [
+            [
+              9,
+              3
+            ]
+          ],
+          "durability": 0,
+          "itemId": 155,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "modItemId": "",
+          "itemName": "minecraft:quartz_block",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "source": {
+          "frame_name": "minecraft:frame",
+          "placed_material": [
+            "minecraft:frame",
+            2
+          ],
+          "rotation": 0.0,
+          "artificial_enchantment_source": "versioned actually observed native sword tag; applied artificially to requested block",
+          "plain_native_item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "Block": {
+              "states": {
+                "pillar_axis": {
+                  "__type__": 8,
+                  "__value__": "y"
+                }
+              },
+              "version": {
+                "__type__": 3,
+                "__value__": 18168865
+              },
+              "name": {
+                "__type__": 8,
+                "__value__": "minecraft:quartz_block"
+              },
+              "val": {
+                "__type__": 2,
+                "__value__": 0
+              }
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:quartz_block"
+            }
+          },
+          "item_name": "minecraft:quartz_block",
+          "support": [
+            8,
+            -39,
+            9
+          ],
+          "artificial_enchantment": true,
+          "face": 2,
+          "item_aux": 0,
+          "placed_block": {
+            "aux": 2,
+            "name": "minecraft:frame"
+          },
+          "position": [
+            8,
+            -39,
+            8
+          ],
+          "item_write_route": "native plain inventory insertion followed by synthetic enchant tag copied onto actual native Item.Block compound via SetBlockEntityData",
+          "mode": "enchanted"
+        },
+        "typed_nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 8
+          },
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:quartz_block"
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "tag": {
+              "ench": [
+                {
+                  "lvl": {
+                    "__type__": 2,
+                    "__value__": 3
+                  },
+                  "id": {
+                    "__type__": 2,
+                    "__value__": 9
+                  },
+                  "modEnchant": {
+                    "__type__": 8,
+                    "__value__": ""
+                  }
+                }
+              ]
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "Block": {
+              "states": {
+                "pillar_axis": {
+                  "__type__": 8,
+                  "__value__": "y"
+                }
+              },
+              "version": {
+                "__type__": 3,
+                "__value__": 18168865
+              },
+              "name": {
+                "__type__": 8,
+                "__value__": "minecraft:quartz_block"
+              },
+              "val": {
+                "__type__": 2,
+                "__value__": 0
+              }
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -39
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 8
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          }
+        }
+      }
+    ],
+    "source": "actual native frame and requested inventory item interaction; AddEnchantToInvItem or explicitly declared synthetic block enchant tag write as recorded per row",
+    "kind": "actual native frame blocks",
+    "coordinates_confirmed_air": true,
+    "dimension": 0
+  },
+  "client": {
+    "block": {
+      "name": {
+        "__type__": 8,
+        "__value__": "minecraft:quartz_block"
+      },
+      "states": {
+        "pillar_axis": {
+          "__type__": 8,
+          "__value__": "y"
+        }
+      },
+      "val": {
+        "__type__": 2,
+        "__value__": 0
+      },
+      "version": {
+        "__type__": 3,
+        "__value__": 18168865
+      }
+    },
+    "enchantments": [
+      [
+        9,
+        3
+      ]
+    ],
+    "passed": true,
+    "root": {
+      "Item": {
+        "Block": {
+          "name": {
+            "__type__": 8,
+            "__value__": "minecraft:quartz_block"
+          },
+          "states": {
+            "pillar_axis": {
+              "__type__": 8,
+              "__value__": "y"
+            }
+          },
+          "val": {
+            "__type__": 2,
+            "__value__": 0
+          },
+          "version": {
+            "__type__": 3,
+            "__value__": 18168865
+          }
+        },
+        "Count": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "Damage": {
+          "__type__": 2,
+          "__value__": 0
+        },
+        "Name": {
+          "__type__": 8,
+          "__value__": "minecraft:quartz_block"
+        },
+        "WasPickedUp": {
+          "__type__": 1,
+          "__value__": 0
+        },
+        "tag": {
+          "ench": [
+            {
+              "id": {
+                "__type__": 2,
+                "__value__": 9
+              },
+              "lvl": {
+                "__type__": 2,
+                "__value__": 3
+              },
+              "modEnchant": {
+                "__type__": 8,
+                "__value__": ""
+              }
+            }
+          ]
+        }
+      },
+      "ItemDropChance": {
+        "__type__": 5,
+        "__value__": 1.0
+      },
+      "ItemRotation": {
+        "__type__": 5,
+        "__value__": 0.0
+      },
+      "id": {
+        "__type__": 8,
+        "__value__": "ItemFrame"
+      },
+      "isMovable": {
+        "__type__": 1,
+        "__value__": 1
+      },
+      "x": {
+        "__type__": 3,
+        "__value__": 8
+      },
+      "y": {
+        "__type__": 3,
+        "__value__": -39
+      },
+      "z": {
+        "__type__": 3,
+        "__value__": 8
+      }
+    }
+  },
+  "restoration": {
+    "passed": true,
+    "player_foot": {
+      "actual": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "passed": true,
+      "requested": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "return": true
+    },
+    "rows": [
+      {
+        "actual": [
+          "minecraft:air",
+          0
+        ],
+        "passed": true,
+        "position": [
+          8,
+          -39,
+          8
+        ],
+        "write_return": true
+      },
+      {
+        "actual": [
+          "minecraft:air",
+          0
+        ],
+        "passed": true,
+        "position": [
+          8,
+          -39,
+          9
+        ],
+        "write_return": true
+      },
+      {
+        "actual": [
+          "minecraft:air",
+          0
+        ],
+        "passed": true,
+        "position": [
+          8,
+          -40,
+          5
+        ],
+        "write_return": true
+      }
+    ]
+  },
+  "process_after": {
+    "pid": 15144,
+    "handles": 876,
+    "recorded_at": 1792087598.7732222
+  }
+}

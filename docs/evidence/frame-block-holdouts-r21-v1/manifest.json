@@ -1,0 +1,942 @@
+{
+  "engine": "3.10.0.420447",
+  "files": {
+    ".gitattributes": "2cacd8c5b88d28a6324a5b106d17970ce30df8e32f9b76c87d00d4ca430747a8",
+    "README.md": "97be702642abcaa8a4cd5397a39dfd25da233a156056caaef88d75b7cdb36149",
+    "analysis-v1/multiview.json": "b5808c68d0d13b334d4e23b688da77534c2851500a36d01e8b1e01cf3d113440",
+    "analysis-v1/orientation.block.quartz_block.view-75-full-hull.png": "b8609e80a5703308387653519dc6fdd1b807d03dbe2275017c25c9aae9724a76",
+    "analysis-v1/orientation.block.quartz_block.view-75-full-mask.png": "cd082b59f021281a26bfed630833e5663f01a2a0ce2c9e73255e37a059fe798a",
+    "analysis-v1/orientation.block.quartz_block.view-75-missing-hull.png": "f49de63b0926ceb1760d3bb52e898df387802f6471d503f2c85c1973cacaaec4",
+    "analysis-v1/orientation.block.quartz_block.view-75-missing-mask.png": "cd082b59f021281a26bfed630833e5663f01a2a0ce2c9e73255e37a059fe798a",
+    "analysis-v1/orientation.block.quartz_block.view-75-native-hull.png": "016cae495bdec38786a2792183f7b12d07f6a54fc590a086e003578dcbc9dc48",
+    "analysis-v1/orientation.block.quartz_block.view-75-native-mask.png": "cd082b59f021281a26bfed630833e5663f01a2a0ce2c9e73255e37a059fe798a",
+    "analysis-v1/orientation.block.quartz_block.view0-full-hull.png": "474d3a981da1ebb6173cc09f95fce0e5505fdc09f1437c6e87527b1485cc006e",
+    "analysis-v1/orientation.block.quartz_block.view0-full-mask.png": "6442f1ec1c4c71fb0d8f20288a40a9f110bfa8df60bfa952c912a95ccd3ddde2",
+    "analysis-v1/orientation.block.quartz_block.view0-missing-hull.png": "edd2e7b9ee1a3e03dca31ebf6e7486a2a9baa2d055e9146b115422503985a435",
+    "analysis-v1/orientation.block.quartz_block.view0-missing-mask.png": "6442f1ec1c4c71fb0d8f20288a40a9f110bfa8df60bfa952c912a95ccd3ddde2",
+    "analysis-v1/orientation.block.quartz_block.view0-native-hull.png": "752355e32392d70b77f6dbd7e6d460b71dce905e0d167c05f2db6e173c980ecb",
+    "analysis-v1/orientation.block.quartz_block.view0-native-mask.png": "6442f1ec1c4c71fb0d8f20288a40a9f110bfa8df60bfa952c912a95ccd3ddde2",
+    "analysis-v1/orientation.block.quartz_block.view75-full-hull.png": "a2357126f69482c4ebe94a70f0103d9ad08e04b575a8f005e975a78ef452f7ec",
+    "analysis-v1/orientation.block.quartz_block.view75-full-mask.png": "7249cb6b4e210a3e174fad0e0c16e36511dee6e7f708a47177245f1248225a84",
+    "analysis-v1/orientation.block.quartz_block.view75-missing-hull.png": "63673c6409f8b3c5595b08d731e6caee1d1b12839249ca6abcddf3d1674dd178",
+    "analysis-v1/orientation.block.quartz_block.view75-missing-mask.png": "7249cb6b4e210a3e174fad0e0c16e36511dee6e7f708a47177245f1248225a84",
+    "analysis-v1/orientation.block.quartz_block.view75-native-hull.png": "1be704cd2c5ffcc46f7fc788976d8460818271616ddcce0e09297c7ded89c9a6",
+    "analysis-v1/orientation.block.quartz_block.view75-native-mask.png": "7249cb6b4e210a3e174fad0e0c16e36511dee6e7f708a47177245f1248225a84",
+    "analysis-v1/orientation.block.stone.view-75-full-hull.png": "fec788c3556ccbb0679c57154edcc5cfe617e3e5ede70766547cdc21f5be7a12",
+    "analysis-v1/orientation.block.stone.view-75-full-mask.png": "a3551bad00b652dfb15d4f5e29da5ef27d2ca1937ce399f4d049f0912e006240",
+    "analysis-v1/orientation.block.stone.view-75-missing-hull.png": "fec788c3556ccbb0679c57154edcc5cfe617e3e5ede70766547cdc21f5be7a12",
+    "analysis-v1/orientation.block.stone.view-75-missing-mask.png": "a3551bad00b652dfb15d4f5e29da5ef27d2ca1937ce399f4d049f0912e006240",
+    "analysis-v1/orientation.block.stone.view-75-native-hull.png": "f854d18f1efc8c72ca215f534c20d50d8c304ef653d7c2a3a958d6705a692a1e",
+    "analysis-v1/orientation.block.stone.view-75-native-mask.png": "cd082b59f021281a26bfed630833e5663f01a2a0ce2c9e73255e37a059fe798a",
+    "analysis-v1/orientation.block.stone.view0-full-hull.png": "ff14b818e9348fe2bc223c0732712660655c2b9407a377d54985dff0df29461e",
+    "analysis-v1/orientation.block.stone.view0-full-mask.png": "6442f1ec1c4c71fb0d8f20288a40a9f110bfa8df60bfa952c912a95ccd3ddde2",
+    "analysis-v1/orientation.block.stone.view0-missing-hull.png": "ff14b818e9348fe2bc223c0732712660655c2b9407a377d54985dff0df29461e",
+    "analysis-v1/orientation.block.stone.view0-missing-mask.png": "6442f1ec1c4c71fb0d8f20288a40a9f110bfa8df60bfa952c912a95ccd3ddde2",
+    "analysis-v1/orientation.block.stone.view0-native-hull.png": "b79d667d9b06b81b4fae2f8241d1659aea9b71ee60f811e5adaab3e4bc9fc0f3",
+    "analysis-v1/orientation.block.stone.view0-native-mask.png": "6442f1ec1c4c71fb0d8f20288a40a9f110bfa8df60bfa952c912a95ccd3ddde2",
+    "analysis-v1/orientation.block.stone.view75-full-hull.png": "7951a5b483f2466aaed9cdb3886ddb639b2b1b8db27131961408d20b69b9cebf",
+    "analysis-v1/orientation.block.stone.view75-full-mask.png": "7249cb6b4e210a3e174fad0e0c16e36511dee6e7f708a47177245f1248225a84",
+    "analysis-v1/orientation.block.stone.view75-missing-hull.png": "7951a5b483f2466aaed9cdb3886ddb639b2b1b8db27131961408d20b69b9cebf",
+    "analysis-v1/orientation.block.stone.view75-missing-mask.png": "7249cb6b4e210a3e174fad0e0c16e36511dee6e7f708a47177245f1248225a84",
+    "analysis-v1/orientation.block.stone.view75-native-hull.png": "cbd435c4ae43c735e1b567e9b5709b7a876b6f3a8993d82c5726a9b2f97f6f6b",
+    "analysis-v1/orientation.block.stone.view75-native-mask.png": "7249cb6b4e210a3e174fad0e0c16e36511dee6e7f708a47177245f1248225a84",
+    "artificial-enchantment-probe.json": "3c07b1c906b3a1f3963f890717b2f3aed6a745cb7dd990a33845b29935598fb4",
+    "candidate.json": "ff406df3d3e4809ba8a11b181897a2b25e5358f0e5f84deb5f9cfcd747230e74",
+    "captures/camera_front_hidden.png": "b379e3d85eb12131cfc3f02c9d8dba7a0857d3d60656cc63c9abbf227974f3f9",
+    "captures/camera_front_shown.png": "413dd8e5f2e17c7c9585007de4cf1760bdcb25fa64c08a257ebf5256643682ed",
+    "captures/camera_right_hidden.png": "46b06c4a279bdc8d1e80756efdc8466e1d6af13aab5f69be8d462e36f81a827f",
+    "captures/camera_right_shown.png": "61c576f1e381dd3494cc0f4819b4815d5880e0bf14de6581bb04dc9adc30a51a",
+    "captures/camera_tilted_hidden.png": "845520759009b6c6f6c5aceca23c17e207addf46eaa6c20c0a761b4dcbfad0ff",
+    "captures/camera_tilted_shown.png": "6686a1d89e739ca360c223cbbbee64b520183c4d68c72e9bc1253a4d01fd153b",
+    "captures/orientation.block.quartz_block.view-75_editor_hidden_after.png": "a4666177694ccee742aa170fa6a5fe059bdac7ec5aa70ae096bcfcc972a1cd29",
+    "captures/orientation.block.quartz_block.view-75_editor_hidden_before.png": "6d3918fccf51b6d886b60db99fc6011ddfa9521fba16e6828267230fcae70112",
+    "captures/orientation.block.quartz_block.view-75_editor_shown.png": "0030a25860651fe699269c65a1cf2149fa6514d66dec414c1677ba8947b6dcbb",
+    "captures/orientation.block.quartz_block.view-75_full_hidden_after.png": "197f4333c884f8629205630926fbf32acb429238df45084c2cf0c0fc683210bb",
+    "captures/orientation.block.quartz_block.view-75_full_hidden_before.png": "99a802ed699be51797ae9d9310bfa58d2190aa4da258075ce993a9b8a8bb4595",
+    "captures/orientation.block.quartz_block.view-75_full_shown.png": "e1b693e53e45e5bb0eb6e413a7a55de11c0cbd6586d7d3fc1ac3315e4231682d",
+    "captures/orientation.block.quartz_block.view-75_missing_hidden_after.png": "df55ba412675696ee3cc6ac5594b5faec51aa48007aa5530aefff0874fb94455",
+    "captures/orientation.block.quartz_block.view-75_missing_hidden_before.png": "55e5bb8a39133aafe686e7a7df8f3bea5dd95cf6ce19f771f9e2f8143d144503",
+    "captures/orientation.block.quartz_block.view-75_missing_shown.png": "7575ce02ab4ab7732f326f6a011265531095e32d3688fb84e3cbef1a0dbc5942",
+    "captures/orientation.block.quartz_block.view-75_native_hidden_after.png": "d41f27d3fc344a6484d936ff0a739114cfe0814d7791e09c205b99c35c968b1c",
+    "captures/orientation.block.quartz_block.view-75_native_hidden_before.png": "c01d1a11f5f0d692059657177cd997394b90932559ffee189b1caf0413ba35bd",
+    "captures/orientation.block.quartz_block.view-75_native_shown.png": "1b9bf63bbe0dd15039bea6405115e746421bf79d36b1c1672a64323069997f54",
+    "captures/orientation.block.quartz_block.view0_editor_hidden_after.png": "f1219bca06bb103e77bb5dd911cb1f0d4c714022606229da0ceaec890449f128",
+    "captures/orientation.block.quartz_block.view0_editor_hidden_before.png": "fd0795f36fe19deab1a2fc4218a7e0324a3682401ab8c2e14c28e343443c857d",
+    "captures/orientation.block.quartz_block.view0_editor_shown.png": "d2327685b0102243b2bd5d6c7afbb74185b5873220debff6efce920137ea13f2",
+    "captures/orientation.block.quartz_block.view0_full_hidden_after.png": "891c9fd1d7fe5c49a91da4bb0c101c3fdd1af243e1a33113d35786b9acbddb22",
+    "captures/orientation.block.quartz_block.view0_full_hidden_before.png": "49bec405721008bf2eab0078b30dc65fc2a54b5aaa5d124133d520d650ef953b",
+    "captures/orientation.block.quartz_block.view0_full_shown.png": "8a1f536a76c88dd0c3d27c8f47e05a5704e6bd507d0031056d027a61ac843f59",
+    "captures/orientation.block.quartz_block.view0_missing_hidden_after.png": "a1409b041bbbd4841e923ca73e34c4cbddd8ffa4560696778720cc7ed6cb2b9b",
+    "captures/orientation.block.quartz_block.view0_missing_hidden_before.png": "e7ba2fd381e4f0b12a5689d6926a967816ae46b476678ddd134ce836a6a8b4d1",
+    "captures/orientation.block.quartz_block.view0_missing_shown.png": "9f0663b70eeaf1fe3a2a9d801f870c476e4953deac17af8ef3f0dda69d44f5cb",
+    "captures/orientation.block.quartz_block.view0_native_hidden_after.png": "01809d922786fb04c123c9dda7272f9d696b5b56229aa58dffb8cc6973ee7c5e",
+    "captures/orientation.block.quartz_block.view0_native_hidden_before.png": "a064303adc26effa2ef2d2982f787d4edbe9e17c3da7e895f7a9054faad3c8ae",
+    "captures/orientation.block.quartz_block.view0_native_shown.png": "5212018d321a667f3969b5022b8e4efe93790eabe5b25addd1894cbb3874e2fd",
+    "captures/orientation.block.quartz_block.view75_editor_hidden_after.png": "4f92c36c16f0b4a6ba3296442f8b4f0e0c0be1f2a9b5c53f694b9c16ac25b407",
+    "captures/orientation.block.quartz_block.view75_editor_hidden_before.png": "7d271c0555392ce84b37fc55584699afe22fd5eaab05a90a88fa83b246c31f7d",
+    "captures/orientation.block.quartz_block.view75_editor_shown.png": "2c8ea69c4cdead237caeb423ee18f190fc85d968137f5b7205989cb8771e81ee",
+    "captures/orientation.block.quartz_block.view75_full_hidden_after.png": "45769cb3990540aa361083741b4214c7892522fcac9e56d994040df120f70dd7",
+    "captures/orientation.block.quartz_block.view75_full_hidden_before.png": "036be1cae30a7e15ec243d78d25bf1f0b61acc814a59c6fa4226e60d490a9b2b",
+    "captures/orientation.block.quartz_block.view75_full_shown.png": "6c8e28d5ae7c00172bac949de0258175fbe4fa85d51ee01daf52ea2944ccba1a",
+    "captures/orientation.block.quartz_block.view75_missing_hidden_after.png": "a419ea90848ecb96db393839225a42aa3864b3b33d796b6a54343c0270cd2864",
+    "captures/orientation.block.quartz_block.view75_missing_hidden_before.png": "69e9ddfa3da4b86f9f45eac3c0e22cdb6539779146a08b22ff524c2263108e25",
+    "captures/orientation.block.quartz_block.view75_missing_shown.png": "ad74e899cb34676aab420166fb1a4ef3e542143b0b1b3ca3bd96ab8bfedcbbc0",
+    "captures/orientation.block.quartz_block.view75_native_hidden_after.png": "f05a146c99bd91091cf5db5f059275a23d20e9dd87447fd8084ef60a245042e7",
+    "captures/orientation.block.quartz_block.view75_native_hidden_before.png": "53c2f58f59643f2118a199a503acaeebb4b7e4396f32f98bffc602d8011d4185",
+    "captures/orientation.block.quartz_block.view75_native_shown.png": "1e0b145ee9bd1c3f6d915627103af61cc8295664d2bd35d041948a22c47e47c2",
+    "captures/orientation.block.stone.view-75_editor_hidden_after.png": "e77036387ec68cd5893a69f5c21b84499c91d2bafdeca1db5a4e4a15767c17bf",
+    "captures/orientation.block.stone.view-75_editor_hidden_before.png": "2367bfe84a0b8f6d53c8a60464a7b2d501f6efc1d051d89568711ad383dd6e7f",
+    "captures/orientation.block.stone.view-75_editor_shown.png": "2b090fb931962b3894a909d1f32e11cb95cb9ca9fefa880d8770279a52c04310",
+    "captures/orientation.block.stone.view-75_full_hidden_after.png": "40eb583dc27c9e0c821be0327eaeb046131681a9d74d36cc90848718bec03cde",
+    "captures/orientation.block.stone.view-75_full_hidden_before.png": "ff60f992cebcc89cccd63234e025b77e992a1a68489b83c194312ceb6e3a2c63",
+    "captures/orientation.block.stone.view-75_full_shown.png": "6d5a4e9cba9d2be948d5dc40a0494530b6b02a7565eb7ad43d438504791f75fe",
+    "captures/orientation.block.stone.view-75_missing_hidden_after.png": "2978607c47b8a748a9daed8caa74166421cf219b9d5a5f036c647b00a846ecda",
+    "captures/orientation.block.stone.view-75_missing_hidden_before.png": "b7fb42512b935bf31b3585b22902e59d5afe7240b4414ed1e7d1657431061e53",
+    "captures/orientation.block.stone.view-75_missing_shown.png": "14e0af1c04dd6135aa26e6cdee60854a27b8a98009e76979504c1cf0385b04e4",
+    "captures/orientation.block.stone.view-75_native_hidden_after.png": "fe3da182cba76225067cdff1e6aaa951fa157992ae6bdec90215fd0cb82c6b1f",
+    "captures/orientation.block.stone.view-75_native_hidden_before.png": "957b31fed6274140ae115efc93db934057074ef47f954afc3115e0ca164da4e2",
+    "captures/orientation.block.stone.view-75_native_shown.png": "1f81251ceabcd8ff6419fd0d2ddd504c2e94935e3212ed2af1a30ea12830e08a",
+    "captures/orientation.block.stone.view0_editor_hidden_after.png": "f364aa756dd93ea731963de766886ce888cdb30ed718fce3ead385be8e1ea843",
+    "captures/orientation.block.stone.view0_editor_hidden_before.png": "5b6b57ab05c98d675c05e6f7b3da8df54bd877fbe5e100ccc3f9aa9f02bd7336",
+    "captures/orientation.block.stone.view0_editor_shown.png": "c062d8e7cec4ebf23d388278637a134a06a405648b14cf19dc30ac4d3c617421",
+    "captures/orientation.block.stone.view0_full_hidden_after.png": "1f59c3131f2de970c72fb32ff1540323234be2f8abfda856f57863d35acaeaa3",
+    "captures/orientation.block.stone.view0_full_hidden_before.png": "ada4d4f34d2178b112791f8d9ab2e80fb46de42f4aa161c8ed686aa9d602f32e",
+    "captures/orientation.block.stone.view0_full_shown.png": "33d35319a03a521927d155084906f10a78c6094696265664595163676f1a9849",
+    "captures/orientation.block.stone.view0_missing_hidden_after.png": "ba6e1d9aa6762e13b966bf8057c95b2145128cdd66ae500984de440f5a307c4d",
+    "captures/orientation.block.stone.view0_missing_hidden_before.png": "18ca72a6f488222322111ba77d6978f9f373bf9510e7b2693c81b82cd90f1bac",
+    "captures/orientation.block.stone.view0_missing_shown.png": "9abc80cc3a8ad0af91354d1ed641fb7a7c47d4f8888e0ab45c7fa1573224e894",
+    "captures/orientation.block.stone.view0_native_hidden_after.png": "312432943f35db7e500ac9199b14d7940d50fae0526bab4e2bf4b7f89046185c",
+    "captures/orientation.block.stone.view0_native_hidden_before.png": "1e0c3619eafceaf5e35b1ef617ccfaa847e02af84602747e19ab71fcfac187b5",
+    "captures/orientation.block.stone.view0_native_shown.png": "445dec0c8e73659bf29683e05d37d659890f5e6af2ce0e33cfba2fd15b767ec2",
+    "captures/orientation.block.stone.view75_editor_hidden_after.png": "00a7c51590c9bce791654db8b782a73add76bf97ad0beaa336b269978f6e126c",
+    "captures/orientation.block.stone.view75_editor_hidden_before.png": "43bf8042c22cb0e690cf31f85b03126c7c5d992d42f71eb01abdba56c668b71d",
+    "captures/orientation.block.stone.view75_editor_shown.png": "f55220693cd8fdca7cbdd6ab485782e18c9a47b4849d18c28206629f49166f8c",
+    "captures/orientation.block.stone.view75_full_hidden_after.png": "dfd1bd0a74e849c74374be10eeacc02749b166282ed56eb97c9b259258b511df",
+    "captures/orientation.block.stone.view75_full_hidden_before.png": "0b0177a7875763b3c325cbbf1532a5c4f1911fffd30869f2f701713d294344d6",
+    "captures/orientation.block.stone.view75_full_shown.png": "7df2f75b02ed058b2fdbb93b321ec84f1bd81726029590011b3b944986ca52a0",
+    "captures/orientation.block.stone.view75_missing_hidden_after.png": "42fb9fa7ff2ee0d2af6b8c74c2e16e3c1ce4b69b41e95b147ff01dec79583363",
+    "captures/orientation.block.stone.view75_missing_hidden_before.png": "ed6451db47f5387babc290e5ba10500df6897bf3b7a8e393eacbfcccd7e4cd31",
+    "captures/orientation.block.stone.view75_missing_shown.png": "7f1fd451b2f0c3f4cf7db585fe2dd7090b3b432a46c14844427bd8dd53c535ab",
+    "captures/orientation.block.stone.view75_native_hidden_after.png": "ae4a78686f95edaa1c8aa7c760ac4b506949918db294cc08730baccdcc032781",
+    "captures/orientation.block.stone.view75_native_hidden_before.png": "172ebe7404e1e8edf041d0c5bb17a7f03cbb3a0243bbf7301be9e6cbab2544a5",
+    "captures/orientation.block.stone.view75_native_shown.png": "de7dd56a4f4f41e0edfc8868e33fe1c87b5a9e48234becbe6233f7f46b451e41",
+    "captures/test_entities_item_contents.png": "28fb3a354e853fad4c1b72e39c68111f2e44858941df9016f17434873d9c6581",
+    "captures/testing_page.png": "a0bb9821aede9bab02ff00ed7ea2293cc87c6b9b6565863da4bd906322c8709a",
+    "exact-exit.json": "cc3a2019d177f133cdc868d7730df8442c89fcd57114f5b4b4daba8cd649f181",
+    "normal-stop.json": "050543815a75c33cf49e037184e66b53929570ae1e7b2edcf884cf1927ad5c14",
+    "replay-result.json": "bb997c02385a043d227a5d5bd65c9e211d46a35081fcacd07ff0ccd16ec10c7a",
+    "replay.py": "60b8c3d602e8a35bcf1d93d492ce5911d956ddfa511579c663992b6db7fff28a",
+    "report.json": "d39ddd165be0f90e76f50dabb3e95b865163e7fef8eb31eace91e2b4454e5fc9",
+    "sources/.agents/skills/pyreact-debugging/scripts/_session.py": "9bf1400cda12457ec1b3dd2351fed366c10ad069c781565eabb12e45b2431313",
+    "sources/.agents/skills/pyreact-debugging/scripts/_window.py": "9fdb52e92aeb9930d8faffb81ab2023aaec68383b71b6fab9172643270e0826e",
+    "sources/.agents/skills/pyreact-debugging/scripts/mcdk.py": "347e01d51324924a84a05cf08c342b46d6e1fab589d446705eadde2cd8a587d3",
+    "sources/behavior_pack/modern_projection/projection/__init__.py": "a2e875531e037f12857911031b0a4ab9afd695c48e34ba5314b9466af020750f",
+    "sources/behavior_pack/modern_projection/projection/appearance_defaults_data.py": "bc7add55545a4d53fe7b663d6a29155342f1fd5f7dfb0d8d6bf20a2c338893a4",
+    "sources/behavior_pack/modern_projection/projection/banner_fixture_data.py": "708be74bb7a29e6ec8bbda287bb6fcd78030a213f1678710566d07e7d3e390ba",
+    "sources/behavior_pack/modern_projection/projection/banner_render_contract.py": "ecefa6c4da2e7fb7854dfadba30aca93533f8f6c47b5c572b4abe7cf04f512c3",
+    "sources/behavior_pack/modern_projection/projection/biome_water_data.py": "9ab33c1491c4317105a08289be57820be5174174ee748d96693cd243892fc652",
+    "sources/behavior_pack/modern_projection/projection/biomes.py": "899968dd2748847ac178d5a43a3b284de6cba6589474e2a082e4b2f17b1bf9ef",
+    "sources/behavior_pack/modern_projection/projection/block_edits.py": "a62e81495dd66f844e22fbf2e710afc19f8f577fc3f6f93372f6ade4f02e150d",
+    "sources/behavior_pack/modern_projection/projection/block_groups.py": "25d82ed827b798cd319cab006f3df331dc3ca47a6f1b56cd15e1d30e3a70e747",
+    "sources/behavior_pack/modern_projection/projection/block_neighbors.py": "9c12c2a26f92fe09203f911bed1d39e674ab71f48fd3180267105b73b680cd3f",
+    "sources/behavior_pack/modern_projection/projection/block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+    "sources/behavior_pack/modern_projection/projection/block_registry_data.py": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1",
+    "sources/behavior_pack/modern_projection/projection/block_traits.py": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c",
+    "sources/behavior_pack/modern_projection/projection/block_traits_data.py": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6",
+    "sources/behavior_pack/modern_projection/projection/camera.py": "38cd20f3bfae44b9e48d5c0853faf5e965b7812472f87f5e342668ac28c30178",
+    "sources/behavior_pack/modern_projection/projection/catalog.py": "01fffa75c618dbcf940c8e8d2cf91f3df147a850041b94d24cb575ce758c3881",
+    "sources/behavior_pack/modern_projection/projection/cell.py": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+    "sources/behavior_pack/modern_projection/projection/codec.py": "ce0ce93d7d847dada99c80d802250a8cfa2adc77e97f8bbb5ebe7d1abbeb4050",
+    "sources/behavior_pack/modern_projection/projection/compact_chunk.py": "ef5b8f2d676ae28227404fe6c419af5df5127a7ce767e53614ef2296e0e281f4",
+    "sources/behavior_pack/modern_projection/projection/debug_action_blueprints.py": "8967d0b53c96a0eff852e866ba5d615d01c237cda1e237fb3edbe7aaad091b2f",
+    "sources/behavior_pack/modern_projection/projection/debug_appearance_blueprints.py": "78464934d7d85276f106cdaeb10ff224eaa201458555c6306e255ba50fafaf24",
+    "sources/behavior_pack/modern_projection/projection/debug_banner_blueprints.py": "11612ec4b9fdaec3234e891894d9ca4c9045fb931c9f8f7aff63e07f09b24b21",
+    "sources/behavior_pack/modern_projection/projection/debug_blueprints.py": "a7ad46382499f8ad8d71d8c93d119d6c7bf98286dcbce2bea4805a198d6601a2",
+    "sources/behavior_pack/modern_projection/projection/debug_botanical_blueprints.py": "eca8df4c98d451849e8110ccfe7894ed842029f79404d31468683418c777be38",
+    "sources/behavior_pack/modern_projection/projection/debug_cauldron_blueprints.py": "67821ef6d9781765b81deb424e9b5cb206add45a5879902d6b2e40e17ac31992",
+    "sources/behavior_pack/modern_projection/projection/debug_compatibility_blueprints.py": "1fdc7234db7fd5707341b0d2c8474b219812eb74d7cde250e9927ca5133828be",
+    "sources/behavior_pack/modern_projection/projection/debug_connection_blueprints.py": "00d16732c8d3a8416544461d6bf31ab69edea331736671a8caa4f87055905800",
+    "sources/behavior_pack/modern_projection/projection/debug_dripstone_blueprints.py": "00445d51d6f363fc8d24be6f26cc2d44e0ff43808a1674698a5f9b90ffe3871c",
+    "sources/behavior_pack/modern_projection/projection/debug_entity_blueprints.py": "52ab228c5f7fabf63cc899cfecaa0f9dfd42882b7b91495f40f7ad42dfb0c45a",
+    "sources/behavior_pack/modern_projection/projection/debug_entity_defaults.py": "2d0474548dd1cfccbed134aeaee7b80b9fa132a7e4306016a1167d15723ce1fb",
+    "sources/behavior_pack/modern_projection/projection/debug_item_blueprints.py": "adbd3cab7b4475e889d7fa573c4ee23a34b1127fd3ec310a8b1b51f348525c0b",
+    "sources/behavior_pack/modern_projection/projection/debug_liquid_blueprints.py": "e439f64ff9d1d72023651d99343e4870c3a38ec6919a875aca60cabe3d7b59c9",
+    "sources/behavior_pack/modern_projection/projection/debug_neighborhood_blueprints.py": "2199be544d04933c1152d611be296387260fe1848f20649b7f6c16893ca71874",
+    "sources/behavior_pack/modern_projection/projection/debug_portal_blueprints.py": "b606e96709d75b53a6f619a93c381f248cd040e0ac294c0371889d0196b5df53",
+    "sources/behavior_pack/modern_projection/projection/debug_pot_blueprints.py": "2179237903d1c8e1986009cfd74c373252f686bab9657fddcf2604dc7d0653b3",
+    "sources/behavior_pack/modern_projection/projection/debug_product_connections.py": "12240ece814e044d2eb71b5cfd6b06f56a169752c2992972647bb097bc5727e9",
+    "sources/behavior_pack/modern_projection/projection/debug_product_water_blueprints.py": "347946630e7dd73f8c8b87546c4b0021b550451a52beab2c5e6b8d901996c636",
+    "sources/behavior_pack/modern_projection/projection/debug_sign_blueprints.py": "c01324f53add969f71333590c175d439fb8e5593f9ef3c46b898f6d099db0b46",
+    "sources/behavior_pack/modern_projection/projection/debug_slab_blueprints.py": "f27289fa1a16cbc7c9e64f52f7aa43a77e0d4651504838f5031c149736c97d2f",
+    "sources/behavior_pack/modern_projection/projection/debug_snow_blueprints.py": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de",
+    "sources/behavior_pack/modern_projection/projection/debug_spawner_blueprints.py": "ffd387912ad786fba3b0b32aadcbce9898a15ed8761322cec319d8afe6006464",
+    "sources/behavior_pack/modern_projection/projection/debug_water_blueprints.py": "5aa889e2cee250dc88ce5676c2be3433c5706ea3e587dce0e6f67d297f16f11e",
+    "sources/behavior_pack/modern_projection/projection/entity_defaults.py": "26d94ace4b843dbf154dcae3c2ef3af906d8a72468656e68c0fb1517bae833e0",
+    "sources/behavior_pack/modern_projection/projection/entity_defaults_data.py": "5ee014684757737c4dd78949bdfcf98b9110b2d70bb35b8cc5e3c852992b6dbf",
+    "sources/behavior_pack/modern_projection/projection/entity_overlays.py": "78d2aee4ae511def546850623f9ea41698b9593ede99993832b4cb3e4c9b279a",
+    "sources/behavior_pack/modern_projection/projection/entity_render.py": "a2cd09aa502b590429955e2adabd1523e05c619167d8b26f50c0f438a3d86722",
+    "sources/behavior_pack/modern_projection/projection/frame_block_item_data.py": "7d9dc9548066f77c2976a529371fb1221e3bf3946cd37d1ab5f02753d2ca5707",
+    "sources/behavior_pack/modern_projection/projection/frame_rotation_data.py": "9e4fe7d6d3c0431bdb5c326679017d7c173271c144efe7f3c04d9dd1fa5e9406",
+    "sources/behavior_pack/modern_projection/projection/item_contents_data.py": "667996410248920efd051c88c448945fa6d7d9678ea53a8dacfcab5eef117151",
+    "sources/behavior_pack/modern_projection/projection/item_icon_data.py": "5358501f604c259fd7f62bfa245731af77c43bd8d6f76ab96b307ac987b51242",
+    "sources/behavior_pack/modern_projection/projection/jobs.py": "a7098cba6495e8033ef18fcb497b3e89d76ed5767d3f83725f47d84972581f88",
+    "sources/behavior_pack/modern_projection/projection/model.py": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2",
+    "sources/behavior_pack/modern_projection/projection/native_appearance.py": "8ee814d221249492773382cbdd7dfe390e43a12a0b366425e83db2eb633c632c",
+    "sources/behavior_pack/modern_projection/projection/native_layers.py": "78d662eebc148ee1c620269268463427d1d2ad55377bab2a68d20a224406ddd1",
+    "sources/behavior_pack/modern_projection/projection/native_pot.py": "ada5f4cc428562373b370917f69d7332768872dae9a719e06f213e28952737e1",
+    "sources/behavior_pack/modern_projection/projection/native_pot_data.py": "1da26e77409c707eaef1f985200ba43cf356e149c4764eb2a24459f5c024ca58",
+    "sources/behavior_pack/modern_projection/projection/native_pot_sherd_data.py": "e679d8dc3ccca1ad0635896b5904515afd87b2903688dab8b6632774f2602aba",
+    "sources/behavior_pack/modern_projection/projection/native_render_profile.py": "b8ddee769323cae4e861f49bf9ae4d6ce5813948d9f09c186441dccf122f220d",
+    "sources/behavior_pack/modern_projection/projection/native_sign.py": "34eaa77e5e5183e4db3bab31002572f848ddfcb640c530b25dc49ea9840b8a6a",
+    "sources/behavior_pack/modern_projection/projection/native_sign_data.py": "f1c0e6c65fde69f687d79688eb5204eedf353a1de0ba17fb4392c5be0672b785",
+    "sources/behavior_pack/modern_projection/projection/nbt_spatial.py": "aac80300547ce5e99c332e8e43a83df320fca89493ef543f41c113d402f3a3fe",
+    "sources/behavior_pack/modern_projection/projection/packed.py": "b4adc3092a3a16862203c1d42e2f766257cee2e5876114eea4d9124d05e54346",
+    "sources/behavior_pack/modern_projection/projection/pasting.py": "e20707a5377860160e67a2f3bd703b2db4dad1c224bf36182b0df404249f08be",
+    "sources/behavior_pack/modern_projection/projection/rail_neighbor_data.py": "580ed85e2718cd96863c886df5a940eb7b62aa2cf4a297c36c48e125739ffb3d",
+    "sources/behavior_pack/modern_projection/projection/scaffold_neighbors.py": "8af226fb39f7f70537ca613e335f5ee79a46b793e811d4484f9015650a17ea86",
+    "sources/behavior_pack/modern_projection/projection/scaffold_support_data.py": "75c9a5bb343a28d9346babc868ff5dfee41f8f4d1a3405597e0fe6719bb0bd93",
+    "sources/behavior_pack/modern_projection/projection/semantic_wire.py": "6d769f4e740c1e8dfb6ea2cab33693cff2132777ac11139e4427e61867e57b4e",
+    "sources/behavior_pack/modern_projection/projection/slab_placement.py": "abfe11663b3e546cbeb2dbea3ed6fa0a0ac74704408704c010dc3f6fbc305bb7",
+    "sources/behavior_pack/modern_projection/projection/spawner_marker_data.py": "12ebc8083bed690a1e0c24b884c4eb27d3f8008c3e618e6589e19c62b8245d6e",
+    "sources/behavior_pack/modern_projection/projection/state_transform.py": "ee20291ac3a7efb30405e4769d519c55a2951291074cb1fd6cd21aa475e820c2",
+    "sources/behavior_pack/modern_projection/projection/static_bed.py": "aa778092f10ee23365af0612a05d022ae313ce61208edb201d737e111071caf8",
+    "sources/behavior_pack/modern_projection/projection/static_bed_data.py": "31d3035bc837520a73daf67174eaac17180ee33a63999d45db2ffd5011fae952",
+    "sources/behavior_pack/modern_projection/projection/static_chest_data.py": "61fbe07103371b129ae55721d509f59d8c294efc56fda83aa627b18d530cc13a",
+    "sources/behavior_pack/modern_projection/projection/static_neighbor_data.py": "2ed1a888d9f4afeea8292fa874b4761d28dd79518c445e9f57d3bf61aa7b373c",
+    "sources/behavior_pack/modern_projection/projection/static_shulker_data.py": "76c525990c415da76cbbd8c17c11ed410b50e8deccf619f989a94c7550fdce28",
+    "sources/behavior_pack/modern_projection/projection/static_skull.py": "44b25884017a45b249cc7e938043da00e9c323398a61f7a2207b0eca8ebd6a41",
+    "sources/behavior_pack/modern_projection/projection/static_skull_data.py": "321ee9d2ebbe8d4ea27bfd7fa7de9cc0bda89260a6ea78e7ee817076ff719ad9",
+    "sources/behavior_pack/modern_projection/projection/static_table.py": "7db6db88876cd6f093fd813724f6c5baa2e82391b69d49b8f3bed31cbc8b6ea0",
+    "sources/behavior_pack/modern_projection/projection/static_table_data.py": "a857060dc1faabd9591aba6d504b502e9e6edc124423940f7aba8310f9e89445",
+    "sources/behavior_pack/modern_projection/projection/storage.py": "ae82f1c80715ff35a905081889ef4e155e9d3d59f29ff6f2ccc6d83a4961354e",
+    "sources/behavior_pack/modern_projection/projection/visible_actor.py": "06a45742aa05787c19a63757d69785a124a2241a3eb93e2637f9234d6b4880e7",
+    "sources/behavior_pack/modern_projection/projection/visible_item_contents.py": "ad871f4d6d17aa43a4285616ff760f323f30c8e2ed9c638625a2a239a08a3c55",
+    "sources/behavior_pack/modern_projection/projection/visible_item_slot_data.py": "7d0f552e4e36e7762559c717b9bd7ac69492c462ab32ff7cb571a788edbb42b2",
+    "sources/behavior_pack/modern_projection/projection/water_interaction_data.py": "0762950329b6f48fe7feaaa3c718f8bb62ca2fc6762d8fcb77f49287ae9ae5e7",
+    "sources/behavior_pack/modern_projection/projection/water_interactions.py": "80b0987ef0bc6151549226f31c993d1e3ccf60b604da59afd06ed748f2ab1360",
+    "sources/resource_pack/models/modern_projection/frame_block_items/0d8d479f3958fea7_mesh.json": "1e9a773e4e384bcfe0c5d0df37a02968cf4a6fef6a8ad9df41996174b878bd95",
+    "sources/resource_pack/models/modern_projection/frame_block_items/1cc58135f7b22c54_mesh.json": "7c9bb5599b4ad1d0d8e557df9f7bf8a498aa232b1dd0e07b3d44b2eb40dd9fa0",
+    "sources/resource_pack/shaders/glsl/modern_projection_frame_block.vertex": "b4f7c615263be665fa8918e34f1e70ead226b76cd281fdecb99324c83407d94e",
+    "sources/resource_pack/shaders/glsl/modern_projection_frame_block_cutout.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "sources/resource_pack/shaders/glsl/modern_projection_frame_block_opaque.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "sources/resource_pack/shaders/glsl/modern_projection_frame_block_translucent.fragment": "2c7649c3599e4ed20d5d41e15fc5bb67aae99cf590b604b438d92a507b591149",
+    "sources/resource_pack/shaders/glsl/modern_projection_frame_block_world.vertex": "84d79511fba46b64614bfb99ec14820dd7a199f4ca09eff0fb91c90656b2d43d",
+    "sources/tools/analyze_frame_block_multiview_r21.py": "70c98aa00f20f93dcaed9d1bb68fc4816eee5391968e164723ce782a53bc2cd5",
+    "sources/tools/analyze_frame_block_pose_r21.py": "83ae40e535389484839df012cea667e025ab965cb5c28436a4c4082ca34d5a16",
+    "sources/tools/analyze_item_sprite_closeup.py": "57b1977dfee38256a0af006d2eecf73ce295e876a77e2991cc0d0c05981ca983",
+    "sources/tools/analyze_item_sprite_product.py": "aad63f647f26e511f71bb9413c8105e0ef5fcd5a3b98ecf656ee2209c1ab911a",
+    "sources/tools/analyze_liquid_transparency.py": "eb3aad432758c2baec220f29db5e8906e572f457b8489916759d208796d0995b",
+    "sources/tools/analyze_liquid_workspace.py": "c0fead0d55dcfe84477403c26d775beba35e92529ae6d4dbc4bc4490e9948e64",
+    "sources/tools/analyze_product_water.py": "f3862bda8776c18a308332e9d7ee05d1f0f3acee2305d2812534f867ec03da81",
+    "sources/tools/analyze_visible_items_r16.py": "fd5858f4736bb043af3d769477646d2abc696f67cb98f5b3e356d421a2485b4b",
+    "sources/tools/camera_projection.py": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c",
+    "sources/tools/capture_frozen_liquid_controls.py": "01482101a84bfaa2e2d7eb4e826eea13b61c06392bc04b109a5e7a70a40a6e04",
+    "sources/tools/capture_native_burst.py": "22835580e79a5e369ef08db9aad3c5ff6b3ee63264ba751250707ddf952d1b23",
+    "sources/tools/capture_native_window.py": "d4b260037600609914c6191e864945712550cbe65f737cad26dfd6c9723b0b87",
+    "sources/tools/capture_pure_liquid_native_controls.py": "233f2639012ecca4c81d7abee067b7edcbc5b79199bdfc07c914b0441016a64f",
+    "sources/tools/check_native_dialogs.py": "b1e2ad442cf67fc19a0f6315fadcdf707a1770c6006a0376adfc8a948b0df007",
+    "sources/tools/context_test_environment.py": "cc9db3ced04f380e254850f57de172a07e52d04c2f8d88ca8cb4c67fcf61ba57",
+    "sources/tools/diagnose_window_dpi.py": "b23015302c5691772032072c81d6e3e0740867e0e8690b08b78fc8f7b348b261",
+    "sources/tools/frame_block_capture_matrix_r21.py": "44bec0292086d44a88030300f8bbe39cd26371bf4d1c86db8606490ff801dc66",
+    "sources/tools/generate_flat_item_proxies.py": "6300127ba6964ac0f5628cbda90f3a240e9e3cbe9c40fd05fe385aaa257d6698",
+    "sources/tools/generate_liquid_native_input_fixture.py": "dfd6f00f0926719eef946bbff86517b26ba1514a0deec813c474be7ebceffca5",
+    "sources/tools/generate_liquid_payload_poc.py": "996756d438a2c1ab871d3c960b22e8ea5dd9d0dc910340212294d42b100d4163",
+    "sources/tools/generate_liquid_uniform_fixture.py": "1b58abfec8801c697e1e588d0dd1e7eea7bc39b2c232f9862a8849b4427e3d87",
+    "sources/tools/generate_shulker_proxies.py": "3655cf8a4513439ba205617cc427a204e54ae5b1bfa0be066f1b3e6defa1be87",
+    "sources/tools/item_sprite_calibration.py": "8715b7e4b119c3cece00000fb8d8d2ce358784931158675c7e38476eb5abac5e",
+    "sources/tools/item_sprite_capture_contract.py": "59ff26ea792434ecebc4ca12a84ca2930ea554b0a86fac3cb006eb9e1f7bc252",
+    "sources/tools/item_sprite_closeup.py": "6b6f8d0b643426f4178c30f26506356839b999d4650dc6e468ddf27d4b158c81",
+    "sources/tools/item_sprite_edge_pixels.py": "bebeb9e4d805a6cf4531dbe802b25465795a638df07ee4bd79bafdbc393d8cbe",
+    "sources/tools/item_sprite_motion_capture.py": "4f0f737df33edb213836ca2a049faa6b6c5443a0ec0c54e9abdca753cc106294",
+    "sources/tools/item_sprite_native_reference.py": "8334484fcf5836df8dcf816beb123fa7ceaf33ea0cdeffb2360f7d17e6455d73",
+    "sources/tools/liquid_payload_poc.py": "93adac7eef6f4e42112120ff4efb417c761a3f057ba49de8fc7cd9de81ede312",
+    "sources/tools/mcdk.py": "b457026c01b26ccffd972089d7e55382011bba93f73d495131fafc0abebcafd5",
+    "sources/tools/observe_owned_startup.py": "950cb24da27c18cc84736600c76013adabd1bb1a3d0c1a50a4ad806fac294ba7",
+    "sources/tools/probe_frame_block_enchantment_r21.py": "c6fa3cf312784737324a0dcd7a53d89b136b2cfac3b3877b0c18d4749239f901",
+    "sources/tools/probe_liquid_pose_channel.py": "1d52187f8f977fb5542ce6d13e9abf6eb633d0117fe7d98a8ade96e9e2826499",
+    "sources/tools/probe_liquid_scene.py": "2843e32ab43d5befc41a4a158b5f62d46272b0ef36f39be3f68538f5f6556a1f",
+    "sources/tools/probe_liquid_uniform_transport.py": "4c45030a391945637ae49ae1f39cc84c5a556a7f0219879dd3560f4a627d33f5",
+    "sources/tools/probe_liquid_workspace.py": "de5c2470b30ffa2a51cfcd4da3ff39ae21b763111de2de0ad815921d090f8dd9",
+    "sources/tools/probe_product_water.py": "d68da331db2ac034a5a0407b014bffbe1a3feaf3cf573e31e41af93646c8d9d1",
+    "sources/tools/release_owned_game_focus.py": "a710cac06e2ac236a54681314781ac42a1206c8dc8503898270ff6cc799b20f6",
+    "sources/tools/run_visible_items_r16.py": "600ac86457a857e78f0cdef3307de6a2d2db8d65d4bd5ae0ea9b1d91c4ae2e5d",
+    "sources/tools/shulker_pixels.py": "a134286c29b26a433448e78f9e825e88faeead4718be5af6ac0fe8fa71f64ca5",
+    "sources/tools/sign_panel_oracle.py": "b7472e2fd901bfedc403bc02622c27fdeda910c8e15760713775eeb0ccb99f44",
+    "sources/tools/verify_botanical_neighbor_world_visuals.py": "c738da28ec3f08e484bca5c76475741f14bf262ff359dd541e1f6da35fc5a9d5",
+    "sources/tools/verify_camera_projection.py": "20b702496787cf34d85102d600399f103733b260cc08ecc153067d6caf519eb8",
+    "sources/tools/verify_context_batch_visuals.py": "92eaa22743e360a85dea04e868ba5633eb29651486231c83e49c2574c237f0ef",
+    "sources/tools/verify_debug_blueprints.py": "73b725a0bb14d354ae0e6648578c24f8fe2de622ba98a1d4eae39d14737b89f9",
+    "sources/tools/verify_debug_visuals.py": "2dc121a997909330f592165707d895ce6a1f2a781288e865f14aa360d9272c9b",
+    "sources/tools/verify_dripstone_direct_seed.py": "52796b8e961321541b2d0889c4c61a661719fb560f803e88311c561911df2ecf",
+    "sources/tools/verify_dripstone_native_boxes.py": "62a0b34011d8f1e1346417d40b93a875c08e85fc8e1944e97521eadf1e448339",
+    "sources/tools/verify_dripstone_world_visuals.py": "eab820f7fc8fd5b40159ec1ccd6788518807d0c5c6799a368470638cc93a7790",
+    "sources/tools/verify_extended_neighbor_world_visuals.py": "1307d2eac80f19cee40d066c5d328c74c302e753a2e331d26e61237c4b292fc2",
+    "sources/tools/verify_missing_neighbor_visuals.py": "edca326910919c1a8a0e50fbd0318f68252a8377116152584aafd950413c949a",
+    "sources/tools/verify_native_entity_appearances.py": "d2d19437e25f6b7f5362f923ea027ad70b634d6d652efe6a30b395cdc513592d",
+    "sources/tools/verify_native_sign_fields.py": "0b205cebbd41abc01fbbee3525eddbe442d03a54b4abb39a7b39a30ada23b8b5",
+    "sources/tools/verify_neighbor_native_png.py": "276d256eb22ff9b21355a2ebc44dd440885426c211043c08ccea45ae0f0d863c",
+    "sources/tools/verify_neighbor_world_visuals.py": "7c948a91dd1f03dd3307b96ead989e8f3e0e2828f1ab5e0484211c5c0eb73258",
+    "sources/tools/verify_shulker_orientations.py": "0745199a433f82adaf5cb98298bd35b0037cd5a3226268aac318ea16c6ed90d1",
+    "sources/tools/verify_sign_visuals.py": "efa1b1537b50b9bbe13c40e6c7f7be45d75452acf2aa584cce8925cde3d15e8b",
+    "sources/tools/verify_static_neighbor_world_visuals.py": "8a69062274617ac9741d4f63f7e813e0c776bcead0728590c41df2bb98ae0a70",
+    "sources/tools/verify_wet_actor_visuals.py": "5e7f3a9ae6095086d0044d9b211b8fd8dd5bafc5cb6f045b5a25a484e7a1bb2e",
+    "sources/tools/visual_environment.py": "1a71b530c88dc22dc66cb9f9c68f56b2a039741c058c6a0de2ec6cb419500519",
+    "sources/tools/watch_intrinsic_glint_exit_r21.py": "aa436ee9a0f496554c69330d8456fa21b6bb551b63032f0b5a453ad9748646aa",
+    "sources/tools/water_capture_contract.py": "1548fb691139be132a1b3f823b400068253e3493cf9b17bb0673677e1da98f66",
+    "sources/tools/water_native_projection.py": "bef9e23e3d10ff763fb0e36df9eff7432a6b926219d04866509fa0cd9e168816",
+    "wer.json": "7278dd15cef9b047c48b67906fbdac2d4faeb55b1c8439aafd7f555316c2ffe4",
+    "wer/event-80432.xml": "469e1d729303c7f2b91cb7b3df5ee8a4639e028c3e190ff05fded2f81ce9d7c9",
+    "wer/event-80433.xml": "699bd4cdef187a81bcbce645c4c76c91e8b681bdde6134b57c9ee9dd856e29c1"
+  },
+  "launch_sources_sha256": "36d897c8bd8e190c83d117b2c5ddc3c9feb454092b0e7f0a145c061c410c2c49",
+  "limitations": [
+    "Original ideal support-only geometry aggregate remains false",
+    "Frame-board occlusion confounds absolute pose identification from this model",
+    "Only stone and artificially enchanted quartz_block, north-facing rotation zero, front and +/-75 degrees",
+    "Lighting, texture fidelity, UI, glint motion/phase/brightness and production acceptance remain open",
+    "Game exited 0xC0000409 after normal-only stop request; no clean exit claim",
+    "Original analyzer recorded its own hash but not every dependency; additional analysis dependency bytes are frozen retrospectively and labeled separately"
+  ],
+  "png_count": 80,
+  "private_inputs_sha256": {
+    "capture_report": "d4d3ccc9f3ec71c028c33f59d20a0ce03b92f74659208d4e4440e3eff7794a43"
+  },
+  "production_qualified": false,
+  "redactions": [
+    "Session routing token, endpoint and unrelated session records omitted",
+    "Session file replaced consistently by opaque session identity",
+    "Unrelated foreground titles, process names and identities omitted; PID/HWND guard data retained"
+  ],
+  "schema": 1,
+  "source_scope": "Analysis import closure plus exact candidate resources and capture host tools; per-file bindings distinguish launch sources from retrospectively recorded analysis dependencies; complete launch hash map retained",
+  "source_subset": {
+    ".agents/skills/pyreact-debugging/scripts/_session.py": {
+      "binding": "launch_sources",
+      "sha256": "9bf1400cda12457ec1b3dd2351fed366c10ad069c781565eabb12e45b2431313"
+    },
+    ".agents/skills/pyreact-debugging/scripts/_window.py": {
+      "binding": "launch_sources",
+      "sha256": "9fdb52e92aeb9930d8faffb81ab2023aaec68383b71b6fab9172643270e0826e"
+    },
+    ".agents/skills/pyreact-debugging/scripts/mcdk.py": {
+      "binding": "launch_sources",
+      "sha256": "347e01d51324924a84a05cf08c342b46d6e1fab589d446705eadde2cd8a587d3"
+    },
+    "behavior_pack/modern_projection/projection/__init__.py": {
+      "binding": "launch_sources",
+      "sha256": "a2e875531e037f12857911031b0a4ab9afd695c48e34ba5314b9466af020750f"
+    },
+    "behavior_pack/modern_projection/projection/appearance_defaults_data.py": {
+      "binding": "launch_sources",
+      "sha256": "bc7add55545a4d53fe7b663d6a29155342f1fd5f7dfb0d8d6bf20a2c338893a4"
+    },
+    "behavior_pack/modern_projection/projection/banner_fixture_data.py": {
+      "binding": "launch_sources",
+      "sha256": "708be74bb7a29e6ec8bbda287bb6fcd78030a213f1678710566d07e7d3e390ba"
+    },
+    "behavior_pack/modern_projection/projection/banner_render_contract.py": {
+      "binding": "launch_sources",
+      "sha256": "ecefa6c4da2e7fb7854dfadba30aca93533f8f6c47b5c572b4abe7cf04f512c3"
+    },
+    "behavior_pack/modern_projection/projection/biome_water_data.py": {
+      "binding": "launch_sources",
+      "sha256": "9ab33c1491c4317105a08289be57820be5174174ee748d96693cd243892fc652"
+    },
+    "behavior_pack/modern_projection/projection/biomes.py": {
+      "binding": "launch_sources",
+      "sha256": "899968dd2748847ac178d5a43a3b284de6cba6589474e2a082e4b2f17b1bf9ef"
+    },
+    "behavior_pack/modern_projection/projection/block_edits.py": {
+      "binding": "launch_sources",
+      "sha256": "a62e81495dd66f844e22fbf2e710afc19f8f577fc3f6f93372f6ade4f02e150d"
+    },
+    "behavior_pack/modern_projection/projection/block_groups.py": {
+      "binding": "launch_sources",
+      "sha256": "25d82ed827b798cd319cab006f3df331dc3ca47a6f1b56cd15e1d30e3a70e747"
+    },
+    "behavior_pack/modern_projection/projection/block_neighbors.py": {
+      "binding": "launch_sources",
+      "sha256": "9c12c2a26f92fe09203f911bed1d39e674ab71f48fd3180267105b73b680cd3f"
+    },
+    "behavior_pack/modern_projection/projection/block_registry.py": {
+      "binding": "launch_sources",
+      "sha256": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a"
+    },
+    "behavior_pack/modern_projection/projection/block_registry_data.py": {
+      "binding": "launch_sources",
+      "sha256": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1"
+    },
+    "behavior_pack/modern_projection/projection/block_traits.py": {
+      "binding": "launch_sources",
+      "sha256": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c"
+    },
+    "behavior_pack/modern_projection/projection/block_traits_data.py": {
+      "binding": "launch_sources",
+      "sha256": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6"
+    },
+    "behavior_pack/modern_projection/projection/camera.py": {
+      "binding": "launch_sources",
+      "sha256": "38cd20f3bfae44b9e48d5c0853faf5e965b7812472f87f5e342668ac28c30178"
+    },
+    "behavior_pack/modern_projection/projection/catalog.py": {
+      "binding": "launch_sources",
+      "sha256": "01fffa75c618dbcf940c8e8d2cf91f3df147a850041b94d24cb575ce758c3881"
+    },
+    "behavior_pack/modern_projection/projection/cell.py": {
+      "binding": "launch_sources",
+      "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6"
+    },
+    "behavior_pack/modern_projection/projection/codec.py": {
+      "binding": "launch_sources",
+      "sha256": "ce0ce93d7d847dada99c80d802250a8cfa2adc77e97f8bbb5ebe7d1abbeb4050"
+    },
+    "behavior_pack/modern_projection/projection/compact_chunk.py": {
+      "binding": "launch_sources",
+      "sha256": "ef5b8f2d676ae28227404fe6c419af5df5127a7ce767e53614ef2296e0e281f4"
+    },
+    "behavior_pack/modern_projection/projection/debug_action_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "8967d0b53c96a0eff852e866ba5d615d01c237cda1e237fb3edbe7aaad091b2f"
+    },
+    "behavior_pack/modern_projection/projection/debug_appearance_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "78464934d7d85276f106cdaeb10ff224eaa201458555c6306e255ba50fafaf24"
+    },
+    "behavior_pack/modern_projection/projection/debug_banner_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "11612ec4b9fdaec3234e891894d9ca4c9045fb931c9f8f7aff63e07f09b24b21"
+    },
+    "behavior_pack/modern_projection/projection/debug_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "a7ad46382499f8ad8d71d8c93d119d6c7bf98286dcbce2bea4805a198d6601a2"
+    },
+    "behavior_pack/modern_projection/projection/debug_botanical_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "eca8df4c98d451849e8110ccfe7894ed842029f79404d31468683418c777be38"
+    },
+    "behavior_pack/modern_projection/projection/debug_cauldron_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "67821ef6d9781765b81deb424e9b5cb206add45a5879902d6b2e40e17ac31992"
+    },
+    "behavior_pack/modern_projection/projection/debug_compatibility_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "1fdc7234db7fd5707341b0d2c8474b219812eb74d7cde250e9927ca5133828be"
+    },
+    "behavior_pack/modern_projection/projection/debug_connection_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "00d16732c8d3a8416544461d6bf31ab69edea331736671a8caa4f87055905800"
+    },
+    "behavior_pack/modern_projection/projection/debug_dripstone_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "00445d51d6f363fc8d24be6f26cc2d44e0ff43808a1674698a5f9b90ffe3871c"
+    },
+    "behavior_pack/modern_projection/projection/debug_entity_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "52ab228c5f7fabf63cc899cfecaa0f9dfd42882b7b91495f40f7ad42dfb0c45a"
+    },
+    "behavior_pack/modern_projection/projection/debug_entity_defaults.py": {
+      "binding": "launch_sources",
+      "sha256": "2d0474548dd1cfccbed134aeaee7b80b9fa132a7e4306016a1167d15723ce1fb"
+    },
+    "behavior_pack/modern_projection/projection/debug_item_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "adbd3cab7b4475e889d7fa573c4ee23a34b1127fd3ec310a8b1b51f348525c0b"
+    },
+    "behavior_pack/modern_projection/projection/debug_liquid_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "e439f64ff9d1d72023651d99343e4870c3a38ec6919a875aca60cabe3d7b59c9"
+    },
+    "behavior_pack/modern_projection/projection/debug_neighborhood_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "2199be544d04933c1152d611be296387260fe1848f20649b7f6c16893ca71874"
+    },
+    "behavior_pack/modern_projection/projection/debug_portal_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "b606e96709d75b53a6f619a93c381f248cd040e0ac294c0371889d0196b5df53"
+    },
+    "behavior_pack/modern_projection/projection/debug_pot_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "2179237903d1c8e1986009cfd74c373252f686bab9657fddcf2604dc7d0653b3"
+    },
+    "behavior_pack/modern_projection/projection/debug_product_connections.py": {
+      "binding": "launch_sources",
+      "sha256": "12240ece814e044d2eb71b5cfd6b06f56a169752c2992972647bb097bc5727e9"
+    },
+    "behavior_pack/modern_projection/projection/debug_product_water_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "347946630e7dd73f8c8b87546c4b0021b550451a52beab2c5e6b8d901996c636"
+    },
+    "behavior_pack/modern_projection/projection/debug_sign_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "c01324f53add969f71333590c175d439fb8e5593f9ef3c46b898f6d099db0b46"
+    },
+    "behavior_pack/modern_projection/projection/debug_slab_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "f27289fa1a16cbc7c9e64f52f7aa43a77e0d4651504838f5031c149736c97d2f"
+    },
+    "behavior_pack/modern_projection/projection/debug_snow_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de"
+    },
+    "behavior_pack/modern_projection/projection/debug_spawner_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "ffd387912ad786fba3b0b32aadcbce9898a15ed8761322cec319d8afe6006464"
+    },
+    "behavior_pack/modern_projection/projection/debug_water_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "5aa889e2cee250dc88ce5676c2be3433c5706ea3e587dce0e6f67d297f16f11e"
+    },
+    "behavior_pack/modern_projection/projection/entity_defaults.py": {
+      "binding": "launch_sources",
+      "sha256": "26d94ace4b843dbf154dcae3c2ef3af906d8a72468656e68c0fb1517bae833e0"
+    },
+    "behavior_pack/modern_projection/projection/entity_defaults_data.py": {
+      "binding": "launch_sources",
+      "sha256": "5ee014684757737c4dd78949bdfcf98b9110b2d70bb35b8cc5e3c852992b6dbf"
+    },
+    "behavior_pack/modern_projection/projection/entity_overlays.py": {
+      "binding": "launch_sources",
+      "sha256": "78d2aee4ae511def546850623f9ea41698b9593ede99993832b4cb3e4c9b279a"
+    },
+    "behavior_pack/modern_projection/projection/entity_render.py": {
+      "binding": "launch_sources",
+      "sha256": "a2cd09aa502b590429955e2adabd1523e05c619167d8b26f50c0f438a3d86722"
+    },
+    "behavior_pack/modern_projection/projection/frame_block_item_data.py": {
+      "binding": "candidate_resource",
+      "sha256": "7d9dc9548066f77c2976a529371fb1221e3bf3946cd37d1ab5f02753d2ca5707"
+    },
+    "behavior_pack/modern_projection/projection/frame_rotation_data.py": {
+      "binding": "launch_sources",
+      "sha256": "9e4fe7d6d3c0431bdb5c326679017d7c173271c144efe7f3c04d9dd1fa5e9406"
+    },
+    "behavior_pack/modern_projection/projection/item_contents_data.py": {
+      "binding": "launch_sources",
+      "sha256": "667996410248920efd051c88c448945fa6d7d9678ea53a8dacfcab5eef117151"
+    },
+    "behavior_pack/modern_projection/projection/item_icon_data.py": {
+      "binding": "launch_sources",
+      "sha256": "5358501f604c259fd7f62bfa245731af77c43bd8d6f76ab96b307ac987b51242"
+    },
+    "behavior_pack/modern_projection/projection/jobs.py": {
+      "binding": "launch_sources",
+      "sha256": "a7098cba6495e8033ef18fcb497b3e89d76ed5767d3f83725f47d84972581f88"
+    },
+    "behavior_pack/modern_projection/projection/model.py": {
+      "binding": "launch_sources",
+      "sha256": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2"
+    },
+    "behavior_pack/modern_projection/projection/native_appearance.py": {
+      "binding": "launch_sources",
+      "sha256": "8ee814d221249492773382cbdd7dfe390e43a12a0b366425e83db2eb633c632c"
+    },
+    "behavior_pack/modern_projection/projection/native_layers.py": {
+      "binding": "launch_sources",
+      "sha256": "78d662eebc148ee1c620269268463427d1d2ad55377bab2a68d20a224406ddd1"
+    },
+    "behavior_pack/modern_projection/projection/native_pot.py": {
+      "binding": "launch_sources",
+      "sha256": "ada5f4cc428562373b370917f69d7332768872dae9a719e06f213e28952737e1"
+    },
+    "behavior_pack/modern_projection/projection/native_pot_data.py": {
+      "binding": "launch_sources",
+      "sha256": "1da26e77409c707eaef1f985200ba43cf356e149c4764eb2a24459f5c024ca58"
+    },
+    "behavior_pack/modern_projection/projection/native_pot_sherd_data.py": {
+      "binding": "launch_sources",
+      "sha256": "e679d8dc3ccca1ad0635896b5904515afd87b2903688dab8b6632774f2602aba"
+    },
+    "behavior_pack/modern_projection/projection/native_render_profile.py": {
+      "binding": "launch_sources",
+      "sha256": "b8ddee769323cae4e861f49bf9ae4d6ce5813948d9f09c186441dccf122f220d"
+    },
+    "behavior_pack/modern_projection/projection/native_sign.py": {
+      "binding": "launch_sources",
+      "sha256": "34eaa77e5e5183e4db3bab31002572f848ddfcb640c530b25dc49ea9840b8a6a"
+    },
+    "behavior_pack/modern_projection/projection/native_sign_data.py": {
+      "binding": "launch_sources",
+      "sha256": "f1c0e6c65fde69f687d79688eb5204eedf353a1de0ba17fb4392c5be0672b785"
+    },
+    "behavior_pack/modern_projection/projection/nbt_spatial.py": {
+      "binding": "launch_sources",
+      "sha256": "aac80300547ce5e99c332e8e43a83df320fca89493ef543f41c113d402f3a3fe"
+    },
+    "behavior_pack/modern_projection/projection/packed.py": {
+      "binding": "launch_sources",
+      "sha256": "b4adc3092a3a16862203c1d42e2f766257cee2e5876114eea4d9124d05e54346"
+    },
+    "behavior_pack/modern_projection/projection/pasting.py": {
+      "binding": "launch_sources",
+      "sha256": "e20707a5377860160e67a2f3bd703b2db4dad1c224bf36182b0df404249f08be"
+    },
+    "behavior_pack/modern_projection/projection/rail_neighbor_data.py": {
+      "binding": "launch_sources",
+      "sha256": "580ed85e2718cd96863c886df5a940eb7b62aa2cf4a297c36c48e125739ffb3d"
+    },
+    "behavior_pack/modern_projection/projection/scaffold_neighbors.py": {
+      "binding": "launch_sources",
+      "sha256": "8af226fb39f7f70537ca613e335f5ee79a46b793e811d4484f9015650a17ea86"
+    },
+    "behavior_pack/modern_projection/projection/scaffold_support_data.py": {
+      "binding": "launch_sources",
+      "sha256": "75c9a5bb343a28d9346babc868ff5dfee41f8f4d1a3405597e0fe6719bb0bd93"
+    },
+    "behavior_pack/modern_projection/projection/semantic_wire.py": {
+      "binding": "launch_sources",
+      "sha256": "6d769f4e740c1e8dfb6ea2cab33693cff2132777ac11139e4427e61867e57b4e"
+    },
+    "behavior_pack/modern_projection/projection/slab_placement.py": {
+      "binding": "launch_sources",
+      "sha256": "abfe11663b3e546cbeb2dbea3ed6fa0a0ac74704408704c010dc3f6fbc305bb7"
+    },
+    "behavior_pack/modern_projection/projection/spawner_marker_data.py": {
+      "binding": "launch_sources",
+      "sha256": "12ebc8083bed690a1e0c24b884c4eb27d3f8008c3e618e6589e19c62b8245d6e"
+    },
+    "behavior_pack/modern_projection/projection/state_transform.py": {
+      "binding": "launch_sources",
+      "sha256": "ee20291ac3a7efb30405e4769d519c55a2951291074cb1fd6cd21aa475e820c2"
+    },
+    "behavior_pack/modern_projection/projection/static_bed.py": {
+      "binding": "launch_sources",
+      "sha256": "aa778092f10ee23365af0612a05d022ae313ce61208edb201d737e111071caf8"
+    },
+    "behavior_pack/modern_projection/projection/static_bed_data.py": {
+      "binding": "launch_sources",
+      "sha256": "31d3035bc837520a73daf67174eaac17180ee33a63999d45db2ffd5011fae952"
+    },
+    "behavior_pack/modern_projection/projection/static_chest_data.py": {
+      "binding": "launch_sources",
+      "sha256": "61fbe07103371b129ae55721d509f59d8c294efc56fda83aa627b18d530cc13a"
+    },
+    "behavior_pack/modern_projection/projection/static_neighbor_data.py": {
+      "binding": "launch_sources",
+      "sha256": "2ed1a888d9f4afeea8292fa874b4761d28dd79518c445e9f57d3bf61aa7b373c"
+    },
+    "behavior_pack/modern_projection/projection/static_shulker_data.py": {
+      "binding": "launch_sources",
+      "sha256": "76c525990c415da76cbbd8c17c11ed410b50e8deccf619f989a94c7550fdce28"
+    },
+    "behavior_pack/modern_projection/projection/static_skull.py": {
+      "binding": "launch_sources",
+      "sha256": "44b25884017a45b249cc7e938043da00e9c323398a61f7a2207b0eca8ebd6a41"
+    },
+    "behavior_pack/modern_projection/projection/static_skull_data.py": {
+      "binding": "launch_sources",
+      "sha256": "321ee9d2ebbe8d4ea27bfd7fa7de9cc0bda89260a6ea78e7ee817076ff719ad9"
+    },
+    "behavior_pack/modern_projection/projection/static_table.py": {
+      "binding": "launch_sources",
+      "sha256": "7db6db88876cd6f093fd813724f6c5baa2e82391b69d49b8f3bed31cbc8b6ea0"
+    },
+    "behavior_pack/modern_projection/projection/static_table_data.py": {
+      "binding": "launch_sources",
+      "sha256": "a857060dc1faabd9591aba6d504b502e9e6edc124423940f7aba8310f9e89445"
+    },
+    "behavior_pack/modern_projection/projection/storage.py": {
+      "binding": "launch_sources",
+      "sha256": "ae82f1c80715ff35a905081889ef4e155e9d3d59f29ff6f2ccc6d83a4961354e"
+    },
+    "behavior_pack/modern_projection/projection/visible_actor.py": {
+      "binding": "launch_sources",
+      "sha256": "06a45742aa05787c19a63757d69785a124a2241a3eb93e2637f9234d6b4880e7"
+    },
+    "behavior_pack/modern_projection/projection/visible_item_contents.py": {
+      "binding": "launch_sources",
+      "sha256": "ad871f4d6d17aa43a4285616ff760f323f30c8e2ed9c638625a2a239a08a3c55"
+    },
+    "behavior_pack/modern_projection/projection/visible_item_slot_data.py": {
+      "binding": "launch_sources",
+      "sha256": "7d0f552e4e36e7762559c717b9bd7ac69492c462ab32ff7cb571a788edbb42b2"
+    },
+    "behavior_pack/modern_projection/projection/water_interaction_data.py": {
+      "binding": "launch_sources",
+      "sha256": "0762950329b6f48fe7feaaa3c718f8bb62ca2fc6762d8fcb77f49287ae9ae5e7"
+    },
+    "behavior_pack/modern_projection/projection/water_interactions.py": {
+      "binding": "launch_sources",
+      "sha256": "80b0987ef0bc6151549226f31c993d1e3ccf60b604da59afd06ed748f2ab1360"
+    },
+    "resource_pack/models/modern_projection/frame_block_items/0d8d479f3958fea7_mesh.json": {
+      "binding": "candidate_resource",
+      "sha256": "1e9a773e4e384bcfe0c5d0df37a02968cf4a6fef6a8ad9df41996174b878bd95"
+    },
+    "resource_pack/models/modern_projection/frame_block_items/1cc58135f7b22c54_mesh.json": {
+      "binding": "candidate_resource",
+      "sha256": "7c9bb5599b4ad1d0d8e557df9f7bf8a498aa232b1dd0e07b3d44b2eb40dd9fa0"
+    },
+    "resource_pack/shaders/glsl/modern_projection_frame_block.vertex": {
+      "binding": "candidate_resource",
+      "sha256": "b4f7c615263be665fa8918e34f1e70ead226b76cd281fdecb99324c83407d94e"
+    },
+    "resource_pack/shaders/glsl/modern_projection_frame_block_cutout.fragment": {
+      "binding": "candidate_resource",
+      "sha256": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d"
+    },
+    "resource_pack/shaders/glsl/modern_projection_frame_block_opaque.fragment": {
+      "binding": "candidate_resource",
+      "sha256": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d"
+    },
+    "resource_pack/shaders/glsl/modern_projection_frame_block_translucent.fragment": {
+      "binding": "candidate_resource",
+      "sha256": "2c7649c3599e4ed20d5d41e15fc5bb67aae99cf590b604b438d92a507b591149"
+    },
+    "resource_pack/shaders/glsl/modern_projection_frame_block_world.vertex": {
+      "binding": "candidate_resource",
+      "sha256": "84d79511fba46b64614bfb99ec14820dd7a199f4ca09eff0fb91c90656b2d43d"
+    },
+    "tools/analyze_frame_block_multiview_r21.py": {
+      "binding": "original_analyzer_self_hash",
+      "sha256": "70c98aa00f20f93dcaed9d1bb68fc4816eee5391968e164723ce782a53bc2cd5"
+    },
+    "tools/analyze_frame_block_pose_r21.py": {
+      "binding": "launch_sources",
+      "sha256": "83ae40e535389484839df012cea667e025ab965cb5c28436a4c4082ca34d5a16"
+    },
+    "tools/analyze_item_sprite_closeup.py": {
+      "binding": "launch_sources",
+      "sha256": "57b1977dfee38256a0af006d2eecf73ce295e876a77e2991cc0d0c05981ca983"
+    },
+    "tools/analyze_item_sprite_product.py": {
+      "binding": "launch_sources",
+      "sha256": "aad63f647f26e511f71bb9413c8105e0ef5fcd5a3b98ecf656ee2209c1ab911a"
+    },
+    "tools/analyze_liquid_transparency.py": {
+      "binding": "launch_sources",
+      "sha256": "eb3aad432758c2baec220f29db5e8906e572f457b8489916759d208796d0995b"
+    },
+    "tools/analyze_liquid_workspace.py": {
+      "binding": "launch_sources",
+      "sha256": "c0fead0d55dcfe84477403c26d775beba35e92529ae6d4dbc4bc4490e9948e64"
+    },
+    "tools/analyze_product_water.py": {
+      "binding": "launch_sources",
+      "sha256": "f3862bda8776c18a308332e9d7ee05d1f0f3acee2305d2812534f867ec03da81"
+    },
+    "tools/analyze_visible_items_r16.py": {
+      "binding": "launch_sources",
+      "sha256": "fd5858f4736bb043af3d769477646d2abc696f67cb98f5b3e356d421a2485b4b"
+    },
+    "tools/camera_projection.py": {
+      "binding": "launch_sources",
+      "sha256": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c"
+    },
+    "tools/capture_frozen_liquid_controls.py": {
+      "binding": "launch_sources",
+      "sha256": "01482101a84bfaa2e2d7eb4e826eea13b61c06392bc04b109a5e7a70a40a6e04"
+    },
+    "tools/capture_native_burst.py": {
+      "binding": "launch_sources",
+      "sha256": "22835580e79a5e369ef08db9aad3c5ff6b3ee63264ba751250707ddf952d1b23"
+    },
+    "tools/capture_native_window.py": {
+      "binding": "launch_sources",
+      "sha256": "d4b260037600609914c6191e864945712550cbe65f737cad26dfd6c9723b0b87"
+    },
+    "tools/capture_pure_liquid_native_controls.py": {
+      "binding": "launch_sources",
+      "sha256": "233f2639012ecca4c81d7abee067b7edcbc5b79199bdfc07c914b0441016a64f"
+    },
+    "tools/check_native_dialogs.py": {
+      "binding": "launch_sources",
+      "sha256": "b1e2ad442cf67fc19a0f6315fadcdf707a1770c6006a0376adfc8a948b0df007"
+    },
+    "tools/context_test_environment.py": {
+      "binding": "launch_sources",
+      "sha256": "cc9db3ced04f380e254850f57de172a07e52d04c2f8d88ca8cb4c67fcf61ba57"
+    },
+    "tools/diagnose_window_dpi.py": {
+      "binding": "launch_sources",
+      "sha256": "b23015302c5691772032072c81d6e3e0740867e0e8690b08b78fc8f7b348b261"
+    },
+    "tools/frame_block_capture_matrix_r21.py": {
+      "binding": "capture_host_dependency",
+      "sha256": "44bec0292086d44a88030300f8bbe39cd26371bf4d1c86db8606490ff801dc66"
+    },
+    "tools/generate_flat_item_proxies.py": {
+      "binding": "launch_sources",
+      "sha256": "6300127ba6964ac0f5628cbda90f3a240e9e3cbe9c40fd05fe385aaa257d6698"
+    },
+    "tools/generate_liquid_native_input_fixture.py": {
+      "binding": "launch_sources",
+      "sha256": "dfd6f00f0926719eef946bbff86517b26ba1514a0deec813c474be7ebceffca5"
+    },
+    "tools/generate_liquid_payload_poc.py": {
+      "binding": "launch_sources",
+      "sha256": "996756d438a2c1ab871d3c960b22e8ea5dd9d0dc910340212294d42b100d4163"
+    },
+    "tools/generate_liquid_uniform_fixture.py": {
+      "binding": "launch_sources",
+      "sha256": "1b58abfec8801c697e1e588d0dd1e7eea7bc39b2c232f9862a8849b4427e3d87"
+    },
+    "tools/generate_shulker_proxies.py": {
+      "binding": "launch_sources",
+      "sha256": "3655cf8a4513439ba205617cc427a204e54ae5b1bfa0be066f1b3e6defa1be87"
+    },
+    "tools/item_sprite_calibration.py": {
+      "binding": "capture_host_dependency",
+      "sha256": "8715b7e4b119c3cece00000fb8d8d2ce358784931158675c7e38476eb5abac5e"
+    },
+    "tools/item_sprite_capture_contract.py": {
+      "binding": "launch_sources",
+      "sha256": "59ff26ea792434ecebc4ca12a84ca2930ea554b0a86fac3cb006eb9e1f7bc252"
+    },
+    "tools/item_sprite_closeup.py": {
+      "binding": "launch_sources",
+      "sha256": "6b6f8d0b643426f4178c30f26506356839b999d4650dc6e468ddf27d4b158c81"
+    },
+    "tools/item_sprite_edge_pixels.py": {
+      "binding": "launch_sources",
+      "sha256": "bebeb9e4d805a6cf4531dbe802b25465795a638df07ee4bd79bafdbc393d8cbe"
+    },
+    "tools/item_sprite_motion_capture.py": {
+      "binding": "launch_sources",
+      "sha256": "4f0f737df33edb213836ca2a049faa6b6c5443a0ec0c54e9abdca753cc106294"
+    },
+    "tools/item_sprite_native_reference.py": {
+      "binding": "capture_host_dependency",
+      "sha256": "8334484fcf5836df8dcf816beb123fa7ceaf33ea0cdeffb2360f7d17e6455d73"
+    },
+    "tools/liquid_payload_poc.py": {
+      "binding": "launch_sources",
+      "sha256": "93adac7eef6f4e42112120ff4efb417c761a3f057ba49de8fc7cd9de81ede312"
+    },
+    "tools/mcdk.py": {
+      "binding": "launch_sources",
+      "sha256": "b457026c01b26ccffd972089d7e55382011bba93f73d495131fafc0abebcafd5"
+    },
+    "tools/observe_owned_startup.py": {
+      "binding": "launch_sources",
+      "sha256": "950cb24da27c18cc84736600c76013adabd1bb1a3d0c1a50a4ad806fac294ba7"
+    },
+    "tools/probe_frame_block_enchantment_r21.py": {
+      "binding": "analysis_dependency_snapshot",
+      "sha256": "c6fa3cf312784737324a0dcd7a53d89b136b2cfac3b3877b0c18d4749239f901"
+    },
+    "tools/probe_liquid_pose_channel.py": {
+      "binding": "launch_sources",
+      "sha256": "1d52187f8f977fb5542ce6d13e9abf6eb633d0117fe7d98a8ade96e9e2826499"
+    },
+    "tools/probe_liquid_scene.py": {
+      "binding": "launch_sources",
+      "sha256": "2843e32ab43d5befc41a4a158b5f62d46272b0ef36f39be3f68538f5f6556a1f"
+    },
+    "tools/probe_liquid_uniform_transport.py": {
+      "binding": "launch_sources",
+      "sha256": "4c45030a391945637ae49ae1f39cc84c5a556a7f0219879dd3560f4a627d33f5"
+    },
+    "tools/probe_liquid_workspace.py": {
+      "binding": "launch_sources",
+      "sha256": "de5c2470b30ffa2a51cfcd4da3ff39ae21b763111de2de0ad815921d090f8dd9"
+    },
+    "tools/probe_product_water.py": {
+      "binding": "launch_sources",
+      "sha256": "d68da331db2ac034a5a0407b014bffbe1a3feaf3cf573e31e41af93646c8d9d1"
+    },
+    "tools/release_owned_game_focus.py": {
+      "binding": "launch_sources",
+      "sha256": "a710cac06e2ac236a54681314781ac42a1206c8dc8503898270ff6cc799b20f6"
+    },
+    "tools/run_visible_items_r16.py": {
+      "binding": "capture_host_tool",
+      "sha256": "600ac86457a857e78f0cdef3307de6a2d2db8d65d4bd5ae0ea9b1d91c4ae2e5d"
+    },
+    "tools/shulker_pixels.py": {
+      "binding": "launch_sources",
+      "sha256": "a134286c29b26a433448e78f9e825e88faeead4718be5af6ac0fe8fa71f64ca5"
+    },
+    "tools/sign_panel_oracle.py": {
+      "binding": "launch_sources",
+      "sha256": "b7472e2fd901bfedc403bc02622c27fdeda910c8e15760713775eeb0ccb99f44"
+    },
+    "tools/verify_botanical_neighbor_world_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "c738da28ec3f08e484bca5c76475741f14bf262ff359dd541e1f6da35fc5a9d5"
+    },
+    "tools/verify_camera_projection.py": {
+      "binding": "launch_sources",
+      "sha256": "20b702496787cf34d85102d600399f103733b260cc08ecc153067d6caf519eb8"
+    },
+    "tools/verify_context_batch_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "92eaa22743e360a85dea04e868ba5633eb29651486231c83e49c2574c237f0ef"
+    },
+    "tools/verify_debug_blueprints.py": {
+      "binding": "launch_sources",
+      "sha256": "73b725a0bb14d354ae0e6648578c24f8fe2de622ba98a1d4eae39d14737b89f9"
+    },
+    "tools/verify_debug_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "2dc121a997909330f592165707d895ce6a1f2a781288e865f14aa360d9272c9b"
+    },
+    "tools/verify_dripstone_direct_seed.py": {
+      "binding": "launch_sources",
+      "sha256": "52796b8e961321541b2d0889c4c61a661719fb560f803e88311c561911df2ecf"
+    },
+    "tools/verify_dripstone_native_boxes.py": {
+      "binding": "launch_sources",
+      "sha256": "62a0b34011d8f1e1346417d40b93a875c08e85fc8e1944e97521eadf1e448339"
+    },
+    "tools/verify_dripstone_world_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "eab820f7fc8fd5b40159ec1ccd6788518807d0c5c6799a368470638cc93a7790"
+    },
+    "tools/verify_extended_neighbor_world_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "1307d2eac80f19cee40d066c5d328c74c302e753a2e331d26e61237c4b292fc2"
+    },
+    "tools/verify_missing_neighbor_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "edca326910919c1a8a0e50fbd0318f68252a8377116152584aafd950413c949a"
+    },
+    "tools/verify_native_entity_appearances.py": {
+      "binding": "launch_sources",
+      "sha256": "d2d19437e25f6b7f5362f923ea027ad70b634d6d652efe6a30b395cdc513592d"
+    },
+    "tools/verify_native_sign_fields.py": {
+      "binding": "launch_sources",
+      "sha256": "0b205cebbd41abc01fbbee3525eddbe442d03a54b4abb39a7b39a30ada23b8b5"
+    },
+    "tools/verify_neighbor_native_png.py": {
+      "binding": "launch_sources",
+      "sha256": "276d256eb22ff9b21355a2ebc44dd440885426c211043c08ccea45ae0f0d863c"
+    },
+    "tools/verify_neighbor_world_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "7c948a91dd1f03dd3307b96ead989e8f3e0e2828f1ab5e0484211c5c0eb73258"
+    },
+    "tools/verify_shulker_orientations.py": {
+      "binding": "launch_sources",
+      "sha256": "0745199a433f82adaf5cb98298bd35b0037cd5a3226268aac318ea16c6ed90d1"
+    },
+    "tools/verify_sign_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "efa1b1537b50b9bbe13c40e6c7f7be45d75452acf2aa584cce8925cde3d15e8b"
+    },
+    "tools/verify_static_neighbor_world_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "8a69062274617ac9741d4f63f7e813e0c776bcead0728590c41df2bb98ae0a70"
+    },
+    "tools/verify_wet_actor_visuals.py": {
+      "binding": "launch_sources",
+      "sha256": "5e7f3a9ae6095086d0044d9b211b8fd8dd5bafc5cb6f045b5a25a484e7a1bb2e"
+    },
+    "tools/visual_environment.py": {
+      "binding": "launch_sources",
+      "sha256": "1a71b530c88dc22dc66cb9f9c68f56b2a039741c058c6a0de2ec6cb419500519"
+    },
+    "tools/watch_intrinsic_glint_exit_r21.py": {
+      "binding": "analysis_dependency_snapshot",
+      "sha256": "aa436ee9a0f496554c69330d8456fa21b6bb551b63032f0b5a453ad9748646aa"
+    },
+    "tools/water_capture_contract.py": {
+      "binding": "launch_sources",
+      "sha256": "1548fb691139be132a1b3f823b400068253e3493cf9b17bb0673677e1da98f66"
+    },
+    "tools/water_native_projection.py": {
+      "binding": "launch_sources",
+      "sha256": "bef9e23e3d10ff763fb0e36df9eff7432a6b926219d04866509fa0cd9e168816"
+    }
+  }
+}

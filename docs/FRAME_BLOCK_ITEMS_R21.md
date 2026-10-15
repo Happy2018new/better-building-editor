@@ -203,3 +203,42 @@ the actual solid support. The diagnostic still requires all three camera
 angles for each item. Blank and shifted silhouettes are negative controls.
 This north-facing rotation-zero batch does not accept UI pixels, materials,
 textures, glint, the remaining frame poses, or production use.
+
+## Restored Native Holdout Results
+
+The frozen v3 run completed its independent no-screenshot enchantment probe,
+six-case matrix, all fixture restoration and unchanged-source checks. The
+replayable evidence is `docs/evidence/frame-block-holdouts-r21-v1/`. Its 80
+unaltered PNGs include 74 main captures and six independent camera calibration
+captures. Calibration passes at vertical FOV 66.6 degrees. Every one of the
+12 native/full-or-missing silhouette pairs passes unchanged thresholds:
+five cases are pixel-identical; stone -75 degrees differs by four pixels,
+IoU 0.99915754, maximum edge distance one pixel and P95 zero.
+
+The original support-only analytic model still fails its oblique holdouts,
+including the native references themselves. Its 8-9 pixel overprediction
+extends into the native frame backboard. This missing occluder biases its
+joint fit; do not replace the fixed scale 0.25 and center Z 0.4375 from that
+fit. Paired visible geometry agrees, while absolute-depth certification and
+the aggregate `geometry_holdouts_passed` remain false. The original failed
+result and thresholds are preserved in the bundle.
+
+The independent probe and all three quartz cases preserve actual native
+`Item.Block` through plain inventory insertion and explicitly synthetic
+enchant-tag application. Server and client agree on name, auxiliary value,
+count, block state/version and enchantment (9,3). Native and product quartz
+screenshots visibly show glint. These shown frames do not accept glint motion,
+direction, phase or brightness. Public enchant-manufacturing API failures
+remain separate evidence.
+
+The normal-only close request followed successful restoration, but the game
+eventually exited `0xC0000409`; MCDK exited zero. Retained process handles and
+WER record 80432 match game PID 15144 and exact creation identity
+134365611080856581. Event 80433 correlates by report ID. The fault module is
+`ucrtbase.dll`; no root cause or clean-exit claim is inferred.
+
+Next, include independently measured frame-backboard geometry in pose
+diagnostics, then measure grass, log and planks with glass separate. Keep the
+existing six-face/eight-rotation and lifecycle gates. Production admission
+also needs an explicit validated `(name, aux)` whitelist; an opaque-material
+toggle must not admit all 324 opaque resource candidates.
