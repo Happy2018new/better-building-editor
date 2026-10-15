@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-15T17:11:04.805412+00:00",
+  "stage": "sealed_offline_candidate",
+  "product_qualified": false,
+  "native_runtime_experiment_executed": false,
+  "offline_tests": 86,
+  "shader_programs": 4,
+  "shader_checks": 224,
+  "shared_and_book_sources_unchanged": true,
+  "files": {
+    "baseline/behavior_pack/modern_projection/projection/render_context.py": {
+      "sha256": "e874ac903eacd01bb1a4400e9385fe479a395b6cd0bc5174ce4276d538606fd8",
+      "bytes": 25388
+    },
+    "candidate/.mcdev.json": {
+      "sha256": "0d5502d197d45ff08e839c254d9c6c650edd98a86f3436ade698c8121177d106",
+      "bytes": 282
+    },
+    "candidate/behavior_pack/modern_projection/projection/lectern_body.py": {
+      "sha256": "36d0c03fb47b4fd12ce633a4578663afca56fd0abee3d4a4ea47aa16f6595de4",
+      "bytes": 347
+    },
+    "candidate/behavior_pack/modern_projection/projection/render_context.py": {
+      "sha256": "e32955a0160968429d2111c21d7c262e07249b2dba0fba8c1e2b5975fec7a85c",
+      "bytes": 26157
+    },
+    "host/offline-first-harness-failure.json": {
+      "sha256": "b99c76f5d7a45e173036facff863fcc539ca625988e5e8213563cea6f08157e2",
+      "bytes": 1849
+    },
+    "host/offline-first-harness-failure.log": {
+      "sha256": "fd44adcfa04c2d8719518502dd7a439beeaf294a819b90ddf14c51ca182e044d",
+      "bytes": 15298
+    },
+    "host/offline-report.json": {
+      "sha256": "2d6c2095ac0ca5a942a2d6132c1a4b98a33fbc1e2ff7741ac8bf77c09fd138b2",
+      "bytes": 2030
+    },
+    "host/offline-tests.log": {
+      "sha256": "c509a57d43eb8b1965944faa200f6288ff0a3d4b5ed89bc7771c062cd2503d3c",
+      "bytes": 16532
+    },
+    "host/overlay-shader-report.json": {
+      "sha256": "924366d378b19968bb5948e118e60b3a4e078cdd4ed92cf7a6d5a0284af54f51",
+      "bytes": 123027
+    },
+    "host/probe_runtime.py": {
+      "sha256": "95b36207b495258ead6a791d2e7e5f1b4325010afaf277041fd7422405828336",
+      "bytes": 19993
+    },
+    "host/prove_overlay_shader.py": {
+      "sha256": "ba923ca09a717a240237a45367f6e2195439c4a6d80f2b33f248d6d98d62e0c4",
+      "bytes": 7913
+    },
+    "host/README.md": {
+      "sha256": "6af5265ad94e3e057c640e8f57c3b41ffb4aac7c70a3581b4b72857069978a2d",
+      "bytes": 5713
+    },
+    "host/run_offline.py": {
+      "sha256": "02d3bff1d05115a314bf53e6b86c8256830f79b1b95c827908301bfa7ce5eeab",
+      "bytes": 2930
+    },
+    "host/seal_offline.py": {
+      "sha256": "fa73ad0f2e2289482c65b6e9e5e8715f46fa7dd75090b792331b52aa7d918fa6",
+      "bytes": 3526
+    },
+    "host/test_lectern_body_candidate.py": {
+      "sha256": "dda8d19b6b18c6454babcc06e1618f3b398386a98df8108470d96aebbcfc4f3e",
+      "bytes": 11407
+    },
+    "host/test_lectern_world_candidate.py": {
+      "sha256": "37bf36d28afbf0681a37497e2da30afa7b02a4f7a02ad854c465fec1f54788e8",
+      "bytes": 4527
+    },
+    "shared/behavior_pack/modern_projection/projection/book_preview.py": {
+      "sha256": "616de3ac3dc0e7aa0c312948752726f4355db55d902cb945b53b543db5825f2a",
+      "bytes": 867
+    },
+    "shared/behavior_pack/modern_projection/projection/book_projection.py": {
+      "sha256": "22714b4c135021a1d90b53196f151e942c06ccc7f7d0dab453de17d3b2344407",
+      "bytes": 581
+    },
+    "shared/behavior_pack/modern_projection/projection/book_render_plan.py": {
+      "sha256": "0651752d0eee500b95e9453b3f9c143583c3e1f669fe5436e8fc99782e0ab268",
+      "bytes": 3345
+    },
+    "shared/behavior_pack/modern_projection/projection/entity_render.py": {
+      "sha256": "a2cd09aa502b590429955e2adabd1523e05c619167d8b26f50c0f438a3d86722",
+      "bytes": 12874
+    },
+    "shared/behavior_pack/modern_projection/projection/geometry_palette.py": {
+      "sha256": "e04a6a2d21a24c338bb10960f8b5706bec25b23b43d80f838698932aeb6059d1",
+      "bytes": 15018
+    },
+    "shared/behavior_pack/modern_projection/projection/occupancy_shader.py": {
+      "sha256": "184af1d5fcd5c03b8595b98114c48bfb3c6035f2130d7d37d7fadb1eb5be52e3",
+      "bytes": 14411
+    },
+    "shared/behavior_pack/modern_projection/projection/visible_actor.py": {
+      "sha256": "06a45742aa05787c19a63757d69785a124a2241a3eb93e2637f9234d6b4880e7",
+      "bytes": 2972
+    },
+    "shared/resource_pack/materials/terrain.material": {
+      "sha256": "b20079f22bb9272d036f1ca4c1c148ab2a0a9c05ad0cf894b644db93ebd5971b",
+      "bytes": 3719
+    },
+    "shared/resource_pack/shaders/glsl/modern_projection_biome_blocks.fragment": {
+      "sha256": "8c1c7a5f6bc17c9826085da7a0816aa64b910cb9068bdc0b34853f801c4f9077",
+      "bytes": 9153
+    },
+    "shared/resource_pack/shaders/glsl/modern_projection_biome_blocks.vertex": {
+      "sha256": "0eae45cf748d5b70a18d4040a463a8b8e3746b1748ee6464ac4c54dcd65f8809",
+      "bytes": 12899
+    }
+  }
+}

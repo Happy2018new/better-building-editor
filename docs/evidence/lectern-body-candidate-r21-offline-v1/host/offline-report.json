@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-15T17:09:44.191479+00:00",
+  "stage": "offline_isolated_candidate",
+  "product_qualified": false,
+  "native_pixels_qualified": false,
+  "candidate_enabled_only_in_test_process": true,
+  "clone": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20",
+  "modules": [
+    "test_lectern_body_candidate",
+    "test_lectern_world_candidate",
+    "test_render_context",
+    "test_context_batches",
+    "test_context_cached_writes",
+    "test_native_actor_context",
+    "test_native_render_profile",
+    "test_static_table_render",
+    "test_book_render_plan",
+    "test_book_owner",
+    "test_book_qualification",
+    "test_book_resources"
+  ],
+  "tests_run": 86,
+  "errors": 0,
+  "failures": 0,
+  "skipped": 0,
+  "successful": true,
+  "elapsed_seconds": 5.239728799992008,
+  "loaded_render_context": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20\\behavior_pack\\modern_projection\\projection\\render_context.py",
+  "candidate_sources": {
+    ".runtime\\projects\\book-r20\\behavior_pack\\modern_projection\\projection\\render_context.py": "e32955a0160968429d2111c21d7c262e07249b2dba0fba8c1e2b5975fec7a85c",
+    ".runtime\\projects\\book-r20\\behavior_pack\\modern_projection\\projection\\lectern_body.py": "36d0c03fb47b4fd12ce633a4578663afca56fd0abee3d4a4ea47aa16f6595de4",
+    ".runtime\\lectern-body-candidate-r21\\run_offline.py": "02d3bff1d05115a314bf53e6b86c8256830f79b1b95c827908301bfa7ce5eeab",
+    ".runtime\\lectern-body-candidate-r21\\test_lectern_body_candidate.py": "dda8d19b6b18c6454babcc06e1618f3b398386a98df8108470d96aebbcfc4f3e",
+    ".runtime\\lectern-body-candidate-r21\\test_lectern_world_candidate.py": "37bf36d28afbf0681a37497e2da30afa7b02a4f7a02ad854c465fec1f54788e8"
+  },
+  "unchanged_main_render_context_sha256": "e874ac903eacd01bb1a4400e9385fe479a395b6cd0bc5174ce4276d538606fd8",
+  "log": "offline-tests.log"
+}

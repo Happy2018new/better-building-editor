@@ -1,0 +1,5205 @@
+{
+  "schema": 1,
+  "stage": "synthetic_shared_shader_raster",
+  "created_at": "2026-10-15T16:59:27.278311+00:00",
+  "product_qualified": false,
+  "native_lectern_pixels_qualified": false,
+  "successful": true,
+  "programs": 4,
+  "checks": 224,
+  "results": [
+    {
+      "name": "100/",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "checks": [
+        {
+          "name": "axis1/0.49/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "100/BLEND,ALPHA_TEST,ENABLE_SET_TRANSPARENCY",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "checks": [
+        {
+          "name": "axis1/0.49/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "300/",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "checks": [
+        {
+          "name": "axis1/0.49/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "300/BLEND,ALPHA_TEST,ENABLE_SET_TRANSPARENCY",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "checks": [
+        {
+          "name": "axis1/0.49/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.49/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.581528254/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.581528254,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/0.653281482/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank1/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/overlay/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/overlay/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/context/active",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis1/-0.58/bank2/context/stale",
+          "axis": 1,
+          "axes": [
+            0,
+            2
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.49/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.49,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/0.653281482/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": 0.653281482,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.125,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank1/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.25,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/overlay/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": true,
+          "visible_pixels": 2704,
+          "center_rgba": [
+            180,
+            120,
+            60,
+            255
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/overlay/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": false,
+          "common": 0.625,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/context/active",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 2,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        },
+        {
+          "name": "axis2/-0.58/bank2/context/stale",
+          "axis": 2,
+          "axes": [
+            0,
+            1
+          ],
+          "distance": -0.58,
+          "packed": true,
+          "common": 0.75,
+          "active_bank": 1,
+          "opacity": 1,
+          "expect_visible": false,
+          "visible_pixels": 0,
+          "center_rgba": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "gl_error": 0,
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "sources": {
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20\\resource_pack\\shaders\\glsl\\modern_projection_biome_blocks.vertex": "0eae45cf748d5b70a18d4040a463a8b8e3746b1748ee6464ac4c54dcd65f8809",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20\\resource_pack\\shaders\\glsl\\modern_projection_biome_blocks.fragment": "8c1c7a5f6bc17c9826085da7a0816aa64b910cb9068bdc0b34853f801c4f9077",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\lectern-body-candidate-r21\\prove_overlay_shader.py": "ba923ca09a717a240237a45367f6e2195439c4a6d80f2b33f248d6d98d62e0c4",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20\\resource_pack\\materials\\terrain.material": "b20079f22bb9272d036f1ca4c1c148ab2a0a9c05ad0cf894b644db93ebd5971b",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20\\behavior_pack\\modern_projection\\projection\\occupancy_shader.py": "184af1d5fcd5c03b8595b98114c48bfb3c6035f2130d7d37d7fadb1eb5be52e3"
+  },
+  "limits": [
+    "Real unchanged shaders, synthetic axis-aligned quads and SwiftShader only.",
+    "Distances include both experimental lectern rotation-sign overhang references.",
+    "No native geometry extraction, native lectern texture or real game pixel acceptance.",
+    "No change to global clip or native/rendered book ownership."
+  ]
+}

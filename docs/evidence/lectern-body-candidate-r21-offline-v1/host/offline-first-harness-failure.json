@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-15T16:52:08.830488+00:00",
+  "stage": "offline_isolated_candidate",
+  "product_qualified": false,
+  "native_pixels_qualified": false,
+  "candidate_enabled_only_in_test_process": true,
+  "clone": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20",
+  "modules": [
+    "test_lectern_body_candidate",
+    "test_render_context",
+    "test_context_batches",
+    "test_context_cached_writes",
+    "test_native_actor_context",
+    "test_native_render_profile",
+    "test_static_table_render",
+    "test_book_render_plan",
+    "test_book_owner",
+    "test_book_qualification",
+    "test_book_resources"
+  ],
+  "tests_run": 75,
+  "errors": 1,
+  "failures": 0,
+  "skipped": 0,
+  "successful": false,
+  "elapsed_seconds": 12.778178799999296,
+  "loaded_render_context": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20\\behavior_pack\\modern_projection\\projection\\render_context.py",
+  "candidate_sources": {
+    ".runtime\\projects\\book-r20\\behavior_pack\\modern_projection\\projection\\render_context.py": "e32955a0160968429d2111c21d7c262e07249b2dba0fba8c1e2b5975fec7a85c",
+    ".runtime\\projects\\book-r20\\behavior_pack\\modern_projection\\projection\\lectern_body.py": "36d0c03fb47b4fd12ce633a4578663afca56fd0abee3d4a4ea47aa16f6595de4",
+    ".runtime\\lectern-body-candidate-r21\\run_offline.py": "578887ff2319ced745a904e0d30c22894e8b35ae7cd5b4101cca59aced9198a1",
+    ".runtime\\lectern-body-candidate-r21\\test_lectern_body_candidate.py": "989f124f0725b67a3b3fb732e91c39be65b74f8d4469c38d66dcc89c2512988a"
+  },
+  "unchanged_main_render_context_sha256": "e874ac903eacd01bb1a4400e9385fe479a395b6cd0bc5174ce4276d538606fd8",
+  "log": "offline-tests.log"
+}
