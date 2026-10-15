@@ -41,6 +41,19 @@ assert info.SetBlockNew(support,{'name':'minecraft:cyan_concrete','aux':0},0,dim
 _result=json.dumps({'origin':origin,'support':support,'dimension':dimension,
  'placed':info.GetBlockNew(origin,dimension),'nbt':info.GetBlockEntityData(dimension,origin)})
 '''
+SET_AUX = '''import json,sys
+import mod.server.extraServerApi as api
+saved=sys._liquid_pose_world
+factory=api.GetEngineCompFactory()
+info=factory.CreateBlockInfo(saved['player'])
+origin=tuple(saved['origin'])
+requested={'name':%r,'aux':%r}
+assert info.SetBlockNew(origin,requested,0,saved['dimension'],True,False)
+actual=info.GetBlockNew(origin,saved['dimension'])
+assert actual==requested,(requested,actual)
+_result=json.dumps({'requested':requested,'actual':actual,
+ 'states':factory.CreateBlockState(api.GetLevelId()).GetBlockStates(origin,saved['dimension'])})
+'''
 PALETTE = '''saved=sys._liquid_pose_client
 origin=tuple(saved['origin'])
 low=(origin[0],origin[1]-1,origin[2])
@@ -48,6 +61,7 @@ block=factory.CreateBlock(level)
 live=block.GetBlockPaletteBetweenPos(low,origin,False)
 assert live is not None
 raw=live.SerializeBlockPalette()
+saved['snapshot']=raw
 copy=block.GetBlankBlockPalette()
 assert copy.DeserializeBlockPalette(raw)
 from modern_projection.projection.geometry_palette import prepare_palette
@@ -76,6 +90,32 @@ _result=json.dumps({'volume':raw['volume'],'common':repr(raw['common']),
  'roundtrip_equal':copy.SerializeBlockPalette()==raw,
  'prepared_common':repr(prepared['common']),'prepared_actor':repr(prepared.get('actor',{})),
  'paths':saved['paths']})
+'''
+CONTEXT_PALETTE = '''saved=sys._liquid_pose_client
+from modern_projection.projection.model import Document
+from modern_projection.projection.render_context import prepare_context_batches
+from modern_projection.projection.bridge import _native_palette
+raw=saved['snapshot']
+assert tuple(raw['volume'])==(1,1,2),raw['volume']
+assert not raw.get('extra') and not raw.get('actor'),raw
+cells={}
+for material,indices in raw['common'].items():
+ for index in indices:
+  assert index in (0,1),index
+  cells[(0,index,0)]=material
+assert len(cells)==2,cells
+doc=Document((1,2,1),cells)
+data=prepare_context_batches(doc,doc.palette_data())
+rows=data['_context_batches']
+assert len(rows)==1 and rows[0][0]==(0,0,0) and rows[0][1] is True,rows
+palette=factory.CreateBlock(level).GetBlankBlockPalette()
+assert palette.DeserializeBlockPalette(_native_palette(rows[0][2]))
+name=saved['paths'][0]['requested']+'_context'
+result=factory.CreateBlockGeometry(level).CombineBlockPaletteToGeometry(palette,name,0)
+assert result is not None
+saved['paths'].append({'path':'context','requested':name,'returned':result})
+_result=json.dumps({'paths':saved['paths'],'prepared_context':repr(data),
+ 'classification':'public packed-context builder and existing shader; no overrides'})
 '''
 CLEAR = native.CLEAR + '''
 support=(saved['origin'][0],saved['origin'][1]-1,saved['origin'][2])
@@ -107,6 +147,10 @@ def main():
     parser.add_argument('--block', default='minecraft:oak_shelf',
                         choices=('minecraft:oak_shelf', 'minecraft:enchanting_table',
                                  'minecraft:lectern', 'minecraft:cyan_concrete'))
+    parser.add_argument('--aux', type=int, default=0,
+                        help='Explicit native block state; the settled client palette must retain it.')
+    parser.add_argument('--context-control', action='store_true',
+                        help='Also render the unchanged public packed context for empty lecterns or cyan concrete.')
     parser.add_argument('--body-offsets',type=float,nargs='+',default=(),
                         help='Diagnostic vertical offsets for a separately generated body; support stays fixed.')
     parser.add_argument('--proxy-block', help='Optional registered internal body candidate; never placed in the real world.')
@@ -116,6 +160,10 @@ def main():
     session = json.loads(args.session.read_bytes())
     if session['owner'] != args.owner or args.output.exists():
         parser.error('Use the owned session and a fresh output')
+    if not 0 <= args.aux <= 32767:
+        parser.error('Native aux must be in 0..32767')
+    if args.context_control and args.block not in ('minecraft:lectern', 'minecraft:cyan_concrete'):
+        parser.error('The packed-context control is limited to empty lecterns or the cyan positive control')
     if args.proxy_block and not args.proxy_block.startswith('modern_projection:preview_'):
         parser.error('Only an internal preview block can be used as a body candidate')
     os.environ.update(MCDEV_SESSION_FILE=str(args.session.resolve()),
@@ -125,9 +173,13 @@ def main():
     report = {'schema': 1, 'completed': False, 'restored': False, 'captures': {},
               'pixel_acceptance_claimed': False, 'source_sha256': sources,
               'host_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              'host_dependencies': {name: hashlib.sha256((Path(__file__).parent/name).read_bytes()).hexdigest()
+                                    for name in ('probe_liquid_pose_channel.py', 'probe_product_water.py',
+                                                 'capture_native_window.py')},
               'session': {key: session[key] for key in ('id','owner','game_pid','game_identity')},
               'cleanup_errors': []}
     report['block'] = args.block
+    report['requested_material'] = {'name': args.block, 'aux': args.aux}
     report['entity_shadow_enabled'] = False
     def persist():
         native.write(args.output, report)
@@ -145,12 +197,15 @@ def main():
             environment = True
             report['world'] = native.run(client, PREPARE % args.block, True)
             world = True
+            if args.aux:
+                report['placement'] = native.run(client, SET_AUX % (args.block, args.aux), True)
             origin = tuple(report['world']['origin'])
             report['near_player'] = native.run(client, native.NEAR_PLAYER, True)
             deadline = time.monotonic() + 15.
             while True:
                 replicated = native.run(client, native.REPLICATION % (origin,))
-                if any(row['name'] == args.block for row in replicated['materials']):
+                if any(row['name'] == args.block and row['aux'] == args.aux
+                       for row in replicated['materials']):
                     break
                 if time.monotonic() >= deadline:
                     raise RuntimeError('Native body did not replicate: ' + repr(replicated))
@@ -160,6 +215,8 @@ def main():
             saved = True
             time.sleep(1.)
             report['palette'] = native.run(client, PALETTE % ('shelf_body_' + uuid.uuid4().hex))
+            if args.context_control:
+                report['packed_context'] = native.run(client, CONTEXT_PALETTE)
             if args.proxy_block:
                 report['proxy'] = native.run(client, PROXY % args.proxy_block)
             def frame(label, view):
@@ -186,6 +243,15 @@ def main():
                 native.run(client, native.ATTACH % (key,(-.5,-1.,-.5),(0.,0.,0.,0.),[]))
                 for view in VIEWS:
                     frame(key, view)
+            if args.context_control:
+                native.run(client, native.ATTACH % (
+                    'context', (-.5,-1.,-.5), (19487.,1.,1.,1.), [(1,(0.,0.,0.,19490.))]) + '''
+saved=sys._liquid_pose_client
+assert factory.CreateActorRender(saved['entity']).SetActorBlockGeometryTransparency(saved['attached'],.25)
+_result={'context_tag':19490,'bank':1,'transparency_discriminator':.25}
+''')
+                for view in VIEWS:
+                    frame('context', view)
             separate = [('body_only', offset, 'separate_'+str(offset)) for offset in args.body_offsets]
             if args.proxy_block:
                 separate.append(('proxy', 0., 'proxy'))

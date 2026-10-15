@@ -290,3 +290,8 @@ tools/analyze_item_glint_direction_r20.py text eol=lf
 tools/pack_item_glint_direction_r20.py text eol=lf
 tools/verify_item_glint_direction_r20.py text eol=lf
 tests/test_item_glint_direction.py text eol=lf
+# R21 lectern diagnostics preserve measured crops and host tool fingerprints.
+docs/evidence/lectern-context-r21-*/** -text -diff whitespace=cr-at-eol
+tools/analyze_lectern_context_bounds_r21.py text eol=lf
+tools/analyze_lectern_body_context_r21.py text eol=lf
+tools/probe_native_palette_body_r16.py text eol=lf

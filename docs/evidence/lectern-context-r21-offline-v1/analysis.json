@@ -1,0 +1,198 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "offline_only": true,
+  "hypothesis": "Packed context center-cell clipping removes lectern body overhang; unclipped live/roundtrip/prepared versus public context control is still required.",
+  "source_report": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-r20-final-reference-v1\\report.json",
+  "report_sha256": "a100756beade87ad5c54fbd07856f72a6e19dacf6feb3a205c9f860c17cc71ff",
+  "tool_sha256": "9ec18eb1b0bda9ab4a0faba165163a5b12e63b15ba6a79a435f80e4a97a84d9b",
+  "camera": {
+    "camera": [
+      6.5,
+      85.62001037597656,
+      3.5
+    ],
+    "rotation": [
+      -7.218019008636475,
+      179.99996948242188,
+      -1.3660379408975132e-05
+    ],
+    "screen": [
+      499.0,
+      277.0
+    ],
+    "foot": [
+      6.5,
+      84.0,
+      3.5
+    ]
+  },
+  "world_material": {
+    "aux": 1,
+    "name": "minecraft:lectern"
+  },
+  "world_states": {
+    "powered_bit": false,
+    "minecraft:cardinal_direction": "west"
+  },
+  "document_material": [
+    "minecraft:lectern",
+    1
+  ],
+  "document_states": {
+    "minecraft:cardinal_direction": "west",
+    "powered_bit": false
+  },
+  "prepared_material_states": [
+    [
+      [
+        "minecraft:cyan_concrete",
+        0
+      ],
+      {}
+    ],
+    [
+      [
+        "minecraft:lectern",
+        1
+      ],
+      {
+        "minecraft:cardinal_direction": "west",
+        "powered_bit": false
+      }
+    ]
+  ],
+  "book_pose": [
+    "lectern",
+    64
+  ],
+  "candidate_projection_parts": [
+    [
+      "modern_projection_buffer_0_0_c_0_0_0_r15_1792073379604000",
+      [
+        0,
+        0,
+        0
+      ],
+      true
+    ]
+  ],
+  "context_fragment": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20\\resource_pack\\shaders\\glsl\\modern_projection_biome_blocks.fragment",
+  "context_fragment_sha256": "8c1c7a5f6bc17c9826085da7a0816aa64b910cb9068bdc0b34853f801c4f9077",
+  "context_fragment_hash_in_original_report": null,
+  "context_center_clip_present": true,
+  "native_geometry": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\resource_packs\\experimental_vanilla_block_geometry\\models\\blocks\\lectern.geo.json",
+  "native_geometry_sha256": "e3dfcc83dd94c53b24264e8fc504a9d6d3e11d66b0293f5574d52c8d7536739a",
+  "native_rotated_cube_bounds": [
+    {
+      "bone": "cube3",
+      "origin": [
+        -7.987500000000001,
+        12.0,
+        -5.0
+      ],
+      "size": [
+        15.975000000000001,
+        4.0,
+        13.0
+      ],
+      "rotation": [
+        22.5,
+        -0.0,
+        0.0
+      ],
+      "pivot": [
+        -0.0,
+        8.0,
+        0.0
+      ],
+      "right_handed": {
+        "minimum": [
+          0.0007812499999999556,
+          0.5396281669452768,
+          0.30695850418149534
+        ],
+        "maximum": [
+          0.99921875,
+          1.0815283388697339,
+          1.1532814824381883
+        ],
+        "corners_outside_unit_cell": 6
+      },
+      "opposite_angle_sign_control": {
+        "minimum": [
+          0.0007812499999999556,
+          0.6113813105137311,
+          0.01994592990767796
+        ],
+        "maximum": [
+          0.99921875,
+          1.1532814824381883,
+          0.8662689081643709
+        ],
+        "corners_outside_unit_cell": 2
+      }
+    }
+  ],
+  "captures": {
+    "native": {
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-r20-final-reference-v1\\native_lectern.book_motion0.png",
+      "source_sha256": "33243beeee97e20e58d0ad2d6a9a881b06e2c2d626ab87b6d6bd98418e3093fa",
+      "crop_bounds": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "crop_sha256": "2a59b593b527840ace438392fe7a9376fb6b54c5cae72edcad3be19271ba3a2c",
+      "top_outline_crop_pixels": {
+        "60": 145,
+        "80": 100,
+        "90": 78,
+        "100": 82,
+        "110": 86,
+        "120": 90,
+        "140": 77,
+        "160": 75,
+        "180": 56,
+        "200": 64,
+        "240": 81,
+        "280": 98,
+        "310": 149
+      }
+    },
+    "candidate": {
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-r20-final-reference-v1\\candidate_lectern.book_motion0.png",
+      "source_sha256": "83315a1afeb8be98de318c2f3a1f1e34fb0061f6c9ca56f0e5e25ed04d9ace53",
+      "crop_bounds": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "crop_sha256": "59ccacf3bc84af6b9854b951544ebba628eaea8f8769a06d5fa5f0116d6189d6",
+      "top_outline_crop_pixels": {
+        "60": 146,
+        "80": 129,
+        "90": 129,
+        "100": 129,
+        "110": 129,
+        "120": 129,
+        "140": 86,
+        "160": 79,
+        "180": 61,
+        "200": 70,
+        "240": 86,
+        "280": 102,
+        "310": 155
+      }
+    }
+  },
+  "limits": [
+    "Experimental native JSON geometry is only a resource reference for overhang.",
+    "Both angle signs are shown; this tool does not resolve Bedrock rotation convention.",
+    "The original report does not attest unlisted shared shaders; the new runtime control must bind them.",
+    "Outline masks describe the retained silhouette, not page, pose or product acceptance.",
+    "The matched north frontal page qualification is not widened."
+  ]
+}
