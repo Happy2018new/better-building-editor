@@ -11,6 +11,10 @@ class LiquidProjection:
     pass
 
 
+class ProductLiquidProjection(LiquidProjection):
+    pass
+
+
 class CauldronProjection(LiquidProjection):
     pass
 
@@ -25,7 +29,8 @@ class Companions:
 
 
 def selected(owner):
-    namespace = {'owner': owner, 'LiquidProjection': LiquidProjection}
+    namespace = {'owner': owner, 'LiquidProjection': LiquidProjection,
+                 'ProductLiquidProjection': ProductLiquidProjection}
     exec(WATER_OWNER_SELECT, namespace)
     return namespace['liquid']
 
@@ -36,11 +41,15 @@ class WaterProbeOwnerTest(unittest.TestCase):
         self.assertIs(selected(owner), owner)
 
     def test_multisurface_owner_ignores_liquid_subclasses_in_any_order(self):
-        owner = LiquidProjection()
         cauldron, item = CauldronProjection(), ItemProjection()
-        for others in ((cauldron, item, owner), (item, owner, cauldron), (owner, cauldron, item)):
-            with self.subTest(order=others):
-                self.assertIs(selected(Companions(*others)), owner)
+        for owner in (LiquidProjection(), ProductLiquidProjection()):
+            for others in ((cauldron, item, owner), (item, owner, cauldron), (owner, cauldron, item)):
+                with self.subTest(order=others):
+                    self.assertIs(selected(Companions(*others)), owner)
+
+    def test_single_product_water_owner(self):
+        owner = ProductLiquidProjection()
+        self.assertIs(selected(owner), owner)
 
     def test_missing_water_has_no_selected_owner(self):
         for owner in (None, CauldronProjection(), ItemProjection(),

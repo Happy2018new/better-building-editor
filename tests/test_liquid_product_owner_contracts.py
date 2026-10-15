@@ -14,7 +14,8 @@ from projection.cell import make_cell
 from projection.debug_blueprints import material
 from projection.debug_product_water_blueprints import CASES, FOCUS, source_document
 from projection.liquid_preview import LiquidPreview
-from projection.liquid_projection import LiquidProjection
+from projection.liquid_product_projection import ProductLiquidProjection
+from projection.liquid_product_render import ProductWorldLiquidRenderer
 from tests.test_liquid_render import Runtime
 
 
@@ -72,7 +73,9 @@ class ProductWaterOwnerContracts(unittest.TestCase):
         preview = LiquidPreview(selected_session, adapter.provider_factory, adapter.models, adapter.max_groups)
         runtime = Runtime()
         runtime.session = selected_session
-        world = LiquidProjection(runtime, document, (10, 64, 20), adapter, 0)
+        world = adapter.projection_factory(runtime, document, (10, 64, 20), adapter, 0)
+        self.assertIsInstance(world, ProductLiquidProjection)
+        self.assertIsInstance(world.renderer, ProductWorldLiquidRenderer)
         world.renderer.SETTLE_SECONDS = 0.
         world.request()
         finish(preview)

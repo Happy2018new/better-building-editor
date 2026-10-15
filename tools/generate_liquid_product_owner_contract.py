@@ -9,7 +9,8 @@ OUTPUT = ROOT / 'behavior_pack/modern_projection/projection/liquid_product_owner
 CONTRACT = ROOT / 'tools/data/liquid_product_owner_contract_v1.json'
 SOURCES = tuple('behavior_pack/modern_projection/projection/' + name + '.py' for name in (
     'liquid_shape', 'liquid_native_shapes', 'liquid_product_shape_data', 'liquid_product_flow_top',
-    'liquid_face_textures', 'liquid_face_texture_data', 'liquid_product_profile',
+    'liquid_face_textures', 'liquid_face_texture_data', 'liquid_product_profile', 'liquid_product_render',
+    'liquid_product_projection',
     'liquid_render_plan', 'liquid_transport', 'liquid_render', 'liquid_preview',
     'liquid_projection', 'liquid_viewport', 'liquid_scene', 'scene', 'world_projection',
     'projection_companions', 'liquid_render_ownership', 'geometry_palette',

@@ -1,0 +1,762 @@
+{
+  "alpha_controls": {
+    "editor_wet_oak_fence_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": false,
+      "regions": {
+        "body": {
+          "eligible_pixels": 0,
+          "passed": false,
+          "phases": {}
+        },
+        "rear": {
+          "eligible_pixels": 0,
+          "passed": false,
+          "phases": {}
+        }
+      }
+    },
+    "full_wet_oak_fence_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 1100,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.3180492147927786,
+              "passed": true,
+              "water_pixels": 1100
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.27828070632933255,
+              "passed": true,
+              "water_pixels": 1100
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.31757246846550274,
+              "passed": true,
+              "water_pixels": 1100
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 899,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.33532036602032017,
+              "passed": true,
+              "water_pixels": 899
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.3031964185539665,
+              "passed": true,
+              "water_pixels": 899
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.33532036602032017,
+              "passed": true,
+              "water_pixels": 899
+            }
+          }
+        }
+      }
+    },
+    "missing_wet_oak_fence_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 1100,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.3180492147927786,
+              "passed": true,
+              "water_pixels": 1100
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.27828070632933255,
+              "passed": true,
+              "water_pixels": 1100
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.31757246846550274,
+              "passed": true,
+              "water_pixels": 1100
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 899,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.33532036602032017,
+              "passed": true,
+              "water_pixels": 899
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.3031964185539665,
+              "passed": true,
+              "water_pixels": 899
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.33532036602032017,
+              "passed": true,
+              "water_pixels": 899
+            }
+          }
+        }
+      }
+    }
+  },
+  "analyzer_sha256": "84d554a0280798061139d598388c56707553c204cea73481bdc02010120fdff9",
+  "animation": {},
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "evidence_valid": true,
+  "geometry": {
+    "editor_falling_wet": {
+      "declared": {
+        "bounds": [
+          892,
+          405,
+          1128,
+          661
+        ],
+        "pixels": 39465
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_flow_east_wet": {
+      "declared": {
+        "bounds": [
+          699,
+          408,
+          1193,
+          692
+        ],
+        "pixels": 69023
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_flow_north_wet": {
+      "declared": {
+        "bounds": [
+          739,
+          495,
+          1153,
+          709
+        ],
+        "pixels": 51949
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_flow_south_wet": {
+      "declared": {
+        "bounds": [
+          739,
+          391,
+          1153,
+          709
+        ],
+        "pixels": 65950
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_flow_west_wet": {
+      "declared": {
+        "bounds": [
+          699,
+          489,
+          1193,
+          692
+        ],
+        "pixels": 59294
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_low_wet": {
+      "declared": {
+        "bounds": [
+          832,
+          529,
+          1060,
+          653
+        ],
+        "pixels": 17533
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_pool_wet": {
+      "declared": {
+        "bounds": [
+          739,
+          447,
+          1193,
+          749
+        ],
+        "pixels": 96554
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_source_wet": {
+      "declared": {
+        "bounds": [
+          832,
+          447,
+          1060,
+          653
+        ],
+        "pixels": 36229
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "full_falling_wet": {
+      "declared": {
+        "bounds": [
+          877,
+          340,
+          1237,
+          739
+        ],
+        "pixels": 90109
+      },
+      "iou": 0.9784346088693915,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          877,
+          337,
+          1240,
+          740
+        ],
+        "pixels": 92089
+      },
+      "passed": true
+    },
+    "full_flow_east_wet": {
+      "declared": {
+        "bounds": [
+          783,
+          451,
+          1234,
+          739
+        ],
+        "pixels": 59459
+      },
+      "iou": 0.9754092982053217,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          782,
+          449,
+          1237,
+          740
+        ],
+        "pixels": 60958
+      },
+      "passed": true
+    },
+    "full_flow_north_wet": {
+      "declared": {
+        "bounds": [
+          762,
+          522,
+          1163,
+          764
+        ],
+        "pixels": 54846
+      },
+      "iou": 0.9761853908586074,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          760,
+          521,
+          1166,
+          765
+        ],
+        "pixels": 56184
+      },
+      "passed": true
+    },
+    "full_flow_south_wet": {
+      "declared": {
+        "bounds": [
+          777,
+          443,
+          1172,
+          764
+        ],
+        "pixels": 57643
+      },
+      "iou": 0.9791574656021743,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          775,
+          441,
+          1174,
+          765
+        ],
+        "pixels": 58870
+      },
+      "passed": true
+    },
+    "full_flow_west_wet": {
+      "declared": {
+        "bounds": [
+          794,
+          515,
+          1249,
+          739
+        ],
+        "pixels": 56579
+      },
+      "iou": 0.974072479986227,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          793,
+          514,
+          1252,
+          740
+        ],
+        "pixels": 58085
+      },
+      "passed": true
+    },
+    "full_low_wet": {
+      "declared": {
+        "bounds": [
+          892,
+          548,
+          1099,
+          676
+        ],
+        "pixels": 15614
+      },
+      "iou": 0.9751436422682987,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          892,
+          547,
+          1100,
+          677
+        ],
+        "pixels": 16012
+      },
+      "passed": true
+    },
+    "full_pool_wet": {
+      "declared": {
+        "bounds": [
+          762,
+          479,
+          1249,
+          850
+        ],
+        "pixels": 115361
+      },
+      "iou": 0.9793203562060154,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          760,
+          478,
+          1252,
+          852
+        ],
+        "pixels": 117797
+      },
+      "passed": true
+    },
+    "full_source_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          479,
+          1103,
+          676
+        ],
+        "pixels": 30864
+      },
+      "iou": 0.9752275025278059,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          677
+        ],
+        "pixels": 31648
+      },
+      "passed": true
+    },
+    "missing_falling_wet": {
+      "declared": {
+        "bounds": [
+          877,
+          340,
+          1237,
+          739
+        ],
+        "pixels": 90109
+      },
+      "iou": 0.9784346088693915,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          877,
+          337,
+          1240,
+          740
+        ],
+        "pixels": 92089
+      },
+      "passed": true
+    },
+    "missing_flow_east_wet": {
+      "declared": {
+        "bounds": [
+          783,
+          451,
+          1234,
+          739
+        ],
+        "pixels": 59459
+      },
+      "iou": 0.9754092982053217,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          782,
+          449,
+          1237,
+          740
+        ],
+        "pixels": 60958
+      },
+      "passed": true
+    },
+    "missing_flow_north_wet": {
+      "declared": {
+        "bounds": [
+          762,
+          522,
+          1163,
+          764
+        ],
+        "pixels": 54846
+      },
+      "iou": 0.9761853908586074,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          760,
+          521,
+          1166,
+          765
+        ],
+        "pixels": 56184
+      },
+      "passed": true
+    },
+    "missing_flow_south_wet": {
+      "declared": {
+        "bounds": [
+          777,
+          443,
+          1172,
+          764
+        ],
+        "pixels": 57643
+      },
+      "iou": 0.9791574656021743,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          775,
+          441,
+          1174,
+          765
+        ],
+        "pixels": 58870
+      },
+      "passed": true
+    },
+    "missing_flow_west_wet": {
+      "declared": {
+        "bounds": [
+          794,
+          515,
+          1249,
+          739
+        ],
+        "pixels": 56579
+      },
+      "iou": 0.974072479986227,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          793,
+          514,
+          1252,
+          740
+        ],
+        "pixels": 58085
+      },
+      "passed": true
+    },
+    "missing_low_wet": {
+      "declared": {
+        "bounds": [
+          892,
+          548,
+          1099,
+          676
+        ],
+        "pixels": 15614
+      },
+      "iou": 0.9751436422682987,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          892,
+          547,
+          1100,
+          677
+        ],
+        "pixels": 16012
+      },
+      "passed": true
+    },
+    "missing_pool_wet": {
+      "declared": {
+        "bounds": [
+          762,
+          479,
+          1249,
+          850
+        ],
+        "pixels": 115361
+      },
+      "iou": 0.9793203562060154,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          760,
+          478,
+          1252,
+          852
+        ],
+        "pixels": 117797
+      },
+      "passed": true
+    },
+    "missing_source_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          479,
+          1103,
+          676
+        ],
+        "pixels": 30864
+      },
+      "iou": 0.9752275025278059,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          677
+        ],
+        "pixels": 31648
+      },
+      "passed": true
+    }
+  },
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": false,
+    "geometry": false,
+    "transparency": false
+  },
+  "product_style_accepted": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "a64ca0e8d51eaa9a814aa22ec12016fc848f5b4e6a0c6d2bf5f781b93eebb34e",
+  "transparency": {
+    "editor_wet_oak_fence_wet": {
+      "passed": false,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 0,
+          "eligible_pixels": 0,
+          "fraction": 0.0,
+          "passed": false,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 560
+        },
+        "rear": {
+          "contribution_pixels": 0,
+          "eligible_pixels": 0,
+          "fraction": 0.0,
+          "passed": false,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 440
+        }
+      },
+      "water_pixels": 0
+    },
+    "full_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 1100,
+          "eligible_pixels": 1100,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 1100
+        },
+        "rear": {
+          "contribution_pixels": 690,
+          "eligible_pixels": 690,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 690
+        }
+      },
+      "water_pixels": 19976
+    },
+    "missing_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 1100,
+          "eligible_pixels": 1100,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 1100
+        },
+        "rear": {
+          "contribution_pixels": 690,
+          "eligible_pixels": 690,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 690
+        }
+      },
+      "water_pixels": 19976
+    }
+  },
+  "transparency_phase_controlled": true
+}

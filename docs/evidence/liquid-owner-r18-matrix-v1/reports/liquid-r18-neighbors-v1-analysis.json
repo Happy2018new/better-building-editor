@@ -1,0 +1,914 @@
+{
+  "alpha_controls": {
+    "editor_wet_glass_pane_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": false,
+      "regions": {
+        "body": {
+          "eligible_pixels": 0,
+          "passed": false,
+          "phases": {}
+        },
+        "rear": {
+          "eligible_pixels": 0,
+          "passed": false,
+          "phases": {}
+        }
+      }
+    },
+    "editor_wet_oak_slab_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": false,
+      "regions": {
+        "body": {
+          "eligible_pixels": 0,
+          "passed": false,
+          "phases": {}
+        },
+        "rear": {
+          "eligible_pixels": 0,
+          "passed": false,
+          "phases": {}
+        }
+      }
+    },
+    "editor_wet_oak_stairs_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": false,
+      "regions": {
+        "body": {
+          "eligible_pixels": 0,
+          "passed": false,
+          "phases": {}
+        },
+        "rear": {
+          "eligible_pixels": 0,
+          "passed": false,
+          "phases": {}
+        }
+      }
+    },
+    "full_wet_glass_pane_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 1100,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.2478697116216379,
+              "passed": true,
+              "water_pixels": 1100
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.3153785604058057,
+              "passed": true,
+              "water_pixels": 1100
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.2478697116216379,
+              "passed": true,
+              "water_pixels": 1100
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 899,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.33532036602032017,
+              "passed": true,
+              "water_pixels": 899
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.3031964185539665,
+              "passed": true,
+              "water_pixels": 899
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.33532036602032017,
+              "passed": true,
+              "water_pixels": 899
+            }
+          }
+        }
+      }
+    },
+    "full_wet_oak_slab_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 369,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.30871122378828986,
+              "passed": true,
+              "water_pixels": 369
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.2816905988774492,
+              "passed": true,
+              "water_pixels": 369
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.30871122378828986,
+              "passed": true,
+              "water_pixels": 369
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 442,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.2925675593298877,
+              "passed": true,
+              "water_pixels": 442
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.3287620181150096,
+              "passed": true,
+              "water_pixels": 442
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.2989423286139052,
+              "passed": true,
+              "water_pixels": 442
+            }
+          }
+        }
+      }
+    },
+    "full_wet_oak_stairs_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 369,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.30871122378828986,
+              "passed": true,
+              "water_pixels": 369
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.2816905988774492,
+              "passed": true,
+              "water_pixels": 369
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.30871122378828986,
+              "passed": true,
+              "water_pixels": 369
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 442,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.2925675593298877,
+              "passed": true,
+              "water_pixels": 442
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.3287620181150096,
+              "passed": true,
+              "water_pixels": 442
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.2989423286139052,
+              "passed": true,
+              "water_pixels": 442
+            }
+          }
+        }
+      }
+    },
+    "missing_wet_glass_pane_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 1100,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.2478697116216379,
+              "passed": true,
+              "water_pixels": 1100
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.3153785604058057,
+              "passed": true,
+              "water_pixels": 1100
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 1100,
+              "endpoint_rgb_rmse": 0.2478697116216379,
+              "passed": true,
+              "water_pixels": 1100
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 899,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.33532036602032017,
+              "passed": true,
+              "water_pixels": 899
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.3031964185539665,
+              "passed": true,
+              "water_pixels": 899
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 899,
+              "endpoint_rgb_rmse": 0.33532036602032017,
+              "passed": true,
+              "water_pixels": 899
+            }
+          }
+        }
+      }
+    },
+    "missing_wet_oak_slab_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 369,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.30871122378828986,
+              "passed": true,
+              "water_pixels": 369
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.2816905988774492,
+              "passed": true,
+              "water_pixels": 369
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.30871122378828986,
+              "passed": true,
+              "water_pixels": 369
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 442,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.2925675593298877,
+              "passed": true,
+              "water_pixels": 442
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.3287620181150096,
+              "passed": true,
+              "water_pixels": 442
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.2989423286139052,
+              "passed": true,
+              "water_pixels": 442
+            }
+          }
+        }
+      }
+    },
+    "missing_wet_oak_stairs_wet": {
+      "complete": true,
+      "geometry_unchanged": true,
+      "passed": true,
+      "regions": {
+        "body": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 369,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.30871122378828986,
+              "passed": true,
+              "water_pixels": 369
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.2816905988774492,
+              "passed": true,
+              "water_pixels": 369
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 369,
+              "endpoint_rgb_rmse": 0.30871122378828986,
+              "passed": true,
+              "water_pixels": 369
+            }
+          }
+        },
+        "rear": {
+          "default_rgb_rmse": 0.0,
+          "eligible_pixels": 442,
+          "passed": true,
+          "phases": {
+            "0_25": {
+              "alpha": 0.25,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.2925675593298877,
+              "passed": true,
+              "water_pixels": 442
+            },
+            "0_45": {
+              "alpha": 0.45,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.3287620181150096,
+              "passed": true,
+              "water_pixels": 442
+            },
+            "0_75": {
+              "alpha": 0.75,
+              "body_pixels": 442,
+              "endpoint_rgb_rmse": 0.2989423286139052,
+              "passed": true,
+              "water_pixels": 442
+            }
+          }
+        }
+      }
+    }
+  },
+  "analyzer_sha256": "84d554a0280798061139d598388c56707553c204cea73481bdc02010120fdff9",
+  "animation": {},
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "evidence_valid": true,
+  "geometry": {
+    "editor_diagonal_wet": {
+      "declared": {
+        "bounds": [
+          792,
+          434,
+          1060,
+          653
+        ],
+        "pixels": 34065
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_drop_north_wet": {
+      "declared": {
+        "bounds": [
+          832,
+          447,
+          1153,
+          744
+        ],
+        "pixels": 55534
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_neighbor_glass_pane_wet": {
+      "declared": {
+        "bounds": [
+          832,
+          448,
+          1059,
+          652
+        ],
+        "pixels": 35927
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_neighbor_oak_slab_wet": {
+      "declared": {
+        "bounds": [
+          832,
+          448,
+          1059,
+          652
+        ],
+        "pixels": 26066
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_neighbor_oak_stairs_wet": {
+      "declared": {
+        "bounds": [
+          832,
+          448,
+          1059,
+          652
+        ],
+        "pixels": 18225
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_neighbor_stone_wet": {
+      "declared": {
+        "bounds": [
+          868,
+          448,
+          1059,
+          652
+        ],
+        "pixels": 17188
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "editor_transparent_overlap_wet": {
+      "declared": {
+        "bounds": [
+          645,
+          447,
+          1060,
+          765
+        ],
+        "pixels": 71231
+      },
+      "iou": 0.0,
+      "maximum_boundary_pixels": null,
+      "observed": {
+        "bounds": null,
+        "pixels": 0
+      },
+      "passed": false
+    },
+    "full_diagonal_wet": {
+      "declared": {
+        "bounds": [
+          886,
+          479,
+          1099,
+          676
+        ],
+        "pixels": 24573
+      },
+      "iou": 0.9681289096523874,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          886,
+          478,
+          1100,
+          677
+        ],
+        "pixels": 25138
+      },
+      "passed": true
+    },
+    "full_drop_north_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          479,
+          1160,
+          725
+        ],
+        "pixels": 38544
+      },
+      "iou": 0.9549162730785745,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1162,
+          726
+        ],
+        "pixels": 38857
+      },
+      "passed": true
+    },
+    "full_neighbor_glass_pane_wet": {
+      "declared": {
+        "bounds": [
+          888,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 30796
+      },
+      "iou": 0.9302421399594321,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          677
+        ],
+        "pixels": 30107
+      },
+      "passed": true
+    },
+    "full_neighbor_oak_slab_wet": {
+      "declared": {
+        "bounds": [
+          888,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 22601
+      },
+      "iou": 0.9655970181226169,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 23278
+      },
+      "passed": true
+    },
+    "full_neighbor_oak_stairs_wet": {
+      "declared": {
+        "bounds": [
+          888,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 14876
+      },
+      "iou": 0.9385739933316235,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 15358
+      },
+      "passed": true
+    },
+    "full_neighbor_stone_wet": {
+      "declared": {
+        "bounds": [
+          928,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 14471
+      },
+      "iou": 0.9460800529275554,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          926,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 14944
+      },
+      "passed": true
+    },
+    "full_transparent_overlap_wet": {
+      "declared": {
+        "bounds": [
+          592,
+          479,
+          1103,
+          884
+        ],
+        "pixels": 91526
+      },
+      "iou": 0.9746692395441316,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          589,
+          478,
+          1105,
+          886
+        ],
+        "pixels": 93696
+      },
+      "passed": true
+    },
+    "missing_diagonal_wet": {
+      "declared": {
+        "bounds": [
+          886,
+          479,
+          1099,
+          676
+        ],
+        "pixels": 24573
+      },
+      "iou": 0.9681289096523874,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          886,
+          478,
+          1100,
+          677
+        ],
+        "pixels": 25138
+      },
+      "passed": true
+    },
+    "missing_drop_north_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          479,
+          1160,
+          725
+        ],
+        "pixels": 38544
+      },
+      "iou": 0.9549162730785745,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1162,
+          726
+        ],
+        "pixels": 38857
+      },
+      "passed": true
+    },
+    "missing_neighbor_glass_pane_wet": {
+      "declared": {
+        "bounds": [
+          888,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 30796
+      },
+      "iou": 0.9302421399594321,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          677
+        ],
+        "pixels": 30107
+      },
+      "passed": true
+    },
+    "missing_neighbor_oak_slab_wet": {
+      "declared": {
+        "bounds": [
+          888,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 22601
+      },
+      "iou": 0.9655970181226169,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 23278
+      },
+      "passed": true
+    },
+    "missing_neighbor_oak_stairs_wet": {
+      "declared": {
+        "bounds": [
+          888,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 14876
+      },
+      "iou": 0.9385739933316235,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 15358
+      },
+      "passed": true
+    },
+    "missing_neighbor_stone_wet": {
+      "declared": {
+        "bounds": [
+          928,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 14471
+      },
+      "iou": 0.9460800529275554,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          926,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 14944
+      },
+      "passed": true
+    },
+    "missing_transparent_overlap_wet": {
+      "declared": {
+        "bounds": [
+          592,
+          479,
+          1103,
+          884
+        ],
+        "pixels": 91526
+      },
+      "iou": 0.9746692395441316,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          589,
+          478,
+          1105,
+          886
+        ],
+        "pixels": 93696
+      },
+      "passed": true
+    }
+  },
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": false,
+    "geometry": false,
+    "transparency": false
+  },
+  "product_style_accepted": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "94f7927fdf760bf300b46d134d0095712b776e3b5ec6c0a27cc8524d894b8983",
+  "transparency": {},
+  "transparency_phase_controlled": true
+}

@@ -98,9 +98,10 @@ row['screen_size']=b.factory.CreateGame(b.level).GetScreenSize()
 _result=json.dumps(row)
 '''
 WATER_OWNER_SELECT = '''liquid=next((companion for companion in getattr(owner,'companions',(owner,))
- if type(companion) is LiquidProjection),None)
+ if type(companion) in (LiquidProjection,ProductLiquidProjection)),None)
 '''
 WATER_OWNER = '''from modern_projection.projection.liquid_projection import LiquidProjection
+from modern_projection.projection.liquid_product_projection import ProductLiquidProjection
 owner=b.projection_liquid
 ''' + WATER_OWNER_SELECT
 
