@@ -1,0 +1,764 @@
+{
+  "schema": 1,
+  "pixels_replayed": true,
+  "capture_count": 41,
+  "original_completed": true,
+  "original_passed": false,
+  "original_restored": true,
+  "rows": [
+    {
+      "plant": "blue_orchid",
+      "kind": "plant",
+      "height": 0,
+      "checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 21819,
+          "observed_pixels": 21159,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "full_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 11430,
+          "observed_pixels": 11244,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "missing_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 11430,
+          "observed_pixels": 11244,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_missing_equivalence": {
+          "passed": true,
+          "expected_pixels": 11244,
+          "observed_pixels": 11244,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "passed": false
+    },
+    {
+      "plant": "blue_orchid",
+      "kind": "snow",
+      "height": 0,
+      "checks": {
+        "full_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "full_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "missing_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "missing_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "full_missing_equivalence": {
+          "passed": true,
+          "expected_pixels": 36049,
+          "observed_pixels": 36049,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "passed": false
+    },
+    {
+      "plant": "blue_orchid",
+      "kind": "covered",
+      "height": 0,
+      "checks": {
+        "editor_snow": {
+          "height": 0,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 21159,
+          "snow_pixels": 37408,
+          "covered_contribution_pixels": 19738,
+          "upper_pixels": 18867,
+          "standalone_uncovered_pixels": 17944,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 3198,
+          "upper_retained": 1.0,
+          "lower_retained": 0.5556597873671044,
+          "lower_snow_control_coverage": 0.9662288930581614,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "full_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "full_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "full_snow": {
+          "height": 0,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 11244,
+          "snow_pixels": 36049,
+          "covered_contribution_pixels": 10577,
+          "upper_pixels": 10178,
+          "standalone_uncovered_pixels": 7382,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 1639,
+          "upper_retained": 1.0,
+          "lower_retained": 0.5954850518608907,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 0.9963984456449626,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "missing_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "missing_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "missing_snow": {
+          "height": 0,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 11244,
+          "snow_pixels": 36049,
+          "covered_contribution_pixels": 10577,
+          "upper_pixels": 10178,
+          "standalone_uncovered_pixels": 7382,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 1639,
+          "upper_retained": 1.0,
+          "lower_retained": 0.5954850518608907,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 0.9963984456449626,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "full_missing_equivalence": {
+          "passed": true,
+          "expected_pixels": 43561,
+          "observed_pixels": 43561,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "passed": false
+    },
+    {
+      "plant": "blue_orchid",
+      "kind": "snow",
+      "height": 4,
+      "checks": {
+        "full_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "full_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "missing_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "missing_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "full_missing_equivalence": {
+          "passed": true,
+          "expected_pixels": 73215,
+          "observed_pixels": 73215,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "passed": false
+    },
+    {
+      "plant": "blue_orchid",
+      "kind": "covered",
+      "height": 4,
+      "checks": {
+        "editor_snow": {
+          "height": 4,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 21159,
+          "snow_pixels": 112522,
+          "covered_contribution_pixels": 3473,
+          "upper_pixels": 3396,
+          "standalone_uncovered_pixels": 467,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 3198,
+          "upper_retained": 1.0,
+          "lower_retained": 0.0,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "full_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "full_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "full_snow": {
+          "height": 4,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 11244,
+          "snow_pixels": 73215,
+          "covered_contribution_pixels": 2064,
+          "upper_pixels": 1965,
+          "standalone_uncovered_pixels": 0,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 1639,
+          "upper_retained": 1.0,
+          "lower_retained": 0.005491153142159854,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 0.9529582929194956,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "missing_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "missing_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "missing_snow": {
+          "height": 4,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 11244,
+          "snow_pixels": 73215,
+          "covered_contribution_pixels": 2064,
+          "upper_pixels": 1965,
+          "standalone_uncovered_pixels": 0,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 1639,
+          "upper_retained": 1.0,
+          "lower_retained": 0.005491153142159854,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 0.9529582929194956,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "full_missing_equivalence": {
+          "passed": true,
+          "expected_pixels": 73215,
+          "observed_pixels": 73215,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "passed": false
+    },
+    {
+      "plant": "blue_orchid",
+      "kind": "snow",
+      "height": 7,
+      "checks": {
+        "full_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "full_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "missing_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "missing_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "full_missing_equivalence": {
+          "passed": true,
+          "expected_pixels": 103925,
+          "observed_pixels": 103925,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "passed": false
+    },
+    {
+      "plant": "blue_orchid",
+      "kind": "covered",
+      "height": 7,
+      "checks": {
+        "editor_snow": {
+          "height": 7,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "fully_covered_plant_stays_occluded": true,
+            "high_snow_occludes_lower_foliage": true
+          },
+          "failures": [],
+          "plant_pixels": 21159,
+          "snow_pixels": 168048,
+          "covered_contribution_pixels": 0,
+          "upper_pixels": 0,
+          "standalone_uncovered_pixels": 0,
+          "fully_occluded_by_snow_control": true,
+          "lower_pixels": 3198,
+          "upper_retained": 0.0,
+          "lower_retained": 0.0,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "full_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "full_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "full_snow": {
+          "height": 7,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "fully_covered_plant_stays_occluded": true,
+            "high_snow_occludes_lower_foliage": true
+          },
+          "failures": [],
+          "plant_pixels": 11244,
+          "snow_pixels": 103925,
+          "covered_contribution_pixels": 0,
+          "upper_pixels": 0,
+          "standalone_uncovered_pixels": 0,
+          "fully_occluded_by_snow_control": true,
+          "lower_pixels": 1639,
+          "upper_retained": 0.0,
+          "lower_retained": 0.0,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "missing_backdrop": {
+          "passed": false,
+          "tested_pixels": 100325,
+          "non_wall_pixels": 32843,
+          "non_wall_bounds": [
+            312,
+            124,
+            679,
+            274
+          ],
+          "maximum_wall_channel": 55,
+          "minimum_wall_coverage": 0.99,
+          "method": "Actual hidden native pixels inside calibrated cell hull, excluding native crosshair"
+        },
+        "missing_inside_cell": {
+          "passed": true,
+          "outside_pixels": 0
+        },
+        "missing_snow": {
+          "height": 7,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "fully_covered_plant_stays_occluded": true,
+            "high_snow_occludes_lower_foliage": true
+          },
+          "failures": [],
+          "plant_pixels": 11244,
+          "snow_pixels": 103925,
+          "covered_contribution_pixels": 0,
+          "upper_pixels": 0,
+          "standalone_uncovered_pixels": 0,
+          "fully_occluded_by_snow_control": true,
+          "lower_pixels": 1639,
+          "upper_retained": 0.0,
+          "lower_retained": 0.0,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "full_missing_equivalence": {
+          "passed": true,
+          "expected_pixels": 103925,
+          "observed_pixels": 103925,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "passed": false
+    }
+  ],
+  "qualification_changed": false,
+  "production_accepted": false,
+  "non_background_checks_passed": true,
+  "background_checks_passed": false
+}

@@ -62,8 +62,25 @@ rejects empty, offscreen, nonfinite or undersized hulls. Focused negative
 controls reject the old double scaling and logical coordinates cropped as
 physical pixels.
 
-The next matrix first revisits blue orchid, lily of the valley, bush and crimson
-roots. Remaining work includes all 29 plant names and eight snow heights,
+The corrected blue-orchid matrix at heights 0, 4 and 7 completes and restores
+the scene with no cleanup errors or changed product source. All shape, snow
+burial/retention, inside-cell and full/missing equivalence checks pass. It still
+fails acceptance because every full/missing backdrop check fails. For example,
+the dry plant has editor expected/observed areas of 21,819/21,159 pixels and
+world areas of 11,430/11,244 pixels; both shape recall and precision are 1.0
+within the declared edge tolerance, and no world plant pixels lie outside the
+calibrated cell. Of 100,325 tested background pixels, 32,843 are not dark wall.
+
+Native palette readback reports the complete 1,025-block black-concrete wall,
+and its projected top is above the viewport, but its visible pixels end across
+the cell. A separate journaled `SetBlockNew(..., True, True)` control reproduces
+that failure. The direct control reaches the 215,000-handle gate and restores
+successfully. A native section visibility/update issue is a hypothesis, not an
+established API defect. The next isolated control lowers the unchanged fixture
+from player Y+32 to Y+16, retaining the original background thresholds.
+
+The next plant matrix revisits lily of the valley, bush and crimson roots.
+Remaining work includes all 29 plant names and eight snow heights,
 different document/world cells, neighboring faces and seams, automatic/strict
 editing, adding/removing snow while retaining plants, undo/redo, saved document
 round trips, and separate editor/full/missing visual behavior. Existing limited
@@ -80,5 +97,35 @@ The current raw, unmodified runs are:
 - `.runtime/snow-product-r20-targeted-v1`: host-data failure before fixtures.
 - `.runtime/snow-product-r20-targeted-v2`: original double-scale failures,
   explicit controlled cancellation, successful restoration and stable sources.
+- `.runtime/snow-product-r20-targeted-v3`: corrected physical-pixel hull,
+  complete blue-orchid h0/h4/h7 matrix, unchanged failed background gates and
+  independent pixel replay.
+- `.runtime/snow-product-r20-direct-backdrop-v1`: documented direct native wall
+  setter control, original failure and successful restoration at handle gate.
 
-Portable evidence publication and corrected pixel qualification are pending.
+The first snow engine and MCDK were stopped normally after these controls. A
+second stop finalized the managed receipt after the first wait timed out while
+the native process exited. No force termination was used.
+
+## Portable Pixel Replay
+
+`docs/evidence/snow-product-r20-v1` retains 1,656 files totaling 64,270,122 bytes,
+including unmodified matrix/calibration reports, captures and receipts, frozen
+acquisition tools/data, the complete cold business Python, and used plant
+assets. The manifest verifies the latter against the original launch hashes.
+
+```powershell
+python -X utf8 docs/evidence/snow-product-r20-v1/verify_package.py --pixels
+```
+
+The independent verifier passes manifest byte checks and replays all 41
+captures without a live game or original absolute paths. It reproduces
+`non_background_checks_passed=true`, `background_checks_passed=false` and
+`production_accepted=false`. The absent-plant negative control is rejected.
+This is a portable pixel replay, not a complete executable acquisition replay:
+unrelated full product media is pinned by hash rather than duplicated.
+
+The runner also supports a row-boundary pause handshake. A root pause request
+is acknowledged only after the current row's native captures drain, before
+the next document mutation. Root can then reserve a short WGC window for
+another owner without interrupting a six-second frame-response gate.

@@ -39,6 +39,8 @@ def main():
     parser.add_argument('--camera-calibration', type=Path)
     parser.add_argument('--plant', action='append')
     parser.add_argument('--height', type=int, choices=range(8), action='append')
+    parser.add_argument('--direct-backdrop', action='store_true')
+    parser.add_argument('--target-lift', type=int, choices=range(16, 65), default=32)
     args = parser.parse_args()
     session = load_session(args.session, args.owner, live=True)
     project = args.project.resolve(strict=True)
@@ -57,7 +59,7 @@ def main():
     frozen = args.output / 'inputs'
     frozen.mkdir()
     shutil.copyfile(__file__, frozen / Path(__file__).name)
-    for name in ('run_snow_matrix_r20.py', 'snow_native_projection_r20.py'):
+    for name in ('run_snow_matrix_r20.py', 'snow_native_projection_r20.py', 'snow_contrast_direct_r20.py'):
         shutil.copyfile(ROOT / 'tools' / name, frozen / name)
     shutil.copyfile(args.launch_inputs, frozen / 'launch-inputs.json')
     for folder in ('tools', '.agents/skills/pyreact-debugging/scripts'):
@@ -92,6 +94,9 @@ def main():
             command += ['--plant', name]
         for height in args.height or ():
             command += ['--height', str(height)]
+        if args.direct_backdrop:
+            command += ['--direct-backdrop']
+        command += ['--target-lift', str(args.target_lift)]
     record['command'] = command
     write(args.output / 'receipt.json', record)
     started = time.monotonic()
