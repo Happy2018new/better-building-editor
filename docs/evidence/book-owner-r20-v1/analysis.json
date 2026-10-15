@@ -1,0 +1,528 @@
+{
+  "schema": 2,
+  "source": ".runtime\\book-r20-final-owner-v1\\report.json",
+  "source_sha256": "518415313999b3695dd63de72d987297f3e26c39f74a267e49f62ee1ae9ed2fd",
+  "analyzer_sha256": "df63edadb41feb2422f5f0ac9cd3c43fb198e3d1f870b9db596fa1440e23366e",
+  "scope": "Cover fragments and native outside/inside artwork distribution; pose, silhouette, occlusion and brightness need separate checks.",
+  "requires_unobscured_fixture_review": true,
+  "product_qualified": false,
+  "owner_path": "independent_book",
+  "owner_matrix": {
+    "checks": {
+      "report_identity": true,
+      "restoration": true,
+      "profile_path": true,
+      "editor_model_enchanting_table": true,
+      "editor_enchanting_table_yaw35": true,
+      "editor_enchanting_table_yaw215": true,
+      "editor_enchanting_table_yaw35_pitch75_zoom3": true,
+      "editor_enchanting_table_yaw215_pitch25_zoom1": true,
+      "editor_enchanting_table_yaw35_pitch25_zoom2": true,
+      "editor_enchanting_table_section_layer2": true,
+      "editor_enchanting_table_section_layer3": true,
+      "editor_enchanting_table_single_layer2": true,
+      "editor_enchanting_table_single_layer3": true,
+      "editor_enchanting_table_full_layer3": true,
+      "editor_enchanting_table_hidden": true,
+      "editor_enchanting_table_restored": true,
+      "full_enchanting_table_motion0": true,
+      "full_enchanting_table_opacity0.35": true,
+      "full_enchanting_table_opacity0.7": true,
+      "full_enchanting_table_opacity1.0": true,
+      "full_enchanting_table_motion1": true,
+      "full_enchanting_table_motion2": true,
+      "missing_enchanting_table_motion0": true,
+      "missing_enchanting_table_opacity0.35": true,
+      "missing_enchanting_table_opacity0.7": true,
+      "missing_enchanting_table_opacity1.0": true,
+      "missing_enchanting_table_motion1": true,
+      "missing_enchanting_table_motion2": true,
+      "missing_enchanting_table_occupied": true,
+      "missing_enchanting_table_restored": true,
+      "editor_model_lectern.book": true,
+      "editor_lectern.book_yaw35": true,
+      "editor_lectern.book_yaw215": true,
+      "editor_lectern.book_yaw35_pitch75_zoom3": true,
+      "editor_lectern.book_yaw215_pitch25_zoom1": true,
+      "editor_lectern.book_yaw35_pitch25_zoom2": true,
+      "editor_lectern.book_section_layer2": true,
+      "editor_lectern.book_section_layer3": true,
+      "editor_lectern.book_single_layer2": true,
+      "editor_lectern.book_single_layer3": true,
+      "editor_lectern.book_full_layer3": true,
+      "editor_lectern.book_hidden": true,
+      "editor_lectern.book_restored": true,
+      "full_lectern.book_motion0": true,
+      "full_lectern.book_opacity0.35": true,
+      "full_lectern.book_opacity0.7": true,
+      "full_lectern.book_opacity1.0": true,
+      "missing_lectern.book_motion0": true,
+      "missing_lectern.book_opacity0.35": true,
+      "missing_lectern.book_opacity0.7": true,
+      "missing_lectern.book_opacity1.0": true,
+      "missing_lectern.book_occupied": true,
+      "missing_lectern.book_restored": true,
+      "editor_model_lectern.empty": true,
+      "editor_lectern.empty_yaw35": true,
+      "editor_lectern.empty_yaw215": true,
+      "full_lectern.empty_motion0": true,
+      "full_lectern.empty_opacity0.35": true,
+      "full_lectern.empty_opacity0.7": true,
+      "full_lectern.empty_opacity1.0": true,
+      "missing_lectern.empty_motion0": true,
+      "missing_lectern.empty_opacity0.35": true,
+      "missing_lectern.empty_opacity0.7": true,
+      "missing_lectern.empty_opacity1.0": true
+    },
+    "capture_count": 65,
+    "occupancy_included": true,
+    "passed": true
+  },
+  "owner_matrix_passed": true,
+  "timeline_valid": true,
+  "scale_valid": true,
+  "candidate_duration_seconds": 229.3537839,
+  "candidate_count": 31,
+  "maximum_isolated_pixels": 8,
+  "rows": [
+    {
+      "label": "editor_enchanting_table_yaw35",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 3552,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 780694615022
+    },
+    {
+      "label": "editor_enchanting_table_yaw215",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2858,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 780752311047
+    },
+    {
+      "label": "editor_enchanting_table_motion0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 332,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 780800795054
+    },
+    {
+      "label": "editor_enchanting_table_motion1",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2618,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 780849763964
+    },
+    {
+      "label": "editor_enchanting_table_motion2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2639,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 780903702444
+    },
+    {
+      "label": "editor_enchanting_table_depth9.0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 0,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 780958913670
+    },
+    {
+      "label": "editor_enchanting_table_depth0.0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2798,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781016245998
+    },
+    {
+      "label": "editor_enchanting_table_yaw35_pitch75_zoom3",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 1336,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781234181907
+    },
+    {
+      "label": "editor_enchanting_table_yaw215_pitch25_zoom1",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 382,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781292786908
+    },
+    {
+      "label": "editor_enchanting_table_yaw35_pitch25_zoom2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 74,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781348422331
+    },
+    {
+      "label": "editor_enchanting_table_section_layer2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 0,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781437814805
+    },
+    {
+      "label": "editor_enchanting_table_section_layer3",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 1322,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781512540876
+    },
+    {
+      "label": "editor_enchanting_table_single_layer3",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 1282,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781590721319
+    },
+    {
+      "label": "editor_enchanting_table_single_layer2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 0,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781666720037
+    },
+    {
+      "label": "editor_enchanting_table_full_layer3",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 722,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781744355154
+    },
+    {
+      "label": "editor_enchanting_table_hidden",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 0,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781827990400
+    },
+    {
+      "label": "editor_enchanting_table_restored",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2693,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 781914352478
+    },
+    {
+      "label": "full_enchanting_table_motion0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 2,
+      "cover_pixels": 13995,
+      "artwork_dark_fraction": 0.6687388352983208,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782016471936
+    },
+    {
+      "label": "full_enchanting_table_motion1",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 14043,
+      "artwork_dark_fraction": 0.6784875026703696,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782066289349
+    },
+    {
+      "label": "full_enchanting_table_motion2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 14051,
+      "artwork_dark_fraction": 0.6781012027613693,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782115197630
+    },
+    {
+      "label": "full_enchanting_table_opacity0.35",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 14109,
+      "artwork_dark_fraction": 0.6619888014742363,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782193196243
+    },
+    {
+      "label": "full_enchanting_table_opacity0.7",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 14049,
+      "artwork_dark_fraction": 0.6730728165705744,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782277255651
+    },
+    {
+      "label": "full_enchanting_table_opacity1.0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 14060,
+      "artwork_dark_fraction": 0.677524893314367,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782365738951
+    },
+    {
+      "label": "missing_enchanting_table_motion0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 2,
+      "cover_pixels": 13964,
+      "artwork_dark_fraction": 0.6681466628473217,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782473070433
+    },
+    {
+      "label": "missing_enchanting_table_motion1",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 14064,
+      "artwork_dark_fraction": 0.6764789533560864,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782527554466
+    },
+    {
+      "label": "missing_enchanting_table_motion2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 2,
+      "cover_pixels": 14021,
+      "artwork_dark_fraction": 0.6783396334070323,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782576099088
+    },
+    {
+      "label": "missing_enchanting_table_opacity0.35",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 14106,
+      "artwork_dark_fraction": 0.6622713738834538,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782666825071
+    },
+    {
+      "label": "missing_enchanting_table_opacity0.7",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 14037,
+      "artwork_dark_fraction": 0.676711548051578,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782764702103
+    },
+    {
+      "label": "missing_enchanting_table_opacity1.0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 13686,
+      "artwork_dark_fraction": 0.6710507087534707,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782847003707
+    },
+    {
+      "label": "missing_enchanting_table_occupied",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 2,
+      "cover_pixels": 12905,
+      "artwork_dark_fraction": 0.661294072065091,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782925972098
+    },
+    {
+      "label": "missing_enchanting_table_restored",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 11477,
+      "artwork_dark_fraction": 0.6582730678748802,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 782988152861
+    }
+  ],
+  "artwork_reference_valid": false,
+  "artwork_dark_fraction_limits": null,
+  "artwork_distribution_passed": false,
+  "surface_regression_passed": true,
+  "raster_regression_passed": false
+}
