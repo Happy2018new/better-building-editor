@@ -343,3 +343,5 @@ tools/archive_frame_block_light_holdout_r21.py text eol=lf
 docs/FRAME_BLOCK_LIGHT_HOLDOUT_R21.md text eol=lf
 # Final sword glint replay binds original receipts, samples and source fingerprints.
 docs/evidence/item-glint-final-r21-sword-v1/** -text -diff whitespace=cr-at-eol
+# Normal-time portal replay binds original mixed-line-ending source and receipts.
+docs/evidence/portal-native-candidate-r21-v12/** -text -diff whitespace=cr-at-eol

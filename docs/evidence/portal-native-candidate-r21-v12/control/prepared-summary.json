@@ -1,0 +1,43 @@
+{
+  "owner": "portal-r21-native-candidate-v12",
+  "prepared": true,
+  "launched": false,
+  "source_contract_sha256": "a568dddc531e7eea610d24f18b12369adddb6de081105f52834611d7f8217918",
+  "source_count": 3692,
+  "parent_source_contract_sha256": "90abd667504357ed1e7172d22d4e29ad56ba6485f84a7de8de5eedddbb87248e",
+  "config_sha256": "49c5e534e4b3d89b6c6e73d377aa7c2eb3f2bd159410d36a60a99bd87ee5b855",
+  "changed_or_added_paths": [
+    "behavior_pack/modern_projection/projection/portal_profile.py",
+    "resource_pack/materials/entity.material",
+    "resource_pack/models/modern_projection/portal/native_end_gateway_mesh.json",
+    "resource_pack/models/modern_projection/portal/native_end_portal_mesh.json",
+    "resource_pack/models/netease_models.json",
+    "resource_pack/shaders/glsl/modern_projection_portal_native_original.h",
+    "resource_pack/shaders/glsl/modern_projection_portal_native_surface.fragment",
+    "resource_pack/shaders/glsl/modern_projection_portal_native_ui.vertex",
+    "resource_pack/shaders/glsl/modern_projection_portal_native_world.vertex",
+    "resource_pack/textures/models/modern_projection/portal/native_starfield.png",
+    "tools/generate_portal_native_candidate_r21.py",
+    "tools/probe_portal_native_candidate_r21.py",
+    "tools/verify_portal_native_candidate_r21.py",
+    "tools/verify_portal_native_ui_axes_r21.py"
+  ],
+  "normal_time": true,
+  "native_gate": false,
+  "old_default_profile_changed": false,
+  "fixed_time_native_vertex_absent": true,
+  "vanilla_portal_material_restored": true,
+  "expected_capture_count": 6,
+  "runtime_budget_seconds": 150.0,
+  "previous_prepare_failed_before_freeze": "missing tools/data destination directory",
+  "partial_directories_retained_and_completed": true,
+  "compile_report": ".runtime/portal-native-candidate-compile-r21-v12-final/compile.json",
+  "ui_axes_report": ".runtime/portal-native-ui-axes-r21-v12-final.json",
+  "exit_observer_sha256": "aa436ee9a0f496554c69330d8456fa21b6bb551b63032f0b5a453ad9748646aa",
+  "test_paths": {
+    "tests/test_portal_native_candidate.py": "b2e224bf380009ef8d4b2888899cf8ba641906309d359ac98db223984622d907"
+  },
+  "qualification": false,
+  "superseded_source_contract_sha256": "71cc6900e0f938aaa55b2a1a550e70b637aecdacde2febfd6809fa9f40c684e1",
+  "singular_ui_basis_hidden": true
+}

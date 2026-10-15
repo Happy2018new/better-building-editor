@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "result": {
+    "passed": true,
+    "fixtures": 816,
+    "maxError": 2.334066039111349e-06,
+    "pixelMaxError": 0,
+    "glError": 0,
+    "failures": []
+  },
+  "shader_sha256": "9a12f2a574fc1abd1971952bbfcb177f593574e5c7f2269a5810d5a8f87eb386",
+  "scope": "Host GPU affine UI ray/normal algebra and encoded-plane pixels",
+  "native_ui_matrix_bindings_observed": false,
+  "qualification": false,
+  "cpu_reference": "entity + numpy.linalg.solve(WORLDVIEW.linear, WORLDVIEW.translation)"
+}

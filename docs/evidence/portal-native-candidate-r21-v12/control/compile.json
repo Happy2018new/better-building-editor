@@ -1,0 +1,279 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "modern_projection_portal_native_ui.vertex": "9a12f2a574fc1abd1971952bbfcb177f593574e5c7f2269a5810d5a8f87eb386",
+    "modern_projection_portal_native_surface.fragment": "1bb3c7956e436daa4146cfb4b92fb262e2f9cd3a474dd87fe2d7f27610464fc7",
+    "modern_projection_portal_native_original.h": "2bf100b065c37fb018aecb93dc0bdbb36ef8555422847c59ede9b47efadfe116",
+    "modern_projection_portal_native_world.vertex": "55a378caac27cdbb48b3075801236c2c89f133c5210cb498f8ad436bffafd88e"
+  },
+  "cases": [
+    {
+      "route": "ui",
+      "version": 100,
+      "flags": [],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "ui-100-plain.vert\nui-100-plain.frag\n",
+      "expanded_sha256": {
+        "ui-100-plain.vert": "bd2407deb5c145dbcc948fe5af0015ceeb41a06763a59696210084a7a7af7602",
+        "ui-100-plain.frag": "642b4b217026efc444ef0a4b7a8f593c951c588be7c46b597f5b89b666357ccf"
+      }
+    },
+    {
+      "route": "ui",
+      "version": 100,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING"
+      ],
+      "returncode": 2,
+      "stdout": "",
+      "stderr": "ui-100-USE_SKINNING-NETEASE_SKINNING.vert\nERROR: ui-100-USE_SKINNING-NETEASE_SKINNING.vert:245: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\nui-100-USE_SKINNING-NETEASE_SKINNING.frag\nERROR: Linking vertex stage: Missing entry point: Each stage requires one entry point\n\n",
+      "expanded_sha256": {
+        "ui-100-USE_SKINNING-NETEASE_SKINNING.vert": "ecf82189e6f21c3e0a9a3abc85a25245451dcca5c283c7b3411357e634b987fb",
+        "ui-100-USE_SKINNING-NETEASE_SKINNING.frag": "2003d1f2d1461d12385a26d277e0b792839e96e03380388e5965878091169769"
+      },
+      "baseline_returncode": 2,
+      "baseline_stdout": "ui-100-USE_SKINNING-NETEASE_SKINNING-installed-skeleton.vert\nERROR: 0:89: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n",
+      "baseline_stderr": "",
+      "inherited_unsupported_mat3x4": true
+    },
+    {
+      "route": "ui",
+      "version": 100,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING",
+        "USE_INSTANCE"
+      ],
+      "returncode": 2,
+      "stdout": "",
+      "stderr": "ui-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert\nERROR: ui-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert:246: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\nui-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag\nERROR: Linking vertex stage: Missing entry point: Each stage requires one entry point\n\n",
+      "expanded_sha256": {
+        "ui-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert": "ba0d2faf75d0015464bc88486d843eab589690fa5bfd59774789e7a704d231f3",
+        "ui-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag": "6f02e4579e943aee96297aa5b7ed4e5d9f772a8530e596959f756309a2171a1a"
+      },
+      "baseline_returncode": 2,
+      "baseline_stdout": "ui-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE-installed-skeleton.vert\nERROR: 0:90: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n",
+      "baseline_stderr": "",
+      "inherited_unsupported_mat3x4": true
+    },
+    {
+      "route": "ui",
+      "version": 100,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING",
+        "FANCY",
+        "FOG"
+      ],
+      "returncode": 2,
+      "stdout": "",
+      "stderr": "ui-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert\nERROR: ui-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert:247: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\nui-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.frag\nERROR: Linking vertex stage: Missing entry point: Each stage requires one entry point\n\n",
+      "expanded_sha256": {
+        "ui-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert": "8b1f5bede308339fd7d7b8ffb60c1d2bdebe4ccca8c01efd2b9a78e37a31a227",
+        "ui-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.frag": "d18fa7519c04d22c31290ae6ebe0f332ec592b4f6a85e2b0b8701ef40a24f2a3"
+      },
+      "baseline_returncode": 2,
+      "baseline_stdout": "ui-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG-installed-skeleton.vert\nERROR: 0:91: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n",
+      "baseline_stderr": "",
+      "inherited_unsupported_mat3x4": true
+    },
+    {
+      "route": "ui",
+      "version": 300,
+      "flags": [],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "ui-300-plain.vert\nui-300-plain.frag\n",
+      "expanded_sha256": {
+        "ui-300-plain.vert": "866388755aec6e03b5477af6633a55f8837312373d55a393ca37611e5f91892e",
+        "ui-300-plain.frag": "5a1feee6eaffdfd15585528869aead22fafea69eef5750f8842032190ab99d90"
+      }
+    },
+    {
+      "route": "ui",
+      "version": 300,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "ui-300-USE_SKINNING-NETEASE_SKINNING.vert\nui-300-USE_SKINNING-NETEASE_SKINNING.frag\n",
+      "expanded_sha256": {
+        "ui-300-USE_SKINNING-NETEASE_SKINNING.vert": "d3c59030e1b308b3e0cc7f10ca6c8334ba58d2b7986051ee81ff9c1447f8e793",
+        "ui-300-USE_SKINNING-NETEASE_SKINNING.frag": "4e7e7f11df0a59ff1525d3ce886079036c6858c77862d50a1a0d5a69f7289ba5"
+      }
+    },
+    {
+      "route": "ui",
+      "version": 300,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING",
+        "USE_INSTANCE"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "ui-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert\nui-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag\n",
+      "expanded_sha256": {
+        "ui-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert": "48040b2fedc8d853b54dc1d694b38ea8d6ca37ec60f1fd0008e823c55c95a976",
+        "ui-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag": "2c0a7eee65f94aa4953508e52918e15f87c71e2efa29815aa9eeb9e890ebb406"
+      }
+    },
+    {
+      "route": "ui",
+      "version": 300,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING",
+        "FANCY",
+        "FOG"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "ui-300-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert\nui-300-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.frag\n",
+      "expanded_sha256": {
+        "ui-300-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert": "f478b27351062377d7527fc70b0840b62895c05f44dd9a10fb70e712826c73b0",
+        "ui-300-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.frag": "c036714d48a620e37a54daa431ea3a4d1e6673a0d1ea1180a1c938b302519f46"
+      }
+    },
+    {
+      "route": "world",
+      "version": 100,
+      "flags": [],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "world-100-plain.vert\nworld-100-plain.frag\n",
+      "expanded_sha256": {
+        "world-100-plain.vert": "252f7bc201eedd0d3b5f69f0db834d32daabf57b06c239c06543db75a821c391",
+        "world-100-plain.frag": "642b4b217026efc444ef0a4b7a8f593c951c588be7c46b597f5b89b666357ccf"
+      }
+    },
+    {
+      "route": "world",
+      "version": 100,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING"
+      ],
+      "returncode": 2,
+      "stdout": "",
+      "stderr": "world-100-USE_SKINNING-NETEASE_SKINNING.vert\nERROR: world-100-USE_SKINNING-NETEASE_SKINNING.vert:245: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\nworld-100-USE_SKINNING-NETEASE_SKINNING.frag\nERROR: Linking vertex stage: Missing entry point: Each stage requires one entry point\n\n",
+      "expanded_sha256": {
+        "world-100-USE_SKINNING-NETEASE_SKINNING.vert": "662ebfcd3d88af60e708a3b05c3c5e30137e15e4d026dc37dc0e9524e669b5bc",
+        "world-100-USE_SKINNING-NETEASE_SKINNING.frag": "2003d1f2d1461d12385a26d277e0b792839e96e03380388e5965878091169769"
+      },
+      "baseline_returncode": 2,
+      "baseline_stdout": "world-100-USE_SKINNING-NETEASE_SKINNING-installed-skeleton.vert\nERROR: 0:89: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n",
+      "baseline_stderr": "",
+      "inherited_unsupported_mat3x4": true
+    },
+    {
+      "route": "world",
+      "version": 100,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING",
+        "USE_INSTANCE"
+      ],
+      "returncode": 2,
+      "stdout": "",
+      "stderr": "world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert\nERROR: world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert:246: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\nworld-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag\nERROR: Linking vertex stage: Missing entry point: Each stage requires one entry point\n\n",
+      "expanded_sha256": {
+        "world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert": "19266fb8a035d6bc076f0085af258d7a1b48e1d31929736efb30a4c0a1faf41b",
+        "world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag": "6f02e4579e943aee96297aa5b7ed4e5d9f772a8530e596959f756309a2171a1a"
+      },
+      "baseline_returncode": 2,
+      "baseline_stdout": "world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE-installed-skeleton.vert\nERROR: 0:90: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n",
+      "baseline_stderr": "",
+      "inherited_unsupported_mat3x4": true
+    },
+    {
+      "route": "world",
+      "version": 100,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING",
+        "FANCY",
+        "FOG"
+      ],
+      "returncode": 2,
+      "stdout": "",
+      "stderr": "world-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert\nERROR: world-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert:247: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\nworld-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.frag\nERROR: Linking vertex stage: Missing entry point: Each stage requires one entry point\n\n",
+      "expanded_sha256": {
+        "world-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert": "1de7464d9a14d14c59f79476a523cb5a39d014b3a7fcf57debb1c3653a308fab",
+        "world-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.frag": "d18fa7519c04d22c31290ae6ebe0f332ec592b4f6a85e2b0b8701ef40a24f2a3"
+      },
+      "baseline_returncode": 2,
+      "baseline_stdout": "world-100-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG-installed-skeleton.vert\nERROR: 0:91: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n",
+      "baseline_stderr": "",
+      "inherited_unsupported_mat3x4": true
+    },
+    {
+      "route": "world",
+      "version": 300,
+      "flags": [],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "world-300-plain.vert\nworld-300-plain.frag\n",
+      "expanded_sha256": {
+        "world-300-plain.vert": "4be101c1557736bee48a80bf960c7ed6861b1511033be21af994b21786754ef9",
+        "world-300-plain.frag": "5a1feee6eaffdfd15585528869aead22fafea69eef5750f8842032190ab99d90"
+      }
+    },
+    {
+      "route": "world",
+      "version": 300,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "world-300-USE_SKINNING-NETEASE_SKINNING.vert\nworld-300-USE_SKINNING-NETEASE_SKINNING.frag\n",
+      "expanded_sha256": {
+        "world-300-USE_SKINNING-NETEASE_SKINNING.vert": "351c9c45ba24bfef705537d7654d73b2dda986d51bfea4366a82a392758da3e4",
+        "world-300-USE_SKINNING-NETEASE_SKINNING.frag": "4e7e7f11df0a59ff1525d3ce886079036c6858c77862d50a1a0d5a69f7289ba5"
+      }
+    },
+    {
+      "route": "world",
+      "version": 300,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING",
+        "USE_INSTANCE"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "world-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert\nworld-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag\n",
+      "expanded_sha256": {
+        "world-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert": "f5cdb690cb11029612751956ab80adbedc6c0390cf6d86d84e5781fc9866d884",
+        "world-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag": "2c0a7eee65f94aa4953508e52918e15f87c71e2efa29815aa9eeb9e890ebb406"
+      }
+    },
+    {
+      "route": "world",
+      "version": 300,
+      "flags": [
+        "USE_SKINNING",
+        "NETEASE_SKINNING",
+        "FANCY",
+        "FOG"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "world-300-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert\nworld-300-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.frag\n",
+      "expanded_sha256": {
+        "world-300-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.vert": "388c494b202176d5a3f23498fc73f58d7477aff1509041a3157059ffc9cfb3c9",
+        "world-300-USE_SKINNING-NETEASE_SKINNING-FANCY-FOG.frag": "c036714d48a620e37a54daa431ea3a4d1e6673a0d1ea1180a1c938b302519f46"
+      }
+    }
+  ],
+  "compiler_sha256": "b3d244962258db6d6fa61b79174a8bb091cbac627afc9035b51c7fbb8197e3b6",
+  "default_precision_is_compile_harness_only": true,
+  "runtime_variant_or_uniform_observation": false,
+  "qualification": false
+}
