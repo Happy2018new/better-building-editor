@@ -1,0 +1,255 @@
+{
+  "case": "positive",
+  "chest": [
+    {
+      "count": 4,
+      "newItemName": "minecraft:oak_planks",
+      "isDiggerItem": false,
+      "enchantData": [],
+      "durability": 0,
+      "itemId": 5,
+      "customTips": "",
+      "extraId": "",
+      "newAuxValue": 0,
+      "modEnchantData": [],
+      "modId": "",
+      "userData": null,
+      "modItemId": "",
+      "itemName": "minecraft:planks",
+      "auxValue": 0,
+      "showInHand": true
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "blocks": {
+    "crafter": {
+      "liquid": null,
+      "pos": [
+        4,
+        -58,
+        4
+      ],
+      "block": {
+        "aux": 10,
+        "name": "minecraft:crafter"
+      },
+      "nbt": {
+        "IsOpened": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "Items": [],
+        "z": {
+          "__type__": 3,
+          "__value__": 4
+        },
+        "disabled_slots": {
+          "__type__": 2,
+          "__value__": 0
+        },
+        "y": {
+          "__type__": 3,
+          "__value__": -58
+        },
+        "x": {
+          "__type__": 3,
+          "__value__": 4
+        },
+        "isMovable": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "id": {
+          "__type__": 8,
+          "__value__": "Crafter"
+        },
+        "IsIgnoreShuffle": {
+          "__type__": 1,
+          "__value__": 0
+        }
+      }
+    },
+    "chest": {
+      "liquid": null,
+      "pos": [
+        4,
+        -58,
+        3
+      ],
+      "block": {
+        "aux": 2,
+        "name": "minecraft:chest"
+      },
+      "nbt": {
+        "IsOpened": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "Findable": {
+          "__type__": 1,
+          "__value__": 0
+        },
+        "Items": [
+          {
+            "Count": {
+              "__type__": 1,
+              "__value__": 4
+            },
+            "Slot": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:oak_planks"
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "Block": {
+              "states": {},
+              "version": {
+                "__type__": 3,
+                "__value__": 18168865
+              },
+              "name": {
+                "__type__": 8,
+                "__value__": "minecraft:oak_planks"
+              },
+              "val": {
+                "__type__": 2,
+                "__value__": 0
+              }
+            }
+          }
+        ],
+        "z": {
+          "__type__": 3,
+          "__value__": 3
+        },
+        "y": {
+          "__type__": 3,
+          "__value__": -58
+        },
+        "x": {
+          "__type__": 3,
+          "__value__": 4
+        },
+        "isMovable": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "id": {
+          "__type__": 8,
+          "__value__": "Chest"
+        },
+        "IsIgnoreShuffle": {
+          "__type__": 1,
+          "__value__": 0
+        }
+      }
+    },
+    "hopper": {
+      "liquid": null,
+      "pos": [
+        4,
+        -57,
+        4
+      ],
+      "block": {
+        "aux": 0,
+        "name": "minecraft:hopper"
+      },
+      "nbt": {
+        "TransferCooldown": {
+          "__type__": 3,
+          "__value__": 0
+        },
+        "z": {
+          "__type__": 3,
+          "__value__": 4
+        },
+        "MoveItemSpeed": {
+          "__type__": 3,
+          "__value__": 4
+        },
+        "Items": [],
+        "y": {
+          "__type__": 3,
+          "__value__": -57
+        },
+        "x": {
+          "__type__": 3,
+          "__value__": 4
+        },
+        "isMovable": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "id": {
+          "__type__": 8,
+          "__value__": "Hopper"
+        }
+      }
+    },
+    "power": {
+      "liquid": null,
+      "pos": [
+        5,
+        -58,
+        4
+      ],
+      "block": {
+        "aux": 0,
+        "name": "minecraft:air"
+      },
+      "nbt": null
+    }
+  },
+  "inventory_unchanged": true,
+  "phase": "pulsed",
+  "drops": [],
+  "hopper": [
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "crafter_states": {
+    "crafting": false,
+    "orientation": "north_up",
+    "triggered_bit": false
+  },
+  "chest_size": 27
+}

@@ -1,0 +1,65 @@
+{
+  "runtime": "3.10.0.420447",
+  "source": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\behavior_packs\\mq_gametest\\scripts\\mq_gametest.js",
+  "sha256": "179d6c428d8fccac1b7f58809f4ad520e26a616b40ac4807f28dada8ce4d7e73",
+  "exact_crafter_test": "const CRAFTER = 'generic:crafter';\nfunction generateCrafterTest(recipes) {\n    return async (test) => {\n        const crafterPowerLoc = { x: 3, y: 2, z: 1 };\n        const crafterLoc = { x: 2, y: 2, z: 1 };\n        const crafterWorldLoc = _minecraft_math__WEBPACK_IMPORTED_MODULE_2__.Vector3Utils.toString(test.worldBlockLocation(crafterLoc), {\n            delimiter: ' ',\n        });\n        const outputChest = { x: 1, y: 2, z: 1 };\n        const testDim = test.getDimension();\n        const chest = test.getBlock(outputChest);\n        const inv = _GameTestExtensions__WEBPACK_IMPORTED_MODULE_1__[\"default\"].getBlockComponentOrAssert(test, chest, 'inventory');\n        const container = inv.container;\n        _GameTestExtensions__WEBPACK_IMPORTED_MODULE_1__[\"default\"].assertDefinedTypeGuard(test, container, 'Inventory container on output chest should be defined');\n        let loopCounter = 0;\n        // go through all recipes for this test\n        for (const recipeToVerify of recipes) {\n            container.clearAll(); // clear items from previous crafting loop\n            // and for each item recipe, put an item from the recipe into the correct crafter slot\n            for (let row = 0; row < 3; row++) {\n                for (let col = 0; col < 3; col++) {\n                    if (recipeToVerify.recipe[row][col] === '')\n                        continue;\n                    // crafter does not have inventory component, so we use replaceitem command\n                    testDim.runCommand(`replaceitem block ${crafterWorldLoc} slot.container ${row * 3 + col} ${recipeToVerify.recipe[row][col]}`);\n                }\n            }\n            await test.idle(1); // needed to make sure items are in the crafter before pulsing\n            test.pulseRedstone(crafterPowerLoc, 2);\n            await test.idle(8); // minimum amount of ticks for the item to be moved to the output chest\n            const outputItem = container.getItem(0);\n            _GameTestExtensions__WEBPACK_IMPORTED_MODULE_1__[\"default\"].assertDefinedTypeGuard(test, outputItem, 'Some output item was expected to be produced');\n            test.assert(outputItem.typeId === `minecraft:${recipeToVerify.output_item}`, `Expected ${recipeToVerify.output_item} to be crafted but got ${outputItem.typeId}`);\n            test.assert(outputItem.amount === recipeToVerify.amount, `Expected ${recipeToVerify.amount} ${recipeToVerify.output_item} items to be crafted but got ${outputItem.amount}`);\n            await test.idle(1); // needed before next loop iteration to avoid clearing the chest prematurely\n            loopCounter++;\n        }\n        test.assert(loopCounter === recipes.length, `Expected to craft ${recipes.length} times, but executed only ${loopCounter}`);\n        test.succeed();\n    };\n}\n",
+  "matching_shield_recipes": [
+    {
+      "path": "behavior_packs/vanilla/recipes/shield.json",
+      "sha256": "a2ef67cab1348c75c11a9e0f1d92437fc45f41030bf421373ecb7dc0620e8134"
+    },
+    {
+      "path": "behavior_packs/vanilla/recipes/shield_from_crimson_planks.json",
+      "sha256": "ce2089291323f0f4bf242d152c28abc9da41f4e7a3c40ae0478533b85b34b21d"
+    },
+    {
+      "path": "behavior_packs/vanilla/recipes/shield_from_mangrove_planks.json",
+      "sha256": "51b43d6f8eb5ec6315390101003a72796ef5f04a234eec9d3262a04b0176fe02"
+    },
+    {
+      "path": "behavior_packs/vanilla/recipes/shield_from_warped_planks.json",
+      "sha256": "e03132c30243108fcb11557019e58d92d10ea281029419bef120a5400abbabfb"
+    }
+  ],
+  "oak_planks_recipe": {
+    "format_version": "1.20.10",
+    "minecraft:recipe_shaped": {
+      "description": {
+        "identifier": "minecraft:oak_planks"
+      },
+      "tags": [
+        "crafting_table"
+      ],
+      "group": "planks",
+      "pattern": [
+        "#"
+      ],
+      "key": {
+        "#": {
+          "item": "minecraft:oak_log"
+        }
+      },
+      "unlock": [
+        {
+          "item": "minecraft:oak_log"
+        }
+      ],
+      "result": {
+        "item": "minecraft:oak_planks",
+        "count": 4
+      }
+    }
+  },
+  "shield_decoration_support": "not established by inspected native recipe resources or crafter tests",
+  "api_support": {
+    "SpawnItemToContainer": "hopper/chest documented, crafter not listed",
+    "GetContainerItem": "chest documented; getUserData=True",
+    "GetBlockEntityData": "native crafter readback only; no NBT injection"
+  },
+  "readback_before_pulse": [
+    "native orientation/states",
+    "hopper drain",
+    "crafter exact Name/Count/Damage/tag.Patterns",
+    "empty output chest"
+  ]
+}

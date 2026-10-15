@@ -1,0 +1,204 @@
+{
+  "code_sha256": "eb1d2200b52e5f5219d3b243ad646118547f08ff2c29e361bda3d8a8ea8ab985",
+  "code": "ACTION = 'place'\nINPUTS = {'blocks': {'crafter': {'name': 'minecraft:crafter', 'aux': 10, 'states': {'crafting': False, 'orientation': 'north_up', 'triggered_bit': False}, 'observed_default_nbt': {'IsIgnoreShuffle': {'__type__': 1, '__value__': 0}, 'IsOpened': {'__type__': 1, '__value__': 0}, 'Items': [], 'disabled_slots': {'__type__': 2, '__value__': 0}, 'id': {'__type__': 8, '__value__': 'Crafter'}, 'isMovable': {'__type__': 1, '__value__': 1}, 'x': {'__type__': 3, '__value__': 0}, 'y': {'__type__': 3, '__value__': 0}, 'z': {'__type__': 3, '__value__': 0}}}, 'hopper': {'name': 'minecraft:hopper', 'aux': 0, 'states': {'facing_direction': 0, 'toggle_bit': False}, 'observed_default_nbt': {'Items': [], 'MoveItemSpeed': {'__type__': 3, '__value__': 4}, 'TransferCooldown': {'__type__': 3, '__value__': -1}, 'id': {'__type__': 8, '__value__': 'Hopper'}, 'isMovable': {'__type__': 1, '__value__': 1}, 'x': {'__type__': 3, '__value__': 0}, 'y': {'__type__': 3, '__value__': 0}, 'z': {'__type__': 3, '__value__': 0}}}, 'chest': {'name': 'minecraft:chest', 'aux': 2, 'states': {'minecraft:cardinal_direction': 'north'}, 'observed_default_nbt': {'Findable': {'__type__': 1, '__value__': 0}, 'IsIgnoreShuffle': {'__type__': 1, '__value__': 0}, 'IsOpened': {'__type__': 1, '__value__': 0}, 'Items': [], 'id': {'__type__': 8, '__value__': 'Chest'}, 'isMovable': {'__type__': 1, '__value__': 1}, 'x': {'__type__': 3, '__value__': 0}, 'y': {'__type__': 3, '__value__': 0}, 'z': {'__type__': 3, '__value__': 0}}}}, 'positive': [{'itemName': 'minecraft:oak_log', 'count': 1, 'auxValue': 0}], 'target': [{'count': 1, 'itemName': 'minecraft:shield', 'auxValue': 0}, {'count': 1, 'userData': {'Patterns': [{'Color': 1, 'Pattern': 'bo'}, {'Color': 14, 'Pattern': 'cr'}, {'Color': 11, 'Pattern': 'mc'}]}, 'itemName': 'minecraft:banner', 'auxValue': 4}], 'target_provenance': {'path': '.runtime/shield-craft-event-r20-v4/craft-fill.json', 'sha256': 'bcdc62e83487a6893155bad9c7f35cdea87240c697b84a90b8fbddf15beab17a'}, 'native_banner_readback': {'count': 1, 'newItemName': 'minecraft:banner', 'isDiggerItem': False, 'enchantData': [], 'durability': 0, 'itemId': 446, 'customTips': '', 'extraId': '', 'newAuxValue': 4, 'modEnchantData': [], 'modId': '', 'userData': {'Patterns': [{'Color': {'__type__': 3, '__value__': 1}, 'Pattern': {'__type__': 8, '__value__': 'bo'}}, {'Color': {'__type__': 3, '__value__': 14}, 'Pattern': {'__type__': 8, '__value__': 'cr'}}, {'Color': {'__type__': 3, '__value__': 11}, 'Pattern': {'__type__': 8, '__value__': 'mc'}}]}, 'modItemId': '', 'itemName': 'minecraft:banner', 'auxValue': 4, 'showInHand': True}, 'defaults_evidence': {'schema_version': 1, 'game_version': 'NEMC 3.9.0.401155', 'palette_sha256': '6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01', 'source_sha256': 'bbf15ecb4d90232d8d63583fd7a0df078c79ef45e15ac925557b86d28cd57b2d', 'source_hash_format': 'canonical-json-v1', 'probe_method': 'Native default seed + semantic states and supported paired fixtures before/after over water, isLegacy=True, updateNeighbors=False; v4', 'native_block_count': 155}}\n\"\"\"Execute with ACTION and INPUTS supplied by the owner-bound host.\"\"\"\nimport copy\nimport json\nimport math\nimport sys\nimport time\nimport mod.server.extraServerApi as api\nfrom modern_projection.projection.nbt_spatial import root_payload, scalar\n\nfactory = api.GetEngineCompFactory()\nlevel = api.GetLevelId()\nplayers = api.GetPlayerList()\nassert len(players) == 1\nplayer = players[0]\ninfo = factory.CreateBlockInfo(player)\nstates = factory.CreateBlockState(level)\nitems = factory.CreateItem(player)\ninventory_type = api.GetMinecraftEnum().ItemPosType.INVENTORY\n\n\ndef inventory():\n    return [items.GetPlayerItem(inventory_type, slot, True) for slot in range(36)]\n\n\ndef cell(pos, dimension):\n    return {'pos': pos, 'block': info.GetBlockNew(pos, dimension),\n            'liquid': info.GetLiquidBlock(pos, dimension),\n            'nbt': info.GetBlockEntityData(dimension, pos)}\n\n\ndef item_name(item):\n    return None if not item else item.get('newItemName', item.get('itemName'))\n\n\ndef list_items(nbt):\n    root = root_payload(nbt)\n    assert root is not None and 'Items' in root, nbt\n    value = root['Items']\n    if isinstance(value, dict):\n        assert value.get('__type__') == 9, value\n        value = value['__value__']\n    assert isinstance(value, list), value\n    return value\n\n\ndef dropped():\n    result = []\n    for entity in factory.CreateEntityComponent(player).GetEntitiesBySelector('@e[type=item]') or []:\n        result.append({'entity': entity, 'pos': factory.CreatePos(entity).GetPos(),\n                       'dimension': factory.CreateDimension(entity).GetEntityDimensionId(),\n                       'item': items.GetDroppedItem(entity, True)})\n    return result\n\n\ndef inspect(saved):\n    dimension, positions = saved['dimension'], saved['positions']\n    chest = positions['chest']\n    hopper = positions['hopper']\n    return {'phase': saved['phase'], 'case': saved.get('case'),\n            'blocks': dict((name, cell(pos, dimension)) for name, pos in positions.items()),\n            'crafter_states': states.GetBlockStates(positions['crafter'], dimension),\n            'chest_size': items.GetContainerSize(chest, dimension),\n            'chest': [items.GetContainerItem(chest, slot, dimension, True) for slot in range(27)],\n            'hopper': [items.GetContainerItem(hopper, slot, dimension, True) for slot in range(5)],\n            'drops': dropped(), 'inventory_unchanged': inventory() == saved['inventory']}\n\n\nif ACTION == 'journal':\n    assert not hasattr(sys, '_shield_crafter_server_r20')\n    dimension = factory.CreateDimension(player).GetEntityDimensionId()\n    foot = factory.CreatePos(player).GetFootPos()\n    assert dimension == 0 and foot is not None\n    origin = (int(math.floor(foot[0])) + 4, int(math.floor(foot[1])) + 2,\n              int(math.floor(foot[2])) + 4)\n    offsets = {'crafter': (0, 0, 0), 'chest': (0, 0, -1),\n               'hopper': (0, 1, 0), 'power': (1, 0, 0)}\n    positions = dict((name, tuple(origin[i] + delta[i] for i in range(3)))\n                     for name, delta in offsets.items())\n    region = [tuple(origin[i] + delta[i] for i in range(3))\n              for delta in [(x, y, z) for x in range(-1, 3)\n                             for y in range(-1, 3) for z in range(-2, 2)]]\n    journal = [cell(pos, dimension) for pos in region]\n    for row in journal:\n        assert row['block'] and row['block']['name'] == 'minecraft:air', row\n        assert not row['liquid'] or row['liquid']['name'] == 'minecraft:air', row\n        assert row['nbt'] is None, row\n    saved = {'phase': 'journaled', 'player': player, 'dimension': dimension,\n             'foot': foot, 'inventory': inventory(), 'selected': items.GetSelectSlotId(),\n             'positions': positions, 'journal': copy.deepcopy(journal),\n             'touched': [], 'drops_before': dropped(), 'started': time.time(),\n             'config': INPUTS['blocks']}\n    sys._shield_crafter_server_r20 = saved\n    _result = json.dumps(saved)\nelse:\n    saved = getattr(sys, '_shield_crafter_server_r20', None)\n    if ACTION == 'restore' and saved is None:\n        _result = json.dumps({'present': False, 'no_fixture_mutations': True})\n    else:\n        assert saved is not None and saved['player'] == player\n        dimension, positions = saved['dimension'], saved['positions']\n        assert factory.CreateDimension(player).GetEntityDimensionId() == dimension\n        if ACTION == 'place':\n            assert saved['phase'] == 'journaled'\n            for name in ('chest', 'crafter', 'hopper'):\n                spec = saved['config'][name]\n                aux = states.GetBlockAuxValueFromStates(spec['name'], spec['states'])\n                assert aux == spec['aux'], (spec, aux)\n                saved['touched'].append(name)\n                assert info.SetBlockNew(positions[name], {'name': spec['name'], 'aux': aux},\n                                        0, dimension, True, True)\n                assert states.GetBlockStates(positions[name], dimension) == spec['states']\n            root = root_payload(info.GetBlockEntityData(dimension, positions['crafter']))\n            assert root is not None and scalar(root, 'id') == 'Crafter'\n            assert scalar(root, 'disabled_slots') == 0\n            assert not list_items(root)\n            saved['phase'] = 'placed'\n            _result = json.dumps(inspect(saved))\n        elif ACTION in ('feed_positive', 'feed_target'):\n            assert saved['phase'] in ('placed', 'cleared')\n            for name in ('crafter', 'hopper', 'chest'):\n                assert not list_items(info.GetBlockEntityData(dimension, positions[name])), name\n            payload = INPUTS['positive'] if ACTION == 'feed_positive' else INPUTS['target']\n            saved['case'] = 'positive' if ACTION == 'feed_positive' else 'target'\n            saved['phase'] = 'feeding'\n            filled = []\n            for slot, item in enumerate(payload):\n                assert items.SpawnItemToContainer(item, slot, positions['hopper'], dimension)\n                actual = items.GetContainerItem(positions['hopper'], slot, dimension, True)\n                assert actual and item_name(actual) == item_name(item), actual\n                assert actual.get('count') == 1\n                filled.append({'slot': slot, 'input': item, 'readback': actual})\n            _result = json.dumps({'case': saved['case'], 'filled': filled,\n                                  'snapshot': inspect(saved)})\n        elif ACTION == 'inspect':\n            _result = json.dumps(inspect(saved))\n        elif ACTION == 'pulse_on':\n            assert saved['phase'] == 'feeding'\n            assert all(not items.GetContainerItem(positions['hopper'], slot, dimension, True)\n                       for slot in range(5))\n            nbt = info.GetBlockEntityData(dimension, positions['crafter'])\n            entries = list_items(nbt)\n            expected = INPUTS['positive'] if saved['case'] == 'positive' else INPUTS['target']\n            assert sorted(scalar(root_payload(row), 'Name') for row in entries) == sorted(item_name(row) for row in expected)\n            assert all(scalar(root_payload(row), 'Count') == 1 for row in entries)\n            if saved['case'] == 'target':\n                banner = next(row for row in entries if scalar(root_payload(row), 'Name') == 'minecraft:banner')\n                banner = root_payload(banner)\n                assert scalar(banner, 'Damage') == 4\n                tag = root_payload(banner.get('tag'))\n                assert tag is not None\n                patterns = tag.get('Patterns')\n                if isinstance(patterns, dict):\n                    assert patterns.get('__type__') == 9\n                    patterns = patterns['__value__']\n                assert [(scalar(root_payload(row), 'Color'), scalar(root_payload(row), 'Pattern'))\n                        for row in patterns] == [(1, 'bo'), (14, 'cr'), (11, 'mc')]\n            before = inspect(saved)\n            assert before['chest_size'] == 27 and not any(before['chest'])\n            saved['touched'].append('power')\n            assert info.SetBlockNew(positions['power'], {'name': 'minecraft:redstone_block', 'aux': 0},\n                                    0, dimension, True, True)\n            saved['phase'] = 'pulse_on'\n            _result = json.dumps({'before': before, 'power': info.GetBlockNew(positions['power'], dimension)})\n        elif ACTION == 'pulse_off':\n            assert saved['phase'] == 'pulse_on'\n            info.SetBlockNew(positions['power'], {'name': 'minecraft:air', 'aux': 0},\n                             0, dimension, True, True)\n            assert info.GetBlockNew(positions['power'], dimension)['name'] == 'minecraft:air'\n            saved['phase'] = 'pulsed'\n            _result = json.dumps(inspect(saved))\n        elif ACTION == 'clear_output':\n            assert saved['phase'] == 'pulsed' and saved['case'] == 'positive'\n            assert not list_items(info.GetBlockEntityData(dimension, positions['crafter']))\n            assert all(not items.GetContainerItem(positions['hopper'], slot, dimension, True)\n                       for slot in range(5))\n            before = inspect(saved)\n            output = [row for row in before['chest'] if row]\n            assert len(output) == 1 and item_name(output[0]) == 'minecraft:oak_planks'\n            assert output[0]['count'] == 4\n            assert items.SpawnItemToContainer({}, 0, positions['chest'], dimension)\n            assert all(not items.GetContainerItem(positions['chest'], slot, dimension, True)\n                       for slot in range(27))\n            saved['phase'] = 'cleared'\n            _result = json.dumps({'positive_verified': True, 'before': before})\n        elif ACTION == 'restore':\n            errors = []\n            for name in ('power', 'hopper', 'crafter', 'chest'):\n                try:\n                    info.SetBlockNew(positions[name], {'name': 'minecraft:air', 'aux': 0},\n                                     0, dimension, True, False)\n                except Exception as exc:\n                    errors.append({'stage': name, 'error': repr(exc)})\n            removed = []\n            original_ids = set(row['entity'] for row in saved['drops_before'])\n            allowed = set(('minecraft:oak_log', 'minecraft:oak_planks', 'minecraft:shield', 'minecraft:banner'))\n            owner = api.GetSystem('ModernProjection', 'ModernProjectionServerSystem')\n            for row in dropped():\n                if row['entity'] in original_ids or row['dimension'] != dimension or not row['pos']:\n                    continue\n                if max(abs(row['pos'][i] - positions['crafter'][i]) for i in range(3)) > 8.:\n                    continue\n                if item_name(row['item']) not in allowed:\n                    errors.append({'stage': 'unidentified_new_drop', 'evidence': row})\n                    continue\n                same = items.GetDroppedItem(row['entity'], True) == row['item']\n                assert same, row\n                returned = owner.DestroyEntity(row['entity'])\n                removed.append({'evidence': row, 'destroyed': returned})\n                if not returned:\n                    errors.append({'stage': 'owned_drop_cleanup', 'entity': row['entity']})\n            current = inventory()\n            for slot, before in enumerate(saved['inventory']):\n                if current[slot] != before:\n                    assert items.SetInvItemNum(slot, 0)\n                    if before:\n                        assert items.SpawnItemToPlayerInv(before, player, slot)\n            actual = [cell(tuple(row['pos']), dimension) for row in saved['journal']]\n            for before, after in zip(saved['journal'], actual):\n                assert before == after, (before, after)\n            assert inventory() == saved['inventory']\n            assert items.GetSelectSlotId() == saved['selected']\n            assert not errors, errors\n            _result = json.dumps({'restored': True, 'guard_cells_verified': len(actual),\n                                  'inventory_restored': True, 'selected_restored': True,\n                                  'player_position_written': False, 'drop_cleanup': removed,\n                                  'foot_before': saved['foot'],\n                                  'foot_after': factory.CreatePos(player).GetFootPos()})\n            del sys._shield_crafter_server_r20\n        else:\n            raise ValueError('Unknown fixture action: ' + ACTION)\n",
+  "result": {
+    "case": null,
+    "chest": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "blocks": {
+      "crafter": {
+        "liquid": null,
+        "pos": [
+          4,
+          -58,
+          4
+        ],
+        "block": {
+          "aux": 10,
+          "name": "minecraft:crafter"
+        },
+        "nbt": {
+          "IsOpened": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Items": [],
+          "z": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "disabled_slots": {
+            "__type__": 2,
+            "__value__": 0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -58
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Crafter"
+          },
+          "IsIgnoreShuffle": {
+            "__type__": 1,
+            "__value__": 0
+          }
+        }
+      },
+      "chest": {
+        "liquid": null,
+        "pos": [
+          4,
+          -58,
+          3
+        ],
+        "block": {
+          "aux": 2,
+          "name": "minecraft:chest"
+        },
+        "nbt": {
+          "IsOpened": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Findable": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Items": [],
+          "z": {
+            "__type__": 3,
+            "__value__": 3
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -58
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Chest"
+          },
+          "IsIgnoreShuffle": {
+            "__type__": 1,
+            "__value__": 0
+          }
+        }
+      },
+      "hopper": {
+        "liquid": null,
+        "pos": [
+          4,
+          -57,
+          4
+        ],
+        "block": {
+          "aux": 0,
+          "name": "minecraft:hopper"
+        },
+        "nbt": {
+          "TransferCooldown": {
+            "__type__": 3,
+            "__value__": -1
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "MoveItemSpeed": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "Items": [],
+          "y": {
+            "__type__": 3,
+            "__value__": -57
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Hopper"
+          }
+        }
+      },
+      "power": {
+        "liquid": null,
+        "pos": [
+          5,
+          -58,
+          4
+        ],
+        "block": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "nbt": null
+      }
+    },
+    "inventory_unchanged": true,
+    "phase": "placed",
+    "drops": [],
+    "hopper": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "crafter_states": {
+      "crafting": false,
+      "orientation": "north_up",
+      "triggered_bit": false
+    },
+    "chest_size": 27
+  }
+}

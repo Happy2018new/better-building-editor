@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "prepared_only": true,
+  "owner": "shield-r20-v6-crafter",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\shield-r20-v6-crafter",
+  "source_contract_sha256": "3ba87e51a23e547b192246790bd40c6999ff5f745accc06cbc3ed5ae6aeee06b",
+  "config_sha256": "0d5502d197d45ff08e839c254d9c6c650edd98a86f3436ade698c8121177d106",
+  "host_files_sha256": {
+    ".runtime/shield-crafter-r20/host.py": "228715db1fc0f944c298a8b5cf53165016ff1c123fad57cef3c825c4859dc59f",
+    ".runtime/shield-crafter-r20/server_fixture.py": "a0be767462fa2c313cb7a321c4278c02e898680b5123899cfb5836a412578270",
+    ".runtime/shield-crafter-r20/client_state.py": "deab37c8bc3be5d0c83b2d7989691ae33adc1b6b532f3879f56bea51d587fdaa",
+    ".runtime/prepare_shield_r20.py": "9b7e54247028061d6fe7314d22780c575da1914e6a68686ab00782425ee7fe88",
+    ".runtime/shield_instances_native_discovery_r20.py": "e5ac4819e23b284a6430c4a8805197e2764249b15f71892e13444b522780283e",
+    ".runtime/shield_stop_owned_r20.py": "6e3b89855cbe5e57a885e81975ce3231e7b1d4df06e03496f9b6f5313590f251",
+    ".runtime/shield_lifecycle_read_r20.py": "de7faef3d4880210b06d9baa944f0a32025a7d2c4b0d52ec7c29eb337facb5e5",
+    ".agents/skills/pyreact-debugging/scripts/instances.py": "bd8fbeba3145cef771c0abd1859ca9f02520855b1db75e9ef76c7cee232ebfaa",
+    ".agents/skills/pyreact-debugging/scripts/_session.py": "9bf1400cda12457ec1b3dd2351fed366c10ad069c781565eabb12e45b2431313",
+    ".agents/skills/pyreact-debugging/scripts/_window.py": "9fdb52e92aeb9930d8faffb81ab2023aaec68383b71b6fab9172643270e0826e",
+    ".agents/skills/pyreact-debugging/scripts/mcdk.py": "347e01d51324924a84a05cf08c342b46d6e1fab589d446705eadde2cd8a587d3",
+    ".runtime/shield-crafter-r20-v6/inputs.json": "7b3805c7a015815fce5eceac7b2e0e69bc4870be04056f0daaa807f4d8de0f31",
+    ".runtime/shield-crafter-r20-v6/native-contract.json": "75d4743666d05ddd05704967663c57c05c1e4bc7ccbcacbda21085e0d0f22536"
+  },
+  "all_four_reload_flags_false": true,
+  "maximum_active_mc": 2,
+  "minimum_free_commit_gib": 6,
+  "handle_boundary": 210000,
+  "max_fixture_seconds": 120,
+  "owned_world_cells": 4,
+  "air_guard_cells": 64,
+  "native_crafter_nbt_writes": false,
+  "inventory_writes_planned": false,
+  "camera_writes_planned": false,
+  "desktop_input": false,
+  "cases": [
+    "oak_log_to_four_oak_planks_positive",
+    "plain_shield_plus_patterned_blue_banner"
+  ],
+  "target": "authentic native output raw item and output-container NBT",
+  "production_qualified": false,
+  "started": false,
+  "next_action": "Wait for parent slot, then explicit launch and run actions"
+}
