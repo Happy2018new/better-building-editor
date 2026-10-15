@@ -33,6 +33,7 @@ PARTIAL_BODY_REGIONS = {
 }
 FACE_INDICES = ((4, 5, 6, 7), (0, 1, 5, 4), (2, 3, 7, 6),
                 (3, 0, 4, 7), (1, 2, 6, 5), (3, 2, 1, 0))
+_NATIVE_WORLD_GEOMETRY = object()
 
 
 def water_polygons(shapes):
@@ -78,9 +79,9 @@ def project(points, shape, row, source, size):
     camera = row['camera']
     origin = row['ready']['origin']
     points = [tuple(point[i] + origin[i] for i in range(3)) for point in points]
-    if source.get('_native_world_geometry') is not None:
+    if source.get(_NATIVE_WORLD_GEOMETRY) is not None:
         from water_native_projection import stone_project
-        return stone_project(points, camera, size, source['_native_world_geometry'])
+        return stone_project(points, camera, size, source[_NATIVE_WORLD_GEOMETRY])
     projected = project_points(points, camera['position'], camera['target'], size,
                                source['camera_calibration']['vertical_fov'])
     return [(point['screenX'], point['screenY']) for point in projected]
@@ -88,7 +89,7 @@ def project(points, shape, row, source, size):
 
 def expected_mask(row, source, size):
     if (row['case'].startswith('neighbor_') or
-            (source.get('_native_world_geometry') is not None and row['route'] != 'editor'
+            (source.get(_NATIVE_WORLD_GEOMETRY) is not None and row['route'] != 'editor'
              and row['case'] == 'falling')):
         return unoccluded_neighbor_mask(row, source, size)
     image = Image.new('L', size)
@@ -233,7 +234,6 @@ def fixed_alpha_regions(images, regions):
 
 def analyze(path, native_world_geometry=False):
     source = json.loads(path.read_bytes())
-    source.pop('_native_world_geometry', None)
     failures = capture_failures(source['captures'], source['session_binding'])
     oracle = None
     if native_world_geometry:
@@ -248,7 +248,7 @@ def analyze(path, native_world_geometry=False):
                 raise ValueError('Native world geometry calibration bytes changed')
             model = stone_camera_model(json.loads(calibration_path.read_bytes()),
                 source['session_binding'], source['source_contract_sha256'])
-            source['_native_world_geometry'] = model
+            source[_NATIVE_WORLD_GEOMETRY] = model
             oracle = {'kind': 'native_stone_camera_with_opaque_support_depth',
                 'calibration_sha256': reference['sha256'], 'model': model,
                 'helper_sha256': hashlib.sha256(Path(water_native_projection.__file__).read_bytes()).hexdigest()}

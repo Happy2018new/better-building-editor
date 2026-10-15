@@ -309,3 +309,4 @@ tools/water_native_projection.py text eol=lf
 tools/analyze_product_water.py -text whitespace=cr-at-eol
 tests/test_water_native_projection.py text eol=lf
 tests/test_product_water_analysis.py -text whitespace=cr-at-eol
+docs/evidence/water-native-world-oracle-r21-v1/** -text -diff whitespace=cr-at-eol

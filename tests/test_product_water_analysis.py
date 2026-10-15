@@ -40,11 +40,22 @@ class ProductWaterAnalysisTests(unittest.TestCase):
         with patch.object(product_analysis, 'unoccluded_neighbor_mask', return_value=mask) as depth:
             self.assertFalse(product_analysis.expected_mask(row, {}, (32, 32)).any())
             depth.assert_not_called()
-            self.assertIs(mask, product_analysis.expected_mask(row, {'_native_world_geometry': {}}, (32, 32)))
+            self.assertIs(mask, product_analysis.expected_mask(row,
+                          {product_analysis._NATIVE_WORLD_GEOMETRY: {}}, (32, 32)))
             depth.assert_called_once()
             self.assertFalse(product_analysis.expected_mask(dict(row, route='editor'),
-                             {'_native_world_geometry': {}}, (32, 32)).any())
+                             {product_analysis._NATIVE_WORLD_GEOMETRY: {}}, (32, 32)).any())
             depth.assert_called_once()
+
+    def test_raw_json_field_cannot_enable_the_internal_native_oracle(self):
+        source = json.loads('{"_native_world_geometry": {"invalid": true}}')
+        source['camera_calibration'] = {'vertical_fov': 60.}
+        row = {'route': 'full', 'case': 'falling', 'ready': {'shapes': [], 'origin': [0., 0., 0.]},
+               'camera': {'position': [0., 0., 5.], 'target': [0., 0., 0.]}}
+        with patch.object(product_analysis, 'unoccluded_neighbor_mask') as depth:
+            self.assertFalse(product_analysis.expected_mask(row, source, (32, 32)).any())
+            depth.assert_not_called()
+        self.assertEqual([(16., 16.)], product_analysis.project([(0., 0., 0.)], None, row, source, (32, 32)))
 
     def evidence(self, directory):
         path = Path(directory) / 'frame.png'
