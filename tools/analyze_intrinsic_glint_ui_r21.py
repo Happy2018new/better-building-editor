@@ -38,6 +38,30 @@ def glint_signature(frames):
             'detected': len(fitted) >= 64 and float(np.mean(matching)) >= .9}
 
 
+def classify(row):
+    unforced = row['unforced_glint_signature']
+    forced = row['forced_glint_signature']
+    if not row['native_set_succeeded']:
+        return 'unresolved', 'Native item renderer rejected at least one paired request'
+    if unforced['detected'] and forced['detected']:
+        return ('intrinsic_glint_native_confirmed',
+                'Unforced temporal RGB modulation fits the controlled native purple glint signature')
+    if (forced['detected'] and not unforced['matching_samples'] and
+            not row['unforced_temporal_deltas']['changed_over_3']):
+        return ('no_intrinsic_glint_in_this_probe',
+                'Only the forced pass animates; actual item state is recorded')
+    if row['name'] in DYNAMIC:
+        if (forced['detected'] and not unforced['matching_samples'] and
+                len(row['paired_glint_signatures']) == 3 and
+                all(signature['detected'] for signature in row['paired_glint_signatures'])):
+            return ('no_intrinsic_glint_in_this_probe',
+                    'Every same-phase pair adds native purple glint only when forced; '
+                    'unforced indicator motion has no matching glint samples')
+        return ('unresolved',
+                'Indicator motion is distinct from glint; preserve unresolved moving body pixels')
+    return 'unresolved', 'Pixel controls are insufficient; preserve the item as unresolved'
+
+
 def analyze(directory):
     report = json.loads((directory / 'report.json').read_text(encoding='ascii'))
     if not report['completed'] or report['cleanup_errors'] or not report['restoration']['restored']:
@@ -97,20 +121,10 @@ def analyze(directory):
                'forced_temporal_deltas': forced, 'classification': 'unresolved',
                'unforced_glint_signature': unforced_signature,
                'forced_glint_signature': forced_signature,
+               'paired_glint_signatures': [glint_signature([before, after])
+                                           for before, after in zip(false, true)],
                'visual_qualification': False}
-        if not row['native_set_succeeded']:
-            row['reason'] = 'Native item renderer rejected at least one paired request'
-        elif unforced_signature['detected'] and forced_signature['detected']:
-            row['classification'] = 'intrinsic_glint_native_confirmed'
-            row['reason'] = 'Unforced temporal RGB modulation fits the controlled native purple glint signature'
-        elif (forced_signature['detected'] and not unforced_signature['matching_samples'] and
-              not unforced['changed_over_3']):
-            row['classification'] = 'no_intrinsic_glint_in_this_probe'
-            row['reason'] = 'Only the forced pass animates; actual item state is recorded'
-        elif row['name'] in DYNAMIC:
-            row['reason'] = 'Indicator motion is distinct from glint; preserve unresolved moving body pixels'
-        else:
-            row['reason'] = 'Pixel controls are insufficient; preserve the item as unresolved'
+        row['classification'], row['reason'] = classify(row)
         rows.append(row)
         crops.append((images[0].crop(bounds['False']), images[0].crop(bounds['True'])))
     tile_width, tile_height = 390, 210
@@ -134,7 +148,7 @@ def analyze(directory):
         for row in rows:
             row['classification'] = 'unresolved'
             row['reason'] = 'Required plain/forced native glint controls did not pass'
-    result = {'schema': 2, 'report_sha256': hashlib.sha256((directory / 'report.json').read_bytes()).hexdigest(),
+    result = {'schema': 3, 'report_sha256': hashlib.sha256((directory / 'report.json').read_bytes()).hexdigest(),
               'gui_scale': scale, 'rows': rows, 'production_qualified': False,
               'signature': {'normalized_squared_color': GLINT_COLOR.tolist(),
                             'maximum_channel_residual': 2.5, 'minimum_moving_samples': 64,

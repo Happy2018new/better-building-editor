@@ -14,6 +14,8 @@ PAYLOAD_VERSION = 1
 WORLD_TAG = 39687.
 PREVIEW_BYTE = 135
 SLOTS = 4
+UNTRACKED_INDICATORS = frozenset(('minecraft:clock', 'minecraft:compass',
+                                'minecraft:lodestone_compass', 'minecraft:recovery_compass'))
 SpriteGroup = namedtuple('SpriteGroup', 'key model_name origin uniforms')
 
 
@@ -92,6 +94,8 @@ def sprite_item(item, profiles, family='frame'):
     if family not in profile.get('content_families', ('frame', 'shelf', 'campfire')):
         return None
     key = profile.get('resource_key', key)
+    if name in UNTRACKED_INDICATORS:
+        return key
     # Arbitrary userData can change maps, banners, potions or custom models.
     if any(field not in ('ench', b'ench') for field in item['userData']):
         return None

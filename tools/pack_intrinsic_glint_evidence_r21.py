@@ -10,6 +10,8 @@ SOURCES = ('tools/audit_intrinsic_glint_r21.py', 'tools/probe_intrinsic_glint_r2
            'tools/probe_intrinsic_glint_ui_r21.py', 'tools/analyze_intrinsic_glint_ui_r21.py',
            'tools/census_intrinsic_glint_ui_r21.py', 'tools/freeze_intrinsic_glint_project_r21.py',
            'tools/pack_intrinsic_glint_evidence_r21.py', 'tests/test_intrinsic_glint_r21.py',
+           'tools/watch_intrinsic_glint_exit_r21.py',
+           'tools/probe_intrinsic_glint_aux_r21.py',
            'behavior_pack/modern_projection/projection/intrinsic_item_glint.py',
            'behavior_pack/modern_projection/projection/item_sprite_plan.py')
 
@@ -20,6 +22,9 @@ def pack(census, project_manifest, output):
             len(summary['pages']) != summary['requested_pages'] or
             any(not page['restored'] for page in summary['pages'])):
         raise ValueError('A complete, source-bound, restored census is required')
+    frozen = json.loads(project_manifest.read_text(encoding='ascii'))
+    if frozen['files_sha256'] != summary['binding']['project_files_sha256']:
+        raise ValueError('The archived project manifest does not match the census')
     bindings = {'sampler_sha256': 'tools/probe_intrinsic_glint_ui_r21.py',
                 'analyzer_sha256': 'tools/analyze_intrinsic_glint_ui_r21.py',
                 'census_source_sha256': 'tools/census_intrinsic_glint_ui_r21.py',
@@ -33,6 +38,21 @@ def pack(census, project_manifest, output):
         for name in ('report', 'analysis'):
             if hashlib.sha256((directory / (name + '.json')).read_bytes()).hexdigest() != page[name + '_sha256']:
                 raise ValueError('A completed page report changed')
+    extra_path = census / 'supplemental-aux/summary.json'
+    extra = json.loads(extra_path.read_text(encoding='ascii')) if extra_path.exists() else None
+    if extra is not None:
+        if (not extra['completed'] or not extra['project_source_unchanged'] or
+                extra['full_census_sha256'] != hashlib.sha256((census / 'census.json').read_bytes()).hexdigest() or
+                extra['source_sha256'] != hashlib.sha256(
+                    (ROOT / 'tools/probe_intrinsic_glint_aux_r21.py').read_bytes()).hexdigest()):
+            raise ValueError('The auxiliary supplement must remain complete and source-bound')
+        for page in extra['pages']:
+            if not page['restored']:
+                raise ValueError('A supplemental page was not restored')
+            for name in ('report', 'analysis'):
+                payload = (extra_path.parent / page['path'] / (name + '.json')).read_bytes()
+                if hashlib.sha256(payload).hexdigest() != page[name + '_sha256']:
+                    raise ValueError('A supplemental native report changed')
     output.mkdir(parents=True, exist_ok=False)
     shutil.copytree(census, output / 'census')
     shutil.copyfile(project_manifest, output / 'project-source-manifest.json')
@@ -57,6 +77,7 @@ def pack(census, project_manifest, output):
     index = {'schema': 1, 'engine_version': summary['engine_version'],
              'native_sampling_complete': True, 'all_nbt_states_qualified': False,
              'production_qualified': False, 'coverage': summary['coverage'],
+             'auxiliary_supplement': extra['coverage'] if extra is not None else None,
              'limitations': summary['limitations'], 'files': files,
              'exploratory_note': 'Historical reports preserve exact submitted game code and capture receipts; '
                                  'their original external wrapper bytes were not retained. '

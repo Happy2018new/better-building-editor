@@ -17,7 +17,8 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 sys.path.insert(0, str(ROOT / 'tests'))
 import audit_intrinsic_glint_r21 as audit
 import probe_intrinsic_glint_r21 as probe
-from analyze_intrinsic_glint_ui_r21 import GLINT_COLOR, glint_signature
+from probe_intrinsic_glint_aux_r21 import requests as auxiliary_requests
+from analyze_intrinsic_glint_ui_r21 import GLINT_COLOR, classify, glint_signature
 from census_intrinsic_glint_ui_r21 import requests, resource_stop
 from projection.item_sprite_plan import _contents, sprite_content, sprite_item
 from projection.intrinsic_item_glint import CONFIRMED_PAIRS, item_glint
@@ -102,6 +103,17 @@ class NativeProbeTests(unittest.TestCase):
 
 
 class PublicCensusTests(unittest.TestCase):
+    def test_new_positive_family_auxiliary_gaps_are_filled_without_repeating_observed_pairs(self):
+        summary = {'pages': [{'rows': [
+            {'name': 'minecraft:debug_stick', 'aux': 0,
+             'classification': 'intrinsic_glint_native_confirmed'},
+            {'name': 'minecraft:stick', 'aux': 0,
+             'classification': 'no_intrinsic_glint_in_this_probe'}]}]}
+        textures = {'rows': [{'name': name, 'aux': aux} for name in
+                             ('minecraft:debug_stick', 'minecraft:stick') for aux in (0, 1, 15)]}
+        self.assertEqual([('minecraft:debug_stick', 1, False),
+                          ('minecraft:debug_stick', 15, False)], auxiliary_requests(summary, textures))
+
     def test_restored_page_resource_budget_stops_before_low_commit_or_high_handles(self):
         live = {'status': 'live', 'handle_count': 199999}
         enough = {'commit_available_bytes': 3 * 1024 ** 3}
@@ -167,6 +179,24 @@ class PublicCensusTests(unittest.TestCase):
 
 
 class NativeGlintSignatureTests(unittest.TestCase):
+    def test_indicator_motion_needs_all_three_same_phase_glint_pairs_for_a_negative(self):
+        row = {'name': 'minecraft:recovery_compass', 'native_set_succeeded': True,
+               'unforced_glint_signature': {'detected': False, 'matching_samples': 0},
+               'forced_glint_signature': {'detected': True},
+               'unforced_temporal_deltas': {'changed_over_3': 2000},
+               'paired_glint_signatures': [{'detected': True} for unused in range(3)]}
+        self.assertEqual('no_intrinsic_glint_in_this_probe', classify(row)[0])
+        row['paired_glint_signatures'][1]['detected'] = False
+        self.assertEqual('unresolved', classify(row)[0])
+        row['paired_glint_signatures'][1]['detected'] = True
+        row['unforced_glint_signature']['matching_samples'] = 1
+        self.assertEqual('unresolved', classify(row)[0])
+        row['unforced_glint_signature']['detected'] = True
+        self.assertEqual('intrinsic_glint_native_confirmed', classify(row)[0])
+        row['unforced_glint_signature'] = {'detected': False, 'matching_samples': 0}
+        row['paired_glint_signatures'] = []
+        self.assertEqual('unresolved', classify(row)[0])
+
     def test_purple_glint_passes_while_dynamic_needle_motion_does_not(self):
         base = np.full((16, 16, 3), 90, dtype=np.int16)
         glint = np.round(base + GLINT_COLOR * 50).astype(np.int16)
@@ -180,6 +210,29 @@ class NativeGlintSignatureTests(unittest.TestCase):
 
 
 class PerItemQualificationTests(unittest.TestCase):
+    def test_indicators_never_iterate_or_read_tracking_metadata_and_unknown_aux_stays_rejected(self):
+        class UnreadMetadata:
+            def __iter__(self):
+                raise AssertionError('Indicator metadata must stay opaque')
+
+            def __getitem__(self, key):
+                raise AssertionError('Indicator targets must never be read')
+
+            def get(self, key, default=None):
+                raise AssertionError('Indicator targets must never be read')
+
+        for name in ('minecraft:clock', 'minecraft:compass',
+                     'minecraft:lodestone_compass', 'minecraft:recovery_compass'):
+            item = {'newItemName': name, 'newAuxValue': 0, 'isEnchanted': False,
+                    'userData': UnreadMetadata()}
+            profiles = {(name, 0): {}}
+            self.assertEqual((name, 0), sprite_item(item, profiles))
+            self.assertEqual(name == 'minecraft:lodestone_compass', item_glint(item))
+            item['isEnchanted'] = True
+            self.assertTrue(item_glint(item))
+            item['newAuxValue'] = 65535
+            self.assertIsNone(sprite_item(item, profiles))
+
     def test_frame_only_geometry_cannot_leak_into_shelf_or_campfire(self):
         item = {'newItemName': 'minecraft:stone', 'newAuxValue': 0,
                 'isEnchanted': False, 'userData': {}}
