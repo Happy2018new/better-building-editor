@@ -290,6 +290,9 @@ tools/analyze_item_glint_direction_r20.py text eol=lf
 tools/pack_item_glint_direction_r20.py text eol=lf
 tools/verify_item_glint_direction_r20.py text eol=lf
 tests/test_item_glint_direction.py text eol=lf
+# Timing diagnostics bind exact reports and host bytes across CPU/wall clocks.
+docs/evidence/water-timing-r21-v1/** -text -diff whitespace=cr-at-eol
+tools/pack_water_timing_r21.py text eol=lf
 # R21 lectern diagnostics preserve measured crops and host tool fingerprints.
 docs/evidence/lectern-context-r21-*/** -text -diff whitespace=cr-at-eol
 tools/analyze_lectern_context_bounds_r21.py text eol=lf

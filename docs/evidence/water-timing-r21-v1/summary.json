@@ -1,0 +1,177 @@
+{
+  "diagnostic_only": true,
+  "failed_formal_samples": [
+    {
+      "maximum_ms": 168.99991035461426,
+      "method": "LiquidProjection.advance",
+      "report": "../water-ui-state-r20-v1/v2-core-timing-and-state.json"
+    },
+    {
+      "maximum_ms": 230.00001907348633,
+      "method": "LiquidPreview.advance",
+      "report": "../water-ui-state-r20-v1/v7-editor-pool.json"
+    },
+    {
+      "maximum_ms": 434.999942779541,
+      "method": "LiquidControls.update",
+      "report": "../water-ui-state-r20-v1/v7-editor-public19.json"
+    },
+    {
+      "maximum_ms": 370.00012397766113,
+      "method": "LiquidControls.update",
+      "report": "../water-ui-state-r20-v1/v7-editor-alpha4.json"
+    }
+  ],
+  "paired_clock_stats": {
+    "BlockStore.copy": {
+      "calls": 108,
+      "maximum_high_resolution_wall_ms": 0.6106999999246909,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 1.0001659393310547
+    },
+    "DocumentLiquidShapes.surface": {
+      "calls": 161,
+      "maximum_high_resolution_wall_ms": 2.871499999855587,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 3.000020980834961
+    },
+    "LiquidControls.update": {
+      "calls": 10338,
+      "maximum_high_resolution_wall_ms": 11.863699999594246,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 10.999917984008789
+    },
+    "LiquidFaceTextures.surface": {
+      "calls": 161,
+      "maximum_high_resolution_wall_ms": 2.9752999998891028,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 3.000020980834961
+    },
+    "LiquidPreview._start": {
+      "calls": 36,
+      "maximum_high_resolution_wall_ms": 0.7052999999359599,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 1.0001659393310547
+    },
+    "LiquidPreview.advance": {
+      "calls": 10338,
+      "maximum_high_resolution_wall_ms": 5.661099999997532,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 6.000041961669922
+    },
+    "LiquidPreview.signature": {
+      "calls": 10846,
+      "maximum_high_resolution_wall_ms": 0.5470999999488413,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 1.0001659393310547
+    },
+    "LiquidProjection.advance": {
+      "calls": 0,
+      "maximum_high_resolution_wall_ms": 0.0,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 0.0
+    },
+    "Session.emit": {
+      "calls": 182,
+      "maximum_high_resolution_wall_ms": 1.5193999997791252,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 2.000093460083008
+    },
+    "SkeletonLiquidRenderer._payload": {
+      "calls": 2632,
+      "maximum_high_resolution_wall_ms": 0.5480999998326297,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 1.0001659393310547
+    },
+    "SkeletonLiquidRenderer._render_pose": {
+      "calls": 1280,
+      "maximum_high_resolution_wall_ms": 0.5473999999594525,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 1.0001659393310547
+    },
+    "SkeletonLiquidRenderer._settle": {
+      "calls": 252,
+      "maximum_high_resolution_wall_ms": 0.9251000001313514,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 1.0001659393310547
+    },
+    "SkeletonLiquidRenderer._update_pose": {
+      "calls": 1220,
+      "maximum_high_resolution_wall_ms": 1.0310000002391462,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 1.0001659393310547
+    },
+    "SkeletonLiquidRenderer.restore_publication": {
+      "calls": 6392,
+      "maximum_high_resolution_wall_ms": 0.37489999976969557,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 1.0001659393310547
+    },
+    "SkeletonLiquidRenderer.update": {
+      "calls": 1532,
+      "maximum_high_resolution_wall_ms": 2.666999999746622,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 2.000093460083008
+    },
+    "WorldLiquidRenderer.advance": {
+      "calls": 0,
+      "maximum_high_resolution_wall_ms": 0.0,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 0.0
+    },
+    "WorldLiquidRenderer.begin": {
+      "calls": 0,
+      "maximum_high_resolution_wall_ms": 0.0,
+      "maximum_thread_cpu_ms": 0.0,
+      "maximum_wall_ms": 0.0
+    }
+  },
+  "paired_clock_transitions": 36,
+  "production_qualified": false,
+  "profiler": {
+    "cpu": {
+      "job_id": "1a140312105-0-55421fff",
+      "methods": {
+        "LiquidControls.update": {
+          "calls": 3747,
+          "self_time": 0.078125,
+          "total_time": 0.265625
+        },
+        "LiquidPreview.advance": {
+          "calls": 3747,
+          "self_time": 0.015625,
+          "total_time": 0.09375
+        }
+      },
+      "state": "completed",
+      "transitions": 6
+    },
+    "wall": {
+      "job_id": "1a14031a1fe-1-23ccd246",
+      "methods": {
+        "LiquidControls.update": {
+          "calls": 5775,
+          "self_time": 0.0651084,
+          "total_time": 0.5607786
+        },
+        "LiquidPreview.advance": {
+          "calls": 5775,
+          "self_time": 0.024602799999999998,
+          "total_time": 0.1117812
+        }
+      },
+      "state": "completed",
+      "transitions": 6
+    }
+  },
+  "schema": 1,
+  "session_binding": {
+    "game_identity": "134365482282069586",
+    "game_pid": 53572,
+    "id": "583fe77f3ee2484d84ec2672b3bab670",
+    "owner": "water-r20-v7",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\583fe77f3ee2484d84ec2672b3bab670\\session.json"
+  },
+  "source_contract_sha256": "cb2b32de68b69f435d69b59cf296d8492d88984ddb96e10f020d7fdbd0aef806",
+  "thread_cpu_supported": false
+}

@@ -1,0 +1,5014 @@
+{
+  "schema": 1,
+  "diagnostic_only": true,
+  "production_qualified": false,
+  "completed": true,
+  "restored": true,
+  "cleanup_errors": [],
+  "screenshots": [],
+  "window_actions": [],
+  "source_contract_sha256": "cb2b32de68b69f435d69b59cf296d8492d88984ddb96e10f020d7fdbd0aef806",
+  "host_sha256": "a5e573f953c5d87e778581d45a2bec3306525d666eabcba2b54a05baf9c58fe9",
+  "profiles": {
+    "cpu": {
+      "rows": [
+        {
+          "case": "pool",
+          "control": "wet",
+          "groups": 8,
+          "time": 1792078327.0343173
+        },
+        {
+          "case": "pool",
+          "control": "dry",
+          "groups": 0,
+          "time": 1792078330.6409914
+        },
+        {
+          "case": "flow_west",
+          "control": "wet",
+          "groups": 4,
+          "time": 1792078333.938708
+        },
+        {
+          "case": "flow_west",
+          "control": "dry",
+          "groups": 0,
+          "time": 1792078337.1594305
+        },
+        {
+          "case": "wet_oak_slab",
+          "control": "wet",
+          "groups": 2,
+          "time": 1792078339.448098
+        },
+        {
+          "case": "wet_oak_slab",
+          "control": "dry",
+          "groups": 0,
+          "time": 1792078341.2390966
+        }
+      ],
+      "started": 1792078320.5555391,
+      "metrics_before": {
+        "time": 1792078323.844463,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 421060608,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2926837760,
+        "handles": 185471
+      },
+      "start": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Profiler job 1a140312105-0-55421fff started with a server deadline.",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "data": {
+            "deadline_seconds": 30,
+            "storage": "disk"
+          },
+          "error": null,
+          "job": {
+            "completed_at": null,
+            "created_at": "2026-10-15T15:32:03Z",
+            "id": "1a140312105-0-55421fff",
+            "kind": "python.cpu",
+            "partial": false,
+            "state": "running",
+            "status_message": "Capture is running and will stop at the server deadline.",
+            "storage": "disk"
+          },
+          "next_calls": [
+            {
+              "args": {
+                "job_id": "1a140312105-0-55421fff"
+              },
+              "op": "/status",
+              "reason": "Observe automatic finalization without extending the deadline."
+            }
+          ],
+          "ok": true,
+          "op": "/start",
+          "warnings": []
+        }
+      },
+      "job_id": "1a140312105-0-55421fff",
+      "status": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Profiler job status is available in structuredContent.",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "data": {},
+          "error": null,
+          "job": {
+            "completed_at": "2026-10-15T15:32:34Z",
+            "created_at": "2026-10-15T15:32:03Z",
+            "id": "1a140312105-0-55421fff",
+            "kind": "python.cpu",
+            "partial": false,
+            "state": "completed",
+            "status_message": "Capture completed and committed to controlled storage.",
+            "storage": "disk"
+          },
+          "next_calls": [
+            {
+              "args": {
+                "job_id": "1a140312105-0-55421fff",
+                "view": "hotspots"
+              },
+              "op": "/query",
+              "reason": "Inspect the server-ranked bounded result."
+            }
+          ],
+          "ok": true,
+          "op": "/status",
+          "warnings": []
+        }
+      },
+      "hotspots": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Bounded profiler records are available in structuredContent.",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "data": {
+            "next_cursor": "92a03160d92f9760:50",
+            "records": [
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1249
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1249
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 83
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_RuntimeEventHandler.on_game_render_tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.015625
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 10.9375
+                  }
+                },
+                "id": "fn:0"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1249
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1249
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 973
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "notify_game_render_tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0625
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 10.921875
+                  }
+                },
+                "id": "fn:1"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 2151
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2151
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 283
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "NavigatorScreen._pyreact_flush"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 9.875
+                  }
+                },
+                "id": "fn:2"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1419
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "layout_tree"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.03125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 6.40625
+                  }
+                },
+                "id": "fn:3"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 103
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 103
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 426
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "rerender_component"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 3.375
+                  }
+                },
+                "id": "fn:4"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 103
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 4884
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 303
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "reconcile_children"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.09375
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 3.28125
+                  }
+                },
+                "id": "fn:5"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 103
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 4081
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 255
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_update_primitive"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.046875
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 3.28125
+                  }
+                },
+                "id": "fn:6"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 103
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 9640
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 222
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "update_fiber"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.015625
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 3.28125
+                  }
+                },
+                "id": "fn:7"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1473
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_layout_and_apply"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 3.015625
+                  }
+                },
+                "id": "fn:8"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1249
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1249
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 389
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "NavigatorScreen._pyreact_tick_animation_frames"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.1875
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 2.28125
+                  }
+                },
+                "id": "fn:9"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 18540
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 770
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "layout"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.734375
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 2.046875
+                  }
+                },
+                "id": "fn:10"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1488
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_layout_nodes"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 2.046875
+                  }
+                },
+                "id": "fn:11"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 902
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 902
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 832
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.navigator"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "NavigatorScreen.Update"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.84375
+                  }
+                },
+                "id": "fn:12"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 92
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 92
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 126
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.native"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "update_screen"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.796875
+                  }
+                },
+                "id": "fn:13"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 902
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 902
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 219
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "NavigatorScreen.Update"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.03125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.78125
+                  }
+                },
+                "id": "fn:14"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 107
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1755
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 126
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "mount_fiber"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.015625
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.609375
+                  }
+                },
+                "id": "fn:15"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 818
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2572
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 245
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_update_component"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.015625
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.59375
+                  }
+                },
+                "id": "fn:16"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 107
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1555
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 147
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_mount_primitive"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.03125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.53125
+                  }
+                },
+                "id": "fn:17"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 90
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 200
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 137
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_mount_component"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.3125
+                  }
+                },
+                "id": "fn:18"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 2107
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2107
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 181
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_render_component"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.03125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.046875
+                  }
+                },
+                "id": "fn:19"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 18726
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1314
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "apply"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.265625
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.96875
+                  }
+                },
+                "id": "fn:20"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1249
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1249
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 306
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.scene"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.203125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.921875
+                  }
+                },
+                "id": "fn:21"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 18726
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 376
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "measure"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.25
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.921875
+                  }
+                },
+                "id": "fn:22"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1555
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1555
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 29
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.renderer"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "apply_style"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.03125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.734375
+                  }
+                },
+                "id": "fn:23"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 131
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 131
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.native"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "set_layer"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.65625
+                  }
+                },
+                "id": "fn:24"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 11241
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 11241
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 404
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.03125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.625
+                  }
+                },
+                "id": "fn:25"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 98
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "build_layout_tree"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.515625
+                  }
+                },
+                "id": "fn:26"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 88
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 20808
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 120
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_collect"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.515625
+                  }
+                },
+                "id": "fn:27"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 17098
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 17098
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 76
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.native"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "get_control"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.03125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.453125
+                  }
+                },
+                "id": "fn:28"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 13198
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 13198
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 738
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0625
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.4375
+                  }
+                },
+                "id": "fn:29"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 8199
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 8199
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 535
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_measure_auto_container"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.09375
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.421875
+                  }
+                },
+                "id": "fn:30"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 902
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 902
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 493
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.debug"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "poll_clipboard"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.015625
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.375
+                  }
+                },
+                "id": "fn:31"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1002
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1002
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 667
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "Action"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.015625
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.359375
+                  }
+                },
+                "id": "fn:32"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 17
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 114
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 392
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "unmount_fiber"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.359375
+                  }
+                },
+                "id": "fn:33"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 17
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 17
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 119
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.native"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "remove"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.34375
+                  }
+                },
+                "id": "fn:34"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 359
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_EXEC_CODE_RESULT"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.328125
+                  }
+                },
+                "id": "fn:35"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 51658
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 51658
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 441
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.style"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_resolve_box_edges"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.203125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.328125
+                  }
+                },
+                "id": "fn:36"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 468
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_RUN_CLIENT_CODE"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.328125
+                  }
+                },
+                "id": "fn:37"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 417
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_TASK"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.328125
+                  }
+                },
+                "id": "fn:38"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 328
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_EXEC_CODE_VALUE"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.328125
+                  }
+                },
+                "id": "fn:39"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 8227
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 8227
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 662
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_resolve_flexible_lengths"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.3125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.3125
+                  }
+                },
+                "id": "fn:40"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 28649
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 28649
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 480
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.style"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "resolve_margin"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.078125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.296875
+                  }
+                },
+                "id": "fn:41"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 68
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 68
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1156
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.primitives"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "VisibleScrollPrimitive.apply_children"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.265625
+                  }
+                },
+                "id": "fn:42"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 89607
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 89607
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 178
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_parse_dimension"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.265625
+                  }
+                },
+                "id": "fn:43"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 3747
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 3747
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 53
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.liquid_viewport"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "LiquidControls.update"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.078125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.265625
+                  }
+                },
+                "id": "fn:44"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 4700
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 4700
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 77
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "S"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.078125
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.25
+                  }
+                },
+                "id": "fn:45"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 282214
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 282214
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 184
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.style"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "Style.get"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.234375
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.25
+                  }
+                },
+                "id": "fn:46"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 84
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 324
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_EXEC_CODE_OBJECT"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.25
+                  }
+                },
+                "id": "fn:47"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 14996
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 14996
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 57
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "LayoutNode.__init__"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.109375
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.25
+                  }
+                },
+                "id": "fn:48"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 11241
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 11241
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 221
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "is_shown"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.171875
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.234375
+                  }
+                },
+                "id": "fn:49"
+              }
+            ],
+            "returned": 50,
+            "total_available": 512,
+            "truncated": true,
+            "view": "hotspots"
+          },
+          "error": null,
+          "job": null,
+          "next_calls": [
+            {
+              "args": {
+                "cursor": "92a03160d92f9760:50",
+                "job_id": "1a140312105-0-55421fff",
+                "limit": 50,
+                "view": "hotspots"
+              },
+              "op": "/query",
+              "reason": "Continue the same server-bound query with the identical filter and ordering."
+            }
+          ],
+          "ok": true,
+          "op": "/query",
+          "warnings": []
+        }
+      },
+      "export": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Profiler report was written to a server-controlled path.",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "data": {
+            "artifact": {
+              "path": "C:/Users/Happy2018new/.pyreact-debug/instances/583fe77f3ee2484d84ec2672b3bab670/.mcdev/profiles/1a140312105-0-55421fff/report.md",
+              "sha256": "7ad2995abccbba4ca9a4a57e592808fb8ef0913f28187be9227d62963233d27c",
+              "size": 5056
+            }
+          },
+          "error": null,
+          "job": null,
+          "next_calls": [],
+          "ok": true,
+          "op": "/export",
+          "warnings": []
+        }
+      },
+      "metrics_after": {
+        "time": 1792078354.7547219,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 461864960,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2929569792,
+        "handles": 185480
+      },
+      "ended": 1792078354.7547557
+    },
+    "wall": {
+      "rows": [
+        {
+          "case": "pool",
+          "control": "wet",
+          "groups": 8,
+          "time": 1792078358.7109792
+        },
+        {
+          "case": "pool",
+          "control": "dry",
+          "groups": 0,
+          "time": 1792078360.5940285
+        },
+        {
+          "case": "flow_west",
+          "control": "wet",
+          "groups": 4,
+          "time": 1792078362.3083794
+        },
+        {
+          "case": "flow_west",
+          "control": "dry",
+          "groups": 0,
+          "time": 1792078364.1330638
+        },
+        {
+          "case": "wet_oak_slab",
+          "control": "wet",
+          "groups": 2,
+          "time": 1792078365.9438877
+        },
+        {
+          "case": "wet_oak_slab",
+          "control": "dry",
+          "groups": 0,
+          "time": 1792078367.5934284
+        }
+      ],
+      "started": 1792078354.7572925,
+      "metrics_before": {
+        "time": 1792078356.872082,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 462008320,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2929569792,
+        "handles": 185480
+      },
+      "start": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Profiler job 1a14031a1fe-1-23ccd246 started with a server deadline.",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "data": {
+            "deadline_seconds": 30,
+            "storage": "disk"
+          },
+          "error": null,
+          "job": {
+            "completed_at": null,
+            "created_at": "2026-10-15T15:32:36Z",
+            "id": "1a14031a1fe-1-23ccd246",
+            "kind": "python.cpu",
+            "partial": false,
+            "state": "running",
+            "status_message": "Capture is running and will stop at the server deadline.",
+            "storage": "disk"
+          },
+          "next_calls": [
+            {
+              "args": {
+                "job_id": "1a14031a1fe-1-23ccd246"
+              },
+              "op": "/status",
+              "reason": "Observe automatic finalization without extending the deadline."
+            }
+          ],
+          "ok": true,
+          "op": "/start",
+          "warnings": []
+        }
+      },
+      "job_id": "1a14031a1fe-1-23ccd246",
+      "status": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Profiler job status is available in structuredContent.",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "data": {},
+          "error": null,
+          "job": {
+            "completed_at": "2026-10-15T15:33:07Z",
+            "created_at": "2026-10-15T15:32:36Z",
+            "id": "1a14031a1fe-1-23ccd246",
+            "kind": "python.cpu",
+            "partial": false,
+            "state": "completed",
+            "status_message": "Capture completed and committed to controlled storage.",
+            "storage": "disk"
+          },
+          "next_calls": [
+            {
+              "args": {
+                "job_id": "1a14031a1fe-1-23ccd246",
+                "view": "hotspots"
+              },
+              "op": "/query",
+              "reason": "Inspect the server-ranked bounded result."
+            }
+          ],
+          "ok": true,
+          "op": "/status",
+          "warnings": []
+        }
+      },
+      "hotspots": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Bounded profiler records are available in structuredContent.",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "data": {
+            "next_cursor": "829c2c08c426f0ac:50",
+            "records": [
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 83
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_RuntimeEventHandler.on_game_render_tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.010404799999999999
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 4.2835624999999995
+                  }
+                },
+                "id": "fn:0"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 973
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "notify_game_render_tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.050358599999999996
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 4.2731577
+                  }
+                },
+                "id": "fn:1"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 389
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "NavigatorScreen._pyreact_tick_animation_frames"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.2566777
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 3.286985
+                  }
+                },
+                "id": "fn:2"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 2825
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2825
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 283
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "NavigatorScreen._pyreact_flush"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0134601
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 2.1834219999999998
+                  }
+                },
+                "id": "fn:3"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 900
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 900
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 832
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.navigator"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "NavigatorScreen.Update"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0084093
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 2.0259923
+                  }
+                },
+                "id": "fn:4"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 900
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 900
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 219
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.host"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "NavigatorScreen.Update"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.017324
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.9520456
+                  }
+                },
+                "id": "fn:5"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 306
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.scene"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.3169208
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.591357
+                  }
+                },
+                "id": "fn:6"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 22
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 22
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 426
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "rerender_component"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0001562
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.4787344999999998
+                  }
+                },
+                "id": "fn:7"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 22
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 4352
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 303
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "reconcile_children"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0598968
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.4621019
+                  }
+                },
+                "id": "fn:8"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 22
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 8157
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 222
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "update_fiber"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0238163
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.4617209999999998
+                  }
+                },
+                "id": "fn:9"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 22
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 3742
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 255
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_update_primitive"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.060057
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.4615007
+                  }
+                },
+                "id": "fn:10"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 240
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2201
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 245
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_update_component"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.010504
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 1.3734294
+                  }
+                },
+                "id": "fn:11"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 17325
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 17325
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 404
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.1122445
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.7146684
+                  }
+                },
+                "id": "fn:12"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 10
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 10
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1419
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "layout_tree"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0004585
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.6178537
+                  }
+                },
+                "id": "fn:13"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 21175
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 21175
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 738
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.13101179999999998
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.6115775
+                  }
+                },
+                "id": "fn:14"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 5775
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 5775
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 53
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.liquid_viewport"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "LiquidControls.update"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0651084
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.5607786
+                  }
+                },
+                "id": "fn:15"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1698
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1698
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 181
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_render_component"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0236181
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.5562653
+                  }
+                },
+                "id": "fn:16"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 900
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 900
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 493
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.debug"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "poll_clipboard"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0119073
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.5252242
+                  }
+                },
+                "id": "fn:17"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 24
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 186
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 392
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "unmount_fiber"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0031504
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.47539359999999997
+                  }
+                },
+                "id": "fn:18"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 24
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 24
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 119
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.native"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "remove"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0003411
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.45295789999999997
+                  }
+                },
+                "id": "fn:19"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 17325
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 17325
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 221
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "is_shown"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.2097981
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.2814175
+                  }
+                },
+                "id": "fn:20"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 10
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 10
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1473
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_layout_and_apply"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 9.29e-05
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.274492
+                  }
+                },
+                "id": "fn:21"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 13
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 13
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 126
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.native"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "update_screen"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0002631
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.2546321
+                  }
+                },
+                "id": "fn:22"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 417
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_TASK"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0006814
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.2482491
+                  }
+                },
+                "id": "fn:23"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 468
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_RUN_CLIENT_CODE"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0002198
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.24420219999999998
+                  }
+                },
+                "id": "fn:24"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 359
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_EXEC_CODE_RESULT"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0014811
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.2439824
+                  }
+                },
+                "id": "fn:25"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 328
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_EXEC_CODE_VALUE"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.001851
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.2410675
+                  }
+                },
+                "id": "fn:26"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 2825
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2825
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 671
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.navigator"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "Navigator._refresh_active_entry"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0526135
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.21664119999999998
+                  }
+                },
+                "id": "fn:27"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 2738
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2738
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 126
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.liquid_transport"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "validate_uniforms"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0325658
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.2147414
+                  }
+                },
+                "id": "fn:28"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 766
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 766
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 667
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "Action"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0191071
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.206788
+                  }
+                },
+                "id": "fn:29"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 78
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 324
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "DEBUG_ENV_SCRIPT.IPCSystem"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_EXEC_CODE_OBJECT"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0025410999999999997
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1947042
+                  }
+                },
+                "id": "fn:30"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 10
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 10
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1488
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_layout_nodes"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 6.51e-05
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1635907
+                  }
+                },
+                "id": "fn:31"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 10
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2828
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 770
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "layout"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0638195
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1635256
+                  }
+                },
+                "id": "fn:32"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 559
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.navigator"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "Navigator._tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0097226
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.16082639999999998
+                  }
+                },
+                "id": "fn:33"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 171
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.client_system"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "ModernProjectionClientSystem.render_tick"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0389753
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.156727
+                  }
+                },
+                "id": "fn:34"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 3790
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 3790
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 77
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.widgets"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "S"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.042865
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1546729
+                  }
+                },
+                "id": "fn:35"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1568
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1568
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 56
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.liquid_render"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "validate"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0033235
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1484623
+                  }
+                },
+                "id": "fn:36"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1233
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1233
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 211
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.style"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "Style.merge"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0792215
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1373081
+                  }
+                },
+                "id": "fn:37"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 2825
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2825
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 658
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.navigator"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "Navigator._top_snapshot"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.014517299999999999
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1305346
+                  }
+                },
+                "id": "fn:38"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 5365
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 5365
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 162
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.style"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "Style.__init__"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0895274
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1221317
+                  }
+                },
+                "id": "fn:39"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 921
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 921
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1374
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.primitives"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "ButtonPrimitive.__call__"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0045796
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1213175
+                  }
+                },
+                "id": "fn:40"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1170
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1170
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 71
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.liquid_transport"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "with_preview_distance"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0063216999999999995
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.11700419999999999
+                  }
+                },
+                "id": "fn:41"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 54760
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 54760
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 132
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.liquid_transport"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "<genexpr>"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0647206
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.11522539999999999
+                  }
+                },
+                "id": "fn:42"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 20
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 166
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 126
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "mount_fiber"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0011769999999999999
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1131195
+                  }
+                },
+                "id": "fn:43"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1170
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1170
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 496
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.scene"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "liquid_view"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.012734899999999999
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1125997
+                  }
+                },
+                "id": "fn:44"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 5775
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 5775
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 48
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.liquid_preview"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "LiquidPreview.advance"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.024602799999999998
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1117812
+                  }
+                },
+                "id": "fn:45"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 10
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 2858
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 1314
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.layout"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "apply"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0369008
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1108084
+                  }
+                },
+                "id": "fn:46"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 3850
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 3850
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 35
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.outline_preview"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "OutlinePreview.update"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0402743
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1072006
+                  }
+                },
+                "id": "fn:47"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 20
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 154
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 147
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.pyreact.reconciler"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "_mount_primitive"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.0039688
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.1060686
+                  }
+                },
+                "id": "fn:48"
+              },
+              {
+                "fields": {
+                  "actual_calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "calls": {
+                    "unit": null,
+                    "value": 1925
+                  },
+                  "context_id": {
+                    "unit": null,
+                    "value": 0
+                  },
+                  "context_name": {
+                    "unit": null,
+                    "value": "_MainThread"
+                  },
+                  "line": {
+                    "unit": null,
+                    "value": 134
+                  },
+                  "module": {
+                    "unit": null,
+                    "value": "modern_projection.projection.camera"
+                  },
+                  "name": {
+                    "unit": null,
+                    "value": "OrbitCamera.advance"
+                  },
+                  "self_time": {
+                    "unit": "seconds",
+                    "value": 0.060855099999999995
+                  },
+                  "target": {
+                    "unit": null,
+                    "value": "client"
+                  },
+                  "total_time": {
+                    "unit": "seconds",
+                    "value": 0.0929489
+                  }
+                },
+                "id": "fn:49"
+              }
+            ],
+            "returned": 50,
+            "total_available": 512,
+            "truncated": true,
+            "view": "hotspots"
+          },
+          "error": null,
+          "job": null,
+          "next_calls": [
+            {
+              "args": {
+                "cursor": "829c2c08c426f0ac:50",
+                "job_id": "1a14031a1fe-1-23ccd246",
+                "limit": 50,
+                "view": "hotspots"
+              },
+              "op": "/query",
+              "reason": "Continue the same server-bound query with the identical filter and ordering."
+            }
+          ],
+          "ok": true,
+          "op": "/query",
+          "warnings": []
+        }
+      },
+      "export": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Profiler report was written to a server-controlled path.",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "data": {
+            "artifact": {
+              "path": "C:/Users/Happy2018new/.pyreact-debug/instances/583fe77f3ee2484d84ec2672b3bab670/.mcdev/profiles/1a14031a1fe-1-23ccd246/report.md",
+              "sha256": "90470e2889c2324a535ae4c82150c914130e297e4f8c11c10daeee416d636cd6",
+              "size": 5175
+            }
+          },
+          "error": null,
+          "job": null,
+          "next_calls": [],
+          "ok": true,
+          "op": "/export",
+          "warnings": []
+        }
+      },
+      "metrics_after": {
+        "time": 1792078388.1075432,
+        "game_pid": 53572,
+        "game_identity": "134365482282069586",
+        "working_set_bytes": 465506304,
+        "peak_working_set_bytes": 1643044864,
+        "private_commit_bytes": 2935246848,
+        "handles": 185480
+      },
+      "ended": 1792078388.1076162
+    }
+  },
+  "session_binding": {
+    "id": "583fe77f3ee2484d84ec2672b3bab670",
+    "owner": "water-r20-v7",
+    "game_pid": 53572,
+    "game_identity": "134365482282069586",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\583fe77f3ee2484d84ec2672b3bab670\\session.json"
+  },
+  "query_help": {
+    "isError": false,
+    "content": [
+      {
+        "text": "mc_profiler help includes the runtime capability probe in structuredContent.",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "data": {
+        "bounds": {
+          "cursor": "opaque returned cursor <=256 bytes",
+          "filter": "string <=256 bytes",
+          "limit": "integer 1..50",
+          "order": "asc | desc",
+          "sort": "field name <=64 bytes"
+        },
+        "example": {
+          "args": {
+            "filter": "$root.records[0].id",
+            "job_id": "$start.job.id",
+            "limit": 20,
+            "view": "calltree-children"
+          },
+          "op": "/query"
+        },
+        "initialization": "The first mc_profiler operation initializes the shared service and probes mcdev-tracy-bridge.dll beside mcdk.exe so runtime help can report capability. Tracy endpoint discovery remains deferred until Native start or a deep Native doctor.",
+        "invocation": {
+          "args": {},
+          "op": "/..."
+        },
+        "note": "calltree-children requires filter to be one complete node id returned by calltree-roots or a preceding child query. Preserve job_id, view, filter, sort, and order when following next_cursor.",
+        "optional": [
+          "filter",
+          "sort",
+          "order",
+          "limit",
+          "cursor"
+        ],
+        "required": [
+          "job_id",
+          "view"
+        ],
+        "runtime": {
+          "capabilities": [
+            {
+              "available": true,
+              "kind": "python.cpu",
+              "reason": "Game IPC executor is configured; Yappi availability is verified at start."
+            },
+            {
+              "available": true,
+              "kind": "python.memory",
+              "reason": "Game IPC executor is configured; tracemalloc availability is verified at start."
+            },
+            {
+              "available": true,
+              "kind": "native.cpu",
+              "reason": "Native profiler DLL is loaded and API/protocol compatible; endpoint discovery remains deferred."
+            }
+          ]
+        },
+        "safety": [
+          "Every capture has a server-enforced deadline.",
+          "Query results are filtered, paged, and byte-bounded by the server.",
+          "Memory results expire after 20 minutes without access; the next profiler request runs lazy GC.",
+          "Artifact paths and disk retention are controlled by the server.",
+          "Only one profiler job is active by default."
+        ],
+        "tool": "mc_profiler",
+        "topic": "/query",
+        "views": {
+          "native.cpu": [
+            "threads",
+            "calltree-roots",
+            "calltree-children",
+            "hotspots",
+            "source-locations",
+            "slowest-calls"
+          ],
+          "python.cpu": [
+            "hotspots",
+            "calls"
+          ],
+          "python.memory": [
+            "growth",
+            "retained"
+          ]
+        }
+      },
+      "error": null,
+      "job": null,
+      "next_calls": [],
+      "ok": true,
+      "op": "/help",
+      "warnings": []
+    }
+  },
+  "close_restore": true,
+  "workspace_restore": true,
+  "source_unchanged": true
+}
