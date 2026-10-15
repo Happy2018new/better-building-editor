@@ -8,7 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools'))
-from generate_portal_native_adapter_r19 import generate, layered_mesh
+from generate_portal_native_adapter_r19 import generate, layered_mesh, world_vertex
 
 
 class PortalNativeAdapterTests(unittest.TestCase):
@@ -35,6 +35,14 @@ class PortalNativeAdapterTests(unittest.TestCase):
         for count, first in ((0, 0), (32, 0), (16, -1), (16, 17)):
             with self.assertRaises(ValueError):
                 layered_mesh({'mesh': []}, count, first)
+
+    def test_measured_layout_uses_even_depth_bytes_and_reverse_color_indices(self):
+        source = (ROOT/'resource_pack/shaders/glsl/modern_projection_portal_geometry_world.vertex').read_text(encoding='ascii')
+        vertex = world_vertex(source, native_layout=True)
+        self.assertIn('floor(layerIndex*(255.0/16.0))*(32.0/255.0)', vertex)
+        self.assertIn('float colorIndex=15.0-layerIndex;', vertex)
+        expected = [0, 15, 31, 47, 63, 79, 95, 111, 127, 143, 159, 175, 191, 207, 223, 239]
+        self.assertEqual(expected, [int(index*255./16.) for index in range(16)])
 
     def test_actual_entity_star_texture_and_native_fragment_are_bundled_verbatim(self):
         with tempfile.TemporaryDirectory() as directory:

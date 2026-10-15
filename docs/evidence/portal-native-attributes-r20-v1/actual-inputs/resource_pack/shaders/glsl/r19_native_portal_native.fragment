@@ -1,0 +1,17 @@
+// __multiversion__
+precision highp float;
+#define main nativePortalMain
+#include "r19_native_portal_original.h"
+#undef main
+#include "uniformExtraVectorConstants.h"
+#include "uniformWorldConstants.h"
+varying highp float portalVisible;
+varying highp float portalClip;
+void main() {
+    if(portalVisible<0.5 || portalClip>0.0 || EXTRA_VECTOR4.w<=0.0) discard;
+    nativePortalMain();
+    float opacity=EXTRA_VECTOR4.w;
+    // Native One/SourceAlpha clears once, then adds the colored star planes.
+    if(encodedPlane.w*MAX_LAYER_DEPTH>MAX_LAYER_DEPTH-1.0) gl_FragColor.a=1.0-opacity;
+    else gl_FragColor.rgb*=opacity;
+}

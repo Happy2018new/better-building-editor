@@ -16,6 +16,7 @@ from PIL import Image, ImageDraw, ImageFilter
 from audit_native_visual_r15 import save, WGC
 from capture_native_window import capture
 from probe_portal_product_r16 import document, SOURCES, RESOURCES
+from probe_product_water import snapshot_digest, snapshot_sources
 from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTORE, return_value
 from verify_debug_visuals import SAVE_VISUAL, camera_restore_code
 
@@ -177,13 +178,17 @@ def run(args):
     args.output.mkdir(parents=True, exist_ok=False)
     os.environ.update(MCDEV_SESSION_FILE=args.session, MCDEV_OWNER=args.owner,
                       MCDEV_ALLOW_USER_FOREGROUND='1')
-    report = {'schema': 1, 'fixture': 'test.dynamic.portals', 'completed': False,
+    project_sources = snapshot_sources(args.project)
+    report = {'schema': 2, 'fixture': 'test.dynamic.portals', 'completed': False,
               'restored': False, 'pixel_acceptance': False, 'cleanup_errors': [],
               'captures': {}, 'rows': {}, 'host_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'presence_failures': [],
               'source_sha256': {p: hashlib.sha256((args.project / p).read_bytes()).hexdigest()
                                 for p in SOURCES + RESOURCES},
-              'native_adapter': args.native_adapter}
+              'native_adapter': args.native_adapter,
+              'offset_x': args.offset_x,
+              'project_source_sha256': project_sources,
+              'project_source_contract_sha256': snapshot_digest(project_sources)}
     installed = visual = native = player_saved = False
     with Client(timeout=30) as client:
         check = BlueprintCheck(client, args.output / 'report.json', 40.)
@@ -230,6 +235,7 @@ _result=[(tuple(s.origin[i]+p[i] for i in range(3)),foreground(value))
                                          ('far', (6.4, 4.4, -9.))):
                         if name not in args.views:
                             continue
+                        offset = (offset[0]+args.offset_x, offset[1], offset[2])
                         label = family + '_' + route + '_' + name
                         player = near_player(check, offset) if args.near_player else None
                         camera = view(check, offset, family)
@@ -284,6 +290,7 @@ _result=True
             report['restored'] = not report['cleanup_errors']
             report['source_unchanged'] = all(hashlib.sha256((args.project / p).read_bytes()).hexdigest() == sha
                                            for p, sha in report['source_sha256'].items())
+            report['project_source_unchanged'] = snapshot_sources(args.project) == project_sources
             save(args.output / 'report.json', report)
     print(json.dumps({key: report[key] for key in ('completed', 'restored', 'source_unchanged', 'cleanup_errors')}))
 
@@ -304,6 +311,8 @@ def main():
                         help='Keep diagnostic captures and explicit failure labels; never qualifies pixels')
     parser.add_argument('--near-player', action='store_true',
                         help='Journal temporary platforms and place the owned test player near each camera')
+    parser.add_argument('--offset-x', type=float, default=0.,
+                        help='Add a recorded world-space X offset to every measured camera')
     run(parser.parse_args())
 
 

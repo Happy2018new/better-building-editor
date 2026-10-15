@@ -56,7 +56,7 @@ def layered_mesh(source, layers, first_layer=0):
     return result
 
 
-def world_vertex(source):
+def world_vertex(source, native_layout=False):
     """Decode our payload, then provide native fragment varyings explicitly."""
     old = '''varying highp vec2 portalUv;
 varying highp float portalVisible;
@@ -104,12 +104,22 @@ varying vec4 fogColor;
     portalClip=-1.0;'''
     if source.count(end) != 1:
         raise ValueError('The frozen portal world transform changed')
+    if native_layout:
+        # Real native attributes encode 16 planes in 8-bit COLOR, two units apart.
+        replacement = replacement.replace('float planeDistance=POSITION.z;', '''float layerIndex=POSITION.z;
+    float planeDistance=layerIndex>31.0 ? 32.0 : floor(layerIndex*(255.0/16.0))*(32.0/255.0);''')
+        replacement = replacement.replace(
+            'colorLookupUV=(vec2(mod(planeDistance,4.0),mod(floor(planeDistance/4.0),4.0))+0.5)/4.0;',
+            '''float colorIndex=15.0-layerIndex;
+    colorLookupUV=(vec2(mod(colorIndex,4.0),mod(floor(colorIndex/4.0),4.0))+0.5)/4.0;''')
     return source.replace(end, replacement)
 
 
-def generate(project, native, output, layers, first_layer=0):
+def generate(project, native, output, layers, first_layer=0, native_layout=False):
     if not 1 <= layers <= 31 or first_layer < 0 or first_layer+layers > 32:
         raise ValueError('Native plane distances must precede the clear plane')
+    if native_layout and (layers != 16 or first_layer != 0):
+        raise ValueError('Observed native layout requires all 16 indexed planes')
     output.mkdir(parents=True, exist_ok=False)
     sources = ('shaders/glsl/end_portal.vertex', 'shaders/glsl/end_portal.fragment',
                'resource_packs/vanilla/materials/portal.material',
@@ -117,7 +127,7 @@ def generate(project, native, output, layers, first_layer=0):
     inputs = {name: sha(native / name) for name in sources}
     installed = json.loads((project / 'resource_pack/models/netease_models.json').read_bytes())
     current_materials = json.loads((project / 'resource_pack/materials/entity.material').read_bytes())['materials']
-    vertex = world_vertex((project / 'resource_pack/shaders/glsl/modern_projection_portal_geometry_world.vertex').read_text(encoding='ascii'))
+    vertex = world_vertex((project / 'resource_pack/shaders/glsl/modern_projection_portal_geometry_world.vertex').read_text(encoding='ascii'), native_layout)
     vertex_path = 'resource_pack/shaders/glsl/' + PREFIX + 'world.vertex'
     (output / vertex_path).parent.mkdir(parents=True, exist_ok=True)
     (output / vertex_path).write_text(vertex, encoding='ascii', newline='\n')
@@ -151,10 +161,12 @@ def generate(project, native, output, layers, first_layer=0):
     contract = {'schema': 1, 'stage': 'diagnostic_only', 'production_qualified': False,
                 'native_source_sha256': inputs, 'models': models, 'materials': materials,
                 'layers': layers, 'first_layer': first_layer, 'native_fragment_used_verbatim': True,
+                'native_layout': native_layout,
+                'layout_observation': ('portal-native-attributes-r20-v3' if native_layout else None),
                 'bundled_native_fragment_sha256': sha(bundled_fragment),
                 'limits': ['World only; preview clipping remains unadapted.',
                            'Native fog varying is neutral in this near-field diagnostic.',
-                           'Plane count, color indexing and model-to-native ray coordinates require live validation.',
+                           'Native layout readback does not qualify model-to-native ray coordinates or appearance.',
                            'No native appearance equivalence or qualification is asserted.'],
                 'output_sha256': {p.relative_to(output).as_posix(): sha(p)
                                   for p in output.rglob('*') if p.is_file()}}
@@ -183,11 +195,13 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--layers', type=int, default=16)
     parser.add_argument('--first-layer', type=int, default=0)
+    parser.add_argument('--native-layout', action='store_true',
+                        help='Use the observed 16 native depth bytes and reverse 4x4 color order')
     parser.add_argument('--install-clone', action='store_true')
     args = parser.parse_args()
     if args.install_clone and (args.project / '.git').exists():
         parser.error('Diagnostic aliases may only be installed in a disposable clone')
-    result = generate(args.project, args.native_data, args.output, args.layers, args.first_layer)
+    result = generate(args.project, args.native_data, args.output, args.layers, args.first_layer, args.native_layout)
     if args.install_clone:
         install(args.output, args.project)
     print(json.dumps({'models': len(result['models']), 'layers': result['layers'],
