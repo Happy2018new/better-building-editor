@@ -87,6 +87,14 @@ foot=(platform[0]+.5,platform[1]+1.,platform[2]+.5)
 assert factory.CreatePos(player).SetFootPos(foot)
 _result={'platform':platform,'foot':foot,'distance':3.}
 '''
+AIM_PLAYER=SERVER+'''saved=sys._book_reference_r17
+foot=factory.CreatePos(player).GetFootPos()
+target=tuple(saved['position'][i]+(.5,1.,.5)[i] for i in range(3))
+eye=(foot[0],foot[1]+1.62,foot[2])
+rotation=api.GetRotFromDir(tuple(target[i]-eye[i] for i in range(3)))
+assert factory.CreateRot(player).SetRot(rotation)
+_result={'foot':foot,'target':target,'rotation':rotation}
+'''
 RESTORE=SERVER+'''saved=getattr(sys,'_book_reference_r17',None)
 if saved is None:_result={'restored':True,'owned':False}
 else:
@@ -178,6 +186,8 @@ _result=found
                 report['rows'][case]['view_platform']=audit.execute('native_view_platform',VIEW_PLATFORM,False)
             time.sleep(1.)
             if args.native_placement:
+                if args.controlled_arena:
+                    report['rows'][case]['placement_view']=audit.execute('placement_view',AIM_PLAYER,False)
                 report['rows'][case]['native_placement']=audit.execute('native_placement',PLACE_NATIVE,False)
                 time.sleep(1.)
             report['rows'][case]['used']=audit.execute('authentic_use',USE,False)
@@ -206,14 +216,7 @@ cam.ResetCameraPos();cam.UnDepartCamera();cam.LockModCameraPitch(False);cam.Lock
 if api.GetTopUI()=='pause_screen':api.PopTopUI()
 _result=True
 ''')
-                report['rows'][case]['attached_view']=audit.execute('aim_player',SERVER+'''saved=sys._book_reference_r17
-foot=factory.CreatePos(player).GetFootPos()
-target=tuple(saved['position'][i]+(.5,1.,.5)[i] for i in range(3))
-eye=(foot[0],foot[1]+1.62,foot[2])
-rotation=api.GetRotFromDir(tuple(target[i]-eye[i] for i in range(3)))
-assert factory.CreateRot(player).SetRot(rotation)
-_result={'foot':foot,'target':target,'rotation':rotation}
-''',False)
+                report['rows'][case]['attached_view']=audit.execute('aim_player',AIM_PLAYER,False)
                 time.sleep(2.)
                 label='native_'+case+'_attached_view'
                 report['captures'][label]=audit.frame(label)

@@ -23,15 +23,36 @@ def pack(source, output, mode):
         raise ValueError('Diagnostic must complete and restore before evidence packaging')
     output.mkdir(parents=True, exist_ok=False)
     shutil.copyfile(source, output / 'report.json')
+    captures = report.get('captures', {})
+    boundary_bounds = {}
+    if mode == 'boundary':
+        from analyze_book_body_boundary_r19 import analyze
+        if not analyze(source)['body_boundary_pixels_passed']:
+            raise ValueError('Body boundary evidence has not passed its pixel controls')
+        captures = {}
+        for face, view in report['views'].items():
+            points = view['projection']['target'] + [
+                point for support in view['projection']['supports'] for point in support]
+            for state, record in view['captures'].items():
+                label = face + '_' + state
+                captures[label] = record
+                boundary_bounds[label] = (min(point['screenX'] for point in points),
+                                           min(point['screenY'] for point in points),
+                                           max(point['screenX'] for point in points),
+                                           max(point['screenY'] for point in points))
     records, images = {}, []
-    for label, record in report['captures'].items():
+    for label, record in captures.items():
         capture = record.get('capture', record)
         path = Path(capture['path'])
         if not capture.get('reliable') or digest(path) != capture['sha256']:
             raise ValueError('Invalid source capture: ' + str(path))
         with Image.open(path) as original:
             w, h = original.size
-            if mode == 'reference':
+            if mode == 'boundary':
+                left, top, right, bottom = boundary_bounds[label]
+                bounds = (max(0, int(left)-16), max(0, int(top)-16),
+                          min(w, int(right)+17), min(h, int(bottom)+17))
+            elif mode == 'reference':
                 bounds = (w//2-180, h//2-150, w//2+180, h//2+95)
             elif mode == 'body':
                 bounds = (w//2-160, h//2-150, w//2+160, h//2+240)
@@ -72,6 +93,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source', type=Path)
     parser.add_argument('output', type=Path)
-    parser.add_argument('--mode', choices=('reference', 'product', 'body'), required=True)
+    parser.add_argument('--mode', choices=('reference', 'product', 'body', 'boundary'), required=True)
     args = parser.parse_args()
     pack(args.source, args.output, args.mode)
