@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "session_state": "stopped",
+  "source_kind": "root agent direct-message attestation; not raw tool stdout",
+  "attested_by": "/root",
+  "attestation": "normal stop/finalize original tool output was not saved to disk: session 26645 exited 1 with RuntimeError Game has not closed...; observer 82230 exited 0 and wrote both process exits to exact-exit.json; finalize final tool chunk 508c06 exited 0 and reported state stopped, force false.",
+  "normal_stop": {
+    "tool_session_id": 26645,
+    "exit_code": 1,
+    "error_summary": "RuntimeError: Game has not closed...",
+    "force": false,
+    "raw_stdout_available": false
+  },
+  "observer": {
+    "tool_session_id": 82230,
+    "exit_code": 0,
+    "raw_record": "exact-exit.json",
+    "game_exit_hex": "0xC0000409",
+    "mcdk_exit_hex": "0x00000000"
+  },
+  "finalize": {
+    "tool_chunk_id": "508c06",
+    "exit_code": 0,
+    "reported_state": "stopped",
+    "force": false,
+    "raw_stdout_available": false
+  },
+  "qualification": "Completed restored two-image acquisition and exact process exits do not imply a clean MC exit or product appearance acceptance."
+}

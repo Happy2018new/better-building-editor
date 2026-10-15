@@ -1,0 +1,13 @@
+--- v2/resource_pack/materials/entity.material
++++ v3/resource_pack/materials/entity.material
+@@ -1360,6 +1360,9 @@
+       "fragmentShader": "shaders/glsl/modern_projection_sign_body.fragment",
+       "vertexShader": "shaders/glsl/modern_projection_sign_body.vertex"
+     },
+-    "version": "1.0.0"
++    "version": "1.0.0",
++    "entity_static_netease": {
++      "fragmentShader": "shaders/glsl/modern_projection_shelf_route_entity_static_netease.fragment"
++    }
+   }
+ }
