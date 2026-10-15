@@ -35,12 +35,16 @@ def main():
             raise ValueError('Review result does not belong to a valid measured source')
         directory = args.output/label
         directory.mkdir()
+        native=result['native_closeup']
+        visibility=native.get('native_glint_visibility_accepted',native['native_glint_accepted'])
         index['sources'][label] = {'report':record(report_path),'analysis':record(analysis_path),
             'completed':report['completed'],'cleanup_errors':report['cleanup_errors'],
             'source_unchanged':report['source_unchanged'],
             'launch_sources_sha256':report['launch_sources_sha256'],
-            'native_glint_accepted':result['native_closeup']['native_glint_accepted']}
-        if index['sources'][label]['native_glint_accepted'] != (label=='native-texture'):
+            'native_glint_accepted':False,'native_glint_visibility_accepted':visibility,
+            'legacy_sparse_glint_accepted':native['native_glint_accepted'],
+            'continuous_motion_accepted':False}
+        if index['sources'][label]['native_glint_visibility_accepted'] != (label=='native-texture'):
             raise ValueError('Weak baseline/new texture controls no longer have their expected outcomes')
         shutil.copy2(analysis_path,directory/'analysis.json')
         for path in (ROOT/analysis).glob('*-comparison.gif'):
@@ -61,7 +65,10 @@ def main():
             'resource_contract':report.get('resource_contract'),
             'launch_sources_sha256':report['launch_sources_sha256'],
             'source_unchanged':report['source_unchanged'], 'engine':report['engine'],
-            'production_qualified':False,'native_glint_accepted':result['native_closeup']['native_glint_accepted'],
+            'production_qualified':False,'native_glint_accepted':False,
+            'native_glint_visibility_accepted':visibility,
+            'legacy_sparse_glint_accepted':native['native_glint_accepted'],
+            'continuous_motion_accepted':False,
             'glint_visibility_comparison':result['native_closeup']['glint_visibility_comparison']}
         (directory/'outcome.json').write_text(json.dumps(outcome,indent=2)+'\n',encoding='ascii')
     compile_path = ROOT/'.runtime/item-icons-r16-shader-compile-v6.json'

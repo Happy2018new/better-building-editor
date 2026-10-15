@@ -19,10 +19,15 @@ void main() {
     if(itemEnchanted>0.5) {
         vec2 centered=itemUv-vec2(0.5);
         float clock=mod(TIME,210.0);
-        vec2 firstUv=mat2(0.866025403784439,-0.5,0.5,0.866025403784439)*centered*0.5;
-        vec2 secondUv=mat2(0.866025403784439,0.5,-0.5,0.866025403784439)*centered*0.5;
-        float first=texture2D(TEXTURE_1,fract(firstUv+vec2(clock*0.2,0.0))).r;
-        float second=texture2D(TEXTURE_1,fract(secondUv-vec2(clock*0.1,0.0))).r;
+        // The 3.10 entity path scales after rotation, offset and recentering.
+        // These TIME offsets retain .2/-.1 texture cycles per second at scale .5;
+        // engine-owned UV_OFFSET / UV_ROTATION are not available on this route.
+        vec2 firstUv=mat2(0.866025403784439,-0.5,0.5,0.866025403784439)*centered;
+        vec2 secondUv=mat2(0.866025403784439,0.5,-0.5,0.866025403784439)*centered;
+        firstUv=(firstUv+vec2(clock*0.4,0.0)+vec2(0.5))*0.5;
+        secondUv=(secondUv-vec2(clock*0.2,0.0)+vec2(0.5))*0.5;
+        float first=texture2D(TEXTURE_1,fract(firstUv)).r;
+        float second=texture2D(TEXTURE_1,fract(secondUv)).r;
         vec3 glint=vec3(0.38,0.19,0.61)*(first+second);
         rgb=clamp(rgb+glint*glint,0.0,1.0);
     }

@@ -48,13 +48,20 @@ GLINT_TEXTURE = 'textures/misc/enchanted_item_glint'
 GLINT_RESOURCE = 'modern_projection/item_icons/enchanted_glint'
 GLINT = {'schema': 1, 'uv_scale': .5, 'rotations_degrees': (30., -30.),
          'cycles_per_second': (.2, -.1), 'color': (.38, .19, .61),
+         'unscaled_offset_per_second': (.4, -.2),
+         'transform_order': 'center_rotate_offset_recenter_scale',
          'clock_wrap_seconds': 210., 'blend': 'squared_two_native_texture_layers'}
 ICON_GLINT = '''vec2 centered=itemUv-vec2(0.5);
         float clock=mod(TIME,210.0);
-        vec2 firstUv=mat2(0.866025403784439,-0.5,0.5,0.866025403784439)*centered*0.5;
-        vec2 secondUv=mat2(0.866025403784439,0.5,-0.5,0.866025403784439)*centered*0.5;
-        float first=texture2D(TEXTURE_1,fract(firstUv+vec2(clock*0.2,0.0))).r;
-        float second=texture2D(TEXTURE_1,fract(secondUv-vec2(clock*0.1,0.0))).r;
+        // The 3.10 entity path scales after rotation, offset and recentering.
+        // These TIME offsets retain .2/-.1 texture cycles per second at scale .5;
+        // engine-owned UV_OFFSET / UV_ROTATION are not available on this route.
+        vec2 firstUv=mat2(0.866025403784439,-0.5,0.5,0.866025403784439)*centered;
+        vec2 secondUv=mat2(0.866025403784439,0.5,-0.5,0.866025403784439)*centered;
+        firstUv=(firstUv+vec2(clock*0.4,0.0)+vec2(0.5))*0.5;
+        secondUv=(secondUv-vec2(clock*0.2,0.0)+vec2(0.5))*0.5;
+        float first=texture2D(TEXTURE_1,fract(firstUv)).r;
+        float second=texture2D(TEXTURE_1,fract(secondUv)).r;
         vec3 glint=vec3(0.38,0.19,0.61)*(first+second);
         rgb=clamp(rgb+glint*glint,0.0,1.0);'''
 
@@ -161,6 +168,12 @@ def texture_paths(entry):
 
 
 def outputs(catalog, install):
+    for key,value in GLINT.items():
+        expected=list(value) if isinstance(value,tuple) else value
+        actual=catalog.get('glint',{}).get(key)
+        actual=list(actual) if isinstance(actual,tuple) else actual
+        if actual!=expected:
+            raise ValueError('Glint catalog metadata differs from generated shader: '+key)
     if catalog.get('schema') != 1 or catalog.get('engine_version') != VERSION:
         raise ValueError('Item icon catalog requires target-engine regeneration')
     if catalog.get('pose') != POSE:

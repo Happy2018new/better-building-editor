@@ -97,6 +97,31 @@ def glint_metrics(images, mask, times):
             'speed_limitations': 'Sparse frame centroid displacement; not continuous phase velocity'}
 
 
+def glint_visibility_comparison(items, reference_items, reference_valid, duration_valid, limits):
+    """Score visible temporal contrast; a moving bright-area centroid is not phase speed."""
+    metrics=items['enchanted']['glint']
+    reference=reference_items['enchanted']['glint']
+    if metrics.get('status')!='MEASURED' or reference.get('status')!='MEASURED':
+        return {'ratios_to_real_native':None,'passed':False,'status':'NO_OBSERVED_BODY'}
+    def median_speed(row):
+        speeds=row['highlight_centroid_body_widths_per_second']
+        return float(np.median(speeds)) if speeds else 0.
+    ratios={'rgb_range':metrics['rgb_range_p50_p90_max'][1]/max(1.,reference['rgb_range_p50_p90_max'][1]),
+            'luma_range':metrics['luma_range_p50_p90_max'][1]/max(1.,reference['luma_range_p50_p90_max'][1]),
+            'visible_coverage':metrics['visible_highlight_fraction_p10_p50_p90'][1]/max(.01,reference['visible_highlight_fraction_p10_p50_p90'][1]),
+            'centroid_speed':median_speed(metrics)/max(.001,median_speed(reference))}
+    passed=bool(reference_valid and duration_valid
+        and min(items['enchanted']['extent_pixels'])>=limits['minimum_body_extent_pixels']
+        and all(item['temporal']['passed'] for item in items.values())
+        and ratios['rgb_range']>=limits['minimum_native_rgb_range_ratio']
+        and ratios['luma_range']>=limits['minimum_native_luma_range_ratio']
+        and ratios['visible_coverage']>=limits['minimum_native_visible_coverage_ratio'])
+    return {'ratios_to_real_native':ratios,'passed':passed,'status':'MEASURED',
+            'centroid_speed_role':'Diagnostic only: thresholded bright-area centroid displacement is not texture phase velocity',
+            'continuous_motion_accepted':False,
+            'scope':'Visible contrast over sparse QPC-timed captures; continuous motion requires verified dense frames'}
+
+
 def native_comparison(source, rows, texture, spec, size, output):
     closeup = source['closeup']
     reference = closeup['native_reference']
@@ -155,30 +180,16 @@ def native_comparison(source, rows, texture, spec, size, output):
                for mode in ('plain','enchanted')}
         for route in ('world','world_missing')}
     glint_limits = {'minimum_native_rgb_range_ratio': .8, 'minimum_native_luma_range_ratio': .8,
-                    'minimum_native_visible_coverage_ratio': .7, 'minimum_native_centroid_speed_ratio': .5,
-                    'maximum_native_centroid_speed_ratio': 3., 'minimum_body_extent_pixels': 150}
+                    'minimum_native_visible_coverage_ratio': .7, 'minimum_body_extent_pixels': 150}
     result['glint_visibility_limits'] = glint_limits
-    reference_metrics = native['items']['enchanted']['glint']
-    def median_speed(metrics):
-        speeds = metrics['highlight_centroid_body_widths_per_second']
-        return float(np.median(speeds)) if speeds else 0.
     result['glint_visibility_comparison'] = {}
     for route in ('editor','world','world_missing'):
-        metrics = result['routes'][route]['items']['enchanted']['glint']
-        ratios = {'rgb_range':metrics['rgb_range_p50_p90_max'][1]/max(1.,reference_metrics['rgb_range_p50_p90_max'][1]),
-                  'luma_range':metrics['luma_range_p50_p90_max'][1]/max(1.,reference_metrics['luma_range_p50_p90_max'][1]),
-                  'visible_coverage':metrics['visible_highlight_fraction_p10_p50_p90'][1]/max(.01,reference_metrics['visible_highlight_fraction_p10_p50_p90'][1]),
-                  'centroid_speed':median_speed(metrics)/max(.001,median_speed(reference_metrics))}
-        items = result['routes'][route]['items']
-        passed = bool(result['reference_valid'] and result['routes'][route]['duration']['passed']
-            and min(items['enchanted']['extent_pixels'])>=glint_limits['minimum_body_extent_pixels']
-            and all(item['temporal']['passed'] for item in items.values())
-            and ratios['rgb_range']>=glint_limits['minimum_native_rgb_range_ratio']
-            and ratios['luma_range']>=glint_limits['minimum_native_luma_range_ratio']
-            and ratios['visible_coverage']>=glint_limits['minimum_native_visible_coverage_ratio']
-            and glint_limits['minimum_native_centroid_speed_ratio']<=ratios['centroid_speed']<=glint_limits['maximum_native_centroid_speed_ratio'])
-        result['glint_visibility_comparison'][route] = {'ratios_to_real_native':ratios,'passed':passed}
-    result['native_glint_accepted'] = all(row['passed'] for row in result['glint_visibility_comparison'].values())
+        result['glint_visibility_comparison'][route]=glint_visibility_comparison(
+            result['routes'][route]['items'],native['items'],result['reference_valid'],
+            result['routes'][route]['duration']['passed'],glint_limits)
+    result['native_glint_visibility_accepted'] = all(row['passed'] for row in result['glint_visibility_comparison'].values())
+    result['native_glint_accepted'] = False
+    result['continuous_motion_required'] = 'Use verified uninterrupted native-window frames; sparse captures grant visibility only'
     return result
 
 

@@ -125,8 +125,14 @@ class IconCatalogTests(unittest.TestCase):
         self.assertIn('texture2D(TEXTURE_1',fragment)
         self.assertIn('if(texel.a<0.5) discard;',fragment)
         self.assertEqual('squared_two_native_texture_layers',catalog['glint']['blend'])
-        for rate in catalog['glint']['cycles_per_second']:
+        for rate,offset in zip(catalog['glint']['cycles_per_second'],catalog['glint']['unscaled_offset_per_second']):
+            self.assertEqual(rate,offset*catalog['glint']['uv_scale'])
             self.assertEqual(round(rate*210.),rate*210.)
+        self.assertEqual('center_rotate_offset_recenter_scale',catalog['glint']['transform_order'])
+        stale=copy.deepcopy(catalog)
+        stale['glint']['cycles_per_second']=[.1,-.05]
+        with self.assertRaisesRegex(ValueError,'Glint catalog metadata'):
+            generator.outputs(stale,ROOT)
 
     def test_candidate_and_production_reject_stale_layout_or_resource_acceptance(self):
         with patch.object(item_icon_data, 'LAYOUT_VERSION', 999):
