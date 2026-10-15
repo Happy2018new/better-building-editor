@@ -1,0 +1,8 @@
+"""Book admission data; populated only by reviewed exact-bundle qualification."""
+SCHEMA_VERSION = 1
+PRODUCT_QUALIFIED = False
+QUALIFICATION_SHA256 = ''
+QUALIFICATION_STAGE = ''
+QUALIFICATION_ENGINE_VERSION = ''
+QUALIFICATION_RESOURCE_CONTRACT_SHA256 = ''
+GATES = {}

@@ -37,6 +37,19 @@ def equal_mask(actual, record):
         raise ValueError('Snow pixel replay differs from the preserved mask: ' + record['path'])
 
 
+def reuse_snow_control(row, snow_rows, frames):
+    shared = row['shared_snow_control']
+    source_plant, height = shared['plant'], row['height']
+    source = snow_rows.get((source_plant, height))
+    if source is None or shared['height'] != height:
+        raise ValueError('Shared snow control has no preceding replayed source')
+    for mode in ('editor', 'full', 'missing'):
+        capture = source['editor'] if mode == 'editor' else source['world'][mode]['screenshot']
+        if capture['sha256'] != shared[mode + '_sha256']:
+            raise ValueError('Shared snow control capture fingerprint changed: ' + mode)
+        frames[(mode, row['plant'], 'snow', height)] = frames[(mode, source_plant, 'snow', height)]
+
+
 def analyze(report):
     captures = {}
     for record in walk(report):
@@ -50,12 +63,17 @@ def analyze(report):
             captures[record['path']] = record['sha256']
     result = {'schema': 1, 'pixels_replayed': False, 'capture_count': len(captures),
               'original_completed': report['completed'], 'original_passed': report['passed'],
-              'original_restored': report['restored'], 'rows': [],
+              'original_restored': report['restored'], 'rows': [], 'shared_snow_controls': [],
               'qualification_changed': False, 'production_accepted': False}
-    blanks, frames = {}, {}
+    blanks, frames, snow_rows = {}, {}, {}
     for row in report['rows']:
         plant, kind, height = row['plant'], row['kind'], row['height']
         if row.get('shared_snow_control'):
+            if kind != 'snow':
+                raise ValueError('Shared snow control appears on a non-snow row')
+            reuse_snow_control(row, snow_rows, frames)
+            result['shared_snow_controls'].append({'plant': plant, 'height': height,
+                'source_plant': row['shared_snow_control']['plant'], 'fingerprints_verified': True})
             continue
         if kind == 'blank':
             blanks[plant] = row['editor']
@@ -118,6 +136,8 @@ def analyze(report):
                 raise ValueError('Snow replay changed the recorded outcome: ' + key)
         result['rows'].append({'plant': plant, 'kind': kind, 'height': height,
                                'checks': checks, 'passed': all(check['passed'] for check in checks.values())})
+        if kind == 'snow':
+            snow_rows[(plant, height)] = row
     result['pixels_replayed'] = True
     result['non_background_checks_passed'] = all(check['passed'] for row in result['rows']
         for key, check in row['checks'].items() if not key.endswith('_backdrop'))

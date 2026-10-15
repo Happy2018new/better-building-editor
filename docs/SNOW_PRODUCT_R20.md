@@ -76,8 +76,24 @@ and its projected top is above the viewport, but its visible pixels end across
 the cell. A separate journaled `SetBlockNew(..., True, True)` control reproduces
 that failure. The direct control reaches the 215,000-handle gate and restores
 successfully. A native section visibility/update issue is a hypothesis, not an
-established API defect. The next isolated control lowers the unchanged fixture
+established API defect. A follow-up isolated control lowers the unchanged fixture
 from player Y+32 to Y+16, retaining the original background thresholds.
+
+That Y+16 control now passes the complete single-blue-orchid height-0 matrix.
+Its same-session front/right/tilted stone calibration passes and restores.
+All 100,325 tested native background pixels are dark wall, in both full and
+missing modes. Dry plant, pure snow, combined snow/plant and the cutaway control
+all pass their original gates. The matrix completes in 160.3 seconds and
+restores with no cleanup errors; frozen product source and host-data hashes
+are unchanged. Independent replay of its 21 captures reproduces every pass.
+
+This establishes a working lower fixture in this world and session. It does
+not establish the precise native cause of the upper fixture failure or close
+the remaining plant/height and runtime workflow coverage. No product source
+or qualification was changed. The v2 engine/MCDK pair was then stopped normally.
+Its portable package, `docs/evidence/snow-product-r20-lower-v1`, retains 1,646
+manifested input files totaling 38,796,620 bytes. The standalone byte verifier
+and pixel replay pass with `production_accepted=false`.
 
 The next plant matrix revisits lily of the valley, bush and crimson roots.
 Remaining work includes all 29 plant names and eight snow heights,
@@ -129,3 +145,21 @@ The runner also supports a row-boundary pause handshake. A root pause request
 is acknowledged only after the current row's native captures drain, before
 the next document mutation. Root can then reserve a short WGC window for
 another owner without interrupting a six-second frame-response gate.
+
+## Editing And Storage Coverage
+
+`test_snow_edit_workflows_r20.py` exercises the actual `Session.point_action`,
+`Session.action`, `Session.save` and `Session.load` entry points through an
+in-memory persistence bridge. Across all 29 plants and eight snow heights it
+checks 696 strict/automatic erase cases plus 232 add/remove/history/library
+workflows. The checks include same-cell snow placement, selection position,
+neighbor retention, both undo and redo directions, and exact complete-cell
+round trips through the production storage codec. They pass without product
+code changes. These are host behavior checks; native Scene hit testing and
+rendered editing workflows still need their own runtime evidence.
+
+The current pixel replayer also resolves a later plant's reused snow controls
+only after the original source control was replayed and the editor/full/missing
+capture hashes all match. Missing sources, changed heights and altered capture
+hashes are rejected by a focused negative test. The already published v1
+package retains its original verifier and bytes.

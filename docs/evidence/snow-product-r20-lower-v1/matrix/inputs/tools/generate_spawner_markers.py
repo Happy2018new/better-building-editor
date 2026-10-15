@@ -1,0 +1,112 @@
+"""Freeze measured spawner NBT and generate three small render-only markers."""
+import argparse
+import base64
+import hashlib
+import json
+from pathlib import Path
+import pprint
+import zlib
+
+ROOT = Path(__file__).resolve().parents[1]
+ENGINE = '3.10.0.420447'
+STATES = ('present', 'empty', 'unknown')
+
+
+def identity(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True,
+                                    separators=(',', ':')).encode('ascii')).hexdigest()
+
+
+def marker_model(state):
+    texture = {'present': 'emerald_block', 'empty': 'iron_block', 'unknown': 'gold_block'}[state]
+    cubes = []
+    if state == 'empty':
+        for axis in range(3):
+            others = [value for value in range(3) if value != axis]
+            for left in (0, 1):
+                for right in (0, 1):
+                    origin, size = [-11, 5, 5], [.8, .8, .8]
+                    size[axis] = 6
+                    origin[others[0]] += left * 5.2
+                    origin[others[1]] += right * 5.2
+                    cubes.append({'origin': origin, 'size': size})
+    else:
+        cubes = [{'origin': [-11, 5, 5], 'size': [6, 6, 6]}]
+    for cube in cubes:
+        cube['uv'] = dict((face, {'uv': [0, 0], 'uv_size': [16, 16]})
+                          for face in ('north', 'south', 'east', 'west', 'up', 'down'))
+    bone = {'name': 'presence', 'pivot': [-8, 8, 8], 'cubes': cubes}
+    if state == 'unknown':
+        bone['rotation'] = [0, 45, 45]
+    name = 'modern_projection:preview_spawner_' + state
+    return {'format_version': '1.13.0', 'netease:block_geometry': {
+        'description': {'identifier': name, 'textures': [texture],
+                        'item_texture': texture, 'use_ao': False}, 'bones': [bone]}}
+
+
+def generated_outputs():
+    values = {}
+    for state in STATES:
+        stem = 'preview_spawner_' + state
+        name = 'modern_projection:' + stem
+        values['resource_pack/models/netease_block/' + stem + '.json'] = marker_model(state)
+        values['behavior_pack/netease_blocks/' + stem + '.json'] = {
+            'format_version': '1.10.0', 'minecraft:block': {
+                'description': {'identifier': name, 'register_to_creative_menu': False},
+                'components': {'netease:render_layer': {'value': 'alpha'},
+                               'netease:no_crop_face_block': {},
+                               'minecraft:block_light_absorption': {'value': 0}}}}
+    return values
+
+
+def write_json(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, ensure_ascii=True, indent=2) + '\n', encoding='ascii')
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--capture', type=Path)
+    parser.add_argument('--register', action='store_true')
+    args = parser.parse_args()
+    path = ROOT / 'tools/data/spawner_configuration_nemc_3.10.0.420447.json'
+    if args.capture:
+        original = args.capture.read_bytes()
+        report = json.loads(original)
+        if (not report['completed'] or not report['restore']['restored'] or
+                report['engine_version'] != ENGINE or report['setup']['runtime'] != '1.21.130.0'):
+            raise ValueError('Incomplete or unrestored spawner configuration capture')
+        rows = report['read']['rows']
+        if len(rows) != 6 or any(not row['placed'] for row in rows):
+            raise ValueError('Missing native spawner configuration case')
+        write_json(path, {'schema': 1, 'engine_version': ENGINE,
+                          'capture_sha256': hashlib.sha256(original).hexdigest(),
+                          'source_sha256': report['source_sha256'], 'rows': rows,
+                          'pixel_acceptance': False})
+    data = json.loads(path.read_bytes())
+    outputs = generated_outputs()
+    for relative, value in outputs.items():
+        write_json(ROOT / relative, value)
+    if args.register:
+        blocks_path = ROOT / 'resource_pack/blocks.json'
+        blocks = json.loads(blocks_path.read_bytes())
+        for state in STATES:
+            name = 'modern_projection:preview_spawner_' + state
+            blocks[name] = {'netease_model': name, 'sound': 'stone'}
+        write_json(blocks_path, blocks)
+    contract = dict((name, identity(value)) for name, value in sorted(outputs.items()))
+    marker_source = ROOT / 'behavior_pack/modern_projection/projection/spawner_marker_data.py'
+    values = [('SCHEMA_VERSION', 1), ('ENGINE_VERSION', ENGINE),
+              ('SOURCE_SHA256', hashlib.sha256(path.read_bytes()).hexdigest()),
+              ('RESOURCE_CONTRACT_SHA256', identity(contract)),
+              ('MARKERS', dict((state, 'modern_projection:preview_spawner_' + state) for state in STATES)),
+              ('SAMPLE_ROWS', base64.b64encode(zlib.compress(
+                  json.dumps(data['rows'], sort_keys=True, separators=(',', ':')).encode('ascii'), 9)).decode('ascii'))]
+    text = '"""Generated by tools/generate_spawner_markers.py; do not edit."""\n'
+    text += ''.join('%s = %s\n' % (key, pprint.pformat(value, width=100)) for key, value in values)
+    marker_source.write_text(text, encoding='ascii', newline='\n')
+    print(json.dumps({'samples': len(data['rows']), 'models': len(STATES), 'contract': identity(contract)}))
+
+
+if __name__ == '__main__':
+    main()

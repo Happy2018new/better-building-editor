@@ -50,7 +50,8 @@ def main():
     for name in ('analyze_snow_product_r20.py', 'snow_native_projection_r20.py'):
         copy(ROOT / 'tools' / name, Path(name))
     copy(ROOT / 'tools/verify_snow_package_r20.py', Path('verify_package.py'))
-    manifest = {'schema': 1, 'purpose': 'Original failed snow matrix and calibrated native pixel replay',
+    manifest = {'schema': 1, 'purpose': 'Original snow matrix and calibrated native pixel replay',
+                'matrix_completed': report['completed'], 'matrix_passed': report['passed'],
                 'qualification_changed': False, 'production_accepted': False,
                 'complete_executable_acquisition_replay': False,
                 'acquisition_replay_limit': 'Pinned full source hashes plus complete business Python and used plant assets; unrelated product media is not duplicated',
