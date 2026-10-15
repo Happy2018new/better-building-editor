@@ -1,0 +1,43 @@
+// __multiversion__
+precision highp float;
+#include "fragmentVersionCentroidUV.h"
+#include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+#include "uniformEntityConstants.h"
+#include "uniformWorldConstants.h"
+uniform sampler2D TEXTURE_0;
+varying highp vec2 shelfUv;
+varying highp vec3 shelfDocumentNormal;
+varying highp vec3 shelfWorldNormal;
+varying highp float shelfIntensity;
+varying highp float shelfVisible;
+varying highp float shelfClip;
+void main() {
+    if(shelfVisible<0.5 || shelfClip>0.0 || EXTRA_VECTOR4.w<=0.0) discard;
+    float mode=EXTRA_VECTOR2.x;
+    vec4 texel=texture2D(TEXTURE_0,shelfUv);
+    vec3 rgb=texel.rgb*TILE_LIGHT_COLOR.rgb*shelfIntensity;
+    if(mode>0.5 && mode<1.5) rgb=normalize(shelfDocumentNormal)*0.5+0.5;
+    else if(mode>1.5 && mode<2.5) rgb=normalize(shelfWorldNormal)*0.5+0.5;
+    else if(mode>2.5 && mode<3.5) rgb=vec3(shelfIntensity);
+    else if(mode>3.5 && mode<4.5) rgb=TILE_LIGHT_COLOR.rgb;
+    else if(mode>4.5 && mode<5.5) rgb=vec3(1.0,0.0,1.0);
+    else if(mode>5.5 && mode<6.5) rgb=texel.rgb;
+    else if(mode>6.5) {
+        rgb=vec3(0.0);
+#ifdef FANCY
+        rgb.r=1.0;
+#endif
+#ifdef RNGL_UNLIT
+        rgb.g=1.0;
+#endif
+#ifdef RNGL_LIGHT
+        rgb.b=1.0;
+#endif
+    }
+    float alpha=EXTRA_VECTOR4.w;
+    if(mode<0.5 || (mode>5.5 && mode<6.5)) alpha*=texel.a;
+    if(abs(PROJ[3][3])>0.5) alpha*=CURRENT_COLOR.a;
+    if(alpha<=0.0) discard;
+    gl_FragColor=vec4(rgb,alpha);
+}

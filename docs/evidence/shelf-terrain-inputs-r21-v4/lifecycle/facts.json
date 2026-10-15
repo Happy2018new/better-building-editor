@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "session_state": "stopped",
+  "force": false,
+  "capture_count": 2,
+  "all_original_images_opened_by_shelf_agent_and_root": true,
+  "runtime_environment": {
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "normal_stop": {
+    "source": "shelf agent transcript attestation; no separate raw stdout file was saved",
+    "exec_session": 50410,
+    "exec_exit_code": 1,
+    "error": "RuntimeError: Game has not closed; inspect it or explicitly use stop --force"
+  },
+  "observer": {
+    "source": "shelf agent transcript attestation; exact process exits are in exact-exit.json",
+    "exec_session": 7105,
+    "exec_exit_code": 0
+  },
+  "finalize": {
+    "source": "shelf agent transcript attestation; no separate raw stdout file was saved",
+    "exec_chunk": "7b78c0",
+    "exec_exit_code": 0,
+    "result": {
+      "state": "stopped",
+      "force": false
+    }
+  },
+  "scope": "Capture restoration succeeded. Normal stop returned an error before exact process exits. MC exit 0xC0000409 is preserved and is not called a clean game exit. No force termination occurred."
+}

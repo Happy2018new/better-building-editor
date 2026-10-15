@@ -1,0 +1,60 @@
+{
+  "coordinate_system": "document XYZ, Y up, unrotated front north (-Z)",
+  "culling": "disabled until native front/back evidence; indexed geometric winding independently checked",
+  "depth": "Existing liquid preview tag134 and shared depth header; depth writing retained",
+  "direction_codes": {
+    "east": 64,
+    "north": 0,
+    "south": 128,
+    "west": 192
+  },
+  "engine_version": "3.10.0.420447",
+  "fronts": [
+    "unpowered"
+  ],
+  "generator_sha256": "713df2d8375216ea9a50382709fba42ff34fdf0ddb2a11548a54999fe42e55fb",
+  "light": "Native entity fancy axis formula only; no RNGL/unlit/overlay branch emulation or scalar fitting",
+  "limits": [
+    "No native rendering or appearance acceptance.",
+    "No shelf routing, contents, item glint, state mapping or new renderer owner.",
+    "World normal transform requires uniform scale, as existing owned renderers enforce."
+  ],
+  "modes": {
+    "0": "native_fancy_axis_candidate",
+    "1": "document_normal",
+    "2": "world_normal",
+    "3": "axis_intensity",
+    "4": "tile_light",
+    "5": "magenta_material_selector",
+    "6": "unlit_artwork",
+    "7": "flags"
+  },
+  "native_depth_lifecycle_qualified": false,
+  "native_light_equivalence_qualified": false,
+  "native_shape_uv_qualified": false,
+  "native_texture_sha256": {
+    "resource_packs/vanilla/textures/blocks/oak_shelf.png": "c556418f3509f9bed5b2f20c687fc7f429ba5d980d680be123941d2eb4c0b10f"
+  },
+  "output_sha256": {
+    "reference.json": "65b4b8c47a5d3b4a2984f4abaabf79e5b2fae445c7b703db16e2a4d7b6bb8b16",
+    "resource_pack/materials/entity.material": "e3e743db4362880aa19ab90df9859a786dcc1725cb0e553561829be5e09fa949",
+    "resource_pack/models/modern_projection/shelf_r21/skeleton.json": "20a966711bc01cf74ced1159e371b07e0ec819dbd538c3514b0ffbe54d31beed",
+    "resource_pack/models/modern_projection/shelf_r21/unpowered_mesh.json": "305bd21b832ca567dbfc64bed92129b239f7ad686306d6b68ec7b7bb2aefc950",
+    "resource_pack/models/netease_models.json": "78ac0d4ed67cf16dcfff827ea65dc25d8c2836d4a9ebc57cae486c713d1971fc",
+    "resource_pack/shaders/glsl/modern_projection_shelf_skeleton_r21_body.fragment": "0b0dfbb0eca6279fedcbfb9f615315140f8ccd97ae5243066c1c8d55bcedacb9",
+    "resource_pack/shaders/glsl/modern_projection_shelf_skeleton_r21_body.vertex": "65e93bf5fee370fa386972863446742a61ff7bf13177c75f8342688cf773be55",
+    "resource_pack/shaders/glsl/modern_projection_shelf_skeleton_r21_body_world.vertex": "cd5bf5052bd15f18df75ae9d7cd95b76cb77149708a3055ecf9218f55b80a00f",
+    "resource_pack/textures/models/modern_projection/shelf_r21/oak.png": "c556418f3509f9bed5b2f20c687fc7f429ba5d980d680be123941d2eb4c0b10f"
+  },
+  "payload": "Existing liquid RenderGroup; address6 + faces6 + rotation8; EXTRA_VECTOR2.x is diagnostic mode",
+  "product_qualified": false,
+  "reference_sha256": "65b4b8c47a5d3b4a2984f4abaabf79e5b2fae445c7b703db16e2a4d7b6bb8b16",
+  "schema_version": 1,
+  "shared_depth_sha256": "d3b57f1a2ef1d55e3f527e5ef8d06a5de4b39640719c0fc2965ce1ed0a683e24",
+  "slots": 4,
+  "ui_light_space": "document normals; camera rotation must not rotate physical light",
+  "woods": [
+    "oak"
+  ],
+  "world_light_space": "normal follows position Z reflection, bone, instance and WORLD matrices"
+}

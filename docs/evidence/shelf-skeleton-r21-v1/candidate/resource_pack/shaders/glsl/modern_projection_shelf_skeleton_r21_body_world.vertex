@@ -1,0 +1,61 @@
+// __multiversion__
+precision highp float;
+#include "neteaseModelVertexUtil.h"
+#include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+
+varying highp vec2 shelfUv;
+varying highp vec3 shelfDocumentNormal;
+varying highp vec3 shelfWorldNormal;
+varying highp float shelfIntensity;
+varying highp float shelfVisible;
+varying highp float shelfClip;
+vec3 shelfTurn(vec3 point, float direction) {
+    point.xz=mat2(cos(direction),sin(direction),-sin(direction),cos(direction))*point.xz;
+    return point;
+}
+float shelfAxisIntensity(vec3 normal, float lightDirection) {
+    vec3 N=normalize(normal);
+    N.y*=lightDirection;
+    return (1.0+N.y)*0.275-N.x*N.x*0.1+N.z*N.z*0.1+0.45;
+}
+
+void main() {
+    float slot=floor(POSITION.z/4.0);
+    float code=EXTRA_VECTOR1.x;
+    if(slot>0.5) code=EXTRA_VECTOR1.y;
+    if(slot>1.5) code=EXTRA_VECTOR1.z;
+    if(slot>2.5) code=EXTRA_VECTOR1.w;
+    float address=mod(code,64.0);
+    float direction=floor(code/4096.0)*6.283185307179586/256.0;
+    bool tagged=abs(EXTRA_VECTOR4.x-39686.0)<0.25 || mod(EXTRA_VECTOR4.x,256.0)==134.0;
+    shelfVisible=tagged && mod(floor(code/64.0),64.0)>0.5 ? 1.0 : 0.0;
+    vec3 point=shelfTurn(vec3(POSITION.x,POSITION.y,mod(POSITION.z,4.0)-1.0),direction);
+    shelfDocumentNormal=shelfTurn(NORMAL.xyz,direction);
+    vec3 cell=vec3(mod(address,4.0),floor(address/16.0),mod(floor(address/4.0),4.0));
+    vec3 localPoint=cell+vec3(0.5,0.0,0.5)+point-vec3(2.0);
+    vec4 entityPoint=vec4(localPoint,1.0);
+    vec4 entityNormal=vec4(shelfDocumentNormal,0.0);
+    
+    #if defined(USE_SKINNING) && defined(NETEASE_SKINNING)
+    entityPoint.z=-entityPoint.z;
+    entityPoint=GetBoneMatForNetease(int(BONEID_0))*entityPoint;
+#ifdef USE_INSTANCE
+    entityPoint=GetInstanceWorldMatForNetease()*entityPoint;
+#endif
+#endif
+    #if defined(USE_SKINNING) && defined(NETEASE_SKINNING)
+    entityNormal.z=-entityNormal.z;
+    entityNormal=GetBoneMatForNetease(int(BONEID_0))*entityNormal;
+#ifdef USE_INSTANCE
+    entityNormal=GetInstanceWorldMatForNetease()*entityNormal;
+#endif
+#endif
+    shelfWorldNormal=normalize((WORLD*entityNormal).xyz);
+    gl_Position=WORLDVIEWPROJ*entityPoint;
+    shelfClip=-1.0;
+    
+    shelfUv=TEXCOORD_0;
+    shelfIntensity=shelfAxisIntensity(shelfWorldNormal,TILE_LIGHT_COLOR.w);
+    gl_PointSize=1.0;
+}

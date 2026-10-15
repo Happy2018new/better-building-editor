@@ -1,0 +1,138 @@
+{
+  "direction": "west",
+  "actual_raw_images_opened_by_shelf_agent": true,
+  "source_report_sha256": "0be6a1dd57ba378bb781d4798689a64e9f200ecae00fa06625c49f4183ea013e",
+  "raw_sha256": {
+    "native": "f94214c58bca61bf2fea06ce9975b4669bf82426c201aceb8512ceb5e79fbc85",
+    "empty": "39935beacb196ba5104f5614e0a5756087c5f6d80a6194a5ade6587f897e79ed",
+    "selector": "7077919ce847e08a88c57aaa57868cf1a7dc5ded0a7f6c6260b8cf91a9c48abf",
+    "document_normal": "5d4b21c01be090b74f306cb66dd88de90f0e93a11897713b92a2595af81cc29f",
+    "world_normal": "eb55e14f6451fbdbb379cd11220d3b32911c8ee3e17137e644265421377e1cfc",
+    "intensity": "062045d6c690e58d3708dd7b9ae3b15c581d1872334c8b731bfd4d15b4fe170c",
+    "tile_light": "827c90d7fab0ea2d5a1b36871d9d5717f269849684e8b21cc70d878a95ce5159",
+    "unlit": "b084bed3daadbdf819a6daf96b16474dc55998507d6ffe5a7f2b1340ae9250bc",
+    "candidate": "99f8e6bdd35d1d7c0b6609ac02435c220e85ec1bc434c78379104c535aab0176"
+  },
+  "selector_pixels": 38800,
+  "selector_bounds": [
+    896,
+    437,
+    1099,
+    636
+  ],
+  "normal_and_factor_colors_on_actual_selector_mask": {
+    "document_normal": [
+      {
+        "rgb": [
+          0,
+          127,
+          127
+        ],
+        "pixels": 36073
+      },
+      {
+        "rgb": [
+          127,
+          255,
+          127
+        ],
+        "pixels": 2524
+      },
+      {
+        "rgb": [
+          92,
+          204,
+          127
+        ],
+        "pixels": 203
+      }
+    ],
+    "world_normal": [
+      {
+        "rgb": [
+          0,
+          127,
+          127
+        ],
+        "pixels": 36073
+      },
+      {
+        "rgb": [
+          127,
+          255,
+          127
+        ],
+        "pixels": 2524
+      },
+      {
+        "rgb": [
+          92,
+          204,
+          127
+        ],
+        "pixels": 203
+      }
+    ],
+    "intensity": [
+      {
+        "rgb": [
+          159,
+          159,
+          159
+        ],
+        "pixels": 36073
+      },
+      {
+        "rgb": [
+          255,
+          255,
+          255
+        ],
+        "pixels": 2524
+      },
+      {
+        "rgb": [
+          214,
+          214,
+          214
+        ],
+        "pixels": 203
+      }
+    ],
+    "tile_light": [
+      {
+        "rgb": [
+          255,
+          255,
+          255
+        ],
+        "pixels": 38800
+      }
+    ]
+  },
+  "mean_rgb_on_actual_selector_mask": {
+    "native": [
+      82.97051546391752,
+      66.48731958762886,
+      38.989149484536085
+    ],
+    "unlit": [
+      154.8177319587629,
+      123.9728350515464,
+      72.62708762886598
+    ],
+    "candidate": [
+      101.34528350515464,
+      81.12590206185567,
+      47.51940721649485
+    ]
+  },
+  "sample_points": [],
+  "conclusion": "Selector/body pose and normal diagnostic path received. Candidate wood remains visibly brighter than native.",
+  "production_qualified": false,
+  "limits": [
+    "Means use the actual selector mask and are descriptive, not appearance acceptance.",
+    "Native COLOR/lightmap are not inferred from candidate actor TILE or entity fancy formula.",
+    "South alone does not establish rotated-world normals; review west independently."
+  ]
+}

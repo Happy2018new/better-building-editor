@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "session_state": "stopped",
+  "force": false,
+  "capture_count": 24,
+  "all_original_images_opened_by_shelf_agent": true,
+  "normal_stop": {
+    "source": "root agent transcript attestation and separately saved normal-stop.json",
+    "exec_session": 58501,
+    "exec_exit_code": 1,
+    "completed": false,
+    "error": "Game has not closed; inspect it or explicitly use stop --force"
+  },
+  "observer": {
+    "source": "root agent transcript attestation; exact process exits are in exact-exit.json",
+    "exec_session": 41421,
+    "exec_exit_code": 0
+  },
+  "finalize": {
+    "source": "root agent transcript attestation and separately saved normal-finalize.json",
+    "completed": true,
+    "state": "stopped",
+    "force": false
+  },
+  "scope": "Capture restoration succeeded. Normal stop returned an error before exact process exits. MC exit 0xC0000409 is preserved and is not called a clean game exit. No force termination occurred."
+}
