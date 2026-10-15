@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "passed": true,
+  "pixel_acceptance": false,
+  "source_sha256": {
+    "r19_native_portal_world.vertex": "3a81f170a9a5192c41866eb79e24b18d5879a69f441d84b71994ddbc2184e080",
+    "r19_native_portal_native.fragment": "380ab07892e358dcb926d03f0f9e00b78e93ca8e426312a7e38b6b36658bdb06"
+  },
+  "compiler_sha256": "b3d244962258db6d6fa61b79174a8bb091cbac627afc9035b51c7fbb8197e3b6",
+  "cases": [
+    {
+      "name": "r19_native_portal_world-100-plain",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ".runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-plain.vert\n.runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-plain.frag\n",
+      "expanded_sha256": {
+        "r19_native_portal_world-100-plain.vert": "213bef58763ad5fa359af621db33409843a83a884d464ed09453eabcab1e0ead",
+        "r19_native_portal_world-100-plain.frag": "b16b212ba474a4df27f5022fc0560288b8bd9a047d9ecebe635cd40bbc62f6dd"
+      }
+    },
+    {
+      "name": "r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING",
+      "returncode": 2,
+      "stdout": "",
+      "stderr": ".runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING.vert\nERROR: .runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING.vert:243: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n.runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING.frag\nERROR: Linking vertex stage: Missing entry point: Each stage requires one entry point\n\n",
+      "expanded_sha256": {
+        "r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING.vert": "740b9677a21f5c833ed3292f76cd29ceae45c09996127d9d01bb3c275e4bde38",
+        "r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING.frag": "5413c0b5d3db6628ac7ef10928713f5ffe928c83d89da00fe27576d461025fd9"
+      },
+      "baseline_returncode": 2,
+      "baseline_stdout": ".runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING-native-baseline.vert\nERROR: 0:89: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n",
+      "baseline_stderr": "",
+      "inherited_unsupported_mat3x4": true
+    },
+    {
+      "name": "r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE",
+      "returncode": 2,
+      "stdout": "",
+      "stderr": ".runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert\nERROR: .runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert:244: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n.runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag\nERROR: Linking vertex stage: Missing entry point: Each stage requires one entry point\n\n",
+      "expanded_sha256": {
+        "r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert": "a339e8603cabd20f2063dbf3d51db427ff0748f6467925680d2b4fe0485d6221",
+        "r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag": "0f9e851ef154daf9149a51738ec1df6fbba70f89e86cdd86300e3613712299e9"
+      },
+      "baseline_returncode": 2,
+      "baseline_stdout": ".runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-100-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE-native-baseline.vert\nERROR: 0:90: '' :  syntax error, unexpected IDENTIFIER, expecting COMMA or SEMICOLON\nERROR: 1 compilation errors.  No code generated.\n\n\n",
+      "baseline_stderr": "",
+      "inherited_unsupported_mat3x4": true
+    },
+    {
+      "name": "r19_native_portal_world-300-plain",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ".runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-300-plain.vert\n.runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-300-plain.frag\n",
+      "expanded_sha256": {
+        "r19_native_portal_world-300-plain.vert": "50571bebb4c19861a55af88552bebd88cf8c3461eaa7ea5785ecc14508102860",
+        "r19_native_portal_world-300-plain.frag": "f91220be26b67b7aa43c20164ec54a8b5de2b51a1147f12ee16659927fa779ce"
+      }
+    },
+    {
+      "name": "r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ".runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING.vert\n.runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING.frag\n",
+      "expanded_sha256": {
+        "r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING.vert": "ce55d969e9bdc417e65534c58c4697b7f2c80f5c0cb43e799105886e81592a5d",
+        "r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING.frag": "053c403dd1541d0b6331b8835980e3a1720601ef2c3960e2194a3c26a56b7770"
+      }
+    },
+    {
+      "name": "r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ".runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert\n.runtime\\portal-measured-compile-r20-v1\\r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag\n",
+      "expanded_sha256": {
+        "r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.vert": "35604f0b0e64cda26117eb041ae52a806808c4b8e90885ac234fabf11059182b",
+        "r19_native_portal_world-300-USE_SKINNING-NETEASE_SKINNING-USE_INSTANCE.frag": "7e91ea221535f2155bf5a1a9b2a86a2e09b160d3248d6e1dadb6e05a42245d9e"
+      }
+    }
+  ]
+}

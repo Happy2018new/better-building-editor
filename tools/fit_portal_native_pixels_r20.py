@@ -52,11 +52,17 @@ def surface_samples(image, camera, face='north', stride=2):
     return points, values, x, y
 
 
-def field_coordinates(points, camera, normal):
+def field_coordinates(points, camera, normal, depth_convention='unorm255'):
     eye = np.asarray(camera['position'])
     ray = points-eye
     denominator = ray @ normal
-    depths = np.floor(np.arange(16)*255./16.)*(32./255.)
+    depth_bytes = np.floor(np.arange(16)*255./16.)
+    if depth_convention == 'float16':
+        depths = (depth_bytes/255.).astype(np.float16).astype(float)*32.
+    elif depth_convention == 'unorm256':
+        depths = depth_bytes*(32./256.)
+    else:
+        depths = depth_bytes*(32./255.)
     t = 1.-depths[:, None]*float(normal @ normal)/denominator[None, :]
     parallax = t[:, :, None]*ray[None, :, :]+eye
     uv = parallax[:, :, :2]/16.
@@ -81,15 +87,16 @@ def predictions(field, starfield, colors, phase, flip_v=False):
     return np.minimum(layers.sum(axis=0), 255.)
 
 
-def fit(image, camera, starfield, colors, inward=False):
+def fit(image, camera, starfield, colors, inward=False,
+        depth_convention='unorm255', only_axis=False):
     points, actual, x, y = surface_samples(image, camera)
     candidates = []
-    names = ('axis', 'byte127', 'byte128')
+    names = ('axis',) if only_axis else ('axis', 'byte127', 'byte128')
     if inward:
         names = tuple('inward_'+name for name in names)
     for normal_name in names:
         normal = np.asarray(NORMALS[normal_name])
-        field = field_coordinates(points, camera, normal)
+        field = field_coordinates(points, camera, normal, depth_convention)
         for flip in (False, True):
             best = None
             for phase in range(256):
@@ -106,6 +113,7 @@ def fit(image, camera, starfield, colors, inward=False):
             expected = predictions(field, starfield, colors, best['phase'], flip)
             delta = np.abs(expected-actual)
             candidates.append(dict(best, normal=normal_name, flip_v=flip,
+                                   depth_convention=depth_convention,
                                    rmse=float(np.sqrt(best['mse'])),
                                    rgb_mae=delta.mean(axis=0).tolist(),
                                    rgb_actual_mean=actual.mean(axis=0).tolist(),
@@ -121,7 +129,8 @@ def fit(image, camera, starfield, colors, inward=False):
 
 def comparison(image, camera, starfield, colors, best, output):
     points, actual, x, y = surface_samples(image, camera, stride=1)
-    field = field_coordinates(points, camera, np.asarray(NORMALS[best['normal']]))
+    field = field_coordinates(points, camera, np.asarray(NORMALS[best['normal']]),
+                              best.get('depth_convention', 'unorm255'))
     expected = predictions(field, starfield, colors, best['phase'], best['flip_v'])
     left, top, right, bottom = int(x.min()), int(y.min()), int(x.max())+1, int(y.max())+1
     size = (bottom-top, right-left, 3)
@@ -147,6 +156,10 @@ def main():
                         help='Reuse a bound diagnostic fit to render its comparison without refitting')
     parser.add_argument('--inward', action='store_true',
                         help='Investigate the opposite native normal convention')
+    parser.add_argument('--depth-convention', choices=('unorm255', 'float16', 'unorm256'),
+                        default='unorm255', help='Investigate lowp conversion before UV calculation')
+    parser.add_argument('--only-axis', action='store_true',
+                        help='Investigate one normal convention without the two neutral-byte alternatives')
     args = parser.parse_args()
     report = json.loads(args.report.read_bytes())
     row = report['captures'][args.capture]
@@ -167,7 +180,8 @@ def main():
                 raise ValueError('The reused fit belongs to different evidence')
             result['reused_fit_sha256'] = sha(args.reuse_fit)
         else:
-            result = fit(image, row['camera'], stars, colors, args.inward)
+            result = fit(image, row['camera'], stars, colors, args.inward,
+                         args.depth_convention, args.only_axis)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         preview = args.output.with_suffix('.png')
         comparison(image, row['camera'], stars, colors, result['best'], preview)
