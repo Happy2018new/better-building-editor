@@ -1,0 +1,47 @@
+{
+  "materials": {
+    "portal_base": {
+      "+defines": [
+        "ENABLE_FOG",
+        "END_PORTAL"
+      ],
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "+states": [
+        "Blending"
+      ],
+      "blendDst": "SourceAlpha",
+      "blendSrc": "One",
+      "depthFunc": "LessEqual",
+      "fragmentShader": "shaders/glsl/r20_portal_attribute.fragment",
+      "msaaSupport": "Both",
+      "vertexFields": [
+        {
+          "field": "Position"
+        },
+        {
+          "field": "UV1"
+        },
+        {
+          "field": "Color"
+        },
+        {
+          "field": "UV0"
+        }
+      ],
+      "vertexShader": "shaders/glsl/r20_portal_attribute.vertex",
+      "vrGeometryShader": "shaders/end_portal.geometry"
+    },
+    "version": "1.0.0"
+  }
+}

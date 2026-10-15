@@ -1,0 +1,40 @@
+{
+  "expected_capture_count": 2,
+  "game_or_window_mutation": false,
+  "guard_sha256": {
+    "dll": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93",
+    "mcdk": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+  },
+  "host_sha256": {
+    ".agents/skills/pyreact-debugging/scripts/_session.py": "9bf1400cda12457ec1b3dd2351fed366c10ad069c781565eabb12e45b2431313",
+    ".agents/skills/pyreact-debugging/scripts/instances.py": "bd8fbeba3145cef771c0abd1859ca9f02520855b1db75e9ef76c7cee232ebfaa",
+    ".runtime/start_portal_prepared_r20.py": "053afe91413ffff83c3597689f36f54df8e5cf15a2776905ff59578021b2d4f4",
+    "tools/analyze_portal_coordinates_r20.py": "a06c690096ef8418cbb686c36b76f61787f549fa824c64596f1ebc798a6c1e4f",
+    "tools/probe_intrinsic_glint_ui_r21.py": "40a840256274d7a95a90cdd1d95e78d0e1502e38823e3f11281b681b5f95885f",
+    "tools/probe_portal_reference_r19.py": "39b77af5a943be20a0f71d0c2fbe546352a5336bb1fa1c4d16473f1586b290cb",
+    "tools/watch_intrinsic_glint_exit_r21.py": "aa436ee9a0f496554c69330d8456fa21b6bb551b63032f0b5a453ad9748646aa"
+  },
+  "launched": false,
+  "old_start_replayed": false,
+  "pair_arguments": [
+    "--project",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\portal-r20-native-v8",
+    "--owner",
+    "portal-r20-native-v8",
+    "--output",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\portal-coordinate-readback-r20-v8",
+    "--native-adapter",
+    "--adapter-prefix",
+    "r19_native_portal_",
+    "--families",
+    "end_gateway",
+    "--views",
+    "front",
+    "--near-player",
+    "--record-absent"
+  ],
+  "production_qualification": false,
+  "ready_for_authorized_launch": true,
+  "source_contract_sha256": "47aa6848257f1701e625e5dff1824a98134774311addf252f2909e965965919f",
+  "verified_at": "2026-10-15T18:29:52.730471+00:00"
+}

@@ -1,0 +1,73 @@
+{
+  "diagnostic_only": true,
+  "limits": [
+    "A material definition does not prove the native renderer uses it.",
+    "Native attribute values are unknown until the diagnostic pixels are decoded.",
+    "No installed game asset or production profile is modified."
+  ],
+  "mode": "coordinates",
+  "native_material_original": {
+    "+defines": [
+      "ENABLE_FOG",
+      "END_PORTAL"
+    ],
+    "+samplerStates": [
+      {
+        "samplerIndex": 0,
+        "textureFilter": "Point",
+        "textureWrap": "Repeat"
+      },
+      {
+        "samplerIndex": 1,
+        "textureFilter": "Point",
+        "textureWrap": "Repeat"
+      }
+    ],
+    "+states": [
+      "Blending"
+    ],
+    "blendDst": "SourceAlpha",
+    "blendSrc": "One",
+    "depthFunc": "LessEqual",
+    "fragmentShader": "shaders/end_portal.fragment",
+    "msaaSupport": "Both",
+    "vertexFields": [
+      {
+        "field": "Position"
+      },
+      {
+        "field": "UV1"
+      },
+      {
+        "field": "Color"
+      },
+      {
+        "field": "UV0"
+      }
+    ],
+    "vertexShader": "shaders/end_portal.vertex",
+    "vrGeometryShader": "shaders/end_portal.geometry"
+  },
+  "output_sha256": {
+    "resource_pack/materials/common.json": "0c751af95de52d45a76135c8e4b27dba2d57e8f4a1d49e04f7246582a2d7e8a8",
+    "resource_pack/materials/fancy.json": "b3b491462493f006a4314ebf1cf42145637d42b5e7ed731ee9bab8f92b7b6317",
+    "resource_pack/materials/portal.material": "862c7e846eaec1067ea3a107c110ded1b00292a6a61110b77ae6900d8567288a",
+    "resource_pack/materials/sad.json": "90d0d73f8bbc5cf3fc439a25d2f5ecb6886569c7a753267a9e605295e80162e1",
+    "resource_pack/shaders/glsl/r19_native_portal_native.fragment": "489c1dfbe8c88ec265cd1ae280eb67a79bfcbd76cd03744e074a4674cc302a1a",
+    "resource_pack/shaders/glsl/r20_portal_attribute.fragment": "489c1dfbe8c88ec265cd1ae280eb67a79bfcbd76cd03744e074a4674cc302a1a",
+    "resource_pack/shaders/glsl/r20_portal_attribute.vertex": "1893e42435fcb4361c95dac32980a83cb0c63345383e5d03b93f8e98ecefb0e3",
+    "resource_pack/shaders/glsl/r20_portal_attribute_native.h": "2bf100b065c37fb018aecb93dc0bdbb36ef8555422847c59ede9b47efadfe116"
+  },
+  "pixel_acceptance": false,
+  "production_qualified": false,
+  "requires_observed_sentinel": true,
+  "schema": 1,
+  "source_sha256": {
+    "resource_packs/vanilla/materials/common.json": "0c751af95de52d45a76135c8e4b27dba2d57e8f4a1d49e04f7246582a2d7e8a8",
+    "resource_packs/vanilla/materials/fancy.json": "b3b491462493f006a4314ebf1cf42145637d42b5e7ed731ee9bab8f92b7b6317",
+    "resource_packs/vanilla/materials/portal.material": "e0c87e1c4c746aac17cf0f69c045bbb9fe4425eda9fe23127ef91dfb2bd0f160",
+    "resource_packs/vanilla/materials/sad.json": "90d0d73f8bbc5cf3fc439a25d2f5ecb6886569c7a753267a9e605295e80162e1",
+    "shaders/glsl/end_portal.fragment": "2bf100b065c37fb018aecb93dc0bdbb36ef8555422847c59ede9b47efadfe116",
+    "shaders/glsl/end_portal.vertex": "1893e42435fcb4361c95dac32980a83cb0c63345383e5d03b93f8e98ecefb0e3"
+  }
+}
