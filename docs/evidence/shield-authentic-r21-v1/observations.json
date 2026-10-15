@@ -1,0 +1,67 @@
+{
+  "native_ui": {
+    "image": "images/01-native-ui-unbound.png",
+    "authentic_pattern_visible": true,
+    "base_observed": "white",
+    "base_parity_accepted": false
+  },
+  "skeleton_binding": {
+    "negative": "images/01-native-ui-unbound.png",
+    "bound_back_surface": "images/02-native-ui-bound-front.png",
+    "actual_pattern_front": "images/04-bound-back.png",
+    "pattern_front_config_yaw": 180,
+    "base_observed": "blue",
+    "ordered_patterns": [
+      "bo:1",
+      "cr:14",
+      "mc:11"
+    ],
+    "side_and_handle": "images/05-bound-side.png",
+    "attachment_visible_separately_from_host": true,
+    "frame_pose_proportions_and_thickness_accepted": false
+  },
+  "actual_native_frames": {
+    "images": [
+      "images/06-actual-frame-front.png",
+      "images/07-actual-frame-oblique.png"
+    ],
+    "item_rotation": 0,
+    "placement_support_face": 2,
+    "plain_observed": "flat green interior rectangle",
+    "authentic_observed": "wooden reverse surface; patterned front not visible",
+    "exact_authentic_item_tag": true,
+    "pattern_front_accepted": false,
+    "block_aux_and_states_not_recorded": true
+  },
+  "workspace": {
+    "images": [
+      "images/08-workspace-candidate-front.png",
+      "images/09-workspace-candidate-oblique.png"
+    ],
+    "owned_native_renderentity_overlay": true,
+    "item_scene_integration": false,
+    "common_depth_occlusion_accepted": false
+  },
+  "minimum_frame_followup": {
+    "started": false,
+    "maximum_images": 4,
+    "fixture": "Same authentic item in two opposing native frames, with sword positive control.",
+    "record_before_capture": [
+      "native block aux and states",
+      "support face",
+      "camera outward normal",
+      "ItemRotation",
+      "exact tag and ordinary inventory readback"
+    ],
+    "views": [
+      "outward front and oblique for each opposing face"
+    ],
+    "decision": "If both outward faces show reverse wood, record native behavior; only correct local orientation if it varies with native facing."
+  },
+  "banner_item_route": {
+    "item_short_stalk_pose_and_thickness_separate_from_block": true,
+    "standing_or_wall_block_geometry_not_item_acceptance": true,
+    "qualified": false
+  },
+  "production_qualified": false
+}
