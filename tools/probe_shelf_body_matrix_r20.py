@@ -106,6 +106,9 @@ def main():
     parser.add_argument('--compare-baked-rotation', action='store_true')
     parser.add_argument('--compare-reverse-baked-rotation', action='store_true')
     parser.add_argument('--compare-native-axis-baked-rotation', action='store_true')
+    parser.add_argument('--shader-inputs', action='store_true',
+                        help='Read private marker 19491 inputs on shelf AO and native stone controls')
+    parser.add_argument('--directions', nargs='+', choices=('south', 'west', 'north', 'east'))
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Use a fresh diagnostic directory')
@@ -184,6 +187,8 @@ def main():
             for wood, aux, direction, fronts in matrix_cases(args.matrix):
                 if args.aux is not None and aux != args.aux:
                     continue
+                if args.directions and direction not in args.directions:
+                    continue
                 label = wood + '_' + str(aux) + '_' + direction
                 material = {'name': 'minecraft:' + wood + '_shelf', 'aux': aux}
                 placed = native.run(client, PLACE % material, True)
@@ -229,6 +234,20 @@ def main():
                         path_key, (-.5, 0., -.5), (0., 0., 0., 0.), []))
                     frame(label + '_' + front + suffix, case)
                     native.run(client, DETACH)
+                if args.shader_inputs:
+                    controls = [('shelf', 'modern_projection:preview_shelf_oak_unpowered_'+direction+'_ao'),
+                                ('stone', 'minecraft:stone')]
+                    for control, identifier in controls:
+                        path_key = identifier+'__aux0'
+                        if path_key not in generated:
+                            case['candidate_paths'][control+'_inputs'] = native.run(
+                                client, PROXY % ((identifier, 0),))
+                            generated.add(path_key)
+                        for mode in range(1, 8):
+                            native.run(client, native.ATTACH % (
+                                path_key, (-.5, 0., -.5), (19491., float(mode), 0., 0.), []))
+                            frame(label+'_'+control+'_input_'+str(mode), case)
+                            native.run(client, DETACH)
             report['completed'] = True
         except Exception as error:
             report['error'] = type(error).__name__ + ': ' + str(error)

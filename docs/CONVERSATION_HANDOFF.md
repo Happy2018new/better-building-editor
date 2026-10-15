@@ -1,5 +1,16 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 03:00 原生图案盾阳性与Shelf光照输入控制
+
+- 用户最新提醒继续生效：旗帜物品在展示框中的短下杆、姿态、比例及厚度独立验收，旗帜方块几何不能代替。真实crafter盾的原生骨骼绑定已显示Base4蓝底及三层图案，侧面有厚度／背把手；相同userdata的SetUiItem仍白底。root独立校验75文件／9原图／15源码回执并目检inspection-crops；实际框尚无图案正面，raw editor overlay不等于Scene共同深度。新包docs/evidence/shield-authentic-r21-v1尚待shield专属提交，生产仍False。
+- root Shelf native-axis24图completed／restored／source unchanged、cleanup空；四方向每种AO控制与对应原骨骼候选逐像素相同，坐标／面名实验结束但光照仍开。421文件manifest及原图重放通过，保存docs/evidence/shelf-native-axes-r21-v1。MC19804 exact=0xC0000409／MCDK9548=0，普通stop超时后仅finalize已退出实例，无force。
+- Shelf下一隔离副本.runtime/projects/shelf-r21-inputs-v1只增加marker19491的GPU输入诊断；7模式记录raw/entity/world法线、light、TILE_LIGHT_COLOR、COLOR及实际宏位。未启动；不改产品路由。离线16程序中14链接，2项GLES100 skinning失败有同浏览器真实原生vertex相同flags对照；112个显式合成像素检查通过，不当原生外观资格。
+- item已提交4d2e4dbe，原stone八面ROI仍偏亮7.04–7.76%；仅opaque frame-block baseRGB的0.93经验候选已离线准备，绝非发现原生常数。32 scoped tests、30 GLES variants及appearance像素重放通过。后续草／原木／木板、新角度／光照作真正holdout；原八ROI仅训练。index已release给root；未启动新MC。
+- snow v4蓝花h0前8编辑步骤通过，第9 saved_library_load整体向下约46px，3次capture一致，shape recall .21238／precision .21045。actual report.completed=False、restored=True、cleanup空；wrapper completed只表示进程结束，必须修名避免误报。15图可重放，最低commit8.0488GiB。MC52544 exact=0xC0000409／MCDK47780=0，全部exec结束、metadata stopped，无force；代理离线查保存／载入camera与center链。
+- portal v8已由root独立重放decoder／view-model，camera已解释全部16层X偏移而不拟合X；v9只删末尾+VIEW_POS、ray不动。snow释放后03:00授portal独占MC/WGC两张coordinate图，不自动追加appearance。root无自有MC。
+- lectern40图冻结12host／3093source已复核，纯采集预计3–4分钟、完整冷启至退出6–8分钟，仍待运行窗口。真实成书5样本host离线就绪，运行门须维持6GiB后才能授权。water alpha56仍待轮换。
+- 08:00休眠任务再次读回Ready、2026-10-16T08:00:00+08:00、shutdown.exe /h、StartWhenAvailable=False。仍在dev，不push／合main；保留原water两份tracked WIP及既有未跟踪资料。
+
 ## 2026-10-16 02:38 真实图案盾schema与Shelf反向控制
 
 - shield通过原生crafter实物合成成功，oak_log→4oak_planks正例及真实盾＋三层蓝旗目标均通过。真实成品newAuxValue=0，typed userData Base=4、Damage=0、Patterns=[bo1,cr14,mc11]，GetContainerItem(True)与输出箱Item.tag一致；未向盾注入NBT。64格／库存／客户端均恢复，源码不变。MC38176 exact=0xC0000409、MCDK42764=0，normal stop后自行退出、再finalize，无force。schema已解锁，不等于编辑器图案盾成功；代理离线准备最短9图原生UI／绑定骨骼／框内参照／可旋转编辑器对照，先无绑定宿主负控。

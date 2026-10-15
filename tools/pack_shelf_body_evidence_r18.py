@@ -96,10 +96,12 @@ def freeze_matrix(report_path, review, project, output, experiment='direction'):
                     'The reverse-coordinate candidate restores the east/west silhouette while moving the front '
                     'artwork to another face. Neither this reverse candidate nor the original baked candidate '
                     'qualifies. Bone-rotation AO controls retain their close silhouette but remain too bright.'),
-        'native_axes': ('Native-axis coordinates and face mapping require independent image acceptance.',
-                        'This experiment separates native cube coordinates from face naming, keeping the '
-                        'earlier baked and reverse failures intact. Its scores remain diagnostic; geometric '
-                        'or color agreement in this small matrix does not grant runtime admission.')}
+        'native_axes': ('Native-axis and bone controls were pixel-identical in all four directions; lighting remains open.',
+                        'Separating native cube coordinates from face naming reproduces the original '
+                        'bone-rotation candidate pixels in all four directions, with and without AO. '
+                        'The earlier baked and reverse failures remain intact. This resolves the rotation '
+                        'experiment but does not fix the absolute brightness or the missing north/south '
+                        'versus east/west lighting difference. No runtime admission is granted.')}
     finding, description = findings[experiment]
     (output/'index.json').write_text(json.dumps({
         'schema_version': 1, 'production_qualified': False, 'observation': observation,
