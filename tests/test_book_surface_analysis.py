@@ -159,6 +159,11 @@ class BookSurfaceAnalysisTests(unittest.TestCase):
         image[5:55:5, 5:75:5] = (106, 71, 30)
         self.assertGreater(isolated_cover_pixels(image).sum(), MAX_ISOLATED_PIXELS)
 
+    def test_white_page_fragments_inside_uniform_cover_are_not_filtered_out(self):
+        image = np.full((60, 80, 3), (129, 86, 37), dtype=np.int16)
+        image[5:55:5, 5:75:5] = (220, 220, 210)
+        self.assertGreater(isolated_cover_pixels(image).sum(), MAX_ISOLATED_PIXELS)
+
     def test_foliage_and_crosshair_are_not_book_cover_corruption(self):
         image = np.full((60, 80, 3), (18, 65, 12), dtype=np.int16)
         image[5:55:5, 5:75:5] = (77, 51, 22)

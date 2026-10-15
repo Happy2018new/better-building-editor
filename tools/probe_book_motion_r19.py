@@ -142,7 +142,10 @@ def run(args):
         report['loaded'] = audit.execute('load', LOAD % ('production', (), json.dumps(data)))
         audit.settle()
         if args.stage == 'editor':
-            audit.view(args.yaw, args.zoom, 0.)
+            report['requested_editor_view'] = {'yaw': args.yaw, 'pitch': args.pitch, 'zoom': args.zoom}
+            audit.execute('view', CLIENT+
+                's.camera_view(%r,%r,%r)\ns.camera_depth=0.\ns.emit("view")\n_result=True' %
+                (args.yaw, args.pitch, args.zoom))
             time.sleep(1.)
             audit.settle()
         else:
@@ -217,6 +220,9 @@ _result=True
             except Exception as error:
                 report['cleanup_errors'].append(label+': '+str(error))
         report['restored'] = not report['cleanup_errors']
+        if report.get('alias_sources'):
+            report['alias_sources_after'] = alias_sources(args.project, prefix)
+            report['alias_source_unchanged'] = report['alias_sources'] == report['alias_sources_after']
         report['source_after'] = book_sources(args.project)
         report['source_unchanged'] = report['source_before'] == report['source_after']
         save(args.output/'report.json', report)
@@ -239,6 +245,7 @@ def main():
     parser.add_argument('--frozen', action='store_true')
     parser.add_argument('--model-prefix', default='')
     parser.add_argument('--yaw', type=float, default=35.)
+    parser.add_argument('--pitch', type=float, default=25.)
     parser.add_argument('--zoom', type=float, default=3.)
     args = parser.parse_args()
     run(args)

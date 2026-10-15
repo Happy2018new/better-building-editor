@@ -8,7 +8,7 @@ from PIL import Image
 
 from generate_liquid_product_resources import merge_registry,write_json
 from generate_liquid_skeleton_resources import WORLD_BONE,UI_COORDINATES
-from book_model_geometry import GEOMETRY_VERSION
+from book_model_geometry import GEOMETRY_VERSION,CLOSED_PAGE_CLEARANCE
 
 ROOT=Path(__file__).resolve().parents[1]
 PREFIX='modern_projection_book_'
@@ -122,6 +122,7 @@ def generate(args):
     write_json(args.output/'resource_pack/models/netease_models.json',models)
     write_json(args.output/'resource_pack/materials/entity.material',{'materials':dict(materials,version='1.0.0')})
     contract={'schema_version':1,'geometry_version':GEOMETRY_VERSION,'engine_version':'3.10.0.420447','product_qualified':False,
+        'closed_page_clearance_model_pixels':CLOSED_PAGE_CLEARANCE,
         'depth_write':True,'raster_culling':'front','diagnostic_animation_time':args.animation_time_control,
         'geometry_reference':'Independent hinged construction; Java 1.21.1 book dimensions and renderer poses, checked against NEMC 3.10 captures.',
         'native_texture_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'models':models,'materials':materials,

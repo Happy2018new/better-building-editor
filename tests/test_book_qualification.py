@@ -10,12 +10,19 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'tools'))
 from qualify_book_product_r18 import (default_binding, BODY_SOURCES, ENGINE_VERSION, OWNER_SOURCES, RESOURCE_KEYS,
                                       REQUIRED_GATES, body_binding, resource_binding, source_binding)
+from qualify_book_product_r18 import motion_binding
 
 
 class BookQualificationTests(unittest.TestCase):
     def test_old_owner_counts_cannot_admit_missing_boundary_pixels(self):
         self.assertIn('body_boundary_pixels', REQUIRED_GATES)
         passed, errors = body_binding(None, {}, {}, Path('unused'))
+        self.assertFalse(passed)
+        self.assertTrue(errors)
+
+    def test_sparse_or_old_surface_evidence_cannot_replace_dense_motion(self):
+        self.assertIn('dense_cover_motion', REQUIRED_GATES)
+        passed, errors = motion_binding(None, {}, Path('unused'))
         self.assertFalse(passed)
         self.assertTrue(errors)
 

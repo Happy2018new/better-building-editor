@@ -147,7 +147,8 @@ def isolated_cover_pixels(image):
     # individual fragments with a different color inside a uniform region.
     agree = np.max(np.ptp(neighbors, axis=0), axis=2) <= 3
     contrast = np.max(abs(center-neighbors.mean(axis=0)), axis=2) >= 12
-    return cover_pixels(center) & np.all(cover_pixels(neighbors), axis=0) & agree & contrast
+    white_fragment = (np.min(center, axis=2) >= 120) & (np.ptp(center, axis=2) <= 45)
+    return (cover_pixels(center) | white_fragment) & np.all(cover_pixels(neighbors), axis=0) & agree & contrast
 
 
 def artwork_distribution(image):

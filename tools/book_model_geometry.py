@@ -6,7 +6,8 @@ Dimensions and pose references are recorded in the R17 book evidence notes.
 """
 import math
 
-GEOMETRY_VERSION=4
+GEOMETRY_VERSION=5
+CLOSED_PAGE_CLEARANCE=1./32.
 
 
 def turn(point,axis,angle):
@@ -18,15 +19,15 @@ def turn(point,axis,angle):
     return result
 
 
-def components(opening):
+def components(opening,page_clearance=.01):
     """Pixel-space boxes and local hinge transforms; no world offsets."""
     hinge=math.sin(opening)
     return (
         ('cover_left',(-6.,-5.,-.005),(6.,10.,.005),(0.,0.),math.pi+opening,(0.,0.,-1.)),
         ('cover_right',(0.,-5.,-.005),(6.,10.,.005),(16.,0.),-opening,(0.,0.,1.)),
         ('spine',(-1.,-5.,0.),(2.,10.,.005),(12.,0.),math.pi/2.,(0.,0.,0.)),
-        ('pages_left',(0.,-4.,-.99),(5.,8.,1.),(0.,10.),opening,(hinge,0.,0.)),
-        ('pages_right',(0.,-4.,-.01),(5.,8.,1.),(12.,10.),-opening,(hinge,0.,0.)),
+        ('pages_left',(0.,-4.,-1.+page_clearance),(5.,8.,1.01-page_clearance),(0.,10.),opening,(hinge,0.,0.)),
+        ('pages_right',(0.,-4.,-.01),(5.,8.,1.01-page_clearance),(12.,10.),-opening,(hinge,0.,0.)),
     )+(() if opening==0. else (
         ('page_turn_left',(0.,-4.,0.),(5.,8.,.005),(24.,10.),opening*.8,(hinge,0.,0.)),
         ('page_turn_right',(0.,-4.,0.),(5.,8.,.005),(24.,10.),-opening*.8,(hinge,0.,0.)),
@@ -55,15 +56,19 @@ def _faces(origin,size,uv):
     )
 
 
-def shape(family,material_path):
+def shape(family,material_path,page_clearance=None):
     if family not in ('enchanting_table','lectern'):
         raise ValueError('Unknown book pose: '+str(family))
+    if page_clearance is None:
+        page_clearance=CLOSED_PAGE_CLEARANCE if family=='enchanting_table' else .01
+    if not 0.<page_clearance<.5:
+        raise ValueError('Book page clearance must be between zero and half a model pixel')
     opened=family=='lectern'
     opening=1.5 if opened else 0.
     tilt=math.radians(67.5 if opened else 80.)
     pivot_y=1.0625 if opened else .85
     vertices,indices=[],[]
-    for name,origin,size,uv,yaw,offset in components(opening):
+    for name,origin,size,uv,yaw,offset in components(opening,page_clearance):
         for start,across,down,normal,rect in _faces(origin,size,uv):
             us=_texels(rect[0],rect[2]);vs=_texels(rect[1],rect[3])
             transformed_normal=turn(turn(normal,1,yaw),2,tilt)

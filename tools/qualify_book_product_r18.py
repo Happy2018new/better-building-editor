@@ -15,13 +15,14 @@ import pprint
 from analyze_book_surface_r17 import analyze as surface_analysis, ENGINE_VERSION
 from analyze_lectern_book_r17 import analyze as page_analysis
 from analyze_book_body_boundary_r19 import analyze as body_analysis
+from analyze_book_motion_r20 import analyze as motion_analysis
 from probe_book_native_r16 import book_sources, BODY_SOURCES, OWNER_SOURCES
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULE = 'behavior_pack/modern_projection/projection/'
 RESOURCE_KEYS = ('contract_present', 'contract_sha256', 'files', 'models', 'materials')
 REQUIRED_GATES = ('owner_matrix', 'raster_regression', 'lectern_page_surface',
-                  'body_boundary_pixels', 'source_closure', 'default_path')
+                  'body_boundary_pixels', 'dense_cover_motion', 'source_closure', 'default_path')
 
 
 def sha(path):
@@ -93,6 +94,19 @@ def body_binding(path, current, owner, output, default=False):
     return measured['body_boundary_pixels_passed'] is True and not errors, errors
 
 
+def motion_binding(path, current, output):
+    if path is None:
+        return False, ['Dense fixed-camera book motion evidence is missing']
+    report = json.loads(path.read_bytes())
+    wrapped = {'installed_sources': report.get('source_before', {})}
+    errors = source_binding(wrapped, current)+resource_binding({'motion': wrapped}, current)
+    if report.get('alias_sources'):
+        errors.append('Dense book motion uses diagnostic aliases')
+    with redirect_stdout(io.StringIO()):
+        measured = motion_analysis(path, output)
+    return measured['dense_cover_motion_passed'] is True and not errors, errors
+
+
 def default_binding(report, measured, admission, owner):
     profile = report.get('default_profile', {})
     require(report.get('stage') == 'production_default' and
@@ -141,6 +155,9 @@ def qualify(args):
     body, body_errors = body_binding(getattr(args, 'body_report', None), current,
                                      reports['owner'], args.output/'body-analysis.json')
     errors += body_errors
+    motion, motion_errors = motion_binding(getattr(args, 'motion_report', None), current,
+                                           args.output/'motion-analysis.json')
+    errors += motion_errors
     with redirect_stdout(io.StringIO()):
         owners = surface_analysis(args.owner_report, args.output/'owner-analysis.json')
         raster = surface_analysis(args.surface_reference, args.output/'surface-analysis.json')
@@ -163,6 +180,7 @@ def qualify(args):
              'raster_regression': raster['raster_regression_passed'] is True,
              'lectern_page_surface': pages['page_surface_parity_passed'] is True,
              'body_boundary_pixels': body,
+             'dense_cover_motion': motion,
              'source_closure': not errors, 'default_path': default}
     stage = 'isolated_default_test' if args.admit_default_test else ('product' if default else 'audit')
     manifest = {'schema_version': 1, 'engine_version': ENGINE_VERSION, 'stage': stage,
@@ -183,11 +201,11 @@ def qualify(args):
                         ('surface_reference' if name == 'surface' else 'lectern_reference')))} for name in reports},
         'analyzer_sha256': {name: sha(ROOT/'tools'/name) for name in
             ('analyze_book_surface_r17.py', 'analyze_lectern_book_r17.py',
-             'analyze_book_body_boundary_r19.py', 'qualify_book_product_r18.py')},
+             'analyze_book_body_boundary_r19.py', 'analyze_book_motion_r20.py', 'qualify_book_product_r18.py')},
         'limits': ['Project hinged book geometry using native artwork; no player-proximity reaction, page text or interaction.',
                    'Lectern page parity is the matched stationary reference view; other directions share the same rigid geometry.',
                    'The independent owner matrix and native close-up resource evidence are separately bound.']}
-    for name in ('body_report', 'default_body_report'):
+    for name in ('body_report', 'default_body_report', 'motion_report'):
         evidence = getattr(args, name, None)
         if evidence is not None:
             manifest['evidence'][name] = {'path': str(evidence.resolve()), 'sha256': sha(evidence)}
@@ -211,6 +229,7 @@ def main():
     parser.add_argument('--default-report', type=Path)
     parser.add_argument('--default-admission', type=Path)
     parser.add_argument('--body-report', type=Path)
+    parser.add_argument('--motion-report', type=Path)
     parser.add_argument('--default-body-report', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--admit-default-test', action='store_true')

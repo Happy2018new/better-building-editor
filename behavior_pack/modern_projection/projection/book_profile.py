@@ -5,9 +5,9 @@ from . import book_qualification_data as qualification
 ENGINE_VERSION='3.10.0.420447'
 SCHEMA_VERSION=1
 PRODUCT_QUALIFIED=qualification.PRODUCT_QUALIFIED
-RESOURCE_CONTRACT_SHA256='47efef0ec069b328ba3b27301cffe8f1445416df02f3b02977367b9cae8f246d'
+RESOURCE_CONTRACT_SHA256='1754f445fd66c4aac605bf7c8d938f0a7fda20f3d9066b6b089bbd0195543322'
 REQUIRED_GATES=frozenset(('owner_matrix','raster_regression','lectern_page_surface',
-                          'body_boundary_pixels','source_closure','default_path'))
+                          'body_boundary_pixels','dense_cover_motion','source_closure','default_path'))
 
 
 class BookProfile(object):
