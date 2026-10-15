@@ -5,6 +5,7 @@ import math
 from . import block_registry
 from .cell import actor_data, foreground, integer_types
 from .entity_overlays import frame_item
+from .intrinsic_item_glint import item_glint
 from .native_appearance import FRAME_NAMES, angle
 from .nbt_spatial import field_key, root_payload, scalar
 from .visible_actor import entity_nbt
@@ -77,16 +78,18 @@ def sprite_content(material, actor, profiles):
     facing = record.get('facing_direction') if record is not None else None
     if abs(step - rounded) > .00001 or facing not in range(6):
         return None
-    return key, facing, rounded % 8, item['isEnchanted']
+    return key, facing, rounded % 8, item_glint(item)
 
 
-def sprite_item(item, profiles):
+def sprite_item(item, profiles, family='frame'):
     name = item['newItemName']
     if isinstance(name, bytes):
         name = name.decode('utf8')
     key = (name, item['newAuxValue'])
     profile = profiles.get(key)
     if profile is None:
+        return None
+    if family not in profile.get('content_families', ('frame', 'shelf', 'campfire')):
         return None
     key = profile.get('resource_key', key)
     # Arbitrary userData can change maps, banners, potions or custom models.
@@ -111,15 +114,15 @@ def _contents(material, actor, profile):
     for slot in slots:
         if slot.family not in profile.content_families:
             continue
-        key = sprite_item(slot.item, profile.items)
+        key = sprite_item(slot.item, profile.items, slot.family)
         if key is None:
             continue
         if slot.family == 'shelf':
             facing = {'south': 2, 'north': 3, 'east': 4, 'west': 5}[slot.direction]
-            result.append((key, facing, 0, slot.item['isEnchanted'], 1 + slot.index))
+            result.append((key, facing, 0, item_glint(slot.item), 1 + slot.index))
         elif slot.family == 'campfire':
             rotation = {'south': 0, 'west': 2, 'north': 4, 'east': 6}[slot.direction]
-            result.append((key, 1, rotation, slot.item['isEnchanted'], 4 + slot.index))
+            result.append((key, 1, rotation, item_glint(slot.item), 4 + slot.index))
     return tuple(result)
 
 
