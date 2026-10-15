@@ -1,0 +1,399 @@
+{
+  "schema": 1,
+  "passed": true,
+  "completed": true,
+  "views": [
+    {
+      "view": "front",
+      "pose": {
+        "position": [
+          6.5,
+          -25.5,
+          12.5
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          -25.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          6.5,
+          -25.5,
+          12.5
+        ],
+        "rotation": [
+          0.0,
+          1.3660377589985728e-05,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            910,
+            465,
+            1084,
+            640
+          ],
+          "max_boundary_error_pixels": 11
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            840,
+            395,
+            1154,
+            710
+          ],
+          "max_boundary_error_pixels": 81
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_front_signal.png",
+      "shown": {
+        "path": "calibration_front_shown_native.png",
+        "bytes": 578728,
+        "sha256": "c85f6ee72c481e153094f046477e0ea6ca46df148c658318ff5c53f3ed1d54a8",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "hidden": {
+        "path": "calibration_front_hidden_native.png",
+        "bytes": 612588,
+        "sha256": "a8e854affef628f57d23208dd4dd75c705e01eb4b66fd862419f258df214e325",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "outline_comparison": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_front_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          920,
+          474,
+          1075,
+          629
+        ],
+        "predicted_bounds": [
+          920,
+          476,
+          1074,
+          629
+        ],
+        "boundary_rms_pixels": 1.118033988749895,
+        "mask_iou": 0.9808092581800016,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "view": "right",
+      "pose": {
+        "position": [
+          12.5,
+          -25.5,
+          6.5
+        ],
+        "rotation": [
+          -0.0,
+          270.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          -25.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          12.5,
+          -25.5,
+          6.5
+        ],
+        "rotation": [
+          0.0,
+          -90.0,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            910,
+            465,
+            1084,
+            640
+          ],
+          "max_boundary_error_pixels": 11
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            840,
+            395,
+            1154,
+            710
+          ],
+          "max_boundary_error_pixels": 81
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_right_signal.png",
+      "shown": {
+        "path": "calibration_right_shown_native.png",
+        "bytes": 591779,
+        "sha256": "c37f3ab5b492406a3377b4c2418e495cc09fed6e866545b3d3c2384c3816f509",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "hidden": {
+        "path": "calibration_right_hidden_native.png",
+        "bytes": 601324,
+        "sha256": "ea18565bd6dd6f3188ff7fba255836d4e0d3ee57c8a601fdb7efbcda4abf0452",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "outline_comparison": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_right_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          920,
+          474,
+          1075,
+          629
+        ],
+        "predicted_bounds": [
+          920,
+          476,
+          1074,
+          629
+        ],
+        "boundary_rms_pixels": 1.118033988749895,
+        "mask_iou": 0.9808092581800016,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "view": "tilted",
+      "pose": {
+        "position": [
+          6.5,
+          -28.5,
+          12.5
+        ],
+        "rotation": [
+          -26.56505012512207,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          -25.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          6.5,
+          -28.5,
+          12.5
+        ],
+        "rotation": [
+          -26.565046310424805,
+          1.3660377589985728e-05,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            917,
+            453,
+            1077,
+            646
+          ],
+          "max_boundary_error_pixels": 12
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            853,
+            373,
+            1141,
+            720
+          ],
+          "max_boundary_error_pixels": 91
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_tilted_signal.png",
+      "shown": {
+        "path": "calibration_tilted_shown_native.png",
+        "bytes": 95593,
+        "sha256": "391998f1505953d6dc45903bb2ff39d0a761baa39b5760224c0c44ed14469344",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "hidden": {
+        "path": "calibration_tilted_hidden_native.png",
+        "bytes": 92884,
+        "sha256": "c8e7a6fa4075b92a96a13ce9b75e3d71a864607a48fe6b5af752684240c097f8",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "outline_comparison": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_tilted_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          927,
+          464,
+          1068,
+          634
+        ],
+        "predicted_bounds": [
+          927,
+          465,
+          1067,
+          634
+        ],
+        "boundary_rms_pixels": 0.7071067811865476,
+        "mask_iou": 0.9867616218105557,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    }
+  ],
+  "scope": "Exact full native client cube; world blocks and player position untouched",
+  "native_resolution": true,
+  "skyward_tilted": true,
+  "fixture_lift_y": 26,
+  "environment": {
+    "rules": {
+      "command_blocks_enabled": true,
+      "mob_griefing": true,
+      "enable": true,
+      "keep_inventory": true,
+      "entities_drop_loot": true,
+      "daylight_cycle": false,
+      "random_tick_speed": 1,
+      "mob_spawn": true,
+      "weather_cycle": false,
+      "show_days_played": false,
+      "recipes_unlock": true,
+      "is_flat_world": true,
+      "always_day": false,
+      "skip_night_by_sleeping": true,
+      "player_sleeping_percentage": 100
+    },
+    "raining": false,
+    "thunder": false,
+    "time": 0
+  },
+  "capture_options": {
+    "clouds_during_capture": 0,
+    "clouds_before": 0
+  },
+  "weather_settle_seconds": 10.0,
+  "fixture": {
+    "cube_material": [
+      "minecraft:stone",
+      0
+    ],
+    "projection_origin": [
+      5,
+      -27,
+      5
+    ],
+    "cube_cell": [
+      1,
+      1,
+      1
+    ],
+    "cube_size": [
+      3,
+      3,
+      3
+    ],
+    "player_origin": [
+      0,
+      -60,
+      0
+    ]
+  },
+  "fov_convention": "calibrated_vertical",
+  "reported_fov": 60.0,
+  "screen_aspect": 1.8014440433212997,
+  "reported_fov_is_effective": false,
+  "runtime_minecraft_version": "1.21.120.0",
+  "vertical_fov": 66.6,
+  "individual_fitted_vertical_fov": [
+    66.3,
+    66.3,
+    66.6
+  ],
+  "limits": {
+    "boundary_rms_pixels": 2,
+    "mask_iou": 0.95,
+    "outline_recall_2px": 0.985,
+    "outline_precision_2px": 0.985,
+    "source": "Native JPEG edge extraction; complete hull must agree within two pixels in all three views"
+  },
+  "environment_restored": true,
+  "capture_options_restored": true,
+  "projection_restored": true,
+  "camera_restored": true,
+  "visual_restored": true,
+  "editor_restored": true,
+  "cleanup_errors": [],
+  "restored": true
+}

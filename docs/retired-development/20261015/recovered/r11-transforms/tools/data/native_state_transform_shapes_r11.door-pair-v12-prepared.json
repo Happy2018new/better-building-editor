@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "scope": "Prepared one-pair diagnostic using reviewed finite supervisor and corrected readiness launcher",
+  "native_attempted": false,
+  "root_source_and_scheduling_review_required": true,
+  "owner": "transforms-r11-door-pair-v12",
+  "name": "transforms-r11-door-pair-v12",
+  "output": ".runtime/door-pair-supervised-v12",
+  "native_launch_limit": 1,
+  "maximum_live_games": 5,
+  "readiness_seconds": 90,
+  "work_limit_seconds": 110,
+  "total_limit_seconds": 150,
+  "fixture_door_pairs": 1,
+  "reserved_cells": 17,
+  "data_replication_verified": false,
+  "physical_orientation_accepted": false,
+  "files": {
+    "native_state_transform_shapes_r11.door-pair-v12-prepared.supervisor.py": "e01cd6f55d3f618fcde806bc7f6b00e124d1d4e9649582007e90bbe074278d11",
+    "native_state_transform_shapes_r11.door-pair-v12-prepared.plan.md": "2d461b5a75342c4d34b1c2b74374c8b8f966daaa5c3a3984fbc1d28291b398cf"
+  },
+  "approved_inputs": {
+    "probe_native_single_door.py": "6fe41694606a33f6ede15cbccf72f4c4a951dcf424017ce524af1ae0281517a8",
+    "instances.py": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+    "mcdk.py": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3",
+    "mcdk.exe": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+    "native_focus_guard.dll": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178",
+    "private_flat_config": "c3cbfd069298f2971d0041ad08bddcb567bcf23b1804be45204e8aed29231cfc"
+  },
+  "changes_from_v11": [
+    "Supervisor source changes only the reviewed instances.py input SHA",
+    "Launcher reuses exact discovered identities with passive IPv4 listener ownership checks",
+    "All network calls use remaining readiness time and retain independent SDK errors",
+    "Fresh owner/name/output; no repeat of the failed v11 session"
+  ],
+  "limits": [
+    "No automatic retry, longer wait or foreground fallback",
+    "No input, resizing, player/camera/settings/UI/reload changes",
+    "Successful data replication is not complete client typed coverage or physical orientation acceptance",
+    "No full door-state matrix without a separately reviewed next decision"
+  ]
+}

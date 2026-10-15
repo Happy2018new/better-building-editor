@@ -1,0 +1,1828 @@
+{
+  "schema": 1,
+  "source_sha256": "b03d65143845beface8f52410e951608357636a564d577442cb4b01d0123bcad",
+  "source_completed": false,
+  "source_passed": false,
+  "scope": "Deterministic dry-plant alpha reanalysis only; no new live acceptance",
+  "original_failure_retained": true,
+  "mapping_selected_from_screenshots": false,
+  "oracle_sha256": "4fa50a01ab33bd1b7a81f029e56e17748f83e77676d71908eebdd6f009f62ef0",
+  "rows": [
+    {
+      "plant": "short_grass",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 65773,
+          "observed_pixels": 53560,
+          "recall": 0.9042464233043954,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 33635,
+          "observed_pixels": 27312,
+          "recall": 0.9081611416679054,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 33635,
+          "observed_pixels": 27312,
+          "recall": 0.9081611416679054,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 55488,
+          "observed_pixels": 53560,
+          "recall": 0.9978373702422145,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 28146,
+          "observed_pixels": 27312,
+          "recall": 0.9955944006253109,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 28146,
+          "observed_pixels": 27312,
+          "recall": 0.9955944006253109,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_short_grass_editor_expected_mask.png",
+          "sha256": "24f309944745eef088f84ee0e37dc964b8fb5cd133c688c9266ac66dd855f490",
+          "pixels": 55488,
+          "bounds": [
+            351,
+            156,
+            719,
+            440
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_short_grass_full_expected_mask.png",
+          "sha256": "c6d3866ce2f0ac960cf9ce6bdb41a8a78dccdd2b368a1a3b95ccf24aebd60c0e",
+          "pixels": 28146,
+          "bounds": [
+            360,
+            209,
+            633,
+            459
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_short_grass_missing_expected_mask.png",
+          "sha256": "c6d3866ce2f0ac960cf9ce6bdb41a8a78dccdd2b368a1a3b95ccf24aebd60c0e",
+          "pixels": 28146,
+          "bounds": [
+            360,
+            209,
+            633,
+            459
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\preview_short_grass.json",
+        "model_sha256": "454cdfb11698654e0fa72ab55566bdbe8ffcadb63281a63b3fe341aa8904c5b0",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\tallgrass.tga",
+        "texture_sha256": "da8b4bff9c95ded682549b3e5516c19b225007a6f2c2e519c42bb49aee35422e",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          0,
+          2,
+          16,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "fern",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 43634,
+          "observed_pixels": 33829,
+          "recall": 0.8391850391896227,
+          "precision": 0.9994679121463833,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 22778,
+          "observed_pixels": 17378,
+          "recall": 0.8559575028536307,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 22778,
+          "observed_pixels": 17378,
+          "recall": 0.8559575028536307,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 34085,
+          "observed_pixels": 33829,
+          "recall": 1.0,
+          "precision": 0.9946495610275208,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 17695,
+          "observed_pixels": 17378,
+          "recall": 0.9995478948855608,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 17695,
+          "observed_pixels": 17378,
+          "recall": 0.9995478948855608,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_fern_editor_expected_mask.png",
+          "sha256": "8351bcd4e1c781d22bb7c6e1ba5bf9a99ea555f521a13b466d1cf4b3435cf7c8",
+          "pixels": 34085,
+          "bounds": [
+            374,
+            147,
+            719,
+            416
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_fern_full_expected_mask.png",
+          "sha256": "83ef8f6831e3e40dabe6a3a19e176747c68bfb4ccd58fe1789e66391f280cc03",
+          "pixels": 17695,
+          "bounds": [
+            359,
+            200,
+            618,
+            394
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_fern_missing_expected_mask.png",
+          "sha256": "83ef8f6831e3e40dabe6a3a19e176747c68bfb4ccd58fe1789e66391f280cc03",
+          "pixels": 17695,
+          "bounds": [
+            359,
+            200,
+            618,
+            394
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\preview_fern.json",
+        "model_sha256": "f460cb21dee29470140e1e759eeae75afcd9406f5982806cabea9e4d47d70f96",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\fern.tga",
+        "texture_sha256": "8b2c5b195cec35870f8929e7446d258c39d8a4d3ff60fc408e974cef20801637",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          0,
+          0,
+          15,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "dandelion",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 16957,
+          "observed_pixels": 17539,
+          "recall": 0.9150793182756384,
+          "precision": 0.8623638747933178,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 8596,
+          "observed_pixels": 7707,
+          "recall": 0.9296184271754304,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 8596,
+          "observed_pixels": 7707,
+          "recall": 0.9296184271754304,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 15048,
+          "observed_pixels": 17539,
+          "recall": 1.0,
+          "precision": 0.8623638747933178,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 7686,
+          "observed_pixels": 7707,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 7686,
+          "observed_pixels": 7707,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_dandelion_editor_expected_mask.png",
+          "sha256": "49ba1d93ceb892e0348d927a8aa1d374029d1c23873ec7690da1b71ea4547f3d",
+          "pixels": 15048,
+          "bounds": [
+            466,
+            221,
+            604,
+            412
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_dandelion_full_expected_mask.png",
+          "sha256": "42cf071934c89f2945ebb971f4a3ce240917845c0ab24889c75e3fd0b2d2ef51",
+          "pixels": 7686,
+          "bounds": [
+            447,
+            256,
+            551,
+            394
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_dandelion_missing_expected_mask.png",
+          "sha256": "42cf071934c89f2945ebb971f4a3ce240917845c0ab24889c75e3fd0b2d2ef51",
+          "pixels": 7686,
+          "bounds": [
+            447,
+            256,
+            551,
+            394
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_dandelion.json",
+        "model_sha256": "9b1b41b31d39dc1d9ce45f01599c42da336e489dedc7d59bfa19ce188e8e3041",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_dandelion.png",
+        "texture_sha256": "4159ebc9fa9471539d4a642e03ed89889cee8cade58e94491a6ee382bcd8e840",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          5,
+          7,
+          11,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "poppy",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 22608,
+          "observed_pixels": 18778,
+          "recall": 0.8416489738145789,
+          "precision": 0.8987645116625839,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 11787,
+          "observed_pixels": 8793,
+          "recall": 0.8404174090099262,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 11787,
+          "observed_pixels": 8793,
+          "recall": 0.8404174090099262,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 16990,
+          "observed_pixels": 18778,
+          "recall": 1.0,
+          "precision": 0.8890190648631378,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 8880,
+          "observed_pixels": 8793,
+          "recall": 0.9998873873873874,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 8880,
+          "observed_pixels": 8793,
+          "recall": 0.9998873873873874,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_poppy_editor_expected_mask.png",
+          "sha256": "1f29358522ba027390c318f238d50ff45fd97d9332c3c8038883a6691f8ffbaf",
+          "pixels": 16990,
+          "bounds": [
+            443,
+            176,
+            604,
+            412
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_poppy_full_expected_mask.png",
+          "sha256": "bd0027d83c86764ded251fdd934507a0c2ceb69fd3d572d08341a38218d34ff3",
+          "pixels": 8880,
+          "bounds": [
+            446,
+            231,
+            566,
+            403
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_poppy_missing_expected_mask.png",
+          "sha256": "bd0027d83c86764ded251fdd934507a0c2ceb69fd3d572d08341a38218d34ff3",
+          "pixels": 8880,
+          "bounds": [
+            446,
+            231,
+            566,
+            403
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_poppy.json",
+        "model_sha256": "8ac0cec25ad16fa5eba5cac80e811a80aebfaaed781b0179ff1200eb86da8682",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_rose.png",
+        "texture_sha256": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          5,
+          5,
+          12,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "blue_orchid",
+      "original_row_passed": false,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": false,
+          "expected_pixels": 35218,
+          "observed_pixels": 22751,
+          "recall": 0.7242603214265433,
+          "precision": 0.9796052920750736,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": false,
+          "expected_pixels": 18657,
+          "observed_pixels": 11244,
+          "recall": 0.6825856246985046,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": false,
+          "expected_pixels": 18657,
+          "observed_pixels": 11244,
+          "recall": 0.6825856246985046,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 21819,
+          "observed_pixels": 22751,
+          "recall": 1.0,
+          "precision": 0.9503758076568063,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 11430,
+          "observed_pixels": 11244,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 11430,
+          "observed_pixels": 11244,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_blue_orchid_editor_expected_mask.png",
+          "sha256": "279d40bcc3389372c95957eecc8e6d95b775f2619fda0dda72fe6b9eae8c8ef0",
+          "pixels": 21819,
+          "bounds": [
+            374,
+            160,
+            673,
+            409
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_blue_orchid_full_expected_mask.png",
+          "sha256": "6c02df7ad2a775a9289f3f24c43318d3cc6a857bbb2e1650029d0403ac743b04",
+          "pixels": 11430,
+          "bounds": [
+            395,
+            207,
+            620,
+            394
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_blue_orchid_missing_expected_mask.png",
+          "sha256": "6c02df7ad2a775a9289f3f24c43318d3cc6a857bbb2e1650029d0403ac743b04",
+          "pixels": 11430,
+          "bounds": [
+            395,
+            207,
+            620,
+            394
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_blue_orchid.json",
+        "model_sha256": "0e07b2ec4adc17d843b653ad6a40a03470d3c3bf5ef01c506ca41429d3e5b912",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_blue_orchid.png",
+        "texture_sha256": "65b6f59ee89737be93f7332598f512b4ab67160f431ea7f3f66fbf09f9c6bd21",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          2,
+          4,
+          15,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "allium",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 24396,
+          "observed_pixels": 20311,
+          "recall": 0.7906624036727332,
+          "precision": 0.8968539215203585,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 13499,
+          "observed_pixels": 10062,
+          "recall": 0.804133639528854,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 13499,
+          "observed_pixels": 10062,
+          "recall": 0.804133639528854,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 17856,
+          "observed_pixels": 20311,
+          "recall": 1.0,
+          "precision": 0.8876963221899463,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 10132,
+          "observed_pixels": 10062,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 10132,
+          "observed_pixels": 10062,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_allium_editor_expected_mask.png",
+          "sha256": "208b2463dd613f2a401f191184d344a9665b3a7eba456a452362223b06bfccaf",
+          "pixels": 17856,
+          "bounds": [
+            466,
+            119,
+            627,
+            412
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_allium_full_expected_mask.png",
+          "sha256": "d569599cdeff831382059998dfb5987bbcf6fde5af36b0f9d74595aa0e8b054e",
+          "pixels": 10132,
+          "bounds": [
+            427,
+            177,
+            552,
+            387
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_allium_missing_expected_mask.png",
+          "sha256": "d569599cdeff831382059998dfb5987bbcf6fde5af36b0f9d74595aa0e8b054e",
+          "pixels": 10132,
+          "bounds": [
+            427,
+            177,
+            552,
+            387
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_allium.json",
+        "model_sha256": "90a3e7e2e23261b538217378a10a1fa1f36248325dbedb51497a1d3c735fa104",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_allium.png",
+        "texture_sha256": "1a9886ff4971c2b0c63e77fffe3729cb2f513cc34a398e9c0bdcddbcb3dbdd96",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          4,
+          2,
+          11,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "azure_bluet",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 27279,
+          "observed_pixels": 18493,
+          "recall": 0.7976831995307746,
+          "precision": 0.9490077326555995,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 13986,
+          "observed_pixels": 10572,
+          "recall": 0.8447018447018447,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 13986,
+          "observed_pixels": 10572,
+          "recall": 0.8447018447018447,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 20891,
+          "observed_pixels": 18493,
+          "recall": 0.9020630893686277,
+          "precision": 0.9076948034391391,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 10620,
+          "observed_pixels": 10572,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 10620,
+          "observed_pixels": 10572,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_azure_bluet_editor_expected_mask.png",
+          "sha256": "38b49f56c121bc05aaeae328821fec0b36774f6e2cccd8a76d7f9abed976dbc0",
+          "pixels": 20891,
+          "bounds": [
+            443,
+            204,
+            650,
+            412
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_azure_bluet_full_expected_mask.png",
+          "sha256": "ec56140d8f312e2eb6b9cd4e84f296ce74cde93a57e492b1eaae38717828e581",
+          "pixels": 10620,
+          "bounds": [
+            412,
+            241,
+            567,
+            387
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_azure_bluet_missing_expected_mask.png",
+          "sha256": "ec56140d8f312e2eb6b9cd4e84f296ce74cde93a57e492b1eaae38717828e581",
+          "pixels": 10620,
+          "bounds": [
+            412,
+            241,
+            567,
+            387
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_azure_bluet.json",
+        "model_sha256": "d4ba826289cff4f2484154658837b7988c2e52d42cf3ece03985eaacbbdb0f55",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_houstonia.png",
+        "texture_sha256": "04d767af56fc6a6157eebd9ee6b4cf09e1e60692218d7c25fed17b6bc3a46bbb",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          3,
+          6,
+          12,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "brown_mushroom",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 16001,
+          "observed_pixels": 18483,
+          "recall": 1.0,
+          "precision": 0.8671752421143754,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 8199,
+          "observed_pixels": 8231,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 8199,
+          "observed_pixels": 8231,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 16001,
+          "observed_pixels": 18483,
+          "recall": 1.0,
+          "precision": 0.8671752421143754,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 8199,
+          "observed_pixels": 8231,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 8199,
+          "observed_pixels": 8231,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_brown_mushroom_editor_expected_mask.png",
+          "sha256": "249adab1be166ce96be138e7bb9e3e162dd6d621932e152c895b10c27f56ee9e",
+          "pixels": 16001,
+          "bounds": [
+            443,
+            237,
+            627,
+            412
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_brown_mushroom_full_expected_mask.png",
+          "sha256": "59d55cbbef6e44299c449b19e886d7e9cf7d7600679b748d46056cd5c822e982",
+          "pixels": 8199,
+          "bounds": [
+            430,
+            264,
+            567,
+            394
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_brown_mushroom_missing_expected_mask.png",
+          "sha256": "59d55cbbef6e44299c449b19e886d7e9cf7d7600679b748d46056cd5c822e982",
+          "pixels": 8199,
+          "bounds": [
+            430,
+            264,
+            567,
+            394
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_brown_mushroom.json",
+        "model_sha256": "d696adee44f34524056ff747ebbda91f387609f9e5200542ba414b4b838b459c",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\mushroom_brown.png",
+        "texture_sha256": "f433e450abb552e61e2694caabad2eaa9f194419ad1e386967960d05850dff7d",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          4,
+          8,
+          12,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "bush",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 73560,
+          "observed_pixels": 60311,
+          "recall": 0.8618542686242523,
+          "precision": 0.9998341927674885,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 37870,
+          "observed_pixels": 30352,
+          "recall": 0.8498811724320042,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 37870,
+          "observed_pixels": 30352,
+          "recall": 0.8498811724320042,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 60884,
+          "observed_pixels": 60311,
+          "recall": 0.9999014519413968,
+          "precision": 0.9983750891213875,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 30972,
+          "observed_pixels": 30352,
+          "recall": 0.9866330879504068,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 30972,
+          "observed_pixels": 30352,
+          "recall": 0.9866330879504068,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_bush_editor_expected_mask.png",
+          "sha256": "82080a3b99d943669a2ae69fe380edc11f52d37e25629bb67eb5f06f49e474b2",
+          "pixels": 60884,
+          "bounds": [
+            351,
+            140,
+            719,
+            428
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_bush_full_expected_mask.png",
+          "sha256": "b879605ec16d7f5807c057a4040e5c183ab1ba01933546022cc5dd117abe961c",
+          "pixels": 30972,
+          "bounds": [
+            360,
+            214,
+            635,
+            439
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_bush_missing_expected_mask.png",
+          "sha256": "b879605ec16d7f5807c057a4040e5c183ab1ba01933546022cc5dd117abe961c",
+          "pixels": 30972,
+          "bounds": [
+            360,
+            214,
+            635,
+            439
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_bush.json",
+        "model_sha256": "6bbce7a8383ba138f926e711dc40b0d96baccebb685279ed93207d71b23b4368",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\bush.png",
+        "texture_sha256": "4cb3e64a82805901edec3c2d1e4e6dec94051d55e94c7457a58a7bcf99fdc7ae",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          0,
+          4,
+          16,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "closed_eyeblossom",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 24438,
+          "observed_pixels": 25386,
+          "recall": 0.9749570341271789,
+          "precision": 0.9174741983770582,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 12874,
+          "observed_pixels": 12530,
+          "recall": 0.9800372844492776,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 12874,
+          "observed_pixels": 12530,
+          "recall": 0.9800372844492776,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 23515,
+          "observed_pixels": 25386,
+          "recall": 1.0,
+          "precision": 0.9174741983770582,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 12429,
+          "observed_pixels": 12530,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 12429,
+          "observed_pixels": 12530,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_closed_eyeblossom_editor_expected_mask.png",
+          "sha256": "5d6df142c09f08bdb3f6673cd6890f88f0bb5ff24e8bd209f598d6b4ade6f1f0",
+          "pixels": 23515,
+          "bounds": [
+            443,
+            156,
+            627,
+            412
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_closed_eyeblossom_full_expected_mask.png",
+          "sha256": "74779f780d884d962dd8290a70f2002118b45be18bdd1145b2606ef55a64b56f",
+          "pixels": 12429,
+          "bounds": [
+            431,
+            207,
+            566,
+            394
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_closed_eyeblossom_missing_expected_mask.png",
+          "sha256": "74779f780d884d962dd8290a70f2002118b45be18bdd1145b2606ef55a64b56f",
+          "pixels": 12429,
+          "bounds": [
+            431,
+            207,
+            566,
+            394
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_closed_eyeblossom.json",
+        "model_sha256": "8a85d818eca6864b2539f79901bfef1d56764784800608412469c4f1c37ab2c5",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\eyeblossom_dormant.png",
+        "texture_sha256": "3234943d7e40d9a735342c0e961a37ffdb1914113a51d309e1d63fb5f2ef4fd5",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          4,
+          4,
+          12,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "cornflower",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 22653,
+          "observed_pixels": 18893,
+          "recall": 0.8212598772789476,
+          "precision": 0.9025035727518128,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 12136,
+          "observed_pixels": 9032,
+          "recall": 0.8214403427818062,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 12136,
+          "observed_pixels": 9032,
+          "recall": 0.8214403427818062,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 16950,
+          "observed_pixels": 18893,
+          "recall": 1.0,
+          "precision": 0.8926586566453184,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 9147,
+          "observed_pixels": 9032,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 9147,
+          "observed_pixels": 9032,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_cornflower_editor_expected_mask.png",
+          "sha256": "c0ea460ea7b834650ad0db4f7dd5e5e8028f08b22ad7f1e54916953fda152b8c",
+          "pixels": 16950,
+          "bounds": [
+            466,
+            156,
+            627,
+            409
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_cornflower_full_expected_mask.png",
+          "sha256": "0c3c406100c07e4e33a359442f137edd2843da93c9dc4ec806a101009fc4d7d9",
+          "pixels": 9147,
+          "bounds": [
+            427,
+            203,
+            552,
+            394
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_cornflower_missing_expected_mask.png",
+          "sha256": "0c3c406100c07e4e33a359442f137edd2843da93c9dc4ec806a101009fc4d7d9",
+          "pixels": 9147,
+          "bounds": [
+            427,
+            203,
+            552,
+            394
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_cornflower.json",
+        "model_sha256": "39996278aaefc51902f740ab3cf29a23c9d2c8a699828f2bc8bf6ed30f9e831f",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_cornflower.png",
+        "texture_sha256": "46e0817fc9f1b22ad6f32f8eae35e046486cdf19f91869709f8c05a313e6f4df",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          4,
+          4,
+          11,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "crimson_fungus",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 28139,
+          "observed_pixels": 28953,
+          "recall": 1.0,
+          "precision": 0.9715746209373812,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 14958,
+          "observed_pixels": 15143,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 14958,
+          "observed_pixels": 15143,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 28139,
+          "observed_pixels": 28953,
+          "recall": 1.0,
+          "precision": 0.9715746209373812,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 14958,
+          "observed_pixels": 15143,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 14958,
+          "observed_pixels": 15143,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_crimson_fungus_editor_expected_mask.png",
+          "sha256": "d30659a2e8164ee404c52b689391ae5646bb0bb8eba3be078c5ef9834a4c65dc",
+          "pixels": 28139,
+          "bounds": [
+            420,
+            156,
+            650,
+            412
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_crimson_fungus_full_expected_mask.png",
+          "sha256": "f3ad3a79ca931fb3a9a97c4f23db65da731fa4ce4ce6f9b242f6043870938197",
+          "pixels": 14958,
+          "bounds": [
+            411,
+            207,
+            585,
+            394
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_crimson_fungus_missing_expected_mask.png",
+          "sha256": "f3ad3a79ca931fb3a9a97c4f23db65da731fa4ce4ce6f9b242f6043870938197",
+          "pixels": 14958,
+          "bounds": [
+            411,
+            207,
+            585,
+            394
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_crimson_fungus.json",
+        "model_sha256": "5a971876c26e0dcb9232a6cd492ba968c5ec71e5f5b33034e3e379739c831b8e",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\crimson_fungus.png",
+        "texture_sha256": "ada86936e7065c44d36ca7d3918f09487c0caa11be306e93ef4263950e4e1db7",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          3,
+          4,
+          13,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "crimson_roots",
+      "original_row_passed": false,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": false,
+          "expected_pixels": 64263,
+          "observed_pixels": 3837,
+          "recall": 0.15078661126931517,
+          "precision": 0.9755016940317957,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 33311,
+          "observed_pixels": 23489,
+          "recall": 0.839212272222389,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 33311,
+          "observed_pixels": 23489,
+          "recall": 0.839212272222389,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": false,
+          "expected_pixels": 46624,
+          "observed_pixels": 3837,
+          "recall": 0.17293668496911463,
+          "precision": 0.90956476413865,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 24027,
+          "observed_pixels": 23489,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 24027,
+          "observed_pixels": 23489,
+          "recall": 1.0,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_crimson_roots_editor_expected_mask.png",
+          "sha256": "0a36aea67eb196d22f77bfe68c1db4eccd812bbbaf7ca5f41c7fc92b58da1a2a",
+          "pixels": 46624,
+          "bounds": [
+            374,
+            160,
+            719,
+            432
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_crimson_roots_full_expected_mask.png",
+          "sha256": "3b7082986f498a03d8cb68398f2b0231dd9ace0e993a4c1dec2da3a5b112c153",
+          "pixels": 24027,
+          "bounds": [
+            360,
+            203,
+            617,
+            429
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_crimson_roots_missing_expected_mask.png",
+          "sha256": "3b7082986f498a03d8cb68398f2b0231dd9ace0e993a4c1dec2da3a5b112c153",
+          "pixels": 24027,
+          "bounds": [
+            360,
+            203,
+            617,
+            429
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_crimson_roots.json",
+        "model_sha256": "ac0d653324faf8954999100ecad85a793f5ed6769126f6c407f45d680f4dea3f",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\crimson_roots.png",
+        "texture_sha256": "84df9b4174b275a4e32b315ea9ebdb603e2c83ccd35655cb955a509988724cde",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          0,
+          4,
+          15,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": false
+    },
+    {
+      "plant": "firefly_bush",
+      "original_row_passed": true,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 93263,
+          "observed_pixels": 73450,
+          "recall": 0.8516667917609342,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 49892,
+          "observed_pixels": 38921,
+          "recall": 0.8432414014270825,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 49892,
+          "observed_pixels": 38921,
+          "recall": 0.8432414014270825,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 74901,
+          "observed_pixels": 73450,
+          "recall": 0.9999065433038277,
+          "precision": 0.9995098706603132,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 39538,
+          "observed_pixels": 38921,
+          "recall": 0.992235317921999,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 39538,
+          "observed_pixels": 38921,
+          "recall": 0.992235317921999,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_firefly_bush_editor_expected_mask.png",
+          "sha256": "c02579aab619908f914ad9494799074f495c6d6cae2afaf9ef9c63cd889bd94b",
+          "pixels": 74901,
+          "bounds": [
+            351,
+            75,
+            719,
+            428
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_firefly_bush_full_expected_mask.png",
+          "sha256": "f59e7ca47943a5ef342900ed305f880779f980c419e543c2f4b9b4bb8ab6afd0",
+          "pixels": 39538,
+          "bounds": [
+            356,
+            130,
+            640,
+            429
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_firefly_bush_missing_expected_mask.png",
+          "sha256": "f59e7ca47943a5ef342900ed305f880779f980c419e543c2f4b9b4bb8ab6afd0",
+          "pixels": 39538,
+          "bounds": [
+            356,
+            130,
+            640,
+            429
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_firefly_bush.json",
+        "model_sha256": "5c94a434b6838f1edcfaf14914634f25100a9f10478f5133f99a9a8e25178aa9",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\items\\firefly_bush.png",
+        "texture_sha256": "1844250d2441b77b777e2a923e12b95a8541ddbdc067d0cb8710062aca6ace7f",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          0,
+          0,
+          16,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    },
+    {
+      "plant": "lily_of_the_valley",
+      "original_row_passed": false,
+      "original_shape_checks": {
+        "editor_shape": {
+          "passed": false,
+          "expected_pixels": 42945,
+          "observed_pixels": 24052,
+          "recall": 0.626592152753522,
+          "precision": 0.9684433726924996,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": false,
+          "expected_pixels": 22380,
+          "observed_pixels": 13293,
+          "recall": 0.6522788203753351,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": false,
+          "expected_pixels": 22380,
+          "observed_pixels": 13293,
+          "recall": 0.6522788203753351,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "derived_shape_checks": {
+        "editor_shape": {
+          "passed": true,
+          "expected_pixels": 25715,
+          "observed_pixels": 24052,
+          "recall": 0.9231188022554929,
+          "precision": 0.9463662065524696,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "full_shape": {
+          "passed": true,
+          "expected_pixels": 13338,
+          "observed_pixels": 13293,
+          "recall": 0.9999250262408157,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        },
+        "missing_shape": {
+          "passed": true,
+          "expected_pixels": 13338,
+          "observed_pixels": 13293,
+          "recall": 0.9999250262408157,
+          "precision": 1.0,
+          "edge_tolerance_pixels": 3,
+          "minimum_observable_pixels": 80,
+          "expected_empty": false
+        }
+      },
+      "expected_masks": {
+        "editor": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_lily_of_the_valley_editor_expected_mask.png",
+          "sha256": "8f9ad14f926637a924f9d9ee2b2e815542494972120e81a1b7288e21869c1ee8",
+          "pixels": 25715,
+          "bounds": [
+            420,
+            161,
+            650,
+            409
+          ]
+        },
+        "full": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_lily_of_the_valley_full_expected_mask.png",
+          "sha256": "d079a383f48e6c9bb4d5d6b78b661a0be3f9ab93a6f22f6d44e3c584ac54f8e3",
+          "pixels": 13338,
+          "bounds": [
+            409,
+            198,
+            586,
+            398
+          ]
+        },
+        "missing": {
+          "path": "D:\\bbe-r13e-snow\\<retained-runtime>\\derived_alpha_lily_of_the_valley_missing_expected_mask.png",
+          "sha256": "d079a383f48e6c9bb4d5d6b78b661a0be3f9ab93a6f22f6d44e3c584ac54f8e3",
+          "pixels": 13338,
+          "bounds": [
+            409,
+            198,
+            586,
+            398
+          ]
+        }
+      },
+      "assets": {
+        "model": "D:\\bbe-r13e-snow\\resource_pack\\models\\netease_block\\centered_lily_of_the_valley.json",
+        "model_sha256": "5bd92a875b26faaa96505d16b9c3eec285b04935f7cff7a2d59fff11cd0e7de1",
+        "texture": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_lily_of_the_valley.png",
+        "texture_sha256": "61d8ead7ee390fff51182c063be57bd79d83b2655f9b4fa0b5cb26d8f1666d12",
+        "texture_size": [
+          16,
+          16
+        ],
+        "texture_alpha_bounds": [
+          3,
+          4,
+          13,
+          16
+        ],
+        "method": "Actual proxy model and native TGA alpha, clipped by world-space snow height"
+      },
+      "derived_shapes_passed": true
+    }
+  ],
+  "dry_shapes_passed": false
+}

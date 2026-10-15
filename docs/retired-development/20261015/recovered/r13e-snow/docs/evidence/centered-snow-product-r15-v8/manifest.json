@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "source_reports": {
+    "calibration": {
+      "original_sha256": "2d481a8e6562d50c3d93e320e007d589001fec912751185a2ca425108ba6c5fd",
+      "completed": true,
+      "passed": true,
+      "restored": true
+    },
+    "targeted": {
+      "original_sha256": "e5983e68379700c5227f02d0ae957a9af26a242c58949abccc2831c65ddedb94",
+      "completed": true,
+      "passed": false,
+      "restored": true
+    },
+    "report": {
+      "original_sha256": "a82e6a71e56c9227401ba4af1cb347e77099cbe9e5e922aad07be4018b0ef01f",
+      "completed": false,
+      "passed": null,
+      "restored": null
+    }
+  },
+  "artifacts": {
+    "editor": {
+      "path": "editor_contact_sheet.png",
+      "sha256": "2262d429571ffba81c299f90ffe9e4df64b3939f1557af71b7e4b93f8e96bb9b",
+      "plants": 4,
+      "tile_policy": "Same source full screenshot crop, no pixel recoloring"
+    },
+    "full": {
+      "path": "full_contact_sheet.png",
+      "sha256": "4579a321980f52f7e7fa2dd04e3951b31123f409f316a5e339dba22e762ab7ed",
+      "plants": 4,
+      "tile_policy": "Same source full screenshot crop, no pixel recoloring"
+    },
+    "missing": {
+      "path": "missing_contact_sheet.png",
+      "sha256": "4579a321980f52f7e7fa2dd04e3951b31123f409f316a5e339dba22e762ab7ed",
+      "plants": 4,
+      "tile_policy": "Same source full screenshot crop, no pixel recoloring"
+    },
+    "targeted_crimson_roots_plant_h0_editor_native.png": {
+      "path": "targeted_crimson_roots_plant_h0_editor_native.png",
+      "sha256": "5264231651826fbe86dff0e68deb156ffcfbb5f25c5a8af51a9263b48ae38152",
+      "native_full_frame": true
+    },
+    "targeted_crimson_roots_covered_h4_editor_native.png": {
+      "path": "targeted_crimson_roots_covered_h4_editor_native.png",
+      "sha256": "c1b72b2891a971c4551c1360bdcd5e598bf45867d8f3d941e8f5161e6e3d7aac",
+      "native_full_frame": true
+    },
+    "targeted_bush_covered_h4_full_world_closeup_native.png": {
+      "path": "targeted_bush_covered_h4_full_world_closeup_native.png",
+      "sha256": "a4f2f88b48d2f3c9f413b625d90c2d83850c881d4e64d2c7e190aa932efc49e5",
+      "native_full_frame": true
+    },
+    "targeted_bush_plant_h0_full_world_hidden_native.png": {
+      "path": "targeted_bush_plant_h0_full_world_hidden_native.png",
+      "sha256": "fc91eb49788ff5a351d4f9c007693d9d493ab616052d2eb7173ca723a4a02f63",
+      "native_full_frame": true
+    }
+  },
+  "scope": "Curated evidence; exact original reports and all native PNGs remain in owned runtime"
+}
