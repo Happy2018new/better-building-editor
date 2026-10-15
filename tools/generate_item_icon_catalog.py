@@ -27,7 +27,7 @@ SPECIAL_IDS = {'minecraft:banner': 'patterned_geometry', 'minecraft:shield': 'pa
 SPECIAL_TAGS = {'minecraft:spawn_egg': 'tinted_spawn_egg',
                 'minecraft:leather_tier': 'tinted_leather'}
 POSE = {'size_pixels': 8., 'thickness_pixels': .5, 'front_z_pixels': 14.75,
-        'upward_base_rotation_degrees': 180., 'rotation_sign': -1.,
+        'upward_base_rotation_degrees': 180., 'downward_base_rotation_degrees': 180., 'rotation_sign': -1.,
         'side_uv': 'opaque_texel_center_v1'}
 LAYOUT = '''float itemLayout=EXTRA_VECTOR2.x;
     if(slot>0.5) itemLayout=EXTRA_VECTOR2.y;
@@ -187,7 +187,7 @@ def outputs(catalog, install):
     skeleton_path = 'resource_pack/models/'+ASSET+'/skeleton.json'
     result[skeleton_path] = (ROOT/'resource_pack/models/modern_projection/item_sprite/skeleton.json').read_bytes()
     vertex = VERTEX.replace('    point.xy=mat2', '    '+LAYOUT+'\n'
-        '    if(facing>0.5 && facing<1.5 && itemLayout<0.5) point.xy=-point.xy;\n'
+        '    if(facing<1.5 && itemLayout<0.5) point.xy=-point.xy;\n'
         '    if(itemLayout<0.5) rotation=-rotation;\n'
         '    point.xy=mat2')
     result['resource_pack/shaders/glsl/modern_projection_item_icon.vertex'] = vertex.replace(

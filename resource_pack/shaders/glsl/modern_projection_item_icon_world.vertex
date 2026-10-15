@@ -35,7 +35,7 @@ void main() {
         point.y+=(floor(index/2.0)-0.5)*0.5;
         point.z=0.05;
     }
-    if(facing>0.5 && facing<1.5 && itemLayout<0.5) point.xy=-point.xy;
+    if(facing<1.5 && itemLayout<0.5) point.xy=-point.xy;
     if(itemLayout<0.5) rotation=-rotation;
     point.xy=mat2(cos(rotation),sin(rotation),-sin(rotation),cos(rotation))*point.xy;
     if(facing<0.5) point=vec3(point.x,point.z,-point.y);

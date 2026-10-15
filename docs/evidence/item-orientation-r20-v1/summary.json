@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "captures": {
+    "downward": {
+      "original_report_sha256": "0f451ebd571fcc0a57e0be668f13b3a347ebaf067f054565968fa5828b6dadd6",
+      "retained_report_sha256": "4afd0222b5d464d3c5f778a60bb002364955c120d24df874f185e09e2e873871",
+      "retained_images": 44,
+      "source_snapshot_sha256": "b04e540259fff7b32f4a756a398d62e94ba493019fc124463500b8b59f066afe",
+      "resource_contract": {
+        "layout_version": 1,
+        "resource_sha256": "73692f08b17127a5d87b4e821eb0cce976e47c806410b88885438434cebde3f2"
+      },
+      "view_configuration": {
+        "angle_degrees": 0.0,
+        "editor_zoom": 5.0,
+        "native_target_plain": true
+      },
+      "requested_cases": [
+        "orientation.frame_f0_r0",
+        "orientation.frame_f0_r1",
+        "orientation.frame_f0_r2"
+      ],
+      "completed_cases": [
+        "orientation.frame_f0_r0",
+        "orientation.frame_f0_r1",
+        "orientation.frame_f0_r2"
+      ],
+      "all_bodies_passed": true,
+      "all_native_bodies_passed": true,
+      "all_native_edges_passed": true,
+      "static_pose_accepted": true
+    }
+  },
+  "scope": "Cold downward horizontal baseline and independent editor body-brightness controls",
+  "owner_boundary": {
+    "frame_layout_0": "Uses the mesh front plane",
+    "shelf_layout_1_3": "Existing shader overrides point.z with 0.3125",
+    "campfire_layout_4_7": "Existing shader overrides point.z with 0.05",
+    "lectern": "No flat-item plan; handled by the independently gated book owner"
+  },
+  "compact": {},
+  "glint": {},
+  "brightness": {
+    "original-front": {
+      "original_report_sha256": "fc67f0487b15d039ca2adaff04d423a1847342012a7015fc6ec031e01c91b062",
+      "retained_report_sha256": "e061a8710470bdee37ffeb8fd17a82f2d9962006ec2c24fe5b20743922b0f057",
+      "retained_images": 9
+    },
+    "original-faces": {
+      "original_report_sha256": "96f09d154e91b2d24e56c44d2c34d9cbc38b6cbfbd777b83404eb7b5d00bf49b",
+      "retained_report_sha256": "3951fa8aadd367de75eaf77e84bda2ec95a476bec7e28ceed8dc8ad27c264f54",
+      "retained_images": 21
+    },
+    "corrected-downward": {
+      "original_report_sha256": "0f451ebd571fcc0a57e0be668f13b3a347ebaf067f054565968fa5828b6dadd6",
+      "retained_report_sha256": "e641ea6bd006e4560ebd44472c59f1775488c5e9472d41b1cac716fe95301a65",
+      "retained_images": 15
+    }
+  },
+  "brightness_result": {
+    "passed": true,
+    "rows": 18,
+    "maximum_rgb_change": 0
+  }
+}

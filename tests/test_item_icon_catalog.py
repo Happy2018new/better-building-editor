@@ -27,6 +27,7 @@ from projection.visible_actor import compose_actor
 from projection.visible_item_contents import content_slots
 from test_static_frame_items import actor, frame
 import generate_item_icon_catalog as generator
+from analyze_item_sprite_product import item_polygons
 
 ENGINE = '3.10.0.420447'
 
@@ -105,11 +106,20 @@ class IconCatalogTests(unittest.TestCase):
             ('minecraft:leather_helmet', {'tags': ['minecraft:leather_tier']}, 'textures/items/leather_helmet', 'tinted_leather')):
             self.assertEqual(expected, generator.classify(name, dict(base, **patch), texture))
 
-    def test_upward_frame_pose_is_versioned_separately_from_other_visible_slots(self):
+    def test_horizontal_frame_pose_is_versioned_separately_from_other_visible_slots(self):
         self.assertEqual(180., generator.POSE['upward_base_rotation_degrees'])
+        self.assertEqual(180., generator.POSE['downward_base_rotation_degrees'])
         self.assertEqual(-1., generator.POSE['rotation_sign'])
-        self.assertIn('facing>0.5 && facing<1.5 && itemLayout<0.5',
+        self.assertIn('facing<1.5 && itemLayout<0.5',
                       (ROOT/'resource_pack/shaders/glsl/modern_projection_item_icon.vertex').read_text(encoding='ascii'))
+
+    def test_downward_asymmetric_pixel_uses_measured_native_baseline(self):
+        image = Image.new('RGBA', (2, 2))
+        image.putpixel((0, 0), (255, 255, 255, 255))
+        polygon = next(item_polygons((0, 0, 0), image, generator.POSE, facing=0))
+        center = tuple(sum(point[axis] for point in polygon) / 4. for axis in range(3))
+        for expected, actual in zip((.375, .921875, .625), center):
+            self.assertAlmostEqual(expected, actual)
 
     def test_measured_frame_plane_preserves_depth_and_rejects_old_catalog(self):
         image = Image.new('RGBA', (1, 1), (255, 255, 255, 255))

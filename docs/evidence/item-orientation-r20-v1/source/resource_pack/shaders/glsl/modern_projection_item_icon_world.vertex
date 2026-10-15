@@ -1,0 +1,61 @@
+// __multiversion__
+precision highp float;
+#include "neteaseModelVertexUtil.h"
+#include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+varying highp vec2 itemUv;
+varying highp float itemVisible;
+varying highp float itemEnchanted;
+varying highp float itemClip;
+void main() {
+    float slot=floor(POSITION.x/2.0);
+    float code=EXTRA_VECTOR1.x;
+    if(slot>0.5) code=EXTRA_VECTOR1.y;
+    if(slot>1.5) code=EXTRA_VECTOR1.z;
+    if(slot>2.5) code=EXTRA_VECTOR1.w;
+    float address=mod(code,64.0);
+    float facing=mod(floor(code/64.0),8.0);
+    float rotation=mod(floor(code/512.0),8.0)*0.7853981633974483;
+    itemEnchanted=floor(code/4096.0);
+    bool tagged=abs(EXTRA_VECTOR4.x-39687.0)<0.25 || mod(EXTRA_VECTOR4.x,256.0)==135.0;
+    itemVisible=tagged && slot<EXTRA_VECTOR4.y-0.5 && facing<5.5 ? 1.0 : 0.0;
+    vec3 point=vec3(mod(POSITION.x,2.0)-0.5,POSITION.y-0.5,POSITION.z);
+    float itemLayout=EXTRA_VECTOR2.x;
+    if(slot>0.5) itemLayout=EXTRA_VECTOR2.y;
+    if(slot>1.5) itemLayout=EXTRA_VECTOR2.z;
+    if(slot>2.5) itemLayout=EXTRA_VECTOR2.w;
+    if(itemLayout>0.5 && itemLayout<3.5) {
+        point.xy*=0.5;
+        point.x+=(itemLayout-2.0)*0.3;
+        point.z=0.3125;
+    } else if(itemLayout>3.5) {
+        float index=itemLayout-4.0;
+        point.xy*=0.6;
+        point.x+=(mod(index,2.0)-0.5)*0.5;
+        point.y+=(floor(index/2.0)-0.5)*0.5;
+        point.z=0.05;
+    }
+    if(facing<1.5 && itemLayout<0.5) point.xy=-point.xy;
+    if(itemLayout<0.5) rotation=-rotation;
+    point.xy=mat2(cos(rotation),sin(rotation),-sin(rotation),cos(rotation))*point.xy;
+    if(facing<0.5) point=vec3(point.x,point.z,-point.y);
+    else if(facing<1.5) point=vec3(point.x,-point.z,point.y);
+    else if(facing>2.5 && facing<3.5) point=vec3(-point.x,point.y,-point.z);
+    else if(facing>3.5 && facing<4.5) point=vec3(-point.z,point.y,point.x);
+    else if(facing>4.5) point=vec3(point.z,point.y,-point.x);
+    point.x=-point.x;
+    vec3 cell=vec3(mod(address,4.0),floor(address/16.0),mod(floor(address/4.0),4.0));
+    vec3 localPoint=cell+vec3(0.5)+point-vec3(2.0);
+    vec4 entityPoint=vec4(localPoint,1.0);
+    #if defined(USE_SKINNING) && defined(NETEASE_SKINNING)
+    entityPoint.z=-entityPoint.z;
+    entityPoint=GetBoneMatForNetease(int(BONEID_0))*entityPoint;
+#ifdef USE_INSTANCE
+    entityPoint=GetInstanceWorldMatForNetease()*entityPoint;
+#endif
+#endif
+    gl_Position=WORLDVIEWPROJ*entityPoint;
+    itemClip=-1.0;
+    itemUv=TEXCOORD_0;
+    gl_PointSize=1.0;
+}
