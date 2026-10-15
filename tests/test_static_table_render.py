@@ -1,5 +1,6 @@
 """Table body routing must never alter blueprint layers or saved actor data."""
 import copy
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -14,10 +15,36 @@ from projection.geometry_palette import INTERNAL_RENDER_BLOCKS, prepare_palette
 from projection.model import Document
 from projection.render_context import prepare_context_palette
 from projection.static_table import TABLE_PROXY, table_proxy
-from projection import static_table_data
+from projection import static_table, static_table_data, book_qualification_data
 
 
 class StaticTableTests(unittest.TestCase):
+    def test_default_gate_preserves_native_identity_layers_and_actor(self):
+        self.assertIs(static_table_data.PRODUCT_QUALIFIED, False)
+        self.assertIs(static_table.CANDIDATE_ENABLED, False)
+        actor = {'id': 'EnchantTable', 'custom': {'future': [1, 2, 3]}}
+        doc = Document((4, 4, 4), {
+            (1, 1, 1): make_cell(('minecraft:enchanting_table', 0),
+                                  ('minecraft:water', 0), actor)})
+        saved = copy.deepcopy(doc.to_data())
+        source = doc.palette_data()
+        for prepared in (prepare_palette(source), prepare_context_palette(source, source)):
+            self.assertIn(('minecraft:enchanting_table', 0), prepared['common'])
+            self.assertNotIn((TABLE_PROXY, 0), prepared['common'])
+            self.assertIn('minecraft:enchanting_table', prepared['actor'])
+            self.assertTrue(prepared['extra'])
+        self.assertEqual(saved, doc.to_data())
+        with patch.object(book_qualification_data, 'PRODUCT_QUALIFIED', True):
+            self.assertIsNone(table_proxy(('minecraft:enchanting_table', 0)))
+        with patch.object(static_table_data, 'PALETTE_SHA256', 'stale'):
+            self.assertIsNone(table_proxy(('minecraft:enchanting_table', 0)))
+
+    @patch.object(static_table_data, 'PRODUCT_QUALIFIED', True)
+    def test_independent_body_gate_can_select_the_proxy(self):
+        self.assertIs(book_qualification_data.PRODUCT_QUALIFIED, False)
+        self.assertEqual((TABLE_PROXY, 0), table_proxy(('minecraft:enchanting_table', 0)))
+
+    @patch.object(static_table, 'CANDIDATE_ENABLED', True)
     def test_palette_and_missing_context_preserve_logical_layers_and_actor(self):
         actor = {'id': 'EnchantTable', 'custom': {'future': [1, 2, 3]}}
         doc = Document((4, 4, 4), {
@@ -43,7 +70,8 @@ class StaticTableTests(unittest.TestCase):
         self.assertEqual(saved, doc.to_data())
         self.assertNotIn('preview_enchanting', json.dumps(doc.to_data()))
 
-    def test_unknown_state_retains_native_identity_and_bad_source_is_rejected(self):
+    @patch.object(static_table, 'CANDIDATE_ENABLED', True)
+    def test_unknown_state_retains_native_identity_and_bad_candidate_source_is_rejected(self):
         self.assertEqual((TABLE_PROXY, 0), static_proxy(('minecraft:enchanting_table', 0), None))
         self.assertIsNone(table_proxy(('minecraft:enchanting_table', 1)))
         self.assertIsNone(table_proxy(('custom:enchanting_table', 0)))
@@ -61,6 +89,11 @@ class StaticTableTests(unittest.TestCase):
         self.assertEqual(0, cube['origin'][1])
         self.assertEqual(12, cube['size'][1])
         self.assertEqual({'up', 'down', 'north', 'south', 'east', 'west'}, set(cube['uv']))
+        contract = json.loads((ROOT / 'tools/data/enchanting_body_candidate_r17.json').read_bytes())
+        self.assertFalse(contract['product_qualified'])
+        data_path = 'behavior_pack/modern_projection/projection/static_table_data.py'
+        self.assertEqual(hashlib.sha256((ROOT / data_path).read_bytes()).hexdigest(),
+                         contract['output_sha256'][data_path])
 
 
 if __name__ == '__main__':

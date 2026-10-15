@@ -35,6 +35,52 @@ class QualificationProvenanceTests(unittest.TestCase):
         files[path] += b'\n'
         self.assertFalse(verify_bundle('test', 'gate.py', 'example', files.__getitem__)['verified'])
 
+    def bind_manifest(self, files, **fields):
+        path = 'docs/evidence/example/qualification.json'
+        manifest = json.loads(files[path])
+        manifest.update(fields)
+        files[path] = json.dumps(manifest).encode('ascii')
+        files[PREFIX+'gate.py'] = ('PRODUCT_QUALIFIED = True\nQUALIFICATION_SHA256 = %r\n' %
+                                  hashlib.sha256(files[path]).hexdigest()).encode('ascii')
+
+    def test_static_body_files_are_part_of_the_qualified_source_closure(self):
+        files = self.fixture()
+        body = 'resource_pack/textures/blocks/qualified_body.png'
+        files[body] = b'qualified body artwork'
+        self.bind_manifest(files, body_sha256={body: hashlib.sha256(files[body]).hexdigest()})
+        result = verify_bundle('test', 'gate.py', 'example', files.__getitem__)
+        self.assertTrue(result['verified'])
+        self.assertEqual(2, result['source_count'])
+        files[body] = b'changed body artwork'
+        result = verify_bundle('test', 'gate.py', 'example', files.__getitem__)
+        self.assertFalse(result['verified'])
+        self.assertIn('Qualified implementation changed: '+body, result['errors'])
+
+    def test_additional_owned_registries_accept_unrelated_entries_and_reject_body_rebinding(self):
+        for section in (None, 'texture_data'):
+            with self.subTest(section=section):
+                files = self.fixture()
+                path = 'resource_pack/qualified_body_registry.json'
+                expected = {'qualified_body': {'texture': 'original_body'}}
+                entries = dict(expected, another_family={'texture': 'unrelated'})
+                files[path] = json.dumps({section: entries} if section else entries).encode('ascii')
+                self.bind_manifest(files, owned_registries=[{
+                    'path': path, 'section': section, 'entries': expected}])
+                self.assertTrue(verify_bundle('test', 'gate.py', 'example', files.__getitem__)['verified'])
+                entries['qualified_body'] = {'texture': 'foreign_body'}
+                files[path] = json.dumps({section: entries} if section else entries).encode('ascii')
+                result = verify_bundle('test', 'gate.py', 'example', files.__getitem__)
+                self.assertFalse(result['verified'])
+                self.assertIn('Qualified registration changed: '+path+':qualified_body', result['errors'])
+
+    def test_conflicting_owner_and_body_fingerprints_are_rejected(self):
+        files = self.fixture()
+        source = PREFIX+'spawner_marker.py'
+        self.bind_manifest(files, body_sha256={source: hashlib.sha256(b'another version').hexdigest()})
+        result = verify_bundle('test', 'gate.py', 'example', files.__getitem__)
+        self.assertFalse(result['verified'])
+        self.assertIn('Qualification has conflicting implementation fingerprints: '+source, result['errors'])
+
     def test_disabled_gate_does_not_require_unavailable_pixels(self):
         files = {PREFIX+'gate.py': b'PRODUCT_QUALIFIED = False\n'}
         result = verify_bundle('test', 'gate.py', 'example', files.__getitem__)
@@ -70,7 +116,23 @@ class QualificationProvenanceTests(unittest.TestCase):
         files['resource_pack/models/netease_models.json'] = json.dumps(
             dict(contract['models'], unrelated={'old': True})).encode('ascii')
         self.resource_manifest(files, hashlib.sha256(encoded).hexdigest())
+        if bundle == 'book':
+            body = 'resource_pack/qualified_body.json'
+            files[body] = b'{"body": "original"}'
+            self.bind_manifest(files,
+                body_sha256={body: hashlib.sha256(files[body]).hexdigest()},
+                owned_registries=[{'path': 'resource_pack/models/netease_models.json',
+                                   'section': None, 'entries': contract['models']}])
         return files
+
+    def test_book_manifest_cannot_drop_static_body_provenance(self):
+        for omitted in ('body_sha256', 'owned_registries'):
+            with self.subTest(omitted=omitted):
+                files = self.resource_fixture('book')
+                self.bind_manifest(files, **{omitted: {}})
+                result = verify_bundle('book', 'gate.py', 'example', files.__getitem__)
+                self.assertFalse(result['verified'])
+                self.assertIn('Qualified book bundle omits its static body provenance', result['errors'])
 
     def resource_manifest(self, files, contract_hash):
         path = 'docs/evidence/example/qualification.json'

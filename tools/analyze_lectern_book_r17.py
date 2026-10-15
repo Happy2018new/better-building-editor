@@ -73,6 +73,7 @@ def analyze(source, output):
     output.write_text(json.dumps(result, indent=2)+'\n', encoding='ascii')
     print(json.dumps({'page_surface_parity_passed': result['page_surface_parity_passed'],
                       'candidates': comparisons}))
+    return result
 
 
 if __name__ == '__main__':

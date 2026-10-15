@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "product_qualified": false,
+  "report_sha256": "9cceaed0f37791e774649a474693bbf6c38c1169f2f75cfe05f73f9d23f8d7cc",
+  "method": "Same-camera neutral support interior, 2-pixel erosion; no image resampling.",
+  "scope": "Detects occupied bottom residue; visual review must separately assess the shown seam.",
+  "views": {
+    "high": {
+      "same_camera": true,
+      "roi": [
+        777,
+        352,
+        1217,
+        782
+      ],
+      "support_pixels": 18344,
+      "max_channel_difference": 126,
+      "pixels_difference_over_8": 5878,
+      "capture_sha256": [
+        "e37adcb293f08b98b8655ac87dd8d28a56d00563a701dcb5df0a5c482d5ed9cc",
+        "dabc0cc9efd665b3f81da7663ae13e7af2e5fa226a829b2713efc941260f98e3"
+      ]
+    },
+    "low": {
+      "same_camera": true,
+      "roi": [
+        777,
+        352,
+        1217,
+        782
+      ],
+      "support_pixels": 25117,
+      "max_channel_difference": 0,
+      "pixels_difference_over_8": 0,
+      "capture_sha256": [
+        "2e2932ad5739f7b847b7890993a2ecfc3f180024513c12ec5f504ac0af1535d9",
+        "2048cdb42bcfa206b7a7fe0488fbfabfb999228d091d4b9e32dfc8c1086de6a1"
+      ]
+    }
+  }
+}

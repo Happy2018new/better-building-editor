@@ -18,11 +18,13 @@ BUNDLES = {
     'banner': ('banner_render_contract.py', 'banner-product-r16'),
     'portal': ('portal_profile.py', 'portal-product-r16'),
     'spawner': ('spawner_marker_qualification.py', 'spawner-product-r16'),
+    'book': ('book_qualification_data.py', 'book-product-r18'),
 }
 RESOURCE_CONTRACTS = {
     'cauldron': 'tools/data/cauldron_resource_contract_nemc310_v1.json',
     'banner': 'tools/data/banner_render_contract_nemc310_v1.json',
     'portal': 'tools/data/portal_resource_contract_nemc310_v1.json',
+    'book': 'tools/data/book_resource_contract_nemc310_v1.json',
 }
 SHARED_REGISTRIES = frozenset(('resource_pack/materials/entity.material',
                                'resource_pack/models/netease_models.json',
@@ -128,12 +130,23 @@ def verify_bundle(name, gate_path, folder, read):
     sources = manifest.get('implementation_sha256', {})
     if not sources:
         errors.append('An enabled bundle has no implementation provenance')
-    for source, expected in sorted(sources.items()):
+    body_sources = manifest.get('body_sha256', {})
+    if name == 'book' and (not body_sources or not manifest.get('owned_registries')):
+        errors.append('Qualified book bundle omits its static body provenance')
+    fingerprints = dict(sources)
+    for source, expected in body_sources.items():
+        if source in fingerprints and fingerprints[source] != expected:
+            errors.append('Qualification has conflicting implementation fingerprints: ' + source)
+        fingerprints[source] = expected
+    for source, expected in sorted(fingerprints.items()):
         if source_digest(source, read(source)) != expected:
             errors.append('Qualified implementation changed: ' + source)
     resource_count = verify_resources(name, manifest, read, errors)
+    for registration in manifest.get('owned_registries', ()):
+        resource_count += verify_owned_entries(read, registration['path'],
+            registration['section'], registration['entries'], errors)
     return {'bundle': name, 'enabled': True, 'verified': not errors,
-            'source_count': len(sources), 'resource_count': resource_count,
+            'source_count': len(fingerprints), 'resource_count': resource_count,
             'engine': manifest.get('engine_version'),
             'qualification_sha256': hashlib.sha256(content).hexdigest(), 'errors': errors}
 

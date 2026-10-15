@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "product_qualified": false,
+  "scope": "Stationary visible lectern page surface, color and boundary; no full book qualification.",
+  "source_sha256": "88bfdb3e02ccfce9d2eec1d39e27c384e2999aaf51f8a51be0127a59e318c30f",
+  "analyzer_sha256": "d46bf8e90acab58f86e3c163322973d0276c7f8f3d1cbeadacd7deef316df157",
+  "camera": {
+    "camera": [
+      6.5,
+      112.62001037597656,
+      3.5
+    ],
+    "rotation": [
+      -7.218018054962158,
+      179.99996948242188,
+      -1.0259078065148405e-13
+    ],
+    "screen": [
+      499.0,
+      277.0
+    ],
+    "foot": [
+      6.5,
+      111.0,
+      3.5
+    ]
+  },
+  "captures": {
+    "native_lectern.book_motion0": {
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-v4-final-reference-r17-v1\\native_lectern.book_motion0.png",
+      "source_sha256": "44711b28e2fc4d1e1cbe9669646ec44183200dd3e04ea74c6de5001968c25769",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ]
+    },
+    "native_lectern.book_motion1": {
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-v4-final-reference-r17-v1\\native_lectern.book_motion1.png",
+      "source_sha256": "ea39f4de581c9717b141198abadfbccee7a0de096713e0dbb057f42a76040b88",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ]
+    },
+    "candidate_lectern.book_motion0": {
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-v4-final-reference-r17-v1\\candidate_lectern.book_motion0.png",
+      "source_sha256": "40aec38b4e299da3f48ca1aae1e22b1e1970de410e32707144131b9156cff4c0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ]
+    },
+    "candidate_lectern.book_motion1": {
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\book-v4-final-reference-r17-v1\\candidate_lectern.book_motion1.png",
+      "source_sha256": "e41d7d18a2a39a7906c110268de0810add5ae6b26ca93fe39cb758c636006480",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ]
+    }
+  },
+  "native_stability": [
+    {
+      "precision": 1.0,
+      "recall": 1.0,
+      "native_median_rgb": [
+        211.0,
+        200.0,
+        157.0
+      ],
+      "candidate_median_rgb": [
+        211.0,
+        200.0,
+        157.0
+      ],
+      "maximum_color_delta": 0.0,
+      "tolerance_pixels": 0,
+      "native_page_pixels": 14166,
+      "candidate_page_pixels": 14166,
+      "passed": true
+    }
+  ],
+  "candidates": {
+    "candidate_lectern.book_motion0": {
+      "precision": 0.9982606174807943,
+      "recall": 0.9907525060002824,
+      "native_median_rgb": [
+        211.0,
+        200.0,
+        157.0
+      ],
+      "candidate_median_rgb": [
+        213.0,
+        201.0,
+        158.0
+      ],
+      "maximum_color_delta": 2.0,
+      "tolerance_pixels": 3,
+      "native_page_pixels": 14166,
+      "candidate_page_pixels": 13798,
+      "passed": true
+    },
+    "candidate_lectern.book_motion1": {
+      "precision": 0.9982606174807943,
+      "recall": 0.9907525060002824,
+      "native_median_rgb": [
+        211.0,
+        200.0,
+        157.0
+      ],
+      "candidate_median_rgb": [
+        213.0,
+        201.0,
+        158.0
+      ],
+      "maximum_color_delta": 2.0,
+      "tolerance_pixels": 3,
+      "native_page_pixels": 14166,
+      "candidate_page_pixels": 13798,
+      "passed": true
+    }
+  },
+  "page_surface_parity_passed": true
+}

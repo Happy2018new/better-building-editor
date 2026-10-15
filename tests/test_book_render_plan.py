@@ -3,9 +3,11 @@ import copy
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'behavior_pack/modern_projection'))
+from projection import book_profile
 from projection.book_profile import candidate_profile,production_profile
 from projection.book_render_plan import appearance,iter_render_steps
 from projection.debug_compatibility_blueprints import source_document
@@ -14,6 +16,29 @@ from projection.cell import actor_data,foreground
 
 
 class BookRenderPlanTests(unittest.TestCase):
+    def test_qualification_requires_exact_engine_resource_and_complete_product_gates(self):
+        good = dict(SCHEMA_VERSION=1, PRODUCT_QUALIFIED=True, QUALIFICATION_SHA256='a'*64,
+                    QUALIFICATION_STAGE='product', QUALIFICATION_ENGINE_VERSION=book_profile.ENGINE_VERSION,
+                    QUALIFICATION_RESOURCE_CONTRACT_SHA256=book_profile.RESOURCE_CONTRACT_SHA256,
+                    GATES=dict.fromkeys(book_profile.REQUIRED_GATES, True))
+        with patch.object(book_profile, 'PRODUCT_QUALIFIED', True):
+            for field, invalid in (('SCHEMA_VERSION', 2), ('QUALIFICATION_ENGINE_VERSION', '3.9'),
+                                    ('QUALIFICATION_RESOURCE_CONTRACT_SHA256', 'b'*64),
+                                    ('QUALIFICATION_SHA256', 'pending'), ('QUALIFICATION_STAGE', 'audit')):
+                with self.subTest(field=field), patch.multiple(book_profile.qualification, **dict(good, **{field: invalid})):
+                    with self.assertRaises(ValueError): production_profile(book_profile.ENGINE_VERSION)
+            with patch.multiple(book_profile.qualification, **good):
+                self.assertIsNotNone(production_profile(book_profile.ENGINE_VERSION))
+                self.assertIsNone(production_profile('3.11.0.0'))
+            for gate in book_profile.REQUIRED_GATES:
+                values = dict(good, GATES=dict(good['GATES'], **{gate:False}))
+                with self.subTest(gate=gate), patch.multiple(book_profile.qualification, **values):
+                    with self.assertRaises(ValueError): production_profile(book_profile.ENGINE_VERSION)
+            temporary = dict(good, QUALIFICATION_STAGE='isolated_default_test',
+                             GATES=dict(good['GATES'], default_path=False))
+            with patch.multiple(book_profile.qualification, **temporary):
+                self.assertIsNotNone(production_profile(book_profile.ENGINE_VERSION))
+
     def test_unqualified_companion_does_not_admit_any_production_engine(self):
         for version in (None,'3.9.0.401155','3.10.0.420447','3.11.0.0'):
             self.assertIsNone(production_profile(version))

@@ -1,0 +1,528 @@
+{
+  "schema": 2,
+  "source": ".runtime\\book-owner-r18-v2\\report.json",
+  "source_sha256": "92b8b4f8fe70618e62f85e69e913b30c29fc788acb54cc74f646197daeea1564",
+  "analyzer_sha256": "66f1d787eeba4aa788c77f397d720016acd256cfb04b0bc6c698130be01c786f",
+  "scope": "Cover fragments and native outside/inside artwork distribution; pose, silhouette, occlusion and brightness need separate checks.",
+  "requires_unobscured_fixture_review": true,
+  "product_qualified": false,
+  "owner_path": "independent_book",
+  "owner_matrix": {
+    "checks": {
+      "report_identity": true,
+      "restoration": true,
+      "profile_path": true,
+      "editor_model_enchanting_table": true,
+      "editor_enchanting_table_yaw35": true,
+      "editor_enchanting_table_yaw215": true,
+      "editor_enchanting_table_yaw35_pitch75_zoom3": true,
+      "editor_enchanting_table_yaw215_pitch25_zoom1": true,
+      "editor_enchanting_table_yaw35_pitch25_zoom2": true,
+      "editor_enchanting_table_section_layer2": true,
+      "editor_enchanting_table_section_layer3": true,
+      "editor_enchanting_table_single_layer2": true,
+      "editor_enchanting_table_single_layer3": true,
+      "editor_enchanting_table_full_layer3": true,
+      "editor_enchanting_table_hidden": true,
+      "editor_enchanting_table_restored": true,
+      "full_enchanting_table_motion0": true,
+      "full_enchanting_table_opacity0.35": true,
+      "full_enchanting_table_opacity0.7": true,
+      "full_enchanting_table_opacity1.0": true,
+      "full_enchanting_table_motion1": true,
+      "full_enchanting_table_motion2": true,
+      "missing_enchanting_table_motion0": true,
+      "missing_enchanting_table_opacity0.35": true,
+      "missing_enchanting_table_opacity0.7": true,
+      "missing_enchanting_table_opacity1.0": true,
+      "missing_enchanting_table_motion1": true,
+      "missing_enchanting_table_motion2": true,
+      "missing_enchanting_table_occupied": true,
+      "missing_enchanting_table_restored": true,
+      "editor_model_lectern.book": true,
+      "editor_lectern.book_yaw35": true,
+      "editor_lectern.book_yaw215": true,
+      "editor_lectern.book_yaw35_pitch75_zoom3": true,
+      "editor_lectern.book_yaw215_pitch25_zoom1": true,
+      "editor_lectern.book_yaw35_pitch25_zoom2": true,
+      "editor_lectern.book_section_layer2": true,
+      "editor_lectern.book_section_layer3": true,
+      "editor_lectern.book_single_layer2": true,
+      "editor_lectern.book_single_layer3": true,
+      "editor_lectern.book_full_layer3": true,
+      "editor_lectern.book_hidden": true,
+      "editor_lectern.book_restored": true,
+      "full_lectern.book_motion0": true,
+      "full_lectern.book_opacity0.35": true,
+      "full_lectern.book_opacity0.7": true,
+      "full_lectern.book_opacity1.0": true,
+      "missing_lectern.book_motion0": true,
+      "missing_lectern.book_opacity0.35": true,
+      "missing_lectern.book_opacity0.7": true,
+      "missing_lectern.book_opacity1.0": true,
+      "missing_lectern.book_occupied": true,
+      "missing_lectern.book_restored": true,
+      "editor_model_lectern.empty": true,
+      "editor_lectern.empty_yaw35": true,
+      "editor_lectern.empty_yaw215": true,
+      "full_lectern.empty_motion0": true,
+      "full_lectern.empty_opacity0.35": true,
+      "full_lectern.empty_opacity0.7": true,
+      "full_lectern.empty_opacity1.0": true,
+      "missing_lectern.empty_motion0": true,
+      "missing_lectern.empty_opacity0.35": true,
+      "missing_lectern.empty_opacity0.7": true,
+      "missing_lectern.empty_opacity1.0": true
+    },
+    "capture_count": 65,
+    "occupancy_included": true,
+    "passed": true
+  },
+  "owner_matrix_passed": true,
+  "timeline_valid": true,
+  "scale_valid": true,
+  "candidate_duration_seconds": 219.7963416,
+  "candidate_count": 31,
+  "maximum_isolated_pixels": 8,
+  "rows": [
+    {
+      "label": "editor_enchanting_table_yaw35",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2479,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404294314949
+    },
+    {
+      "label": "editor_enchanting_table_yaw215",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2842,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404341405114
+    },
+    {
+      "label": "editor_enchanting_table_motion0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 843,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404394737567
+    },
+    {
+      "label": "editor_enchanting_table_motion1",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2874,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404432555047
+    },
+    {
+      "label": "editor_enchanting_table_motion2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 316,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404469221057
+    },
+    {
+      "label": "editor_enchanting_table_depth9.0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 0,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404514311234
+    },
+    {
+      "label": "editor_enchanting_table_depth0.0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2649,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404561704318
+    },
+    {
+      "label": "editor_enchanting_table_yaw35_pitch75_zoom3",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 2,
+      "cover_pixels": 895,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404763822229
+    },
+    {
+      "label": "editor_enchanting_table_yaw215_pitch25_zoom1",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 437,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404816185149
+    },
+    {
+      "label": "editor_enchanting_table_yaw35_pitch25_zoom2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 430,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404864669086
+    },
+    {
+      "label": "editor_enchanting_table_section_layer2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 0,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 404938061812
+    },
+    {
+      "label": "editor_enchanting_table_section_layer3",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2050,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405004363871
+    },
+    {
+      "label": "editor_enchanting_table_single_layer3",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 1,
+      "cover_pixels": 2068,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405082726557
+    },
+    {
+      "label": "editor_enchanting_table_single_layer2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 0,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405166361119
+    },
+    {
+      "label": "editor_enchanting_table_full_layer3",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 878,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405247208053
+    },
+    {
+      "label": "editor_enchanting_table_hidden",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 0,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405337449132
+    },
+    {
+      "label": "editor_enchanting_table_restored",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 2385,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405423750576
+    },
+    {
+      "label": "full_enchanting_table_motion0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 96,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405530173222
+    },
+    {
+      "label": "full_enchanting_table_motion1",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 113,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405586717704
+    },
+    {
+      "label": "full_enchanting_table_motion2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 225,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405643444026
+    },
+    {
+      "label": "full_enchanting_table_opacity0.35",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 94,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405728594183
+    },
+    {
+      "label": "full_enchanting_table_opacity0.7",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 151,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405812350281
+    },
+    {
+      "label": "full_enchanting_table_opacity1.0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 70,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 405905136617
+    },
+    {
+      "label": "missing_enchanting_table_motion0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 178,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 406014589476
+    },
+    {
+      "label": "missing_enchanting_table_motion1",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 51,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 406073012723
+    },
+    {
+      "label": "missing_enchanting_table_motion2",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 190,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 406119617943
+    },
+    {
+      "label": "missing_enchanting_table_opacity0.35",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 96,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 406201495306
+    },
+    {
+      "label": "missing_enchanting_table_opacity0.7",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 113,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 406279251564
+    },
+    {
+      "label": "missing_enchanting_table_opacity1.0",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 182,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 406356401857
+    },
+    {
+      "label": "missing_enchanting_table_occupied",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 0,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 406428885582
+    },
+    {
+      "label": "missing_enchanting_table_restored",
+      "crop": [
+        817,
+        402,
+        1177,
+        647
+      ],
+      "isolated_cover_pixels": 0,
+      "cover_pixels": 191,
+      "artwork_dark_fraction": null,
+      "below_noise_limit": true,
+      "frame_qpc_100ns": 406492278365
+    }
+  ],
+  "artwork_reference_valid": false,
+  "artwork_dark_fraction_limits": null,
+  "artwork_distribution_passed": false,
+  "surface_regression_passed": true,
+  "raster_regression_passed": false
+}
