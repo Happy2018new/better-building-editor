@@ -7,7 +7,7 @@ SCHEMA_VERSION=1
 PRODUCT_QUALIFIED=qualification.PRODUCT_QUALIFIED
 RESOURCE_CONTRACT_SHA256='47efef0ec069b328ba3b27301cffe8f1445416df02f3b02977367b9cae8f246d'
 REQUIRED_GATES=frozenset(('owner_matrix','raster_regression','lectern_page_surface',
-                          'source_closure','default_path'))
+                          'body_boundary_pixels','source_closure','default_path'))
 
 
 class BookProfile(object):

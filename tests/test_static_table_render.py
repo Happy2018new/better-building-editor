@@ -13,7 +13,9 @@ from projection.cell import make_cell
 from projection.entity_render import static_proxy
 from projection.geometry_palette import INTERNAL_RENDER_BLOCKS, prepare_palette
 from projection.model import Document
-from projection.render_context import prepare_context_palette
+from projection.render_context import (ContextPaletteBuilder, prepare_context_batches,
+                                       prepare_context_palette)
+from projection.render_layout import OVERLAY_BASE
 from projection.static_table import TABLE_PROXY, table_proxy
 from projection import static_table, static_table_data, book_qualification_data
 
@@ -79,6 +81,64 @@ class StaticTableTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'sources differ'):
                 table_proxy(('minecraft:enchanting_table', 0))
             self.assertIsNone(table_proxy(('minecraft:stone', 0)))
+
+    @patch.object(static_table, 'CANDIDATE_ENABLED', True)
+    def test_target_body_is_owned_once_outside_every_neighbor_context(self):
+        table = ('minecraft:enchanting_table', 0)
+        water = ('minecraft:water', 0)
+        target = (16, 16, 16)
+        support = (16, 15, 16)
+        occupied_table = (17, 16, 16)
+        doc = Document((32, 32, 32), {
+            target: make_cell(table, water, {'id': 'EnchantTable'}),
+            occupied_table: table, support: ('minecraft:stone', 0)})
+        saved = copy.deepcopy(doc.to_data())
+        targets = doc.palette_data(lambda pos: pos != occupied_table)
+        source = doc.palette_data()
+        reference = prepare_context_palette(source, targets)
+        builder = ContextPaletteBuilder(doc, targets)
+        for unused in builder.prepare():
+            pass
+        for prepared in (reference, builder.data):
+            volume = prepared['volume']
+            expected = ((target[1]+OVERLAY_BASE)*volume[1]+target[0])*volume[0]+target[2]
+            self.assertEqual([expected], prepared['common'][(TABLE_PROXY, 0)])
+            self.assertTrue(prepared['extra'][water])
+            self.assertNotIn('minecraft:enchanting_table', prepared['actor'])
+        batches = prepare_context_batches(doc, targets)['_context_batches']
+        bodies = [(origin, packed, palette['common'][(TABLE_PROXY, 0)])
+                  for origin, packed, palette in batches if (TABLE_PROXY, 0) in palette['common']]
+        self.assertEqual([((16, 16, 16), False, [0])], bodies)
+        contexts = [palette for origin, packed, palette in batches if packed]
+        self.assertTrue(any(palette['extra'].get(water) or palette['common'].get(water)
+                            for palette in contexts))
+        self.assertTrue(any(('minecraft:stone', 0) in palette['common'] for palette in contexts))
+        self.assertEqual(saved, doc.to_data())
+
+    @patch.object(static_table, 'CANDIDATE_ENABLED', True)
+    def test_occupied_body_cannot_enter_any_of_five_neighbor_target_tiles(self):
+        table = (3, 3, 3)
+        neighbors = ((3, 2, 3), (2, 3, 3), (4, 3, 3), (3, 3, 2), (3, 3, 4))
+        doc = Document((7, 7, 7), dict([(table, ('minecraft:enchanting_table', 0))]+
+            [(pos, ('minecraft:stone', 0)) for pos in neighbors]))
+        targets = doc.palette_data(lambda pos: pos != table)
+        builder = ContextPaletteBuilder(doc, targets)
+        for unused in builder.prepare():
+            pass
+        palettes = [prepare_context_palette(doc.palette_data(), targets), builder.data]
+        palettes += [palette for unused_origin, unused_packed, palette in
+                     prepare_context_batches(doc, targets)['_context_batches']]
+        for palette in palettes:
+            self.assertNotIn((TABLE_PROXY, 0), palette['common'])
+            self.assertTrue(palette['common'][('minecraft:stone', 0)])
+
+    def test_closed_candidate_does_not_change_any_context_routing(self):
+        doc = Document((4, 4, 4), {(1, 1, 1): ('minecraft:enchanting_table', 0),
+                                  (1, 0, 1): ('minecraft:stone', 0)})
+        result = prepare_context_batches(doc, doc.palette_data())['_context_batches']
+        self.assertEqual(1, len(result))
+        self.assertTrue(result[0][1])
+        self.assertIn(('minecraft:enchanting_table', 0), result[0][2]['common'])
 
     def test_internal_proxy_is_hidden_and_does_not_extend_below_logical_cell(self):
         self.assertIn(TABLE_PROXY, INTERNAL_RENDER_BLOCKS)

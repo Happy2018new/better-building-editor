@@ -14,13 +14,14 @@ import pprint
 
 from analyze_book_surface_r17 import analyze as surface_analysis, ENGINE_VERSION
 from analyze_lectern_book_r17 import analyze as page_analysis
-from probe_book_native_r16 import book_sources, OWNER_SOURCES
+from analyze_book_body_boundary_r19 import analyze as body_analysis
+from probe_book_native_r16 import book_sources, BODY_SOURCES, OWNER_SOURCES
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULE = 'behavior_pack/modern_projection/projection/'
 RESOURCE_KEYS = ('contract_present', 'contract_sha256', 'files', 'models', 'materials')
 REQUIRED_GATES = ('owner_matrix', 'raster_regression', 'lectern_page_surface',
-                  'source_closure', 'default_path')
+                  'body_boundary_pixels', 'source_closure', 'default_path')
 
 
 def sha(path):
@@ -63,6 +64,9 @@ def source_binding(report, current):
     recorded = installed.get('owner_files', {})
     if set(recorded) != set(OWNER_SOURCES):
         errors.append('Independent book evidence omits its complete owner source closure')
+    if (set(installed.get('body_files', {})) != set(BODY_SOURCES) or
+            set(current.get('body_files', {})) != set(BODY_SOURCES)):
+        errors.append('Book body evidence omits its independent context source closure')
     for category in ('owner_files', 'body_files'):
         if not installed.get(category) or set(installed[category]) != set(current.get(category, {})):
             errors.append('Book source set differs: '+category)
@@ -73,6 +77,20 @@ def source_binding(report, current):
         if key not in installed or installed[key] != current.get(key):
             errors.append('Book body registration changed: '+key)
     return errors
+
+
+def body_binding(path, current, owner, output, default=False):
+    if path is None:
+        return False, ['Native bottom and four-side body pixel evidence is missing']
+    report = json.loads(path.read_bytes())
+    errors = source_binding(report, current)+resource_binding({'body': report}, current)
+    if report.get('installed_sources', {}).get('body_files') != owner['installed_sources'].get('body_files'):
+        errors.append('Body pixel evidence belongs to another table implementation')
+    if default and (report.get('production_default_requested') is not True or
+                    report.get('profile_assignment_performed') is not False):
+        errors.append('Default body pixels were captured through a candidate assignment')
+    measured = body_analysis(path, output)
+    return measured['body_boundary_pixels_passed'] is True and not errors, errors
 
 
 def default_binding(report, measured, admission, owner):
@@ -120,6 +138,9 @@ def qualify(args):
     current = book_sources(project)
     errors = resource_binding(reports, current)+source_binding(reports['owner'], current)
     args.output.mkdir(parents=True)
+    body, body_errors = body_binding(getattr(args, 'body_report', None), current,
+                                     reports['owner'], args.output/'body-analysis.json')
+    errors += body_errors
     with redirect_stdout(io.StringIO()):
         owners = surface_analysis(args.owner_report, args.output/'owner-analysis.json')
         raster = surface_analysis(args.surface_reference, args.output/'surface-analysis.json')
@@ -133,10 +154,15 @@ def qualify(args):
         with redirect_stdout(io.StringIO()):
             measured = surface_analysis(args.default_report, args.output/'default-analysis.json')
         default = default_binding(reports['default'], measured, args.default_admission, reports['owner'])
+        default_body, default_body_errors = body_binding(getattr(args, 'default_body_report', None),
+            current, reports['default'], args.output/'default-body-analysis.json', default=True)
+        errors += default_body_errors
+        default = default and default_body
     gates = {'owner_matrix': (owners['owner_matrix_passed'] is True and
                               owners['owner_matrix']['occupancy_included'] is True),
              'raster_regression': raster['raster_regression_passed'] is True,
              'lectern_page_surface': pages['page_surface_parity_passed'] is True,
+             'body_boundary_pixels': body,
              'source_closure': not errors, 'default_path': default}
     stage = 'isolated_default_test' if args.admit_default_test else ('product' if default else 'audit')
     manifest = {'schema_version': 1, 'engine_version': ENGINE_VERSION, 'stage': stage,
@@ -156,10 +182,15 @@ def qualify(args):
                         'sha256': sha(getattr(args, name+'_report' if name in ('owner', 'default') else
                         ('surface_reference' if name == 'surface' else 'lectern_reference')))} for name in reports},
         'analyzer_sha256': {name: sha(ROOT/'tools'/name) for name in
-            ('analyze_book_surface_r17.py', 'analyze_lectern_book_r17.py', 'qualify_book_product_r18.py')},
+            ('analyze_book_surface_r17.py', 'analyze_lectern_book_r17.py',
+             'analyze_book_body_boundary_r19.py', 'qualify_book_product_r18.py')},
         'limits': ['Project hinged book geometry using native artwork; no player-proximity reaction, page text or interaction.',
                    'Lectern page parity is the matched stationary reference view; other directions share the same rigid geometry.',
                    'The independent owner matrix and native close-up resource evidence are separately bound.']}
+    for name in ('body_report', 'default_body_report'):
+        evidence = getattr(args, name, None)
+        if evidence is not None:
+            manifest['evidence'][name] = {'path': str(evidence.resolve()), 'sha256': sha(evidence)}
     path = args.output/'qualification.json'
     write_json(path, manifest)
     if args.write_gate:
@@ -179,6 +210,8 @@ def main():
     parser.add_argument('--lectern-reference', type=Path, required=True)
     parser.add_argument('--default-report', type=Path)
     parser.add_argument('--default-admission', type=Path)
+    parser.add_argument('--body-report', type=Path)
+    parser.add_argument('--default-body-report', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--admit-default-test', action='store_true')
     parser.add_argument('--accept-reviewed', action='store_true')

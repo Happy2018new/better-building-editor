@@ -12,6 +12,7 @@ from .render_layout import (CONTEXT_BASE, CONTEXT_CENTER, CONTEXT_STRIDE,
 from .storage import integer_types
 from .plant_position import position_sensitive, render_origin as validate_render_origin
 from .native_render_profile import coordinate_mode, profile_identity
+from .static_table import context_cell, independent_body
 
 NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
@@ -109,7 +110,8 @@ class _ContextWriter(object):
         plan = self.cache.get(key)
         if plan is None:
             cell = rendered[0]
-            layers = (('extra',) if _native_actor_mesh(cell, self.native_render_profile)
+            layers = (('extra',) if independent_body(cell.get('common')) or
+                      _native_actor_mesh(cell, self.native_render_profile)
                       else ('common', 'extra'))
             buckets = []
             for layer in layers:
@@ -164,7 +166,11 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
             cell = cells.get(_index(original, logical_volume))
             if cell is None:
                 continue
-            _put(data, cell, context_position(target, neighbor), original)
+            _put(data, context_cell(cell), context_position(target, neighbor), original)
+        body = cells[target_index].get('common')
+        if independent_body(body):
+            pos = (target[0], target[1] + OVERLAY_BASE, target[2])
+            data['common'].setdefault(body, []).append(_index(pos, volume))
         overlay = overlays.get(target_index)
         if overlay is not None:
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
@@ -339,7 +345,11 @@ class ContextPaletteBuilder(object):
             if rendered is None or rendered[0] is None:
                 continue
             # All 27 cells move by the same delta into this target's tile.
-            _put_encoded(self.data, rendered[0], center_index + index_delta, delta)
+            _put_encoded(self.data, context_cell(rendered[0]), center_index + index_delta, delta)
+        body = center[0].get('common') if center[0] is not None else None
+        if independent_body(body):
+            pos = (target[0], target[1] + OVERLAY_BASE, target[2])
+            self.data['common'].setdefault(body, []).append(_index(pos, self.data['volume']))
         if center[1] is not None:
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
             self.data['common'].setdefault(center[1], []).append(_index(pos, self.data['volume']))
@@ -400,6 +410,11 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                           lz * CONTEXT_STRIDE + CONTEXT_CENTER)
             delta = (cx - tx, cy - ty, cz - tz)
             center_index = (cy * 64 + cx) * 64 + cz
+            body = center[0].get('common') if center[0] is not None else None
+            if independent_body(body):
+                # A neighboring tile cannot distinguish ownership of a shared
+                # boundary plane. Emit this body only in its target's local batch.
+                overlay['common'].setdefault(body, []).append((ly * 16 + lx) * 16 + lz)
             if center[0] is not None and _native_actor_mesh(center[0], self.native_render_profile):
                 # Native block actors carry a model-local POSITION. Their
                 # model transform cannot use the packed neighbor-tile decoder.

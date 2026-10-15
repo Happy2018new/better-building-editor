@@ -19,6 +19,19 @@ OWNER_SOURCES=tuple('behavior_pack/modern_projection/projection/'+name+'.py' for
     'book_profile','book_render_plan','book_preview','book_projection','scene','session','ui',
     'diagnostics','world_projection','projection_companions','liquid_preview','liquid_projection',
     'liquid_render','liquid_viewport','liquid_transport','occupancy','occupancy_shader'))
+BODY_SOURCES=(
+    'tools/generate_enchanting_body_r17.py',
+    'tools/data/enchanting_body_candidate_r17.json',
+    'behavior_pack/modern_projection/projection/render_context.py',
+    'behavior_pack/modern_projection/projection/bridge.py',
+    'behavior_pack/modern_projection/projection/geometry_palette.py',
+    'behavior_pack/modern_projection/projection/occupancy_shader.py',
+    'behavior_pack/modern_projection/projection/entity_render.py',
+    'behavior_pack/modern_projection/projection/static_table.py',
+    'behavior_pack/modern_projection/projection/static_table_data.py',
+    'behavior_pack/netease_blocks/preview_enchanting_body.json',
+    'resource_pack/models/netease_block/preview_enchanting_body.json',
+    'resource_pack/textures/blocks/modern_projection_enchanting_body.png')
 BOOK_STATUS=STATUS+'''row=json.loads(_result)
 p=s.book_preview;c=s.book_controls
 row['book']={'owned':p is not None and c is not None,
@@ -58,15 +71,8 @@ def book_sources(project, model_prefix=''):
             path='resource_pack/'+value[key]
             result['files'][path]=hashlib.sha256((project/path).read_bytes()).hexdigest()
     result['models']=models;result['materials']=owned
-    body_paths=(
-        'behavior_pack/modern_projection/projection/entity_render.py',
-        'behavior_pack/modern_projection/projection/static_table.py',
-        'behavior_pack/modern_projection/projection/static_table_data.py',
-        'behavior_pack/netease_blocks/preview_enchanting_body.json',
-        'resource_pack/models/netease_block/preview_enchanting_body.json',
-        'resource_pack/textures/blocks/modern_projection_enchanting_body.png')
     result['body_files']={path:hashlib.sha256((project/path).read_bytes()).hexdigest()
-                          for path in body_paths if (project/path).is_file()}
+                          for path in BODY_SOURCES if (project/path).is_file()}
     result['owner_files']={path:hashlib.sha256((project/path).read_bytes()).hexdigest()
                            for path in OWNER_SOURCES if (project/path).is_file()}
     for path,key,nested in (

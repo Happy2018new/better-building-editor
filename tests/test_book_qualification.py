@@ -8,11 +8,17 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'tools'))
-from qualify_book_product_r18 import (default_binding, ENGINE_VERSION, OWNER_SOURCES, RESOURCE_KEYS,
-                                      REQUIRED_GATES, resource_binding, source_binding)
+from qualify_book_product_r18 import (default_binding, BODY_SOURCES, ENGINE_VERSION, OWNER_SOURCES, RESOURCE_KEYS,
+                                      REQUIRED_GATES, body_binding, resource_binding, source_binding)
 
 
 class BookQualificationTests(unittest.TestCase):
+    def test_old_owner_counts_cannot_admit_missing_boundary_pixels(self):
+        self.assertIn('body_boundary_pixels', REQUIRED_GATES)
+        passed, errors = body_binding(None, {}, {}, Path('unused'))
+        self.assertFalse(passed)
+        self.assertTrue(errors)
+
     def test_reusing_native_pixels_requires_all_render_resources_and_owned_entries(self):
         current = dict(contract_present=True, contract_sha256='a'*64, files={'mesh':'b'*64},
                        models={'book':{'material':'book'}}, materials={'book':{'+states':['InvertCulling']}})
@@ -26,7 +32,7 @@ class BookQualificationTests(unittest.TestCase):
 
     def test_owner_closure_rejects_changed_or_missing_owner_and_body_registration(self):
         current = dict(owner_files=dict.fromkeys(OWNER_SOURCES, 'a'*64),
-                       body_files={'table':'b'*64})
+                       body_files=dict.fromkeys(BODY_SOURCES, 'b'*64))
         for key in ('resource_pack/blocks.json','resource_pack/textures/terrain_texture.json'):
             current[key] = {'body':'render-registration'}
         report = {'installed_sources':deepcopy(current)}
