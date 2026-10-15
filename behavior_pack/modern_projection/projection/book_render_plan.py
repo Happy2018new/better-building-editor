@@ -56,6 +56,8 @@ def iter_render_steps(document,profile,targets=None,visible=None,world=False,opa
     count=0
     models=profile.world_models if world else profile.models
     for (origin,family),surfaces in sorted(groups.items()):
+        if family not in models:
+            raise ValueError('Book companion model is not registered: '+family)
         for start in range(0,len(surfaces),4):
             count+=1
             if count>profile.max_groups:raise ValueError('Book companion exceeds its owned model budget')

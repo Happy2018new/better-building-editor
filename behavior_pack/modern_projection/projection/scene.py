@@ -25,6 +25,7 @@ from .item_sprite_preview import ItemPreview
 from .item_sprite_render import ItemControls
 from .cauldron_preview import CauldronPreview
 from .portal_preview import PortalPreview
+from .book_preview import BookPreview
 
 
 MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '换材质'),
@@ -174,6 +175,24 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                 session.portal_error = ''
         return cleanup
     use_effect(own_portals, [portals, portal_controls])
+    book_profile = getattr(session, 'book_profile', None)
+    book_registry = use_ref({}).current
+    books = use_memo(lambda: BookPreview(session, book_profile)
+                     if book_profile is not None else None, [session, book_profile])
+    book_controls = use_memo(lambda: LiquidControls(book_registry,
+        session.bridge.factory.CreateModel(None)) if books is not None else None, [books])
+    def own_books():
+        if books is None:
+            return
+        session.book_preview, session.book_controls = books, book_controls
+        def cleanup():
+            book_controls.close()
+            books.close()
+            if session.book_preview is books:
+                session.book_preview = session.book_controls = None
+                session.book_error = ''
+        return cleanup
+    use_effect(own_books, [books, book_controls])
     models_signature = use_ref(None)
     models_pending = use_ref(True)
     pointer, canvas = use_ref(None), use_ref(None)
@@ -237,6 +256,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             cauldron_controls.invalidate()
         if portal_controls is not None:
             portal_controls.invalidate()
+        if book_controls is not None:
+            book_controls.invalidate()
         if active:
             for dolls, surfaces, preview in registry.values():
                 preview.invalidate()
@@ -534,6 +555,22 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             if session.portal_error != message:
                 session.portal_error = message
                 session.emit('preview_status')
+        if books is not None:
+            books.advance()
+            def book_view(origin):
+                view = group_view(origin, camera, session.scene_origin, session.scene_size,
+                                  (native_width, native_height), cell_unit)
+                offset = book_profile.ui_offset(view.size)
+                return view._replace(position=tuple(view.position[axis]+offset[axis] for axis in range(2)))
+            def book_pose(view):
+                return book_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)
+            book_controls.update(books.groups, book_view, book_pose,
+                tuple(-axis for axis in clip_geometry.current[:2]) if clip_geometry.current else (0.,0.), now)
+            error = books.error or book_controls.error
+            message = '书本预览更新失败：%s' % error if error else ''
+            if session.book_error != message:
+                session.book_error = message
+                session.emit('preview_status')
         e = session.editor
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
@@ -622,7 +659,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         return x <= point[0] < x+w and y <= point[1] < y+h
 
     def screen_hit(point):
-        status_visible = (session.preview_error or session.liquid_error or session.item_error or session.cauldron_error or session.portal_error or session.edit_job is not None or
+        status_visible = (session.preview_error or session.liquid_error or session.item_error or session.cauldron_error or session.portal_error or session.book_error or session.edit_job is not None or
                           (session.preview_pending and session.tiles.report_progress))
         return (active and contains(pointer.current, point) and
                 not (navigation and contains(navigation.current, point)) and
@@ -758,6 +795,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                          keys=cauldrons.keys) if cauldrons is not None else None,
             LiquidModels(key='portal_models', session=session, registry=portal_registry, width=width, height=height,
                          keys=portals.keys) if portals is not None else None,
+            LiquidModels(key='book_models', session=session, registry=book_registry, width=width, height=height,
+                         keys=books.keys) if books is not None else None,
         ]),
         Panel(ref=edge_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=0, visible=active), children=[
             Image(ref=edge_tint, src='textures/modern_projection/transparent',

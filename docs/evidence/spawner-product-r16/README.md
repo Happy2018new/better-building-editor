@@ -19,17 +19,28 @@ trial spawners, each empty/configured/unknown, in editor, full projection and
 missing projection. Editor hiding, section and restoration, plus actual-world
 occupation and restoration in missing projection, are included.
 
-`candidate/report.json` contains 72 captures, including matched native-shell
-controls. `default/report.json` contains 54 captures from the default session
-profile in a fresh game. Both runs completed and restored their fixtures.
-Their capture receipts and review sheets are retained here. Original PNGs are
-preserved locally in `.runtime/spawner-product-r16-submitted-raw`, with the
-original runtime captures also remaining in `.runtime/spawner-product-r16`.
-This compact committed record is not an independent raw-pixel replay bundle;
-the qualification and receipts retain original PNG fingerprints. The schema-3
-analyses require 36 focused badge differences and 12 retained-support checks
-per run. Negative tests reject animated terrain, incorrect marker colors and
-blank hidden scenes. The nine default review sheets were inspected directly.
+The current Round 18 replacement reports bind the independent book-owner and
+water-factory integration to the exact source bytes used during capture.
+`candidate/report.json` contains 96 captures, including matched native-shell
+controls. `default/report.json` contains 78 captures from the ordinary default
+session profile. Both runs completed, restored their fixtures, kept sources
+unchanged and reported no cleanup errors. Each matrix includes another capture
+0.5 and 1.5 seconds after hiding or sectioning, without resubmitting the model.
+
+The schema-3 analyses pass 36 focused badge differences and 36 retained-support
+checks per run. Qualification now verifies the declared case/route/visibility
+labels and every delayed frame, rather than accepting a matching count alone.
+Negative tests reject substituted cases, unanalyzed delayed frames, animated
+terrain, incorrect marker colors and blank hidden scenes. All eight focused
+review sheets were inspected directly; the generated review sheets and capture
+receipts are also retained here.
+
+Original PNGs remain locally in `.runtime/spawner-owner-r18-candidate-v1`,
+`.runtime/spawner-owner-r18-default-v1` and
+`.runtime/spawner-product-r18-qualified`. This compact committed record is not
+an independent raw-pixel replay bundle; the qualification and receipts retain
+the original PNG fingerprints. The previous evidence is backed up in
+`.runtime/spawner-product-r16-before-owner-r18`.
 
 An earlier default run, retained locally at
 `.runtime/spawner-product-r16/default-v1.json`, had one blank hidden-layer

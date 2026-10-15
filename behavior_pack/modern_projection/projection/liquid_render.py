@@ -285,6 +285,10 @@ class WorldLiquidRenderer(object):
     """
     SETTLE_SECONDS = .075
     CREATIONS_PER_FRAME = 8
+    # Native culling is evaluated against this model-space box. Keep the
+    # conservative legacy default for shared owners; a product owner may widen
+    # it when its decoded four-cell batch would otherwise be culled.
+    BOUNDING_BOX = ((-2.,) * 3, (2.,) * 3)
 
     def __init__(self, bridge, max_groups, dimension, scale, rotation,
                  payload_validator=validate_uniforms, world_tag=PAYLOAD_TAG):
@@ -443,7 +447,7 @@ class WorldLiquidRenderer(object):
             return self._fail('Could not mask preparing liquid model')
         # Native free models otherwise use a one-block culling box, although
         # decoded vertices can fill this complete four-block logical batch.
-        if not self.model.SetFreeModelBoundingBox(model_id, (-2.,) * 3, (2.,) * 3):
+        if not self.model.SetFreeModelBoundingBox(model_id, *self.BOUNDING_BOX):
             return self._fail('Could not bound preparing liquid model')
         if not (self.model.SetFreeModelScale(model_id, *self.scale) and
                 self.model.SetFreeModelRot(model_id, *self.rotation) and

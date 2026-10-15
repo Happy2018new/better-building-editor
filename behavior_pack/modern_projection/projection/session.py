@@ -54,6 +54,10 @@ class Session(object):
         self.portal_profile = portal_production_profile(getattr(bridge, 'engine_version', None))
         self.portal_error = ''
         self.portal_preview = self.portal_controls = None
+        from .book_profile import production_profile as book_production_profile
+        self.book_profile = book_production_profile(getattr(bridge, 'engine_version', None))
+        self.book_error = ''
+        self.book_preview = self.book_controls = None
         self.camera_yaw = 35.
         self.camera_pitch = 25.
         self.zoom = 1.

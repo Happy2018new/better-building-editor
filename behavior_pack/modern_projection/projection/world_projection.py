@@ -23,6 +23,7 @@ class WorldProjection(object):
         self.native_render_profile = getattr(s, 'native_render_profile', None)
         self.cauldron_profile = getattr(s, 'cauldron_profile', None)
         self.portal_profile = getattr(s, 'portal_profile', None)
+        self.book_profile = getattr(s, 'book_profile', None)
         self.spawner_profile = getattr(s, 'spawner_profile', None)
         self.liquid_profile = getattr(s, 'liquid_profile', None)
         from .occupancy import ProjectionOccupancy
@@ -39,14 +40,18 @@ class WorldProjection(object):
         self.published = 0.
         self.ready, self.error, self.model = False, None, None
         self.cleanup_errors = []
-        self.liquid = None
+        self.liquid = self._create_companions()
+
+    def _create_companions(self):
+        bridge, origin = self.bridge, self.origin
         companions = []
         profile = self.liquid_profile
         if profile is not None:
             from .liquid_projection import LiquidProjection
             dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
-            companions.append(LiquidProjection(bridge, self.document, origin, profile, dimension,
-                                               self.hidden, self.layer))
+            projection_factory = getattr(profile, 'projection_factory', LiquidProjection)
+            companions.append(projection_factory(bridge, self.document, origin, profile, dimension,
+                                                  self.hidden, self.layer))
         item_profile = self.item_profile
         if item_profile is not None:
             from .item_sprite_projection import ItemProjection
@@ -63,11 +68,17 @@ class WorldProjection(object):
             dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
             companions.append(PortalProjection(bridge, self.document, origin, self.portal_profile,
                                                dimension, self.hidden, self.layer))
+        if self.book_profile is not None:
+            from .book_projection import BookProjection
+            dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+            companions.append(BookProjection(bridge, self.document, origin, self.book_profile,
+                                             dimension, self.hidden, self.layer))
         if len(companions) == 1:
-            self.liquid = companions[0]
-        elif companions:
+            return companions[0]
+        if companions:
             from .projection_companions import ProjectionCompanions
-            self.liquid = ProjectionCompanions(companions)
+            return ProjectionCompanions(companions)
+        return None
 
     def active(self):
         return self.bridge.alive and self.bridge.projection_serial == self.serial

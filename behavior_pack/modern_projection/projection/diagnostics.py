@@ -67,6 +67,8 @@ def inspect(session, value):
     cauldron_controls = getattr(session, 'cauldron_controls', None)
     portals = getattr(session, 'portal_preview', None)
     portal_controls = getattr(session, 'portal_controls', None)
+    books = getattr(session, 'book_preview', None)
+    book_controls = getattr(session, 'book_controls', None)
     return {'size': e.document.size, 'sceneSize': session.scene_size, 'origin': session.scene_origin,
             'sceneScale': session.scene_scale, 'pending': session.preview_pending, 'error': session.preview_error,
             'liquid': {'enabled': getattr(session, 'liquid_profile', None) is not None,
@@ -93,6 +95,12 @@ def inspect(session, value):
                         'planReady': portals is not None and portals.published == portals.signature(),
                         'controlsPending': portal_controls.pending if portal_controls is not None else False,
                         'error': getattr(session, 'portal_error', '')},
+            'books': {'enabled': getattr(session, 'book_profile', None) is not None,
+                      'groups': len(books.groups) if books is not None else 0,
+                      'revision': books.revision if books is not None else 0,
+                      'planReady': books is not None and books.published == books.signature(),
+                      'controlsPending': book_controls.pending if book_controls is not None else False,
+                      'error': getattr(session, 'book_error', '')},
             'blocks': len(e.document.blocks), 'model': session.model_name, 'selection': len(e.selection),
             'start': e.start, 'end': e.end, 'anchor': session.box_anchor, 'focused': session.focused,
             'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,

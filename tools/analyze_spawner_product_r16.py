@@ -76,6 +76,11 @@ def retained_support(picture, unknown=False):
             'retained_support_observed': count >= minimum}
 
 
+def retained_frame(label):
+    mode = label.partition('_badge_')[2].partition('_later_')[0]
+    return label.startswith('editor_') and mode in ('hidden', 'section')
+
+
 def analyze(report_path, output, control_report=None):
     report = json.loads(report_path.read_bytes())
     if not report['completed'] or not report['restored'] or not report['source_unchanged']:
@@ -125,8 +130,7 @@ def analyze(report_path, output, control_report=None):
         sheet.save(path)
         sheets.append({'path':path.name,'sha256':digest(path)})
     support = {label: retained_support(picture, '_unknown_' in label) for label, picture in pictures.items()
-               if label.startswith('editor_') and
-               (label.endswith('_hidden') or label.endswith('_section'))}
+               if retained_frame(label)}
     result={'schema':3,'report_sha256':digest(report_path),'rows':rows,'sheets':sheets,
             'retained_support': support,
             'all_retained_support_observed': bool(support) and all(

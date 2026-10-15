@@ -1,5 +1,14 @@
 # End Portal Surface Qualification
 
+Updated 2026-10-15 after the independent book owner and water bounding-box
+extension changed shared infrastructure. New ordinary default-path runs contain
+31 editor and 28 world captures, completed with restoration and unchanged
+sources. All 11 new review sheets were opened; animation, clipping, visibility,
+occupancy restoration and opacity remain correct. The editor run also supplies
+the default-editor evidence. Full raw captures remain in
+`.runtime/portal-owner-r18-{editor,world}-v1`; reports and sheets below bind this
+revision. The round-16 and round-17 source folders below are historical.
+
 Engine: NEMC `3.10.0.420447`, MCBE `1.21.130`. Public gallery:
 `test.dynamic.portals`. Accepted on 2026-10-14, round 16.
 

@@ -19,6 +19,38 @@ SOURCES = tuple('behavior_pack/modern_projection/projection/' + name + '.py' for
     'geometry_palette', 'render_context', 'occupancy', 'tiles', 'world_projection',
     'bridge', 'scene', 'session'))
 DATA = 'tools/data/spawner_configuration_nemc_3.10.0.420447.json'
+CASES = ('mob_spawner_empty', 'mob_spawner_pig_spawn_egg', 'mob_spawner_unknown',
+         'trial_spawner_empty', 'trial_spawner_pig_spawn_egg', 'trial_spawner_unknown')
+
+
+def capture_matrix(production_default):
+    required, followups = set(), set()
+    for identity in CASES:
+        for route in ('editor', 'full', 'missing'):
+            label = route + '_' + identity + '_badge'
+            required.add(label)
+            if not production_default:
+                required.add(route + '_' + identity + '_native')
+            if route == 'editor':
+                required.update(label + '_' + mode for mode in ('hidden', 'restored', 'section', 'full'))
+                followups.update(label + '_' + mode + '_later_' + delay
+                                 for mode in ('hidden', 'section') for delay in ('0.5', '1.5'))
+            elif route == 'missing':
+                required.update((label + '_occupied', label + '_restored'))
+    return required, followups
+
+
+def validate_matrix(captures, analysis, production_default):
+    required, followups = capture_matrix(production_default)
+    actual = set(captures)
+    if not required <= actual or actual - required - followups:
+        raise ValueError('Spawner acceptance is missing declared cases or contains unknown captures')
+    visible = {name for name in required if name.endswith(('_badge', '_restored', '_full'))}
+    retained = {name for name in actual if name.endswith(('_hidden', '_section')) or name in followups}
+    if (set(analysis['rows']) != visible or set(analysis['retained_support']) != retained or
+            not all(row['observed_badge_difference'] for row in analysis['rows'].values()) or
+            not all(row['retained_support_observed'] for row in analysis['retained_support'].values())):
+        raise ValueError('Spawner pixel analysis omits or fails a required visible/retained frame')
 
 
 def digest(path):
@@ -87,27 +119,26 @@ def run(args):
         raise ValueError('Spawner resource or measured NBT contract differs')
     analysis = json.loads(args.analysis.read_bytes())
     if (analysis['schema'] != 3 or analysis['report_sha256'] != digest(args.candidate)
-            or not analysis['all_matched_badges_observed'] or len(analysis['rows']) != 36
-            or not analysis['all_retained_support_observed']
-            or len(analysis['retained_support']) != 12):
+            or not analysis['all_matched_badges_observed']
+            or not analysis['all_retained_support_observed']):
         raise ValueError('Reviewed spawner matrix is incomplete')
     destination = None if args.admit_candidate else args.output / 'candidate'
     candidate = collect(args.candidate, project, destination)
-    if candidate['production_default'] or len(candidate['captures']) != 72:
+    if candidate['production_default']:
         raise ValueError('Candidate requires six cases, three routes and visibility/occupancy controls')
+    validate_matrix(candidate['captures'], analysis, False)
     evidence = {'candidate': candidate, 'analysis_sha256': digest(args.analysis)}
     if args.default is not None:
         default_analysis = json.loads(args.default_analysis.read_bytes())
         if (default_analysis['schema'] != 3 or default_analysis['report_sha256'] != digest(args.default)
                 or default_analysis['control_report_sha256'] != digest(args.candidate)
-                or not default_analysis['all_matched_badges_observed'] or len(default_analysis['rows']) != 36
-                or not default_analysis['all_retained_support_observed']
-                or len(default_analysis['retained_support']) != 12):
+                or not default_analysis['all_matched_badges_observed']
+                or not default_analysis['all_retained_support_observed']):
             raise ValueError('Default spawner matrix lacks matched visible controls')
         evidence['default'] = collect(args.default, project, args.output / 'default')
-        if (not evidence['default']['production_default'] or
-                len(evidence['default']['captures']) != 54):
+        if not evidence['default']['production_default']:
             raise ValueError('Default run requires six cases, three routes and visibility/occupancy controls')
+        validate_matrix(evidence['default']['captures'], default_analysis, True)
         evidence['default_analysis_sha256'] = digest(args.default_analysis)
         shutil.copyfile(args.default_analysis, args.output / 'default/analysis.json')
     manifest = {'schema': 1, 'engine_version': spawner_marker_data.ENGINE_VERSION,
