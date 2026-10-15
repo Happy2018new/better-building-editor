@@ -26,7 +26,7 @@ SPECIAL_IDS = {'minecraft:banner': 'patterned_geometry', 'minecraft:shield': 'pa
                'minecraft:firework_star': 'tinted_icon', 'minecraft:tipped_arrow': 'tinted_icon'}
 SPECIAL_TAGS = {'minecraft:spawn_egg': 'tinted_spawn_egg',
                 'minecraft:leather_tier': 'tinted_leather'}
-POSE = {'size_pixels': 8., 'thickness_pixels': .5, 'front_z_pixels': 15.,
+POSE = {'size_pixels': 8., 'thickness_pixels': .5, 'front_z_pixels': 14.75,
         'upward_base_rotation_degrees': 180., 'rotation_sign': -1.,
         'side_uv': 'opaque_texel_center_v1'}
 LAYOUT = '''float itemLayout=EXTRA_VECTOR2.x;

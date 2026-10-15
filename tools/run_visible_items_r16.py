@@ -288,7 +288,9 @@ def run(args):
                              'frame_name':'minecraft:'+source['source_case'].removesuffix('_filled') if is_orientation else 'minecraft:frame',
                              'face':face}]
                     native_camera = check.run(CAMERA)
-                    platform = (math.floor(native_camera['position'][0]), position[1]-1,
+                    # Keep the actual player below downward frames and outside the camera ray.
+                    platform = (math.floor(native_camera['position'][0]) + (2 if face == 0 else 0),
+                                position[1] - (4 if face == 0 else 1),
                                 math.floor(native_camera['position'][2]))
                     check.run('b.stop_projection()\n_result=True')
                     pending = True

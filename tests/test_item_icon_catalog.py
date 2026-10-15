@@ -111,6 +111,17 @@ class IconCatalogTests(unittest.TestCase):
         self.assertIn('facing>0.5 && facing<1.5 && itemLayout<0.5',
                       (ROOT/'resource_pack/shaders/glsl/modern_projection_item_icon.vertex').read_text(encoding='ascii'))
 
+    def test_measured_frame_plane_preserves_depth_and_rejects_old_catalog(self):
+        image = Image.new('RGBA', (1, 1), (255, 255, 255, 255))
+        vertices = generator.icon_mesh(image, generator.POSE, 'test')['mesh'][0]['vertices']
+        depths = {vertex['pos'][2] for vertex in vertices}
+        self.assertEqual({14.75 / 16. - .5, 15.25 / 16. - .5}, depths)
+        catalog = json.loads((ROOT/'tools/data/item_icon_catalog_nemc_3.10.0.420447.json').read_bytes())
+        self.assertEqual(generator.POSE, catalog['pose'])
+        catalog['pose']['front_z_pixels'] = 15.
+        with self.assertRaisesRegex(ValueError, 'pose contract'):
+            generator.outputs(catalog, ROOT)
+
     def test_frame_and_glow_frame_have_identical_owned_content_for_all_48_poses(self):
         for face in range(6):
             for rotation in range(8):
