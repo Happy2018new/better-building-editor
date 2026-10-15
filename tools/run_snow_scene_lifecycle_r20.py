@@ -164,6 +164,7 @@ def main():
                 if kind == 'blank':
                     picture = check.capture('control_blank')
                     crop = viewport_crop(check, picture)
+                    report['editor_crop'] = crop
                     blank = picture
                     report['native_draw_preflight'] = ui_preflight(check)
                     response = None
@@ -199,8 +200,15 @@ def main():
                       'focus=tuple(%r)\nsnow_material=foreground(s.editor.document.get(focus))\n'
                       's.editor.select_box(focus,focus)\n_result=True' % (source['focus'],))
             for label, expected, code in STEPS:
+                report['active_step'] = {'label': label, 'expected_control': expected,
+                                         'phase': 'before_frame_count', 'command': code}
+                write_json(args.output, report)
                 before = frame_count(check)
+                report['active_step'].update(phase='before_mutation', render_frames_before=before)
+                write_json(args.output, report)
                 check.run('sys._blueprint_qa_nonce+=1\n' + code + '\n_result=True')
+                report['active_step']['phase'] = 'mutation_completed'
+                write_json(args.output, report)
                 if label == 'saved_library_load':
                     check.wait('complete snow lifecycle library load', bool,
                                lambda: check.run('_result=s.io_job is None'))
@@ -224,6 +232,7 @@ def main():
                     'state': state, 'screenshot': picture, 'native_response': response,
                     'mask': save_mask(frame['object'], args.output, label), 'checks': comparison,
                     'passed': comparison['passed']})
+                report['active_step'] = None
                 write_json(args.output, report)
             report['completed'] = True
         finally:

@@ -193,3 +193,15 @@ before the third edit step. The report honestly remains incomplete and
 The wrapper retains unchanged frozen product and host-data hashes. This run
 does not close native editing or storage acceptance, and its process-exit
 cause has not been established.
+
+Offline replay verifies all nine retained native capture hashes, owner and
+process identities, compositor freshness, native clock/tick responses, and
+the inspector header's actual hide/show pixel counts. This failed acquisition
+omitted its Scene crop from the report, so its independent Scene geometry
+replay remains unavailable. The replayer reports that missing field and keeps
+`pixels_replayed=false`, `workflow_accepted=false` and the original incomplete
+and unrestored state. The next probe now retains the crop and a before/after
+command phase receipt without changing the frozen v3 clone or old evidence.
+Replay tests use the immutable original h4 captures, explicitly labeled as a
+control adapter rather than a native workflow, and reject changed owner,
+render ticks, clock, response screenshot and expected alpha.
