@@ -1,0 +1,70 @@
+{
+  "metric": "CommitLimit-CommitTotal",
+  "threshold_bytes": 6442450944,
+  "physical_memory_is_a_gate": false,
+  "families": [
+    "end_gateway"
+  ],
+  "views": [
+    "front"
+  ],
+  "boundaries": [
+    {
+      "observed_at": "2026-10-15T19:39:10.302146+00:00",
+      "commit_total_bytes": 33173024768,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 9025970176,
+      "physical_available_bytes": 1104044032,
+      "boundary": "before_end_gateway",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T19:39:16.698851+00:00",
+      "commit_total_bytes": 33236959232,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8962035712,
+      "physical_available_bytes": 1094746112,
+      "boundary": "before_end_gateway_candidate_front",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T19:39:17.651505+00:00",
+      "commit_total_bytes": 33238958080,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8960036864,
+      "physical_available_bytes": 1084837888,
+      "boundary": "after_end_gateway_candidate_front",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T19:39:21.720322+00:00",
+      "commit_total_bytes": 33220681728,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8978313216,
+      "physical_available_bytes": 1100705792,
+      "boundary": "before_end_gateway_native_front",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T19:39:22.622019+00:00",
+      "commit_total_bytes": 33228685312,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8970309632,
+      "physical_available_bytes": 1086717952,
+      "boundary": "after_end_gateway_native_front",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T19:39:27.616945+00:00",
+      "commit_total_bytes": 33306238976,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8892755968,
+      "physical_available_bytes": 997306368,
+      "boundary": "after_end_gateway_cleanup",
+      "commit_gate_passed": true
+    }
+  ],
+  "canonical_source_sha256": "890f467fec8eb946cc9bc4eefb85e2d2a922b15e012204f083936972a9258f65",
+  "guard_host_sha256": "bb5362fbaa02cdbf19d6942a76e805ef0ca55f8a5766fcdfe1bfc0ef2888de93",
+  "frozen_probe_sha256": "1dc62dc42b1fb7ae6c29d4e6a61219e34ba6ce478bb5e5ebddc1ace68644f7f7"
+}

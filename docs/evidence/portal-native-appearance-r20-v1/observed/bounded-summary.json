@@ -1,0 +1,41 @@
+{
+  "source_contract_sha256": "90abd667504357ed1e7172d22d4e29ad56ba6485f84a7de8de5eedddbb87248e",
+  "capture_count": 8,
+  "all_eight_actual_images_opened": true,
+  "first_pair_reviewed_before_remaining_captures": true,
+  "all_runs_completed_restored_source_unchanged": true,
+  "cleanup_errors": [],
+  "all_commit_gates_passed": true,
+  "runtime_boundary_count": 22,
+  "minimum_commit_available_bytes": 8879247360,
+  "physical_memory_is_a_gate": false,
+  "candidate_to_native_ratios": {
+    "end_gateway_front": {
+      "luminance_mean": 0.9337277428113004,
+      "cyan_star_ratio": 0.9033526490066225,
+      "nonblack_ratio": 0.937121536485412
+    },
+    "end_gateway_oblique": {
+      "luminance_mean": 1.0161776749230365,
+      "cyan_star_ratio": 1.0130505709624795,
+      "nonblack_ratio": 1.0053763440860215
+    },
+    "end_portal_front": {
+      "luminance_mean": 0.8144176842657118,
+      "cyan_star_ratio": 1.1220673240394423,
+      "nonblack_ratio": 0.8595715742944575
+    },
+    "end_portal_oblique": {
+      "luminance_mean": 1.0520208935802053,
+      "cyan_star_ratio": 1.1007462686567164,
+      "nonblack_ratio": 1.0818627450980394
+    }
+  },
+  "native_end_portal_front_gray_smoke_overlaps_measured_surface": true,
+  "gray_smoke_is_not_detected_by_magenta_rule": true,
+  "particle_pixels_removed": false,
+  "phase_or_exposure_fit": false,
+  "pixel_acceptance": false,
+  "qualification": false,
+  "production_resources_changed": false
+}

@@ -1,0 +1,258 @@
+{
+  "schema": 1,
+  "qualification": false,
+  "pixel_acceptance": false,
+  "host_sha256": "5be8d85f47f7fada4ac283c500c0cc55094adcea9086c5702311193049781dc8",
+  "reports": [
+    {
+      "source_report_sha256": "16784defcaef24df9faabfee7d01388df43bfa926b2e517e4f223ec3f35843a0",
+      "pairs": {
+        "end_gateway_front": {
+          "face": "north",
+          "statistics": {
+            "candidate": {
+              "interior_pixels": 41616,
+              "rgb_mean": [
+                5.979334871203383,
+                12.493800461361015,
+                12.413927335640139
+              ],
+              "luminance_mean": 11.103058237216453,
+              "luminance_p50_p95_p99": [
+                3.7874,
+                50.216649999999994,
+                97.47579999999999
+              ],
+              "luminance_max": 189.54459999999997,
+              "nonblack_pixels": 15321,
+              "nonblack_ratio": 0.36815167243367936,
+              "cyan_star_pixels": 8730,
+              "cyan_star_ratio": 0.2097750865051903,
+              "magenta_contamination_pixels": 0,
+              "magenta_contamination_ratio": 0.0,
+              "excluded_pixels": 0,
+              "capture_sha256": "a10369c74dbd8b963d3086639ce2aca689262a25bb5366ee1ce93d4d0852523b"
+            },
+            "native": {
+              "interior_pixels": 41616,
+              "rgb_mean": [
+                6.300148981161092,
+                13.396674356016916,
+                13.440383506343714
+              ],
+              "luminance_mean": 11.891108861976162,
+              "luminance_p50_p95_p99": [
+                4.29,
+                54.707649999999994,
+                104.47479999999999
+              ],
+              "luminance_max": 231.1888,
+              "nonblack_pixels": 16349,
+              "nonblack_ratio": 0.39285371011149556,
+              "cyan_star_pixels": 9664,
+              "cyan_star_ratio": 0.23221837754709726,
+              "magenta_contamination_pixels": 0,
+              "magenta_contamination_ratio": 0.0,
+              "excluded_pixels": 0,
+              "capture_sha256": "cc4fe96ee10533d34ca3090f12c1a6f754bffba6d8e8089aa325054a174a1022"
+            }
+          },
+          "candidate_to_native_ratios": {
+            "luminance_mean": 0.9337277428113004,
+            "cyan_star_ratio": 0.9033526490066225,
+            "nonblack_ratio": 0.937121536485412
+          }
+        }
+      }
+    },
+    {
+      "source_report_sha256": "5ea962581b5c7265dc0e8f1566192b375007d902d516b559763b47d33bb48299",
+      "pairs": {
+        "end_gateway_oblique": {
+          "face": "north",
+          "statistics": {
+            "candidate": {
+              "interior_pixels": 12750,
+              "rgb_mean": [
+                6.3771764705882354,
+                13.582039215686274,
+                13.80078431372549
+              ],
+              "luminance_mean": 12.066078792156862,
+              "luminance_p50_p95_p99": [
+                4.8595999999999995,
+                52.04405999999996,
+                100.09514600000001
+              ],
+              "luminance_max": 217.33379999999997,
+              "nonblack_pixels": 5236,
+              "nonblack_ratio": 0.4106666666666667,
+              "cyan_star_pixels": 3105,
+              "cyan_star_ratio": 0.24352941176470588,
+              "magenta_contamination_pixels": 0,
+              "magenta_contamination_ratio": 0.0,
+              "excluded_pixels": 0,
+              "capture_sha256": "8bf677ce106945a29cd42021c6c39aa83f173bf82b622150176971fcd0a581da"
+            },
+            "native": {
+              "interior_pixels": 12750,
+              "rgb_mean": [
+                6.248784313725491,
+                13.375529411764706,
+                13.563921568627451
+              ],
+              "luminance_mean": 11.87398531764706,
+              "luminance_p50_p95_p99": [
+                4.8648,
+                53.47391999999998,
+                99.03208000000015
+              ],
+              "luminance_max": 195.36200000000002,
+              "nonblack_pixels": 5208,
+              "nonblack_ratio": 0.40847058823529414,
+              "cyan_star_pixels": 3065,
+              "cyan_star_ratio": 0.2403921568627451,
+              "magenta_contamination_pixels": 0,
+              "magenta_contamination_ratio": 0.0,
+              "excluded_pixels": 0,
+              "capture_sha256": "aa9198746e770657544d209bd3ebd954961925dd09983e21a0deb57b75d1c5fd"
+            }
+          },
+          "candidate_to_native_ratios": {
+            "luminance_mean": 1.0161776749230365,
+            "cyan_star_ratio": 1.0130505709624795,
+            "nonblack_ratio": 1.0053763440860215
+          }
+        }
+      }
+    },
+    {
+      "source_report_sha256": "7582b9950114b48c6c49d76d9b2066f2124687eee9047e633c511a6ac4b5b6ee",
+      "pairs": {
+        "end_portal_front": {
+          "face": "top",
+          "statistics": {
+            "candidate": {
+              "interior_pixels": 10251,
+              "rgb_mean": [
+                8.073358696712516,
+                17.902546093064093,
+                17.79299580528729
+              ],
+              "luminance_mean": 15.80495132182226,
+              "luminance_p50_p95_p99": [
+                6.6522,
+                68.8152,
+                129.2732
+              ],
+              "luminance_max": 230.12579999999997,
+              "nonblack_pixels": 5056,
+              "nonblack_ratio": 0.4932201736415959,
+              "cyan_star_pixels": 3300,
+              "cyan_star_ratio": 0.3219198127011999,
+              "magenta_contamination_pixels": 0,
+              "magenta_contamination_ratio": 0.0,
+              "excluded_pixels": 0,
+              "capture_sha256": "0bb6ee231ca6bef0708638cbb00817c2ac231ac4b5a7c44ac9edce4cc49b8121"
+            },
+            "native": {
+              "interior_pixels": 10251,
+              "rgb_mean": [
+                12.469612720710174,
+                21.3030923812311,
+                21.044776119402986
+              ],
+              "luminance_mean": 19.40644417130036,
+              "luminance_p50_p95_p99": [
+                9.7966,
+                67.0,
+                131.7391
+              ],
+              "luminance_max": 234.78699999999998,
+              "nonblack_pixels": 5882,
+              "nonblack_ratio": 0.5737976782752903,
+              "cyan_star_pixels": 2941,
+              "cyan_star_ratio": 0.28689883913764513,
+              "magenta_contamination_pixels": 0,
+              "magenta_contamination_ratio": 0.0,
+              "excluded_pixels": 0,
+              "capture_sha256": "9082da03cc12a0f609046f23cf49e84bbef027d8401d301c1482d6da21f20e62"
+            }
+          },
+          "candidate_to_native_ratios": {
+            "luminance_mean": 0.8144176842657118,
+            "cyan_star_ratio": 1.1220673240394423,
+            "nonblack_ratio": 0.8595715742944575
+          }
+        },
+        "end_portal_oblique": {
+          "face": "top",
+          "statistics": {
+            "candidate": {
+              "interior_pixels": 4527,
+              "rgb_mean": [
+                8.242544731610337,
+                18.126794786834548,
+                18.151977026728517
+              ],
+              "luminance_mean": 16.02722138281423,
+              "luminance_p50_p95_p99": [
+                6.3622,
+                70.49183999999998,
+                130.96337599999987
+              ],
+              "luminance_max": 221.4534,
+              "nonblack_pixels": 2207,
+              "nonblack_ratio": 0.48751932847360285,
+              "cyan_star_pixels": 1475,
+              "cyan_star_ratio": 0.32582284073337753,
+              "magenta_contamination_pixels": 0,
+              "magenta_contamination_ratio": 0.0,
+              "excluded_pixels": 0,
+              "capture_sha256": "92ab0c9b0c833f03889fcb5dbd4c1308992815a00e0df32b71abdc4c677be552"
+            },
+            "native": {
+              "interior_pixels": 4527,
+              "rgb_mean": [
+                7.815109343936382,
+                17.23326706428098,
+                17.28495692511597
+              ],
+              "luminance_mean": 15.234698740888007,
+              "luminance_p50_p95_p99": [
+                5.574800000000001,
+                68.98977999999993,
+                128.0651439999999
+              ],
+              "luminance_max": 235.00759999999997,
+              "nonblack_pixels": 2040,
+              "nonblack_ratio": 0.4506295559973492,
+              "cyan_star_pixels": 1340,
+              "cyan_star_ratio": 0.2960017671747294,
+              "magenta_contamination_pixels": 0,
+              "magenta_contamination_ratio": 0.0,
+              "excluded_pixels": 0,
+              "capture_sha256": "909f6baa63f7f0286b6095ea6df1601885e0c111eae3d032325cc081e43efd96"
+            }
+          },
+          "candidate_to_native_ratios": {
+            "luminance_mean": 1.0520208935802053,
+            "cyan_star_ratio": 1.1007462686567164,
+            "nonblack_ratio": 1.0818627450980394
+          }
+        }
+      }
+    }
+  ],
+  "phase_or_exposure_fit": false,
+  "particle_pixels_removed": false,
+  "cyan_star_rule": "G > R+4 and B > R+4 and max(RGB)-min(RGB) > 8",
+  "nonblack_rule": "max(RGB) > 8",
+  "luminance_rule": "0.2126 R + 0.7152 G + 0.0722 B, raw RGB bytes",
+  "limits": [
+    "Finite faces only; native beams and exterior particles are outside these masks.",
+    "Any magenta contamination remains in the raw brightness statistics.",
+    "A fresh pair samples different animation phases; no pixelwise equivalence is asserted.",
+    "Absolute measurements are evidence, not an automatic renderer qualification."
+  ]
+}

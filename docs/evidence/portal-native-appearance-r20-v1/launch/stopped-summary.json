@@ -1,0 +1,25 @@
+{
+  "owner": "portal-r20-native-v10",
+  "state": "stopped",
+  "observed_at_utc": "2026-10-15T19:51:16.579421+00:00",
+  "first_normal_stop_returncode": 1,
+  "normal_finalize_returncode": 0,
+  "finalized_after_exact_identities_exited": true,
+  "force_used": false,
+  "normal_exit_accepted": false,
+  "session_sha256": "13b06f2a5efccc08fe22920582b3e380c912dc815694df03d6a8938d18aaa25c",
+  "processes": {
+    "game": {
+      "pid": 2188,
+      "identity": "134365666754603117",
+      "observed_identity": null,
+      "owned_process_exited": true
+    },
+    "mcdk": {
+      "pid": 37656,
+      "identity": "134365666752287808",
+      "observed_identity": null,
+      "owned_process_exited": true
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "expected_capture_count": 8,
+  "minimum_commit_bytes": 6442450944,
+  "native_effects": "Beams and exterior particles are not part of the finite-surface comparison.",
+  "phase_or_exposure_fit": false,
+  "qualification": false,
+  "runs": [
+    {
+      "capture_count": 4,
+      "family": "end_gateway",
+      "front_offset": [
+        0.0,
+        0.0,
+        -4.5
+      ],
+      "measured_face": "north",
+      "oblique_offset": [
+        3.2,
+        2.2,
+        -4.5
+      ],
+      "views": [
+        "front",
+        "oblique"
+      ]
+    },
+    {
+      "capture_count": 4,
+      "family": "end_portal",
+      "front_offset": [
+        0.0,
+        2.2,
+        -4.5
+      ],
+      "measured_face": "top",
+      "oblique_offset": [
+        3.2,
+        2.2,
+        -4.5
+      ],
+      "views": [
+        "front",
+        "oblique"
+      ]
+    }
+  ],
+  "runtime_gate_metric": "CommitLimit-CommitTotal"
+}
