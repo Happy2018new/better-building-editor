@@ -1,5 +1,26 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 05:28 原生展示架terrain路由实图；宿主内存原因确认
+
+- 开发继续至08:00，休眠任务已再次读回enabled、08:00+08、shutdown.exe /h、StartWhenAvailable=False。最新旗帜物品形态要求保持：原生frame正／斜参考不等于编辑器attachment正面／比例／短杆／厚度完成。
+- native-routes-v3 session b5a28b561a044c24b21fb5444235d752，MC50840／134365728531531413、MCDK51292／134365728529707531；observer82230持有exact handles。capture45753 exit0，south native／empty两原图root均已打开，completed/restored/source_unchanged=True，cleanup空，15.242s。本体确有黄色terrain_base条带且保留交替木纹；entity_static_netease无cyan。自动native_route_qualified=False仅表示未分割cell ROI不授资格；不能以背景yellow计本体light。Shelf代理独立核对后仅离线准备terrain fragment读回，不启动。普通close26645已发一次仍待结果，未释放MC/WGC。
+- native-light-v2证据最终为31条manifest entries／32总文件，不是上节的30file；32个stage blob已逐一git hash-object --no-filters对原磁盘字节通过。包内采集时packer可独立replay，但早于最新write_manifest补充，不声称所有copied source等于当前工作树。
+- Shield宿主内存离线实测已定位到census→analyze→NumPy/OpenBLAS默认24线程。新进程只设OPENBLAS_NUM_THREADS=1并使用streaming SHA，完整冻结validate仍通过，retained 814317568→39317504 bytes、peak 942612480→44789760；整读EXE只增加约120MiB临时峰值。六进程均exit0，原冻结文件／全局环境未改。后续新专用进程继承单线程变量；不修改已冻结census依赖或降低canonical门槛。报告.runtime/banner-host-memory-r21-v1/README.md。
+- Book attached v3最终host c4d3fad841f0718bb81cf74aeca93893be892c6d5c3ae917445348a6d691e9fe，13snippets／2frames／0gamecalls离线通过，新增camera实际恢复读回，不再改freeze。shutdown精简包.runtime/shutdown-audit-r21-portable-v1为36清单文件另manifest，1277882 bytes，manifest9c335271…，独立Temp与original-input核验通过，尚未stage。
+
+## 2026-10-16 05:20 旗帜物品原生框参照取得；原生Shelf路由继续定位
+
+- 开发继续至08:00并休眠，前述计划任务仍有效。用户强调的旗帜物品与旗帜方块差异已用新的真实frame正／斜图确认：蓝布、图案层与极短下杆清楚；root独立打开03／04。只能作为原生物品参照，不能以此关闭骨骼attachment的比例／厚度、Scene共同深度或产品准入。
+- Shield v11复用v7成功server actor／known host，而非v9的client-only低于世界底界候选。session38023efeebf346a8a87553e4c090e18f；MC45920／134365718714491405、MCDK53880／134365718712172434。4图实际均打开；negative无binding，positive有旗帜细边及sword像素、binding0合法，但rot90/0/0沿用盾诊断使旗帜近乎侧向，尚无正面形态验收。记录.runtime/banner-native-v7-r21-v1/{runtime-result.json,RUNTIME.md}。客户端第一次相机restore即时断言失败留在010，后续012稳定读回成功、013服务端96格／背包／槽恢复，014确认3actor EngineType/Pos均None，源码不变。normalclose64213超时，observer95914已exit0保留MC0xC0000409／MCDK0，05:18:50两身份消失后normal finalize stopped，无force／重复close，MC/WGC已归还。
+- root native-light-v2实际south4图complete/restored/source unchanged，cleanup空；原生shelf仍木纹，entity_static未命中本体，native light与flag读回均无效，不扩west。session7b29832689aa4c4c8d9471c42e8c6009，MC21664／134365713382443933、MCDK25048／134365713380246066。stop98327超时，observer97333 exit0保留MC0xC0000409／MCDK0，两身份None后normal finalize stopped；所有exec结束。30file分析包docs/evidence/shelf-native-light-route-r21-v2已从Temp独立replay，原木纹ROI不解释为light值。
+- root现在独占MC/WGC启动native-routes-v3，exec82230（启动／retained observer，需poll）。clone3115files／6d0ff299679f3fe42d5f45fc89b1edf1c65ad30b6e6935c982200a582997c7ae；新增两root fragment覆盖entity_static_netease青色／terrain_base黄色交替原finalRGB条带，保native vertex/alpha/discard。四资源路径结构最小变更；5tests、40pair／80program、608实际像素通过。入口.runtime/shelf-native-routes-r21-v3/run.py仅south native/empty两图，不把背景同色当body命中。其后排Skeleton三图、Snowv6、Portal固定TIME、Grass、Book原生attached/cyan与WaterA/B，按实际资源与结果重新交棒；未获grant不得launch。
+- Shelf显式normal候选工具已提交ca9f98eb，12tests／18program／192pair+144axis像素通过。独立v2生成8资源与v1逐byte一致，仅contract文案／generator来源改变。v1已冻clone3150files／283f4a73…仍可测，等轴scale要求由本probe显式满足，不能声称共享owner强制等轴。
+- Snow probe-only修正和v5失败包提交7e49aaea，root9tests及Temp像素重放通过。最终package manifest0e26710a…；v6 frozen-plan d45395c3…／host669152b9…／runner ec384fc5…／product342accbb…保持，未launch。Item草side修正fd71754e、24PNG不完整holdout便携包1aeff207均提交。新grass-only cold source0a44ccc9…，front先审后±75，9GiB launch/6GiB runtime，仍未launch。
+- Book短title v2 data/完整client-server NBT通过，25.44s五图恢复成功，却全部仍是空讲台；root已独立打开empty0/authored2，不授pixel oracle。sessionfa4b43da661e494082f2e378ae4d45f4正常close后MC11048 exact0xC0000409／MCDK32784=0，observer85363 ended，normal finalize stopped。两packers+两长／短失败包提交80440d2e，75blob逐byte验证与stage导出replay通过，index归还。v3仅2图复用旧真实可见书sample的物品放置／north／attached camera整条路径，clone3033files／cef24117…、host最后相机readback补充中，待最终hash再run；不能从三项共同变更推单因。cyan隐藏层对照仍offline ready。
+- Portal固定TIME64 v11离线ready，仅gateway/front四图candidate双帧／native双帧，clone422b7bad…；只改两端唯一TIME项和native vertex路径，原fragment/blend/PointRepeat/palette不变，14编译cases通过。若native重复仍动则override无效；粒子不删、不fit、FOG实际状态未读回，未launch。
+- 跨专项退出纯离线审计已确认两份原dump的std::bad_function_call原C++exception记录／类型描述符，两者同game+0x17e530b→throw→terminate→abort／FAST_FAIL_FATAL_APP_EXIT7。不能称栈损坏，具体引擎调用与guard／close因果仍unknown。修正DbgEng官方Execute66／WaitForEvent93后真实.ecxr;kpn通过，原始输出与类型解析保存.runtime/shutdown-audit-r21-v2，精简Git包准备中；不改guard/stop，不launch额外MC。
+- 当前index由root保存native失败读回归档与本交接；不push／合main，两原water tracked WIP不动。Water cache A/B wrapper9GiB launch／6GiB runtime仍offline ready；所有未验收项不借编译／数据通过关闭。
+
 ## 2026-10-16 04:45 全回归完成，草侧面修正；盾Scene输入失败
 
 - 继续开发至08:00并休眠，不暂停。已再次读回计划任务enabled、08:00+08触发、shutdown.exe /h、StartWhenAvailable=False。最新旗帜提醒继续有效：物品展示框里的旗帜物品不能套用站旗／壁旗的形态；姿态、比例、短杆、厚度须独立原生对照。

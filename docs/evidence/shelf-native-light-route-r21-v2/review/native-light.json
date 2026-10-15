@@ -1,0 +1,354 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "readback_valid": false,
+  "source_report_sha256": "9da89537bf3cbe629ad3771c55d12409044693caed807871463fa9a129412fae",
+  "contract_sha256": "0d800c11e4fe19cc32f0d4a1aa43c6e70357d6b43858db6b7cfe51c20edb1b87",
+  "records": [
+    {
+      "roi": [
+        140,
+        160,
+        240,
+        180
+      ],
+      "physical_origin_x": 807,
+      "readback_valid": false,
+      "stripes": [
+        {
+          "stripe": 0,
+          "name": "magenta_selector",
+          "pixels": 640,
+          "min_rgb": [
+            57,
+            44,
+            25
+          ],
+          "max_rgb": [
+            127,
+            104,
+            65
+          ],
+          "top_colors": [
+            {
+              "rgb": [
+                67,
+                52,
+                29
+              ],
+              "pixels": 90
+            },
+            {
+              "rgb": [
+                122,
+                99,
+                59
+              ],
+              "pixels": 84
+            },
+            {
+              "rgb": [
+                126,
+                103,
+                64
+              ],
+              "pixels": 69
+            },
+            {
+              "rgb": [
+                125,
+                102,
+                64
+              ],
+              "pixels": 50
+            },
+            {
+              "rgb": [
+                127,
+                104,
+                65
+              ],
+              "pixels": 40
+            },
+            {
+              "rgb": [
+                121,
+                98,
+                59
+              ],
+              "pixels": 36
+            },
+            {
+              "rgb": [
+                126,
+                104,
+                63
+              ],
+              "pixels": 36
+            },
+            {
+              "rgb": [
+                124,
+                103,
+                64
+              ],
+              "pixels": 30
+            }
+          ],
+          "selector_valid": false
+        },
+        {
+          "stripe": 1,
+          "name": "native_light_rgb",
+          "pixels": 460,
+          "min_rgb": [
+            57,
+            44,
+            25
+          ],
+          "max_rgb": [
+            83,
+            65,
+            36
+          ],
+          "top_colors": [
+            {
+              "rgb": [
+                67,
+                52,
+                29
+              ],
+              "pixels": 149
+            },
+            {
+              "rgb": [
+                82,
+                64,
+                36
+              ],
+              "pixels": 58
+            },
+            {
+              "rgb": [
+                68,
+                53,
+                29
+              ],
+              "pixels": 45
+            },
+            {
+              "rgb": [
+                57,
+                44,
+                25
+              ],
+              "pixels": 45
+            },
+            {
+              "rgb": [
+                83,
+                65,
+                36
+              ],
+              "pixels": 40
+            },
+            {
+              "rgb": [
+                83,
+                64,
+                36
+              ],
+              "pixels": 40
+            },
+            {
+              "rgb": [
+                58,
+                44,
+                25
+              ],
+              "pixels": 30
+            },
+            {
+              "rgb": [
+                68,
+                52,
+                29
+              ],
+              "pixels": 15
+            }
+          ]
+        },
+        {
+          "stripe": 2,
+          "name": "tile_light_rgb",
+          "pixels": 320,
+          "min_rgb": [
+            74,
+            58,
+            32
+          ],
+          "max_rgb": [
+            83,
+            65,
+            36
+          ],
+          "top_colors": [
+            {
+              "rgb": [
+                76,
+                59,
+                33
+              ],
+              "pixels": 77
+            },
+            {
+              "rgb": [
+                75,
+                58,
+                33
+              ],
+              "pixels": 77
+            },
+            {
+              "rgb": [
+                75,
+                58,
+                32
+              ],
+              "pixels": 54
+            },
+            {
+              "rgb": [
+                82,
+                64,
+                36
+              ],
+              "pixels": 35
+            },
+            {
+              "rgb": [
+                83,
+                65,
+                36
+              ],
+              "pixels": 25
+            },
+            {
+              "rgb": [
+                83,
+                64,
+                36
+              ],
+              "pixels": 25
+            },
+            {
+              "rgb": [
+                74,
+                58,
+                32
+              ],
+              "pixels": 16
+            },
+            {
+              "rgb": [
+                76,
+                58,
+                33
+              ],
+              "pixels": 11
+            }
+          ]
+        },
+        {
+          "stripe": 3,
+          "name": "flags",
+          "pixels": 580,
+          "min_rgb": [
+            74,
+            58,
+            32
+          ],
+          "max_rgb": [
+            127,
+            104,
+            65
+          ],
+          "top_colors": [
+            {
+              "rgb": [
+                75,
+                58,
+                33
+              ],
+              "pixels": 189
+            },
+            {
+              "rgb": [
+                76,
+                59,
+                33
+              ],
+              "pixels": 188
+            },
+            {
+              "rgb": [
+                75,
+                58,
+                32
+              ],
+              "pixels": 56
+            },
+            {
+              "rgb": [
+                82,
+                64,
+                36
+              ],
+              "pixels": 51
+            },
+            {
+              "rgb": [
+                76,
+                58,
+                33
+              ],
+              "pixels": 27
+            },
+            {
+              "rgb": [
+                82,
+                63,
+                36
+              ],
+              "pixels": 25
+            },
+            {
+              "rgb": [
+                126,
+                103,
+                64
+              ],
+              "pixels": 14
+            },
+            {
+              "rgb": [
+                125,
+                102,
+                64
+              ],
+              "pixels": 10
+            }
+          ],
+          "flags_valid": false
+        }
+      ],
+      "case": "oak_0_south",
+      "capture_sha256": "f95270ec96253d69818e6c28871f14ef1f838fcc68169b235c5166069d4e12f6"
+    }
+  ],
+  "limits": [
+    "Fixed central backing ROI only; no complete surface acceptance.",
+    "Still-textured native draws fail material selection.",
+    "No exposure correction, gain fit, alignment or lighting qualification."
+  ]
+}

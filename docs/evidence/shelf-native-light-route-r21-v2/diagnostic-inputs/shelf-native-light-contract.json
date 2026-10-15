@@ -1,0 +1,30 @@
+{
+  "diagnostic_base_material": "entity_static",
+  "fragment_precision_declared": "highp float and int",
+  "fragment_sha256": "83deb67dc6fe1e478570c66606b5d20707a595f03343c20d0087c91ab233a274",
+  "limits": [
+    "Native alpha testing and other fragment work remain before readback.",
+    "Material selection must be established by actual magenta stripes.",
+    "These stripes affect native entities only in this private clone.",
+    "Do not infer a shelf input from a still-textured world draw."
+  ],
+  "native_sources": {
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\resource_packs\\vanilla\\materials\\entity.material": "5a3b5b0c6ae46e439ad26df811dfb657a8da229bcc5850a723bca579ebd788ac",
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\shaders\\glsl\\entity.fragment": "4a618a80375acbe68014275df1f8c7e8ac4410558bd327696f450153ac85f335",
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\shaders\\glsl\\entity.vertex": "7b5213a04745d086ebdb35308497989e638d4f3c42bfe9974bd03bf37cccbddb",
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\shaders\\glsl\\entityFragmentUtil.h": "4fff1427b04f892b72e69ae8e8d4118891f90a8716fa4ac1c2789ebf9db8030d",
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\shaders\\glsl\\entityVertexUtil.h": "5618dc4f8f734c0e49ef44250c2d404bd1010bf761d9611335a6795c5aa964f6"
+  },
+  "previous_override": null,
+  "production_qualified": false,
+  "schema": 1,
+  "stripes": {
+    "0": "magenta_selector",
+    "1": "native_light_rgb",
+    "2": "tile_light_rgb",
+    "3": "FANCY, (RNGL_UNLIT+2*RNGL_LIGHT+4*RNGL_LOCAL_LIGHT)/7, ALWAYS_LIT",
+    "period_pixels": 64,
+    "width_pixels": 16
+  },
+  "vertex_shader_or_fields_changed": false
+}

@@ -1,0 +1,22 @@
+{
+  "production_qualified": false,
+  "observation": {
+    "report_sha256": "9da89537bf3cbe629ad3771c55d12409044693caed807871463fa9a129412fae",
+    "reported_captures": 4,
+    "preserved_labels": [
+      "oak_0_south_empty",
+      "oak_0_south_unpowered",
+      "oak_0_south_unpowered_ao",
+      "oak_0_south_world"
+    ],
+    "omitted_labels": []
+  },
+  "diagnostic_kind": "native_fragment_light",
+  "flag_readback_valid": false,
+  "shader_inputs": null,
+  "limits": [
+    "Input colors are captured bytes, not HDR or lighting acceptance.",
+    "Center samples use fixed ROIs without alignment or color fitting.",
+    "Only diagnostic shader inputs are copied, not a full runnable project."
+  ]
+}
