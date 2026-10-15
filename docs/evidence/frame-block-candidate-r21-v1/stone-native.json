@@ -1,0 +1,369 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "engine": "3.10.0.420447",
+  "completed": true,
+  "cleanup_errors": [],
+  "source_unchanged": true,
+  "launch_sources_sha256": "db0450cecb8e04815b1ecda2d1be8a2ece26367e3089fa47c39e4669e5614105",
+  "raw_report_sha256": "5acfcc00e5e550c4a5355e58fff5aaf142eee43242e43ca9694162cf2bf484bf",
+  "source_case": {
+    "enchanted": [
+      5,
+      2,
+      13
+    ],
+    "facing": 2,
+    "fixture": "test.entities.item_orientations",
+    "id": "frame_f2_r0",
+    "item": [
+      "minecraft:stone",
+      0
+    ],
+    "plain": [
+      3,
+      2,
+      13
+    ],
+    "rotation_degrees": 0.0,
+    "source_case": "frame_filled",
+    "empty_frame_control": true,
+    "targets": {
+      "plain": [
+        2,
+        3,
+        3
+      ],
+      "enchanted": [
+        5,
+        3,
+        3
+      ]
+    }
+  },
+  "native_placement": {
+    "observed": [
+      {
+        "item_api": {
+          "count": 1,
+          "newItemName": "minecraft:stone",
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 1,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "modItemId": "",
+          "itemName": "minecraft:stone",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "source": {
+          "frame_name": "minecraft:frame",
+          "placed_material": [
+            "minecraft:frame",
+            2
+          ],
+          "mode": "plain",
+          "rotation": 0.0,
+          "item_name": "minecraft:stone",
+          "support": [
+            7,
+            -39,
+            9
+          ],
+          "face": 2,
+          "item_aux": 0,
+          "placed_block": {
+            "aux": 2,
+            "name": "minecraft:frame"
+          },
+          "position": [
+            7,
+            -39,
+            8
+          ],
+          "item_write_route": "native inventory PlayerUseItemToPos only; no subsequent frame setters"
+        },
+        "typed_nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": 8
+          },
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "Block": {
+              "states": {},
+              "version": {
+                "__type__": 3,
+                "__value__": 18168865
+              },
+              "name": {
+                "__type__": 8,
+                "__value__": "minecraft:stone"
+              },
+              "val": {
+                "__type__": 2,
+                "__value__": 0
+              }
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:stone"
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -39
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 7
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          }
+        }
+      }
+    ],
+    "source": "actual native frame and requested inventory item interaction; optional AddEnchantToInvItem(9,3), no subsequent frame item setters",
+    "kind": "actual native frame blocks",
+    "coordinates_confirmed_air": true,
+    "dimension": 0
+  },
+  "native_client": {
+    "aux": 0,
+    "name": "minecraft:stone",
+    "root": {
+      "Item": {
+        "Block": {
+          "name": {
+            "__type__": 8,
+            "__value__": "minecraft:stone"
+          },
+          "states": {},
+          "val": {
+            "__type__": 2,
+            "__value__": 0
+          },
+          "version": {
+            "__type__": 3,
+            "__value__": 18168865
+          }
+        },
+        "Count": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "Damage": {
+          "__type__": 2,
+          "__value__": 0
+        },
+        "Name": {
+          "__type__": 8,
+          "__value__": "minecraft:stone"
+        },
+        "WasPickedUp": {
+          "__type__": 1,
+          "__value__": 0
+        }
+      },
+      "ItemDropChance": {
+        "__type__": 5,
+        "__value__": 1.0
+      },
+      "ItemRotation": {
+        "__type__": 5,
+        "__value__": 0.0
+      },
+      "id": {
+        "__type__": 8,
+        "__value__": "ItemFrame"
+      },
+      "isMovable": {
+        "__type__": 1,
+        "__value__": 1
+      },
+      "x": {
+        "__type__": 3,
+        "__value__": 7
+      },
+      "y": {
+        "__type__": 3,
+        "__value__": -39
+      },
+      "z": {
+        "__type__": 3,
+        "__value__": 8
+      }
+    }
+  },
+  "native_restoration": {
+    "passed": true,
+    "player_foot": {
+      "actual": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "passed": true,
+      "requested": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "return": true
+    },
+    "rows": [
+      {
+        "actual": [
+          "minecraft:air",
+          0
+        ],
+        "passed": true,
+        "position": [
+          7,
+          -39,
+          8
+        ],
+        "write_return": true
+      },
+      {
+        "actual": [
+          "minecraft:air",
+          0
+        ],
+        "passed": true,
+        "position": [
+          7,
+          -39,
+          9
+        ],
+        "write_return": true
+      },
+      {
+        "actual": [
+          "minecraft:air",
+          0
+        ],
+        "passed": true,
+        "position": [
+          7,
+          -40,
+          5
+        ],
+        "write_return": true
+      }
+    ]
+  },
+  "native_shader_errors": [],
+  "crop_receipts": [
+    {
+      "route": "native",
+      "output": "stone-native.png",
+      "source_sha256": "5a41acf5882bfb248ae3d5ebebd766b9cb3a33c0741f2dd95133686baf4016c5",
+      "crop_pixels": [
+        840,
+        400,
+        1150,
+        710
+      ],
+      "resize": [
+        620,
+        620
+      ],
+      "camera": {
+        "position": [
+          7.5,
+          -38.0,
+          5.9375
+        ],
+        "rotation": [
+          9.462308883666992,
+          -179.99996948242188,
+          -1.3660376680491026e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "reliable": true
+    },
+    {
+      "route": "full",
+      "output": "stone-provisional-product.png",
+      "source_sha256": "c8a773aba11583db5eb957478c18f9fd421cd66834b5f23f25bbbf9a002f4fe5",
+      "crop_pixels": [
+        840,
+        400,
+        1150,
+        710
+      ],
+      "resize": [
+        620,
+        620
+      ],
+      "camera": {
+        "position": [
+          7.5,
+          -38.0,
+          5.9375
+        ],
+        "rotation": [
+          9.462308883666992,
+          -179.99996948242188,
+          -1.3660376680491026e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "reliable": true
+    }
+  ],
+  "camera_calibration": {
+    "passed": true,
+    "restored": true,
+    "vertical_fov": 66.6,
+    "individual_fitted_vertical_fov": [
+      66.3,
+      66.3,
+      66.6
+    ],
+    "reported_fov": 60.0,
+    "capture_size": [
+      1994,
+      1105
+    ]
+  }
+}

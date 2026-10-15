@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "raw_report_sha256": "3e5a275778cb167d8425fbfc13d8d29dd4f0c200c93ec3b9b755f1a440a64d8d",
+  "completed": false,
+  "native_restored": true,
+  "cleanup_errors": [],
+  "source_unchanged": true,
+  "error": "MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: \\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 443, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 472, in _RUN_SERVER_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 23, in <module>\\nAssertionError\\n\", \"type\": \"text\"}]}",
+  "failing_code": "assert items.AddEnchantToInvItem(slot,9,3)",
+  "inventory_plain_quartz_spawn_passed": true,
+  "frame_insertion_not_reached": true,
+  "native_frame_enchanted_pixels_captured": false,
+  "inventory_enchant_data_probe": {
+    "slot": 0,
+    "actual_native_frame_verified": false,
+    "rows": [
+      {
+        "actual": null,
+        "passed": false,
+        "route": "SpawnItemToPlayerInv enchantData [(9,3)]",
+        "enchantments": [],
+        "spawn_return": false,
+        "name": "minecraft:quartz_block"
+      },
+      {
+        "actual": null,
+        "passed": false,
+        "route": "SpawnItemToPlayerInv enchantData [(9,3)]",
+        "enchantments": [],
+        "spawn_return": false,
+        "name": "minecraft:stone"
+      }
+    ],
+    "completed": true,
+    "inventory_restored": true,
+    "pixel_acceptance": false,
+    "schema": 1
+  },
+  "next_route": "Native plain block insertion, copy observed sword tag onto actual Item.Block compound, SetBlockEntityData and actual server/client readback; not yet executed"
+}

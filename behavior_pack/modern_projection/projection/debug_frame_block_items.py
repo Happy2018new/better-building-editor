@@ -1,9 +1,26 @@
 """Unqualified cube fixture with one ordinary item and one empty-frame control."""
-from .cell import actor_data, background, foreground, make_cell
-from .debug_item_blueprints import ORIENTATION_CASES, orientation_document
+from .cell import actor_data, background, foreground, freeze, make_cell, thaw
+from .debug_item_blueprints import ORIENTATION_CASES, enchanted_observations, orientation_document
 from .item_sprite_profile import frame_block_candidate_profile
-from .nbt_spatial import field_key, root_payload, set_scalar
+from .nbt_spatial import field_key, root_payload, scalar, set_scalar
 from .visible_actor import entity_nbt
+
+
+def artificial_enchantment_payload(native_frame):
+    """Copy a verified sword enchant tag onto an actual native block compound."""
+    result = thaw(freeze(native_frame))
+    root = root_payload(result)
+    item = root_payload(root.get(field_key(root, 'Item'))) if root else None
+    block = root_payload(item.get(field_key(item, 'Block'))) if item else None
+    if (not root or scalar(root, 'id') not in ('ItemFrame', 'GlowItemFrame') or
+            not item or not block or not scalar(item, 'Name') or
+            scalar(item, 'Count') != 1 or scalar(item, 'Damage') is None):
+        raise ValueError('Artificial block enchantment requires a filled native frame with Item.Block')
+    observed = enchanted_observations()[0]['cell_nbt'][0]['nbt']
+    source_root = root_payload(observed)
+    source_item = root_payload(source_root[field_key(source_root, 'Item')])
+    item[field_key(item, 'tag') or 'tag'] = thaw(freeze(source_item[field_key(source_item, 'tag')]))
+    return result
 
 
 def document(case_id, name, aux=0, enchanted=False):

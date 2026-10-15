@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "classification": "native_crash_during_close_attempt; not clean normal exit",
+  "crashes": [
+    {
+      "event_id": 1000,
+      "time_utc": "2026-10-15T16:55:23.3971993Z",
+      "pid": 5172,
+      "identity": "134365559630206350",
+      "module": "ucrtbase.dll",
+      "exception": "c0000409",
+      "offset": "00000000000a527e",
+      "report_id": "91114dcd-ae36-4f64-889c-7012bdf00b32",
+      "event_xml_sha256": "4f5463849edbfff91c0fe4c1bcaf6f75ace3d2d83574a78bbfdc67d34eda2950"
+    }
+  ],
+  "close_route": "owner-bound instances.py stop, WM_CLOSE only; no force",
+  "first_close_result": "Game has not closed after ten seconds; no forced stop performed",
+  "final_game_identity": null,
+  "final_mcdk_identity": null,
+  "final_managed_state": "stopped",
+  "inventory_probe_finished_local": "2026-10-16T00:54:56.973799+08:00",
+  "maximum_observed_handles_before_close": 182168,
+  "note": "All frame cells and player state restored before closure. Exact WM_CLOSE timestamp was not persisted; cause of native crash remains unresolved."
+}

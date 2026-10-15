@@ -313,6 +313,8 @@ def run(args):
                              'face':face}]
                     if args.frame_block_item:
                         rows[0].update(item_name=args.frame_block_item,item_aux=args.frame_block_aux)
+                        if args.frame_block_enchanted:
+                            rows[0]['artificial_enchantment']=True
                     native_camera = check.run(CAMERA)
                     # Keep the actual player below downward frames and outside the camera ray.
                     platform = (math.floor(native_camera['position'][0]) + (2 if face == 0 else 0),
@@ -332,15 +334,19 @@ def run(args):
                         read = ('from modern_projection.projection.nbt_spatial import root_payload,scalar,field_key\n'
                                 'root=root_payload(b.factory.CreateBlockInfo(b.level).GetBlockEntityData(%s))\n'
                                 'item=root_payload(root.get(field_key(root,"Item"))) if root else None\n'
+                                'tags=root_payload(item.get(field_key(item,"tag"))) if item else None\n'
+                                'enchants=tags.get(field_key(tags,"ench")) if tags else None\n'
                                 '_result={"root":root,"name":scalar(item,"Name") if item else None,'
-                                '"aux":scalar(item,"Damage") if item else None}' % position_code)
+                                '"aux":scalar(item,"Damage") if item else None,'
+                                '"enchantments":[(scalar(value,"id"),scalar(value,"lvl")) for value in (enchants or ())]}' % position_code)
                         check.wait('native empty frame replicated',lambda row: bool(row['root']),lambda:check.run(read))
                         time.sleep(.3)
                         sample(case_id+'_native_hidden_before','native')
                         fill_code = NATIVE_FILL if args.frame_block_item else NATIVE_FILL.replace('minecraft:diamond_sword',source['item'][0])
                         native['fill'] = server(fill_code)
                         native['client'] = check.wait('native item replicated',
-                            lambda row: row['name']==source['item'][0] and row['aux']==source['item'][1],lambda:check.run(read))
+                            lambda row: row['name']==source['item'][0] and row['aux']==source['item'][1]
+                            and row['enchantments']==([[9,3]] if native_mode=='enchanted' else []),lambda:check.run(read))
                         time.sleep(.3)
                         sample(case_id+'_native_shown','native')
                         server(NATIVE_CLEAR)

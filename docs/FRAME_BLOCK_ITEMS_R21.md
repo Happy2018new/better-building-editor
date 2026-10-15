@@ -53,11 +53,11 @@ There are 324 opaque, one cutout and 17 translucent resource candidates, with
 Translucent fragments preserve fractional source alpha. Material admission is
 independent, so opaque acceptance cannot admit glass automatically.
 
-The provisional pose is a half-block cube centered at `(0,0,0.1875)` relative
-to the item slot. This is an unmeasured starting value. Native six-face,
-eight-rotation, thickness and frame-body depth controls must establish its
-actual scale, center, axes and occlusion. It is not the previously measured
-flat-icon front plane.
+The generated catalog still retains the provisional half-block cube centered
+at `(0,0,0.1875)` relative to the item slot. The first actual stone comparison
+disproved this pose: product bounds are 171 by 179 pixels, versus native
+75 by 78 pixels at the same calibrated camera. The corrected isolated two-item
+candidate is described below; shared production resources have not adopted it.
 
 Every candidate records `fixed_default_item_axes`. Tall bitmap strips freeze
 the source's top square, explicitly recorded as
@@ -82,8 +82,13 @@ explicit semantics. Shelf and campfire are outside this frame adapter's scope.
 Current offline checks cover actual item/aux separation, atlas face interiors,
 mesh winding/normals, all 48 frame facing/rotation codes, immutable source NBT,
 frame-only ownership, unsupported metadata refusal, missing-target filtering,
-independent qualification and material gates. The 24 UI/world GLES 2/3 shader
-variants compile/link. These checks do not replace native pixel acceptance.
+independent qualification and material gates. All 108 `test_item*.py` tests and
+16 frame-block tests pass. Thirty shader variants compile/link: UI/world GLES
+2/3 and the GLES3 world skinning/instance paths. GLES2 skeletal headers use
+unsupported non-square matrices, so that path is explicitly outside this test.
+GPU pixel readback covers 96 face-local UVs and 4608 position/normal samples
+each for all 48 frame poses in both GLES versions. These checks do not replace
+native pixel acceptance.
 
 Rebuild candidates and verify generated outputs with:
 
@@ -98,14 +103,62 @@ The first bounded capture uses `run_visible_items_r16.py` with
 `--frame-block-item stone --frame-block-aux 0 --orientation-matrix --icons-only
 --skip-closeup --orientation-cases frame_f2_r0 --near-distance 3 --editor-zoom 5`.
 Repeat with `--frame-block-item quartz_block --frame-block-enchanted` for the
-artificial-enchantment comparison. The host uses native
-`AddEnchantToInvItem(9,3)` before insertion and validates the typed enchantment
-readback. A failure to create that item is a failed capture, not an exemption
-from the requested support.
+artificial-enchantment comparison. The first attempt created the native quartz
+inventory item but failed at `AddEnchantToInvItem(9,3)`, before frame insertion.
+A separate owned inventory probe found that `SpawnItemToPlayerInv` with
+`enchantData=[(9,3)]` also returns false for both stone and quartz block. All
+inventory slots were checked and restored. These public API limitations do not
+exclude artificial enchantment support.
 The ordinary block and empty-frame control preserve the native orientation
 template. The native comparison inserts actual inventory items through
 `PlayerUseItemToPos`, validates typed name/aux, then restores confirmed-air
-test cells and the player. It does not write synthetic native item NBT.
+test cells and the player. Plain comparisons use no synthetic frame item NBT.
+The revised artificial comparison first inserts an ordinary inventory block,
+keeps its actual typed `Item.Block` compound, then copies only the previously
+observed native sword enchant tag through `SetBlockEntityData`. Its report
+explicitly labels this synthetic enchantment write. It requires server and
+client enchantment readback before capture. This revised runtime route has not
+yet been executed or visually accepted.
+
+## First Native Evidence and Corrected Candidate
+
+`docs/evidence/frame-block-candidate-r21-v1/manifest.json` binds ten sanitized
+artifacts. `stone-comparison.png` contains equal-camera crops. The original
+stone case completed calibration, editor/full/missing captures, actual native
+inventory insertion and typed name/aux/NBT readback, then restored the test
+cells and player. Both capture cases retained stable source snapshots and
+reported no native item shader compiler errors. The quartz case failed and
+was restored; it produced no enchanted native block-frame pixels.
+
+The independent hull analyzer uses hidden-before/shown/hidden-after pixels,
+all 360 support directions and calibrated vertical FOV 66.6 degrees. A
+frame-centered fit gives scale 0.248083 and center Z 0.440248. The grid-aligned
+candidate scale 0.25 / center Z 0.4375 has support RMS 0.915 pixels and maximum
+1.519 pixels; the old pose has RMS 60.642 pixels. A free four-parameter fit has
+a near-zero Jacobian singular value: this single camera cannot independently
+establish scale, center and absolute depth. Six-face, oblique and support-depth
+holdouts remain necessary. Quartz block transfers the candidate pose and has
+no independent native geometry acceptance yet.
+
+`tools/prepare_frame_block_pose_r21.py` creates only stone/quartz meshes, two
+matching vertex shaders, three unchanged fragments and a two-item candidate
+profile in a separate output directory. All qualification fields remain false.
+It does not alter the shared model/material registrations or generated catalog.
+Its immutable output is `.runtime/frame-block-r21-pose-candidate-v2/`.
+
+```powershell
+python -B -X utf8 tools/analyze_frame_block_pose_r21.py .runtime/frame-block-r21-stone-front-v1/report.json .runtime/frame-block-r21-stone-fit-new
+python -B -X utf8 tools/prepare_frame_block_pose_r21.py --fit .runtime/frame-block-r21-stone-fit-new/fit.json --output .runtime/frame-block-r21-pose-candidate-new
+```
+
+After both cases restored, the owner-bound close used `WM_CLOSE` without force.
+The first stop timed out; later both process identities were absent and the
+managed session was recorded stopped. Windows Application Error 1000 records
+PID 5172, matching its exact creation identity, crashing in `ucrtbase.dll` with
+`c0000409` at 2026-10-16 00:55:23 +08:00. This is a shutdown crash, not a clean
+normal exit. The exact close-request timestamp was not persisted, and its
+cause remains unresolved. Maximum observed handles before close were 182168.
+No new game was launched during this offline follow-up.
 
 After the first scale/center/thickness check, expand to all six frame faces
 and eight rotations, oblique views, frame-body and shared editor depth,

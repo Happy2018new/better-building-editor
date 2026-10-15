@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "engine": "3.10.0.420447",
+  "files": {
+    "candidate.json": "de071441b3e76febb61b3385463bae27210a5747f93690d9eeb7d99b42aaf7fa",
+    "native-fit-hull.png": "4c3377119da87b610bd378f79307df2608cf88e62d5c939e9a4168f99b5dccda",
+    "offline-shaders.json": "a3d195476f3e5dded42bb1fba915a9daee954764a111651aa2998e3fbfa80e30",
+    "pose-fit.json": "4cd1881cb1bea1096696106586dd6d3828d605eb297bd3ba77ec7834c0c0a1df",
+    "quartz-enchantment-rejection.json": "2fbf55f45c83e90953c7d505032ce61cb1c10101783aa77bd4c717b43d52338a",
+    "shutdown.json": "d76f86e936af91dc44c0d1c68e865df6ef048fc99c7da9f7ce49f5588b667fde",
+    "stone-comparison.png": "3a30ca0f02d1005146bedb21426f48df77f57f0400d6213174b337a214851440",
+    "stone-native.json": "8b8cdd4d61be1a53f0c54ad91dc5eb4906fee3c7fd848fd0054f7256280df99b",
+    "stone-native.png": "73b29c4a43d4068eeb493ceb496ae12a5f16d862d5c76e52eda5b894351b7159",
+    "stone-provisional-product.png": "263fa94cecfbf668e0b60fc7979dc10ee1fed55299baa455104677d430dcc642"
+  },
+  "excluded": [
+    "Private full session records and routing tokens",
+    "Unrelated foreground window metadata"
+  ],
+  "limitations": [
+    "Stone original pose failed actual native pixels",
+    "Corrected pose is offline only with single-camera depth ambiguity",
+    "Artificially enchanted block native frame readback and glint pixels are still pending",
+    "Shutdown produced an exact-identity native WER crash"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "production_qualified": false,
+  "pose": {
+    "schema": 1,
+    "shape": "full_cube",
+    "scale_blocks": 0.25,
+    "center_offset_blocks": [
+      0.0,
+      0.0,
+      0.4375
+    ],
+    "accepted": false,
+    "status": "single_native_front_fit_candidate_requires_independent_depth_holdouts"
+  },
+  "items": [
+    [
+      "minecraft:stone",
+      0
+    ],
+    [
+      "minecraft:quartz_block",
+      0
+    ]
+  ],
+  "meshes": [
+    {
+      "item": [
+        "minecraft:stone",
+        0
+      ],
+      "path": "resource_pack/models/modern_projection/frame_block_items/1cc58135f7b22c54_mesh.json",
+      "resource": "1cc58135f7b22c54"
+    },
+    {
+      "item": [
+        "minecraft:quartz_block",
+        0
+      ],
+      "path": "resource_pack/models/modern_projection/frame_block_items/0d8d479f3958fea7_mesh.json",
+      "resource": "0d8d479f3958fea7"
+    }
+  ],
+  "resource_sha256": "a98182b02162c111bd2fcf4b3d5b9b4bc770ae4831112e2289a5bf7628ddb3fd",
+  "fit_sha256": "698e98c6a208589e34e2fc52be048ba875c44d4cb092cd0356d2305c34cb5e49",
+  "generator_sha256": "c3322bd44c7aa89e831e6c4b49310c0d97da21337c369bca545d5d314f8680e2",
+  "base_generator_sha256": "7d9cea807e57c461b0f9f667921f0d20f8a37990b5169a41758144e66c96fd6a",
+  "base_resource_sha256": "013db9ad4612e1c64b7f0bc71110a8f3f92247e72f2d4d7420f77c89e8d523df",
+  "mesh_sha256": {
+    "resource_pack/models/modern_projection/frame_block_items/1cc58135f7b22c54_mesh.json": "7c9bb5599b4ad1d0d8e557df9f7bf8a498aa232b1dd0e07b3d44b2eb40dd9fa0",
+    "resource_pack/models/modern_projection/frame_block_items/0d8d479f3958fea7_mesh.json": "1e9a773e4e384bcfe0c5d0df37a02968cf4a6fef6a8ad9df41996174b878bd95"
+  },
+  "files": {
+    "behavior_pack/modern_projection/projection/frame_block_item_data.py": "7d9dc9548066f77c2976a529371fb1221e3bf3946cd37d1ab5f02753d2ca5707",
+    "resource_pack/models/modern_projection/frame_block_items/0d8d479f3958fea7_mesh.json": "1e9a773e4e384bcfe0c5d0df37a02968cf4a6fef6a8ad9df41996174b878bd95",
+    "resource_pack/models/modern_projection/frame_block_items/1cc58135f7b22c54_mesh.json": "7c9bb5599b4ad1d0d8e557df9f7bf8a498aa232b1dd0e07b3d44b2eb40dd9fa0",
+    "resource_pack/shaders/glsl/modern_projection_frame_block.vertex": "b4f7c615263be665fa8918e34f1e70ead226b76cd281fdecb99324c83407d94e",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_cutout.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_opaque.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_translucent.fragment": "2c7649c3599e4ed20d5d41e15fc5bb67aae99cf590b604b438d92a507b591149",
+    "resource_pack/shaders/glsl/modern_projection_frame_block_world.vertex": "84d79511fba46b64614bfb99ec14820dd7a199f4ca09eff0fb91c90656b2d43d"
+  },
+  "limits": [
+    "Single native stone camera only; geometry depth remains unaccepted",
+    "Quartz block uses transferred candidate pose; no native block glint pixels yet",
+    "Install only into a new frozen diagnostic clone; no production resource edits"
+  ]
+}

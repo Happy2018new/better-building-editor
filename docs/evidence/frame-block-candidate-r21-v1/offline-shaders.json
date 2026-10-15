@@ -1,0 +1,240 @@
+{
+  "schema": 1,
+  "shader_sha256": {
+    "modern_projection_frame_block.vertex": "b4f7c615263be665fa8918e34f1e70ead226b76cd281fdecb99324c83407d94e",
+    "modern_projection_frame_block_opaque.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "modern_projection_frame_block_world.vertex": "84d79511fba46b64614bfb99ec14820dd7a199f4ca09eff0fb91c90656b2d43d",
+    "modern_projection_frame_block_cutout.fragment": "4c1d35e376f3a64d7b16fd26b9f5a2d383d123a7111a2e768583ef905e7aad9d",
+    "modern_projection_frame_block_translucent.fragment": "2c7649c3599e4ed20d5d41e15fc5bb67aae99cf590b604b438d92a507b591149"
+  },
+  "results": [
+    {
+      "name": "opaque/BLEND/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "opaque/BLEND,USE_OVERLAY/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "opaque/BLEND/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "opaque/BLEND,USE_OVERLAY/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "opaque_world/BLEND/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "opaque_world/BLEND,USE_OVERLAY/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "opaque_world/BLEND/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "opaque_world/BLEND,USE_OVERLAY/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "opaque_world/BLEND,USE_SKINNING,NETEASE_SKINNING/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "opaque_world/BLEND,USE_SKINNING,NETEASE_SKINNING,USE_INSTANCE/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout/BLEND/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout/BLEND,USE_OVERLAY/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout/BLEND/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout/BLEND,USE_OVERLAY/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout_world/BLEND/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout_world/BLEND,USE_OVERLAY/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout_world/BLEND/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout_world/BLEND,USE_OVERLAY/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout_world/BLEND,USE_SKINNING,NETEASE_SKINNING/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "cutout_world/BLEND,USE_SKINNING,NETEASE_SKINNING,USE_INSTANCE/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent/BLEND/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent/BLEND,USE_OVERLAY/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent/BLEND/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent/BLEND,USE_OVERLAY/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent_world/BLEND/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent_world/BLEND,USE_OVERLAY/100",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent_world/BLEND/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent_world/BLEND,USE_OVERLAY/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent_world/BLEND,USE_SKINNING,NETEASE_SKINNING/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    },
+    {
+      "name": "translucent_world/BLEND,USE_SKINNING,NETEASE_SKINNING,USE_INSTANCE/300",
+      "compiled": true,
+      "linked": true,
+      "errors": []
+    }
+  ],
+  "glint_face_uv": [
+    {
+      "version": 100,
+      "passed": true,
+      "vertices": 96,
+      "failures": []
+    },
+    {
+      "version": 300,
+      "passed": true,
+      "vertices": 96,
+      "failures": []
+    }
+  ],
+  "pose_48": {
+    "positions": [
+      {
+        "version": 100,
+        "passed": true,
+        "samples": 4608,
+        "failures": []
+      },
+      {
+        "version": 300,
+        "passed": true,
+        "samples": 4608,
+        "failures": []
+      }
+    ],
+    "normals": [
+      {
+        "version": 100,
+        "passed": true,
+        "samples": 4608,
+        "failures": []
+      },
+      {
+        "version": 300,
+        "passed": true,
+        "samples": 4608,
+        "failures": []
+      }
+    ]
+  },
+  "skinning_scope": "GLES3 skinning and instance paths only; installed uniformAnimationConstants.h uses mat3x4 and gl_InstanceID unsupported by GLES2",
+  "passed": true,
+  "production_qualified": false,
+  "scope": "Offline compilation only; native pixels remain unaccepted"
+}

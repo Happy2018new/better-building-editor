@@ -134,8 +134,51 @@ class FrameBlockResources(unittest.TestCase):
         self.assertTrue(any('_cutout:' in name for name in names))
         self.assertTrue(any('_translucent:' in name for name in names))
 
+    def test_measured_candidate_only_replaces_two_owned_cube_poses_and_keeps_production_disabled(self):
+        import prepare_frame_block_pose_r21 as candidate
+        files, meshes, contract = candidate.resources()
+        self.assertEqual({('minecraft:stone', 0), ('minecraft:quartz_block', 0)},
+                         {tuple(row['item']) for row in meshes})
+        for row in meshes:
+            mesh = json.loads(files[row['path']])['mesh'][0]
+            vertices = np.array([vertex['pos'] for vertex in mesh['vertices'][:24]])
+            np.testing.assert_allclose(vertices.max(axis=0) - vertices.min(axis=0), (.25, .25, .25))
+            np.testing.assert_allclose((vertices.max(axis=0) + vertices.min(axis=0)) / 2., (.5, .5, .4375))
+        namespace = {}
+        exec(files['behavior_pack/modern_projection/projection/frame_block_item_data.py'], namespace)
+        self.assertEqual(contract, namespace['RESOURCE_SHA256'])
+        self.assertEqual(set(candidate.ITEMS), set(namespace['ITEMS']))
+        self.assertIs(namespace['PRODUCTION_QUALIFIED'], False)
+        self.assertIs(namespace['POSE']['accepted'], False)
+        self.assertIsNone(namespace['QUALIFICATION_SHA256'])
+        self.assertNotIn('resource_pack/models/netease_models.json', files)
+        self.assertNotIn('resource_pack/materials/entity.material', files)
+        self.assertEqual(.5, source.POSE['scale_blocks'])
+
 
 class FrameBlockAdmission(unittest.TestCase):
+    def test_artificial_enchantment_preserves_native_block_compound_and_does_not_mutate_source(self):
+        from projection.debug_frame_block_items import artificial_enchantment_payload
+        from projection.nbt_spatial import root_payload, scalar
+        native = actor(item='minecraft:quartz_block')
+        block = {'name': tag(8, 'minecraft:quartz_block'), 'states': {},
+                 'val': tag(2, 0), 'version': tag(3, 18168865)}
+        root_payload(native['Item'])['Block'] = copy.deepcopy(block)
+        original = copy.deepcopy(native)
+        enchanted = artificial_enchantment_payload(native)
+        item = root_payload(enchanted['Item'])
+        self.assertEqual(block, item['Block'])
+        self.assertEqual('minecraft:quartz_block', scalar(item, 'Name'))
+        self.assertEqual(0, scalar(item, 'Damage'))
+        self.assertEqual(1, scalar(item, 'Count'))
+        enchants = root_payload(item['tag'])['ench']
+        self.assertEqual([(9, 3)], [(scalar(row, 'id'), scalar(row, 'lvl')) for row in enchants])
+        self.assertEqual(original, native)
+        self.assertTrue(sprite_content(frame(), enchanted, frame_block_candidate_profile(ENGINE).items)[3])
+        for invalid in ({}, actor(), actor(item='minecraft:quartz_block')):
+            with self.assertRaises(ValueError):
+                artificial_enchantment_payload(invalid)
+
     def test_runtime_fixture_has_one_observed_plain_aux_and_an_empty_control(self):
         from projection.debug_frame_block_items import document
         from projection.debug_item_blueprints import orientation_document

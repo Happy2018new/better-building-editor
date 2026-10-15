@@ -73,11 +73,23 @@ for row in rows:
  if row['mode']!='empty':
   assert items.SetInvItemNum(slot,0)
   assert items.SpawnItemToPlayerInv({'itemName':requested_name,'auxValue':requested_aux,'count':1},players[0],slot)
-  if row['mode']=='enchanted':
+  if row['mode']=='enchanted' and not row.get('artificial_enchantment'):
    assert items.AddEnchantToInvItem(slot,9,3)
-  assert tuple(map(tuple,items.GetInvItemEnchantData(slot) or ()))==(((9,3),) if row['mode']=='enchanted' else ())
+  assert tuple(map(tuple,items.GetInvItemEnchantData(slot) or ()))==(((9,3),) if row['mode']=='enchanted' and not row.get('artificial_enchantment') else ())
   assert player_info.PlayerUseItemToPos(position,item_type,slot,row.get('face',2))
   row['item_write_route']='native inventory PlayerUseItemToPos only; no subsequent frame setters'
+  if row.get('artificial_enchantment'):
+   assert row['mode']=='enchanted'
+   from modern_projection.projection.debug_frame_block_items import artificial_enchantment_payload
+   plain_nbt=adapter.info.GetBlockEntityData(adapter.dimension,position)
+   plain_root=root_payload(plain_nbt)
+   plain_item=root_payload(plain_root.get(field_key(plain_root,'Item')))
+   assert plain_item and scalar(plain_item,'Name')==requested_name and scalar(plain_item,'Damage')==requested_aux
+   artificial_nbt=artificial_enchantment_payload(plain_nbt)
+   assert adapter.info.SetBlockEntityData(adapter.dimension,position,adapter._native_tree(artificial_nbt))
+   row['item_write_route']='native plain inventory insertion followed by synthetic enchant tag copied onto actual native Item.Block compound via SetBlockEntityData'
+   row['artificial_enchantment_source']='versioned actually observed native sword tag; applied artificially to requested block'
+   row['plain_native_item']=plain_item
   if row['rotation']:
    assert frames.SetFrameRotation(position,adapter.dimension,row['rotation'])
    row['rotation_write_route']='native SetFrameRotation after item insertion'
@@ -102,11 +114,15 @@ for row in rows:
   ench=tags.get(field_key(tags,'ench')) or []
   actual=[(scalar(value,'id'),scalar(value,'lvl')) for value in ench]
   assert actual==([(9,3)] if row['mode']=='enchanted' else [])
+  if row.get('artificial_enchantment'):
+   before_block=row['plain_native_item'].get(field_key(row['plain_native_item'],'Block'))
+   after_block=typed_item.get(field_key(typed_item,'Block'))
+   assert before_block is not None and before_block==after_block
   assert scalar(root,'ItemRotation')==row['rotation']
  observed.append({'source':row,'item_api':item,'typed_nbt':nbt})
 _result=json.dumps({'kind':'actual native frame blocks','observed':observed,
  'dimension':adapter.dimension,'coordinates_confirmed_air':True,
- 'source':'actual native frame and requested inventory item interaction; optional AddEnchantToInvItem(9,3), no subsequent frame item setters'})
+ 'source':'actual native frame and requested inventory item interaction; AddEnchantToInvItem or explicitly declared synthetic block enchant tag write as recorded per row'})
 '''
 
 HIDE_CLEAR = '''import sys
