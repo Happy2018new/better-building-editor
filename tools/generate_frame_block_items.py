@@ -131,10 +131,10 @@ def bake_texture(image, entry):
         rgba[:, :, :3] *= color(entry['tint_color'])
         operations.append('rgb_tint')
     if 'overlay_color' in entry:
-        # Native terrain TGA alpha selects the untinted base versus tinted overlay.
-        # This candidate recipe remains gated on actual carried-texture pixels.
+        # Zero-alpha texels keep hidden base RGB; opaque texels receive the tint.
+        # Texture and intermediate-alpha appearance still require native pixels.
         mask = rgba[:, :, 3:4] / 255.
-        rgba[:, :, :3] *= mask + (1. - mask) * color(entry['overlay_color'])
+        rgba[:, :, :3] *= (1. - mask) + mask * color(entry['overlay_color'])
         rgba[:, :, 3] = 255.
         operations.append('alpha_mask_overlay_pending_native_pixels')
     return Image.fromarray(np.rint(rgba).clip(0, 255).astype(np.uint8)), operations

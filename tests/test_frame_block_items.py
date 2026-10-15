@@ -102,7 +102,8 @@ class FrameBlockResources(unittest.TestCase):
 
     def test_terrain_overlay_recipe_is_explicit_and_does_not_turn_dirt_green(self):
         image = Image.new('RGBA', (2, 1))
-        image.putdata(((100, 80, 60, 255), (200, 200, 200, 0)))
+        # Installed grass_side.tga stores dirt at alpha 0 and gray grass at 255.
+        image.putdata(((100, 80, 60, 0), (200, 200, 200, 255)))
         baked, operations = generator.bake_texture(image, {'overlay_color': '#80ff40'})
         self.assertEqual((100, 80, 60, 255), baked.getpixel((0, 0)))
         self.assertEqual((100, 200, 50, 255), baked.getpixel((1, 0)))
