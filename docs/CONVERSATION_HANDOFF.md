@@ -1,5 +1,14 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 02:20 六例方块物品与分析器修正
+
+- 用户再次强调框内旗帜物品和旗帜方块不同；物品短杆、外形、姿态、厚度和共享深度必须独立验收。现有壁旗帜可保留原生图案，只能证明方块几何路线；带图案盾牌仍未完成。shield正在独立副本准备仅pole材质的hide／坐标编码，不改布面图案或直接猜测杆件变形。
+- item六例stone／真实附魔quartz_block，0／±75°，共74主图和6校准完成、恢复、source unchanged、cleanup空。十二项full／missing与paired native轮廓均通过：五例IoU=1、P95／max=0；stone -75°两路IoU=.99915754、P95=0／max=1px。理想立方体拟合未计框板后遮挡，原生本身亦偏8–9px；原geometry_holdouts_passed=False保留，不能据此盲改候选scale=.25／centerZ=.4375。真实Item.Block typed附魔链已读回，光效方向／亮度及更多状态资格仍开。
+- item session ab3c0f6726404e5cafb5bad52fe4f99b已释放MC／WGC。normal close后精确保留句柄确认MC15144=0xC0000409、MCDK52476=0，无force，不能称clean shutdown。代理继续离线分析及脱敏归档。
+- book讲台plain24证据提交823a13f8，root独立verify包通过并看完四张六路图。仅一个真实aux1／west／poweredFalse方块状态的四相机，不能称四真实朝向。顶板完整，但书像素／独立cyan边界／上侧邻居仍开；代理离线准备四真实cardinal最小40图，不增加通电外观变体。
+- Shelf增加橡木颜色轮廓诊断（仅diagnostic），排除天空／草地阴影变化。对原24图重放后原骨骼候选四视角IoU均>.9998；旧baked在东西约.6206，南北像素等于骨骼。旧差分阈值误含背景不能作为几何判断。原AO相对原生亮度增益南北约.896／东西约.674，光照仍未通过。五项分析器回归及六项生成器回归通过；review-chroma-v2有效，旧review-chroma失败输出保留。
+- root获得下一独占窗口，已调用冻结的Shelf反向旋转副本一次性launcher：.runtime/projects/shelf-r21-reverse-v1，owner root-shelf-r20-reverse-v1，digest 89de58a7d0ed0187b77fcf383be914a7512df7665afbbabaa71060cbf8827562。启动状态须读start-summary／实际进程，不能重复launch。生产Shelf仍未接线。08:00休眠任务再次核对启用、StartWhenAvailable=False；继续开发，不push／合main。
+
 ## 2026-10-16 02:10 光效审计与Shelf烘焙失败对照
 
 - `eacbb533`保存原生固有glint严格审计：1907标识符／2835名称aux组合，128正、1605本次probe负、1102未判定；八族aux0..15均有原生UI正例（新增debug_stick）。root独立verify重算1033 indexed文件及分类均通过。海晶石弱动画误收已在独立严格重析退回未判定；原始采集保持不变。不读取动态指示器目标／位置／时间数据，production仍False。metadata-rich成书只离线准备，未启动。

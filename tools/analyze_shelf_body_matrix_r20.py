@@ -94,6 +94,24 @@ def compare(reference, candidate, empty, scope=None):
             'middle_raw_rmse': float(np.sqrt(np.mean((first - second) ** 2)))}
 
 
+def oak_silhouette(reference, candidate, scope):
+    """Separate measured oak from sky/grass drift, without granting admission."""
+    if scope is None or reference.shape != candidate.shape or scope.shape != reference.shape[:2]:
+        raise ValueError('Oak diagnostic needs matching images and a projected cell')
+
+    def mask(array):
+        red, green, blue = np.moveaxis(array.astype(float), 2, 0)
+        return scope & (red > green * 1.08) & (green > blue * 1.2)
+
+    first, second = mask(reference), mask(candidate)
+    if first.sum() < 100:
+        raise ValueError('No usable native oak color reference')
+    union = first | second
+    return {'diagnostic_only': True, 'predicate': 'R>1.08G and G>1.2B inside native projected cell',
+            'native_pixels': int(first.sum()), 'candidate_pixels': int(second.sum()),
+            'unshifted_iou': float((first & second).sum() / union.sum())}
+
+
 def analyze(source, output):
     report = json.loads(source.read_bytes())
     if not all(report.get(key) is True for key in ('completed', 'restored', 'source_unchanged')):
@@ -116,6 +134,8 @@ def analyze(source, output):
                 front = key[len(label) + 1:]
                 candidate = pixels(report, key, source.parent)
                 records[front] = compare(native, candidate, empty, scope)
+                if case['material']['name'] == 'minecraft:oak_shelf' and scope is not None:
+                    records[front]['oak_silhouette_diagnostic'] = oak_silhouette(native, candidate, scope)
                 samples.append((front, candidate))
         if not records:
             raise ValueError('No candidate artwork for ' + label)
