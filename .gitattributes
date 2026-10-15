@@ -334,3 +334,6 @@ docs/evidence/compass-loop-r21-v1/** -text -diff whitespace=cr-at-eol
 resource_pack/shaders/glsl/modern_projection_item_compass_loop.fragment -text whitespace=cr-at-eol
 tools/verify_compass_loop_r21.py -text whitespace=cr-at-eol
 tests/test_compass_loop_r21.py -text whitespace=cr-at-eol
+tools/analyze_shelf_light_inputs_r21.py text eol=lf
+tools/pack_shelf_light_inputs_r21.py text eol=lf
+docs/evidence/shelf-light-inputs-r21-*/** -text -diff whitespace=cr-at-eol

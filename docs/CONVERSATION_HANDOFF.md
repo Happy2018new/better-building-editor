@@ -1,5 +1,26 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 03:48 恢复进度与失败读回纠正
+
+- 用户再次强调旗帜物品与旗帜方块在展示框中不同。shield代理继续离线独立核对物品几何、姿态、比例、短下杆、厚度；原生骨骼的图案阳性不能代替Scene深度与框内正面验收。
+- Shelf inputs v2共40原图，completed/restored/source_unchanged=True、cleanup空，但所有输入仍显示原木／石材纹理，四个flags样本均flag_readback_valid=False。原因是探针仅修改entity.material，而实测几何走terrain.material。MC42460 exact=0xC0000409、MCDK44048=0，普通stop后自行退出，再普通finalize，无force。不得把该轮当GPU输入读回成功。
+- 正确mesh诊断已在新副本.runtime/projects/shelf-r21-mesh-inputs-v1准备，未启动。未标记输出无条件magenta，已标记19491读取八种真实输入；12 GLES programs／108显式合成像素检查通过。下一仅south和modes1、7先证明选择与uniform传递，再决定是否扩大。
+- Book cardinal40已采完并恢复；south_empty_world原生讲台及cyan都缺失而stone可见，独立cyan_hidden也缺lower top，保留为oracle/support controls未通过，不能关闭讲台本体。实际插入writable_book空书、totalPages0，client actor{}不等于完整NBT读回。177文件便携包已独立重放，待root释放index后提交。真实成书5图最小oracle仍仅离线准备，owner改为book-r20-native-oracle-v1，主watcher覆盖。
+- Portal持有当前唯一MC/WGC，v10八图外观对照进行中。首个gateway/front候选对原生raw亮度比.9337277、cyan覆盖比.9033526、nonblack比.9371215，无归一化或相位拟合，尚不等价。其v9坐标包与分析工具已提交4a2e0e3f／e2616173。
+- Water独立alpha包已提交0898a8f6；root用python -I -B --pixels独立重放通过，仍production=False。指南针任意2秒loop候选与便携包提交d9afc627，root实际GLES独立重放通过；磁石光效按原物品身份，不读取目标／位置／时间NBT，游戏显示门仍开。
+- 08:00休眠任务再次读回Ready，继续至截止；不push／合main，不改原water tracked WIP，不启动未获root运行窗口的MC。共享index暂由root保存本轮失败包，然后交Book。
+
+## 2026-10-16 03:26 水透明度与原生坐标完成，物品形态继续独立验收
+
+- 最新用户提醒保持最高优先：旗帜物品在物品展示框中的形态不同于旗帜方块，短下杆、姿态、比例、厚度必须独立对照原生物品；壁旗／站旗几何不能代替。图案盾原生骨骼绑定已真实显示蓝底和三层图案，但实际框内正面与Scene共同深度仍开。`b0c30dcf`保存75文件便携包，root独立重放及raw Git blobs复核通过；盾代理仅离线准备一个Scene-owned最小attachable selector／uniform／坐标控制，不启动新MC。
+- water alpha56与同会话stone校准已完成，`completed/restored/source_unchanged=True`、cleanup空，56帧后台guard全部通过。original/native两套四案alpha均4/4通过，endpoint RGB RMSE最大.33724/.33292，default对.45全部RMSE0。本批冻结时间，不关闭动画、原生shape／UV／style或production门。MC7220 exact=0xC0000409／MCDK42548=0，WER逐字节保留，普通stop第二次仅finalize；MC／WGC已释放。water现在仅获专属index打最小便携包，原water tracked WIP不碰。
+- Book已获得下一独占MC／WGC，唯一启动session `3e844f2cd1e547d7b6151ca504be64cb`、owner `book-r20-holdout-r21-v1`，MC52348／identity134365656004384785，MCDK39680／identity134365656002054821。启动前canonical可用commit10.88GiB、3093source／12host冻结一致、四reload=False；仅真实四cardinal的40图，不扩powered。03:26仍待采集结果，ready后由宿主立即exact observer。
+- root Shelf下一使用`.runtime/projects/shelf-r21-inputs-v2`，不是未启动的v1。marker19491共有8模式，新增NORMAL.w／entityNormal.w／TILE_LIGHT_COLOR.w；16合成program中14链接、124像素通过，另2项GLES100 skinning失败有相同flags真实native vertex对照。冻结3274文件／digest `c0b40a7b7cd914123d8a986eace4e0cc689d4ccf1ea2c94914d04e309b9b1ca6`，尚未launch。Book释放后仅south／west、AO+shelf／stone输入共40图；依据真实输入定位光照，暂不猜测增益或产品接线。
+- Portal v9实图16层X全部within-one=100%，Y共同相位5／within-one=100%；只删`t*viewRay+VIEW_POS`末尾`+VIEW_POS`。root独立decoder重放通过。`4a2e0e3f`保存35文件包，`e2616173`保存appearance analyzer／仰角参数／tests；index已释放。相位5与原始QPC捕获间隔5.0059842秒一致，但不是TIME直接读回，不关闭动画或外观。v10八图真实亮度／星点覆盖对照仅冻结，未启动，排Book／Shelf之后。
+- Snow `77936641`保存v4实际失败及probe camera恢复顺序修正。root972文件／18原图重放及5聚焦测试通过，仍`workflow_accepted=False`；修正probe先等zoom／rotation再恢复pan，实际Scene pose只读回执，不改产品相机或对齐图像。v5最小blue_orchid h0九步已冻结，尚未授权launch，不扩calibration／lily。
+- 普通compass和lodestone最小32帧任意2秒loop已离线接入；不读目标／位置／时间NBT，aux0–15共享(compass,0)资源，glint仍按原名称。40相关tests、24 GLES配对及20实际fragment合成像素通过，production=False；clock／recovery未扩。真实署名书五样本host冻结、所有运行边界6GiB，未放开book metadata门、未启动。item经验0.93 baseRGB候选也仍待独立草／原木等holdout。
+- 已再次读回08:00休眠任务enabled、`shutdown.exe /h`、StartWhenAvailable=False。补充DisabledSkin watcher PID47864／identity134365652083467659覆盖water-r21-alpha-v1及root-signed-book-r21-v1，03:19无errors；主watcher PID16252继续覆盖原owner prefixes。仍在dev，不push／合main，不终止无关进程。
+
 ## 2026-10-16 03:00 原生图案盾阳性与Shelf光照输入控制
 
 - 用户最新提醒继续生效：旗帜物品在展示框中的短下杆、姿态、比例及厚度独立验收，旗帜方块几何不能代替。真实crafter盾的原生骨骼绑定已显示Base4蓝底及三层图案，侧面有厚度／背把手；相同userdata的SetUiItem仍白底。root独立校验75文件／9原图／15源码回执并目检inspection-crops；实际框尚无图案正面，raw editor overlay不等于Scene共同深度。新包docs/evidence/shield-authentic-r21-v1尚待shield专属提交，生产仍False。

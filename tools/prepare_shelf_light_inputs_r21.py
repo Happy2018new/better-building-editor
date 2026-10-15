@@ -12,7 +12,11 @@ MARKER = 19491.
 VERTEX_NAME = 'shaders/glsl/modern_projection_shelf_inputs.vertex'
 FRAGMENT_NAME = 'shaders/glsl/modern_projection_shelf_inputs.fragment'
 MODES = {1: 'raw_normal', 2: 'entity_normal', 3: 'world_normal',
-         4: 'light_rgb', 5: 'tile_light_rgb', 6: 'vertex_rgb', 7: 'flags'}
+         4: 'light_rgb', 5: 'tile_light_rgb', 6: 'vertex_rgb', 7: 'flags',
+         8: 'normal_w_and_light_direction'}
+MESH_MODES = dict(MODES)
+MESH_MODES[2] = 'normalized_local_normal'
+MESH_MODES[7] = 'mesh_flags'
 
 DECLARATIONS = '''
 uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
@@ -31,7 +35,7 @@ READBACK = '''
             #ifdef COLOR_BASED
             shelfInput = vec4(COLOR.rgb, 1.0);
             #endif
-        } else {
+        } else if (mode < 7.5) {
             // R: FANCY, G: RNGL_UNLIT/LOCAL_LIGHT/LIGHT, B: COLOR_BASED/skinning.
             vec3 flags = vec3(0.0);
             #ifdef FANCY
@@ -56,7 +60,7 @@ READBACK = '''
             flags.b += 4.0/7.0;
             #endif
             shelfInput = vec4(flags, 1.0);
-        }
+        } else shelfInput = vec4(NORMAL.w, entitySpaceNormal.w, TILE_LIGHT_COLOR.w, 1.0);
     }
 '''
 
@@ -87,7 +91,33 @@ void main() {
     }''', 1)
 
 
-def prepare(source, output, native_root):
+def mesh_vertex_wrapper(source):
+    anchor = 'void main()\n{'
+    if source.count(anchor) != 1 or 'attribute vec4 NORMAL;' in source:
+        raise ValueError('Unexpected product terrain mesh vertex structure')
+    declarations = 'attribute vec4 NORMAL;\nvarying highp vec4 shelfInput;\n'
+    readback = READBACK.replace('entitySpaceNormal', 'NORMAL')
+    readback = readback.replace('''            #ifdef COLOR_BASED
+            shelfInput = vec4(COLOR.rgb, 1.0);
+            #endif''', '            shelfInput = vec4(COLOR.rgb, 1.0);')
+    end = source.rfind('}')
+    source = source[:end]+readback+source[end:]
+    return source.replace(anchor, declarations+'\n'+anchor, 1)
+
+
+def mesh_fragment_wrapper(source):
+    anchor = 'void main()\n{'
+    if source.count(anchor) != 1:
+        raise ValueError('Unexpected product terrain mesh fragment structure')
+    # The unmarked magenta output separates material selection from uniform delivery.
+    return source.replace(anchor, '''varying highp vec4 shelfInput;
+void main()
+{
+    gl_FragColor = shelfInput;
+    return;''', 1)
+
+
+def prepare(source, output, native_root, route='actor'):
     before = snapshot_sources(source)
     if output.exists():
         raise ValueError('Use a fresh private shelf input clone')
@@ -99,25 +129,35 @@ def prepare(source, output, native_root):
     config = json.loads((output/'.mcdev.json').read_bytes())
     assert all(config.get('auto_hot_reload_'+family) is False
                for family in ('mods', 'ui', 'materials', 'shaders'))
-    vertex = native_root/'shaders/glsl/entity.vertex'
-    fragment = source/'resource_pack/shaders/glsl/modern_projection_native_actor.fragment'
+    vertex = (native_root/'shaders/glsl/entity.vertex' if route == 'actor' else
+              source/'resource_pack/shaders/glsl/modern_projection_biome_blocks.vertex')
+    fragment = source/('resource_pack/shaders/glsl/modern_projection_native_actor.fragment' if route == 'actor' else
+                      'resource_pack/shaders/glsl/modern_projection_biome_blocks.fragment')
+    wrap_vertex, wrap_fragment = ((vertex_wrapper, fragment_wrapper) if route == 'actor' else
+                                  (mesh_vertex_wrapper, mesh_fragment_wrapper))
     (output/'resource_pack'/VERTEX_NAME).write_text(
-        vertex_wrapper(vertex.read_text(encoding='utf8')), encoding='utf8', newline='\n')
+        wrap_vertex(vertex.read_text(encoding='utf8')), encoding='utf8', newline='\n')
     (output/'resource_pack'/FRAGMENT_NAME).write_text(
-        fragment_wrapper(fragment.read_text(encoding='utf8')), encoding='utf8', newline='\n')
-    material_path = output/'resource_pack/materials/entity.material'
+        wrap_fragment(fragment.read_text(encoding='utf8')), encoding='utf8', newline='\n')
+    material_path = output/('resource_pack/materials/entity.material' if route == 'actor' else
+                           'resource_pack/materials/terrain.material')
     materials = json.loads(material_path.read_bytes())
-    entry = materials['materials']['netease_block_as_entity_transparency']
-    entry.update(vertexShader=VERTEX_NAME, fragmentShader=FRAGMENT_NAME)
+    for name, entry in materials['materials'].items():
+        if name == 'version':
+            continue
+        if route == 'mesh' or name == 'netease_block_as_entity_transparency':
+            entry.update(vertexShader=VERTEX_NAME, fragmentShader=FRAGMENT_NAME)
     material_path.write_text(json.dumps(materials, indent=2)+'\n', encoding='ascii', newline='\n')
     assert snapshot_sources(source) == before
     contract = {'production_qualified': False, 'source_unchanged': True,
-                'native_vertex_sha256': sha(vertex), 'actor_fragment_sha256': sha(fragment),
-                'marker': MARKER, 'modes': MODES,
-                'scope': 'Private actor transparency material; product routing unchanged',
+                'vertex_sha256': sha(vertex), 'fragment_sha256': sha(fragment),
+                'marker': MARKER, 'modes': MODES if route == 'actor' else MESH_MODES,
+                'route': route, 'unmarked_selector': 'magenta' if route == 'mesh' else None,
+                'scope': 'Private diagnostic materials; product routing unchanged',
                 'limits': ['RGB values quantized to capture bytes; no absolute HDR measurement',
-                           'Missing COLOR_BASED is magenta in mode 6',
-                           'Native world shelf does not use this actor diagnostic',
+                           ('Missing COLOR_BASED is magenta in mode 6' if route == 'actor' else
+                            'Mesh mode 6 reads the bound COLOR attribute regardless of COLOR_BASED'),
+                           'Native world shelf does not use these actor or mesh diagnostics',
                            'Input readback alone cannot qualify appearance or item contents']}
     (output/'shelf-input-contract.json').write_text(
         json.dumps(contract, indent=2)+'\n', encoding='ascii', newline='\n')
@@ -129,5 +169,6 @@ if __name__ == '__main__':
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--native-root', type=Path, required=True)
+    parser.add_argument('--route', choices=('actor', 'mesh'), default='actor')
     args = parser.parse_args()
-    print(json.dumps(prepare(args.source, args.output, args.native_root)))
+    print(json.dumps(prepare(args.source, args.output, args.native_root, args.route)))

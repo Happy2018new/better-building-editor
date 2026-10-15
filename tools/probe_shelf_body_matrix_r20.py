@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import time
@@ -12,6 +13,7 @@ import probe_native_palette_body_r16 as body
 from generate_shelf_resources_r17 import FRONTS, WOODS
 from probe_product_water import snapshot_sources
 from probe_shelf_native_shape_r17 import READ_WORLD, VIEWS
+from census_intrinsic_glint_ui_r21 import commit_at_boundary
 
 
 INITIALIZE = '''saved=sys._liquid_pose_client
@@ -108,8 +110,13 @@ def main():
     parser.add_argument('--compare-native-axis-baked-rotation', action='store_true')
     parser.add_argument('--shader-inputs', action='store_true',
                         help='Read private marker 19491 inputs on shelf AO and native stone controls')
+    parser.add_argument('--input-route', choices=('actor', 'mesh'), default='actor')
+    parser.add_argument('--input-modes', nargs='+', type=int, choices=range(1, 9))
     parser.add_argument('--directions', nargs='+', choices=('south', 'west', 'north', 'east'))
+    parser.add_argument('--min-commit-gib', type=float, default=6.)
     args = parser.parse_args()
+    if not math.isfinite(args.min_commit_gib) or args.min_commit_gib < 6.:
+        parser.error('Available commit margin must be finite and at least 6 GiB')
     if args.output.exists():
         parser.error('Use a fresh diagnostic directory')
     session = json.loads(args.session.read_bytes())
@@ -123,7 +130,14 @@ def main():
               'restored': False, 'production_qualified': False, 'cleanup_errors': [],
               'captures': {}, 'cases': [], 'source_sha256': sources,
               'host_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              'resource_samples': [], 'min_commit_gib': args.min_commit_gib,
               'session': {key: session[key] for key in ('id', 'owner', 'game_pid', 'game_identity')}}
+    if args.shader_inputs:
+        from prepare_shelf_light_inputs_r21 import MARKER, MODES, MESH_MODES
+        modes = MODES if args.input_route == 'actor' else MESH_MODES
+        if args.input_modes:
+            modes = {mode: modes[mode] for mode in args.input_modes}
+        report['shader_inputs'] = {'marker': MARKER, 'modes': modes, 'route': args.input_route}
     args.output.mkdir(parents=True)
     host_snapshot = args.output / 'host_sources'
     host_snapshot.mkdir()
@@ -133,9 +147,17 @@ def main():
     def persist():
         native.write(args.output / 'report.json', report)
 
+    def resource_check(label):
+        sample = commit_at_boundary()
+        report['resource_samples'].append(dict(sample, boundary=label))
+        persist()
+        if sample['commit_available_bytes'] < args.min_commit_gib*1024**3:
+            raise RuntimeError('Shelf capture requires the declared available commit margin')
+
     with native.Client(timeout=40) as client:
         world = saved = environment = workspace_saved = False
         try:
+            resource_check('before_fixture')
             report['workspace'] = native.run(client, body.CLOSE_WORKSPACE)
             workspace_saved = True
             deadline = time.monotonic() + 10.
@@ -170,6 +192,7 @@ def main():
                     time.sleep(.2)
 
             def frame(label, case):
+                resource_check(label)
                 if not native.run(client, body.WORLD_VISIBLE):
                     raise RuntimeError('Workspace obscures shelf measurement')
                 time.sleep(.4)
@@ -243,9 +266,9 @@ def main():
                             case['candidate_paths'][control+'_inputs'] = native.run(
                                 client, PROXY % ((identifier, 0),))
                             generated.add(path_key)
-                        for mode in range(1, 8):
+                        for mode in modes:
                             native.run(client, native.ATTACH % (
-                                path_key, (-.5, 0., -.5), (19491., float(mode), 0., 0.), []))
+                                path_key, (-.5, 0., -.5), (MARKER, float(mode), 0., 0.), []))
                             frame(label+'_'+control+'_input_'+str(mode), case)
                             native.run(client, DETACH)
             report['completed'] = True

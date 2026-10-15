@@ -1,0 +1,9225 @@
+{
+  "passed": true,
+  "production_qualified": false,
+  "synthetic_pixels_only": true,
+  "results": [
+    {
+      "name": "plain/100",
+      "kind": "entity",
+      "version": 100,
+      "flags": [],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "body_untagged_texture_alpha_32",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            32
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            32
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              32
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                32
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_texture_alpha_160",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            160
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            160
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              160
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                160
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_texture_alpha_255",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            255
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_0.0",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": -0.0,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_0.5",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.5,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_1.0",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_tagged_unlit_unbanked",
+          "passed": true,
+          "expected": [
+            180,
+            120,
+            60,
+            192
+          ],
+          "actual": [
+            180,
+            120,
+            60,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19487,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            255,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            255,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            -0.0,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "fancy/100",
+      "kind": "entity",
+      "version": 100,
+      "flags": [
+        "FANCY"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "body_untagged_texture_alpha_32",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            32
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            32
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              32
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                32
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_texture_alpha_160",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            160
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            160
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              160
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                160
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_texture_alpha_255",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            255
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_0.0",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": -0.0,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_0.5",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.5,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_1.0",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_tagged_unlit_unbanked",
+          "passed": true,
+          "expected": [
+            180,
+            120,
+            60,
+            192
+          ],
+          "actual": [
+            180,
+            120,
+            60,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19487,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            255,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            255,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            255,
+            -0.0,
+            -0.0,
+            255
+          ],
+          "actual": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "color/100",
+      "kind": "entity",
+      "version": 100,
+      "flags": [
+        "COLOR_BASED"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "actual": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            36.42857142857142,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            36,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "fancy_color/100",
+      "kind": "entity",
+      "version": 100,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "actual": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            255,
+            -0.0,
+            36.42857142857142,
+            255
+          ],
+          "actual": [
+            255,
+            0,
+            36,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "unlit_color/100",
+      "kind": "entity",
+      "version": 100,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED",
+        "RNGL_UNLIT"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "actual": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            255,
+            36.42857142857142,
+            36.42857142857142,
+            255
+          ],
+          "actual": [
+            255,
+            36,
+            36,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "local/100",
+      "kind": "entity",
+      "version": 100,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED",
+        "RNGL_LOCAL_LIGHT"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "actual": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            255,
+            72.85714285714285,
+            36.42857142857142,
+            255
+          ],
+          "actual": [
+            255,
+            73,
+            36,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "skinning/100",
+      "kind": "entity",
+      "version": 100,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED",
+        "USE_SKINNING"
+      ],
+      "compiled": false,
+      "linked": false,
+      "compile_errors": [
+        {
+          "stage": "vertex",
+          "log": "ERROR: 0:307: 'BONES_70' : syntax error\n"
+        }
+      ],
+      "pixel_checks": [],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "passed": false
+    },
+    {
+      "name": "plain/300",
+      "kind": "entity",
+      "version": 300,
+      "flags": [],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "body_untagged_texture_alpha_32",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            32
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            32
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              32
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                32
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_texture_alpha_160",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            160
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            160
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              160
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                160
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_texture_alpha_255",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            255
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_0.0",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": -0.0,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_0.5",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.5,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_1.0",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_tagged_unlit_unbanked",
+          "passed": true,
+          "expected": [
+            180,
+            120,
+            60,
+            192
+          ],
+          "actual": [
+            180,
+            120,
+            60,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19487,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            255,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            255,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            -0.0,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "fancy/300",
+      "kind": "entity",
+      "version": 300,
+      "flags": [
+        "FANCY"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "body_untagged_texture_alpha_32",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            32
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            32
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              32
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                32
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_texture_alpha_160",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            160
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            160
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              160
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                160
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_texture_alpha_255",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            255
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_0.0",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": -0.0,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_0.5",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.5,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_untagged_native_opacity_1.0",
+          "passed": true,
+          "expected": [
+            45,
+            60,
+            44.99999999999999,
+            192
+          ],
+          "actual": [
+            45,
+            60,
+            45,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              -0.0,
+              -0.0,
+              2,
+              0.33
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "body_tagged_unlit_unbanked",
+          "passed": true,
+          "expected": [
+            180,
+            120,
+            60,
+            192
+          ],
+          "actual": [
+            180,
+            120,
+            60,
+            192
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19487,
+              -0.0,
+              -0.0,
+              1
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 0.7,
+            "vertex_color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              192
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                192
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            255,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            255,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            255,
+            -0.0,
+            -0.0,
+            255
+          ],
+          "actual": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "color/300",
+      "kind": "entity",
+      "version": 300,
+      "flags": [
+        "COLOR_BASED"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "actual": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            36.42857142857142,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            36,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "fancy_color/300",
+      "kind": "entity",
+      "version": 300,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "actual": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            255,
+            -0.0,
+            36.42857142857142,
+            255
+          ],
+          "actual": [
+            255,
+            0,
+            36,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "unlit_color/300",
+      "kind": "entity",
+      "version": 300,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED",
+        "RNGL_UNLIT"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "actual": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            255,
+            36.42857142857142,
+            36.42857142857142,
+            255
+          ],
+          "actual": [
+            255,
+            36,
+            36,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "local/300",
+      "kind": "entity",
+      "version": 300,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED",
+        "RNGL_LOCAL_LIGHT"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [
+        {
+          "name": "input_1",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              1,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_2",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              2,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_3",
+          "passed": true,
+          "expected": [
+            127.5,
+            255,
+            127.5,
+            255
+          ],
+          "actual": [
+            128,
+            255,
+            128,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              3,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_4",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              4,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_5",
+          "passed": true,
+          "expected": [
+            63.75,
+            127.5,
+            191.25,
+            255
+          ],
+          "actual": [
+            64,
+            128,
+            191,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              5,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_6",
+          "passed": true,
+          "expected": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "actual": [
+            204,
+            153,
+            102,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              6,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_7",
+          "passed": true,
+          "expected": [
+            255,
+            72.85714285714285,
+            36.42857142857142,
+            255
+          ],
+          "actual": [
+            255,
+            73,
+            36,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              7,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "input_8",
+          "passed": true,
+          "expected": [
+            -0.0,
+            -0.0,
+            255,
+            255
+          ],
+          "actual": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "required_blank": false,
+          "entire_frame_blank": false,
+          "gl_error": 0,
+          "inputs": {
+            "packet": [
+              19491,
+              8,
+              -0.0,
+              -0.0
+            ],
+            "local": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "common": 1,
+            "vertex_color": [
+              0.8,
+              0.6,
+              0.4,
+              1
+            ],
+            "pixel": [
+              180,
+              120,
+              60,
+              255
+            ],
+            "shadow_color": [
+              -0.0,
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "texture_pixels": [
+              [
+                180,
+                120,
+                60,
+                255
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "depth_checks": [],
+      "passed": true
+    },
+    {
+      "name": "skinning/300",
+      "kind": "entity",
+      "version": 300,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED",
+        "USE_SKINNING"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "passed": true
+    },
+    {
+      "name": "native_skinning/100",
+      "kind": "native_baseline",
+      "version": 100,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED",
+        "USE_SKINNING"
+      ],
+      "compiled": false,
+      "linked": false,
+      "compile_errors": [
+        {
+          "stage": "vertex",
+          "log": "ERROR: 0:307: 'BONES_70' : syntax error\n"
+        }
+      ],
+      "pixel_checks": [],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "passed": false
+    },
+    {
+      "name": "native_skinning/300",
+      "kind": "native_baseline",
+      "version": 300,
+      "flags": [
+        "FANCY",
+        "COLOR_BASED",
+        "USE_SKINNING"
+      ],
+      "compiled": true,
+      "linked": true,
+      "compile_errors": [],
+      "pixel_checks": [],
+      "failures": [],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "passed": true
+    }
+  ],
+  "inherited_gles100_skinning_failures": 2,
+  "inheritance_check": "Compare actual native entity.vertex with identical flags in the same browser"
+}

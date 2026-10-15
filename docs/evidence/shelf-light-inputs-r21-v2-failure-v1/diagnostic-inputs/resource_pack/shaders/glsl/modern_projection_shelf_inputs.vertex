@@ -1,0 +1,91 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+#include "entityVertexUtil.h"
+#line 4
+
+varying vec4 light; // 光照值 vec4(r, g, b, a)
+varying vec4 fogColor; // 雾色与雾强度 vec4(r, g, b, 雾强度)
+
+#ifdef RNGL_LOCAL_LIGHT
+varying vec4 worldSpacePos;
+varying vec4 worldSpaceNormal;
+#endif
+
+
+uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
+varying highp vec4 shelfInput;
+
+void main() {
+	POS4 entitySpacePosition, entitySpaceNormal;
+	// 计算顶点动画 得到模型空间位置与法线
+	getEntitySpacePositionAndNormal(entitySpacePosition, entitySpaceNormal);
+
+	calculateOverlayColor(); // 受伤变红等效果
+	calculateGlint(); // 计算附魔效果相关变量
+
+	// 包含其他内置宏相关的varying计算
+	entityCommonVert();
+
+	// 计算默认的MC顶点光照
+	light = getLightColor(entitySpacePosition, entitySpaceNormal);
+
+	// 变量uv已经在头文件中预先声明 这里使用TEXCOORD_0作为uv值
+	uv = TEXCOORD_0;
+	// 计算顶点uv 包括MC支持的UV序列帧效果
+	applyUVAnim(uv);
+
+	calculateSpecificProcess(entitySpacePosition, entitySpaceNormal);
+
+	// 变换到投影空间
+	POS4 projSpacePos = WORLDVIEWPROJ * entitySpacePosition;
+	gl_Position = projSpacePos;
+
+#ifdef RNGL_LOCAL_LIGHT
+	worldSpacePos = WORLD * entitySpacePosition;
+	worldSpaceNormal = WORLD * entitySpaceNormal;
+	worldSpaceNormal.xyz = normalize(worldSpaceNormal.xyz);
+#endif
+
+	// 根据投影位置 计算雾的效果
+	fogColor = getFogColor(projSpacePos);
+
+    shelfInput = vec4(1.0, 0.0, 1.0, 1.0);
+    if (abs(EXTRA_ACTOR_UNIFORM4.x-19491.0) < 0.25) {
+        float mode = EXTRA_ACTOR_UNIFORM4.y;
+        if (mode < 1.5) shelfInput = vec4(NORMAL.xyz*0.5+0.5, 1.0);
+        else if (mode < 2.5) shelfInput = vec4(normalize(entitySpaceNormal.xyz)*0.5+0.5, 1.0);
+        else if (mode < 3.5) shelfInput = vec4(normalize((WORLD*entitySpaceNormal).xyz)*0.5+0.5, 1.0);
+        else if (mode < 4.5) shelfInput = vec4(light.rgb, 1.0);
+        else if (mode < 5.5) shelfInput = vec4(TILE_LIGHT_COLOR.rgb, 1.0);
+        else if (mode < 6.5) {
+            #ifdef COLOR_BASED
+            shelfInput = vec4(COLOR.rgb, 1.0);
+            #endif
+        } else if (mode < 7.5) {
+            // R: FANCY, G: RNGL_UNLIT/LOCAL_LIGHT/LIGHT, B: COLOR_BASED/skinning.
+            vec3 flags = vec3(0.0);
+            #ifdef FANCY
+            flags.r = 1.0;
+            #endif
+            #ifdef RNGL_UNLIT
+            flags.g += 1.0/7.0;
+            #endif
+            #ifdef RNGL_LOCAL_LIGHT
+            flags.g += 2.0/7.0;
+            #endif
+            #ifdef RNGL_LIGHT
+            flags.g += 4.0/7.0;
+            #endif
+            #ifdef COLOR_BASED
+            flags.b += 1.0/7.0;
+            #endif
+            #ifdef USE_SKINNING
+            flags.b += 2.0/7.0;
+            #endif
+            #ifdef NETEASE_SKINNING
+            flags.b += 4.0/7.0;
+            #endif
+            shelfInput = vec4(flags, 1.0);
+        } else shelfInput = vec4(NORMAL.w, entitySpaceNormal.w, TILE_LIGHT_COLOR.w, 1.0);
+    }
+}

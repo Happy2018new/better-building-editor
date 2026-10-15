@@ -1,0 +1,24 @@
+{
+  "production_qualified": false,
+  "source_unchanged": true,
+  "native_vertex_sha256": "7b5213a04745d086ebdb35308497989e638d4f3c42bfe9974bd03bf37cccbddb",
+  "actor_fragment_sha256": "b3540bb2fb3dbc3556a1f39edd24ee56fe9905eb01dfe974dadc95811c45007d",
+  "marker": 19491.0,
+  "modes": {
+    "1": "raw_normal",
+    "2": "entity_normal",
+    "3": "world_normal",
+    "4": "light_rgb",
+    "5": "tile_light_rgb",
+    "6": "vertex_rgb",
+    "7": "flags",
+    "8": "normal_w_and_light_direction"
+  },
+  "scope": "Private actor transparency material; product routing unchanged",
+  "limits": [
+    "RGB values quantized to capture bytes; no absolute HDR measurement",
+    "Missing COLOR_BASED is magenta in mode 6",
+    "Native world shelf does not use this actor diagnostic",
+    "Input readback alone cannot qualify appearance or item contents"
+  ]
+}

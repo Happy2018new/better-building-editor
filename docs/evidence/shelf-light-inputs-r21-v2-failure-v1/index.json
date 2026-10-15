@@ -1,0 +1,69 @@
+{
+  "production_qualified": false,
+  "observation": {
+    "report_sha256": "7ee4ad2011275ffda290d3aa137f8651a8b6f90333037e68cb612ba80469b3ca",
+    "reported_captures": 40,
+    "preserved_labels": [
+      "oak_0_south_empty",
+      "oak_0_south_shelf_input_1",
+      "oak_0_south_shelf_input_2",
+      "oak_0_south_shelf_input_3",
+      "oak_0_south_shelf_input_4",
+      "oak_0_south_shelf_input_5",
+      "oak_0_south_shelf_input_6",
+      "oak_0_south_shelf_input_7",
+      "oak_0_south_shelf_input_8",
+      "oak_0_south_stone_input_1",
+      "oak_0_south_stone_input_2",
+      "oak_0_south_stone_input_3",
+      "oak_0_south_stone_input_4",
+      "oak_0_south_stone_input_5",
+      "oak_0_south_stone_input_6",
+      "oak_0_south_stone_input_7",
+      "oak_0_south_stone_input_8",
+      "oak_0_south_unpowered",
+      "oak_0_south_unpowered_ao",
+      "oak_0_south_world",
+      "oak_8_west_empty",
+      "oak_8_west_shelf_input_1",
+      "oak_8_west_shelf_input_2",
+      "oak_8_west_shelf_input_3",
+      "oak_8_west_shelf_input_4",
+      "oak_8_west_shelf_input_5",
+      "oak_8_west_shelf_input_6",
+      "oak_8_west_shelf_input_7",
+      "oak_8_west_shelf_input_8",
+      "oak_8_west_stone_input_1",
+      "oak_8_west_stone_input_2",
+      "oak_8_west_stone_input_3",
+      "oak_8_west_stone_input_4",
+      "oak_8_west_stone_input_5",
+      "oak_8_west_stone_input_6",
+      "oak_8_west_stone_input_7",
+      "oak_8_west_stone_input_8",
+      "oak_8_west_unpowered",
+      "oak_8_west_unpowered_ao",
+      "oak_8_west_world"
+    ],
+    "omitted_labels": []
+  },
+  "flag_readback_valid": false,
+  "shader_inputs": {
+    "marker": 19491.0,
+    "modes": {
+      "1": "raw_normal",
+      "2": "entity_normal",
+      "3": "world_normal",
+      "4": "light_rgb",
+      "5": "tile_light_rgb",
+      "6": "vertex_rgb",
+      "7": "flags",
+      "8": "normal_w_and_light_direction"
+    }
+  },
+  "limits": [
+    "Input colors are captured bytes, not HDR or lighting acceptance.",
+    "Center samples use fixed ROIs without alignment or color fitting.",
+    "Only diagnostic shader inputs are copied, not a full runnable project."
+  ]
+}
