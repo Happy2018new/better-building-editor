@@ -68,9 +68,11 @@ item_type=api.GetMinecraftEnum().ItemPosType.INVENTORY
 slot=saved['slot']
 for row in rows:
  position=tuple(row['position'])
+ requested_name=row.get('item_name','minecraft:diamond_sword')
+ requested_aux=row.get('item_aux',0)
  if row['mode']!='empty':
   assert items.SetInvItemNum(slot,0)
-  assert items.SpawnItemToPlayerInv({'itemName':'minecraft:diamond_sword','auxValue':0,'count':1},players[0],slot)
+  assert items.SpawnItemToPlayerInv({'itemName':requested_name,'auxValue':requested_aux,'count':1},players[0],slot)
   if row['mode']=='enchanted':
    assert items.AddEnchantToInvItem(slot,9,3)
   assert tuple(map(tuple,items.GetInvItemEnchantData(slot) or ()))==(((9,3),) if row['mode']=='enchanted' else ())
@@ -83,6 +85,8 @@ assert items.SetInvItemNum(slot,0)
 observed=[]
 for row in rows:
  position=tuple(row['position'])
+ requested_name=row.get('item_name','minecraft:diamond_sword')
+ requested_aux=row.get('item_aux',0)
  item=frames.GetFrameItem(position,adapter.dimension)
  nbt=adapter.info.GetBlockEntityData(adapter.dimension,position)
  root=root_payload(nbt)
@@ -91,9 +95,9 @@ for row in rows:
  if row['mode']=='empty':
   assert item is None and (typed_item is None or not scalar(typed_item,'Count'))
  else:
-  assert item and (item.get('itemName') or item.get('newItemName'))=='minecraft:diamond_sword'
-  assert typed_item and scalar(typed_item,'Name')=='minecraft:diamond_sword'
-  assert scalar(typed_item,'Damage')==0 and scalar(typed_item,'Count')==1
+  assert item and (item.get('itemName') or item.get('newItemName'))==requested_name
+  assert typed_item and scalar(typed_item,'Name')==requested_name
+  assert scalar(typed_item,'Damage')==requested_aux and scalar(typed_item,'Count')==1
   tags=root_payload(typed_item.get(field_key(typed_item,'tag'))) or {}
   ench=tags.get(field_key(tags,'ench')) or []
   actual=[(scalar(value,'id'),scalar(value,'lvl')) for value in ench]
@@ -102,7 +106,7 @@ for row in rows:
  observed.append({'source':row,'item_api':item,'typed_nbt':nbt})
 _result=json.dumps({'kind':'actual native frame blocks','observed':observed,
  'dimension':adapter.dimension,'coordinates_confirmed_air':True,
- 'source':'public test.entities.item_contents first frame pair; actual native frame and inventory diamond sword interaction; AddEnchantToInvItem(9,3), no subsequent frame setters'})
+ 'source':'actual native frame and requested inventory item interaction; optional AddEnchantToInvItem(9,3), no subsequent frame item setters'})
 '''
 
 HIDE_CLEAR = '''import sys

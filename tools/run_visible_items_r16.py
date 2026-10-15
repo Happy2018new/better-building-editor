@@ -88,7 +88,8 @@ def run(args):
             assert report['launch_sources'].get(relative)==digest, 'Candidate mesh source differs'
         report['candidate_geometry']={'path':str(args.candidate_geometry.resolve()),
             'sha256':hashlib.sha256(args.candidate_geometry.read_bytes()).hexdigest(),'data':candidate}
-    report['profile_mode']='production' if args.production_profile else 'candidate'
+    report['profile_mode']=('frame_block_candidate' if args.frame_block_item else
+                            'production' if args.production_profile else 'candidate')
     report['view_configuration']={'angle_degrees':args.view_angle,'editor_zoom':args.editor_zoom,
                                   'native_target_plain':args.native_target_plain,
                                   'native_target':args.native_target}
@@ -157,10 +158,17 @@ def run(args):
             installed = True
             report['environment'] = environment(client, ENV_SETUP)
             environment_saved = True
+            resource_module = 'frame_block_item_data' if args.frame_block_item else 'item_icon_data'
             report['resource_contract']=check.run(
-                'from modern_projection.projection import item_icon_data\n'
-                '_result={"resource_sha256":item_icon_data.RESOURCE_SHA256,"layout_version":item_icon_data.LAYOUT_VERSION}')
-            if args.production_profile:
+                'from modern_projection.projection import %s as resource_data\n' % resource_module+
+                '_result={"resource_sha256":resource_data.RESOURCE_SHA256,"layout_version":resource_data.LAYOUT_VERSION}')
+            if args.frame_block_item:
+                check.run("from modern_projection.projection.item_sprite_profile import frame_block_candidate_profile\n"
+                          "assert not hasattr(sys,'_visible_items_profile')\n"
+                          "sys._visible_items_profile=s.item_profile\n"
+                          "s.item_profile=frame_block_candidate_profile('3.10.0.420447')\n_result=True")
+                profile_saved = True
+            elif args.production_profile:
                 check.run('assert s.item_profile is not None and s.item_profile.engine_version=="3.10.0.420447"\n_result=True')
             else:
                 check.run("from modern_projection.projection.item_sprite_profile import candidate_profile\n"
@@ -197,6 +205,10 @@ def run(args):
                                '_result=[dict(row,fixture=ORIENTATION_IDENTITY,item=("minecraft:diamond_sword",0)) for row in ORIENTATION_CASES]')
                 selected=set(args.orientation_cases.split(',')) if args.orientation_cases else None
                 matrix=[('orientation.'+row['id'],row) for row in poses if selected is None or row['id'] in selected]
+                if args.frame_block_item:
+                    for unused, source in matrix:
+                        source['item']=(args.frame_block_item,args.frame_block_aux)
+                        source['empty_frame_control']=True
                 if selected is not None:
                     assert len(matrix)==len(selected), 'Unknown orientation cases'
             report['requested_cases']=[case_id for case_id,source in matrix]
@@ -220,6 +232,10 @@ def run(args):
                             "doc=orientation_document(%r)\n" % source['id'] if is_orientation else
                             "from modern_projection.projection.debug_item_blueprints import catalogue_document\n"
                             "doc=catalogue_document(%r,%r)\n" % (source['fixture'], source['id']))
+                if args.frame_block_item:
+                    doc_code = ("from modern_projection.projection.debug_frame_block_items import document\n"
+                                "doc=document(%r,%r,%r)\n" %
+                                (source['id'],args.frame_block_item,args.frame_block_aux))
                 pose = (35.,25.,3.5) if is_slot else (180.,0.,3.5)
                 face=source['facing'] if is_orientation else 2
                 normal=((0,-1,0),(0,1,0),(0,0,-1),(0,0,1),(-1,0,0),(1,0,0))[face]
@@ -291,6 +307,8 @@ def run(args):
                              'rotation':source['rotation_degrees'] if is_orientation else 0.,
                              'frame_name':'minecraft:'+source['source_case'].removesuffix('_filled') if is_orientation else 'minecraft:frame',
                              'face':face}]
+                    if args.frame_block_item:
+                        rows[0].update(item_name=args.frame_block_item,item_aux=args.frame_block_aux)
                     native_camera = check.run(CAMERA)
                     # Keep the actual player below downward frames and outside the camera ray.
                     platform = (math.floor(native_camera['position'][0]) + (2 if face == 0 else 0),
@@ -310,13 +328,15 @@ def run(args):
                         read = ('from modern_projection.projection.nbt_spatial import root_payload,scalar,field_key\n'
                                 'root=root_payload(b.factory.CreateBlockInfo(b.level).GetBlockEntityData(%s))\n'
                                 'item=root_payload(root.get(field_key(root,"Item"))) if root else None\n'
-                                '_result={"root":root,"name":scalar(item,"Name") if item else None}' % position_code)
+                                '_result={"root":root,"name":scalar(item,"Name") if item else None,'
+                                '"aux":scalar(item,"Damage") if item else None}' % position_code)
                         check.wait('native empty frame replicated',lambda row: bool(row['root']),lambda:check.run(read))
                         time.sleep(.3)
                         sample(case_id+'_native_hidden_before','native')
-                        native['fill'] = server(NATIVE_FILL.replace('minecraft:diamond_sword',source['item'][0]))
+                        fill_code = NATIVE_FILL if args.frame_block_item else NATIVE_FILL.replace('minecraft:diamond_sword',source['item'][0])
+                        native['fill'] = server(fill_code)
                         native['client'] = check.wait('native item replicated',
-                            lambda row: row['name']==source['item'][0],lambda:check.run(read))
+                            lambda row: row['name']==source['item'][0] and row['aux']==source['item'][1],lambda:check.run(read))
                         time.sleep(.3)
                         sample(case_id+'_native_shown','native')
                         server(NATIVE_CLEAR)
@@ -389,6 +409,8 @@ if __name__ == '__main__':
     parser.add_argument('--icons-only', action='store_true')
     parser.add_argument('--orientation-cases')
     parser.add_argument('--candidate-geometry',type=Path)
+    parser.add_argument('--frame-block-item', help='Observed ordinary block item ID; standalone frame candidate only.')
+    parser.add_argument('--frame-block-aux', type=int, default=0)
     parser.add_argument('--near-distance', type=float, default=8.)
     parser.add_argument('--view-angle', type=float, default=0.)
     parser.add_argument('--editor-zoom', type=float)
@@ -398,6 +420,13 @@ if __name__ == '__main__':
     parser.add_argument('--maximum-handles', type=int, default=220000)
     parser.add_argument('--names', default='diamond_sword,apple,beef,diamond_pickaxe,iron_ingot,bed,bow,bucket,bone,bread,emerald,fishing_rod')
     args=parser.parse_args()
+    if args.frame_block_item:
+        if ':' not in args.frame_block_item:
+            args.frame_block_item='minecraft:'+args.frame_block_item
+        if (not args.orientation_matrix or not args.icons_only or not args.skip_closeup or
+                args.production_profile or args.native_target=='enchanted'):
+            parser.error('Frame blocks require --orientation-matrix --icons-only --skip-closeup and a plain candidate target')
+        args.native_target_plain=True
     if args.native_target_plain and args.native_target:
         parser.error('Use either --native-target-plain or --native-target')
     if args.burst_exe and (not args.burst_sha256 or len(args.burst_sha256)!=64 or

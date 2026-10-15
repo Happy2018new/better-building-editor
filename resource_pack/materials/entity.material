@@ -837,6 +837,144 @@
       ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_frame_block_opaque:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_frame_block.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_frame_block_opaque.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+    "modern_projection_frame_block_opaque_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_frame_block_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_frame_block_opaque.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+    "modern_projection_frame_block_cutout:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_frame_block.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_frame_block_cutout.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+    "modern_projection_frame_block_cutout_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_frame_block_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_frame_block_cutout.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+    "modern_projection_frame_block_translucent:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_frame_block.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_frame_block_translucent.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+    "modern_projection_frame_block_translucent_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_frame_block_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_frame_block_translucent.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
     }
   }
 }

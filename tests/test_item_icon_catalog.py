@@ -20,7 +20,7 @@ from projection.debug_item_blueprints import (CATALOGUE_CASES, CATALOGUE_METADAT
                                                catalogue_document, slot_observations, orientation_document)
 from projection.entity_overlays import native_item
 from projection.item_sprite_plan import iter_render_steps, sprite_content, validate_uniforms
-from projection.item_sprite_profile import candidate_profile, production_profile
+from projection.item_sprite_profile import ItemSpriteProfile, candidate_profile, production_profile
 from projection.model import Document
 from projection.nbt_spatial import root_payload, scalar
 from projection.visible_actor import compose_actor
@@ -208,7 +208,7 @@ class IconCatalogTests(unittest.TestCase):
         self.assertIsNone(sprite_content(frame(), payload, profile.items))
 
     def test_unknown_aux_and_special_render_userdata_are_opaque(self):
-        profile = candidate_profile(ENGINE)
+        profile = ItemSpriteProfile(ENGINE, include_frame_blocks=False)
         for name in ('minecraft:stone', 'minecraft:potion', 'minecraft:filled_map', 'minecraft:banner'):
             self.assertIsNone(sprite_content(frame(), actor(item=name), profile.items))
         payload = actor(item='minecraft:apple', user_data={'CustomColor': {'__type__': 3, '__value__': 1}})
