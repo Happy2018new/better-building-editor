@@ -1,0 +1,55 @@
+{
+  "observed_at_utc": "2026-10-15T17:06:01.157063+00:00",
+  "owner": "portal-r20-native-v5",
+  "session_id": "70e6452238be4cbe996dbe9bb24f01bb",
+  "stale_session_state": "ready",
+  "stale_session_ready": true,
+  "state_classification": "unexpected_exit_after_ready",
+  "game_exit_code": null,
+  "mcdk_exit_code": null,
+  "business_probe_started": false,
+  "wgc_performed": false,
+  "stop_requested": false,
+  "project_source_unchanged": true,
+  "source_sha256": {
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\70e6452238be4cbe996dbe9bb24f01bb\\session.json": "8371d3ddc614032141dc827098ef3c74c67ccbea6ca95a6e23e7b356d15fd0e9",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\70e6452238be4cbe996dbe9bb24f01bb\\mcdk.log": "04cea9b6ea3ffbc5152aa2f24c3a52177352ed3dcc514961b12d3868ba900a77",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\portal-native-control-r20-v5\\ready-summary.json": "b281cc452e7a45c5683e206429e43e07da5adfe6019bcd997a400855396009b6",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\portal-native-control-r20-v5\\start.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\portal-native-control-r20-v5\\launch-inputs.json": "e3e50eac226fa9e3a455271caef175c0339ebee0de705fc8706aa623d76477ae"
+  },
+  "limits": [
+    "No process handle remained from which to recover an exit code.",
+    "The native Python errors in the log do not prove the exit cause.",
+    "No successful coordinate control or renderer qualification was observed."
+  ],
+  "game": {
+    "pid": 44560,
+    "identity": "134365567745828977",
+    "observed_identity": null,
+    "owned_process_exited": true
+  },
+  "mcdk": {
+    "pid": 35760,
+    "identity": "134365567742112323",
+    "observed_identity": null,
+    "owned_process_exited": true
+  },
+  "selected_native_log_lines": [
+    "[Python] WindowsError: [Error 32] ",
+    "[Python] WindowsError: [Error 32] ",
+    "[Python] WindowsError: [Error 32] ",
+    "[Python] WindowsError: [Error 32] ",
+    "[Python] WindowsError: [Error 32] ",
+    "[Python] WindowsError: [Error 32] ",
+    "[Python] WindowsError: [Error 32] ",
+    "[Python]   File \"mod/client/system/petSysClient.py\", line 607, in OnSummonPet",
+    "[Python]   File \"mod/client/system/petSysClient.py\", line 1873, in _ShowPetToast",
+    "[Python] AttributeError: 'NoneType' object has no attribute 'show_toast'",
+    "[Python] [2026-10-16 00:56:10,015] [ERROR][Engine] post_error_dump: Starting error dump",
+    "[Python] [2026-10-16 00:56:10,017] [ERROR][Engine] Error dump: None",
+    "\u001b[32m[MCP] [INFO]\u001b[0m \u001b[90m2026-10-16 00:56:40 Stopping MCP server on 127.0.0.1:52500\u001b[0m",
+    "\u001b[32m[MCP] [INFO]\u001b[0m \u001b[90m2026-10-16 00:56:40 Maintenance thread exiting\u001b[0m",
+    "\u001b[32m[MCP] [INFO]\u001b[0m \u001b[90m2026-10-16 00:56:40 MCP server stopped\u001b[0m"
+  ]
+}

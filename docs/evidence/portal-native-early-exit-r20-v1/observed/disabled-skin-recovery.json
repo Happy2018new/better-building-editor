@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "owner": "portal-r20-native-v5",
+  "session_id": "70e6452238be4cbe996dbe9bb24f01bb",
+  "game_pid": 44560,
+  "game_identity": "134365567745828977",
+  "observed_at": "2026-10-16T00:56:03.880626+08:00",
+  "dialog": {
+    "hwnd": 5050924,
+    "pid": 44560,
+    "process": "Minecraft.Windows.exe",
+    "title": "Assert Failure - ctrl+C to copy this message to the clipboard!",
+    "x": 633,
+    "y": 446,
+    "width": 456,
+    "height": 210,
+    "minimized": false,
+    "text": "\u4e2d\u6b62(&A)\n\u91cd\u8bd5(&R)\n\u5ffd\u7565(&I)\nAssertion failed: The disabled skin popup has been displayed but the level data has no disabled cosmetics\nCondition is false: false\nFunction: void __cdecl DisabledSkinScreenController::onEntered(void) in C:\\jw\\gm\\handheld\\src-client\\common\\client\\gui\\screens\\controllers\\DisabledSkinScreenController.cpp @ 47\n"
+  },
+  "action": "WM_COMMAND IDIGNORE",
+  "agent_activation": false,
+  "dismissed": true,
+  "completed_at": "2026-10-16T00:56:04.012730+08:00"
+}

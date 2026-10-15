@@ -1,0 +1,18 @@
+{
+  "source_log_sha256": "5e62a6eead5ab50976688deeb6fdff746f0e44ea380a8269bd051a1eebe316c8",
+  "selected_native_log_lines": [
+    "[Python]   File \"mod/client/system/petSysClient.py\", line 607, in OnSummonPet",
+    "[Python]   File \"mod/client/system/petSysClient.py\", line 1873, in _ShowPetToast",
+    "[Python] AttributeError: 'NoneType' object has no attribute 'show_toast'",
+    "[Python] [2026-10-15 23:48:50,864] [ERROR][Engine] post_error_dump: Starting error dump",
+    "[Python] [2026-10-15 23:48:50,865] [ERROR][Engine] Error dump: None",
+    "\u001b[32m[MCP] [INFO]\u001b[0m \u001b[90m2026-10-16 00:00:20 Stopping MCP server on 127.0.0.1:57677\u001b[0m",
+    "\u001b[32m[MCP] [INFO]\u001b[0m \u001b[90m2026-10-16 00:00:20 Maintenance thread exiting\u001b[0m",
+    "\u001b[32m[MCP] [INFO]\u001b[0m \u001b[90m2026-10-16 00:00:20 MCP server stopped\u001b[0m"
+  ],
+  "survival_evidence": "docs/evidence/portal-native-measured-r20-v1/observed/report.json",
+  "interpretation": "The same native pet toast error preceded a successful four-frame acquisition.",
+  "limits": [
+    "The repeated error is insufficient to identify the v5 exit cause."
+  ]
+}

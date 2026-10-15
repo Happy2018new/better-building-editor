@@ -1,0 +1,31 @@
+{
+  "timezone": "Asia/Shanghai",
+  "same_owned_identity": true,
+  "events": [
+    {
+      "time": "2026-10-16T00:55:43.521396+08:00",
+      "event": "Both runtime markers verified; launcher returned ready."
+    },
+    {
+      "time": "2026-10-16T00:56:03.880626+08:00",
+      "event": "Exact DisabledSkinScreenController::onEntered @47 assertion observed."
+    },
+    {
+      "time": "2026-10-16T00:56:04.012730+08:00",
+      "event": "Watcher background WM_COMMAND IDIGNORE dismissed the dialog."
+    },
+    {
+      "time": "2026-10-16T00:56:10.015+08:00",
+      "event": "Native pet toast AttributeError followed by post_error_dump."
+    },
+    {
+      "time": "2026-10-16T00:56:40+08:00",
+      "event": "MCDK logged local MCP server stopping after the game-handle wait."
+    }
+  ],
+  "limits": [
+    "The timeline establishes ordering and correlation, not the cause of exit.",
+    "The pre-existing known-assertion watcher is not modified by this package.",
+    "No game or MCDK exit code was recovered."
+  ]
+}
