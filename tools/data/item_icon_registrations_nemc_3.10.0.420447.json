@@ -4336,6 +4336,28 @@
         "tex1": "modern_projection/item_icons/enchanted_glint"
       }
     },
+    "modern_projection_item_icon_7061f07c69c447f1": {
+      "dy_load": true,
+      "mesh": "modern_projection/item_icons/7061f07c69c447f1_mesh.json",
+      "skeleton": "modern_projection/item_icons/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_item_compass_loop",
+      "texture": {
+        "tex0": "modern_projection/item_icons/7061f07c69c447f1",
+        "tex1": "modern_projection/item_icons/enchanted_glint"
+      }
+    },
+    "modern_projection_item_icon_7061f07c69c447f1_world": {
+      "dy_load": true,
+      "mesh": "modern_projection/item_icons/7061f07c69c447f1_mesh.json",
+      "skeleton": "modern_projection/item_icons/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_item_compass_loop_world",
+      "texture": {
+        "tex0": "modern_projection/item_icons/7061f07c69c447f1",
+        "tex1": "modern_projection/item_icons/enchanted_glint"
+      }
+    },
     "modern_projection_item_icon_711695c4338b2232": {
       "dy_load": true,
       "mesh": "modern_projection/item_icons/711695c4338b2232_mesh.json",
@@ -9927,9 +9949,55 @@
         }
       ]
     },
+    "modern_projection_item_compass_loop:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_item_icon.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_item_compass_loop.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
     "modern_projection_item_icon_world:entity_for_skeleton_alpha": {
       "vertexShader": "shaders/glsl/modern_projection_item_icon_world.vertex",
       "fragmentShader": "shaders/glsl/modern_projection_item_icon.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "-states": [
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+    "modern_projection_item_compass_loop_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_item_icon_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_item_compass_loop.fragment",
       "+states": [
         "Blending",
         "DisableCulling"

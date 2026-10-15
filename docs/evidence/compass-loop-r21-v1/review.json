@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "baseline_ref": "e2616173a6279ddfb2862b53a8fe0284d6753c82",
+  "review_scope": "One opaque compass loop and lodestone aux 0-15 aliases",
+  "native_atlas": {
+    "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\data\\resource_packs\\vanilla\\textures\\items\\compass_atlas.png",
+    "sha256": "7061f07c69c447f164d61fc009aaf4c9815ad854e59e6f17eea0a742583ed6f8",
+    "size": [
+      16,
+      512
+    ],
+    "frames": 32,
+    "same_alpha": true
+  },
+  "unchanged_static_profiles": 511,
+  "unchanged_static_resources": 450,
+  "unchanged_static_asset_files": 905,
+  "unchanged_static_asset_bytes": 50140409,
+  "static_asset_comparison_sha256": "8c5a9f31e1a3a6af0f5f2029a263381a35f864edebcbe24446d18dab1a353e73",
+  "registration_additions": {
+    "tools/data/item_icon_registrations_nemc_3.10.0.420447.json:models": [
+      "modern_projection_item_icon_7061f07c69c447f1",
+      "modern_projection_item_icon_7061f07c69c447f1_world"
+    ],
+    "tools/data/item_icon_registrations_nemc_3.10.0.420447.json:materials": [
+      "modern_projection_item_compass_loop:entity_for_skeleton_alpha",
+      "modern_projection_item_compass_loop_world:entity_for_skeleton_alpha"
+    ],
+    "resource_pack/models/netease_models.json:None": [
+      "modern_projection_item_icon_7061f07c69c447f1",
+      "modern_projection_item_icon_7061f07c69c447f1_world"
+    ],
+    "resource_pack/materials/entity.material:materials": [
+      "modern_projection_item_compass_loop:entity_for_skeleton_alpha",
+      "modern_projection_item_compass_loop_world:entity_for_skeleton_alpha"
+    ]
+  },
+  "compiler_programs": 24,
+  "fragment_pixel_samples": 20,
+  "game_started": false,
+  "production_qualified": false,
+  "native_frame_pixels_qualified": false,
+  "editor_pixels_qualified": false,
+  "projection_pixels_qualified": false,
+  "ordinary_static_regression_findings": [],
+  "limits": [
+    "Offline fragment uses a fullscreen test vertex; native mesh pose is unqualified.",
+    "32 native atlas frames have 28 distinct bitmaps; the 2-second loop is intentionally arbitrary.",
+    "Static assets are compared byte-for-byte with immutable Git blobs; their 50 MB bodies are omitted.",
+    "No target, time, location NBT or unmeasured auxiliary values are admitted."
+  ]
+}

@@ -329,3 +329,8 @@ tools/pack_lectern_body_candidate_r21.py text eol=lf
 # Standalone alpha controls retain exact reports, native PNGs, and exit evidence.
 docs/evidence/water-alpha-r21-v1/** -text -diff whitespace=cr-at-eol
 tools/pack_water_alpha_r21.py text eol=lf
+# Compass loop review retains original source, atlas and offline reports.
+docs/evidence/compass-loop-r21-v1/** -text -diff whitespace=cr-at-eol
+resource_pack/shaders/glsl/modern_projection_item_compass_loop.fragment -text whitespace=cr-at-eol
+tools/verify_compass_loop_r21.py -text whitespace=cr-at-eol
+tests/test_compass_loop_r21.py -text whitespace=cr-at-eol

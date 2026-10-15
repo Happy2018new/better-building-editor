@@ -35,9 +35,10 @@ def main():
     assert not args.report.exists(), 'Choose a fresh compiler report'
     directory = ROOT / 'resource_pack/shaders/glsl'
     cases, hashes = [], {}
-    for family in ('item_sprite', 'item_icon'):
+    for family in ('item_sprite', 'item_icon', 'item_compass_loop'):
         for route in ('', '_world'):
-            vertex = directory / ('modern_projection_' + family + route + '.vertex')
+            vertex_family = 'item_icon' if family == 'item_compass_loop' else family
+            vertex = directory / ('modern_projection_' + vertex_family + route + '.vertex')
             fragment = directory / ('modern_projection_' + family + '.fragment')
             for path in (vertex, fragment):
                 hashes[path.name] = hashlib.sha256(path.read_bytes()).hexdigest()
@@ -58,8 +59,8 @@ def main():
     baseline = dict((row['name'].replace('item_sprite','item_icon',1), row)
                     for row in results if row['name'].startswith('item_sprite'))
     for row in results:
-        if row['name'].startswith('item_icon'):
-            reference = baseline[row['name']]
+        if row['name'].startswith(('item_icon', 'item_compass_loop')):
+            reference = baseline[row['name'].replace('item_compass_loop', 'item_icon', 1)]
             row['baseline_passed'] = reference['compiled'] and reference['linked']
             row['regression'] = row['baseline_passed'] and not (row['compiled'] and row['linked'])
     report = {'schema':1,'results':results,'shader_sha256':hashes,

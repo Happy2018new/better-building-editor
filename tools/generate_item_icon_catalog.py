@@ -86,6 +86,10 @@ LAYOUT = '''float itemLayout=EXTRA_VECTOR2.x;
     }'''
 GLINT_TEXTURE = 'textures/misc/enchanted_item_glint'
 GLINT_RESOURCE = 'modern_projection/item_icons/enchanted_glint'
+COMPASS_NAMES = frozenset(('minecraft:compass', 'minecraft:lodestone_compass'))
+COMPASS_LOOP = {'schema': 1, 'mode': 'untracked_free_running', 'frame_count': 32,
+                'frames_per_second': 16., 'period_seconds': 2.,
+                'metadata_policy': 'opaque', 'source_item': 'minecraft:compass'}
 GLINT = {'schema': 1, 'uv_scale': .5, 'rotations_degrees': (80., -20.),
          'cycles_per_second': (2. / 15., -4. / 11.), 'color': (.285, .1425, .4575),
          'unscaled_offset_per_second': (4. / 15., -8. / 11.),
@@ -136,6 +140,23 @@ def icon_mesh(image,pose,texture):
     return generated
 
 
+def compass_reference(image):
+    """One thickness mesh is valid only when every native frame has its alpha."""
+    image = image.convert('RGBA')
+    width = image.width
+    if image.height != width * COMPASS_LOOP['frame_count'] or width > 64:
+        raise ValueError('Compass loop requires the native vertical 32-frame atlas')
+    reference = image.crop((0, 0, width, width))
+    alpha = reference.getchannel('A').tobytes()
+    if not reference.getchannel('A').getbbox():
+        raise ValueError('Compass loop requires a visible silhouette')
+    for index in range(COMPASS_LOOP['frame_count']):
+        frame = image.crop((0, index * width, width, (index + 1) * width))
+        if frame.getchannel('A').tobytes() != alpha or set(frame.getchannel('A').getdata()) - {0, 255}:
+            raise ValueError('Compass frames need the same binary alpha for one thickness mesh')
+    return reference
+
+
 def classify(name, info, texture):
     if not isinstance(info, dict):
         return 'missing_basic_info'
@@ -170,20 +191,24 @@ def build_catalog(raw, basic, install):
         name, aux = row['name'], row['aux']
         texture = row.get('texture', row.get('value'))
         family = classify(name, infos.get(name), texture)
-        if family != 'flat_icon_candidate':
+        compass_loop = name in COMPASS_NAMES and aux in range(16) and family == 'dynamic_compass'
+        if family != 'flat_icon_candidate' and not compass_loop:
             unsupported.setdefault(name, family)
             continue
         atlas = next(((path, value) for path, value in atlases
                       if any(texture in texture_paths(entry)
                              for entry in value['texture_data'].values())), None)
-        bitmap = next((packs / pack / (texture+'.png') for pack in
+        source_texture = 'textures/items/compass_atlas' if compass_loop else texture
+        bitmap = next((packs / pack / (source_texture+'.png') for pack in
                        ('vanilla', 'vanilla_base', 'vanilla_netease')
-                       if (packs / pack / (texture+'.png')).is_file()), None)
+                       if (packs / pack / (source_texture+'.png')).is_file()), None)
         if atlas is None or bitmap is None:
             unsupported.setdefault(name, 'missing_versioned_bitmap_or_atlas')
             continue
         data = bitmap.read_bytes()
         with Image.open(bitmap) as image:
+            if compass_loop:
+                image = compass_reference(image)
             alpha = image.convert('RGBA').getchannel('A')
             if set(alpha.getdata()) - {0, 255} or not alpha.getbbox():
                 unsupported.setdefault(name, 'intermediate_alpha_or_empty_bitmap')
@@ -191,18 +216,25 @@ def build_catalog(raw, basic, install):
             if image.width != image.height or image.width > 64:
                 unsupported.setdefault(name, 'non_square_or_oversized_bitmap')
                 continue
-            digest, size = sha(data), list(image.size)
+            digest = sha(data)
+        with Image.open(bitmap) as image:
+            size = list(image.size)
         key = digest[:16]
         old = resources.get(key)
         if old and old['sha256'] != digest:
             raise ValueError('Texture resource identity collision')
-        resources[key] = {'sha256': digest, 'size': size, 'texture_path': texture,
+        resources[key] = {'sha256': digest, 'size': size, 'texture_path': source_texture,
                           'source_pack': bitmap.relative_to(packs).parts[0],
                           'atlas_sha256': sha(atlas[0].read_bytes())}
+        if compass_loop:
+            resources[key]['animation'] = dict(COMPASS_LOOP)
         info = infos[name]
-        items.append({'name': name, 'aux': aux, 'resource': key,
-                      'max_durability': info.get('maxDurability', 0),
-                      'item_type': info.get('itemType', '')})
+        item = {'name': name, 'aux': aux, 'resource': key,
+                'max_durability': info.get('maxDurability', 0),
+                'item_type': info.get('itemType', '')}
+        if compass_loop:
+            item['resource_alias'] = ['minecraft:compass', 0]
+        items.append(item)
     glint_path = packs / 'vanilla' / (GLINT_TEXTURE+'.png')
     glint = dict(GLINT, texture_sha256=sha(glint_path.read_bytes()), texture_path=GLINT_TEXTURE,
                  source_pack='vanilla')
@@ -266,6 +298,12 @@ def outputs(catalog, install):
         'vec3 rgb=texel.rgb;', 'vec3 rgb=texel.rgb*itemLight;').replace(
         '*(first+second);', '*(first+second)*itemTileLight;')
     result['resource_pack/shaders/glsl/modern_projection_item_icon.fragment'] = fragment.encode('ascii')
+    if any('animation' in resource for resource in catalog['resources'].values()):
+        loop = fragment.replace('vec4 texel=texture2D(TEXTURE_0,itemUv);',
+            'float frame=floor(mod(TOTAL_REAL_WORLD_TIME,2.0)*16.0);\n'
+            '    vec2 loopUv=vec2(itemUv.x,(itemUv.y+frame)/32.0);\n'
+            '    vec4 texel=texture2D(TEXTURE_0,loopUv);')
+        result['resource_pack/shaders/glsl/modern_projection_item_compass_loop.fragment'] = loop.encode('ascii')
     glint_bitmap = (install/'data/resource_packs'/glint['source_pack']/(glint['texture_path']+'.png')).read_bytes()
     if sha(glint_bitmap) != glint['texture_sha256']:
         raise ValueError('Installed native glint texture differs from the measured contract')
@@ -278,13 +316,18 @@ def outputs(catalog, install):
         texture = ASSET+'/'+key
         result['resource_pack/textures/models/'+texture+'.png'] = bitmap
         with Image.open(path) as image:
+            if 'animation' in resource:
+                if resource['animation'] != COMPASS_LOOP:
+                    raise ValueError('Compass animation differs from the opaque loop contract')
+                image = compass_reference(image)
             result['resource_pack/models/'+texture+'_mesh.json'] = (json.dumps(
                 icon_mesh(image, catalog['pose'], texture), separators=(',', ':'))+'\n').encode('ascii')
         for suffix in ('', '_world'):
             name = PREFIX+key+suffix
             registry[name] = {'dy_load': True, 'mesh': texture+'_mesh.json',
                               'skeleton': ASSET+'/skeleton.json',
-                              'animation': {}, 'material': 'modern_projection_item_icon'+suffix,
+                              'animation': {}, 'material': ('modern_projection_item_compass_loop' if 'animation' in resource
+                                                           else 'modern_projection_item_icon')+suffix,
                               'texture': {'tex0': texture, 'tex1': GLINT_RESOURCE}}
     for suffix in ('', '_world'):
         materials['modern_projection_item_icon'+suffix+':entity_for_skeleton_alpha'] = {
@@ -295,6 +338,10 @@ def outputs(catalog, install):
             'blendDst': 'OneMinusSrcAlpha',
             '+samplerStates': [{'samplerIndex': 0, 'textureFilter': 'Point'},
                                {'samplerIndex': 1, 'textureFilter': 'Bilinear'}]}
+        if any('animation' in resource for resource in catalog['resources'].values()):
+            loop_material = dict(materials['modern_projection_item_icon'+suffix+':entity_for_skeleton_alpha'])
+            loop_material['fragmentShader'] = 'shaders/glsl/modern_projection_item_compass_loop.fragment'
+            materials['modern_projection_item_compass_loop'+suffix+':entity_for_skeleton_alpha'] = loop_material
     rows_by_name = {}
     for row in catalog['items']:
         rows_by_name.setdefault(row['name'], []).append(row)
@@ -307,8 +354,14 @@ def outputs(catalog, install):
             profiles[key] = {'ui_model': PREFIX+resource, 'world_model': PREFIX+resource+'_world',
                              'texture_sha256': catalog['resources'][resource]['sha256'],
                              'family': 'flat_icon', 'sprite_size_pixels': catalog['pose']['size_pixels'],
-                             'resource_key': canonical, 'observed_aux': observed,
+                             'resource_key': tuple(rows[0].get('resource_alias', canonical)), 'observed_aux': observed,
                              'max_durability': durable}
+    for profile in profiles.values():
+        target = profiles.get(profile['resource_key'])
+        if target is None:
+            raise ValueError('Item resource alias requires its canonical profile')
+        if any(profile[key] != target[key] for key in ('ui_model', 'world_model', 'texture_sha256')):
+            raise ValueError('Item resource alias must keep the canonical model and texture')
     registrations = {'schema': 1, 'engine_version': VERSION, 'models': registry, 'materials': materials}
     result['tools/data/item_icon_registrations_nemc_'+VERSION+'.json'] = encoded(registrations)
     contract = sha(b''.join(path.encode('ascii')+data for path, data in sorted(result.items())))
