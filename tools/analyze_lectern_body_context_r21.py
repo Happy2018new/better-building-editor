@@ -32,6 +32,18 @@ def silhouette(reference, candidate, empty):
             'unshifted_iou': float(common.sum()/union.sum()), 'bounds': bounds}
 
 
+def top_outline(image, empty):
+    pixels = image.astype(float)
+    r, g, b = np.moveaxis(pixels, -1, 0)
+    changed = np.max(abs(pixels-empty.astype(float)), axis=2) > 12
+    brown = changed & (r > g*1.02) & (g > b*1.12)
+    result = {}
+    for column in (100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300):
+        rows = np.flatnonzero(brown[:200, column])
+        result[str(column)] = int(rows[0]) if rows.size else None
+    return result
+
+
 def analyze(report_path, output):
     report = json.loads(report_path.read_bytes())
     for key in ('completed', 'restored', 'source_unchanged'):
@@ -89,7 +101,9 @@ def analyze(report_path, output):
             tiles.append((label, crop))
         scores = {route: silhouette(arrays['world'], arrays[route], arrays['empty'])
                   for route in ROUTES if route not in ('world', 'empty')}
-        records[view] = {'camera': camera, 'captures': captures, 'scores': scores}
+        records[view] = {'camera': camera, 'captures': captures, 'scores': scores,
+                         'top_brown_outline_crop_y': {route: top_outline(array, arrays['empty'])
+                             for route, array in arrays.items() if route != 'empty'}}
     width, height = tiles[0][1].size
     sheet = Image.new('RGB', (width*len(ROUTES), (height+24)*len(VIEWS)), '#252525')
     draw = ImageDraw.Draw(sheet)
@@ -105,6 +119,8 @@ def analyze(report_path, output):
               'limits': ['No image alignment, rescaling or recoloring is applied.',
                          'Silhouette scores use a fixed 12-level empty-frame difference.',
                          'Lighting and antialiasing can affect diagnostic silhouette counts.',
+                         'Moving clouds and distant scenery can contaminate whole-crop difference masks.',
+                         'Fixed-column brown outlines are observations, not a semantic wood mask or acceptance test.',
                          'Empty bodies do not establish book pose or all-direction qualification.']}
     (output/'analysis.json').write_text(json.dumps(result, indent=2)+'\n', encoding='ascii')
     print(json.dumps({view: value['scores'] for view, value in records.items()}))

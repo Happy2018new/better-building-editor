@@ -93,18 +93,26 @@ _result=json.dumps({'volume':raw['volume'],'common':repr(raw['common']),
 '''
 CONTEXT_PALETTE = '''saved=sys._liquid_pose_client
 from modern_projection.projection.model import Document
+from modern_projection.projection.cell import AIR,make_cell
 from modern_projection.projection.render_context import prepare_context_batches
 from modern_projection.projection.bridge import _native_palette
 raw=saved['snapshot']
 assert tuple(raw['volume'])==(1,1,2),raw['volume']
-assert not raw.get('extra') and not raw.get('actor'),raw
+assert not raw.get('extra'),raw
 cells={}
 for material,indices in raw['common'].items():
  for index in indices:
   assert index in (0,1),index
   cells[(0,index,0)]=material
 assert len(cells)==2,cells
+for name,entries in raw.get('actor',{}).items():
+ for index,payload in entries.items():
+  position=(0,index,0)
+  assert index in (0,1) and payload=={},(name,index,payload)
+  assert cells[position][0]==name,(cells,raw['actor'])
+  cells[position]=make_cell(cells[position],AIR,payload)
 doc=Document((1,2,1),cells)
+assert doc.palette_data()['actor']==raw.get('actor',{}),(doc.palette_data(),raw)
 data=prepare_context_batches(doc,doc.palette_data())
 rows=data['_context_batches']
 assert len(rows)==1 and rows[0][0]==(0,0,0) and rows[0][1] is True,rows
@@ -115,6 +123,7 @@ result=factory.CreateBlockGeometry(level).CombineBlockPaletteToGeometry(palette,
 assert result is not None
 saved['paths'].append({'path':'context','requested':name,'returned':result})
 _result=json.dumps({'paths':saved['paths'],'prepared_context':repr(data),
+ 'empty_actor_preserved':doc.palette_data()['actor']==raw.get('actor',{}),
  'classification':'public packed-context builder and existing shader; no overrides'})
 '''
 CLEAR = native.CLEAR + '''
