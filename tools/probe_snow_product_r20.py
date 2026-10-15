@@ -35,7 +35,7 @@ def main():
     parser.add_argument('--project', type=Path, required=True)
     parser.add_argument('--launch-inputs', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--phase', choices=('ready', 'calibrate', 'matrix'), required=True)
+    parser.add_argument('--phase', choices=('ready', 'calibrate', 'matrix', 'lifecycle'), required=True)
     parser.add_argument('--camera-calibration', type=Path)
     parser.add_argument('--plant', action='append')
     parser.add_argument('--height', type=int, choices=range(8), action='append')
@@ -59,7 +59,8 @@ def main():
     frozen = args.output / 'inputs'
     frozen.mkdir()
     shutil.copyfile(__file__, frozen / Path(__file__).name)
-    for name in ('run_snow_matrix_r20.py', 'snow_native_projection_r20.py', 'snow_contrast_direct_r20.py'):
+    for name in ('run_snow_matrix_r20.py', 'snow_native_projection_r20.py', 'snow_contrast_direct_r20.py',
+                 'run_snow_scene_lifecycle_r20.py'):
         shutil.copyfile(ROOT / 'tools' / name, frozen / name)
     shutil.copyfile(args.launch_inputs, frozen / 'launch-inputs.json')
     for folder in ('tools', '.agents/skills/pyreact-debugging/scripts'):
@@ -84,6 +85,12 @@ def main():
                    str(args.output.resolve() / 'report.json'), '--native-resolution',
                    '--skyward-tilted', '--fixture-lift-y', '24', '--native-api',
                    '--native-capture-exe', str(wgc)]
+    elif args.phase == 'lifecycle':
+        assert len(args.plant or ()) <= 1 and len(args.height or ()) <= 1
+        command = [sys.executable, '-X', 'utf8', str(ROOT / 'tools/run_snow_scene_lifecycle_r20.py'),
+                   '--project', str(project), str(args.output.resolve() / 'report.json'),
+                   '--plant', (args.plant or ['blue_orchid'])[0],
+                   '--height', str((args.height or [0])[0])]
     else:
         assert args.camera_calibration is not None
         command = [sys.executable, '-X', 'utf8', str(ROOT / 'tools/run_snow_matrix_r20.py'),

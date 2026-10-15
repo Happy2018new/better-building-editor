@@ -163,3 +163,33 @@ only after the original source control was replayed and the editor/full/missing
 capture hashes all match. Missing sources, changed heights and altered capture
 hashes are rejected by a focused negative test. The already published v1
 package retains its original verifier and bytes.
+
+`run_snow_scene_lifecycle_r20.py` is prepared for a separate native editor run.
+It follows nine real command/history/library steps, waits for current native
+tiles after each command, and compares fresh captures with plant-alpha,
+snow side-face/hull and combined burial controls. Its declared small upward
+editor pan keeps the low snow's side faces clear of the floating Scene toolbar.
+White top texels can match the editor background, so snow controls require
+visible side-face recall and complete-hull precision rather than whole-hull
+difference recall. Old toolbar-obscured h0 controls are rejected by this new
+gate; unobscured h4/h7 controls and absent/stale-plant negatives behave as
+expected. A forwarding bridge redirects only
+library/preferences persistence into memory and restores the original bridge,
+library, editor and navigation in `finally`. Generated command execution and
+zero persistent library writes pass a host check. Native acceptance of this
+new probe remains pending. The frozen v3 clone cold-started with all four
+reload settings disabled and its owner/runtime/noactivation handshake verified.
+Its ready image shows the actual world. The first lifecycle attempt stopped
+before native mutations because the host runner omitted the frozen SDK scripts
+from its import path; that host path is now fixed and the failed receipt is
+retained.
+
+The next run, `.runtime/snow-lifecycle-r20-blue-orchid-v2`, passes all four
+independent controls and the strict foreground erase/undo captures. Height-0
+snow has side-face recall 1.0 and complete-hull precision 1.0, with no toolbar
+occlusion in the inspected combined image. The owned game and MCDK then exit
+before the third edit step. The report honestly remains incomplete and
+`restored=false`: all four cleanup callbacks encounter the exited process.
+The wrapper retains unchanged frozen product and host-data hashes. This run
+does not close native editing or storage acceptance, and its process-exit
+cause has not been established.
