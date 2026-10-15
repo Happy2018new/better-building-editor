@@ -1,0 +1,14 @@
+{
+  "initial_observation_utc": "2026-10-15T18:54:49Z",
+  "initial_available_physical_gib": 3.29,
+  "initial_metric": "Win32_OperatingSystem.FreePhysicalMemory",
+  "initially_misapplied_as_commit_gate": true,
+  "game_launched_during_incorrect_gate": false,
+  "correction": "Use census_intrinsic_glint_ui_r21.commit_at_boundary: psapi CommitLimit minus CommitTotal.",
+  "corrected_observation_utc": "2026-10-15T18:56:30.599314+00:00",
+  "corrected_available_commit_bytes": 12112773120,
+  "corrected_physical_available_bytes": 3065610240,
+  "authorized_commit_threshold_bytes": 6442450944,
+  "physical_memory_is_a_gate": false,
+  "other_processes_closed": false
+}

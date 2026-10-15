@@ -1,0 +1,11 @@
+--- v8/resource_pack/shaders/glsl/r19_native_portal_world.vertex
++++ v9/resource_pack/shaders/glsl/r19_native_portal_world.vertex
+@@ -73,7 +73,7 @@
+     // Only an exactly edge-on face needs a finite diagnostic guard.
+     if(abs(denominator)<0.00001) denominator=denominator<0.0 ? -0.00001 : 0.00001;
+     float t=dot(viewRay-planeDistance*planeNormal,planeNormal)/denominator;
+-    vec3 parallaxPositionInWorld=t*viewRay+VIEW_POS;
++    vec3 parallaxPositionInWorld=t*viewRay;
+     vec3 normalMask=floor(abs(planeNormal)+vec3(0.5));
+     vec2 raycastUV=parallaxPositionInWorld.yz*normalMask.x+
+                    parallaxPositionInWorld.xz*normalMask.y+

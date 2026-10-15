@@ -1,0 +1,19 @@
+{
+  "after_line": "vec3 parallaxPositionInWorld=t*viewRay;",
+  "before_line": "vec3 parallaxPositionInWorld=t*viewRay+VIEW_POS;",
+  "changed_paths": [
+    "resource_pack/shaders/glsl/r19_native_portal_world.vertex"
+  ],
+  "config_sha256": "49c5e534e4b3d89b6c6e73d377aa7c2eb3f2bd159410d36a60a99bd87ee5b855",
+  "evidence_commit": "ab541a0a",
+  "exit_observer_sha256": "aa436ee9a0f496554c69330d8456fa21b6bb551b63032f0b5a453ad9748646aa",
+  "launched": false,
+  "prepared": true,
+  "production_qualification": false,
+  "round": "v9",
+  "route_source": "v8",
+  "shader_sha256": "55a378caac27cdbb48b3075801236c2c89f133c5210cb498f8ad436bffafd88e",
+  "source_contract_sha256": "436d6fbb806dce614a82fee812d85122ded52079125fbb45abc0cc335567de8d",
+  "source_v8_contract_sha256": "47aa6848257f1701e625e5dff1824a98134774311addf252f2909e965965919f",
+  "view_ray_unchanged": true
+}

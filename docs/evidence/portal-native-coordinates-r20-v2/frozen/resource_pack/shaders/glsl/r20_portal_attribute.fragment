@@ -1,0 +1,16 @@
+// __multiversion__
+precision highp float;
+#define main nativePortalMain
+#include "r20_portal_attribute_native.h"
+#undef main
+void main() {
+    float depth=encodedPlane.w*32.0;
+    if(depth>31.0) { gl_FragColor=vec4(0.,0.,0.,0.); return; }
+    float stripe=mod(floor(gl_FragCoord.x/4.0),32.0);
+    if(abs(floor(depth+0.5)-stripe)>0.25) discard;
+    if(mod(floor(gl_FragCoord.y/4.0),2.0)<0.5) {
+        gl_FragColor=vec4(encodedPlane.xyz,0.);
+    } else {
+        gl_FragColor=vec4(floor(fract(parallaxUV)*256.0)/255.0,encodedPlane.w,0.);
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "observed_at_utc": "2026-10-15T19:03:59.395983+00:00",
+  "owner": "portal-r20-native-v9",
+  "state": "stopped",
+  "force_used": false,
+  "normal_exit_accepted": false,
+  "first_normal_stop_returncode": 1,
+  "first_normal_stop_result": "Game has not closed; inspect it or explicitly use stop --force",
+  "first_normal_stop_timestamp": null,
+  "finalized_after_exact_identities_exited": true,
+  "session_sha256": "c36d5a97eddd906e92433061af4ce14e4e9dc1b1e1b367af662605bb491aa6e9",
+  "processes": {
+    "game": {
+      "pid": 29416,
+      "identity": "134365642557842786",
+      "observed_identity": null,
+      "owned_process_exited": true
+    },
+    "mcdk": {
+      "pid": 21756,
+      "identity": "134365642555808893",
+      "observed_identity": null,
+      "owned_process_exited": true
+    }
+  }
+}

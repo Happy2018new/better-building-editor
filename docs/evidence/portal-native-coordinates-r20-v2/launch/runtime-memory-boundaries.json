@@ -1,0 +1,64 @@
+{
+  "metric": "CommitLimit-CommitTotal",
+  "threshold_bytes": 6442450944,
+  "physical_memory_is_a_gate": false,
+  "boundaries": [
+    {
+      "observed_at": "2026-10-15T18:58:57.917689+00:00",
+      "commit_total_bytes": 33694699520,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8504295424,
+      "physical_available_bytes": 769781760,
+      "boundary": "before_pair",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T18:59:06.600469+00:00",
+      "commit_total_bytes": 33786716160,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8412278784,
+      "physical_available_bytes": 779276288,
+      "boundary": "before_end_gateway_candidate_front",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T18:59:07.964316+00:00",
+      "commit_total_bytes": 33814577152,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8384417792,
+      "physical_available_bytes": 753975296,
+      "boundary": "after_end_gateway_candidate_front",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T18:59:11.751659+00:00",
+      "commit_total_bytes": 33815511040,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8383483904,
+      "physical_available_bytes": 778100736,
+      "boundary": "before_end_gateway_native_front",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T18:59:12.944517+00:00",
+      "commit_total_bytes": 33881968640,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8317026304,
+      "physical_available_bytes": 786845696,
+      "boundary": "after_end_gateway_native_front",
+      "commit_gate_passed": true
+    },
+    {
+      "observed_at": "2026-10-15T18:59:19.822585+00:00",
+      "commit_total_bytes": 33811791872,
+      "commit_limit_bytes": 42198994944,
+      "commit_available_bytes": 8387203072,
+      "physical_available_bytes": 858402816,
+      "boundary": "after_pair_cleanup",
+      "commit_gate_passed": true
+    }
+  ],
+  "canonical_source_sha256": "890f467fec8eb946cc9bc4eefb85e2d2a922b15e012204f083936972a9258f65",
+  "guard_host_sha256": "0439b3ef7f2fc331f6dc689c770fa8fdcb46de82036367f84e722ab97b22c04f",
+  "frozen_probe_sha256": "39b77af5a943be20a0f71d0c2fbe546352a5336bb1fa1c4d16473f1586b290cb"
+}
