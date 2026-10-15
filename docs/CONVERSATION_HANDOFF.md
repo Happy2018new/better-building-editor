@@ -1,5 +1,19 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-15 工作区与磁盘清理完成（优先于下方旧路径／实例记录）
+
+用户在暂停开发后另行要求清理旧工作树、分支、D 盘根目录副本及两盘垃圾。本次仅执行清理、保存与验证；产品开发仍暂停，不启动游戏或代理，不推送、不合入 `main`。原次日休眠任务仍为 `Disabled`。
+
+- `dev` 已提交 `bf2b31e3 docs: preserve retired agent work before workspace cleanup`，保存 43 个临时分支的头、159 个补丁独有提交审计、28 个缺失的历史诊断／证据；当前产品实现优先，不重新合并旧分支或重复旧提交。另 77 个原始调用资料仅私有备份。详见 [归档及恢复说明](retired-development/20261015/README.md)。
+- 已移除 **40 个旧工作树、43 个 `codex/*` 分支、12 个普通测试副本**。Git 仅登记当前主工作区；保留 `dev`、`main`、`realm`、`render-dragon`、`uncomplete`，后四者原提交未变。下方历史 `D:/bbe-*` 和旧 `.runtime/r*-*` 工作树路径现已失效，不能直接运行。
+- 完整本地备份位于 `.runtime/cleanup-20261015/`：`retired-agent-branches.bundle`、`retired-workspace-deltas.zip`、`clone-baseline-files.zip` 和 `workspace-backup-manifest.json`。12,459 个去重对象及 4,505 个精确基线文件均逐字节校验。备份含未提交／ignored 原始资料，可能含会话凭据，不整体 stage／发布。两原分支头本已在 `dev` 历史中，其余 41 个 ref 在 bundle 中。
+- **候选续接位置：** 书副本对应 manifest label `42-bbe-r15-native-production`，物品候选 `50-bbe-r18-item-glint`，水候选 `51-bbe-r18-water-production`，折跃门适配候选 `52-bbe-r19-integrated-product`。从备份按需恢复到 `.runtime/projects/<名称>`；新工作树放 `.runtime/worktrees/<名称>`，不再写 D 盘根目录。
+- 暂停时保留的两个 MC／MCDK 现已退出，本次清理没有终止它们。审计未发现活跃 MC 引擎；9 个零线程／零句柄残留对象不作活跃实例，也未终止。下表旧 PID／session 不可复用。item 侧视 v6 的原恢复未完成仍需在恢复开发后检查对应世界／journal；归档副本不等于世界已清理。
+- C 盘移除 1,175 个今天以前的 MC 文本日志及废弃 VS 安装解压目录，共约 5.25 GiB 逻辑文件；保留今天日志、方块 dump、世界存档。1,004 个退休实例文本证据无损 NTFS 压缩，内容 SHA256 不变，节省约 2.81 GiB 分配空间。当前原始证据路径不变。D 盘旧目录共约 16.25 GiB 逻辑文件，净释放量扣除本地备份后另计，最终数值见 [清理结果](retired-development/20261015/cleanup-result.json)。
+- 自动审批拒绝删除约 74 MiB 的 `retired-workspace-deltas.interrupted.zip`，仅给出 `blocked by policy`，该冗余文件仍保留。正式 ZIP 的 SHA256 已复核；不要把未完成 ZIP 当恢复来源。
+- 原有两份 tracked water WIP 和五份用户 palette probes 未改、未 stage；清理后核对原工作区 **23,923 条**状态记录全部保留。没有因清理关闭任何产品待办或更新生产 gate。
+- 用户要求模型请求使用 HTTP 流式传输。已在 `C:/Users/Happy2018new/.codex/config.toml` 当前 `blackpixel` provider 下设 `supports_websockets = false`，保留 `wire_api = "responses"`；其他解析配置未变。应在配置重新加载后应用；本次未抓取已建立请求，不能声称当前缓存连接已验证改为 HTTP。应用内部远程控制 WebSocket 与模型 API 传输不是同一个通道。
+
 ## 2026-10-15 18:12 用户要求暂停：API 不稳定（最高优先级）
 
 用户要求“保存所有上下文和 mc 进程，创建对应提交，然后终止开发，之后再继续”。**当前只完成保存和提交，不再开发、启动测试、启动游戏或恢复代理；等待用户明确继续。** 此安排覆盖下方所有继续至 23:30／次日 07:00 的历史安排。
