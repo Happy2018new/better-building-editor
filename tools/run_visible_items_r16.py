@@ -80,6 +80,9 @@ def run(args):
               'cleanup_errors': [], 'launch_sources': snapshot_sources(project)}
     report['launch_sources_sha256'] = snapshot_digest(report['launch_sources'])
     report['host_tool_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    report['host_dependency_sha256']={name:hashlib.sha256((ROOT / 'tools' / name).read_bytes()).hexdigest()
+        for name in ('item_sprite_calibration.py','frame_block_capture_matrix_r21.py',
+                     'item_sprite_native_reference.py')}
     report['process_samples']=[]
     if args.candidate_geometry:
         candidate=json.loads(args.candidate_geometry.read_bytes())
@@ -103,6 +106,18 @@ def run(args):
         path.write_text(json.dumps(value, ensure_ascii=True, indent=2) + '\n', encoding='ascii')
     def persist():
         save('report.json', report)
+    def budget_boundary():
+        if process_identity(session['game_pid']) != session['game_identity']:
+            raise RuntimeError('Owned game process identity changed')
+        sample = process_snapshot(session['game_pid'])
+        if sample['handles'] >= args.maximum_handles:
+            raise RuntimeError('Owned game handle budget reached: ' + str(sample))
+        if args.minimum_commit_gib:
+            from census_intrinsic_glint_ui_r21 import commit_at_boundary
+            commit = commit_at_boundary()
+            if commit['commit_available_bytes'] < args.minimum_commit_gib * 1024 ** 3:
+                raise RuntimeError('System commit reserve reached: ' + str(commit))
+        return sample
     installed = environment_saved = profile_saved = False
     with Client(timeout=20) as client:
         check = BlueprintCheck(client, output / 'blueprints.json', 45)
@@ -122,6 +137,7 @@ def run(args):
                               not row['preparing'] and not row['pending'] and not row['error'],
                               lambda: check.run(WORLD_STATE))
         def sample(label, route):
+            budget_boundary()
             before = ((check.run(STATE) if label == 'testing_page' else state()) if route == 'editor'
                       else check.run(WORLD_STATE) if route == 'native' else world_state())
             camera = check.run(CAMERA) if route != 'editor' else None
@@ -157,6 +173,7 @@ def run(args):
             finally:
                 check.run(show)
         try:
+            budget_boundary()
             check.run(INSTALL_PROBE)
             installed = True
             report['environment'] = environment(client, ENV_SETUP)
@@ -179,7 +196,8 @@ def run(args):
                           "sys._visible_items_profile=s.item_profile\n"
                           "s.item_profile=candidate_profile('3.10.0.420447')\n_result=True")
                 profile_saved = True
-            report['camera_calibration'] = calibrate(check, session, args.owner, output, args.wgc, save)
+            report['camera_calibration'] = calibrate(check, session, args.owner, output, args.wgc, save,
+                                                     before_capture=budget_boundary)
             if report['camera_calibration']['cleanup_errors']:
                 raise RuntimeError('Camera calibration cleanup failed')
             if not report['camera_calibration']['passed']:
@@ -215,6 +233,12 @@ def run(args):
                         source['empty_frame_control']=True
                 if selected is not None:
                     assert len(matrix)==len(selected), 'Unknown orientation cases'
+                if args.frame_block_batch:
+                    from frame_block_capture_matrix_r21 import matrix as block_matrix
+                    batch = json.loads(args.frame_block_batch.read_bytes())
+                    matrix = block_matrix(poses, batch)
+                    report['frame_block_batch']={'sha256':hashlib.sha256(args.frame_block_batch.read_bytes()).hexdigest(),
+                                                'data':batch}
             report['requested_cases']=[case_id for case_id,source in matrix]
             if args.closeup_only:
                 assert not args.skip_closeup
@@ -223,13 +247,18 @@ def run(args):
             for case_id, source in matrix:
                 if process_identity(session['game_pid'])!=session['game_identity']:
                     raise RuntimeError('Owned process identity changed')
-                process=process_snapshot(session['game_pid'])
+                process=budget_boundary()
                 report['process_samples'].append(dict(process,case=case_id,phase='before'))
                 if process['handles']>=args.maximum_handles:
                     report['stopped_at_handle_budget']=True
                     break
                 is_slot = source is None
                 is_orientation = not is_slot and 'facing' in source
+                block_name=source['item'][0] if args.frame_block_batch else args.frame_block_item
+                block_aux=source['item'][1] if args.frame_block_batch else args.frame_block_aux
+                block_enchanted=source.get('artificially_enchanted',args.frame_block_enchanted) if source else False
+                view_angle=source.get('view_angle_degrees',args.view_angle) if source else args.view_angle
+                native_mode=('enchanted' if block_enchanted else 'plain') if block_name else args.native_target or 'plain'
                 doc_code = ("from modern_projection.projection.debug_item_blueprints import slot_document\n"
                             "doc=slot_document(%r)\n" % case_id if is_slot else
                             "from modern_projection.projection.debug_item_blueprints import orientation_document\n"
@@ -239,7 +268,7 @@ def run(args):
                 if args.frame_block_item:
                     doc_code = ("from modern_projection.projection.debug_frame_block_items import document\n"
                                 "doc=document(%r,%r,%r,enchanted=%r)\n" %
-                                (source['id'],args.frame_block_item,args.frame_block_aux,args.frame_block_enchanted))
+                                (source['id'],block_name,block_aux,block_enchanted))
                 pose = (35.,25.,3.5) if is_slot else (180.,0.,3.5)
                 face=source['facing'] if is_orientation else 2
                 normal=((0,-1,0),(0,1,0),(0,0,-1),(0,0,1),(-1,0,0),(1,0,0))[face]
@@ -250,10 +279,10 @@ def run(args):
                     pose=((180.,-85.,3.5),(180.,85.,3.5),(180.,0.,3.5),(0.,0.,3.5),
                           (270.,0.,3.5),(90.,0.,3.5))[face]
                     source['targets']={'plain':local_plain,'enchanted':local_enchanted}
-                if args.view_angle:
+                if view_angle:
                     assert not is_slot and face==2, 'Oblique captures require north-facing frame contents'
-                    pose=(pose[0]+args.view_angle,pose[1],pose[2])
-                    source['view_angle_degrees']=args.view_angle
+                    pose=(pose[0]+view_angle,pose[1],pose[2])
+                    source['view_angle_degrees']=view_angle
                 if args.editor_zoom is not None:
                     pose=(pose[0],pose[1],args.editor_zoom)
                 fixture = check.run(doc_code + 's._loaded(doc)\ns.editor.layer=0\ns.display_mode("full")\n'
@@ -280,8 +309,8 @@ def run(args):
                                      .5 if face not in (0,1) and axis==1 else 0.) for axis in range(3))
                     else:
                         offset=(0.,1.,-distance)
-                    if args.view_angle:
-                        angle=math.radians(args.view_angle)
+                    if view_angle:
+                        angle=math.radians(view_angle)
                         offset=(math.sin(angle)*distance,offset[1],-math.cos(angle)*distance)
                     if args.native_target_plain or args.native_target:
                         native_local=local_enchanted if native_mode=='enchanted' and not args.frame_block_item else local_plain
@@ -312,8 +341,8 @@ def run(args):
                              'frame_name':'minecraft:'+source['source_case'].removesuffix('_filled') if is_orientation else 'minecraft:frame',
                              'face':face}]
                     if args.frame_block_item:
-                        rows[0].update(item_name=args.frame_block_item,item_aux=args.frame_block_aux)
-                        if args.frame_block_enchanted:
+                        rows[0].update(item_name=block_name,item_aux=block_aux)
+                        if block_enchanted:
                             rows[0]['artificial_enchantment']=True
                     native_camera = check.run(CAMERA)
                     # Keep the actual player below downward frames and outside the camera ray.
@@ -423,7 +452,9 @@ if __name__ == '__main__':
     parser.add_argument('--frame-block-item', help='Observed ordinary block item ID; standalone frame candidate only.')
     parser.add_argument('--frame-block-aux', type=int, default=0)
     parser.add_argument('--frame-block-enchanted', action='store_true',
-                        help='Artificially enchant the block through the native inventory API.')
+                        help='Copy observed enchant tags onto an actual native Item.Block compound.')
+    parser.add_argument('--frame-block-batch', type=Path,
+                        help='Bounded item, orientation and view rows sharing one calibration.')
     parser.add_argument('--near-distance', type=float, default=8.)
     parser.add_argument('--view-angle', type=float, default=0.)
     parser.add_argument('--editor-zoom', type=float)
@@ -431,10 +462,13 @@ if __name__ == '__main__':
     parser.add_argument('--native-target', choices=('plain','enchanted'),
                         help='Center the camera and actual native reference on this fixture mode.')
     parser.add_argument('--maximum-handles', type=int, default=220000)
+    parser.add_argument('--minimum-commit-gib', type=float, default=0.)
     parser.add_argument('--names', default='diamond_sword,apple,beef,diamond_pickaxe,iron_ingot,bed,bow,bucket,bone,bread,emerald,fishing_rod')
     args=parser.parse_args()
     if args.frame_block_enchanted and not args.frame_block_item:
         parser.error('--frame-block-enchanted requires --frame-block-item')
+    if args.frame_block_batch and not args.frame_block_item:
+        parser.error('--frame-block-batch requires --frame-block-item for the standalone block profile')
     if args.frame_block_item:
         if ':' not in args.frame_block_item:
             args.frame_block_item='minecraft:'+args.frame_block_item

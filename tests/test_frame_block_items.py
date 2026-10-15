@@ -157,6 +157,28 @@ class FrameBlockResources(unittest.TestCase):
 
 
 class FrameBlockAdmission(unittest.TestCase):
+    def test_bounded_capture_matrix_preserves_orientation_and_declares_artificial_source(self):
+        from frame_block_capture_matrix_r21 import matrix
+        from projection.debug_item_blueprints import ORIENTATION_CASES
+        before = copy.deepcopy(ORIENTATION_CASES)
+        cases = [{'id': name + str(angle), 'orientation': 'frame_f2_r0',
+                  'item': ['minecraft:' + name, 0], 'view_angle_degrees': angle,
+                  'artificially_enchanted': name == 'quartz_block'}
+                 for name in ('stone', 'quartz_block') for angle in (0, -75, 75)]
+        manifest = {'schema': 1, 'production_qualified': False, 'cases': cases}
+        rows = matrix(ORIENTATION_CASES, manifest)
+        self.assertEqual(6, len(rows))
+        self.assertEqual(6, len({label for label, source in rows}))
+        self.assertEqual(before, ORIENTATION_CASES)
+        self.assertTrue(all(source['artificially_enchanted'] for label, source in rows[3:]))
+        for invalid in (dict(manifest, production_qualified=True), dict(manifest, cases=cases[:1] * 2)):
+            with self.assertRaises(ValueError):
+                matrix(ORIENTATION_CASES, invalid)
+        for change in ({'view_angle_degrees': float('nan')}, {'orientation': 'frame_f0_r0', 'view_angle_degrees': 75},
+                       {'item': ['minecraft:stone', True]}, {'artificially_enchanted': 1}):
+            with self.assertRaises(ValueError):
+                matrix(ORIENTATION_CASES, dict(manifest, cases=[dict(cases[0], **change)]))
+
     def test_artificial_enchantment_preserves_native_block_compound_and_does_not_mutate_source(self):
         from projection.debug_frame_block_items import artificial_enchantment_payload
         from projection.nbt_spatial import root_payload, scalar

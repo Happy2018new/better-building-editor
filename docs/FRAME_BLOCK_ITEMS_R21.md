@@ -82,8 +82,9 @@ explicit semantics. Shelf and campfire are outside this frame adapter's scope.
 Current offline checks cover actual item/aux separation, atlas face interiors,
 mesh winding/normals, all 48 frame facing/rotation codes, immutable source NBT,
 frame-only ownership, unsupported metadata refusal, missing-target filtering,
-independent qualification and material gates. All 108 `test_item*.py` tests and
-16 frame-block tests pass. Thirty shader variants compile/link: UI/world GLES
+independent qualification and material gates. All 108 `test_item*.py` and
+22 frame-block checks pass, including bounded capture rows, three-view pose
+recovery and budget-abort restoration. Thirty shader variants compile/link: UI/world GLES
 2/3 and the GLES3 world skinning/instance paths. GLES2 skeletal headers use
 unsupported non-square matrices, so that path is explicitly outside this test.
 GPU pixel readback covers 96 face-local UVs and 4608 position/normal samples
@@ -166,3 +167,39 @@ world full/missing/occupied/restored, hidden-before/shown/hidden-after controls,
 and resource cleanup. Keep the native thresholds unchanged. Any capture error,
 missing side, alias mismatch, source drift or unsupported material leaves the
 independent gate false.
+
+## Bounded Depth Holdouts
+
+The next offline frozen clone is `.runtime/projects/frame-block-r21-pose-v3`,
+owner `item-r20`, source digest
+`36d897c8bd8e190c83d117b2c5ddc3c9feb454092b0e7f0a145c061c410c2c49`.
+It contains the quarter-cube candidate for only stone and quartz block, with
+all four reload settings false. Its six declared cases use each item at
+0 and +/-75 degrees. Quartz block cases explicitly request the synthetic
+enchantment route. Preparation does not launch a game.
+
+`probe_frame_block_enchantment_r21.py` performs a small owner-bound no-screenshot
+probe before this matrix. It must confirm actual preserved `Item.Block`,
+name/aux/count, and `[(9,3)]` enchantments on server and client, then restore
+the air cells, inventory slot, player foot position and rotation. Its result
+never constitutes pixel acceptance. Public enchant API rejection evidence is
+retained separately.
+
+`frame_block_capture_matrix_r21.py` bounds rows and preserves the orientation
+templates. `run_visible_items_r16.py --frame-block-batch <manifest>` shares
+one independent camera calibration across those rows. The optional budget
+callback now checks all six calibration WGC captures, and the runner checks
+its budget before fixture setup and every later screenshot. The planned
+limits are 200000 owned handles and at least 6 GiB of system commit reserve.
+Cold launch also reserves 3 GiB above that runtime minimum. At most two live
+MC games, including any user game, may coexist.
+
+`analyze_frame_block_multiview_r21.py` compares independent native and product
+silhouettes, reports joint pose conditioning, and scores the predeclared
+candidate without substituting its fitted parameters. A full cube in one
+camera retains the scale/depth degeneracy. A clipped model introduces an
+additional known support plane; every discarded vertex ray must intersect
+the actual solid support. The diagnostic still requires all three camera
+angles for each item. Blank and shifted silhouettes are negative controls.
+This north-facing rotation-zero batch does not accept UI pixels, materials,
+textures, glint, the remaining frame poses, or production use.

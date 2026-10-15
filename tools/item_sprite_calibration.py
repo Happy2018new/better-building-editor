@@ -7,7 +7,7 @@ from verify_camera_projection import LOAD_CUBE, POSE, CAMERA, analyze_calibratio
 from verify_debug_visuals import PROJECTION_STATUS
 
 
-def calibrate(check, session, owner, output, wgc, save):
+def calibrate(check, session, owner, output, wgc, save, before_capture=None):
     evidence = {'schema': 1, 'completed': False, 'passed': False, 'restored': False,
                 'fixture_identity': 'camera.calibration.stone', 'views': [],
                 'session': session, 'cleanup_errors': []}
@@ -36,10 +36,14 @@ def calibrate(check, session, owner, output, wgc, save):
             camera = check.wait('independent stone camera '+label,
                 lambda row: camera_matches(row, expected), lambda: check.run(CAMERA))
             time.sleep(.4)
+            if before_capture:
+                before_capture()
             shown = capture(session['session_file'], owner, output/('camera_'+label+'_shown.png'), wgc)
             try:
                 check.run('assert b.factory.CreateActorRender(b.entity).SetNotRenderAtAll(True)\n_result=True')
                 time.sleep(.25)
+                if before_capture:
+                    before_capture()
                 hidden = capture(session['session_file'], owner, output/('camera_'+label+'_hidden.png'), wgc)
             finally:
                 check.run('assert b.factory.CreateActorRender(b.entity).SetNotRenderAtAll(False)\n_result=True')
