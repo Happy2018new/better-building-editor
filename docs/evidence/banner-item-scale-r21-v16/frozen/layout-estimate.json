@@ -1,0 +1,160 @@
+{
+  "offline_only": true,
+  "native_size": [
+    1994,
+    1105
+  ],
+  "old_layout": {
+    "screen": [
+      499.0,
+      277.0
+    ],
+    "layout": [
+      {
+        "position": [
+          8.0,
+          88.63999938964844
+        ],
+        "size": [
+          235.5,
+          177.27999877929688
+        ],
+        "label": "plain"
+      },
+      {
+        "position": [
+          249.5,
+          88.63999938964844
+        ],
+        "size": [
+          235.5,
+          177.27999877929688
+        ],
+        "label": "patterned"
+      }
+    ],
+    "render": [
+      {
+        "model_id_immediate_not_settled": 1,
+        "params": {
+          "entity_id": "-8589934523",
+          "scale": 1.4,
+          "render_depth": -50,
+          "init_rot_z": 0.0,
+          "init_rot_y": 0.0,
+          "init_rot_x": 0.0
+        },
+        "returned": true,
+        "label": "plain"
+      },
+      {
+        "model_id_immediate_not_settled": 2,
+        "params": {
+          "entity_id": "-8589934522",
+          "scale": 1.4,
+          "render_depth": -50,
+          "init_rot_z": 0.0,
+          "init_rot_y": 0.0,
+          "init_rot_x": 0.0
+        },
+        "returned": true,
+        "label": "patterned"
+      }
+    ]
+  },
+  "host_first_bbox": [
+    518,
+    654,
+    549,
+    681
+  ],
+  "host_second_bbox": [
+    642,
+    654,
+    673,
+    681
+  ],
+  "pixels_per_model_unit": 62.0,
+  "estimated_root_left_slot": [
+    502.0,
+    698.0
+  ],
+  "scale_ratio": 16.0,
+  "rows": [
+    {
+      "label": "plain",
+      "old_bbox_pixels": [
+        501,
+        680,
+        536,
+        701
+      ],
+      "estimated_root_pixels": [
+        502.0,
+        698.0
+      ],
+      "scale_one_estimated_bbox_pixels": [
+        486.0,
+        410.0,
+        1046.0,
+        746.0
+      ],
+      "scale_one_conservative_bbox_pixels": [
+        454.0,
+        378.0,
+        1078.0,
+        778.0
+      ],
+      "inside_screen_conservatively": true
+    },
+    {
+      "label": "patterned",
+      "old_bbox_pixels": [
+        1466,
+        680,
+        1502,
+        701
+      ],
+      "estimated_root_pixels": [
+        1468.0,
+        698.0
+      ],
+      "scale_one_estimated_bbox_pixels": [
+        1436.0,
+        410.0,
+        2012.0,
+        746.0
+      ],
+      "scale_one_conservative_bbox_pixels": [
+        1404.0,
+        378.0,
+        2044.0,
+        778.0
+      ],
+      "inside_screen_conservatively": false
+    }
+  ],
+  "selected_slot": "existing left slot, patterned item only",
+  "selected_conservative_bbox_pixels": [
+    438.0,
+    378.0,
+    1078.0,
+    778.0
+  ],
+  "selected_inside_screen_conservatively": true,
+  "approximate_left_doll_box_pixels": [
+    32.0,
+    354.0,
+    974.0,
+    1064.0
+  ],
+  "selected_can_exceed_doll_control_right_edge": true,
+  "single_patterned_reuses_left_slot_geometry": true,
+  "left_slot_estimate_uses_plain_geometry_and_same_sized_patterned_native_item": true,
+  "native_internal_item_root_assumed_invariant_under_uniform_scale": true,
+  "prediction_is_not_runtime_fit_or_actual_pixel_acceptance": true,
+  "paper_doll_template": "PyreactBase.paperDoll",
+  "screen_scale": 1.0,
+  "explicit_enable_scissor_test": false,
+  "no_runtime_claim_about_implicit_native_clipping": true
+}

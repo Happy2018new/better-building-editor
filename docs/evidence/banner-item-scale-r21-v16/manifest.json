@@ -1,0 +1,592 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-15T23:48:37.464029+00:00",
+  "owner": "shield-r20-v16-banner-scale-control",
+  "source_files_rehashed_at_pack": 3140,
+  "files": {
+    ".gitattributes": {
+      "sha256": "a4d463548e075cd1eb9f4570f2f21e3cdce1a098e33899a8dd031f29b4a54c18",
+      "bytes": 36
+    },
+    "dependencies/.agents/skills/pyreact-debugging/scripts/_session.py": {
+      "sha256": "9bf1400cda12457ec1b3dd2351fed366c10ad069c781565eabb12e45b2431313",
+      "bytes": 6046
+    },
+    "dependencies/.agents/skills/pyreact-debugging/scripts/_window.py": {
+      "sha256": "9fdb52e92aeb9930d8faffb81ab2023aaec68383b71b6fab9172643270e0826e",
+      "bytes": 10376
+    },
+    "dependencies/.agents/skills/pyreact-debugging/scripts/instances.py": {
+      "sha256": "bd8fbeba3145cef771c0abd1859ca9f02520855b1db75e9ef76c7cee232ebfaa",
+      "bytes": 32519
+    },
+    "dependencies/.agents/skills/pyreact-debugging/scripts/mcdk.py": {
+      "sha256": "347e01d51324924a84a05cf08c342b46d6e1fab589d446705eadde2cd8a587d3",
+      "bytes": 14453
+    },
+    "dependencies/.agents/skills/pyreact-debugging/scripts/setup_mcdk.py": {
+      "sha256": "1e46a69c633368f967d87a04733681d4fe1b2e6f3cc2f4fc832194497021fbdf",
+      "bytes": 7266
+    },
+    "dependencies/.runtime/banner-scale-control-r21/host.py": {
+      "sha256": "ff79a792435dac90b9b1f321a8aa12bde2e72c312526118d99ad416638d99355",
+      "bytes": 10875
+    },
+    "dependencies/.runtime/banner-scale-control-r21/prepare.py": {
+      "sha256": "4ca11f32a8bccf81831d3cd924878bf94412a45cd92067682bba0be1f84ba398",
+      "bytes": 9394
+    },
+    "dependencies/.runtime/banner-scale-control-r21/run.py": {
+      "sha256": "b77161052b92a50ecd671c9b43f314b56460b5b6ba3f365044e8e653ae69cf58",
+      "bytes": 5252
+    },
+    "dependencies/.runtime/shield_instances_native_discovery_r20.py": {
+      "sha256": "e5ac4819e23b284a6430c4a8805197e2764249b15f71892e13444b522780283e",
+      "bytes": 1365
+    },
+    "dependencies/behavior_pack/modern_projection/projection/__init__.py": {
+      "sha256": "a2e875531e037f12857911031b0a4ab9afd695c48e34ba5314b9466af020750f",
+      "bytes": 91
+    },
+    "dependencies/behavior_pack/modern_projection/projection/banner_fixture_data.py": {
+      "sha256": "708be74bb7a29e6ec8bbda287bb6fcd78030a213f1678710566d07e7d3e390ba",
+      "bytes": 880
+    },
+    "dependencies/behavior_pack/modern_projection/projection/banner_render_contract.py": {
+      "sha256": "ecefa6c4da2e7fb7854dfadba30aca93533f8f6c47b5c572b4abe7cf04f512c3",
+      "bytes": 1637
+    },
+    "dependencies/behavior_pack/modern_projection/projection/block_groups.py": {
+      "sha256": "25d82ed827b798cd319cab006f3df331dc3ca47a6f1b56cd15e1d30e3a70e747",
+      "bytes": 15448
+    },
+    "dependencies/behavior_pack/modern_projection/projection/block_registry.py": {
+      "sha256": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+      "bytes": 3229
+    },
+    "dependencies/behavior_pack/modern_projection/projection/block_registry_data.py": {
+      "sha256": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1",
+      "bytes": 289192
+    },
+    "dependencies/behavior_pack/modern_projection/projection/block_traits.py": {
+      "sha256": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c",
+      "bytes": 2712
+    },
+    "dependencies/behavior_pack/modern_projection/projection/block_traits_data.py": {
+      "sha256": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6",
+      "bytes": 46046
+    },
+    "dependencies/behavior_pack/modern_projection/projection/catalog.py": {
+      "sha256": "01fffa75c618dbcf940c8e8d2cf91f3df147a850041b94d24cb575ce758c3881",
+      "bytes": 11339
+    },
+    "dependencies/behavior_pack/modern_projection/projection/cell.py": {
+      "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+      "bytes": 14070
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_action_blueprints.py": {
+      "sha256": "8967d0b53c96a0eff852e866ba5d615d01c237cda1e237fb3edbe7aaad091b2f",
+      "bytes": 4990
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_banner_blueprints.py": {
+      "sha256": "11612ec4b9fdaec3234e891894d9ca4c9045fb931c9f8f7aff63e07f09b24b21",
+      "bytes": 1718
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_blueprints.py": {
+      "sha256": "a7ad46382499f8ad8d71d8c93d119d6c7bf98286dcbce2bea4805a198d6601a2",
+      "bytes": 21098
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_botanical_blueprints.py": {
+      "sha256": "eca8df4c98d451849e8110ccfe7894ed842029f79404d31468683418c777be38",
+      "bytes": 5466
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_cauldron_blueprints.py": {
+      "sha256": "67821ef6d9781765b81deb424e9b5cb206add45a5879902d6b2e40e17ac31992",
+      "bytes": 3296
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_compatibility_blueprints.py": {
+      "sha256": "1fdc7234db7fd5707341b0d2c8474b219812eb74d7cde250e9927ca5133828be",
+      "bytes": 5465
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_connection_blueprints.py": {
+      "sha256": "00d16732c8d3a8416544461d6bf31ab69edea331736671a8caa4f87055905800",
+      "bytes": 4318
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_dripstone_blueprints.py": {
+      "sha256": "00445d51d6f363fc8d24be6f26cc2d44e0ff43808a1674698a5f9b90ffe3871c",
+      "bytes": 1872
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_item_blueprints.py": {
+      "sha256": "adbd3cab7b4475e889d7fa573c4ee23a34b1127fd3ec310a8b1b51f348525c0b",
+      "bytes": 15946
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_liquid_blueprints.py": {
+      "sha256": "e439f64ff9d1d72023651d99343e4870c3a38ec6919a875aca60cabe3d7b59c9",
+      "bytes": 7006
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_neighborhood_blueprints.py": {
+      "sha256": "2199be544d04933c1152d611be296387260fe1848f20649b7f6c16893ca71874",
+      "bytes": 4476
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_portal_blueprints.py": {
+      "sha256": "b606e96709d75b53a6f619a93c381f248cd040e0ac294c0371889d0196b5df53",
+      "bytes": 2728
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_pot_blueprints.py": {
+      "sha256": "2179237903d1c8e1986009cfd74c373252f686bab9657fddcf2604dc7d0653b3",
+      "bytes": 2492
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_product_connections.py": {
+      "sha256": "12240ece814e044d2eb71b5cfd6b06f56a169752c2992972647bb097bc5727e9",
+      "bytes": 8331
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_product_water_blueprints.py": {
+      "sha256": "347946630e7dd73f8c8b87546c4b0021b550451a52beab2c5e6b8d901996c636",
+      "bytes": 6227
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_sign_blueprints.py": {
+      "sha256": "c01324f53add969f71333590c175d439fb8e5593f9ef3c46b898f6d099db0b46",
+      "bytes": 4187
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_slab_blueprints.py": {
+      "sha256": "f27289fa1a16cbc7c9e64f52f7aa43a77e0d4651504838f5031c149736c97d2f",
+      "bytes": 2074
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_snow_blueprints.py": {
+      "sha256": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de",
+      "bytes": 6404
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_spawner_blueprints.py": {
+      "sha256": "ffd387912ad786fba3b0b32aadcbce9898a15ed8761322cec319d8afe6006464",
+      "bytes": 3013
+    },
+    "dependencies/behavior_pack/modern_projection/projection/debug_water_blueprints.py": {
+      "sha256": "5aa889e2cee250dc88ce5676c2be3433c5706ea3e587dce0e6f67d297f16f11e",
+      "bytes": 2431
+    },
+    "dependencies/behavior_pack/modern_projection/projection/entity_defaults.py": {
+      "sha256": "26d94ace4b843dbf154dcae3c2ef3af906d8a72468656e68c0fb1517bae833e0",
+      "bytes": 3018
+    },
+    "dependencies/behavior_pack/modern_projection/projection/entity_defaults_data.py": {
+      "sha256": "5ee014684757737c4dd78949bdfcf98b9110b2d70bb35b8cc5e3c852992b6dbf",
+      "bytes": 46936
+    },
+    "dependencies/behavior_pack/modern_projection/projection/entity_render.py": {
+      "sha256": "a2cd09aa502b590429955e2adabd1523e05c619167d8b26f50c0f438a3d86722",
+      "bytes": 12874
+    },
+    "dependencies/behavior_pack/modern_projection/projection/item_contents_data.py": {
+      "sha256": "667996410248920efd051c88c448945fa6d7d9678ea53a8dacfcab5eef117151",
+      "bytes": 1296
+    },
+    "dependencies/behavior_pack/modern_projection/projection/item_icon_data.py": {
+      "sha256": "31f9a25dc40952a289f22a04d97a038619b30ed26982f870e0665086d5cb2a3b",
+      "bytes": 292218
+    },
+    "dependencies/behavior_pack/modern_projection/projection/model.py": {
+      "sha256": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2",
+      "bytes": 37071
+    },
+    "dependencies/behavior_pack/modern_projection/projection/native_appearance.py": {
+      "sha256": "8ee814d221249492773382cbdd7dfe390e43a12a0b366425e83db2eb633c632c",
+      "bytes": 2607
+    },
+    "dependencies/behavior_pack/modern_projection/projection/native_layers.py": {
+      "sha256": "78d662eebc148ee1c620269268463427d1d2ad55377bab2a68d20a224406ddd1",
+      "bytes": 5587
+    },
+    "dependencies/behavior_pack/modern_projection/projection/native_render_profile.py": {
+      "sha256": "b8ddee769323cae4e861f49bf9ae4d6ce5813948d9f09c186441dccf122f220d",
+      "bytes": 6994
+    },
+    "dependencies/behavior_pack/modern_projection/projection/native_sign_data.py": {
+      "sha256": "f1c0e6c65fde69f687d79688eb5204eedf353a1de0ba17fb4392c5be0672b785",
+      "bytes": 19766
+    },
+    "dependencies/behavior_pack/modern_projection/projection/nbt_spatial.py": {
+      "sha256": "aac80300547ce5e99c332e8e43a83df320fca89493ef543f41c113d402f3a3fe",
+      "bytes": 10685
+    },
+    "dependencies/behavior_pack/modern_projection/projection/packed.py": {
+      "sha256": "b4adc3092a3a16862203c1d42e2f766257cee2e5876114eea4d9124d05e54346",
+      "bytes": 3898
+    },
+    "dependencies/behavior_pack/modern_projection/projection/spawner_marker_data.py": {
+      "sha256": "12ebc8083bed690a1e0c24b884c4eb27d3f8008c3e618e6589e19c62b8245d6e",
+      "bytes": 2074
+    },
+    "dependencies/behavior_pack/modern_projection/projection/static_bed.py": {
+      "sha256": "aa778092f10ee23365af0612a05d022ae313ce61208edb201d737e111071caf8",
+      "bytes": 4651
+    },
+    "dependencies/behavior_pack/modern_projection/projection/static_bed_data.py": {
+      "sha256": "31d3035bc837520a73daf67174eaac17180ee33a63999d45db2ffd5011fae952",
+      "bytes": 244
+    },
+    "dependencies/behavior_pack/modern_projection/projection/static_chest_data.py": {
+      "sha256": "61fbe07103371b129ae55721d509f59d8c294efc56fda83aa627b18d530cc13a",
+      "bytes": 212
+    },
+    "dependencies/behavior_pack/modern_projection/projection/static_shulker_data.py": {
+      "sha256": "76c525990c415da76cbbd8c17c11ed410b50e8deccf619f989a94c7550fdce28",
+      "bytes": 207
+    },
+    "dependencies/behavior_pack/modern_projection/projection/static_skull.py": {
+      "sha256": "44b25884017a45b249cc7e938043da00e9c323398a61f7a2207b0eca8ebd6a41",
+      "bytes": 2329
+    },
+    "dependencies/behavior_pack/modern_projection/projection/static_skull_data.py": {
+      "sha256": "321ee9d2ebbe8d4ea27bfd7fa7de9cc0bda89260a6ea78e7ee817076ff719ad9",
+      "bytes": 241
+    },
+    "dependencies/behavior_pack/modern_projection/projection/static_table.py": {
+      "sha256": "7db6db88876cd6f093fd813724f6c5baa2e82391b69d49b8f3bed31cbc8b6ea0",
+      "bytes": 1285
+    },
+    "dependencies/behavior_pack/modern_projection/projection/static_table_data.py": {
+      "sha256": "a857060dc1faabd9591aba6d504b502e9e6edc124423940f7aba8310f9e89445",
+      "bytes": 324
+    },
+    "dependencies/behavior_pack/modern_projection/projection/storage.py": {
+      "sha256": "ae82f1c80715ff35a905081889ef4e155e9d3d59f29ff6f2ccc6d83a4961354e",
+      "bytes": 14263
+    },
+    "dependencies/behavior_pack/modern_projection/projection/visible_actor.py": {
+      "sha256": "06a45742aa05787c19a63757d69785a124a2241a3eb93e2637f9234d6b4880e7",
+      "bytes": 2972
+    },
+    "dependencies/behavior_pack/modern_projection/projection/water_interaction_data.py": {
+      "sha256": "0762950329b6f48fe7feaaa3c718f8bb62ca2fc6762d8fcb77f49287ae9ae5e7",
+      "bytes": 5678
+    },
+    "dependencies/tools/analyze_intrinsic_glint_ui_r21.py": {
+      "sha256": "e0514487644e7a4b9a1d017454a9c0cd057f3dae1798c02c9bfb3f9acae06732",
+      "bytes": 9982
+    },
+    "dependencies/tools/camera_projection.py": {
+      "sha256": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c",
+      "bytes": 3168
+    },
+    "dependencies/tools/capture_frozen_liquid_controls.py": {
+      "sha256": "01482101a84bfaa2e2d7eb4e826eea13b61c06392bc04b109a5e7a70a40a6e04",
+      "bytes": 16067
+    },
+    "dependencies/tools/capture_native_window.py": {
+      "sha256": "d4b260037600609914c6191e864945712550cbe65f737cad26dfd6c9723b0b87",
+      "bytes": 9320
+    },
+    "dependencies/tools/capture_pure_liquid_native_controls.py": {
+      "sha256": "233f2639012ecca4c81d7abee067b7edcbc5b79199bdfc07c914b0441016a64f",
+      "bytes": 34059
+    },
+    "dependencies/tools/census_intrinsic_glint_ui_r21.py": {
+      "sha256": "890f467fec8eb946cc9bc4eefb85e2d2a922b15e012204f083936972a9258f65",
+      "bytes": 13931
+    },
+    "dependencies/tools/check_native_dialogs.py": {
+      "sha256": "b1e2ad442cf67fc19a0f6315fadcdf707a1770c6006a0376adfc8a948b0df007",
+      "bytes": 1436
+    },
+    "dependencies/tools/context_test_environment.py": {
+      "sha256": "cc9db3ced04f380e254850f57de172a07e52d04c2f8d88ca8cb4c67fcf61ba57",
+      "bytes": 1730
+    },
+    "dependencies/tools/diagnose_window_dpi.py": {
+      "sha256": "b23015302c5691772032072c81d6e3e0740867e0e8690b08b78fc8f7b348b261",
+      "bytes": 8852
+    },
+    "dependencies/tools/freeze_intrinsic_glint_project_r21.py": {
+      "sha256": "506bacac59eded4c1d1b5c6b260893c4b54eff50765ced4b1c36ad9e2e41fc5f",
+      "bytes": 2507
+    },
+    "dependencies/tools/generate_liquid_native_input_fixture.py": {
+      "sha256": "dfd6f00f0926719eef946bbff86517b26ba1514a0deec813c474be7ebceffca5",
+      "bytes": 6672
+    },
+    "dependencies/tools/generate_liquid_payload_poc.py": {
+      "sha256": "996756d438a2c1ab871d3c960b22e8ea5dd9d0dc910340212294d42b100d4163",
+      "bytes": 17849
+    },
+    "dependencies/tools/generate_liquid_uniform_fixture.py": {
+      "sha256": "1b58abfec8801c697e1e588d0dd1e7eea7bc39b2c232f9862a8849b4427e3d87",
+      "bytes": 11752
+    },
+    "dependencies/tools/generate_shulker_proxies.py": {
+      "sha256": "3655cf8a4513439ba205617cc427a204e54ae5b1bfa0be066f1b3e6defa1be87",
+      "bytes": 10392
+    },
+    "dependencies/tools/liquid_payload_poc.py": {
+      "sha256": "93adac7eef6f4e42112120ff4efb417c761a3f057ba49de8fc7cd9de81ede312",
+      "bytes": 7454
+    },
+    "dependencies/tools/probe_intrinsic_glint_r21.py": {
+      "sha256": "7faa8ad91eb5a578f0867e3714cf504b4ab3453b6fcaf6913640a3ea2b80ed78",
+      "bytes": 6333
+    },
+    "dependencies/tools/probe_intrinsic_glint_ui_r21.py": {
+      "sha256": "40a840256274d7a95a90cdd1d95e78d0e1502e38823e3f11281b681b5f95885f",
+      "bytes": 9089
+    },
+    "dependencies/tools/probe_liquid_pose_channel.py": {
+      "sha256": "1d52187f8f977fb5542ce6d13e9abf6eb633d0117fe7d98a8ade96e9e2826499",
+      "bytes": 20817
+    },
+    "dependencies/tools/probe_liquid_scene.py": {
+      "sha256": "2843e32ab43d5befc41a4a158b5f62d46272b0ef36f39be3f68538f5f6556a1f",
+      "bytes": 7731
+    },
+    "dependencies/tools/probe_liquid_uniform_transport.py": {
+      "sha256": "4c45030a391945637ae49ae1f39cc84c5a556a7f0219879dd3560f4a627d33f5",
+      "bytes": 12136
+    },
+    "dependencies/tools/probe_liquid_workspace.py": {
+      "sha256": "de5c2470b30ffa2a51cfcd4da3ff39ae21b763111de2de0ad815921d090f8dd9",
+      "bytes": 45270
+    },
+    "dependencies/tools/probe_product_water.py": {
+      "sha256": "d68da331db2ac034a5a0407b014bffbe1a3feaf3cf573e31e41af93646c8d9d1",
+      "bytes": 47486
+    },
+    "dependencies/tools/read_owned_startup_handles.py": {
+      "sha256": "05b0a230669bb0086c3b712f46eb32b66c5cfede269d128be53c4562b7705534",
+      "bytes": 4836
+    },
+    "dependencies/tools/shulker_pixels.py": {
+      "sha256": "a134286c29b26a433448e78f9e825e88faeead4718be5af6ac0fe8fa71f64ca5",
+      "bytes": 7780
+    },
+    "dependencies/tools/sign_panel_oracle.py": {
+      "sha256": "b7472e2fd901bfedc403bc02622c27fdeda910c8e15760713775eeb0ccb99f44",
+      "bytes": 3315
+    },
+    "dependencies/tools/verify_context_batch_visuals.py": {
+      "sha256": "92eaa22743e360a85dea04e868ba5633eb29651486231c83e49c2574c237f0ef",
+      "bytes": 3129
+    },
+    "dependencies/tools/verify_debug_blueprints.py": {
+      "sha256": "73b725a0bb14d354ae0e6648578c24f8fe2de622ba98a1d4eae39d14737b89f9",
+      "bytes": 22223
+    },
+    "dependencies/tools/verify_debug_visuals.py": {
+      "sha256": "2dc121a997909330f592165707d895ce6a1f2a781288e865f14aa360d9272c9b",
+      "bytes": 14752
+    },
+    "dependencies/tools/verify_missing_neighbor_visuals.py": {
+      "sha256": "edca326910919c1a8a0e50fbd0318f68252a8377116152584aafd950413c949a",
+      "bytes": 31398
+    },
+    "dependencies/tools/verify_native_entity_appearances.py": {
+      "sha256": "d2d19437e25f6b7f5362f923ea027ad70b634d6d652efe6a30b395cdc513592d",
+      "bytes": 6052
+    },
+    "dependencies/tools/verify_native_sign_fields.py": {
+      "sha256": "0b205cebbd41abc01fbbee3525eddbe442d03a54b4abb39a7b39a30ada23b8b5",
+      "bytes": 9672
+    },
+    "dependencies/tools/verify_neighbor_world_visuals.py": {
+      "sha256": "7c948a91dd1f03dd3307b96ead989e8f3e0e2828f1ab5e0484211c5c0eb73258",
+      "bytes": 27508
+    },
+    "dependencies/tools/verify_shulker_orientations.py": {
+      "sha256": "0745199a433f82adaf5cb98298bd35b0037cd5a3226268aac318ea16c6ed90d1",
+      "bytes": 28212
+    },
+    "dependencies/tools/verify_sign_visuals.py": {
+      "sha256": "efa1b1537b50b9bbe13c40e6c7f7be45d75452acf2aa584cce8925cde3d15e8b",
+      "bytes": 45220
+    },
+    "dependencies/tools/visual_environment.py": {
+      "sha256": "1a71b530c88dc22dc66cb9f9c68f56b2a039741c058c6a0de2ec6cb419500519",
+      "bytes": 1309
+    },
+    "dependencies/tools/watch_intrinsic_glint_exit_r21.py": {
+      "sha256": "aa436ee9a0f496554c69330d8456fa21b6bb551b63032f0b5a453ad9748646aa",
+      "bytes": 4166
+    },
+    "dependencies/tools/water_capture_contract.py": {
+      "sha256": "1548fb691139be132a1b3f823b400068253e3493cf9b17bb0673677e1da98f66",
+      "bytes": 2780
+    },
+    "frozen/inputs.json": {
+      "sha256": "89af00ce6f054051a778df1de3c0adbe1f185e78be600b25fbb738e0c26d82bf",
+      "bytes": 2665
+    },
+    "frozen/launcher-inputs.json": {
+      "sha256": "000280c425f4095d804957443bff04e047a69a624b8fa0484ed0efef4a38bde8",
+      "bytes": 13825
+    },
+    "frozen/layout-estimate.json": {
+      "sha256": "52de100745aa8f90e1cce835fa69c2b0ad21f20ad19b2c0cda3e220a70240c64",
+      "bytes": 3384
+    },
+    "frozen/offline-check.json": {
+      "sha256": "8c2e2fb88334e7533fb4c6e054c45b56c9dbc128347f737a5e0804abea3445b0",
+      "bytes": 165
+    },
+    "frozen/plan.json": {
+      "sha256": "54c750c8bc5f43ecc1867aa41dc5413bc31d3160a4d48399b649163b39aca686",
+      "bytes": 474432
+    },
+    "host/check.py": {
+      "sha256": "a6b441c1af32fbdc71b7dd45a6758849d155e1acb272acf46a47aaeed4a78b2e",
+      "bytes": 5036
+    },
+    "host/client.py": {
+      "sha256": "b5a4e11cc6be8e3d148140c89742711c40d723920035d63146de89f2633f7ec1",
+      "bytes": 9108
+    },
+    "host/host.py": {
+      "sha256": "ff79a792435dac90b9b1f321a8aa12bde2e72c312526118d99ad416638d99355",
+      "bytes": 10875
+    },
+    "host/layout.py": {
+      "sha256": "2a8b3019869d71f49d6947183e3bfb92ba400bf63316039141946749ba35ddac",
+      "bytes": 3992
+    },
+    "host/precheck.py": {
+      "sha256": "058feb97657fdc787958157aa751a2f67adada86a21fa20ff05894d551793525",
+      "bytes": 2532
+    },
+    "host/prepare.py": {
+      "sha256": "4ca11f32a8bccf81831d3cd924878bf94412a45cd92067682bba0be1f84ba398",
+      "bytes": 9394
+    },
+    "host/run.py": {
+      "sha256": "b77161052b92a50ecd671c9b43f314b56460b5b6ba3f365044e8e653ae69cf58",
+      "bytes": 5252
+    },
+    "host/server.py": {
+      "sha256": "bc21b9b41a118cfbd41c7869efef8aa19fc04dd748c8cef1a4f6d8cbf1707975",
+      "bytes": 3353
+    },
+    "lifecycle/exact-exit.json": {
+      "sha256": "2ad0ecf552da9f15f58331ab73084ba6978c37f23d82d8769fc9a83afa0867fb",
+      "bytes": 1011
+    },
+    "lifecycle/finalize-request.json": {
+      "sha256": "c5901b5976e9af236e91d6138ea48de6ad97159d54b71162a19eae8e20d3df8e",
+      "bytes": 187
+    },
+    "lifecycle/finalize-result.json": {
+      "sha256": "4136c618459950d1f50630ae6c41a3e4f4ea9923a8de72e3250cacae4ed9e3e0",
+      "bytes": 187
+    },
+    "lifecycle/ready-summary.json": {
+      "sha256": "28d62a16af9bd2e1a5b28e976be9a3bf0261f799fcd03cd3548381e1cd6b5b56",
+      "bytes": 523
+    },
+    "lifecycle/start-request.json": {
+      "sha256": "9fdf29526f01386a6756fd21483c6ed2f06f251f185ab30de60221446aaaff16",
+      "bytes": 651
+    },
+    "lifecycle/start-result.json": {
+      "sha256": "909a6788c95967583ca5f73dd8b3711d881ea97c1d538a2a96264037a8463444",
+      "bytes": 98
+    },
+    "lifecycle/start.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "lifecycle/stop-request.json": {
+      "sha256": "efe3bab508da42e339170fc13a7c3512afe9c191cb8042f9b6cea8b47973b9df",
+      "bytes": 185
+    },
+    "lifecycle/stop-result.json": {
+      "sha256": "309bf9301b8e6ee0f0ad00daad79709529ebf6cc95dbfc22c40d1bed61e9f778",
+      "bytes": 228
+    },
+    "raw/01-unbound.capture.json": {
+      "sha256": "1977452e98289ef005e8063ac105389dbfa14c8169cd3bc660763c678090db54",
+      "bytes": 4107
+    },
+    "raw/01-unbound.png": {
+      "sha256": "3e4ca4d0dc64f53abf70286b934721265bef09db2c842ce3f9254067ae58b694",
+      "bytes": 24536
+    },
+    "raw/02-bound-small.capture.json": {
+      "sha256": "ee849eb94558dd9c86e59a1783c0a0eaef23dbebd3d63e17660e7ee55fa05119",
+      "bytes": 4111
+    },
+    "raw/02-bound-small.png": {
+      "sha256": "9ed533e77807061497f8462b6746fdf9356a0ca657a80675e7894b121df671fc",
+      "bytes": 26790
+    },
+    "raw/03-same-binding-scale-one.capture.json": {
+      "sha256": "49708b68261db8c5b8653bf7a2e3bc4f28035a3abbd3f7544f311e98387e5bdd",
+      "bytes": 4123
+    },
+    "raw/03-same-binding-scale-one.png": {
+      "sha256": "8c44acaefb4210d4caaae1e6950f51a4c0257c8fe6e163e1ce35b3b2bf498361",
+      "bytes": 46343
+    },
+    "raw/runtime-version-config-check.json": {
+      "sha256": "5c3c8be17c14ba4ba5933b3a997b5a7c49af6ae704fe4de8914ea8727580679b",
+      "bytes": 625
+    },
+    "README.md": {
+      "sha256": "5e34414120174c7cbe00d57cf2872ecc5012279da93b7e41a6553f882909c1e9",
+      "bytes": 2794
+    },
+    "receipts/001-banner-server-journal.json": {
+      "sha256": "8f38da15a6de9235c9dad5a9ca0f5468b0ecd1fd5e46fb2cd8f0e3bb69d88c56",
+      "bytes": 6139
+    },
+    "receipts/002-banner-client-setup.json": {
+      "sha256": "6f73b351ccfd86902e1a33fd1c90a86b1725c12d7eea642decbaa891d3166c6c",
+      "bytes": 12026
+    },
+    "receipts/003-banner-client-mount.json": {
+      "sha256": "0f00ef1084fe45210603e13ce067e92e515f2334c96b6194343ba6f3a20563e9",
+      "bytes": 12051
+    },
+    "receipts/004-banner-client-bind.json": {
+      "sha256": "443d1352188c864f137e7c66704f5169d5d7f65f5d9c372ca2a6b7ba12e15005",
+      "bytes": 13040
+    },
+    "receipts/005-banner-client-scale.json": {
+      "sha256": "928b68c6cbad2a580f9b16955d9eee1157e471c5ded9e7afec9b7a33cea0eb80",
+      "bytes": 11907
+    },
+    "receipts/006-banner-client-restore.json": {
+      "sha256": "a71c50b9145e571b23402e26c525ec67c72732d918821a09efe56bc52c5e4fbc",
+      "bytes": 12128
+    },
+    "receipts/007-banner-server-restore.json": {
+      "sha256": "c24d500a2f17550be10436de4b6dc870287c0c30957a81e2c5325c996ba4919a",
+      "bytes": 5742
+    },
+    "receipts/008-banner-server-absent.json": {
+      "sha256": "7d3c4725210a8f9e02d917c65f657418a05b04cebb076edc1614197f9891fbc2",
+      "bytes": 6052
+    },
+    "replay.py": {
+      "sha256": "e99be800d4afe05033a275edc99948ce49afa3903f14b7988468f5b2cec2ae88",
+      "bytes": 19871
+    },
+    "review.json": {
+      "sha256": "44fa5e8f58cd01c3c6b23c58d389d2f3b4836f3a3ab78666db1e628e07976f6d",
+      "bytes": 957
+    },
+    "sources/.mcdev.json": {
+      "sha256": "0d5502d197d45ff08e839c254d9c6c650edd98a86f3436ade698c8121177d106",
+      "bytes": 282
+    },
+    "sources/resource_pack/materials/entity.material": {
+      "sha256": "fec80ee839543a2b1d5f89d83bf4a682e4dd46bcf5d013354ce265d5c10691d4",
+      "bytes": 32310
+    },
+    "sources/resource_pack/models/modern_projection/item_icons/d19ff5bff710ac9e_mesh.json": {
+      "sha256": "1c6ce49b9b35d3605aa5de2f96a6ef0f05769118cdddc9b872a8e47421cfbca8",
+      "bytes": 115392
+    },
+    "sources/resource_pack/textures/models/modern_projection/item_icons/d19ff5bff710ac9e.png": {
+      "sha256": "d19ff5bff710ac9e65acaae0dde27857796bede55f9319a9254ff861d563a90a",
+      "bytes": 343
+    },
+    "sources/resource_pack/ui/PyreactBase.json": {
+      "sha256": "8d5553bbc7e85f12c807c524e15f688d6a91f61db85cd272b381bf2b65677009",
+      "bytes": 11660
+    }
+  }
+}
