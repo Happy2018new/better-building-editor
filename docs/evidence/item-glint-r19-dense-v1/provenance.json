@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "scope": "Final-shader four-route continuous visible evolution; no full product or exact phase-speed/lighting parity claim",
+  "archive_kind": "credential-redacted local review copy; original full-resolution frames remain in ignored runtime",
+  "original_report": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\item-glint-final-dense-r19-v2\\report.json",
+    "sha256": "df86c53dd9877cf47aba7f6dc63947c0c9035ece6e15a019229dfafeb348da2a",
+    "bytes": 1813973
+  },
+  "review_report": {
+    "path": "report.json",
+    "sha256": "5efaa67f23b414bc120a652e5c8c3547959e0076c92988c0404c5f45e519d45e",
+    "bytes": 1813925
+  },
+  "redacted_fields": [
+    {
+      "path": "$.session.token",
+      "replacement": "REDACTED"
+    },
+    {
+      "path": "$.camera_calibration.session.token",
+      "replacement": "REDACTED"
+    }
+  ],
+  "semantic_report_changes_only_authentication_fields": true,
+  "analysis_recomputed_from_redacted_input": true,
+  "sparse_measurements_equal_original": true,
+  "dense_measurements_equal_original": true,
+  "regenerated_gif_and_contact_sheet_hashes_match_original": true,
+  "selected_capture_png_and_receipt_bytes_unchanged": true,
+  "source_shader_sha256": "3c288ec16d18d66b908393c34dd84b6bb4a884ca52b8a2e1039a94a392a3da87",
+  "resource_contract": {
+    "layout_version": 1,
+    "resource_sha256": "515be879b61fc352b3e00e66d063f8da6e05036a8cd7d83aa54db563fb86815e"
+  },
+  "commands": [
+    [
+      "D:\\Program\\Python\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\analyze_visible_items_r16.py",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\item-glint-final-dense-r19-review-v1\\report.json",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\item-glint-final-dense-r19-review-v1\\sparse"
+    ],
+    [
+      "D:\\Program\\Python\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\analyze_item_dense_motion_r17.py",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\item-glint-final-dense-r19-review-v1\\report.json",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\item-glint-final-dense-r19-review-v1\\sparse\\analysis.json",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\item-glint-final-dense-r19-review-v1\\dense"
+    ]
+  ],
+  "source_bindings": {
+    "resource_pack/shaders/glsl/modern_projection_item_icon.fragment": "3c288ec16d18d66b908393c34dd84b6bb4a884ca52b8a2e1039a94a392a3da87",
+    "tools/generate_item_icon_catalog.py": "3644ea4d6737a5c4bc9ef1032f66c69c9f9b281dfd6ae56849b8c4f52fa6100a",
+    "tools/data/item_icon_catalog_nemc_3.10.0.420447.json": "c8736ee56918ad4e12de142e17ee79a33f411fbb676ae49b724d37a8d8ae6122",
+    "behavior_pack/modern_projection/projection/item_icon_data.py": "0c2096904d52e8fb72de79dcb0398a85e037dca3938486c4fd40b38242e2655f",
+    "tools/item_sprite_closeup.py": "6b6f8d0b643426f4178c30f26506356839b999d4650dc6e468ddf27d4b158c81",
+    "tools/item_sprite_motion_capture.py": "35f735c89ab7b5e778a13a1fddb150dbdd61aab61de4038e1ee45d973fb0acea",
+    "tools/run_visible_items_r16.py": "143b0275ff33e2e7545d13435be8ba5e26b5c11b630ff4c3cfe6389569504cb2",
+    "tools/analyze_visible_items_r16.py": "f499d3d98caa4f65167fab77a05b804c0bad505fdc73f86b7c1dd2e6680cd1de",
+    "tools/analyze_item_sprite_closeup.py": "57b1977dfee38256a0af006d2eecf73ce295e876a77e2991cc0d0c05981ca983",
+    "tools/analyze_item_dense_motion_r17.py": "ca5fd681bcddf6e1b987016e2dd310a25dc48c1b173561bcd23f7a0238c0a3a3"
+  },
+  "host_analyzer_bindings": {
+    "tools/analyze_visible_items_r16.py": {
+      "host_sha256": "f499d3d98caa4f65167fab77a05b804c0bad505fdc73f86b7c1dd2e6680cd1de",
+      "unused_project_copy_sha256": "f499d3d98caa4f65167fab77a05b804c0bad505fdc73f86b7c1dd2e6680cd1de",
+      "execution_location": "host repository; project analyzer copies are not executed"
+    },
+    "tools/analyze_item_sprite_closeup.py": {
+      "host_sha256": "57b1977dfee38256a0af006d2eecf73ce295e876a77e2991cc0d0c05981ca983",
+      "unused_project_copy_sha256": "1254380d0c969eab1f4e0be841b7b630586285c19278e722daecc556297ca1e5",
+      "execution_location": "host repository; project analyzer copies are not executed"
+    },
+    "tools/analyze_item_dense_motion_r17.py": {
+      "host_sha256": "ca5fd681bcddf6e1b987016e2dd310a25dc48c1b173561bcd23f7a0238c0a3a3",
+      "unused_project_copy_sha256": "489a56dfaed1568b94f7f38759e141dd8074e539e42f52fa30bfab10ca277617",
+      "execution_location": "host repository; project analyzer copies are not executed"
+    }
+  },
+  "original_artifact_manifest": "original-local-artifacts.json",
+  "continuous_motion_accepted": true,
+  "production_qualified": false
+}
