@@ -72,10 +72,36 @@ def pack(before, after, output):
             'bytes':sum(path.stat().st_size for path in output.rglob('*') if path.is_file())}
 
 
+def pack_single(folder,analysis_path,output):
+    output.mkdir(parents=True,exist_ok=False)
+    report_path = folder/'report.json'
+    report,analysis = (json.loads(path.read_bytes()) for path in (report_path,analysis_path))
+    if (not report['completed'] or report['cleanup_errors'] or not report['source_unchanged'] or
+            not analysis['evidence_valid'] or analysis['source_sha256']!=digest(report_path)):
+        raise ValueError('Near reference requires completed, stable, replayed evidence')
+    summary = {'schema':1,'production_qualified':False,'source_report_sha256':digest(report_path),
+               'source_analysis_sha256':digest(analysis_path),'resource_contract':report['resource_contract'],
+               'analysis':analysis,'files':[],
+               'scope':'Selected raw same-item near side-view reference; full raw capture remains local'}
+    case = analysis['cases'][0]
+    for capture in report['captures']:
+        label = capture['label']
+        if not label.startswith(case['id']+'_'):
+            continue
+        source = folder/(label+'.png')
+        shutil.copyfile(source,output/source.name)
+        summary['files'].append({'path':source.name,'sha256':digest(source)})
+    (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n',encoding='ascii')
+    return {'files':sum(1 for path in output.rglob('*') if path.is_file()),
+            'bytes':sum(path.stat().st_size for path in output.rglob('*') if path.is_file())}
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('before',type=Path)
     parser.add_argument('after',type=Path)
     parser.add_argument('output',type=Path)
+    parser.add_argument('--single',action='store_true',help='Interpret after as the replay analysis JSON')
     args = parser.parse_args()
-    print(json.dumps(pack(args.before,args.after,args.output)))
+    action = pack_single if args.single else pack
+    print(json.dumps(action(args.before,args.after,args.output)))

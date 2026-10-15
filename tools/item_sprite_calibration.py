@@ -17,7 +17,10 @@ def calibrate(check, session, owner, output, wgc, save):
                   "sys._item_camera_saved={'document':s.editor.document,'origin':s.origin,"
                   "'opacity':s.opacity,'missing':s.projection_missing,'outline':s.projection_outline}\n_result=True")
         saved = True
-        evidence['fixture'] = check.run(LOAD_CUBE % 8)
+        # Keep the reference cube above nearby mountains and foliage. Their
+        # temporal fog changes can join the differenced cube silhouette even
+        # though its camera is stable. Preserve the original pixel tolerances.
+        evidence['fixture'] = check.run(LOAD_CUBE % 57)
         state = check.wait('independent stone camera cube',
             lambda row: row['active'] and row['ready'] and not row['preparing']
             and row['actors'] == 1 and bool(row['mesh']), lambda: check.run(PROJECTION_STATUS))

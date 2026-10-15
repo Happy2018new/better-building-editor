@@ -1,4 +1,5 @@
 """Enlarged item animation controls derived from the public source blueprint."""
+import json
 import time
 
 from capture_native_window import capture
@@ -35,7 +36,7 @@ _result={'source_fixture':IDENTITY,'source_pair':pair,'positions':positions,'siz
 
 
 def run(check, client, session, report, state_source, camera_source, output, wgc, save, native_reference=False,
-        native_player_near=False, compact=False):
+        native_player_near=False, compact=False, burst_config=None):
     folder = output/'closeup'
     folder.mkdir()
     positions = {'plain': (1,2,2), 'enchanted': (2,2,2), 'empty': (3,2,2)} if compact else POSITIONS
@@ -93,6 +94,33 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         if response.get('isError'):
             raise RuntimeError(response)
         return return_value(response)
+    def occupancy_write(position, material):
+        # A restored companion slot does not prove the real world mesh was
+        # refreshed. Keep independent server/client receipts for the fixture.
+        result=server('position=%r\nvalue=%r\n' % (tuple(position),material)+
+            'written=adapter.write(position,value)\n'
+            '_result={"written":written,"actual":adapter.read(position)}')
+        result=json.loads(result) if isinstance(result,str) else result
+        closeup.setdefault('occupancy_changes',[]).append({'position':position,
+            'requested':material,'server':result})
+        persist()
+        assert result['written'],result
+        actual=check.wait('closeup world block replicated '+material[0],
+            lambda row: row and row[0]==material[0],
+            lambda:check.run('_result=b.factory.CreateBlockInfo(b.level).GetBlock(%r)' % (tuple(position),)))
+        closeup['occupancy_changes'][-1]['client']=actual
+        persist()
+    def motion_capture(route):
+        if burst_config is None:return
+        from item_sprite_motion_capture import capture as capture_motion
+        before=state() if route=='editor' else check.run(camera_source)
+        receipt=capture_motion(session,folder/('motion_'+route),*burst_config)
+        after=state() if route=='editor' else check.run(camera_source)
+        stable=(scene_layout(before)==scene_layout(after) if route=='editor' else
+                camera_matches(before,closeup['world_camera']) and camera_matches(after,closeup['world_camera']))
+        closeup.setdefault('motion_bursts',{})[route]=dict(receipt,before=before,after=after,stable=stable)
+        persist()
+        assert stable,'Dense animation camera/layout drift: '+route
     try:
         check.run("assert not hasattr(sys,'_item_closeup_saved')\n"
             "sys._item_closeup_saved={'editor':s.editor,'origin':s.origin,'opacity':s.opacity,"
@@ -107,6 +135,7 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         for index in range(FRAMES):
             time.sleep(INTERVAL)
             editor_capture('editor_'+str(index))
+        motion_capture('editor')
         check.run("sys._item_closeup_muted=(s.item_controls,s.item_controls.closed,"
             "[(entry['renderer'],tuple(entry['renderer'].visible)) for entry in s.item_controls.registry.values()])\n"
             "s.item_controls.closed=True\n"
@@ -131,6 +160,7 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         check.run('navigator.pop()\n_result=True')
         check.wait('closeup workspace closed', lambda row: not row['open'] and not row['transition'], check.navigation)
         closeup['world_camera'] = check.run("cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n"
+            "cam.LockModCameraPitch(True)\ncam.LockModCameraYaw(True)\n"
             "target=tuple(s.origin[axis]+%r[axis] for axis in range(3))\n"
             "position=tuple(target[axis]+%r[axis] for axis in range(3))\n"
             "rot=api.GetRotFromDir(tuple(target[axis]-position[axis] for axis in range(3)))\n"
@@ -145,6 +175,7 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         for index in range(FRAMES):
             time.sleep(INTERVAL)
             world_capture('world_'+str(index))
+        motion_capture('world')
         check.run("owners=getattr(b.projection_liquid,'companions',(b.projection_liquid,))\n"
             "sys._item_closeup_world_muted=[item for item in owners if item.__class__.__name__=='ItemProjection'][0]\n"
             "assert sys._item_closeup_world_muted.renderer.set_visible(False)\n_result=True")
@@ -156,24 +187,25 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         check.run('b.toggle_missing()\n_result=True')
         server("from modern_projection.projection.cell import AIR\nassert adapter.read("+repr(tuple(world_position))+")==AIR\n_result=True")
         wrote = True
-        server("adapter.write("+repr(tuple(world_position))+",('minecraft:stone',0))\n_result=True")
+        occupancy_write(world_position,('minecraft:stone',0))
         check.run('b.projection_interaction('+repr(tuple(world_position))+')\n_result=True')
         world_capture('world_occupied', 1)
-        server("adapter.write("+repr(tuple(world_position))+",('minecraft:air',0))\n_result=True")
+        occupancy_write(world_position,('minecraft:air',0))
         wrote = False
         check.run('b.projection_interaction('+repr(tuple(world_position))+')\n_result=True')
         world_capture('world_restored')
         if native_reference:
             from item_sprite_native_reference import run as run_reference
             run_reference(check,server,session,closeup,world_capture,state_source,camera_source,folder,wgc,persist,
-                          native_player_near)
+                          native_player_near,motion_capture)
         closeup['completed'] = True
     finally:
         if wrote:
             server("adapter.write("+repr(tuple(world_position))+",('minecraft:air',0))\n_result=True")
         if saved:
             try:
-                check.run("b.stop_projection()\ncam=b.factory.CreateCamera(b.level)\ncam.ResetCameraPos()\ncam.UnDepartCamera()\n"
+                check.run("b.stop_projection()\ncam=b.factory.CreateCamera(b.level)\ncam.ResetCameraPos()\n"
+                    "cam.LockModCameraPitch(False)\ncam.LockModCameraYaw(False)\ncam.UnDepartCamera()\n"
                     "saved=sys._item_closeup_saved\ns.editor=saved['editor']\ns.origin=saved['origin']\ns.opacity=saved['opacity']\n"
                     "s.grid=saved['grid']\ns.projection_missing=saved['missing']\ns.projection_outline=saved['outline']\n"
                     "s.model_revision=None\ns.refresh_preview()\ns.emit()\nowner.open_workspace()\n"

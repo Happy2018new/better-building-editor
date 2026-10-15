@@ -157,7 +157,7 @@ _result={'passed':True,'rows':results,'player_foot':foot_restore}
 
 
 def run(check, server, session, closeup, world_capture, state_source, camera_source, folder, wgc, persist,
-        native_player_near=False):
+        native_player_near=False, motion_capture=None):
     reference = {'schema': 1, 'completed': False, 'restored': False, 'captures': [],
                  'lighting': 'Private owned world, frozen clear noon; native materials retain their engine lighting',
                  'routes': ['editor', 'world', 'world_missing', 'native'], 'cleanup_errors': []}
@@ -175,6 +175,7 @@ def run(check, server, session, closeup, world_capture, state_source, camera_sou
     for index in range(20):
         time.sleep(.4)
         world_capture('world_missing_'+str(index))
+    if motion_capture:motion_capture('world_missing')
     distances = "info=b.factory.CreateBlockInfo(b.level)\nrender=b.factory.CreateActorRender(b.player)\n" \
         "_result={'block':info.GetBlockRenderDistance(),'entity':render.GetEntityRenderDistance()," \
         "'projection_lease':b.projection_distance,'foot':b.player_origin()}"
@@ -235,6 +236,7 @@ def run(check, server, session, closeup, world_capture, state_source, camera_sou
         for index in range(20):
             time.sleep(.4)
             sample('native_'+str(index))
+        if motion_capture:motion_capture('native')
         reference['hidden_clear'] = server(HIDE_CLEAR)
         check.wait('native hidden frame cells replicated air',lambda value:value is True,
             lambda:check.run("info=b.factory.CreateBlockInfo(b.level)\npositions="+repr(rows)+"\n"

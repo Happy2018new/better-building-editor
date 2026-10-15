@@ -31,7 +31,7 @@ def empty_body_measurement(shown,hidden,expected):
             'passed':int(unexpected.sum())<=LIMITS['maximum_control_motion_pixels']}
 
 
-def analyze(source,output):
+def analyze(source,output,world_plain_only=False):
     report=json.loads(source.read_bytes())
     output.mkdir(parents=True,exist_ok=False)
     captures=dict((row['label'],row) for row in report['captures'])
@@ -47,6 +47,9 @@ def analyze(source,output):
             'scope':'Static measured flat-icon geometry and actual native frame body; animation measured separately'}
     result['resource_contract']=report.get('resource_contract')
     result['profile_mode']=report.get('profile_mode','candidate')
+    result['view_configuration']=report.get('view_configuration',{})
+    plain_only=bool(world_plain_only or result['view_configuration'].get('native_target_plain'))
+    result['world_measured_modes']=['plain'] if plain_only else ['plain','enchanted']
     result['requested_cases']=report.get('requested_cases',[case['id'] for case in report['cases']])
     result['completed_cases']=[case['id'] for case in report['cases']
                                if case.get('measurement_completed',report['completed'])]
@@ -91,6 +94,8 @@ def analyze(source,output):
                 rows={}
                 for mode,position in positions.items():
                     if route=='native' and mode!='plain':
+                        continue
+                    if route!='editor' and plain_only and mode!='plain':
                         continue
                     expected=expected_mask(position,row,texture,pose,size,calibration,facing,rotation)
                     body=body_measurement(shown,hidden,expected)
@@ -179,5 +184,6 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source',type=Path)
     parser.add_argument('output',type=Path)
+    parser.add_argument('--world-plain-only',action='store_true')
     args=parser.parse_args()
-    analyze(args.source,args.output)
+    analyze(args.source,args.output,args.world_plain_only)

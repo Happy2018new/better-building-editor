@@ -71,6 +71,9 @@ def run(args):
     output.mkdir(parents=True, exist_ok=False)
     session = json.loads(args.session.read_bytes())
     assert session['owner'] == args.owner and session['state'] == 'ready'
+    if args.burst_exe:
+        from item_sprite_motion_capture import validate as validate_motion_capture
+        validate_motion_capture(session,args.burst_exe,args.burst_sha256)
     project = Path(session['project'])
     report = {'schema': 1, 'completed': False, 'production_qualified': False,
               'engine': '3.10.0.420447', 'session': session, 'captures': [], 'cases': [],
@@ -79,6 +82,8 @@ def run(args):
     report['host_tool_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     report['process_samples']=[]
     report['profile_mode']='production' if args.production_profile else 'candidate'
+    report['view_configuration']={'angle_degrees':args.view_angle,'editor_zoom':args.editor_zoom,
+                                  'native_target_plain':args.native_target_plain}
     def save(name, value):
         path = output / name
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -157,6 +162,8 @@ def run(args):
             report['camera_calibration'] = calibrate(check, session, args.owner, output, args.wgc, save)
             if report['camera_calibration']['cleanup_errors']:
                 raise RuntimeError('Camera calibration cleanup failed')
+            if not report['camera_calibration']['passed']:
+                raise RuntimeError('Camera calibration failed; no item acceptance capture was started')
             check.capture = lambda label, tree=None: sample(label, 'editor')
             check.page()
             check.fixture('test.entities.item_contents')
@@ -166,7 +173,8 @@ def run(args):
             assert not report['native_item_shader_errors'], report['native_item_shader_errors']
             if not args.skip_closeup:
                 closeup(check, client, session, report, STATE, CAMERA, output, args.wgc,
-                        save, native_reference=True, native_player_near=True, compact=args.compact_closeup)
+                        save, native_reference=True, native_player_near=True, compact=args.compact_closeup,
+                        burst_config=(args.burst_exe,args.burst_sha256) if args.burst_exe else None)
             cases = check.run('from modern_projection.projection.debug_item_blueprints import CATALOGUE_CASES\n'
                              '_result=[dict(row,fixture=identity) for identity,rows in CATALOGUE_CASES.items() for row in rows]')
             wanted = set(args.names.split(','))
@@ -217,6 +225,8 @@ def run(args):
                     assert not is_slot and face==2, 'Oblique captures require north-facing frame contents'
                     pose=(pose[0]+args.view_angle,pose[1],pose[2])
                     source['view_angle_degrees']=args.view_angle
+                if args.editor_zoom is not None:
+                    pose=(pose[0],pose[1],args.editor_zoom)
                 fixture = check.run(doc_code + 's._loaded(doc)\ns.editor.layer=0\ns.display_mode("full")\n'
                                     's.grid=False\ns.camera_view(*%r)\nowner.open_workspace()\n'
                                     '_result={"size":doc.size,"name":doc.name,"blocks":len(doc.blocks)}' % (pose,))
@@ -244,6 +254,8 @@ def run(args):
                     if args.view_angle:
                         angle=math.radians(args.view_angle)
                         offset=(math.sin(angle)*distance,offset[1],-math.cos(angle)*distance)
+                    if args.native_target_plain:
+                        center=tuple(local_plain[axis]+.5-normal[axis]*.4375 for axis in range(3))
                 camera = check.run('foot=b.player_origin()\ns.origin=(foot[0]+5,foot[1]+18,foot[2]+5)\n'
                                   's.opacity=1.\ns.projection_missing=False\ns.projection_outline=False\nb.project()\n_result=s.origin')
                 world_state()
@@ -354,11 +366,19 @@ if __name__ == '__main__':
     parser.add_argument('--production-profile', action='store_true')
     parser.add_argument('--compact-closeup', action='store_true')
     parser.add_argument('--closeup-only', action='store_true')
+    parser.add_argument('--burst-exe',type=Path,help='Optional reviewed WGC helper for dense glint motion.')
+    parser.add_argument('--burst-sha256',help='Required expected SHA256 when enabling dense capture.')
     parser.add_argument('--orientation-matrix', action='store_true')
     parser.add_argument('--icons-only', action='store_true')
     parser.add_argument('--orientation-cases')
     parser.add_argument('--near-distance', type=float, default=8.)
     parser.add_argument('--view-angle', type=float, default=0.)
+    parser.add_argument('--editor-zoom', type=float)
+    parser.add_argument('--native-target-plain', action='store_true')
     parser.add_argument('--maximum-handles', type=int, default=220000)
     parser.add_argument('--names', default='diamond_sword,apple,beef,diamond_pickaxe,iron_ingot,bed,bow,bucket,bone,bread,emerald,fishing_rod')
-    sys.exit(run(parser.parse_args()))
+    args=parser.parse_args()
+    if args.burst_exe and (not args.burst_sha256 or len(args.burst_sha256)!=64 or
+                          any(c not in '0123456789abcdefABCDEF' for c in args.burst_sha256)):
+        parser.error('--burst-exe requires the reviewed --burst-sha256 before entering the game')
+    sys.exit(run(args))
