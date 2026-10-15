@@ -20,6 +20,8 @@ REPORTS = {
     'v7-ready': '.runtime/water-r20-state-v7/ready-water/report.json',
     'v7-parameters': '.runtime/water-r20-state-v7/call-parameters.json',
     'v7-editor-pool': '.runtime/water-r20-state-v7/editor-pool.json',
+    'v7-editor-public19': '.runtime/water-r20-state-v7/editor-public19.json',
+    'v7-editor-alpha4': '.runtime/water-r20-state-v7/editor-alpha4.json',
 }
 FILES = {
     'launch-inputs.json': '.runtime/water-r20-state-v7/launch-inputs.json',
@@ -29,6 +31,10 @@ FILES = {
     'launch-mcdev.json': '.runtime/water-r20-state-v7/launch-mcdev.json',
     'previous-mcdev.json': '.runtime/water-r20-state-v7/previous-mcdev.json',
     'v7-editor-pool-analysis.json': '.runtime/water-r20-state-v7/editor-pool-analysis.json',
+    'v7-editor-public19-analysis.json': '.runtime/water-r20-state-v7/editor-public19-analysis.json',
+    'v7-editor-public19-product-analysis.json': '.runtime/water-r20-state-v7/editor-public19-product-analysis.json',
+    'v7-editor-alpha4-analysis.json': '.runtime/water-r20-state-v7/editor-alpha4-analysis.json',
+    'v7-editor-alpha4-product-analysis.json': '.runtime/water-r20-state-v7/editor-alpha4-product-analysis.json',
     'timing-granular-v2.json': '.runtime/water-r20-state-v7/granular-timing-v2.json',
     'timing-thread-unsupported-v3.json': '.runtime/water-r20-state-v7/granular-timing-thread-v3.json',
     'timing-world-v1.json': '.runtime/water-r20-state-v7/granular-world-v1.json',

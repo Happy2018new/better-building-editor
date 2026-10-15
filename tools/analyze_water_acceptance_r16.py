@@ -163,7 +163,8 @@ def replay(path):
               'source_unchanged': source.get('source_unchanged'),
               'visibility': {}, 'side_uv': {}, 'budgets': {}, 'lifecycle': {},
               'maximum_observed_groups': 0, 'passed': False,
-              'scope': 'Public isolated pool and partial-solid controls; CPU calls exclude IPC and screenshots'}
+              'scope': ('Public isolated pool and partial-solid controls; owner-call elapsed time '
+                        'excludes IPC and screenshots but can include thread scheduling delays')}
     if not base['evidence_valid']:
         result['capture_failures'] = base['capture_failures']
         return result

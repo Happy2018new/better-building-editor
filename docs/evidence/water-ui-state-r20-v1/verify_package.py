@@ -92,7 +92,7 @@ def main():
                 assert report['host_sha256'] == sha(ROOT / 'hosts' / host_binding[name]), name
             if name not in ('root-positive', 'v6-portal16'):
                 assert report['source_contract_sha256'] == launch['source_contract_sha256'], name
-            if isinstance(report.get('source_sha256'), dict) and name not in ('v7-editor-pool', 'v6-portal16'):
+            if isinstance(report.get('source_sha256'), dict) and not name.startswith('v7-editor-') and name != 'v6-portal16':
                 if name != 'root-positive':
                     assert report['source_sha256'] == sources, name
                 else:
@@ -118,7 +118,10 @@ def main():
                     assert receipt['agent_activation_allowed'] is False
                     assert receipt['activation_fallback'] is False and receipt['guarded_no_activation']
                 else:
-                    assert receipt['background_only'] and receipt['foreground_unchanged']
+                    assert receipt['background_only']
+                    assert all(receipt['foreground_' + phase]['pid'] != receipt['game_pid']
+                               for phase in ('before', 'after'))
+                    assert receipt['foreground_unchanged'] == (receipt['foreground_before'] == receipt['foreground_after'])
                 assert receipt['frame']['frame_qpc_100ns'] >= receipt['frame']['request_qpc_100ns']
                 identities.add((receipt['session_file'], receipt['game_pid'], receipt['game_identity']))
                 capture_count += 1
@@ -140,6 +143,7 @@ def main():
                         destination.write_bytes(contents[name].read(name))
                 sys.path.insert(0, str(temporary / 'tools'))
                 from analyze_water_acceptance_r16 import budget_checks, replay
+                from analyze_product_water import analyze
                 from PIL import Image
                 import numpy as np
 
@@ -212,9 +216,65 @@ def main():
                 assert len(world['rows']) == 24 and max(row['metrics']['handles'] for row in world['rows']) < 220000
                 assert world['timing']['thread_cpu_supported'] is False
                 assert world['timing']['thread_cpu_failure'] == "ImportError('No module named ctypes',)"
+                public = reports['v7-editor-public19']
+                assert len(public['cases']) == 19 and public['routes'] == ['editor']
+                assert len(public['captures']) == 92 and len(public['rows']) == 54
+                assert public['source_file_sha256_before'] == public['source_file_sha256_after'] == sources
+                assert public['launch_source_sha256'] == sources
+                assert max(row['handles'] for row in public['measurements']) < 220000
+                for frame in public['captures'].values():
+                    frame['path'] = str(ROOT / 'captures/v7-editor-public19' / Path(frame['path']).name)
+                public_path = temporary / 'editor-public19.json'
+                public_path.write_text(json.dumps(public), encoding='ascii')
+                public_replay = replay(public_path)
+                public_analysis = read('v7-editor-public19-analysis.json')
+                for key in ('evidence_valid', 'side_uv', 'visibility', 'budgets', 'passed'):
+                    assert public_replay[key] == public_analysis[key], ('public19', key)
+                public_product = analyze(public_path)
+                archived_product = read('v7-editor-public19-product-analysis.json')
+                for key in ('evidence_valid', 'geometry', 'transparency', 'alpha_controls', 'observed_product_gates'):
+                    assert public_product[key] == archived_product[key], ('public19 product', key)
+                assert public_replay['evidence_valid'] and public_product['evidence_valid']
+                assert not public_replay['passed'] and not public['production_default_requested']
+                assert public['alpha_controls_requested'] is False and not public['flow_bursts']
+                assert len(public_replay['visibility']) == 18 and all(row['passed'] for row in public_replay['visibility'].values())
+                assert len(public_product['geometry']) == 15 and all(row['passed'] for row in public_product['geometry'].values())
+                assert public_product['observed_product_gates'] == {'geometry': True, 'transparency': True, 'animation': False}
+                assert abs(public_replay['budgets']['LiquidControls.update']['maximum_ms'] - 434.999942779541) < 1e-8
+                assert not public_replay['budgets']['LiquidControls.update']['passed']
+                assert public['owner_timing_details']['outliers'] == [{'started': 1792077074.389,
+                    'pending_renderers': 0, 'fixture': 'water_style_flow_east_wet', 'requested_groups': 4,
+                    'elapsed_ms': 434.999942779541, 'registry_entries': 4, 'method': 'LiquidControls.update'}]
+                alpha = reports['v7-editor-alpha4']
+                assert len(alpha['cases']) == 4 and alpha['routes'] == ['editor']
+                assert len(alpha['captures']) == 56 and len(alpha['rows']) == 24
+                assert alpha['source_file_sha256_before'] == alpha['source_file_sha256_after'] == sources
+                assert alpha['launch_source_sha256'] == sources and alpha['alpha_controls_requested']
+                assert not alpha['production_default_requested'] and not alpha['flow_bursts']
+                for frame in alpha['captures'].values():
+                    frame['path'] = str(ROOT / 'captures/v7-editor-alpha4' / Path(frame['path']).name)
+                alpha_path = temporary / 'editor-alpha4.json'
+                alpha_path.write_text(json.dumps(alpha), encoding='ascii')
+                alpha_replay = replay(alpha_path)
+                archived_alpha = read('v7-editor-alpha4-analysis.json')
+                for key in ('evidence_valid', 'side_uv', 'visibility', 'budgets', 'passed'):
+                    assert alpha_replay[key] == archived_alpha[key], ('alpha4', key)
+                alpha_product = analyze(alpha_path)
+                archived_alpha_product = read('v7-editor-alpha4-product-analysis.json')
+                for key in ('evidence_valid', 'geometry', 'transparency', 'alpha_controls', 'observed_product_gates'):
+                    assert alpha_product[key] == archived_alpha_product[key], ('alpha4 product', key)
+                assert alpha_replay['evidence_valid'] and alpha_product['evidence_valid']
+                assert len(alpha_product['alpha_controls']) == 4
+                assert all(row['passed'] and row['complete'] and row['geometry_unchanged']
+                           for row in alpha_product['alpha_controls'].values())
+                assert abs(alpha_replay['budgets']['LiquidControls.update']['maximum_ms'] - 370.00012397766113) < 1e-8
+                assert not alpha_replay['budgets']['LiquidControls.update']['passed'] and not alpha_replay['passed']
+                assert alpha['owner_timing_details']['outliers'] == [{'started': 1792077519.254,
+                    'pending_renderers': 0, 'fixture': 'water_style_wet_oak_slab_wet', 'requested_groups': 0,
+                    'elapsed_ms': 370.00012397766113, 'registry_entries': 0, 'method': 'LiquidControls.update'}]
         print(json.dumps({'verified': True, 'pixels_replayed': args.pixels,
             'captures': capture_count, 'source_files': len(sources),
-            'invalid_loading_captures': 3, 'failed_maxima_ms_preserved': [169, 230],
+            'invalid_loading_captures': 3, 'failed_maxima_ms_preserved': [169, 230, 370, 435],
             'production_qualified': False}))
     finally:
         for archive in archives:
