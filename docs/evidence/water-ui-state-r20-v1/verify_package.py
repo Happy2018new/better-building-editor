@@ -74,7 +74,34 @@ def main():
         assert set(contents) == set(sources)
         for name, expected in sources.items():
             assert hashlib.sha256(contents[name].read(name)).hexdigest() == expected, name
+        for name, container in (('resource_pack/materials/entity.material', 'materials'),
+                                ('resource_pack/models/netease_models.json', None)):
+            old_archive = next(archive for archive in reversed(archives[:-1]) if name in archive.namelist())
+            old = json.loads(old_archive.read(name))
+            new = json.loads(contents[name].read(name))
+            old, new = (old[container], new[container]) if container else (old, new)
+            assert all(old[key] == new[key] for key in old) and len(set(new) - set(old)) == 12
         reports = {name: read(row['path']) for name, row in manifest['reports'].items()}
+        host_binding = {'root-positive': 'cross-session.py', 'v6-cold': 'cross-session.py',
+            'v6-primed': 'cross-session.py', 'v6-primed16': 'cross-session.py',
+            'v7-splash-invalid': 'cross-session.py', 'v7-ready': 'cross-session.py',
+            'v6-matched-pose': 'matched-pose.py', 'v6-entity': 'entity-control.py',
+            'v7-parameters': 'native-parameters.py'}
+        for name, report in reports.items():
+            if name in host_binding:
+                assert report['host_sha256'] == sha(ROOT / 'hosts' / host_binding[name]), name
+            if name not in ('root-positive', 'v6-portal16'):
+                assert report['source_contract_sha256'] == launch['source_contract_sha256'], name
+            if isinstance(report.get('source_sha256'), dict) and name not in ('v7-editor-pool', 'v6-portal16'):
+                if name != 'root-positive':
+                    assert report['source_sha256'] == sources, name
+                else:
+                    assert source_digest(report['source_sha256']) == report['source_contract_sha256']
+                    assert all(report['source_sha256'].get(path) == expected for path, expected in sources.items()
+                               if path.startswith(('behavior_pack/', 'resource_pack/')))
+        reference_requests = reports['root-positive']['rows']['wet']['ready']['liquid_control_requests']
+        for name in ('v6-cold', 'v6-primed', 'v6-primed16', 'v7-ready'):
+            assert reports[name]['rows']['wet']['ready']['liquid_control_requests'] == reference_requests, name
         capture_count = 0
         for name, report in reports.items():
             assert all(report[key] is True for key in ('completed', 'restored', 'source_unchanged')), name
@@ -171,6 +198,20 @@ def main():
                     assert not row['cleanup_errors'] and not row['timing']['outliers']
                     assert 'not CPU time' in row['timing']['clock_semantics']
                 assert read('timing-thread-unsupported-v3.json')['timing']['thread_cpu_supported'] is False
+                first_world = read('timing-world-v1.json')
+                assert all(first_world[key] is True for key in ('completed', 'restored', 'source_unchanged'))
+                assert not first_world['cleanup_errors'] and len(first_world['rows']) == 24
+                assert first_world['timing']['stats']['LiquidProjection.advance']['maximum_wall_ms'] > 32.
+                world = read('timing-world-detail-v2.json')
+                assert all(world[key] is True for key in ('completed', 'restored', 'source_unchanged'))
+                assert not world['cleanup_errors'] and not world['visual_acceptance_claimed']
+                assert world['screenshots'] == world['window_actions'] == []
+                assert world['source_contract_sha256'] == launch['source_contract_sha256']
+                assert world['host_sha256'] == sha(ROOT / 'hosts/world-granular-v2.py')
+                assert world['granular_parent_host_sha256'] == sha(ROOT / 'hosts/granular-current-v3.py')
+                assert len(world['rows']) == 24 and max(row['metrics']['handles'] for row in world['rows']) < 220000
+                assert world['timing']['thread_cpu_supported'] is False
+                assert world['timing']['thread_cpu_failure'] == "ImportError('No module named ctypes',)"
         print(json.dumps({'verified': True, 'pixels_replayed': args.pixels,
             'captures': capture_count, 'source_files': len(sources),
             'invalid_loading_captures': 3, 'failed_maxima_ms_preserved': [169, 230],

@@ -48,6 +48,16 @@ CPU fields are not measured zero. These repeats do not replace either failed
 maximum or establish a performance fix. The first incorrectly CPU-labelled
 granular report is deliberately excluded.
 
+A later world-only nested diagnostic performs 24 full/missing wet/dry
+transitions and records a 32 ms LiquidProjection.advance call containing a
+31 ms WorldLiquidRenderer.advance child. A second 24-transition repeat adds
+native creation/publication/destruction timing and records maxima 7/6/6 ms
+for projection/renderer/native creation. Both retained reports use no
+screenshots, camera changes, player movement, or desktop input. They record
+all calls above 5 ms and restore the owner and wrappers.
+The embedded runtime cannot import ctypes, so thread CPU time is unavailable.
+This short diagnostic is not a replacement budget run or visual acceptance.
+
 Run `python -X utf8 verify_package.py --pixels` to verify every packaged byte,
 reconstruct the exact v6/v7 source closure from the existing r19 and r20
 archives plus this resource delta, replay valid editor acceptance, preserve
@@ -61,3 +71,5 @@ editor controls use the earlier schema-2 background-only capture path and
 record an unchanged foreground. The granular host archived here is the final v3 revision;
 the v2 report retains its original host hash and is a timing observation,
 not a claim that its host bytes equal that final revision.
+Likewise, world timing v1 retains its original host hash, while the packaged
+world host is the extended v2 revision bound exactly to its own report.

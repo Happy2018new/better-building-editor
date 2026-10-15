@@ -31,6 +31,8 @@ FILES = {
     'v7-editor-pool-analysis.json': '.runtime/water-r20-state-v7/editor-pool-analysis.json',
     'timing-granular-v2.json': '.runtime/water-r20-state-v7/granular-timing-v2.json',
     'timing-thread-unsupported-v3.json': '.runtime/water-r20-state-v7/granular-timing-thread-v3.json',
+    'timing-world-v1.json': '.runtime/water-r20-state-v7/granular-world-v1.json',
+    'timing-world-detail-v2.json': '.runtime/water-r20-state-v7/granular-world-detail-v2.json',
     'v2-core-timing-and-state.json': '.runtime/water-r20-final-v2/frozen-core.json',
     'v2-core-analysis.json': '.runtime/water-r20-final-v2/frozen-core-analysis.json',
     'hosts/cross-session.py': '.runtime/water-r20-cross-session.py',
@@ -38,6 +40,7 @@ FILES = {
     'hosts/entity-control.py': '.runtime/water-r20-entity-control.py',
     'hosts/native-parameters.py': '.runtime/water-r20-state-v7.py',
     'hosts/granular-current-v3.py': '.runtime/water-r20-granular.py',
+    'hosts/world-granular-v2.py': '.runtime/water-r20-world-granular.py',
     'hosts/resource-freeze.py': '.runtime/water-r20-prime-freeze.py',
 }
 
