@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "request": {
+    "function": "set_book_contents",
+    "title": "R21 Native Authored Book A",
+    "author": "R21 Native Loot",
+    "pages": [
+      "First authored control.",
+      "Second authored control."
+    ]
+  },
+  "observed_native_tags": {
+    "title": {
+      "__type__": 8,
+      "__value__": "R21 Native Autho"
+    },
+    "pages": [
+      {
+        "text": {
+          "__type__": 8,
+          "__value__": "First authored control."
+        }
+      },
+      {
+        "text": {
+          "__type__": 8,
+          "__value__": "Second authored control."
+        }
+      }
+    ],
+    "author": {
+      "__type__": 8,
+      "__value__": "R21 Native Loot"
+    }
+  },
+  "original_title_assertion_replayed": true,
+  "original_title_assertion_failed": true,
+  "title_assertion_before_inventory_write": true,
+  "requested_title": "R21 Native Authored Book A",
+  "native_title": "R21 Native Autho",
+  "author_and_two_pages_preserved": true,
+  "captures": [
+    {
+      "name": "native_empty_0",
+      "size": [
+        1994,
+        1105
+      ],
+      "crop_box": [
+        757,
+        372,
+        1237,
+        832
+      ],
+      "raw_sha256": "0b8494ebdca2095a250f84b5591eb7bf814ef25a9abb5080768e6a195214dbfe",
+      "raw_pixels_sha256": "158d1c30052b00f378089e956d6990b05743c3fc065208f252d2bfc92c33ff4e",
+      "crop_pixels_sha256": "9ffa0a6f4bae4db98009e35881ca4f23e7d4b6cb46353afeb42c358de3bb690a"
+    },
+    {
+      "name": "native_empty_1",
+      "size": [
+        1994,
+        1105
+      ],
+      "crop_box": [
+        757,
+        372,
+        1237,
+        832
+      ],
+      "raw_sha256": "36e10d2681e7759c69a1bc24a9b08653898542a459348498a9d749409894bb14",
+      "raw_pixels_sha256": "8934da034d9ef32d5d9ade3b4a4810ef654c08495e5a573f7c677509ff101e10",
+      "crop_pixels_sha256": "2463a9c90997fb5edfc3ba5d7b7fb997a0fcaa60bab9f4631d53ecc4ccd19369"
+    }
+  ],
+  "authored_captures": 0,
+  "native_book_oracle_qualified": false,
+  "production_qualified": false,
+  "no_resize_alignment_recolor_or_pixel_fitting": true
+}

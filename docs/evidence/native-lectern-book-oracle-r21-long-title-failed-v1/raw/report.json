@@ -1,0 +1,8034 @@
+{
+  "schema": 1,
+  "binding": {
+    "schema": 1,
+    "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\root-signed-book-r21-v1",
+    "owner": "book-r20-native-oracle-v1",
+    "source_digest": "2db60ade9dae57a155f6da01f715abee5cc2aa5abae4506ac40a3003e1b42e4a",
+    "source_manifest_sha256": "cc57450722012534f51238d4442a96021ea26bd447066f1a0f6bef953f342d25",
+    "host_sha256": "7fdcb301e1f90e4b0e0b84e35e3521e61b7ba3b953a9a31e6a0cb150df7c5c6c",
+    "compiled_templates": 8,
+    "game_calls": 0,
+    "planned_captures": 5,
+    "projection_tested": false,
+    "production_qualified": false,
+    "dependencies": {
+      "probe_liquid_pose_channel.py": "1d52187f8f977fb5542ce6d13e9abf6eb633d0117fe7d98a8ade96e9e2826499",
+      "capture_native_window.py": "d4b260037600609914c6191e864945712550cbe65f737cad26dfd6c9723b0b87",
+      "census_intrinsic_glint_ui_r21.py": "890f467fec8eb946cc9bc4eefb85e2d2a922b15e012204f083936972a9258f65",
+      "freeze_intrinsic_glint_project_r21.py": "506bacac59eded4c1d1b5c6b260893c4b54eff50765ced4b1c36ad9e2e41fc5f"
+    }
+  },
+  "session": {
+    "id": "4287ecb3d3a444948ef0e8b485709051",
+    "owner": "book-r20-native-oracle-v1",
+    "game_pid": 19168,
+    "game_identity": "134365679429363838"
+  },
+  "created_at": "2026-10-15T20:01:02.507926+00:00",
+  "completed": false,
+  "restored": true,
+  "cleanup_errors": [],
+  "operations": [
+    {
+      "label": "save stable environment",
+      "server": true,
+      "code": "import mod.server.extraServerApi as api\nimport json,sys\nfactory=api.GetEngineCompFactory()\nlevel=api.GetLevelId()\nclock=factory.CreateTime(level)\ngame=factory.CreateGame(level)\nweather=factory.CreateWeather(level)\nsaved={'time':clock.GetTime(),'rules':game.GetGameRulesInfoServer()['cheat_info'],\n 'raining':weather.IsRaining(),'thunder':weather.IsThunder()}\nassert not hasattr(sys,'_context_environment_saved')\nsys._context_environment_saved=saved\nassert game.SetGameRulesInfoServer({'cheat_info':{'daylight_cycle':False,'weather_cycle':False}})\nassert clock.SetTime((saved['time']//24000)*24000+6000)\nassert weather.SetRaining(0.,200000) and weather.SetThunder(0.,200000)\n_result=json.dumps(saved)\n",
+      "result": {
+        "rules": {
+          "command_blocks_enabled": true,
+          "mob_griefing": true,
+          "enable": true,
+          "keep_inventory": true,
+          "entities_drop_loot": true,
+          "daylight_cycle": true,
+          "random_tick_speed": 1,
+          "mob_spawn": true,
+          "weather_cycle": true,
+          "show_days_played": false,
+          "recipes_unlock": true,
+          "is_flat_world": false,
+          "always_day": false,
+          "skip_night_by_sleeping": true,
+          "player_sleeping_percentage": 100
+        },
+        "raining": false,
+        "thunder": false,
+        "time": 1284
+      }
+    },
+    {
+      "label": "prepare native air region",
+      "server": true,
+      "code": "import json,math,sys\nimport mod.server.extraServerApi as api\nassert not hasattr(sys,'_liquid_pose_world')\nfactory=api.GetEngineCompFactory()\nplayer=api.GetPlayerList()[0]\ndimension=factory.CreateDimension(player).GetEntityDimensionId()\nassert dimension==0\nfoot=factory.CreatePos(player).GetFootPos()\norigin=(int(math.floor(foot[0]))+6,min(int(math.floor(foot[1]))+24,300),int(math.floor(foot[2]))+6)\ninfo=factory.CreateBlockInfo(player)\nregion=[(origin[0]+x,origin[1]+y,origin[2]+z) for x in range(-2,4) for y in range(-2,4) for z in range(-2,4)]\nfor pos in region:\n front=info.GetBlockNew(pos,dimension)\n back=info.GetLiquidBlock(pos,dimension)\n assert front and front.get('name')=='minecraft:air',(pos,front)\n assert back is None or back.get('name')=='minecraft:air',(pos,back)\nsys._liquid_pose_world={'origin':origin,'region':region,'player':player,'dimension':dimension,'foot_before':foot}\nassert info.SetBlockNew(origin,{'name':'minecraft:cyan_concrete','aux':0},0,dimension,True,False)\n_result=json.dumps({'origin':origin,'player':player,'dimension':dimension,'region':region,\n 'placed':info.GetBlockNew(origin,dimension),'nbt':info.GetBlockEntityData(dimension,origin)})\n",
+      "result": {
+        "origin": [
+          -7,
+          87,
+          26
+        ],
+        "placed": {
+          "aux": 0,
+          "name": "minecraft:cyan_concrete"
+        },
+        "region": [
+          [
+            -9,
+            85,
+            24
+          ],
+          [
+            -9,
+            85,
+            25
+          ],
+          [
+            -9,
+            85,
+            26
+          ],
+          [
+            -9,
+            85,
+            27
+          ],
+          [
+            -9,
+            85,
+            28
+          ],
+          [
+            -9,
+            85,
+            29
+          ],
+          [
+            -9,
+            86,
+            24
+          ],
+          [
+            -9,
+            86,
+            25
+          ],
+          [
+            -9,
+            86,
+            26
+          ],
+          [
+            -9,
+            86,
+            27
+          ],
+          [
+            -9,
+            86,
+            28
+          ],
+          [
+            -9,
+            86,
+            29
+          ],
+          [
+            -9,
+            87,
+            24
+          ],
+          [
+            -9,
+            87,
+            25
+          ],
+          [
+            -9,
+            87,
+            26
+          ],
+          [
+            -9,
+            87,
+            27
+          ],
+          [
+            -9,
+            87,
+            28
+          ],
+          [
+            -9,
+            87,
+            29
+          ],
+          [
+            -9,
+            88,
+            24
+          ],
+          [
+            -9,
+            88,
+            25
+          ],
+          [
+            -9,
+            88,
+            26
+          ],
+          [
+            -9,
+            88,
+            27
+          ],
+          [
+            -9,
+            88,
+            28
+          ],
+          [
+            -9,
+            88,
+            29
+          ],
+          [
+            -9,
+            89,
+            24
+          ],
+          [
+            -9,
+            89,
+            25
+          ],
+          [
+            -9,
+            89,
+            26
+          ],
+          [
+            -9,
+            89,
+            27
+          ],
+          [
+            -9,
+            89,
+            28
+          ],
+          [
+            -9,
+            89,
+            29
+          ],
+          [
+            -9,
+            90,
+            24
+          ],
+          [
+            -9,
+            90,
+            25
+          ],
+          [
+            -9,
+            90,
+            26
+          ],
+          [
+            -9,
+            90,
+            27
+          ],
+          [
+            -9,
+            90,
+            28
+          ],
+          [
+            -9,
+            90,
+            29
+          ],
+          [
+            -8,
+            85,
+            24
+          ],
+          [
+            -8,
+            85,
+            25
+          ],
+          [
+            -8,
+            85,
+            26
+          ],
+          [
+            -8,
+            85,
+            27
+          ],
+          [
+            -8,
+            85,
+            28
+          ],
+          [
+            -8,
+            85,
+            29
+          ],
+          [
+            -8,
+            86,
+            24
+          ],
+          [
+            -8,
+            86,
+            25
+          ],
+          [
+            -8,
+            86,
+            26
+          ],
+          [
+            -8,
+            86,
+            27
+          ],
+          [
+            -8,
+            86,
+            28
+          ],
+          [
+            -8,
+            86,
+            29
+          ],
+          [
+            -8,
+            87,
+            24
+          ],
+          [
+            -8,
+            87,
+            25
+          ],
+          [
+            -8,
+            87,
+            26
+          ],
+          [
+            -8,
+            87,
+            27
+          ],
+          [
+            -8,
+            87,
+            28
+          ],
+          [
+            -8,
+            87,
+            29
+          ],
+          [
+            -8,
+            88,
+            24
+          ],
+          [
+            -8,
+            88,
+            25
+          ],
+          [
+            -8,
+            88,
+            26
+          ],
+          [
+            -8,
+            88,
+            27
+          ],
+          [
+            -8,
+            88,
+            28
+          ],
+          [
+            -8,
+            88,
+            29
+          ],
+          [
+            -8,
+            89,
+            24
+          ],
+          [
+            -8,
+            89,
+            25
+          ],
+          [
+            -8,
+            89,
+            26
+          ],
+          [
+            -8,
+            89,
+            27
+          ],
+          [
+            -8,
+            89,
+            28
+          ],
+          [
+            -8,
+            89,
+            29
+          ],
+          [
+            -8,
+            90,
+            24
+          ],
+          [
+            -8,
+            90,
+            25
+          ],
+          [
+            -8,
+            90,
+            26
+          ],
+          [
+            -8,
+            90,
+            27
+          ],
+          [
+            -8,
+            90,
+            28
+          ],
+          [
+            -8,
+            90,
+            29
+          ],
+          [
+            -7,
+            85,
+            24
+          ],
+          [
+            -7,
+            85,
+            25
+          ],
+          [
+            -7,
+            85,
+            26
+          ],
+          [
+            -7,
+            85,
+            27
+          ],
+          [
+            -7,
+            85,
+            28
+          ],
+          [
+            -7,
+            85,
+            29
+          ],
+          [
+            -7,
+            86,
+            24
+          ],
+          [
+            -7,
+            86,
+            25
+          ],
+          [
+            -7,
+            86,
+            26
+          ],
+          [
+            -7,
+            86,
+            27
+          ],
+          [
+            -7,
+            86,
+            28
+          ],
+          [
+            -7,
+            86,
+            29
+          ],
+          [
+            -7,
+            87,
+            24
+          ],
+          [
+            -7,
+            87,
+            25
+          ],
+          [
+            -7,
+            87,
+            26
+          ],
+          [
+            -7,
+            87,
+            27
+          ],
+          [
+            -7,
+            87,
+            28
+          ],
+          [
+            -7,
+            87,
+            29
+          ],
+          [
+            -7,
+            88,
+            24
+          ],
+          [
+            -7,
+            88,
+            25
+          ],
+          [
+            -7,
+            88,
+            26
+          ],
+          [
+            -7,
+            88,
+            27
+          ],
+          [
+            -7,
+            88,
+            28
+          ],
+          [
+            -7,
+            88,
+            29
+          ],
+          [
+            -7,
+            89,
+            24
+          ],
+          [
+            -7,
+            89,
+            25
+          ],
+          [
+            -7,
+            89,
+            26
+          ],
+          [
+            -7,
+            89,
+            27
+          ],
+          [
+            -7,
+            89,
+            28
+          ],
+          [
+            -7,
+            89,
+            29
+          ],
+          [
+            -7,
+            90,
+            24
+          ],
+          [
+            -7,
+            90,
+            25
+          ],
+          [
+            -7,
+            90,
+            26
+          ],
+          [
+            -7,
+            90,
+            27
+          ],
+          [
+            -7,
+            90,
+            28
+          ],
+          [
+            -7,
+            90,
+            29
+          ],
+          [
+            -6,
+            85,
+            24
+          ],
+          [
+            -6,
+            85,
+            25
+          ],
+          [
+            -6,
+            85,
+            26
+          ],
+          [
+            -6,
+            85,
+            27
+          ],
+          [
+            -6,
+            85,
+            28
+          ],
+          [
+            -6,
+            85,
+            29
+          ],
+          [
+            -6,
+            86,
+            24
+          ],
+          [
+            -6,
+            86,
+            25
+          ],
+          [
+            -6,
+            86,
+            26
+          ],
+          [
+            -6,
+            86,
+            27
+          ],
+          [
+            -6,
+            86,
+            28
+          ],
+          [
+            -6,
+            86,
+            29
+          ],
+          [
+            -6,
+            87,
+            24
+          ],
+          [
+            -6,
+            87,
+            25
+          ],
+          [
+            -6,
+            87,
+            26
+          ],
+          [
+            -6,
+            87,
+            27
+          ],
+          [
+            -6,
+            87,
+            28
+          ],
+          [
+            -6,
+            87,
+            29
+          ],
+          [
+            -6,
+            88,
+            24
+          ],
+          [
+            -6,
+            88,
+            25
+          ],
+          [
+            -6,
+            88,
+            26
+          ],
+          [
+            -6,
+            88,
+            27
+          ],
+          [
+            -6,
+            88,
+            28
+          ],
+          [
+            -6,
+            88,
+            29
+          ],
+          [
+            -6,
+            89,
+            24
+          ],
+          [
+            -6,
+            89,
+            25
+          ],
+          [
+            -6,
+            89,
+            26
+          ],
+          [
+            -6,
+            89,
+            27
+          ],
+          [
+            -6,
+            89,
+            28
+          ],
+          [
+            -6,
+            89,
+            29
+          ],
+          [
+            -6,
+            90,
+            24
+          ],
+          [
+            -6,
+            90,
+            25
+          ],
+          [
+            -6,
+            90,
+            26
+          ],
+          [
+            -6,
+            90,
+            27
+          ],
+          [
+            -6,
+            90,
+            28
+          ],
+          [
+            -6,
+            90,
+            29
+          ],
+          [
+            -5,
+            85,
+            24
+          ],
+          [
+            -5,
+            85,
+            25
+          ],
+          [
+            -5,
+            85,
+            26
+          ],
+          [
+            -5,
+            85,
+            27
+          ],
+          [
+            -5,
+            85,
+            28
+          ],
+          [
+            -5,
+            85,
+            29
+          ],
+          [
+            -5,
+            86,
+            24
+          ],
+          [
+            -5,
+            86,
+            25
+          ],
+          [
+            -5,
+            86,
+            26
+          ],
+          [
+            -5,
+            86,
+            27
+          ],
+          [
+            -5,
+            86,
+            28
+          ],
+          [
+            -5,
+            86,
+            29
+          ],
+          [
+            -5,
+            87,
+            24
+          ],
+          [
+            -5,
+            87,
+            25
+          ],
+          [
+            -5,
+            87,
+            26
+          ],
+          [
+            -5,
+            87,
+            27
+          ],
+          [
+            -5,
+            87,
+            28
+          ],
+          [
+            -5,
+            87,
+            29
+          ],
+          [
+            -5,
+            88,
+            24
+          ],
+          [
+            -5,
+            88,
+            25
+          ],
+          [
+            -5,
+            88,
+            26
+          ],
+          [
+            -5,
+            88,
+            27
+          ],
+          [
+            -5,
+            88,
+            28
+          ],
+          [
+            -5,
+            88,
+            29
+          ],
+          [
+            -5,
+            89,
+            24
+          ],
+          [
+            -5,
+            89,
+            25
+          ],
+          [
+            -5,
+            89,
+            26
+          ],
+          [
+            -5,
+            89,
+            27
+          ],
+          [
+            -5,
+            89,
+            28
+          ],
+          [
+            -5,
+            89,
+            29
+          ],
+          [
+            -5,
+            90,
+            24
+          ],
+          [
+            -5,
+            90,
+            25
+          ],
+          [
+            -5,
+            90,
+            26
+          ],
+          [
+            -5,
+            90,
+            27
+          ],
+          [
+            -5,
+            90,
+            28
+          ],
+          [
+            -5,
+            90,
+            29
+          ],
+          [
+            -4,
+            85,
+            24
+          ],
+          [
+            -4,
+            85,
+            25
+          ],
+          [
+            -4,
+            85,
+            26
+          ],
+          [
+            -4,
+            85,
+            27
+          ],
+          [
+            -4,
+            85,
+            28
+          ],
+          [
+            -4,
+            85,
+            29
+          ],
+          [
+            -4,
+            86,
+            24
+          ],
+          [
+            -4,
+            86,
+            25
+          ],
+          [
+            -4,
+            86,
+            26
+          ],
+          [
+            -4,
+            86,
+            27
+          ],
+          [
+            -4,
+            86,
+            28
+          ],
+          [
+            -4,
+            86,
+            29
+          ],
+          [
+            -4,
+            87,
+            24
+          ],
+          [
+            -4,
+            87,
+            25
+          ],
+          [
+            -4,
+            87,
+            26
+          ],
+          [
+            -4,
+            87,
+            27
+          ],
+          [
+            -4,
+            87,
+            28
+          ],
+          [
+            -4,
+            87,
+            29
+          ],
+          [
+            -4,
+            88,
+            24
+          ],
+          [
+            -4,
+            88,
+            25
+          ],
+          [
+            -4,
+            88,
+            26
+          ],
+          [
+            -4,
+            88,
+            27
+          ],
+          [
+            -4,
+            88,
+            28
+          ],
+          [
+            -4,
+            88,
+            29
+          ],
+          [
+            -4,
+            89,
+            24
+          ],
+          [
+            -4,
+            89,
+            25
+          ],
+          [
+            -4,
+            89,
+            26
+          ],
+          [
+            -4,
+            89,
+            27
+          ],
+          [
+            -4,
+            89,
+            28
+          ],
+          [
+            -4,
+            89,
+            29
+          ],
+          [
+            -4,
+            90,
+            24
+          ],
+          [
+            -4,
+            90,
+            25
+          ],
+          [
+            -4,
+            90,
+            26
+          ],
+          [
+            -4,
+            90,
+            27
+          ],
+          [
+            -4,
+            90,
+            28
+          ],
+          [
+            -4,
+            90,
+            29
+          ]
+        ],
+        "nbt": null,
+        "player": "-8589934591",
+        "dimension": 0
+      }
+    },
+    {
+      "label": "move to owned support",
+      "server": true,
+      "code": "import json,sys\nimport mod.server.extraServerApi as api\nsaved=sys._liquid_pose_world\norigin=tuple(saved['origin'])\nplatform=(origin[0]-4,origin[1]-1,origin[2]-4)\ninfo=api.GetEngineCompFactory().CreateBlockInfo(saved['player'])\nbefore=info.GetBlockNew(platform,saved['dimension'])\nassert before and before.get('name')=='minecraft:air',(platform,before)\nback=info.GetLiquidBlock(platform,saved['dimension'])\nassert back is None or back.get('name')=='minecraft:air',(platform,back)\nsaved['region'].append(platform)\nassert info.SetBlockNew(platform,{'name':'minecraft:stone','aux':0},0,saved['dimension'],True,False)\npoint=(platform[0]+.5,platform[1]+1.,platform[2]+.5)\nassert api.GetEngineCompFactory().CreatePos(saved['player']).SetFootPos(point)\n_result=json.dumps({'before':saved['foot_before'],'after':point,'platform':platform})\n",
+      "result": {
+        "platform": [
+          -11,
+          86,
+          22
+        ],
+        "after": [
+          -10.5,
+          87.0,
+          22.5
+        ],
+        "before": [
+          -12.5,
+          63.0,
+          20.5
+        ]
+      }
+    },
+    {
+      "label": "save native camera",
+      "server": false,
+      "code": "assert not hasattr(sys,'_liquid_pose_client')\ncam=factory.CreateCamera(level)\nsys._liquid_pose_client={'origin':(-7, 87, 26),'entity':None,'attached':None,\n 'standalone':None,\n 'camera_pos':cam.GetPosition(),'camera_rot':cam.GetCameraRotation(),\n 'pitch_lock':cam.IsModCameraLockPitch(),'yaw_lock':cam.IsModCameraLockYaw()}\n_result=True\n",
+      "result": true
+    },
+    {
+      "label": "single east unpowered empty lectern",
+      "server": true,
+      "code": "import json,sys,copy\nimport mod.server.extraServerApi as api\nsaved=sys._liquid_pose_world\nfactory=api.GetEngineCompFactory()\ninfo=factory.CreateBlockInfo(saved['player'])\ndimension=saved['dimension']\norigin=tuple(saved['origin'])\ntarget=tuple(origin[axis]+(1,1,1)[axis] for axis in range(3))\nfor x in range(3):\n for y in range(3):\n  for z in range(3):\n   point=tuple(origin[axis]+(x,y,z)[axis] for axis in range(3))\n   current=info.GetBlockNew(point,dimension)\n   assert current is not None\n   if current['name']!='minecraft:air':\n    assert info.SetBlockNew(point,{'name':'minecraft:air','aux':0},0,dimension,True,False)\nassert info.SetBlockNew((origin[0]+1,origin[1],origin[2]+1),{'name':'minecraft:cyan_concrete','aux':0},0,dimension,True,False)\nassert info.SetBlockNew(target,{'name':'minecraft:lectern','aux':3},0,dimension,True,False)\nitems=factory.CreateItem(saved['player'])\nkind=api.GetMinecraftEnum().ItemPosType.INVENTORY\nsaved['oracle_inventory_before']=[items.GetPlayerItem(kind,index,True) for index in range(36)]\nsaved['oracle_slot']=next((index for index in reversed(range(36)) if not saved['oracle_inventory_before'][index]),None)\nassert saved['oracle_slot'] is not None\n_result=True\n",
+      "result": true
+    },
+    {
+      "label": "fixed native camera",
+      "server": false,
+      "code": "origin=tuple(sys._liquid_pose_client['origin'])\ntarget=(origin[0]+1.5,origin[1]+1.5,origin[2]+1.5)\noffset=(3.,2.4,5.)\nposition=tuple(target[i]+offset[i] for i in range(3))\ndirection=api.GetRotFromDir(tuple(target[i]-position[i] for i in range(3)))\nrotation=(direction[0],direction[1]+180.,0.)\ncam=factory.CreateCamera(level)\ncam.DepartCamera();cam.LockModCameraPitch(True);cam.LockModCameraYaw(True)\nassert cam.SetCameraPos(position) and cam.SetCameraRotation(rotation)\n_result=json.dumps({'position':position,'rotation':rotation,'target':target})\n",
+      "result": {
+        "position": [
+          -2.5,
+          90.9,
+          32.5
+        ],
+        "rotation": [
+          22.371898651123047,
+          -30.9637451171875,
+          0.0
+        ],
+        "target": [
+          -5.5,
+          88.5,
+          27.5
+        ]
+      }
+    },
+    {
+      "label": "empty complete server NBT",
+      "server": true,
+      "code": "import json,sys,copy\nimport mod.server.extraServerApi as api\nsaved=sys._liquid_pose_world\nfactory=api.GetEngineCompFactory()\ninfo=factory.CreateBlockInfo(saved['player'])\ndimension=saved['dimension']\norigin=tuple(saved['origin'])\ntarget=tuple(origin[axis]+(1,1,1)[axis] for axis in range(3))\n_result=json.dumps({'block':info.GetBlockNew(target,dimension),\n 'states':factory.CreateBlockState(api.GetLevelId()).GetBlockStates(target,dimension),\n 'nbt':info.GetBlockEntityData(dimension,target)})\n",
+      "result": {
+        "states": {
+          "powered_bit": false,
+          "minecraft:cardinal_direction": "east"
+        },
+        "block": {
+          "aux": 3,
+          "name": "minecraft:lectern"
+        },
+        "nbt": {
+          "y": {
+            "__type__": 3,
+            "__value__": 88
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -6
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Lectern"
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 27
+          }
+        }
+      }
+    },
+    {
+      "label": "empty complete client NBT and palette",
+      "server": false,
+      "code": "origin=tuple(sys._liquid_pose_client['origin'])\ntarget=tuple(origin[axis]+(1,1,1)[axis] for axis in range(3))\ninfo=factory.CreateBlockInfo(level)\npalette=factory.CreateBlock(level).GetBlockPaletteBetweenPos(target,target,False)\nraw=palette.SerializeBlockPalette() if palette is not None else {}\n_result=json.dumps({'block':info.GetBlock(target),'nbt':info.GetBlockEntityData(target),\n 'raw_common':repr(raw.get('common',{})),'raw_actor':repr(raw.get('actor',{}))})\n",
+      "result": {
+        "raw_actor": "{'minecraft:lectern': {0: {}}}",
+        "raw_common": "{('minecraft:lectern', 3): [0]}",
+        "block": [
+          "minecraft:lectern",
+          3
+        ],
+        "nbt": {
+          "y": {
+            "__type__": 3,
+            "__value__": 88
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -6
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Lectern"
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 27
+          }
+        }
+      }
+    },
+    {
+      "label": "native_empty_0 camera before",
+      "server": false,
+      "code": "cam=factory.CreateCamera(level)\norigin=tuple(sys._liquid_pose_client['origin'])\ntarget=(origin[0]+1.5,origin[1]+1.5,origin[2]+1.5)\n_result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),\n 'target':target,'target_screen':cam.WorldToScreenPoint(*target) if hasattr(cam,'WorldToScreenPoint') else None,\n 'native_target_projection_available':hasattr(cam,'WorldToScreenPoint'),\n 'screen':factory.CreateGame(level).GetScreenSize()})\n",
+      "result": {
+        "target": [
+          -5.5,
+          88.5,
+          27.5
+        ],
+        "native_target_projection_available": true,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "target_screen": {
+          "isInScreen": true,
+          "screenY": 553.5001220703125,
+          "screenX": 997.4998168945312,
+          "depth": 0.0025122466031461954
+        },
+        "position": [
+          -2.5,
+          90.9000015258789,
+          32.5
+        ],
+        "rotation": [
+          22.37190055847168,
+          -30.9637451171875,
+          -1.3387347280513495e-05
+        ]
+      }
+    },
+    {
+      "label": "native_empty_0 camera after",
+      "server": false,
+      "code": "cam=factory.CreateCamera(level)\norigin=tuple(sys._liquid_pose_client['origin'])\ntarget=(origin[0]+1.5,origin[1]+1.5,origin[2]+1.5)\n_result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),\n 'target':target,'target_screen':cam.WorldToScreenPoint(*target) if hasattr(cam,'WorldToScreenPoint') else None,\n 'native_target_projection_available':hasattr(cam,'WorldToScreenPoint'),\n 'screen':factory.CreateGame(level).GetScreenSize()})\n",
+      "result": {
+        "target": [
+          -5.5,
+          88.5,
+          27.5
+        ],
+        "native_target_projection_available": true,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "target_screen": {
+          "isInScreen": true,
+          "screenY": 553.5001220703125,
+          "screenX": 997.4998168945312,
+          "depth": 0.0025122466031461954
+        },
+        "position": [
+          -2.5,
+          90.9000015258789,
+          32.5
+        ],
+        "rotation": [
+          22.37190055847168,
+          -30.9637451171875,
+          -1.3387347280513495e-05
+        ]
+      }
+    },
+    {
+      "label": "native_empty_1 camera before",
+      "server": false,
+      "code": "cam=factory.CreateCamera(level)\norigin=tuple(sys._liquid_pose_client['origin'])\ntarget=(origin[0]+1.5,origin[1]+1.5,origin[2]+1.5)\n_result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),\n 'target':target,'target_screen':cam.WorldToScreenPoint(*target) if hasattr(cam,'WorldToScreenPoint') else None,\n 'native_target_projection_available':hasattr(cam,'WorldToScreenPoint'),\n 'screen':factory.CreateGame(level).GetScreenSize()})\n",
+      "result": {
+        "target": [
+          -5.5,
+          88.5,
+          27.5
+        ],
+        "native_target_projection_available": true,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "target_screen": {
+          "isInScreen": true,
+          "screenY": 553.5001220703125,
+          "screenX": 997.4998168945312,
+          "depth": 0.0025122466031461954
+        },
+        "position": [
+          -2.5,
+          90.9000015258789,
+          32.5
+        ],
+        "rotation": [
+          22.37190055847168,
+          -30.9637451171875,
+          -1.3387347280513495e-05
+        ]
+      }
+    },
+    {
+      "label": "native_empty_1 camera after",
+      "server": false,
+      "code": "cam=factory.CreateCamera(level)\norigin=tuple(sys._liquid_pose_client['origin'])\ntarget=(origin[0]+1.5,origin[1]+1.5,origin[2]+1.5)\n_result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),\n 'target':target,'target_screen':cam.WorldToScreenPoint(*target) if hasattr(cam,'WorldToScreenPoint') else None,\n 'native_target_projection_available':hasattr(cam,'WorldToScreenPoint'),\n 'screen':factory.CreateGame(level).GetScreenSize()})\n",
+      "result": {
+        "target": [
+          -5.5,
+          88.5,
+          27.5
+        ],
+        "native_target_projection_available": true,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "target_screen": {
+          "isInScreen": true,
+          "screenY": 553.5001220703125,
+          "screenX": 997.4998168945312,
+          "depth": 0.0025122466031461954
+        },
+        "position": [
+          -2.5,
+          90.9000015258789,
+          32.5
+        ],
+        "rotation": [
+          22.37190055847168,
+          -30.9637451171875,
+          -1.3387347280513495e-05
+        ]
+      }
+    },
+    {
+      "label": "native authored A and real inventory insertion",
+      "server": true,
+      "code": "import json,sys,copy\nimport mod.server.extraServerApi as api\nsaved=sys._liquid_pose_world\nfactory=api.GetEngineCompFactory()\ninfo=factory.CreateBlockInfo(saved['player'])\ndimension=saved['dimension']\norigin=tuple(saved['origin'])\ntarget=tuple(origin[axis]+(1,1,1)[axis] for axis in range(3))\nfrom modern_projection.projection.nbt_spatial import root_payload,field_key,scalar\nloot=factory.CreateLoot(saved['player']).GetLootItems('loot_tables/modern_projection/r21_signed_book.json','-1','-1',0.0,True)\nassert len(loot)==2,loot\nsource=copy.deepcopy(loot[0])\nsubmitted=copy.deepcopy(source)\nsubmitted['itemName']=submitted.get('newItemName',submitted.get('itemName'))\nsubmitted['auxValue']=submitted.get('newAuxValue',submitted.get('auxValue',0))\nassert submitted['itemName']=='minecraft:written_book' and submitted['count']==1,submitted\ntags=root_payload(submitted.get('userData')) or {}\nassert scalar(tags,'title')=='R21 Native Authored Book A',tags\nassert scalar(tags,'author')=='R21 Native Loot',tags\nassert field_key(tags,'pages') is not None,tags\nitems=factory.CreateItem(saved['player'])\nkind=api.GetMinecraftEnum().ItemPosType.INVENTORY\nslot=saved['oracle_slot']\nassert items.SpawnItemToPlayerInv(submitted,saved['player'],slot)\nactual=items.GetPlayerItem(kind,slot,True)\nenchantments=items.GetInvItemEnchantData(slot)\nassert actual.get('userData')==source.get('userData'),(actual,source)\nassert not enchantments,enchantments\nsaved['oracle_actual_item']=copy.deepcopy(actual)\nused=info.PlayerUseItemToPos(target,kind,slot,1)\nremaining=items.GetPlayerItem(kind,slot,True)\nassert used\n_result=json.dumps({'native_loot_items':loot,'submitted_native_item':submitted,'actual_inventory_item':actual,\n 'actual_enchantments':enchantments,'native_use_return':used,'inventory_after_use':remaining,\n 'item_data_manufactured':False,'nbt_setter_used':False})\n"
+    },
+    {
+      "label": "inventory_restore",
+      "server": true,
+      "code": "import json,sys,copy\nimport mod.server.extraServerApi as api\nsaved=sys._liquid_pose_world\nfactory=api.GetEngineCompFactory()\ninfo=factory.CreateBlockInfo(saved['player'])\ndimension=saved['dimension']\norigin=tuple(saved['origin'])\ntarget=tuple(origin[axis]+(1,1,1)[axis] for axis in range(3))\nitems=factory.CreateItem(saved['player'])\nkind=api.GetMinecraftEnum().ItemPosType.INVENTORY\nif 'oracle_slot' in saved:\n slot=saved['oracle_slot']\n current=items.GetPlayerItem(kind,slot,True)\n if current:assert items.SetInvItemNum(slot,0)\nafter=[items.GetPlayerItem(kind,index,True) for index in range(36)]\nbefore=saved.get('oracle_inventory_before',after)\n_result=json.dumps({'restored':after==before,'before':before,'after':after})\n",
+      "result": {
+        "after": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "restored": true,
+        "before": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "world_restore",
+      "server": true,
+      "code": "import json,sys\nimport mod.server.extraServerApi as api\nsaved=getattr(sys,'_liquid_pose_world',None)\nrows=[]\nif saved is not None:\n info=api.GetEngineCompFactory().CreateBlockInfo(saved['player'])\n assert api.GetEngineCompFactory().CreatePos(saved['player']).SetFootPos(tuple(saved['foot_before']))\n for pos in saved['region']:\n  before=info.GetBlockNew(tuple(pos),saved['dimension'])\n  if before.get('name')!='minecraft:air':\n   assert info.SetBlockNew(tuple(pos),{'name':'minecraft:air','aux':0},0,saved['dimension'],True,False)\n  after=info.GetBlockNew(tuple(pos),saved['dimension'])\n  rows.append({'pos':pos,'after':after})\n assert all(row['after'].get('name')=='minecraft:air' for row in rows)\n del sys._liquid_pose_world\n_result=json.dumps({'restored':True,'rows':rows})\n",
+      "result": {
+        "rows": [
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              85,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              85,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              85,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              85,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              85,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              85,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              86,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              86,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              86,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              86,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              86,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              86,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              87,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              87,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              87,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              87,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              87,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              87,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              88,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              88,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              88,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              88,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              88,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              88,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              89,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              89,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              89,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              89,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              89,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              89,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              90,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              90,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              90,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              90,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              90,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -9,
+              90,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              85,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              85,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              85,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              85,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              85,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              85,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              86,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              86,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              86,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              86,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              86,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              86,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              87,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              87,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              87,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              87,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              87,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              87,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              88,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              88,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              88,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              88,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              88,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              88,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              89,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              89,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              89,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              89,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              89,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              89,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              90,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              90,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              90,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              90,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              90,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -8,
+              90,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              85,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              85,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              85,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              85,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              85,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              85,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              86,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              86,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              86,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              86,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              86,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              86,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              87,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              87,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              87,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              87,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              87,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              87,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              88,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              88,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              88,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              88,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              88,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              88,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              89,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              89,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              89,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              89,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              89,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              89,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              90,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              90,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              90,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              90,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              90,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -7,
+              90,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              85,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              85,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              85,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              85,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              85,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              85,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              86,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              86,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              86,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              86,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              86,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              86,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              87,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              87,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              87,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              87,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              87,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              87,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              88,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              88,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              88,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              88,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              88,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              88,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              89,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              89,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              89,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              89,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              89,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              89,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              90,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              90,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              90,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              90,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              90,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -6,
+              90,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              85,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              85,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              85,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              85,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              85,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              85,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              86,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              86,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              86,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              86,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              86,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              86,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              87,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              87,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              87,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              87,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              87,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              87,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              88,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              88,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              88,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              88,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              88,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              88,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              89,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              89,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              89,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              89,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              89,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              89,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              90,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              90,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              90,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              90,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              90,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -5,
+              90,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              85,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              85,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              85,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              85,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              85,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              85,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              86,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              86,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              86,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              86,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              86,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              86,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              87,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              87,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              87,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              87,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              87,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              87,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              88,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              88,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              88,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              88,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              88,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              88,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              89,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              89,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              89,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              89,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              89,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              89,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              90,
+              24
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              90,
+              25
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              90,
+              26
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              90,
+              27
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              90,
+              28
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -4,
+              90,
+              29
+            ]
+          },
+          {
+            "after": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "pos": [
+              -11,
+              86,
+              22
+            ]
+          }
+        ],
+        "restored": true
+      }
+    },
+    {
+      "label": "camera_restore",
+      "server": false,
+      "code": "saved=getattr(sys,'_liquid_pose_client',None)\nif saved is not None:\n if saved['entity']:api.GetSystem('ModernProjection','ModernProjectionClientSystem').DestroyClientEntity(saved['entity'])\n if saved['standalone']:api.GetSystem('ModernProjection','ModernProjectionClientSystem').DestroyClientEntity(saved['standalone'])\n cam=factory.CreateCamera(level)\n cam.ResetCameraPos();cam.UnDepartCamera()\n assert cam.SetCameraRotation(saved['camera_rot'])\n cam.LockModCameraPitch(saved['pitch_lock']);cam.LockModCameraYaw(saved['yaw_lock'])\n del sys._liquid_pose_client\n_result=True\n",
+      "result": true
+    },
+    {
+      "label": "environment_restore",
+      "server": true,
+      "code": "import sys\nif hasattr(sys,'_context_environment_saved'):\n import mod.server.extraServerApi as api\n import json,sys\n saved=sys._context_environment_saved\n factory=api.GetEngineCompFactory()\n level=api.GetLevelId()\n clock=factory.CreateTime(level)\n game=factory.CreateGame(level)\n weather=factory.CreateWeather(level)\n assert clock.SetTime(saved['time'])\n assert game.SetGameRulesInfoServer({'cheat_info':dict((k,saved['rules'][k]) for k in ('daylight_cycle','weather_cycle'))})\n assert weather.SetRaining(float(saved['raining']),200000) and weather.SetThunder(float(saved['thunder']),200000)\n del sys._context_environment_saved\n _result=True\n\n_result=True",
+      "result": true
+    }
+  ],
+  "captures": [
+    {
+      "label": "native_empty_0",
+      "before": {
+        "target": [
+          -5.5,
+          88.5,
+          27.5
+        ],
+        "native_target_projection_available": true,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "target_screen": {
+          "isInScreen": true,
+          "screenY": 553.5001220703125,
+          "screenX": 997.4998168945312,
+          "depth": 0.0025122466031461954
+        },
+        "position": [
+          -2.5,
+          90.9000015258789,
+          32.5
+        ],
+        "rotation": [
+          22.37190055847168,
+          -30.9637451171875,
+          -1.3387347280513495e-05
+        ]
+      },
+      "after": {
+        "target": [
+          -5.5,
+          88.5,
+          27.5
+        ],
+        "native_target_projection_available": true,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "target_screen": {
+          "isInScreen": true,
+          "screenY": 553.5001220703125,
+          "screenX": 997.4998168945312,
+          "depth": 0.0025122466031461954
+        },
+        "position": [
+          -2.5,
+          90.9000015258789,
+          32.5
+        ],
+        "rotation": [
+          22.37190055847168,
+          -30.9637451171875,
+          -1.3387347280513495e-05
+        ]
+      },
+      "receipt": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\lectern-body-candidate-r21\\runtime-native-oracle-v1\\native_empty_0.png",
+        "started_at": "2026-10-15T20:01:08.078379+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4287ecb3d3a444948ef0e8b485709051\\session.json",
+        "owner": "book-r20-native-oracle-v1",
+        "game_pid": 19168,
+        "game_identity": "134365679429363838",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 38995564,
+          "pid": 19168,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 7082340,
+            "pid": 7948
+          },
+          "windows": [
+            {
+              "hwnd": 38995564,
+              "pid": 19168,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 7082340,
+          "pid": 7948
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 7082340,
+            "pid": 7948
+          },
+          "windows": [
+            {
+              "hwnd": 38995564,
+              "pid": 19168,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 7082340,
+          "pid": 7948
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 1011176090306,
+          "frame_qpc_100ns": 1011176162446,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          5416.742595858764,
+          6019.21676871213,
+          9725.42553865837
+        ],
+        "sha256": "0b8494ebdca2095a250f84b5591eb7bf814ef25a9abb5080768e6a195214dbfe",
+        "bytes": 2577897,
+        "finished_at": "2026-10-15T20:01:09.200150+00:00",
+        "elapsed_seconds": 1.1217698999971617
+      }
+    },
+    {
+      "label": "native_empty_1",
+      "before": {
+        "target": [
+          -5.5,
+          88.5,
+          27.5
+        ],
+        "native_target_projection_available": true,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "target_screen": {
+          "isInScreen": true,
+          "screenY": 553.5001220703125,
+          "screenX": 997.4998168945312,
+          "depth": 0.0025122466031461954
+        },
+        "position": [
+          -2.5,
+          90.9000015258789,
+          32.5
+        ],
+        "rotation": [
+          22.37190055847168,
+          -30.9637451171875,
+          -1.3387347280513495e-05
+        ]
+      },
+      "after": {
+        "target": [
+          -5.5,
+          88.5,
+          27.5
+        ],
+        "native_target_projection_available": true,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "target_screen": {
+          "isInScreen": true,
+          "screenY": 553.5001220703125,
+          "screenX": 997.4998168945312,
+          "depth": 0.0025122466031461954
+        },
+        "position": [
+          -2.5,
+          90.9000015258789,
+          32.5
+        ],
+        "rotation": [
+          22.37190055847168,
+          -30.9637451171875,
+          -1.3387347280513495e-05
+        ]
+      },
+      "receipt": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\lectern-body-candidate-r21\\runtime-native-oracle-v1\\native_empty_1.png",
+        "started_at": "2026-10-15T20:01:10.462907+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4287ecb3d3a444948ef0e8b485709051\\session.json",
+        "owner": "book-r20-native-oracle-v1",
+        "game_pid": 19168,
+        "game_identity": "134365679429363838",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 38995564,
+          "pid": 19168,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 7082340,
+            "pid": 7948
+          },
+          "windows": [
+            {
+              "hwnd": 38995564,
+              "pid": 19168,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 7082340,
+          "pid": 7948
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 7082340,
+            "pid": 7948
+          },
+          "windows": [
+            {
+              "hwnd": 38995564,
+              "pid": 19168,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 7082340,
+          "pid": 7948
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 1011198237053,
+          "frame_qpc_100ns": 1011198344352,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          5416.024428331409,
+          6018.875804750642,
+          9725.636054353057
+        ],
+        "sha256": "36e10d2681e7759c69a1bc24a9b08653898542a459348498a9d749409894bb14",
+        "bytes": 2579130,
+        "finished_at": "2026-10-15T20:01:11.402880+00:00",
+        "elapsed_seconds": 0.9399718999920879
+      }
+    }
+  ],
+  "resource_boundaries": [
+    {
+      "label": "before fixture",
+      "handles": {
+        "pid": 19168,
+        "identity": "134365679429363838",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "handle_count": 863,
+        "status": "live"
+      },
+      "memory": {
+        "observed_at": "2026-10-15T20:01:02.739501+00:00",
+        "commit_total_bytes": 33543753728,
+        "commit_limit_bytes": 42198994944,
+        "commit_available_bytes": 8655241216,
+        "physical_available_bytes": 1793871872
+      }
+    },
+    {
+      "label": "native_empty_0",
+      "handles": {
+        "pid": 19168,
+        "identity": "134365679429363838",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "handle_count": 864,
+        "status": "live"
+      },
+      "memory": {
+        "observed_at": "2026-10-15T20:01:07.825009+00:00",
+        "commit_total_bytes": 33609351168,
+        "commit_limit_bytes": 42198994944,
+        "commit_available_bytes": 8589643776,
+        "physical_available_bytes": 1801965568
+      }
+    },
+    {
+      "label": "native_empty_1",
+      "handles": {
+        "pid": 19168,
+        "identity": "134365679429363838",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "handle_count": 864,
+        "status": "live"
+      },
+      "memory": {
+        "observed_at": "2026-10-15T20:01:10.150949+00:00",
+        "commit_total_bytes": 33635770368,
+        "commit_limit_bytes": 42198994944,
+        "commit_available_bytes": 8563224576,
+        "physical_available_bytes": 1766502400
+      }
+    },
+    {
+      "label": "before actual authored book",
+      "handles": {
+        "pid": 19168,
+        "identity": "134365679429363838",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "handle_count": 865,
+        "status": "live"
+      },
+      "memory": {
+        "observed_at": "2026-10-15T20:01:11.707370+00:00",
+        "commit_total_bytes": 33657225216,
+        "commit_limit_bytes": 42198994944,
+        "commit_available_bytes": 8541769728,
+        "physical_available_bytes": 1744855040
+      }
+    }
+  ],
+  "projection_tested": false,
+  "production_qualified": false,
+  "native_book_pixel_oracle_qualified": false,
+  "environment": {
+    "rules": {
+      "command_blocks_enabled": true,
+      "mob_griefing": true,
+      "enable": true,
+      "keep_inventory": true,
+      "entities_drop_loot": true,
+      "daylight_cycle": true,
+      "random_tick_speed": 1,
+      "mob_spawn": true,
+      "weather_cycle": true,
+      "show_days_played": false,
+      "recipes_unlock": true,
+      "is_flat_world": false,
+      "always_day": false,
+      "skip_night_by_sleeping": true,
+      "player_sleeping_percentage": 100
+    },
+    "raining": false,
+    "thunder": false,
+    "time": 1284
+  },
+  "world": {
+    "origin": [
+      -7,
+      87,
+      26
+    ],
+    "placed": {
+      "aux": 0,
+      "name": "minecraft:cyan_concrete"
+    },
+    "region": [
+      [
+        -9,
+        85,
+        24
+      ],
+      [
+        -9,
+        85,
+        25
+      ],
+      [
+        -9,
+        85,
+        26
+      ],
+      [
+        -9,
+        85,
+        27
+      ],
+      [
+        -9,
+        85,
+        28
+      ],
+      [
+        -9,
+        85,
+        29
+      ],
+      [
+        -9,
+        86,
+        24
+      ],
+      [
+        -9,
+        86,
+        25
+      ],
+      [
+        -9,
+        86,
+        26
+      ],
+      [
+        -9,
+        86,
+        27
+      ],
+      [
+        -9,
+        86,
+        28
+      ],
+      [
+        -9,
+        86,
+        29
+      ],
+      [
+        -9,
+        87,
+        24
+      ],
+      [
+        -9,
+        87,
+        25
+      ],
+      [
+        -9,
+        87,
+        26
+      ],
+      [
+        -9,
+        87,
+        27
+      ],
+      [
+        -9,
+        87,
+        28
+      ],
+      [
+        -9,
+        87,
+        29
+      ],
+      [
+        -9,
+        88,
+        24
+      ],
+      [
+        -9,
+        88,
+        25
+      ],
+      [
+        -9,
+        88,
+        26
+      ],
+      [
+        -9,
+        88,
+        27
+      ],
+      [
+        -9,
+        88,
+        28
+      ],
+      [
+        -9,
+        88,
+        29
+      ],
+      [
+        -9,
+        89,
+        24
+      ],
+      [
+        -9,
+        89,
+        25
+      ],
+      [
+        -9,
+        89,
+        26
+      ],
+      [
+        -9,
+        89,
+        27
+      ],
+      [
+        -9,
+        89,
+        28
+      ],
+      [
+        -9,
+        89,
+        29
+      ],
+      [
+        -9,
+        90,
+        24
+      ],
+      [
+        -9,
+        90,
+        25
+      ],
+      [
+        -9,
+        90,
+        26
+      ],
+      [
+        -9,
+        90,
+        27
+      ],
+      [
+        -9,
+        90,
+        28
+      ],
+      [
+        -9,
+        90,
+        29
+      ],
+      [
+        -8,
+        85,
+        24
+      ],
+      [
+        -8,
+        85,
+        25
+      ],
+      [
+        -8,
+        85,
+        26
+      ],
+      [
+        -8,
+        85,
+        27
+      ],
+      [
+        -8,
+        85,
+        28
+      ],
+      [
+        -8,
+        85,
+        29
+      ],
+      [
+        -8,
+        86,
+        24
+      ],
+      [
+        -8,
+        86,
+        25
+      ],
+      [
+        -8,
+        86,
+        26
+      ],
+      [
+        -8,
+        86,
+        27
+      ],
+      [
+        -8,
+        86,
+        28
+      ],
+      [
+        -8,
+        86,
+        29
+      ],
+      [
+        -8,
+        87,
+        24
+      ],
+      [
+        -8,
+        87,
+        25
+      ],
+      [
+        -8,
+        87,
+        26
+      ],
+      [
+        -8,
+        87,
+        27
+      ],
+      [
+        -8,
+        87,
+        28
+      ],
+      [
+        -8,
+        87,
+        29
+      ],
+      [
+        -8,
+        88,
+        24
+      ],
+      [
+        -8,
+        88,
+        25
+      ],
+      [
+        -8,
+        88,
+        26
+      ],
+      [
+        -8,
+        88,
+        27
+      ],
+      [
+        -8,
+        88,
+        28
+      ],
+      [
+        -8,
+        88,
+        29
+      ],
+      [
+        -8,
+        89,
+        24
+      ],
+      [
+        -8,
+        89,
+        25
+      ],
+      [
+        -8,
+        89,
+        26
+      ],
+      [
+        -8,
+        89,
+        27
+      ],
+      [
+        -8,
+        89,
+        28
+      ],
+      [
+        -8,
+        89,
+        29
+      ],
+      [
+        -8,
+        90,
+        24
+      ],
+      [
+        -8,
+        90,
+        25
+      ],
+      [
+        -8,
+        90,
+        26
+      ],
+      [
+        -8,
+        90,
+        27
+      ],
+      [
+        -8,
+        90,
+        28
+      ],
+      [
+        -8,
+        90,
+        29
+      ],
+      [
+        -7,
+        85,
+        24
+      ],
+      [
+        -7,
+        85,
+        25
+      ],
+      [
+        -7,
+        85,
+        26
+      ],
+      [
+        -7,
+        85,
+        27
+      ],
+      [
+        -7,
+        85,
+        28
+      ],
+      [
+        -7,
+        85,
+        29
+      ],
+      [
+        -7,
+        86,
+        24
+      ],
+      [
+        -7,
+        86,
+        25
+      ],
+      [
+        -7,
+        86,
+        26
+      ],
+      [
+        -7,
+        86,
+        27
+      ],
+      [
+        -7,
+        86,
+        28
+      ],
+      [
+        -7,
+        86,
+        29
+      ],
+      [
+        -7,
+        87,
+        24
+      ],
+      [
+        -7,
+        87,
+        25
+      ],
+      [
+        -7,
+        87,
+        26
+      ],
+      [
+        -7,
+        87,
+        27
+      ],
+      [
+        -7,
+        87,
+        28
+      ],
+      [
+        -7,
+        87,
+        29
+      ],
+      [
+        -7,
+        88,
+        24
+      ],
+      [
+        -7,
+        88,
+        25
+      ],
+      [
+        -7,
+        88,
+        26
+      ],
+      [
+        -7,
+        88,
+        27
+      ],
+      [
+        -7,
+        88,
+        28
+      ],
+      [
+        -7,
+        88,
+        29
+      ],
+      [
+        -7,
+        89,
+        24
+      ],
+      [
+        -7,
+        89,
+        25
+      ],
+      [
+        -7,
+        89,
+        26
+      ],
+      [
+        -7,
+        89,
+        27
+      ],
+      [
+        -7,
+        89,
+        28
+      ],
+      [
+        -7,
+        89,
+        29
+      ],
+      [
+        -7,
+        90,
+        24
+      ],
+      [
+        -7,
+        90,
+        25
+      ],
+      [
+        -7,
+        90,
+        26
+      ],
+      [
+        -7,
+        90,
+        27
+      ],
+      [
+        -7,
+        90,
+        28
+      ],
+      [
+        -7,
+        90,
+        29
+      ],
+      [
+        -6,
+        85,
+        24
+      ],
+      [
+        -6,
+        85,
+        25
+      ],
+      [
+        -6,
+        85,
+        26
+      ],
+      [
+        -6,
+        85,
+        27
+      ],
+      [
+        -6,
+        85,
+        28
+      ],
+      [
+        -6,
+        85,
+        29
+      ],
+      [
+        -6,
+        86,
+        24
+      ],
+      [
+        -6,
+        86,
+        25
+      ],
+      [
+        -6,
+        86,
+        26
+      ],
+      [
+        -6,
+        86,
+        27
+      ],
+      [
+        -6,
+        86,
+        28
+      ],
+      [
+        -6,
+        86,
+        29
+      ],
+      [
+        -6,
+        87,
+        24
+      ],
+      [
+        -6,
+        87,
+        25
+      ],
+      [
+        -6,
+        87,
+        26
+      ],
+      [
+        -6,
+        87,
+        27
+      ],
+      [
+        -6,
+        87,
+        28
+      ],
+      [
+        -6,
+        87,
+        29
+      ],
+      [
+        -6,
+        88,
+        24
+      ],
+      [
+        -6,
+        88,
+        25
+      ],
+      [
+        -6,
+        88,
+        26
+      ],
+      [
+        -6,
+        88,
+        27
+      ],
+      [
+        -6,
+        88,
+        28
+      ],
+      [
+        -6,
+        88,
+        29
+      ],
+      [
+        -6,
+        89,
+        24
+      ],
+      [
+        -6,
+        89,
+        25
+      ],
+      [
+        -6,
+        89,
+        26
+      ],
+      [
+        -6,
+        89,
+        27
+      ],
+      [
+        -6,
+        89,
+        28
+      ],
+      [
+        -6,
+        89,
+        29
+      ],
+      [
+        -6,
+        90,
+        24
+      ],
+      [
+        -6,
+        90,
+        25
+      ],
+      [
+        -6,
+        90,
+        26
+      ],
+      [
+        -6,
+        90,
+        27
+      ],
+      [
+        -6,
+        90,
+        28
+      ],
+      [
+        -6,
+        90,
+        29
+      ],
+      [
+        -5,
+        85,
+        24
+      ],
+      [
+        -5,
+        85,
+        25
+      ],
+      [
+        -5,
+        85,
+        26
+      ],
+      [
+        -5,
+        85,
+        27
+      ],
+      [
+        -5,
+        85,
+        28
+      ],
+      [
+        -5,
+        85,
+        29
+      ],
+      [
+        -5,
+        86,
+        24
+      ],
+      [
+        -5,
+        86,
+        25
+      ],
+      [
+        -5,
+        86,
+        26
+      ],
+      [
+        -5,
+        86,
+        27
+      ],
+      [
+        -5,
+        86,
+        28
+      ],
+      [
+        -5,
+        86,
+        29
+      ],
+      [
+        -5,
+        87,
+        24
+      ],
+      [
+        -5,
+        87,
+        25
+      ],
+      [
+        -5,
+        87,
+        26
+      ],
+      [
+        -5,
+        87,
+        27
+      ],
+      [
+        -5,
+        87,
+        28
+      ],
+      [
+        -5,
+        87,
+        29
+      ],
+      [
+        -5,
+        88,
+        24
+      ],
+      [
+        -5,
+        88,
+        25
+      ],
+      [
+        -5,
+        88,
+        26
+      ],
+      [
+        -5,
+        88,
+        27
+      ],
+      [
+        -5,
+        88,
+        28
+      ],
+      [
+        -5,
+        88,
+        29
+      ],
+      [
+        -5,
+        89,
+        24
+      ],
+      [
+        -5,
+        89,
+        25
+      ],
+      [
+        -5,
+        89,
+        26
+      ],
+      [
+        -5,
+        89,
+        27
+      ],
+      [
+        -5,
+        89,
+        28
+      ],
+      [
+        -5,
+        89,
+        29
+      ],
+      [
+        -5,
+        90,
+        24
+      ],
+      [
+        -5,
+        90,
+        25
+      ],
+      [
+        -5,
+        90,
+        26
+      ],
+      [
+        -5,
+        90,
+        27
+      ],
+      [
+        -5,
+        90,
+        28
+      ],
+      [
+        -5,
+        90,
+        29
+      ],
+      [
+        -4,
+        85,
+        24
+      ],
+      [
+        -4,
+        85,
+        25
+      ],
+      [
+        -4,
+        85,
+        26
+      ],
+      [
+        -4,
+        85,
+        27
+      ],
+      [
+        -4,
+        85,
+        28
+      ],
+      [
+        -4,
+        85,
+        29
+      ],
+      [
+        -4,
+        86,
+        24
+      ],
+      [
+        -4,
+        86,
+        25
+      ],
+      [
+        -4,
+        86,
+        26
+      ],
+      [
+        -4,
+        86,
+        27
+      ],
+      [
+        -4,
+        86,
+        28
+      ],
+      [
+        -4,
+        86,
+        29
+      ],
+      [
+        -4,
+        87,
+        24
+      ],
+      [
+        -4,
+        87,
+        25
+      ],
+      [
+        -4,
+        87,
+        26
+      ],
+      [
+        -4,
+        87,
+        27
+      ],
+      [
+        -4,
+        87,
+        28
+      ],
+      [
+        -4,
+        87,
+        29
+      ],
+      [
+        -4,
+        88,
+        24
+      ],
+      [
+        -4,
+        88,
+        25
+      ],
+      [
+        -4,
+        88,
+        26
+      ],
+      [
+        -4,
+        88,
+        27
+      ],
+      [
+        -4,
+        88,
+        28
+      ],
+      [
+        -4,
+        88,
+        29
+      ],
+      [
+        -4,
+        89,
+        24
+      ],
+      [
+        -4,
+        89,
+        25
+      ],
+      [
+        -4,
+        89,
+        26
+      ],
+      [
+        -4,
+        89,
+        27
+      ],
+      [
+        -4,
+        89,
+        28
+      ],
+      [
+        -4,
+        89,
+        29
+      ],
+      [
+        -4,
+        90,
+        24
+      ],
+      [
+        -4,
+        90,
+        25
+      ],
+      [
+        -4,
+        90,
+        26
+      ],
+      [
+        -4,
+        90,
+        27
+      ],
+      [
+        -4,
+        90,
+        28
+      ],
+      [
+        -4,
+        90,
+        29
+      ]
+    ],
+    "nbt": null,
+    "player": "-8589934591",
+    "dimension": 0
+  },
+  "near_player": {
+    "platform": [
+      -11,
+      86,
+      22
+    ],
+    "after": [
+      -10.5,
+      87.0,
+      22.5
+    ],
+    "before": [
+      -12.5,
+      63.0,
+      20.5
+    ]
+  },
+  "empty_server": {
+    "states": {
+      "powered_bit": false,
+      "minecraft:cardinal_direction": "east"
+    },
+    "block": {
+      "aux": 3,
+      "name": "minecraft:lectern"
+    },
+    "nbt": {
+      "y": {
+        "__type__": 3,
+        "__value__": 88
+      },
+      "x": {
+        "__type__": 3,
+        "__value__": -6
+      },
+      "isMovable": {
+        "__type__": 1,
+        "__value__": 1
+      },
+      "id": {
+        "__type__": 8,
+        "__value__": "Lectern"
+      },
+      "z": {
+        "__type__": 3,
+        "__value__": 27
+      }
+    }
+  },
+  "empty_client": {
+    "raw_actor": "{'minecraft:lectern': {0: {}}}",
+    "raw_common": "{('minecraft:lectern', 3): [0]}",
+    "block": [
+      "minecraft:lectern",
+      3
+    ],
+    "nbt": {
+      "y": {
+        "__type__": 3,
+        "__value__": 88
+      },
+      "x": {
+        "__type__": 3,
+        "__value__": -6
+      },
+      "isMovable": {
+        "__type__": 1,
+        "__value__": 1
+      },
+      "id": {
+        "__type__": 8,
+        "__value__": "Lectern"
+      },
+      "z": {
+        "__type__": 3,
+        "__value__": 27
+      }
+    }
+  },
+  "error": "MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: {'title': {'__type__': 8, '__value__': 'R21 Native Autho'}, 'pages': [{'text': {'__type__': 8, '__value__': 'First authored control.'}}, {'text': {'__type__': 8, '__value__': 'Second authored control.'}}], 'author': {'__type__': 8, '__value__': 'R21 Native Loot'}}\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 443, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 472, in _RUN_SERVER_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 18, in <module>\\nAssertionError: {'title': {'__type__': 8, '__value__': 'R21 Native Autho'}, 'pages': [{'text': {'__type__': 8, '__value__': 'First authored control.'}}, {'text': {'__type__': 8, '__value__': 'Second authored control.'}}], 'author': {'__type__': 8, '__value__': 'R21 Native Loot'}}\\n\", \"type\": \"text\"}]}",
+  "inventory_restore": {
+    "after": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "restored": true,
+    "before": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "world_restore": {
+    "rows": [
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          85,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          85,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          85,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          85,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          85,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          85,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          86,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          86,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          86,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          86,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          86,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          86,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          87,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          87,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          87,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          87,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          87,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          87,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          88,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          88,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          88,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          88,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          88,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          88,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          89,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          89,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          89,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          89,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          89,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          89,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          90,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          90,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          90,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          90,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          90,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -9,
+          90,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          85,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          85,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          85,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          85,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          85,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          85,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          86,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          86,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          86,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          86,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          86,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          86,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          87,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          87,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          87,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          87,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          87,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          87,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          88,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          88,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          88,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          88,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          88,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          88,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          89,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          89,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          89,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          89,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          89,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          89,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          90,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          90,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          90,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          90,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          90,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -8,
+          90,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          85,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          85,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          85,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          85,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          85,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          85,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          86,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          86,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          86,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          86,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          86,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          86,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          87,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          87,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          87,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          87,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          87,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          87,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          88,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          88,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          88,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          88,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          88,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          88,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          89,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          89,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          89,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          89,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          89,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          89,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          90,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          90,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          90,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          90,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          90,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -7,
+          90,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          85,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          85,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          85,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          85,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          85,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          85,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          86,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          86,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          86,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          86,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          86,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          86,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          87,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          87,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          87,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          87,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          87,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          87,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          88,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          88,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          88,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          88,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          88,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          88,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          89,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          89,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          89,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          89,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          89,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          89,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          90,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          90,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          90,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          90,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          90,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -6,
+          90,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          85,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          85,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          85,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          85,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          85,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          85,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          86,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          86,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          86,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          86,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          86,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          86,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          87,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          87,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          87,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          87,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          87,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          87,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          88,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          88,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          88,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          88,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          88,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          88,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          89,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          89,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          89,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          89,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          89,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          89,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          90,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          90,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          90,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          90,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          90,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -5,
+          90,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          85,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          85,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          85,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          85,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          85,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          85,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          86,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          86,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          86,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          86,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          86,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          86,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          87,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          87,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          87,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          87,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          87,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          87,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          88,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          88,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          88,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          88,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          88,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          88,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          89,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          89,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          89,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          89,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          89,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          89,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          90,
+          24
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          90,
+          25
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          90,
+          26
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          90,
+          27
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          90,
+          28
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -4,
+          90,
+          29
+        ]
+      },
+      {
+        "after": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "pos": [
+          -11,
+          86,
+          22
+        ]
+      }
+    ],
+    "restored": true
+  },
+  "camera_restore": true,
+  "environment_restore": true,
+  "source_unchanged": true,
+  "elapsed_seconds": 12.766562199991313
+}

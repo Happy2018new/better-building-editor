@@ -1,0 +1,40 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:written_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_book_contents",
+              "title": "R21 Native Authored Book A",
+              "author": "R21 Native Loot",
+              "pages": ["First authored control.", "Second authored control."]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:written_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_book_contents",
+              "title": "R21 Native Authored Book B",
+              "author": "R21 Other Author",
+              "pages": ["A different native page."]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "base_project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\root-signed-book-r21-v1",
+  "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20-native-oracle-short-source-v2",
+  "clone": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\book-r20-native-oracle-short-v2",
+  "base_manifest_sha256": "cc57450722012534f51238d4442a96021ea26bd447066f1a0f6bef953f342d25",
+  "manifest_sha256": "4cf802c70f38ec55a67a5ccb5a5de928432de0cb436f9b50d49ace2c4cefd691",
+  "source_digest": "cef241175e435d0f852f6d55b0b976a880e23b5d0e00dd215e8018dc9e49b3ad",
+  "file_count": 3033,
+  "changed_files": [
+    "behavior_pack/loot_tables/modern_projection/r21_signed_book.json"
+  ],
+  "only_semantic_change": "Authored A title request",
+  "expected_request": {
+    "function": "set_book_contents",
+    "title": "R21 Book A",
+    "author": "R21 Native Loot",
+    "pages": [
+      "First authored control.",
+      "Second authored control."
+    ]
+  },
+  "base_source_unchanged": true,
+  "game_calls": 0,
+  "game_launched": false,
+  "production_qualified": false
+}
