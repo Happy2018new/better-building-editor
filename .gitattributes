@@ -326,3 +326,6 @@ docs/evidence/shelf-native-axes-r21-*/** -text -diff whitespace=cr-at-eol
 tools/prepare_shelf_light_inputs_r21.py text eol=lf
 tools/verify_shelf_light_inputs_r21.py text eol=lf
 tools/pack_lectern_body_candidate_r21.py text eol=lf
+# Standalone alpha controls retain exact reports, native PNGs, and exit evidence.
+docs/evidence/water-alpha-r21-v1/** -text -diff whitespace=cr-at-eol
+tools/pack_water_alpha_r21.py text eol=lf

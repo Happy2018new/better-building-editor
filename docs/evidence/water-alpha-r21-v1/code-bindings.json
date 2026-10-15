@@ -1,0 +1,45 @@
+{
+  "frozen_host_files": {
+    ".agents/skills/pyreact-debugging/scripts/_session.py": "hosts/_session.py",
+    ".agents/skills/pyreact-debugging/scripts/instances.py": "hosts/instances.py",
+    ".runtime/water-r21-alpha-host.py": "hosts/water-r21-alpha-host.py",
+    ".runtime/water-r21-alpha-launch.py": "hosts/water-r21-alpha-launch.py",
+    "tools/analyze_liquid_workspace.py": "replay/tools/analyze_liquid_workspace.py",
+    "tools/analyze_product_water.py": "replay/tools/analyze_product_water.py",
+    "tools/census_intrinsic_glint_ui_r21.py": "hosts/census_intrinsic_glint_ui_r21.py",
+    "tools/water_native_projection.py": "replay/tools/water_native_projection.py"
+  },
+  "launch_bound_files": {
+    "acquisition/tools/probe_product_water.py": "tools/probe_product_water.py",
+    "acquisition/tools/verify_camera_projection.py": "tools/verify_camera_projection.py",
+    "acquisition/tools/verify_missing_neighbor_visuals.py": "tools/verify_missing_neighbor_visuals.py",
+    "replay/behavior_pack/modern_projection/projection/__init__.py": "behavior_pack/modern_projection/projection/__init__.py",
+    "replay/behavior_pack/modern_projection/projection/block_registry.py": "behavior_pack/modern_projection/projection/block_registry.py",
+    "replay/behavior_pack/modern_projection/projection/block_registry_data.py": "behavior_pack/modern_projection/projection/block_registry_data.py",
+    "replay/behavior_pack/modern_projection/projection/camera.py": "behavior_pack/modern_projection/projection/camera.py",
+    "replay/behavior_pack/modern_projection/projection/cell.py": "behavior_pack/modern_projection/projection/cell.py",
+    "replay/tools/analyze_liquid_transparency.py": "tools/analyze_liquid_transparency.py",
+    "replay/tools/camera_projection.py": "tools/camera_projection.py",
+    "replay/tools/water_capture_contract.py": "tools/water_capture_contract.py"
+  },
+  "pure_helper_files": {
+    "verify_camera_projection": {
+      "functions": [
+        "stone_signal",
+        "fill_enclosed_holes",
+        "largest_component"
+      ],
+      "launch_path": "acquisition/tools/verify_camera_projection.py",
+      "path": "replay/helpers/verify_camera_projection.py"
+    },
+    "verify_missing_neighbor_visuals": {
+      "functions": [
+        "hull",
+        "maximum",
+        "signal"
+      ],
+      "launch_path": "acquisition/tools/verify_missing_neighbor_visuals.py",
+      "path": "replay/helpers/verify_missing_neighbor_visuals.py"
+    }
+  }
+}
