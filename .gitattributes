@@ -310,3 +310,7 @@ tools/analyze_product_water.py -text whitespace=cr-at-eol
 tests/test_water_native_projection.py text eol=lf
 tests/test_product_water_analysis.py -text whitespace=cr-at-eol
 docs/evidence/water-native-world-oracle-r21-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/shelf-direction-r21-*/** -text -diff whitespace=cr-at-eol
+tools/generate_shelf_direction_controls_r20.py text eol=lf
+tools/pack_shelf_body_evidence_r18.py text eol=lf
+tests/test_shelf_body_generation.py text eol=lf

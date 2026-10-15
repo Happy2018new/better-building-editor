@@ -3,10 +3,12 @@ import json
 from pathlib import Path
 import sys
 import unittest
+from copy import deepcopy
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools'))
 from generate_shelf_resources_r17 import body_model, shelf_cubes, FRONTS, DIRECTIONS, WOODS
+from generate_shelf_direction_controls_r20 import baked_body_model, rotate_cubes_once
 
 
 class ShelfBodyGenerationTests(unittest.TestCase):
@@ -51,6 +53,41 @@ class ShelfBodyGenerationTests(unittest.TestCase):
                     self.assertEqual([-8, 8, 8], data['bones'][0]['pivot'])
                     self.assertEqual([0, DIRECTIONS.index(direction)*90, 0], data['bones'][0]['rotation'])
         self.assertEqual(240, len(identities))
+
+    def test_baked_turns_preserve_original_and_return_exact_uvs_after_full_rotation(self):
+        for front in FRONTS:
+            original = shelf_cubes(self.reference, front)
+            saved = deepcopy(original)
+            rotated = original
+            for unused in range(4):
+                rotated = rotate_cubes_once(rotated)
+            self.assertEqual(saved, original)
+            self.assertEqual(saved, rotated)
+
+    def test_baked_front_moves_to_requested_world_face_with_unrotated_bones(self):
+        front_bounds = {'north': (2, 13), 'east': (0, -13),
+                        'south': (2, 3), 'west': (0, -3)}
+        for front in FRONTS:
+            for direction, (axis, coordinate) in front_bounds.items():
+                model = baked_body_model(self.reference, front, direction, True)
+                geometry = model['netease:block_geometry']
+                bone = geometry['bones'][0]
+                self.assertEqual([0, 0, 0], bone['rotation'])
+                self.assertTrue(geometry['description']['use_ao'])
+                middle = bone['cubes'][1]
+                surface = middle['origin'][axis]
+                if direction in ('east', 'south'):
+                    surface += middle['size'][axis]
+                self.assertEqual(coordinate, surface)
+                self.assertEqual(shelf_cubes(self.reference, front)[1]['uv']['north'],
+                                 middle['uv'][direction])
+                self.assertEqual(16*16*3+2*16*4*2,
+                                 sum(cube['size'][0]*cube['size'][1]*cube['size'][2]
+                                     for cube in bone['cubes']))
+                for cube in bone['cubes']:
+                    for i, (low, high) in enumerate(((-16, 0), (0, 16), (0, 16))):
+                        self.assertGreaterEqual(cube['origin'][i], low)
+                        self.assertLessEqual(cube['origin'][i] + cube['size'][i], high)
 
 
 if __name__ == '__main__':

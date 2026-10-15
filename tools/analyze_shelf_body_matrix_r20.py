@@ -10,9 +10,9 @@ from PIL import Image, ImageDraw
 
 def pixels(report, label, directory):
     receipt = report['captures'][label]
-    source = Path(receipt['path'])
+    source = directory / Path(receipt['path']).name
     if not source.is_file():
-        source = directory / source.name
+        source = Path(receipt['path'])
     if receipt.get('reliable') is not True:
         raise ValueError('Unreliable shelf capture: ' + label)
     if hashlib.sha256(source.read_bytes()).hexdigest() != receipt['sha256']:
