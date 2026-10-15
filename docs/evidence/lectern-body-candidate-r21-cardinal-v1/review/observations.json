@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "raw_report_sha256": "b8058e5ceb9bac92f54772ecf287f938802fee5eb81aaf87b346733256767352",
+  "analysis_sha256": "b9ba018c2142de74d1332bc2de2b0bf96f12c498f23f7a74c8effad80b33338e",
+  "review_sheets_opened": ["south_empty", "south_book", "west_empty", "west_book", "north_empty", "north_book", "east_empty", "east_book", "cyan"],
+  "native_book_fixture": {
+    "actual_item": "minecraft:writable_book",
+    "insertion_route": "SpawnItemToPlayerInv -> PlayerUseItemToPos",
+    "server_hasBook": 1,
+    "server_totalPages": 0,
+    "server_book_count": 1,
+    "client_palette_actor": {},
+    "complete_client_book_nbt_collected": false,
+    "book_oracle_validated": false,
+    "product_book_pixel_failure_claimed": false,
+    "observation": "All four world book cases show an empty-looking lectern while full/missing custom books are visible. The blank writable-book oracle is unvalidated, so this does not adjudicate book parity."
+  },
+  "native_body_oracle": {
+    "south_empty_world_valid": false,
+    "south_empty_world_observation": "The first source-world frame contains neither the target lectern nor its cyan support. The offset stone reference is visible. API replication did not establish visible pixels.",
+    "other_seven_lectern_world_bodies_visible": true,
+    "full_missing_actual_cardinal_bodies_visible": true,
+    "full_missing_top_board_cutout_observed": false,
+    "all_four_body_only_custom_books_absent": true,
+    "native_body_count_exactly_one_in_active_full_missing_and_body_only": true,
+    "native_lectern_packed_neighbor_leak_observed": false
+  },
+  "hidden_boundary": {
+    "lectern_hidden": "All eight lectern cases hide the target body/book and preserve a cyan lower support with its top face visible.",
+    "cyan_hidden": "The upper cyan disappears and the lower cyan side faces remain, but the lower cyan top face is absent and background shows through. This independent support-boundary control fails.",
+    "cyan_hidden_boundary_passed": false
+  },
+  "production_qualified": false,
+  "powered_appearance_tested": false,
+  "automatic_pixel_acceptance_claimed": false
+}
