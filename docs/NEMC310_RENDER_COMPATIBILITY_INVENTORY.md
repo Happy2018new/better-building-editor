@@ -1,5 +1,24 @@
 # NEMC 3.10 方块外观兼容盘点
 
+## 2026-10-15 当前实测状态
+
+12:35估时纠正：此前10–18／18–30小时等总工期预测没有完整逐项核销，当前不再作为可靠完成排期。固定剩余工作包及关闭条件已集中写入[统一清单顶部](IMPLEMENTATION_GAPS.md#2026-10-15-1235-固定剩余范围与估时纠正)，本附件下方工期表是历史估计。新的实机发现：附魔台实际占据后，邻格context保留台身底面及四侧纹理；仅内缩底面不是完整解决方案，书gate保持False。Shelf已读384状态、52原生视图和橡木候选四视图，生产接线／通电联组／内容仍待。临时对照实体漏关阴影已通过显式on/off同机位控制确认并修脚本，正式投影已有关闭设置。
+
+本节优先于下方保留的 R15–R17 历史观察。本轮继续至今天 13:30，不休眠；最多三个活动子代理、五个 MC。统一待办仍在 [IMPLEMENTATION_GAPS.md](IMPLEMENTATION_GAPS.md)，本文件维护外观范围和技术依据。
+
+| 家族／共享机制 | 当前已确认的结果 | 仍未完成的部分 |
+| --- | --- | --- |
+| 附魔台台身 | 原生 Combine 台身下移 0.125 格；静态代理四方向形状曾通过，但实际占据后context保留底面及四侧纹理。默认代理现由独立gate关闭，保留原生本体／actor／背景层 | native fallback仍偏低；内缩与移除no_crop_face_block均未完整修好，不把关闭路由当视觉修复 |
+| 书本及其他自定义表面的黑线 | 后方真实方块的原生选择轮廓穿过不写深度的表面，树叶、石头、玻璃均可触发。书、末地表面、无遮蔽展示架物品的已测内部变化像素修复后均为零 | 不把不透明／裁剪表面的修复全局应用到半透明水与锅液面；未测姿态继续保留边界 |
+| 普通／试炼刷怪笼 | 最新候选 96 图、普通默认路径 78 图完成并恢复；每组 36 标识差异、36 支撑保留检查通过，含隐藏／切面后 0.5 秒和 1.5 秒追加观察 | 仅配置有／无／未知标识；不绘生物模型，不外推全部试炼游戏阶段 |
+| 旗帜与末地表面 | 旗帜 editor/world/opacity 26／16／3 图、末地表面 editor/world 31／28 图已在共享 owner 最终接线下复验，资格与当前来源一致 | 旗帜有限静态姿态不等于飘动；折跃门瞬时光束未完成 |
+| 附魔台／讲台书 | 独立editor/world owner候选与普通默认各65帧完成恢复；读回通过，但实际占据后台体纹理残留，五组各12帧边界控制未完整修复 | 书及台体生产gate均关闭；按保存的边界负控修复，不复用失败矩阵授予资格 |
+| 水 | 产品专用±4 bounds冷启有正负控；19例×3路径、348图完成恢复；full/missing适用几何／alpha和CPU通过 | editor九个核心水例没有独立水像素；world side UV两面相关性失败。先定位单个编辑器正控，再补动画／群系／邻域／默认；生产gate关闭 |
+| 物品与附魔 | 最终shader 3c288ec1…三路径几何、原生参照、附魔可见性与普通／空负控通过；占据及切面恢复已目检 | 最终shader连续帧尚未通过，945ms间隔失败不放宽250ms门限；完整姿态、特殊物品及默认准入仍待，生产gate关闭 |
+| 展示架 Shelf | 384状态读回／52原生图；12木种×5前面×4方向候选240模型，橡木四向轮廓接近；阴影probe已用显式on/off控制修正 | 候选未安装生产；通电角色及方向语义、各木种UV、三槽物品、连组和三路径占据分别验收，不从aux算术推测状态映射 |
+
+证据分别在 [附魔台台身](evidence/enchanting-body-prepared-r18/README.md)、[深度回归](evidence/render-depth-r17-v1/README.md)、[刷怪笼](evidence/spawner-product-r16/README.md)、[旗帜](evidence/banner-product-r16/README.md)、[末地表面](evidence/portal-product-r16/README.md)。新提交 `9631c3b1` 保存独立书本接线与共享路径回归，未启用尚未通过的书／物品／水资格。下方旧估时为历史估计，不能直接按本轮经过的小时数扣减。
+
 **23:45模型切换暂停：** 用户要求保存上下文并停止全部会话／MC，恢复以[交接顶部](CONVERSATION_HANDOFF.md)为准。R17资源资格验证补齐owned注册条目／资源契约；水独立分帧候选尚未接入口，书／物品仍未资格化。1,338个block物品不是1,338个需自定义模型的证明，item aux不能直接当block aux；catalog ID级unsupported包含失败aux，与同ID有效aux可能同时存在，后续范围必须按有效变体评估。
 
 **2026-10-14 23:30最新修订：** 第十六轮检查点已经保存，第十七轮连续开发至2026-10-15 07:00后休眠；最新10代理／最多5游戏。刷怪笼标识、旗帜editor有限静态家族和末地门／折跃门表面默认资格已启用，锅保持既有资格。最终2,817项离线回归和四包工作区／staged字节验证通过；生产水／物品／书仍False。物品左右暴露邻居反向已修复，放大侧边仍分段；书的editor讲台缺失、亮度／高度／方向仍待原生世界参照。普通cyan_concrete同camera实块／投影已复现投影细线，原因未明。水同实例远近对照证实可见性差异，side-UV／冷构建预算及最终门仍开。下方22:40与第十五轮记录仅作历史依据；当前待办以[统一清单](IMPLEMENTATION_GAPS.md)顶部为准，实例／source约束见[交接](CONVERSATION_HANDOFF.md)。
@@ -56,7 +75,7 @@
 | 方块／家族 | 3.10 原生能力 | 当前边界 |
 | --- | --- | --- |
 | 告示牌 `standing_sign`、`wall_sign`、悬挂告示牌 `*_hanging_sign` | `NATIVE` | 两面文字、颜色、发光和姿态字段已观察；字体排版、切面和三条产品路径仍待像素验收 |
-| 旗帜 `standing_banner`、`wall_banner` | `NATIVE` | world静态model_local有限子集已启用，0／3／6图案、旋转／镜像及占用／恢复通过；editor v6b深度／切面正例仍为隔离候选，未授予飘动或全族scene资格 |
+| 旗帜 `standing_banner`、`wall_banner` | `NATIVE`（有限静态家族） | 原生图案配合已验 editor 深度／姿态适配；0／3／6 图案、变换、切面、缩放、world 占用／恢复及默认路径已启用并重验。不授予旗面飘动或未测全族资格 |
 | 潮涌核心 `conduit` | `NATIVE`（静态本体） | 新干净投影已见未激活本体；激活核心、框架、旋转、持续动画／特效由用户排除，产品三路径本体仍须回归 |
 | 花盆 `flower_pot` | `NATIVE` | `flowerPotPlant` 字段已观察；所有植物种类、切面和三条产品路径仍待像素验收 |
 | 铜箱各氧化／涂蜡变体 | `NATIVE` | 铜类型、配对、方向和开度字段已观察；箱盖时序和内容不外绘仍待验收 |
@@ -70,7 +89,8 @@
 | 下界传送门 `portal` | `NATIVE-PARTIAL` | 新干净投影已见紫色门面；轴向、深度、动画和三条产品路径仍待验收 |
 | 末地传送门 `end_portal` | `CUSTOM` | Combine 文档明确不支持，必须使用专用动态表面；不实现传送行为或周边粒子 |
 | 末地折跃门 `end_gateway` | `CUSTOM` | Combine 文档明确不支持，必须使用专用表面／光束几何；不模拟传送、冷却或周边粒子 |
-| 物品框／发光物品框、展示架 | `NATIVE-PARTIAL` | 框体本体可由原生提供，但当前 actor 不含展示物品；物品模型、附魔光效、槽位和深度必须用共享 overlay |
+| 物品框／发光物品框 | `NATIVE-PARTIAL` | 原生框体可见，当前 actor 不含展示物品；共享物品 overlay 的形状、附魔、姿态和默认资格仍待 |
+| 展示架 Shelf | `NATIVE-PARTIAL`（已测状态缺本体） | 橡木实测状态的三条 Combine 路径均缺本体；共享静态本体与物品 overlay 分开补齐，不能把框体的原生能力外推到 Shelf |
 | 箱子、潜影盒、末影箱 | `NATIVE-PARTIAL` | 壳体／方向／配对字段优先原生；库存只无损保存，不外绘，开盖和切面仍待验收 |
 | 末地门框 `end_portal_frame` | `NATIVE-PARTIAL` | 这是静态框架方块，不是第四种传送门；末影之眼状态按原生状态验收 |
 | 信标 `beacon` | `NATIVE`（静态本体） | 新干净投影本体可见，无需新增激活光束；保留三路径静态本体回归 |
@@ -119,22 +139,22 @@
 
 | NBT ID | 名称数／方块 | 需要检查或补充的外观 | 分类／难度 | 3.10 与项目当前依据 |
 | --- | --- | --- | --- | --- |
-| Cauldron | 1，`cauldron` | 空锅／fill_level 1..6；水、岩浆、药水、染色液体与细雪；液面高度、遮挡、纹理与颜色 | F+D，高 | 3.10已读回三类液体0..6档、药水aux5..46及两组CustomColor；aux0是清水瓶，aux1..4保持空锅。字段已知，液面overlay与像素仍未完成。`lava_cauldron`是资源定义，不在旧dump，不能凭资源创建方块ID |
-| ItemFrame | 1，`frame` | 物品、旋转、地图或其他有特殊内容的物品、附魔光效 | B，高 | 普通／附魔真实物品 NBT 存在，3.10 palette 内容 actor 仍 `{}`；sprite资源仅有diamond_sword，连续帧诊断阳性不等于通用物品支持或生产资格 |
+| Cauldron | 1，`cauldron` | 空锅／fill_level 1..6；水、岩浆、药水、染色液体与细雪；液面高度、遮挡、纹理与颜色 | F+D，高 | 3.10已读回三类液体0..6档、药水aux5..46及两组CustomColor；aux0是清水瓶，aux1..4保持空锅。字段与有限液面 overlay 已完成；六档水／岩浆、药水／染色／细雪、群系纯水及三路径切面／占用／动画和默认冷启已有精确版本资格。`lava_cauldron`是资源定义，不在旧dump，不能凭资源创建方块ID |
+| ItemFrame | 1，`frame` | 物品、旋转、地图或其他有特殊内容的物品、附魔光效 | B，高 | 普通／附魔真实物品 NBT 存在，3.10 palette 内容 actor 仍 `{}`；450 个平面图标有版本化来源，侧面挤出与附魔为候选。block／特殊模型需独立来源，连续帧诊断不等于通用支持或生产资格 |
 | GlowItemFrame | 1，`glow_frame` | 上述内容及发光本体／内容光照 | B，高 | 同普通框；不能以框体可见代替物品可见 |
-| Shelf | 12，`acacia_shelf`、`bamboo_shelf`、`birch_shelf`、`cherry_shelf`、`crimson_shelf`、`dark_oak_shelf`、`jungle_shelf`、`mangrove_shelf`、`oak_shelf`、`pale_oak_shelf`、`spruce_shelf`、`warped_shelf` | 三槽真实物品、附魔、联组角色、通电状态 | B+S，高 | 旧默认样本为空，3.10 内容未验证；应复用框物品方案并参数化槽位 |
-| EnchantTable | 1，`enchanting_table` | 书本模型和常驻动作 | G，中高 | 台体原生可见；常驻书模型／动画仍待有效样本。用户不要求靠近打开、交互朝向或文字粒子 |
-| Lectern | 1，`lectern` | 无书／有书的模型与页面姿态 | B/C，中高 | 新干净投影本体可见，有书非默认样本仍待有效采集；无需渲染GUI全文，也不模拟翻页交互 |
+| Shelf | 12，`acacia_shelf`、`bamboo_shelf`、`birch_shelf`、`cherry_shelf`、`crimson_shelf`、`dark_oak_shelf`、`jungle_shelf`、`mangrove_shelf`、`oak_shelf`、`pale_oak_shelf`、`spruce_shelf`、`warped_shelf` | 三槽真实物品、附魔、联组角色、通电状态 | B+S，高 | 橡木实测状态真实本体可见，三条 Combine 路径缺本体；12 木种 × 32 语义状态需共享静态本体。三槽内容复用物品方案，连组／通电与槽位分别验收 |
+| EnchantTable | 1，`enchanting_table` | 书本模型和常驻动作 | G，中高 | 原生台体偏低 0.125 格，已用四向资格静态代理修正。常驻书形状／UV 有原生近景；独立 owner 与默认冷启资格尚待，不要求靠近打开或文字粒子 |
+| Lectern | 1，`lectern` | 无书／有书的模型与页面姿态 | B/C，中高 | 原生本体可见；typed NBT 有书／空书样本和页面对照已建立，独立书 owner 补真实占用／恢复及默认冷启资格。无需渲染 GUI 全文或模拟翻页交互 |
 | Beacon | 1，`beacon` | 静态本体 | A，低 | `NATIVE`本体已见，三路径回归即可；激活光束／染色分段不要求实现 |
-| EndPortal | 1，`end_portal` | 特殊动态材质与透明／深度关系 | G，高 | 3.10 Combine文档仍明确不支持，须专用表面；实际跳过／画面另验。没有flipbook不代表静止，安装中有`end_portal.vertex/fragment` |
-| EndGateway | 1，`end_gateway` | 门内特殊材质与捕获状态；光束是否有可用快照依据 | G，高 | 3.10 Combine文档明确不支持；不能用传送坐标当可见状态，不模拟传送和冷却计时 |
+| EndPortal | 1，`end_portal` | 特殊动态材质与透明／深度关系 | G，高 | 原生 Combine 不支持；版本化有限动态星空表面已默认启用，editor/full/missing、显隐／切面、透明度、变换与占用恢复已验并重验来源 |
+| EndGateway | 1，`end_gateway` | 门内特殊材质与捕获状态；光束是否有可用快照依据 | G，高 | 原生 Combine 不支持；有限动态星空表面已默认启用并重验，瞬时光束未完成。不能用传送坐标当可见状态，不模拟传送和冷却计时 |
 | MovingBlock | 1，`moving_block` | `EXCLUDED` | X，无 | 用户明确不要求外观适配，内嵌NBT仍保留 |
 | PistonArm | 2，`piston`、`sticky_piston` | 本体、臂及完整伸出静态状态 | H+S，中 | 不适配moving_block内部运动快照；实际根ID仍按实测来源保留 |
 | Skull | 7，`creeper_head`、`dragon_head`、`piglin_head`、`player_head`、`skeleton_skull`、`wither_skeleton_skull`、`zombie_head` | 方向、玩家外观来源、龙嘴／猪灵耳的可见模型姿态 | C/G，中高 | 3.9 四种头颅局部姿态通过；玩家、龙、猪灵及3.10仍待，不能加载普通生物代替头颅 |
 | ShulkerBox | 17，`black_shulker_box`、`blue_shulker_box`、`brown_shulker_box`、`cyan_shulker_box`、`gray_shulker_box`、`green_shulker_box`、`light_blue_shulker_box`、`light_gray_shulker_box`、`lime_shulker_box`、`magenta_shulker_box`、`orange_shulker_box`、`pink_shulker_box`、`purple_shulker_box`、`red_shulker_box`、`undyed_shulker_box`、`white_shulker_box`、`yellow_shulker_box` | 六向、颜色、闭合或可捕获的开盖姿态 | C，中高 | 3.10紫色actor `{}`；旧静态六向代理可复用但未完成新版本资格。箱内库存不外绘 |
 | Chest | 10，`chest`、`trapped_chest`、`copper_chest`、`exposed_copper_chest`、`weathered_copper_chest`、`oxidized_copper_chest`及四种铜箱的`waxed_`版本 | 单／双箱、朝向、主副半、箱盖捕获姿态、氧化／涂蜡 | A/C，中 | 3.10已有配对、方向、开度与铜类型字段；原生像素及局部消隐待验。内部库存不外绘 |
 | EnderChest | 1，`ender_chest` | 本体、方向、箱盖姿态 | A/C，中 | 新干净投影本体可见，方向／箱盖／三路径仍待；紫色周边粒子排除，私有库存不影响外观 |
-| Banner | 2，`standing_banner`、`wall_banner` | 底色、类型、完整图案顺序、旗面常驻动作 | A/C/G，中高 | 新r15两种投影图案已见，真实物品交互后palette与NBT一致；3帧未见飘动，不宣称动态通过，优先原生图案 |
+| Banner | 2，`standing_banner`、`wall_banner` | 底色、类型、完整图案顺序、旗面常驻动作 | A/C/G，中高 | 真实物品交互后 palette 与 NBT 一致；原生图案及 editor 姿态／深度适配的有限静态家族已默认启用，三组最终来源复验完成；飘动仍未资格化 |
 | Sign | 24，`standing_sign`、`wall_sign`及`acacia`、`bamboo`、`birch`、`cherry`、`crimson`、`darkoak`、`jungle`、`mangrove`、`pale_oak`、`spruce`、`warped`各自的`_standing_sign`与`_wall_sign` | 两面文字、染色、发光、排版、支撑／朝向 | A/C，中 | 3.10真实文字／颜色／发光字段已见；优先原生。旧橡木ID不带oak前缀，darkoak与悬挂款dark_oak不同 |
 | HangingSign | 12，`acacia_hanging_sign`、`bamboo_hanging_sign`、`birch_hanging_sign`、`cherry_hanging_sign`、`crimson_hanging_sign`、`dark_oak_hanging_sign`、`jungle_hanging_sign`、`mangrove_hanging_sign`、`oak_hanging_sign`、`pale_oak_hanging_sign`、`spruce_hanging_sign`、`warped_hanging_sign` | 两面文字、悬挂姿态、材质与发光 | A/C，中 | 3.10字段已见，实际editor/full/missing未全部验收 |
 | FlowerPot | 1，`flower_pot` | 空盆与实际盆栽植物 | A/C，低中 | 3.10 已见 `flowerPotPlant`，旧默认空盆不覆盖全部植物 |
@@ -147,7 +167,7 @@
 | ChiseledBookshelf | 1，`chiseled_bookshelf` | 六槽占位纹理与方向 | S，低 | `books_stored` 0..63 ×4方向，共256状态；不是 Shelf 的通用物品模型问题 |
 | BrushableBlock | 2，可疑沙／沙砾 | 刷除进度的表面和真实可见的内藏物品姿态 | S/B，中高 | 含物品非默认快照和进度来源待核查；不启动刷除、掉落或粒子 |
 | Vault | 1，`vault` | 状态材质、开口静态姿态 | A/S，低中 | 内部物品／物品特效明确排除；状态外壳仍须原生回归，不模拟开奖 |
-| TrialSpawner | 1，`trial_spawner` | 普通／不祥／活动外壳及配置生物有／无标识 | A/S/I，中 | 不画内部生物；需版本化有效配置样本，不能把current_mobs当笼内配置生物；替代标识三路径待实现 |
+| TrialSpawner | 1，`trial_spawner` | 普通／不祥／活动外壳及配置生物有／无标识 | A/S/I，中 | 不画内部生物；真实交互测得的版本化配置字段驱动有／无／未知标识，三路径已默认启用并复验；不把 current_mobs 当配置生物，不外推所有活动外壳状态 |
 | CopperGolemStatue | 8，`copper_golem_statue`、`exposed_copper_golem_statue`、`weathered_copper_golem_statue`、`oxidized_copper_golem_statue`及这四种的`waxed_`版本 | 姿态、朝向、铜阶段、涂蜡 | A/C，低中 | 3.10已有姿态／类型字段；不是普通铜傀儡实体捕获功能 |
 | SculkSensor | 1，`sculk_sensor` | 感应阶段、触须动画和材质 | A+D/S，中 | 动画纹理候选；不模拟振动传输／红石信号，粒子排除 |
 | CalibratedSculkSensor | 1，校频幽匿 | 同上及校频本体／方向 | A+D/S，中 | 动画候选，3.10 动画/状态待核查 |
@@ -175,7 +195,7 @@
 | ChemistryTable | 4，`compound_creator`、`element_constructor`、`lab_table`、`material_reducer` | `EXCLUDED` | X，无 | 用户不要求教育版方块；raw资源／NBT盘点保留以供版本diff，不计实现或验收 |
 | CraftingTable | 1，`crafting_table` | 原生静态本体 | A，低 | 原生确有该根ID；无需专门NBT外观overlay |
 | NetherReactor | 1，`netherreactor` | 历史方块合法状态纹理 | A/S，低 | 不复活历史反应功能；注册存在与可放置性分别登记 |
-| MobSpawner | 1，`mob_spawner` | 笼体与配置生物有／无标识 | A/I，低中 | 实测typed EntityIdentifier为空可区分无配置；非空样本须核验，未知／缺字段不能静默当空。内部模型、粒子与刷怪排除 |
+| MobSpawner | 1，`mob_spawner` | 笼体与配置生物有／无标识 | A/I，低中 | 实测 typed EntityIdentifier 空／真实刷怪蛋非空样本已建立；有／无／未知标识已默认启用，三路径及延迟隐藏检查通过。未知／缺字段不当空；内部模型、粒子与刷怪排除 |
 
 参考中的 `NeteaseContainer`、`ModBlock` 不在实际原版捕获清单；无真实注册定义时不新增虚构原版样本。普通实体如盔甲架、画、生物不属于本次方块NBT范围。
 

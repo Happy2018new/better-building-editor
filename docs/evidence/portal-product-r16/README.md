@@ -24,8 +24,9 @@ ray-plane appearance is not claimed. No source block state or NBT is replaced.
 | `world` | 28 | Full and missing projection for both families, moving pixels, one occupied cell and restoration, opacity 0/0.45/1 |
 | `default_editor` | 31 | Same editor matrix after cold start, with no candidate profile injection |
 
-All 17 contact sheets were opened and their actual pixels reviewed before
-admission. Color and temporal-difference counts are additional diagnostics,
+All 11 distinct current contact sheets were opened and their actual pixels
+reviewed before admission; the default-editor entry reuses the same ordinary
+editor report and six sheets. Color and temporal-difference counts are diagnostics,
 not a replacement for pixel review. World crop counts can include foliage.
 The final starfield is visible on the dark surface, its pixels move, hidden
 cells disappear, surviving source neighbors keep their original face context,
@@ -38,13 +39,13 @@ constants in `portal_profile.py` are normalized out of the implementation
 fingerprint to avoid a circular digest. Their isolated admission value differs
 from the final product value; all renderer bytes are identical.
 
-The repository keeps reports, original capture receipts, hashed review sheets
-and qualification metadata. The 90 full-resolution screenshots remain locally
-in ignored `.runtime/archive/portal-product-r16`, alongside the retained original
-probe folders. The committed evidence is about 12 MB. A fresh clone can inspect
-the contact sheets and source provenance but cannot independently replay raw
-pixel analysis without those local screenshots. Capture hashes and acceptance
-results are unchanged by this archival step.
+The current repository record keeps reports, original capture receipts, hashed
+review sheets, qualification metadata and full-resolution PNGs for pixel replay.
+The editor and default-editor entries reference identical captures. Runtime
+originals are also retained in `.runtime/portal-owner-r18-{editor,world}-v1`.
+The earlier compact Round 16 archive remains locally in
+`.runtime/archive/portal-product-r16`; its screenshots do not replace the
+current source-bound captures.
 
 The shared four-cell transport, preview owner, world companion, cancellation,
 occupancy and cleanup remain the existing liquid rendering infrastructure.

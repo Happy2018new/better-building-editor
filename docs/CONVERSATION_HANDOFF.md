@@ -1,5 +1,80 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-15 13:10 收尾检查点（当前状态）
+
+本节覆盖以下历史状态。今天13:30截止、不休眠；最多3个活动子代理、5个MC；继续在`dev`，不push／合main。本轮登记的自有MC／MCDK父进程已停止，但最终核对发现三条残留Minecraft子进程，详见下文；不能宣称系统里没有MC，也不能按五个空槽启动。五个用户palette probes及其他未纳入提交的WIP保留。子代理不再开游戏，只做最终归档／身份核对。
+
+- **估时纠正：** 用户指出剩余工期反复18–30小时没有收敛。已撤回旧区间的可靠排期含义，统一清单顶部固定12个剩余工作包及关闭条件。约12:15有效开发墙钟粗估100小时（95–110），自然经过约135小时，不累加代理、不当精确工时。不得在下轮再机械复述旧区间或用测试数量冒充产品完成百分比。
+- **水：** 独立`ProductLiquidProjection`／`ProductWorldLiquidRenderer`完成产品专用±4 bounds、1 create/frame；冷启±4可见／±2不可见／±4恢复，固定相机近移返回可见。冻结19例×3路径、162行／348原图全部恢复；full/missing适用几何、alpha、CPU和108次停止读回通过。**editor九个核心水例无独立水像素**，即便8组ready、opacity=1；下一步仅做PaperDoll model ID、visibility、depth/layout正负控，不先重跑全矩阵。world side UV south .8143／east .6827低于.85而RMSE过，不称已证实可见接缝。动画burst、群系／占用、反向邻域、公开蓝图及普通默认仍待，water gate=False。
+- **书：** candidate/default各65帧完成恢复，但真实占据留下台身底面和四侧context纹理。五组各12帧边界控制未取得无缝修复；`no_crop_face_block`影响邻面保留，不是背面剔除。**默认静态台体proxy已独立关闭**：`static_table_data.PRODUCT_QUALIFIED=False`，诊断须显式`CANDIDATE_ENABLED=True`并恢复。native fallback仍偏低.125格，不算修复。书gate=False。不要重装inset或移除component实验到默认资源；具体失败及下一步见`docs/evidence/book-owner-r18-v2/REMAINING.md`。
+- **物品附魔：** 最终shader `3c288ec16d18d66b908393c34dd84b6bb4a884ca52b8a2e1039a94a392a3da87`与根目录／采集同字节，资源契约`515be879b61fc352b3e00e66d063f8da6e05036a8cd7d83aa54db563fb86815e`。最终v2三路径几何、原生参照、附魔可见性、普通／空负控通过；root实看四路径及占据／切面恢复。连续动画仍False：旧945ms间隔失败保留，250ms门限不放宽，旧shader dense帧不得替新版本授予资格。生产gate仍False，完整姿态／特殊物品另验。
+- **Shelf／阴影：** 384状态／52原生视图已调查，候选240模型仅隔离生成，根生产未安装。归档含20张选定原生图及全部32张四向本体／阴影控制图，不能声称保存全部52张原生图。橡木候选轮廓接近不等于UV／光照／通电联组／内容合格。probe漏关anchor影子是测试bug；`probe_native_palette_body_r16.py`和`probe_liquid_pose_channel.py`已关闭。同实体同机位on/off明确复现与去除暗斑；正式full/missing原已关闭阴影。
+- **证据：** `docs/evidence/{book-owner-r18-v2,book-default-r18-v1,book-default-admission-r18-v1,book-body-*,liquid-owner-r18-bounds-v1,liquid-owner-r18-matrix-v1,item-glint-r18-v1,shelf-body-r18-v1}`。水矩阵原227MB ZIP已留ignored `.runtime/liquid-r18-large-captures-original.zip`，正式分为6包、最大51.68MiB，696成员逐字节一致。稀疏物品GIF不能充当dense帧通过。首次Shelf helper缺失和物品相机漂移失败均保留，不记成功。
+- **发布脱敏：** item归档报告中的两个本地MCDK token字段已在暂存前替换为`REDACTED`，原始报告留ignored runtime；`sanitization.json`明确记录转换字段和前后SHA。对发布报告实际重跑分析，全部像素指标及四个GIF不变，manifest29项／30文件核对通过；不是改原采集报告或仅手改分析hash。水7份ZIP内2,636个文本成员及其他本轮归档的凭据模式检查未发现同类值，未提交session凭据。
+- **验证：** gate最后改动后全量2,911项通过（1跳过，225.560秒），日志`.runtime/r18-final-after-body-gate-alltests.log`，exec22133已exit0；故障注入traceback不等于失败，结论见日志247／249行。四个已启用锅／旗帜／末地表面／刷怪笼工作区及staged来源验证通过，book仍disabled；默认台体gate没有通过更新hash掩盖视觉失败。水两份归档重验通过，matrix348 PNG／348 receipts及bounds44图的像素重算均保留。
+- **残留MC条目：** PID40520（02:25:33.684379+08:00）→父33752／session `9f5a6c7618df46069ef40b84ba98fc02`；PID3264（11:39:03.455412）→父46700／session `6d2af456cfda4e6886f875a6f35a99ba`；PID39028（11:54:53.833073）→父44588／session `9111908a4fd8432eb90a85e5bc8e9f5e`。三个父进程的原生creation identity均与session逐字匹配，子条目创建均在原父存活期。子条目本身OpenProcess(QUERY_LIMITED_INFORMATION)全部拒绝（error5），CIM路径null，无法取得原生creation identity，不得把`process_identity=None`误记为退出。当前未清理，继续计入最多5实例上限；下轮先核对本机实际状态，不复用旧PID、不杀无明确身份的用户进程。
+
+已保存提交：`0327d438`（Shelf／阴影控制）、`1fdebea8`（关闭未资格台体与书边界回归）、`a8780a0f`（独立水owner与矩阵）、`0387b4e8`（附魔变换与可见性／动画分离）、`9338a59f`（保存此前同主题dense／占据／侧视工具）、`c923e225`（脱敏物品实机归档）。全部留在`dev`，没有push或合main；另有本节／清单／盘点文档提交。此前水诊断两文件和其他未纳入的WIP保留，不将其混入这些已核对范围。
+
+下轮先读统一清单固定工作包，再按以上最小失败定位继续；不重复整批已完成调查。三个代理均已完成，没有运行中的本轮采集／分析／全量测试exec。不要恢复旧代理的嵌套任务。
+
+## 2026-10-15 09:35 继续至 13:30（当前安排）
+
+本节覆盖下方所有旧截止与代理安排。用户要求今天 13:30 截止，允许最多三个子代理；此前 08:00 休眠任务已禁用，13:30 不安排休眠。继续在 `dev` 开发，不推送、不合并 `main`；保留五个用户 palette probes 和其他 WIP，只显式 stage 本次完成的文件。
+
+- 当前代理：`book_owner_r18` 分析独立书本 owner 的实机矩阵，`item_glint_r18` 验证新附魔 shader，`liquid_product_r18` 复验产品水 owner 的远距剔除修复。不要再启动第四个。
+- root 的 `root-book-r18`（`b4252d2330f9451184ea9409526d7aa3`）与后续 `root-regression-r18`（`eccd076eb8134caeb5c8ba11c95e1c0e`）均已退出，后者 status 的历史 state 虽为 ready，`process_alive` 两项已为 false，不得复用旧 PID。`D:/bbe-r15-native-production` 副本现由 book 代理独占，允许它同步最终书来源并冷启。水／物品代理使用各自副本；后台运行、最多五个 MC，不抢焦点、不 resize。
+- 书独立 owner 已接入 Scene/Session/WorldProjection；`.runtime/book-owner-r18-v1/report.json` 的 61 张截图已完成并恢复，`source_unchanged=True`，像素矩阵仍待分析。书 gate 仍 False。
+- 附魔台原生 Combine 台身偏低 0.125 格；内部静态 proxy 已候选接入，`.runtime/enchanting-body-prepared-r17-v1` 四方向红色纹样 IoU 0.9571–0.9725，支撑内部 recall 均 1.0。不要将此单项当书整体资格。
+- 水远距丢失已定位为 FreeModel 默认 ±2 包围盒导致视锥剔除，产品水 renderer 候选改 ±4，共享 owner 默认仍 ±2；新实现实机复验待完成，water gate 仍 False。
+- 新 glint shader 修正原生 UV 变换顺序、半格偏移与 TILE_LIGHT_COLOR；编译与离线测试通过，新 shader 实机动画仍待。旧 dense capture 的后台间隔失败保留，不能改写为通过。
+- 来源回归已冻结：旗帜 26／16／3 图，末地表面 31／28 图；刷怪笼候选 96／默认 78 图，每组 36 标识与 36 支撑检查通过，含隐藏／切面后 0.5／1.5 秒延迟观察。四组已启用资格的 worktree／staged 检查通过。
+- 最新提交 `9631c3b1`（独立书本接线、共享包围盒扩展点、portal/spawner 回归），前一项 `e1d79450` 保存已验附魔台台身。书旧 61 图并未放实际占用块，agent 正补后重新冷启；新 glint editor 两剑消失，agent 正回到已知可见 shader 冷启。水同步完整 projection 闭包后 `b.project()` 异常未再复现，但 ±4 最终矩阵仍待。三个生产 gate 仍 False。
+- 此前全量回归为 2,864 项通过、1 跳过，是旧源码基线；本轮定点 book owner 9、共享 liquid renderer 35、product liquid renderer 6、spawner 28 项已通过，故障注入 traceback 不代表套件失败。最终稳定后再运行一次全量。不要恢复任何嵌套代理。
+
+## 2026-10-15 07:05 独立继续开发
+
+禁止代理、08:00休眠不变；计划任务再次读回 Ready、shutdown.exe /h。最新提交 `d9054a6a` 已保存书 v4 外侧面修复、讲台页面原生对照、附魔台本体偏低证据和相关专项工具。下文 06:17 的 back-culling 候选已被否决，最终需要 InvertCulling，并移除 DisableCulling、DisableDepthWrite。
+
+- 当前唯一 owned 游戏：owner `root-table-final-r17`，启动记录 `.runtime/r17-table-final-start.json`，project `D:/bbe-r15-native-production`。此前 `root-table-body-r17`、`root-table-integrated-r17` 已确认进程退出并归档。副本仍是 R16 冻结实现加选择性 R17 overlay，不是全 checkout。
+- `.runtime/item-depth-dense-motion-r17-v4` 已完成和恢复；基础分析 `evidence_valid=True/all_bodies_passed=True`。高空标定通过，四路连续动画和普通物品负控有效；候选 glint 比原生偏亮，亮区质心速度比约 0.408/0.456/0.490，**不是纹理相位速度，不能据此盲目调快或授予产品资格**。world/native 四帧图已目检。v3 标定失败仍保留为失败。
+- 附魔台静态 body 资源和 `static_table{,_data}.py` 已生成，导入链已修复；生成器现在独立写 JSON，不依赖液体生成器的业务导入链。`entity_render` 已接入 static_proxy 和 prepare_static_entities；3 项数据／图层／未知状态／来源保护测试通过。副本已冷启加载最终接线。`.runtime/book-table-integrated-r17-v1` 编辑器/full/missing 实机检查在运行（exec50501），确认 finally 恢复后再运行别的探针。
+- table body 尚未生产验收、尚未提交；entity_render 改动导致 banner 来源资格失效，必须实机回归后再更新，不能只改 hash。其他三组 enabled 资格通过。全量 tests exec92914 输出 `.runtime/r17-table-alltests.log` 仍在运行；日志内异常可能为故障注入，要等最终结论。
+- 书／物品／水 production gate 仍 False。五个用户 palette probes、其他 water WIP 保留。07:45 开始恢复／证据／交接收尾；08:00 休眠。
+
+## 2026-10-15 06:17 继续开发检查点
+
+仍禁止子代理，08:00截止并休眠，任务`Codex-BetterBuildingEditor-R17-Hibernate-20261015`再次读回Ready。唯一owned实例已经更换为session`a94b61bce9f64ba0bbb382b6c99f9ec6`、owner`root-book-culling-final-r17`，启动记录`.runtime/r17-book-culling-final-start.json`，project仍为`D:/bbe-r15-native-production`（R16冻结副本加选择性R17 overlay）。MC38856／MCDK3868仅供身份核验。06:00和更早实例均已停止。
+
+- v4书资源已经安装主仓库和副本，并冷启动；修正底面绕序、候选back culling。修正后的raster alias不再额外添加`states: []`。`.runtime/book-v4-moving-double-r17-v1`19帧完成恢复，16个动态candidate帧覆盖68.8秒；真正的double负控再次复现密集斑点（已目检，自动检测拒绝）。默认v4同机位对照`.runtime/book-v4-moving-back-r17-v1`正在运行，exec68685；先确认恢复再修改游戏。10项book专项测试通过，但不能仅据静态测试宣布视觉修复。
+- 附魔台本体偏移已经量化：`.runtime/enchanting-body-offset-r17-v1/report.json`36帧完成恢复，四方向原生台身／固定support对照显示，单独本体向上补偿0.125格恢复原生位置；红色纹样无图像平移IoU为1.0／0.9980／1.0／0.9774。`analyze_enchanting_body_r17.py`保存测量；尚无产品补偿接线。不要移动书pivot去掩盖台身偏低。
+- 物品dense v2已结束，editor连续8秒229帧／最大72ms成功；world最大间隔169.7ms超过150ms门限而失败，finally已恢复，用户已明确获知。诊断工具随后将允许的间隔设为250ms，保留真实QPC时间、不插帧、不授予产品资格；尚未重跑。下次使用当前新session执行`.runtime/item-depth-dense-motion-r17-v3`，不能把v2失败改写为通过。
+- 最新提交仍`0fcb3bc9`。v4书、动态诊断和物品工具WIP未提交；书／物品／水生产gate仍False。保留其余WIP及五个用户palette probes，不做全量stage。
+
+## 2026-10-15 06:00 连续开发中的诊断状态
+
+禁止子代理、08:00休眠不变。当前唯一owned实例：session`dc0a789e04944a328290dc55fa7e216b`，owner`root-book-animation-r17`，MC29124／MCDK7716仅供身份核验，启动记录`.runtime/r17-book-animation-start.json`；仍使用R16冻结副本`D:/bbe-r15-native-production`加R17资源。上一实例已stopped。
+
+- 原始v3材质在`.runtime/book-original-near-r17-v1`固定三格观察平台重新出现斑点（65／54／17／11个孤立异常像素），19帧完成恢复；`analyze_book_surface_r17.py`会正确拒绝，专门的3项检测回归通过。此前无斑点的raster alias额外添加`states: []`，与原材质不构成单变量对照。`prepare_book_raster_controls_r17.py`现已修正为仅清理本来存在的state字段，新增2项约束测试，但**修正后的alias尚未安装冷启**。不能宣称背面剔除已经实测解决。
+- `book-moving-back-r17-v1`被前景树叶遮住，不能验收；v2选址检查完整书体周围空气后干净。double对照也干净，故发现上述状态重置干扰。`book-moving-double-near-r17-v1`因host探针错误端侧调用在世界变更前失败并恢复；v2已修正。当前`--controlled-arena`可建空中固定三格观察平台并恢复原玩家foot和临时方块，避免新世界树木干扰。
+- `book_model_geometry.py`改到v4，修正所有盒底面的反向绕序；generator候选采用back culling。10项book定点测试通过。`.runtime/book-hinged-cull-r17-v4`已生成，**主仓库和副本实际资源仍v3，尚未安装v4**。下一次冷启先安装v4，再生成不重置states的moving double/back/front诊断alias，验证动态对照和editor/full/missing。四个enabled资格暂不受这些未启用book改动影响。
+- 连续物品动画新增`item_sprite_motion_capture.py`／`analyze_item_dense_motion_r17.py`与可选`--burst-exe --burst-sha256`。首次v1缺副本`_session`，未捕获burst，pipeline已恢复；依赖现补齐，独立1秒预检31有效帧／最大36ms间隔通过。**`.runtime/item-depth-dense-motion-r17-v2`正在运行，exec74022；先确认结束和恢复再动游戏。** helper是`.runtime/native_wgc/burst-build-r14/Release/native_wgc_burst_capture.exe`，SHA`82361ce558efc40dbde5bb272cb309f6cd68fa7c79e9087a6d3089f49443c0f6`。完成后先跑`analyze_visible_items_r16.py <report.json> <review-folder>`，再跑dense analyzer（参数report、review/analysis.json、新输出目录）。连续捕获失败需明确报告，不能当动画通过。
+- `probe_native_palette_body_r16.py`新增`--body-offsets 0 .0625 .125 .1875`：分别生成table和固定support，核查原生台身偏低的具体偏移；此扩展尚未跑。原v2三种palette路径偏低证据仍有效。
+
+上述诊断和v4生成器改动尚未提交，最新提交仍`0fcb3bc9`；水和其他物品WIP继续保留。此段是开发中检查点，不是停止工作指令。
+
+## 2026-10-15 05:40 独立开发检查点
+
+仍按用户最新要求：禁止子代理，独立工作至08:00并休眠；计划任务已读回Ready。`4876e3c0`已提交实际选框遮挡修复、书v3候选和末地表面新资格，`0fcb3bc9`单独修复原生actor校验的共享材质所有权边界。完整回归`.runtime/r17-depth-alltests-v2.log`为2,851项、297.156秒、OK（1跳过）；工作区和staged的四组enabled资格仍通过。
+
+- `b91a7d2deed94ee695fae307fdf83e79`／owner`root-book-raster-r17`已正常退出，进程创建身份查询为空后重试stop归档。当前正启动`root-book-animation-r17`，启动报告`.runtime/r17-book-animation-start.json`；先读报告与真实session再复用，不能沿用旧PID。project仍为`D:/bbe-r15-native-production`，R16冻结副本加选择性R17overlay。
+- 书v3产品23帧及原生同机位18帧均完成恢复，精简证据已提交。`.runtime/enchanting-body-palette-r17-v2`的20帧有效且已目检：原生直接palette、序列化roundtrip、prepare三路均出现附魔台台身偏低／与支撑相交。v1截图被未关闭workspace遮住，**无效**，不得引用。精确偏移仍待测，不用任意移动书pivot掩盖本体问题。
+- 薄封面细点与后方方块选框是两项问题。固定time10的double／back／front近景及16方向double／back扫描未复现，不能证明culling修复有效；恢复真实旋转的`.runtime/book-moving-depth-r17-v1`33帧已完成恢复并目检，在多帧重新出现细密斑点。已准备moving三种剔除alias等待冷启，随后必须用真实动画对照。工具现增加实际BookProjection模型名回执，防止只登记未使用变体。
+- 物品`.runtime/item-depth-final-r17-v2`广泛front矩阵因相机标定一处污染，evidence_valid=False，不能当全面通过。新放大`.runtime/item-depth-closeup-readback-r17-v1`有效且恢复，服务端／客户端回读stone→air后，full／missing实际物品恢复，四张动画拼图已目检；此前v1的画面石块残留未再复现，不确认为稳定产品缺陷。未改变runtime/F11写入。原生对照plain／enchanted形状在2px容差内precision／recall均1。
+- 新放大glint颜色变化和覆盖充足，但稀疏帧亮区质心速度比例0.18–0.25仍未过门；它不等于真实动画速度。新增可选WGC连续采样工具准备核查采样混叠和真实运动，不放宽阈值或直接调快shader来迎合分数。`item_sprite_motion_capture.py`及相关host脚本WIP尚未实机运行。
+
+当前水、物品、书生产gate仍False。保持显式stage；不碰五个用户palette probe和其他water WIP。截止前恢复夹具并更新本节，勿把诊断alias或反编译Java源码提交为产品资源。
+
 ## 2026-10-15 04:45 遮挡修复、末地表面重新资格化
 
 继续独立开发至08:00并休眠，禁止代理。当前唯一owned实例是session `e47e110d34b54f729120afbf2b02a7a2`，owner `root-depth-final-r17`，project `D:/bbe-r15-native-production`，MC18088仅供身份核验；下方旧session均已正常回收。副本为R16冻结实现加R17选择性资源overlay，不是最新全仓库。计划任务仍Ready。
