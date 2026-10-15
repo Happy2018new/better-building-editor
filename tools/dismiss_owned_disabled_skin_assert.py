@@ -13,6 +13,13 @@ from _session import load_session, process_identity
 from check_native_dialogs import assertion_dialogs
 
 
+def known_disabled_skin_assertion(row):
+    return all(fragment in row.get('text', '') for fragment in (
+        'The disabled skin popup has been displayed but the level data has no disabled cosmetics',
+        'DisabledSkinScreenController::onEntered(void)',
+        'DisabledSkinScreenController.cpp @ 47'))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--session', type=Path, required=True)
@@ -25,10 +32,7 @@ def main():
     dialogs = [row for row in assertion_dialogs() if row['pid'] == session['game_pid']]
     assert len(dialogs) == 1, dialogs
     row = dialogs[0]
-    assert all(fragment in row['text'] for fragment in (
-        'The disabled skin popup has been displayed but the level data has no disabled cosmetics',
-        'DisabledSkinScreenController::onEntered(void)',
-        'DisabledSkinScreenController.cpp @ 47')), row
+    assert known_disabled_skin_assertion(row), row
     receipt = {'schema':1,'session':str(args.session),'owner':args.owner,'dialog':row,
                'game_identity':session['game_identity'],'action':'WM_COMMAND IDIGNORE',
                'no_activation':True,'known_engine_assertion':True,'dismissed':False}
