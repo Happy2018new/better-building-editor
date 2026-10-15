@@ -1,0 +1,458 @@
+{
+  "alpha_controls": {},
+  "analyzer_sha256": "f3862bda8776c18a308332e9d7ee05d1f0f3acee2305d2812534f867ec03da81",
+  "animation": {},
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "diagnostic_only": true,
+  "evidence_valid": true,
+  "geometry": {
+    "missing_diagonal_wet": {
+      "declared": {
+        "bounds": [
+          886,
+          479,
+          1100,
+          679
+        ],
+        "pixels": 25190
+      },
+      "iou": 0.9481303708291399,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          886,
+          478,
+          1100,
+          677
+        ],
+        "pixels": 25138
+      },
+      "passed": true
+    },
+    "missing_drop_north_wet": {
+      "declared": {
+        "bounds": [
+          886,
+          479,
+          1163,
+          728
+        ],
+        "pixels": 39534
+      },
+      "iou": 0.9563513850761168,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1162,
+          726
+        ],
+        "pixels": 38857
+      },
+      "passed": true
+    },
+    "missing_falling_wet": {
+      "declared": {
+        "bounds": [
+          839,
+          225,
+          1474,
+          625
+        ],
+        "pixels": 160281
+      },
+      "iou": 0.9825865574155436,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          838,
+          223,
+          1474,
+          623
+        ],
+        "pixels": 160559
+      },
+      "passed": true
+    },
+    "missing_flow_east_wet": {
+      "declared": {
+        "bounds": [
+          781,
+          451,
+          1237,
+          742
+        ],
+        "pixels": 60797
+      },
+      "iou": 0.9698587584332379,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          782,
+          449,
+          1237,
+          740
+        ],
+        "pixels": 60958
+      },
+      "passed": true
+    },
+    "missing_flow_north_wet": {
+      "declared": {
+        "bounds": [
+          760,
+          523,
+          1166,
+          767
+        ],
+        "pixels": 56186
+      },
+      "iou": 0.9692269947251284,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          760,
+          521,
+          1166,
+          765
+        ],
+        "pixels": 56184
+      },
+      "passed": true
+    },
+    "missing_flow_south_wet": {
+      "declared": {
+        "bounds": [
+          775,
+          442,
+          1174,
+          767
+        ],
+        "pixels": 59125
+      },
+      "iou": 0.9762670418383412,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          775,
+          441,
+          1174,
+          765
+        ],
+        "pixels": 58870
+      },
+      "passed": true
+    },
+    "missing_flow_west_wet": {
+      "declared": {
+        "bounds": [
+          792,
+          515,
+          1252,
+          742
+        ],
+        "pixels": 58029
+      },
+      "iou": 0.9700373260943332,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          793,
+          514,
+          1252,
+          740
+        ],
+        "pixels": 58085
+      },
+      "passed": true
+    },
+    "missing_low_wet": {
+      "declared": {
+        "bounds": [
+          891,
+          549,
+          1100,
+          679
+        ],
+        "pixels": 16026
+      },
+      "iou": 0.949969567863664,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          892,
+          547,
+          1100,
+          677
+        ],
+        "pixels": 16012
+      },
+      "passed": true
+    },
+    "missing_neighbor_glass_pane_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          480,
+          1105,
+          678
+        ],
+        "pixels": 31510
+      },
+      "iou": 0.9251101321585903,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          677
+        ],
+        "pixels": 30107
+      },
+      "passed": true
+    },
+    "missing_neighbor_oak_slab_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          480,
+          1105,
+          678
+        ],
+        "pixels": 23131
+      },
+      "iou": 0.9623255813953489,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 23278
+      },
+      "passed": true
+    },
+    "missing_neighbor_oak_stairs_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          480,
+          1105,
+          678
+        ],
+        "pixels": 15232
+      },
+      "iou": 0.9414228596814115,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 15359
+      },
+      "passed": true
+    },
+    "missing_neighbor_stone_wet": {
+      "declared": {
+        "bounds": [
+          926,
+          480,
+          1105,
+          678
+        ],
+        "pixels": 14813
+      },
+      "iou": 0.9504489742413319,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          926,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 14945
+      },
+      "passed": true
+    },
+    "missing_pool_wet": {
+      "declared": {
+        "bounds": [
+          760,
+          479,
+          1252,
+          854
+        ],
+        "pixels": 117865
+      },
+      "iou": 0.9835699916671576,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          760,
+          478,
+          1252,
+          852
+        ],
+        "pixels": 117797
+      },
+      "passed": true
+    },
+    "missing_source_wet": {
+      "declared": {
+        "bounds": [
+          886,
+          479,
+          1105,
+          679
+        ],
+        "pixels": 31723
+      },
+      "iou": 0.9724539342629482,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          677
+        ],
+        "pixels": 31648
+      },
+      "passed": true
+    },
+    "missing_transparent_overlap_wet": {
+      "declared": {
+        "bounds": [
+          588,
+          479,
+          1105,
+          889
+        ],
+        "pixels": 93928
+      },
+      "iou": 0.9762376237623762,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          589,
+          478,
+          1105,
+          886
+        ],
+        "pixels": 93696
+      },
+      "passed": true
+    }
+  },
+  "geometry_oracle": {
+    "calibration_sha256": "25b836ab5ad6da6a09104ce3a28e0eb0da370ebb05218544d796c7dbff758363",
+    "helper_sha256": "bef9e23e3d10ff763fb0e36df9eff7432a6b926219d04866509fa0cd9e168816",
+    "kind": "native_stone_camera_with_opaque_support_depth",
+    "model": {
+      "center_physical_pixels": [
+        997.4998041788738,
+        553.4999933649261
+      ],
+      "coordinate_units": "physical_pixels",
+      "engine_screen": [
+        499.0,
+        277.0
+      ],
+      "fit_input": "24 native stone corners; no water pixels",
+      "held_out_maximum_pixels": [
+        0.00010160477131648804,
+        6.627845141338184e-05,
+        8.047996720961237e-05
+      ],
+      "maximum_residual_pixels": 8.354775673069526e-05,
+      "physical_size": [
+        1994,
+        1105
+      ],
+      "reported_fov": 60.0,
+      "scale_relative_fov90": 1.5426519348408148,
+      "schema": 1,
+      "session_binding": {
+        "game_identity": "134365482282069586",
+        "game_pid": 53572,
+        "id": "583fe77f3ee2484d84ec2672b3bab670",
+        "owner": "water-r20-v7",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\583fe77f3ee2484d84ec2672b3bab670\\session.json"
+      },
+      "source_contract_sha256": "cb2b32de68b69f435d69b59cf296d8492d88984ddb96e10f020d7fdbd0aef806",
+      "stone_validation": {
+        "front": {
+          "native_api_mask_iou": 0.9745201989068344
+        },
+        "right": {
+          "native_api_mask_iou": 0.9745201989068344
+        },
+        "tilted": {
+          "native_api_mask_iou": 0.9692268348819367
+        }
+      },
+      "vertical_fov": 65.9053871768296
+    }
+  },
+  "host_sha256": "8b52e3d3594ebf224f3ffbe222fc591b1090516c2e440b38cd1ddcd4fdcc619c",
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": false,
+    "geometry": true,
+    "transparency": true
+  },
+  "product_style_accepted": false,
+  "production_qualified": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "58fbc15c7e3f28566fbf7b6d914e0be996ad4b17847c65703eba67cf09709bf6",
+  "transparency": {
+    "missing_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 1150,
+          "eligible_pixels": 1150,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 1150
+        },
+        "rear": {
+          "contribution_pixels": 644,
+          "eligible_pixels": 644,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 644
+        }
+      },
+      "water_pixels": 19976
+    }
+  },
+  "transparency_phase_controlled": true
+}

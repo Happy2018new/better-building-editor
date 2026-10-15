@@ -1,0 +1,851 @@
+{
+  "capture_host_suspensions": [],
+  "captures": 92,
+  "cases": [
+    "source",
+    "low",
+    "diagonal",
+    "drop_north",
+    "pool",
+    "falling",
+    "flow_east",
+    "flow_south",
+    "flow_west",
+    "flow_north",
+    "wet_oak_fence",
+    "wet_glass_pane",
+    "wet_oak_slab",
+    "wet_oak_stairs",
+    "neighbor_oak_slab",
+    "neighbor_oak_stairs",
+    "neighbor_glass_pane",
+    "neighbor_stone",
+    "transparent_overlap"
+  ],
+  "diagnostic_only": true,
+  "files": {
+    "README.md": {
+      "bytes": 3996,
+      "sha256": "95db999d1f67577432048b81adf208c6a2fb325776a620b3b82b7494de272188"
+    },
+    "analyzer/analyze_liquid_workspace.py": {
+      "bytes": 17982,
+      "sha256": "c0fead0d55dcfe84477403c26d775beba35e92529ae6d4dbc4bc4490e9948e64"
+    },
+    "analyzer/analyze_product_water.py": {
+      "bytes": 24441,
+      "sha256": "f3862bda8776c18a308332e9d7ee05d1f0f3acee2305d2812534f867ec03da81"
+    },
+    "analyzer/analyze_water_acceptance_r16.py": {
+      "bytes": 12616,
+      "sha256": "b682dbe9916537d9b2d809d2c6688b7db5b79dccef2ef0e11797659aa53c1af0"
+    },
+    "analyzer/water_native_projection.py": {
+      "bytes": 14087,
+      "sha256": "bef9e23e3d10ff763fb0e36df9eff7432a6b926219d04866509fa0cd9e168816"
+    },
+    "captures/world-missing-public19_missing_diagonal_dry.capture.json": {
+      "bytes": 4131,
+      "sha256": "17041cb317f6764652d29143ada5198db9865d86d52eb40a45a88e26adf430f1"
+    },
+    "captures/world-missing-public19_missing_diagonal_dry.png": {
+      "bytes": 1155302,
+      "sha256": "e7c0c5b4be6f1592bc043fdccf17ff0aeba659ecff429df69e7dba61053ab747"
+    },
+    "captures/world-missing-public19_missing_diagonal_wet.capture.json": {
+      "bytes": 4128,
+      "sha256": "f003269ceb460605cb70a14fc8a79bcd5ba6b4e6129d1f37ca52b1b2195f0103"
+    },
+    "captures/world-missing-public19_missing_diagonal_wet.png": {
+      "bytes": 1166183,
+      "sha256": "94c0fb9ec9f0d03967aa824be46da9ab8c9c0d533242f85e1b72f0209b577369"
+    },
+    "captures/world-missing-public19_missing_diagonal_wet_section.capture.json": {
+      "bytes": 4139,
+      "sha256": "5dab69e6fa114a37b034bf02048c71491eeadea3f4a352e2cf05b988aceab2d3"
+    },
+    "captures/world-missing-public19_missing_diagonal_wet_section.png": {
+      "bytes": 1155243,
+      "sha256": "8911b7ae1cb60f2f16978d6ee691f224318417ef38837fb76b914bd55c1174e9"
+    },
+    "captures/world-missing-public19_missing_diagonal_wet_section_restored.capture.json": {
+      "bytes": 4146,
+      "sha256": "4eef10c71277b0811978d5610650c2ad4b6ce44c9b85230c2ed8e440d9d2c2de"
+    },
+    "captures/world-missing-public19_missing_diagonal_wet_section_restored.png": {
+      "bytes": 1166231,
+      "sha256": "3746f019840b410ee4d8ba511b3320205b3f33196e885c5e8bd62d328f3cf66e"
+    },
+    "captures/world-missing-public19_missing_drop_north_dry.capture.json": {
+      "bytes": 4131,
+      "sha256": "023fcf04e79875419f518ca0b77d70be9ec631b2383d563c627c31860e4aca46"
+    },
+    "captures/world-missing-public19_missing_drop_north_dry.png": {
+      "bytes": 1152820,
+      "sha256": "bd5dc75ceada065ae9ab6ff4226c1a3c2bb1bd7d66d37144c8f20340d32feffc"
+    },
+    "captures/world-missing-public19_missing_drop_north_wet.capture.json": {
+      "bytes": 4131,
+      "sha256": "9002a66254d7cb677592c59571b1776137f44f8271e7fe0c330802494d0f4234"
+    },
+    "captures/world-missing-public19_missing_drop_north_wet.png": {
+      "bytes": 1169449,
+      "sha256": "81549a34edb44ac243889a9212a358dca78d6ad66cfad0b906d3d17cbdcd5143"
+    },
+    "captures/world-missing-public19_missing_falling_dry.capture.json": {
+      "bytes": 4127,
+      "sha256": "622e96573f5e4ab7e63b4b5ea4285d44d0bb34cf5bd5323180eec05badcf729b"
+    },
+    "captures/world-missing-public19_missing_falling_dry.png": {
+      "bytes": 99708,
+      "sha256": "6c35c122112317100ac769f1b960a5d747247c25182bb916bddf4db5bb5a00c3"
+    },
+    "captures/world-missing-public19_missing_falling_wet.capture.json": {
+      "bytes": 4128,
+      "sha256": "50add0f103dedf486d61eda007d2bd9e0d1c7e6edc34b8d2073540fc36c0b105"
+    },
+    "captures/world-missing-public19_missing_falling_wet.png": {
+      "bytes": 107677,
+      "sha256": "8ff0c089651a8eea591004b3d3109e983e7c701aed4264b986f759eaf5a39b79"
+    },
+    "captures/world-missing-public19_missing_falling_wet_section.capture.json": {
+      "bytes": 4136,
+      "sha256": "cab78501e7415590134eb36f6cc0636c5c2792d8415e7bae19fb63fd10145950"
+    },
+    "captures/world-missing-public19_missing_falling_wet_section.png": {
+      "bytes": 99816,
+      "sha256": "89e404b8f4eb97e1c5dff5967d3a602b1dd81a4ee812764e86832cec26de52c3"
+    },
+    "captures/world-missing-public19_missing_falling_wet_section_restored.capture.json": {
+      "bytes": 4146,
+      "sha256": "a274fa160700d82528f571485f29983ef458387f07405c3611b2790ccbc5a488"
+    },
+    "captures/world-missing-public19_missing_falling_wet_section_restored.png": {
+      "bytes": 107694,
+      "sha256": "3ddc40164a64e1a9cef67cbf4e57fe0912d5bf838da0de0a684b04d69dd86322"
+    },
+    "captures/world-missing-public19_missing_flow_east_dry.capture.json": {
+      "bytes": 4132,
+      "sha256": "8c81e6a1ae7705acb93eea106ed8cc48e75320042aaa070595ae07ab176b00b9"
+    },
+    "captures/world-missing-public19_missing_flow_east_dry.png": {
+      "bytes": 1124333,
+      "sha256": "4632e12be8dd35fc4f1445f8c22d6640086bc7aecc539c62112423f327b6223c"
+    },
+    "captures/world-missing-public19_missing_flow_east_wet.capture.json": {
+      "bytes": 4132,
+      "sha256": "149f581539caa67c88f08e3ae0f4d7237130af97c16d10e6c71a2ef052cd5471"
+    },
+    "captures/world-missing-public19_missing_flow_east_wet.png": {
+      "bytes": 1143284,
+      "sha256": "4c67269c6cddf3c1395d54e6d62fbe2a9d764b625a46706e9b1a977a9b87c61d"
+    },
+    "captures/world-missing-public19_missing_flow_east_wet_section.capture.json": {
+      "bytes": 4139,
+      "sha256": "dba1fccfd2ddbc0c0d594e294a35752dc2917fdc41d608918e44c079d9079716"
+    },
+    "captures/world-missing-public19_missing_flow_east_wet_section.png": {
+      "bytes": 1124268,
+      "sha256": "f24c0d1a05963a2843164dc5661783ef54e6644302cbb2ccb2cb38e3bfa7ab18"
+    },
+    "captures/world-missing-public19_missing_flow_east_wet_section_restored.capture.json": {
+      "bytes": 4148,
+      "sha256": "ac52b3efb8848de2c9926ac3a4b5287af73935125d5404969933b6a446d262d1"
+    },
+    "captures/world-missing-public19_missing_flow_east_wet_section_restored.png": {
+      "bytes": 1143221,
+      "sha256": "5423c81dbdf09811bcae73e5aa2a43d10bdf154318e6ff4e4e1c7ee762f32779"
+    },
+    "captures/world-missing-public19_missing_flow_north_dry.capture.json": {
+      "bytes": 4133,
+      "sha256": "25ee28ccce9bf3d24b3be4f79e6a0cee341e4fd91ebe12e8b2518bab4a5df130"
+    },
+    "captures/world-missing-public19_missing_flow_north_dry.png": {
+      "bytes": 1128157,
+      "sha256": "ce299201cbe195df1cda62e2d577c6b39727e0078bbaa633f83bc074dfac4c82"
+    },
+    "captures/world-missing-public19_missing_flow_north_wet.capture.json": {
+      "bytes": 4132,
+      "sha256": "5a6997adf359aa0ed7e1b54d29b505f4fc1157e84d829814411a9772cd719c0d"
+    },
+    "captures/world-missing-public19_missing_flow_north_wet.png": {
+      "bytes": 1151475,
+      "sha256": "77fca761bae8d7cb7af80af9b65ae1c002c24135d551d23490c55abdae2336c7"
+    },
+    "captures/world-missing-public19_missing_flow_north_wet_section.capture.json": {
+      "bytes": 4140,
+      "sha256": "c62366b68e616c01c1c72c2e8e1de0cf4e057270ee4da0ba4b73ba93433883ab"
+    },
+    "captures/world-missing-public19_missing_flow_north_wet_section.png": {
+      "bytes": 1128138,
+      "sha256": "4c0679dcad1ad4bb867a88eef60ce97ea80c77adfa9243863abcda579e1acbf7"
+    },
+    "captures/world-missing-public19_missing_flow_north_wet_section_restored.capture.json": {
+      "bytes": 4149,
+      "sha256": "b7e78762e4e2bf12070e87548c3db8ec1a92dc4aca34ae0305ef434b8e112452"
+    },
+    "captures/world-missing-public19_missing_flow_north_wet_section_restored.png": {
+      "bytes": 1151426,
+      "sha256": "174aad7540d108f4195a4a9bee504976394ec54901573ce3afd145ba0cc62a89"
+    },
+    "captures/world-missing-public19_missing_flow_south_dry.capture.json": {
+      "bytes": 4131,
+      "sha256": "1133329ce77206f9ecf28eb7d9790c84ddd7394330fd371f906ce70ec306568f"
+    },
+    "captures/world-missing-public19_missing_flow_south_dry.png": {
+      "bytes": 1128158,
+      "sha256": "d7f3d9fc51f5df69a572ef5ee29967c36ef9dbb57d7dcfdc8186f453faa05b7a"
+    },
+    "captures/world-missing-public19_missing_flow_south_wet.capture.json": {
+      "bytes": 4133,
+      "sha256": "11676f5058c7a00362f6f1152f71d4776e7c7f2b88811e2511c321bc2e198add"
+    },
+    "captures/world-missing-public19_missing_flow_south_wet.png": {
+      "bytes": 1149417,
+      "sha256": "b542d865ce9a3654a510a2fc5faba0bbb1cc741693e199c9cda7e64cf3e384fb"
+    },
+    "captures/world-missing-public19_missing_flow_south_wet_section.capture.json": {
+      "bytes": 4140,
+      "sha256": "24218ef7862cff7a7768b7b99fa19e1730e46f3a37a86eefac231c7486f9cc63"
+    },
+    "captures/world-missing-public19_missing_flow_south_wet_section.png": {
+      "bytes": 1128099,
+      "sha256": "fa3bcdb0d2227315ebcd307021cd598dd5e193d3cbb4663d597dc2b39510ec50"
+    },
+    "captures/world-missing-public19_missing_flow_south_wet_section_restored.capture.json": {
+      "bytes": 4149,
+      "sha256": "c6fa2ae58c034f9617a3f45d841def4e0176b12bac6575813ba4fd1928cb0997"
+    },
+    "captures/world-missing-public19_missing_flow_south_wet_section_restored.png": {
+      "bytes": 1149457,
+      "sha256": "906f00e44afd96547a9ee21fd6d1d5d7da5951f07f6a4215b81c9db90752bde5"
+    },
+    "captures/world-missing-public19_missing_flow_west_dry.capture.json": {
+      "bytes": 4131,
+      "sha256": "1583b9c6992d5931a5776044500f427c143cbc56f3e6d12482eb5f7dd5896d06"
+    },
+    "captures/world-missing-public19_missing_flow_west_dry.png": {
+      "bytes": 1124242,
+      "sha256": "d88555c8ded093db14e037240dfc8a86d3ad17beee3ea9f3849509e5a85bbfc1"
+    },
+    "captures/world-missing-public19_missing_flow_west_wet.capture.json": {
+      "bytes": 4131,
+      "sha256": "8d32ffb3924965feb85b67f3a80dd1e82505441b341c3f947574cba290a943f9"
+    },
+    "captures/world-missing-public19_missing_flow_west_wet.png": {
+      "bytes": 1144593,
+      "sha256": "99afed0bcfc9008f8dba9c12a226bdf14aceee1987929980c64c3f98f6342b9f"
+    },
+    "captures/world-missing-public19_missing_flow_west_wet_section.capture.json": {
+      "bytes": 4138,
+      "sha256": "5336a070c017d1cd1754d8a013a1ac9bdc22c9ee7db85edee6a212cfea46235c"
+    },
+    "captures/world-missing-public19_missing_flow_west_wet_section.png": {
+      "bytes": 1124334,
+      "sha256": "d40254d0cd174145593750635ff404149ec4e8eeaaa1347601fbdc0110ee0bf5"
+    },
+    "captures/world-missing-public19_missing_flow_west_wet_section_restored.capture.json": {
+      "bytes": 4148,
+      "sha256": "e35243ebcfda96c2e6d3adc416224aa2ae3ffa23f7a8460316d3a6395c5961e5"
+    },
+    "captures/world-missing-public19_missing_flow_west_wet_section_restored.png": {
+      "bytes": 1144524,
+      "sha256": "85420073bbc45379a29854f9ac7a1bd4c24ccd960a842ced3f92d76eb2d707f4"
+    },
+    "captures/world-missing-public19_missing_low_dry.capture.json": {
+      "bytes": 4126,
+      "sha256": "62ddf17e5e577e9b5c647813088162a8bf28c04f73b21df3c49779147f922525"
+    },
+    "captures/world-missing-public19_missing_low_dry.png": {
+      "bytes": 1157208,
+      "sha256": "795e77d56a51fffaa8648644704381e06f243318eb390210c9990864dd004782"
+    },
+    "captures/world-missing-public19_missing_low_wet.capture.json": {
+      "bytes": 4125,
+      "sha256": "89d71de02b6804dc4ab25f5e2ddbdcc7220c2c78a412d840fc5c217b6ce98992"
+    },
+    "captures/world-missing-public19_missing_low_wet.png": {
+      "bytes": 1163300,
+      "sha256": "c48ac1f4962bbda419fc5d5d21bbfbd23ac1c06de4c460de906c2d913dedb011"
+    },
+    "captures/world-missing-public19_missing_low_wet_section.capture.json": {
+      "bytes": 4133,
+      "sha256": "c56f0b459824a6866686d07f2d2a1fc66ff28553ed429d859a771aa318387a85"
+    },
+    "captures/world-missing-public19_missing_low_wet_section.png": {
+      "bytes": 1157249,
+      "sha256": "4d39c4e2fea01393cb534f36deb496cd91cedab7414be89206904cc8b16b4d41"
+    },
+    "captures/world-missing-public19_missing_low_wet_section_restored.capture.json": {
+      "bytes": 4142,
+      "sha256": "e1b5365c3d0954ac1b372bd5a30f48336ad4a2a1a400cfbf10eae8bc45cf99ab"
+    },
+    "captures/world-missing-public19_missing_low_wet_section_restored.png": {
+      "bytes": 1163262,
+      "sha256": "b71c252a65571b35aabb845ce5cc8947689cf89cc9622b9a67677ed30a22a5f4"
+    },
+    "captures/world-missing-public19_missing_neighbor_glass_pane_dry.capture.json": {
+      "bytes": 4135,
+      "sha256": "bc097f0f8259b8afe150f49431b404a0f72a0d933e42a25836497aefe61e4d6d"
+    },
+    "captures/world-missing-public19_missing_neighbor_glass_pane_dry.png": {
+      "bytes": 1134414,
+      "sha256": "36badcc383d9ed52719483e2f88a39c2ebb20f421eda25ff931ed85ce9eaeca4"
+    },
+    "captures/world-missing-public19_missing_neighbor_glass_pane_wet.capture.json": {
+      "bytes": 4135,
+      "sha256": "9316bf89f94f5e83c628bedaafff0b48e9328a1e869f691cac2b3966695fe8fc"
+    },
+    "captures/world-missing-public19_missing_neighbor_glass_pane_wet.png": {
+      "bytes": 1144809,
+      "sha256": "2b9cc9a55f0b09df6bfa5496183971cd0bb37f90ef6f70476e7b571a6a18219e"
+    },
+    "captures/world-missing-public19_missing_neighbor_glass_pane_wet_section.capture.json": {
+      "bytes": 4141,
+      "sha256": "198530aa94ae1cfc1efb73fc13758fcfbab68c09d338c191d9149de2d0bdfae4"
+    },
+    "captures/world-missing-public19_missing_neighbor_glass_pane_wet_section.png": {
+      "bytes": 1134215,
+      "sha256": "bc24059d80e35b0abd3e423bff6120d82abbb27f6d8f727b9134635fa037ce70"
+    },
+    "captures/world-missing-public19_missing_neighbor_glass_pane_wet_section_restored.capture.json": {
+      "bytes": 4151,
+      "sha256": "16e72905dcca64838991ed608020008278325b19cba35c60acf58a00666421ad"
+    },
+    "captures/world-missing-public19_missing_neighbor_glass_pane_wet_section_restored.png": {
+      "bytes": 1144737,
+      "sha256": "82722dda5be36f3ad101432d0b8ab777c6b20ccddfb9dbfdfa0309d3251c9826"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_slab_dry.capture.json": {
+      "bytes": 4135,
+      "sha256": "984919022045a400b9c0a5e2c9d4d2d9c5a591356040ea5e3e82d65e46676bb6"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_slab_dry.png": {
+      "bytes": 1134839,
+      "sha256": "6e2dd0ae75e87fff44634a35c4d67549f1b981f415ec74d5d5e28628594f9f0e"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_slab_wet.capture.json": {
+      "bytes": 4143,
+      "sha256": "825afab069b0f3039a607dbafcd39242f26cccde51602c53ecfdb21facde44f9"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_slab_wet.png": {
+      "bytes": 1140900,
+      "sha256": "ff41665f07826e4a43b5ace0c015a861c2fbf412199b06c4b735409a4f4a4503"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_slab_wet_section.capture.json": {
+      "bytes": 4149,
+      "sha256": "d61fd170bc6942d97f6070960c2ebcf305a7f8945da10f7e4ed45a5db1e1086d"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_slab_wet_section.png": {
+      "bytes": 1148001,
+      "sha256": "f91824fc9e79decddcc576a7c328c221a40316819ded0877f18a393c430eff2d"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_slab_wet_section_restored.capture.json": {
+      "bytes": 4159,
+      "sha256": "595c4ad75ba1fa115263d5eba0f01c877014fa30734dce1757863f90d57ae09a"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_slab_wet_section_restored.png": {
+      "bytes": 1140881,
+      "sha256": "6ae426c7b55450676dde968e6da55842bb75145607930ac50ec63809d49f345c"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_stairs_dry.capture.json": {
+      "bytes": 4132,
+      "sha256": "9c8164a9f14e2f4878ef03ae34d15fc8aba650bc67843b20fdfbe1e289cef56e"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_stairs_dry.png": {
+      "bytes": 1135289,
+      "sha256": "751b5fbbb0855c2c1d191cb8b1db1c1dc42b04b008b2953455f3c4dfb39439c0"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_stairs_wet.capture.json": {
+      "bytes": 4137,
+      "sha256": "b9dd60b41f39862186ab1bc3825e06ae098180a752f1e9a2547b2601f433ccf2"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_stairs_wet.png": {
+      "bytes": 1141761,
+      "sha256": "2ab844923dc2f0a5dab0df6bda1f63811edee9c78f59cce04032ad499857e7ad"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_stairs_wet_section.capture.json": {
+      "bytes": 4153,
+      "sha256": "44a85e528572cf6e225e123ff932769f0ebfc0d7d034d90942a30a72673958b9"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_stairs_wet_section.png": {
+      "bytes": 1134093,
+      "sha256": "a134f24c3854718d09da4ae1b3863f71068720b778eb51d8539e8c5c064951bc"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_stairs_wet_section_restored.capture.json": {
+      "bytes": 4159,
+      "sha256": "ff9b555a5622b2049bc5fb98a77087d874d9f169a37c36c61572633d5a44b0eb"
+    },
+    "captures/world-missing-public19_missing_neighbor_oak_stairs_wet_section_restored.png": {
+      "bytes": 1141740,
+      "sha256": "234ba54e441f9cb262786cbb0512b800383b71d79e4fb069ea89b1bec9902a12"
+    },
+    "captures/world-missing-public19_missing_neighbor_stone_dry.capture.json": {
+      "bytes": 4115,
+      "sha256": "31cdf8083a96cf650e0f752fe065a03acf3c438a5e37c49ab37b165357e0cb75"
+    },
+    "captures/world-missing-public19_missing_neighbor_stone_dry.png": {
+      "bytes": 1127422,
+      "sha256": "7aa8ce480cc425d6cb945bbf677dfc2a84b44a8f2ca6908203c94f003652d836"
+    },
+    "captures/world-missing-public19_missing_neighbor_stone_wet.capture.json": {
+      "bytes": 4129,
+      "sha256": "630bc2ba62251cb9dd8604fa49563a83ed324da4a8f76360549c7dc6a31c4221"
+    },
+    "captures/world-missing-public19_missing_neighbor_stone_wet.png": {
+      "bytes": 1134154,
+      "sha256": "957290a67c5449f53310551c1ad906ae750af276f31d8201e670ab6435ee3fce"
+    },
+    "captures/world-missing-public19_missing_neighbor_stone_wet_section.capture.json": {
+      "bytes": 4137,
+      "sha256": "4af447bf0bd6f6755f3a5f2389a0cccb257aaf1d911a3bc43627c3ae88eafeb2"
+    },
+    "captures/world-missing-public19_missing_neighbor_stone_wet_section.png": {
+      "bytes": 1149349,
+      "sha256": "1af4225b11d2573115c4059cb468f2342a293210930849720472e8d4bc42a9f1"
+    },
+    "captures/world-missing-public19_missing_neighbor_stone_wet_section_restored.capture.json": {
+      "bytes": 4146,
+      "sha256": "d24028277613d74c7f61f41eeaf62dae2b2e9d982dcdd7c35c962298a0505f50"
+    },
+    "captures/world-missing-public19_missing_neighbor_stone_wet_section_restored.png": {
+      "bytes": 1134218,
+      "sha256": "74e999811c587ea7276fe72ffed2c25595a731960f6950b1c8ed8a47ffd6c912"
+    },
+    "captures/world-missing-public19_missing_pool_dry.capture.json": {
+      "bytes": 4127,
+      "sha256": "d3220161e1560e1acb001eb72a787ca9d90a55c1e575c0763a2ccee58eadf69e"
+    },
+    "captures/world-missing-public19_missing_pool_dry.png": {
+      "bytes": 1089148,
+      "sha256": "7ab284a63da6f9c660a14325e6fc76fff7e9d8917759c9c024dc221b2cbfbda6"
+    },
+    "captures/world-missing-public19_missing_pool_wet.capture.json": {
+      "bytes": 4127,
+      "sha256": "611c747b353eb61b3d682721458f663c815dfa3105cc40b1b75bb4acb130c99f"
+    },
+    "captures/world-missing-public19_missing_pool_wet.png": {
+      "bytes": 1118490,
+      "sha256": "1f07b37ef85faab5c224c611b01914975701a474d8064cbe5ed89b1bb1771c96"
+    },
+    "captures/world-missing-public19_missing_pool_wet_section.capture.json": {
+      "bytes": 4133,
+      "sha256": "fdf3e19ef74b2e306ac4cc7361632ad717b0815046bfe410045da2b647f82473"
+    },
+    "captures/world-missing-public19_missing_pool_wet_section.png": {
+      "bytes": 1089166,
+      "sha256": "f1165183fb59a97a6f4c200c645d35b70b9e51bb3e98f9356cc5a73577f14b30"
+    },
+    "captures/world-missing-public19_missing_pool_wet_section_restored.capture.json": {
+      "bytes": 4144,
+      "sha256": "5f4f439ca5e40676859c9e4ccf541d861fc59ce9efedea77551a97e2611cf302"
+    },
+    "captures/world-missing-public19_missing_pool_wet_section_restored.png": {
+      "bytes": 1118535,
+      "sha256": "b481070279e8cdb145fe74d998eb11483eb96a1dc333f1c2173ad2cd7985fc5f"
+    },
+    "captures/world-missing-public19_missing_pool_wet_side_default_restored.capture.json": {
+      "bytes": 4148,
+      "sha256": "3cab2572d8856eb6806f4cf90717c22c66bc0730cf33bc803319d65bde206caf"
+    },
+    "captures/world-missing-public19_missing_pool_wet_side_default_restored.png": {
+      "bytes": 1118472,
+      "sha256": "505dc9a1b8e68eafa64618943abef029d14dab0fd72fb1fb3515358b4e5deffd"
+    },
+    "captures/world-missing-public19_missing_pool_wet_side_opaque.capture.json": {
+      "bytes": 4139,
+      "sha256": "9ccf43df102b26c189f7b6e67411cea4203b47ab3c70e5200514337d9b03cfd6"
+    },
+    "captures/world-missing-public19_missing_pool_wet_side_opaque.png": {
+      "bytes": 1083047,
+      "sha256": "36e49ddcbf2f7bbbf6e361a5e657ca68fc46ea1adc7203b89eb9131046230849"
+    },
+    "captures/world-missing-public19_missing_source_dry.capture.json": {
+      "bytes": 4128,
+      "sha256": "ec2c7c758047acf8a0d665ff02b7c888ad0d7a8d1f3b6e85d24976b5e40176a6"
+    },
+    "captures/world-missing-public19_missing_source_dry.png": {
+      "bytes": 1157209,
+      "sha256": "1f6a63c504425cd8040a8af1e49fa022f110a249a9303b0dda80aee862c87145"
+    },
+    "captures/world-missing-public19_missing_source_wet.capture.json": {
+      "bytes": 4129,
+      "sha256": "fcafb87ceaee798de2ab414934fcc28e6fb39a0779b05b89788514d08419f019"
+    },
+    "captures/world-missing-public19_missing_source_wet.png": {
+      "bytes": 1169185,
+      "sha256": "e5a74241ce612cc27eda070a608b0a5742001e48177f4eff54ec03824dab855b"
+    },
+    "captures/world-missing-public19_missing_source_wet_section.capture.json": {
+      "bytes": 4136,
+      "sha256": "e18c8b04fb809fcc4ba013c7295bd0a059394f9844f594209cb31a1e29708223"
+    },
+    "captures/world-missing-public19_missing_source_wet_section.png": {
+      "bytes": 1157133,
+      "sha256": "2fd046ff00bc9007365e890adc56e447eb9bec1f9239578d5dbeeba597937843"
+    },
+    "captures/world-missing-public19_missing_source_wet_section_restored.capture.json": {
+      "bytes": 4145,
+      "sha256": "fb34a9b708614d2c4805299f74bcb31d73ff066b6d6fff67161e6f3406221412"
+    },
+    "captures/world-missing-public19_missing_source_wet_section_restored.png": {
+      "bytes": 1169245,
+      "sha256": "4a11f8665251ccd3cab642f65168764811e180e0256c1136b4ae9efc6b286828"
+    },
+    "captures/world-missing-public19_missing_transparent_overlap_dry.capture.json": {
+      "bytes": 4140,
+      "sha256": "a8b51bfbb5958bee0a772262babe48960e13c7325a6bb414c313d6fcedca59d6"
+    },
+    "captures/world-missing-public19_missing_transparent_overlap_dry.png": {
+      "bytes": 1113057,
+      "sha256": "a509a546bb5de717d1b1c3fcabf7428880c12bb1c2f1184f6808eaa7fced2281"
+    },
+    "captures/world-missing-public19_missing_transparent_overlap_wet.capture.json": {
+      "bytes": 4142,
+      "sha256": "06e3882dd7df493249bd26951100851fe716e504e543bb7d5df7d16907bb0877"
+    },
+    "captures/world-missing-public19_missing_transparent_overlap_wet.png": {
+      "bytes": 1133898,
+      "sha256": "651339a73544b7691a189157f5f0da76eb4de878af7845a20dcc939701b06ffe"
+    },
+    "captures/world-missing-public19_missing_transparent_overlap_wet_section.capture.json": {
+      "bytes": 4148,
+      "sha256": "ce1d1760a9a92980c7fe5376deeb14a03c9890ac2bf0ba9766962a476b23da13"
+    },
+    "captures/world-missing-public19_missing_transparent_overlap_wet_section.png": {
+      "bytes": 1113102,
+      "sha256": "e86aa5112cda1ba49a6a38fc143012191e5e3fd1a2116fd5623701748f5e962a"
+    },
+    "captures/world-missing-public19_missing_transparent_overlap_wet_section_restored.capture.json": {
+      "bytes": 4158,
+      "sha256": "a1a9b5ceaac875c826301cc2991a8bafdd441d65e34270b034f09912be2f5f15"
+    },
+    "captures/world-missing-public19_missing_transparent_overlap_wet_section_restored.png": {
+      "bytes": 1133835,
+      "sha256": "943b48c85b4f486082f41a605e43d3d95e890ec3104bb0082fe5fdec9047d5e1"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_dry.capture.json": {
+      "bytes": 4133,
+      "sha256": "a1d63ec2f8cb4f34c9e9e9ebbd448f335151ac6492e426ee74edde5763ba5d1f"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_dry.png": {
+      "bytes": 287225,
+      "sha256": "c5efc6c5bb4ac6ae68d0dc94538bab9ac5933435c3af619f3522f2e30b8b39a8"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_empty.capture.json": {
+      "bytes": 4138,
+      "sha256": "ea7fc63e79852f4ce387619db76e7bf35dc0ad0223d89a03e99a1573f1f6e656"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_empty.png": {
+      "bytes": 285483,
+      "sha256": "d6c3baa429e5afb15179c14583141b2f7c92951b2fde982532c6f205cfeb9f00"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_liquid_only.capture.json": {
+      "bytes": 4142,
+      "sha256": "cd387f3832a7c460396849ffb7187d386f4e2e189c9850a504610f81395ef275"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_liquid_only.png": {
+      "bytes": 290325,
+      "sha256": "8216a2363aab0fa49267b918b33bf81c6ec5a336d7a5c6be1267f01999463fd5"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_rearless.capture.json": {
+      "bytes": 4140,
+      "sha256": "3fbafedf979e1b22fd97e5b8a4df1a19c7e04584711fda7158757e2485797e2c"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_rearless.png": {
+      "bytes": 288322,
+      "sha256": "0cc40d7325462d7371fe1f5a820ea750cffda0f44d0235e5bb189d7dcc8e9737"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_water_only.capture.json": {
+      "bytes": 4141,
+      "sha256": "21e606b7c811b8c0933d51ee05f9d983565a76a08845b7ebc2c802e1babad931"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_water_only.png": {
+      "bytes": 288242,
+      "sha256": "0469500641f3ab5f1ae78dad8e48bb555b608bf6ae9f21f571e09d384f8e3c73"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_wet.capture.json": {
+      "bytes": 4134,
+      "sha256": "c2f53413b11558e7f7229474be2c6f2eead8451fe79a019d7618b28d7acb9aac"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_wet.png": {
+      "bytes": 290596,
+      "sha256": "fe326e4d599ba60d24f93699dddc17820eed5bb342e02e01d1a58acbb6ffc5bb"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_wet_section.capture.json": {
+      "bytes": 4142,
+      "sha256": "6543c1921cae8f8ad170e3e663eeaf433c0e8ed32b83c1e745083b336378b414"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_wet_section.png": {
+      "bytes": 285450,
+      "sha256": "1f93606c105eba90b8250b3af0234913045a905ac763f487934c05773dca814a"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_wet_section_restored.capture.json": {
+      "bytes": 4153,
+      "sha256": "eb365539b69310e8add235764694d774edd74a00e77635e22201d61cefacdcac"
+    },
+    "captures/world-missing-public19_missing_wet_glass_pane_wet_section_restored.png": {
+      "bytes": 290592,
+      "sha256": "936d3b51e4b1436a8cb9eb6728965b915a735511a1ee4c0b065622ef6e817dd5"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_dry.capture.json": {
+      "bytes": 4133,
+      "sha256": "019e07d960c0f2f726d88b2319e60780e8b98caf00ed4e9028b7560d2a46b301"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_dry.png": {
+      "bytes": 288491,
+      "sha256": "694e0b7122111be6cc381c69b4dce141eed9de3c5a070f06a38e8b07114dcaf7"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_empty.capture.json": {
+      "bytes": 4137,
+      "sha256": "a6a49e2410b37f8369a685e408d05ced0691a1343f038a8a3a44040cbaaf0b37"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_empty.png": {
+      "bytes": 285419,
+      "sha256": "a76f1a94b8af58569d710e9b51aa391c7e9a9135cddc1380a0e8f53ea4687b11"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_liquid_only.capture.json": {
+      "bytes": 4143,
+      "sha256": "213eeb4726066ab018ae9d45cf99f023f2196e1eec17e1e232a745fabc7e18a7"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_liquid_only.png": {
+      "bytes": 290331,
+      "sha256": "4467d8344a8b51522313589d77a8774b4ec8e4ca3b64ce7ff21881e7822f6af0"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_rearless.capture.json": {
+      "bytes": 4139,
+      "sha256": "e48d363509e2248f2778b18e88804a2d932a68794407adb11da27acd5beeb5b2"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_rearless.png": {
+      "bytes": 289570,
+      "sha256": "01b4b9a572b8bde0f3a1710f361fc4a01f1012f37aa2b54980334a5e48f70124"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_water_only.capture.json": {
+      "bytes": 4142,
+      "sha256": "41dd3cae592ad576d9ac0971b19bea01f550ed3fe3fa87244f82e76cb8408a21"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_water_only.png": {
+      "bytes": 288210,
+      "sha256": "19dd4cfc812ea3de81933012a27705a10f8b21e66b114b440b663598cb213cc8"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_wet.capture.json": {
+      "bytes": 4135,
+      "sha256": "3ca0682f127ac04d9850216599b1e24a70af92d26ae46b686c9120c86b1fdbdd"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_wet.png": {
+      "bytes": 291217,
+      "sha256": "ec030b7dabc35b6384d23e59c8529dc3a668fba731e316baff0f021865f94492"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_wet_section.capture.json": {
+      "bytes": 4143,
+      "sha256": "5a0a44228e2474fb093e0f68e58319e6fac57f15eb182d3b519716a73a028940"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_wet_section.png": {
+      "bytes": 285466,
+      "sha256": "5f1e4c5df9f5d491f100febc2b06455393d6252c7d71e2ccf1d8b3cc0cedfe22"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_wet_section_restored.capture.json": {
+      "bytes": 4152,
+      "sha256": "f69aaa96374b51a9b4ef8079c2ad575dde5b7ceb281775e5f5469eea89f42c2c"
+    },
+    "captures/world-missing-public19_missing_wet_oak_fence_wet_section_restored.png": {
+      "bytes": 291138,
+      "sha256": "60d9d45087edb50bf03264fbf6cef2737a9f589091da7a006336ed4b3e532be7"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_dry.capture.json": {
+      "bytes": 4133,
+      "sha256": "54dd2f4ecb86f57acc845d98131ea89016bb84d976dd7b25b8b492ba7fb2f97c"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_dry.png": {
+      "bytes": 583409,
+      "sha256": "2ad110c64bded81bf85e6808ed6b469db9489b3acd9538732fe853a00f48ecf4"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_empty.capture.json": {
+      "bytes": 4134,
+      "sha256": "291b9bcd44ada19285b1bcacdc1b242f7d0278d2aa706933b57c806c81b8fe57"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_empty.png": {
+      "bytes": 576691,
+      "sha256": "5e1caa0d71e970fa39630670038a3c6f311dc79398a4a32f105a1dbb4689e2a0"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_liquid_only.capture.json": {
+      "bytes": 4139,
+      "sha256": "e8794e2b77d8689516742125d679c82cf47a7a6ef4387d51eaed02c51131871b"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_liquid_only.png": {
+      "bytes": 585673,
+      "sha256": "62fe79c03f6237f1fedaf6698b5debbcda41f120f096e4caaf950169cdb22d12"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_rearless.capture.json": {
+      "bytes": 4138,
+      "sha256": "51dd586e9564a4955ebca58b18e7085acc13b4b191ecebae4d9f30c2474d4226"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_rearless.png": {
+      "bytes": 585922,
+      "sha256": "8f1943c9db1080cfa5053086b455810aa5ed605b0ae95bff0cbc772eb1b11474"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_water_only.capture.json": {
+      "bytes": 4140,
+      "sha256": "5ba3a4ee630ab3ea7476de30d9e6c59ef2316b4b307d0b48baa3303430692a55"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_water_only.png": {
+      "bytes": 581422,
+      "sha256": "d9d81c777f55af2a41e805feb64e1a6749db40e39eb7006890b943e30f941c4e"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_wet.capture.json": {
+      "bytes": 4130,
+      "sha256": "a68d68752fe1d2d03087638d1df536a9df16e2dc0f822ce281058511cccddc76"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_wet.png": {
+      "bytes": 589608,
+      "sha256": "e07a4ecb7d3e9aa060858a1e9dfad3a66884bbf61b46ade7718714b4281394b5"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_wet_section.capture.json": {
+      "bytes": 4136,
+      "sha256": "a924cc326068f0ae47d4aaaae5740c88bf823573847d124b4bbe77eda437b7b0"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_wet_section.png": {
+      "bytes": 576011,
+      "sha256": "46673ab320e92ade363d685f9731263d882cfc2f9eabf29b0730cb17198a6723"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_wet_section_restored.capture.json": {
+      "bytes": 4151,
+      "sha256": "8e37d8774135c27e9db2129b5b4bbe89aee40f4012e45404f004e8f92b06bd35"
+    },
+    "captures/world-missing-public19_missing_wet_oak_slab_wet_section_restored.png": {
+      "bytes": 589655,
+      "sha256": "d8e8c4610e01cef72e733d2e548d686136bfdd4b5f69a9fa8acb6bf855ebbb33"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_dry.capture.json": {
+      "bytes": 4134,
+      "sha256": "f28d8dd23509540fb50f915f058bc1f2d10e2b1d608f4a46cdfb515340759d52"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_dry.png": {
+      "bytes": 586514,
+      "sha256": "1f6c7e986be5d2fefb7ed2d0cf31281bf2569ccc01f40f38344ab3c334b5ff18"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_empty.capture.json": {
+      "bytes": 4129,
+      "sha256": "1f091646da85fc4cc78b2b0f5dd943efb8941be7646fafd9b1db1a0b13667c1c"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_empty.png": {
+      "bytes": 576792,
+      "sha256": "5c85d335618233c2ac2f601b8be892da8fc776667cb9d280d85e27dd23604566"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_liquid_only.capture.json": {
+      "bytes": 4142,
+      "sha256": "b39e53d04be95072c2b7242c8a80fac539b51257f1111fd291b4fa53b18aa02e"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_liquid_only.png": {
+      "bytes": 585718,
+      "sha256": "e83cd24c2f754e010b0ced913eeb3cf214cc406466a9fcfd9131f5411df28826"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_rearless.capture.json": {
+      "bytes": 4130,
+      "sha256": "b5968d60ecbec0ef819d1951e4dd6d04dc39f9e64450297d225f4f132d418738"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_rearless.png": {
+      "bytes": 588719,
+      "sha256": "415954e4b8d505e7a1183cf84637449795d341b122b41dda4f77947315df9144"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_water_only.capture.json": {
+      "bytes": 4146,
+      "sha256": "5a382dd1027b5cb5bd5ad0098e4c21f92dd7f5e7cd04d9e78df0eb77f1fea9d2"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_water_only.png": {
+      "bytes": 581500,
+      "sha256": "eff9366d046da10688b823d46560ed788c184a7660b6c22083961dfea06d3e47"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_wet.capture.json": {
+      "bytes": 4135,
+      "sha256": "fe55c2e1a828ee87011081e4a87441454657da19011c8d7bc08d80cf789ec450"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_wet.png": {
+      "bytes": 591812,
+      "sha256": "4ac066f5668a8933089b6928cda712f807836808bc8f934fe8da7f7d192d812a"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_wet_section.capture.json": {
+      "bytes": 4142,
+      "sha256": "8bba1b820516432e3a24447875aa2da6b62764f70dcfd59f06cb83580a9351ee"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_wet_section.png": {
+      "bytes": 576782,
+      "sha256": "4628848009560f73f94119e4376d7413346b5b6270acbecbeb95a47517f3e7ef"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_wet_section_restored.capture.json": {
+      "bytes": 4151,
+      "sha256": "e360cfe49c354eaf35d34eaf3572b62a7357461a8caaa97d419404c9962433ad"
+    },
+    "captures/world-missing-public19_missing_wet_oak_stairs_wet_section_restored.png": {
+      "bytes": 591780,
+      "sha256": "9a7daf5ddd64738694c0f24b5e39312cc9692e280cb6ef53f2ff9e014a1e4dab"
+    },
+    "exit-observation.json": {
+      "bytes": 1315,
+      "sha256": "ef5e8871b7c489cb446746c20389e7af9ed5ae8936b0a8525d6deb0305d5d208"
+    },
+    "exit-wer/Report.wer": {
+      "bytes": 96072,
+      "sha256": "cb1072cfcc8e5bb98046fd8eda8d25e44add5345e1d122a86aef87c19b2b62b4"
+    },
+    "hosts/offline-replay.py": {
+      "bytes": 2379,
+      "sha256": "8b52e3d3594ebf224f3ffbe222fc591b1090516c2e440b38cd1ddcd4fdcc619c"
+    },
+    "hosts/package-builder.py": {
+      "bytes": 3863,
+      "sha256": "6e18f5689721c8f8939c8c483b1426f45780bc11b66b559994f855f12337fbe7"
+    },
+    "hosts/world-matrix.py": {
+      "bytes": 1468,
+      "sha256": "d67eb6924006d54fa84d6eb0cedfdac0065a6a7bb716e8cea9b8ffa7c94cf324"
+    },
+    "hosts/world-parent.py": {
+      "bytes": 7556,
+      "sha256": "3c489e5849144f50a7deab49cf34189b57efa35652656f04019e795e83198c8d"
+    },
+    "references.json": {
+      "bytes": 668,
+      "sha256": "4976157c74ce746eaab695b2ad84e67cd55a5ad4d2e47acd016937e74c642d21"
+    },
+    "stop-attempt1-execution.json": {
+      "bytes": 538,
+      "sha256": "aadfb9364893d0996e8fdf78d4b49dbf616c33174bcbe361f7798b5c8738a895"
+    },
+    "stop-execution.json": {
+      "bytes": 42475,
+      "sha256": "23e5d7f321c319b6fbc67e5d72b7846bdc92e8bc03e37945e5ec99926fc3aec6"
+    },
+    "verify_package.py": {
+      "bytes": 12273,
+      "sha256": "3ebfd091fb63540113678fc30b9e46999f4fddaad0112c603a9512e278a1a2a2"
+    },
+    "world-missing-public19-analysis.json": {
+      "bytes": 13188,
+      "sha256": "03f5a850d94349bb5f8329b7ff069c7e7032458e7d48567faca6648348bfb68e"
+    },
+    "world-missing-public19-execution.json": {
+      "bytes": 2309,
+      "sha256": "ed46dfea2fadad6d58589f71e5ee607bd16e42836f0173b31d9f92c3191b3370"
+    },
+    "world-missing-public19-native-product-analysis.json": {
+      "bytes": 10180,
+      "sha256": "7c6e6b9a7b3737b7129fbeee7cca593a0feb75e693d457f5dac1fb2646c7d723"
+    },
+    "world-missing-public19-product-analysis.json": {
+      "bytes": 8482,
+      "sha256": "e21aafab68ec18f5c1acfdb6db5341f751c032fcb8fb1fc4902e5802e9b29456"
+    },
+    "world-missing-public19.json": {
+      "bytes": 16293932,
+      "sha256": "58fbc15c7e3f28566fbf7b6d914e0be996ad4b17847c65703eba67cf09709bf6"
+    }
+  },
+  "game_suspensions": [],
+  "production_qualified": false,
+  "routes": [
+    "missing"
+  ],
+  "schema": 1,
+  "window_actions": []
+}

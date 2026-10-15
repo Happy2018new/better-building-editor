@@ -314,3 +314,6 @@ docs/evidence/shelf-direction-r21-*/** -text -diff whitespace=cr-at-eol
 tools/generate_shelf_direction_controls_r20.py text eol=lf
 tools/pack_shelf_body_evidence_r18.py text eol=lf
 tests/test_shelf_body_generation.py text eol=lf
+# Missing-world receipts and exit evidence retain original bytes.
+docs/evidence/water-missing-world-r21-v1/** -text -diff whitespace=cr-at-eol
+tools/pack_water_missing_r21.py text eol=lf

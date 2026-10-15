@@ -1,0 +1,408 @@
+{
+  "alpha_controls": {},
+  "analyzer_sha256": "f3862bda8776c18a308332e9d7ee05d1f0f3acee2305d2812534f867ec03da81",
+  "animation": {},
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "diagnostic_only": true,
+  "evidence_valid": true,
+  "geometry": {
+    "missing_diagonal_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          479,
+          1099,
+          676
+        ],
+        "pixels": 24470
+      },
+      "iou": 0.9640509937445562,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          886,
+          478,
+          1100,
+          677
+        ],
+        "pixels": 25138
+      },
+      "passed": true
+    },
+    "missing_drop_north_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          479,
+          1160,
+          725
+        ],
+        "pixels": 38444
+      },
+      "iou": 0.9522426507728053,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1162,
+          726
+        ],
+        "pixels": 38857
+      },
+      "passed": true
+    },
+    "missing_falling_wet": {
+      "declared": {
+        "bounds": [
+          840,
+          228,
+          1468,
+          711
+        ],
+        "pixels": 204810
+      },
+      "iou": 0.749558263701008,
+      "maximum_boundary_pixels": 88,
+      "observed": {
+        "bounds": [
+          838,
+          223,
+          1474,
+          623
+        ],
+        "pixels": 160559
+      },
+      "passed": false
+    },
+    "missing_flow_east_wet": {
+      "declared": {
+        "bounds": [
+          784,
+          451,
+          1233,
+          739
+        ],
+        "pixels": 59364
+      },
+      "iou": 0.9738508481249385,
+      "maximum_boundary_pixels": 4,
+      "observed": {
+        "bounds": [
+          782,
+          449,
+          1237,
+          740
+        ],
+        "pixels": 60958
+      },
+      "passed": true
+    },
+    "missing_flow_north_wet": {
+      "declared": {
+        "bounds": [
+          763,
+          522,
+          1163,
+          763
+        ],
+        "pixels": 54644
+      },
+      "iou": 0.9725900612273957,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          760,
+          521,
+          1166,
+          765
+        ],
+        "pixels": 56184
+      },
+      "passed": true
+    },
+    "missing_flow_south_wet": {
+      "declared": {
+        "bounds": [
+          778,
+          443,
+          1171,
+          763
+        ],
+        "pixels": 57422
+      },
+      "iou": 0.9754034312892814,
+      "maximum_boundary_pixels": 3,
+      "observed": {
+        "bounds": [
+          775,
+          441,
+          1174,
+          765
+        ],
+        "pixels": 58870
+      },
+      "passed": true
+    },
+    "missing_flow_west_wet": {
+      "declared": {
+        "bounds": [
+          794,
+          515,
+          1248,
+          739
+        ],
+        "pixels": 56450
+      },
+      "iou": 0.9718515967977963,
+      "maximum_boundary_pixels": 4,
+      "observed": {
+        "bounds": [
+          793,
+          514,
+          1252,
+          740
+        ],
+        "pixels": 58085
+      },
+      "passed": true
+    },
+    "missing_low_wet": {
+      "declared": {
+        "bounds": [
+          892,
+          548,
+          1099,
+          676
+        ],
+        "pixels": 15577
+      },
+      "iou": 0.9728328753434924,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          892,
+          547,
+          1100,
+          677
+        ],
+        "pixels": 16012
+      },
+      "passed": true
+    },
+    "missing_neighbor_glass_pane_wet": {
+      "declared": {
+        "bounds": [
+          888,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 30675
+      },
+      "iou": 0.9277513479226134,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          677
+        ],
+        "pixels": 30107
+      },
+      "passed": true
+    },
+    "missing_neighbor_oak_slab_wet": {
+      "declared": {
+        "bounds": [
+          888,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 22519
+      },
+      "iou": 0.9625883865438183,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 23278
+      },
+      "passed": true
+    },
+    "missing_neighbor_oak_stairs_wet": {
+      "declared": {
+        "bounds": [
+          888,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 14817
+      },
+      "iou": 0.9335511982570807,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 15358
+      },
+      "passed": true
+    },
+    "missing_neighbor_stone_wet": {
+      "declared": {
+        "bounds": [
+          928,
+          480,
+          1103,
+          676
+        ],
+        "pixels": 14419
+      },
+      "iou": 0.9413553719008264,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          926,
+          478,
+          1105,
+          676
+        ],
+        "pixels": 14944
+      },
+      "passed": true
+    },
+    "missing_pool_wet": {
+      "declared": {
+        "bounds": [
+          763,
+          479,
+          1248,
+          849
+        ],
+        "pixels": 114832
+      },
+      "iou": 0.9748295797006715,
+      "maximum_boundary_pixels": 4,
+      "observed": {
+        "bounds": [
+          760,
+          478,
+          1252,
+          852
+        ],
+        "pixels": 117797
+      },
+      "passed": true
+    },
+    "missing_source_wet": {
+      "declared": {
+        "bounds": [
+          887,
+          479,
+          1103,
+          676
+        ],
+        "pixels": 30789
+      },
+      "iou": 0.9728576845298281,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          887,
+          478,
+          1105,
+          677
+        ],
+        "pixels": 31648
+      },
+      "passed": true
+    },
+    "missing_transparent_overlap_wet": {
+      "declared": {
+        "bounds": [
+          593,
+          479,
+          1103,
+          883
+        ],
+        "pixels": 91195
+      },
+      "iou": 0.9694397102684278,
+      "maximum_boundary_pixels": 4,
+      "observed": {
+        "bounds": [
+          589,
+          478,
+          1105,
+          886
+        ],
+        "pixels": 93696
+      },
+      "passed": true
+    }
+  },
+  "host_sha256": "8b52e3d3594ebf224f3ffbe222fc591b1090516c2e440b38cd1ddcd4fdcc619c",
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": false,
+    "geometry": false,
+    "transparency": true
+  },
+  "product_style_accepted": false,
+  "production_qualified": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "58fbc15c7e3f28566fbf7b6d914e0be996ad4b17847c65703eba67cf09709bf6",
+  "transparency": {
+    "missing_wet_oak_fence_wet": {
+      "passed": true,
+      "phase_controlled": true,
+      "regions": {
+        "body": {
+          "contribution_pixels": 1100,
+          "eligible_pixels": 1100,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 1100
+        },
+        "rear": {
+          "contribution_pixels": 713,
+          "eligible_pixels": 713,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 713
+        }
+      },
+      "water_pixels": 19976
+    }
+  },
+  "transparency_phase_controlled": true
+}
