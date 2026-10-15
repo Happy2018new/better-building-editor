@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\run_visible_items_r16.py", line 396, in <module>
+    sys.exit(run(args))
+             ~~~^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\run_visible_items_r16.py", line 101, in run
+    with Client(timeout=20) as client:
+         ~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.agents\skills\pyreact-debugging\scripts\mcdk.py", line 160, in __enter__
+    self._verify_binding()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.agents\skills\pyreact-debugging\scripts\mcdk.py", line 184, in _verify_binding
+    result = self._post("tools/call", {"name": "execute_code", "arguments": {
+        "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+        "is_client": True, "direct_return": True}})
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.agents\skills\pyreact-debugging\scripts\mcdk.py", line 116, in _post
+    preflight = self._check_protected_execute_window()
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.agents\skills\pyreact-debugging\scripts\mcdk.py", line 109, in _check_protected_execute_window
+    refuse('owned_game_background_guard_invalid', 'guard_invalid')
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.agents\skills\pyreact-debugging\scripts\mcdk.py", line 72, in refuse
+    raise ProtectedWindowError(report)
+mcdk.ProtectedWindowError: Protected execute_code preflight failed: {"ok": false, "category": "protected_execute_code_preflight", "execute_code_blocked": true, "execute_code_dispatched": false, "python_return_checked": false, "window_unavailable": false, "guard_invalid": true, "owned_process_foreground": false, "background_only": false, "activation_fallback": false, "user_foreground_allowed": true, "agent_activation_allowed": false, "owner": "item-plane-r19", "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\856331b7cc0e4e6aa6a07108b5214842\\session.json", "game_pid": 40152, "game_identity": "134365302566967619", "window_guard": {"foreground": {"hwnd": 1904814, "pid": 11564, "process": "ChatGPT.exe", "identity": "134364672966750025", "title": "ChatGPT", "visible": true, "minimized": false}, "windows": [{"hwnd": 1182150, "pid": 40152, "process": "Minecraft.Windows.exe", "title": "Assert Failure - ctrl+C to copy this message to the clipboard!", "x": 633, "y": 446, "width": 456, "height": 210, "minimized": false, "noactivate": false}, {"hwnd": 1116616, "pid": 40152, "process": "Minecraft.Windows.exe", "title": "(1994, 1105) Minecraft", "x": 189, "y": 176, "width": 1329, "height": 736, "minimized": false, "noactivate": true}], "background_safe": true, "window_noactivate": false}, "window": {"hwnd": 1116616, "pid": 40152, "process": "Minecraft.Windows.exe", "title": "(1994, 1105) Minecraft", "x": 189, "y": 176, "width": 1329, "height": 736, "minimized": false, "noactivate": true}, "reason": "owned_game_background_guard_invalid"}

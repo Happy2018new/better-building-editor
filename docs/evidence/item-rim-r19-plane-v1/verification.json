@@ -1,0 +1,89 @@
+{
+  "production_qualified": false,
+  "causal_evidence_valid": true,
+  "rebased_measurements_equal": true,
+  "comparison_png_identical": true,
+  "cold_candidate_accepted": false,
+  "baseline_restore_changed_pixels": 0,
+  "candidate_change": "front_z_pixels 15.0 -> 14.75 only; size 8.0, thickness 0.5 and glint unchanged",
+  "tests": {
+    "command": "python -X utf8 -m unittest tests.test_item_pose_acceptance tests.test_item_sprite_pixels tests.test_item_icon_catalog",
+    "passed": 40
+  },
+  "failures": [
+    {
+      "version": 1,
+      "accepted": false,
+      "session": {
+        "id": "1f3f18b31e8c42f0ba551334b565b353",
+        "owner": "item-plane-r19",
+        "state": "ready",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1f3f18b31e8c42f0ba551334b565b353\\session.json",
+        "game_pid": 52940,
+        "game_identity": "134365300196950961",
+        "mcdk_pid": 18060,
+        "mcdk_identity": "134365300192502547"
+      },
+      "final_state": "stopped",
+      "production_qualified": false,
+      "reason": "Owned MCDK exited before capture client binding; no acceptance report or pixels"
+    },
+    {
+      "version": 2,
+      "accepted": false,
+      "session": {
+        "id": "856331b7cc0e4e6aa6a07108b5214842",
+        "owner": "item-plane-r19",
+        "state": "ready",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\856331b7cc0e4e6aa6a07108b5214842\\session.json",
+        "game_pid": 40152,
+        "game_identity": "134365302566967619",
+        "mcdk_pid": 51632,
+        "mcdk_identity": "134365302565078210"
+      },
+      "final_state": "stopped",
+      "production_qualified": false,
+      "reason": "Native assertion dialog invalidated noactivation guard; execute_code was blocked before dispatch"
+    },
+    {
+      "version": 3,
+      "accepted": false,
+      "session": {
+        "id": "8f55896f3346419b9f0cbc3afac1cde6",
+        "owner": "item-plane-r19",
+        "state": "ready",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\8f55896f3346419b9f0cbc3afac1cde6\\session.json",
+        "game_pid": 8236,
+        "game_identity": "134365306920135477",
+        "mcdk_pid": 3472,
+        "mcdk_identity": "134365306918497018"
+      },
+      "final_state": "stopped",
+      "production_qualified": false,
+      "reason": "Independent stone calibration produced a blank white WGC frame; no item acceptance capture started",
+      "maximum_handles": 115606,
+      "source_unchanged": true,
+      "cleanup_errors": [],
+      "completed": false,
+      "acceptance_captures": 0
+    },
+    {
+      "version": 4,
+      "accepted": false,
+      "session": {
+        "id": "49da3693c7f14997aa8d190cc61569d5",
+        "owner": "item-plane-r19",
+        "state": "ready",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\49da3693c7f14997aa8d190cc61569d5\\session.json",
+        "game_pid": 4416,
+        "game_identity": "134365309608713501",
+        "mcdk_pid": 46296,
+        "mcdk_identity": "134365309607125395"
+      },
+      "final_state": "stopped",
+      "production_qualified": false,
+      "reason": "Three bounded render-readiness WGC checks remained the same blank white image; acceptance capture not started",
+      "maximum_handles": 133577
+    }
+  ]
+}

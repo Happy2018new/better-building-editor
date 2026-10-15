@@ -17,6 +17,7 @@ from analyze_item_sprite_product import expected_mask,body_measurement,temporal_
 from analyze_item_sprite_closeup import native_body_measurement,native_comparison
 from analyze_liquid_workspace import capture_failures,rgb,difference_mask
 from item_sprite_capture_contract import scene_layout,paired_layout_matches,camera_matches,snapshot_digest
+from item_sprite_edge_pixels import native_edge_measurement
 
 
 def target(camera):
@@ -29,6 +30,46 @@ def empty_body_measurement(shown,hidden,expected):
     unexpected=difference_mask(shown,hidden,expanded(expected),LIMITS['rgb_delta'])
     return {'unexpected_pixels':int(unexpected.sum()),
             'passed':int(unexpected.sum())<=LIMITS['maximum_control_motion_pixels']}
+
+
+def native_body_gate(cases):
+    if not cases:
+        return False
+    for case in cases:
+        comparisons=case.get('native_body_comparison',{})
+        if set(comparisons)!={'full','missing'}:
+            return False
+        for comparison in comparisons.values():
+            controls=comparison.get('negative_controls',{})
+            if (not comparison.get('passed') or set(controls)!={'blank_rejected','shifted_rejected'}
+                    or not all(controls.values())):
+                return False
+    return True
+
+
+def native_edge_gate(cases):
+    if not cases:
+        return False
+    for case in cases:
+        comparisons=case.get('native_edge_comparison',{})
+        if set(comparisons)!={'full','missing'}:
+            return False
+        for comparison in comparisons.values():
+            if (not comparison.get('passed') or
+                    comparison.get('negative_controls',{}).get('blank_rejected') is not True):
+                return False
+    return True
+
+
+def body_region(expected,padding=32):
+    """A fixed declared bounding box retains native tips beyond a clipped candidate."""
+    result=np.zeros_like(expected)
+    bounds=mask_row(expected)['bounds']
+    if bounds:
+        left,top,right,bottom=bounds
+        result[max(0,top-padding):min(result.shape[0],bottom+padding),
+               max(0,left-padding):min(result.shape[1],right+padding)]=True
+    return result
 
 
 def analyze(source,output,world_plain_only=False):
@@ -60,6 +101,13 @@ def analyze(source,output,world_plain_only=False):
         failures.append('A case did not complete its measurements and restoration')
     calibration=report['camera_calibration']
     pose=json.loads((ROOT/'tools/data/item_icon_catalog_nemc_3.10.0.420447.json').read_bytes())['pose']
+    candidate=report.get('candidate_geometry')
+    if candidate:
+        data=candidate['data']
+        if (data.get('schema')!=1 or data.get('production_qualified') is not False or
+                any(report['launch_sources'].get(key)!=value for key,value in data.get('mesh_sha256',{}).items())):
+            failures.append('Candidate geometry binding differs')
+        result['candidate_geometry']=candidate
     crops=[]
     for case in report['cases']:
         if case['id'] not in result['completed_cases']:
@@ -67,6 +115,7 @@ def analyze(source,output,world_plain_only=False):
         if case['source'] is None:
             continue
         name,aux=case['source']['item']
+        case_pose=(candidate['data']['pose'] if candidate and [name,aux]==candidate['data']['item'] else pose)
         resource=ITEMS[(name,aux)]['ui_model'].removeprefix('modern_projection_item_icon_')
         texture_path=ROOT/'resource_pack/textures/models/modern_projection/item_icons'/(resource+'.png')
         with Image.open(texture_path).convert('RGBA') as texture:
@@ -97,9 +146,10 @@ def analyze(source,output,world_plain_only=False):
                         continue
                     if route!='editor' and plain_only and mode!='plain':
                         continue
-                    expected=expected_mask(position,row,texture,pose,size,calibration,facing,rotation)
+                    expected=expected_mask(position,row,texture,case_pose,size,calibration,facing,rotation)
                     body=body_measurement(shown,hidden,expected)
-                    observed_masks[(route,mode)]=difference_mask(shown,hidden,expanded(expected),LIMITS['rgb_delta'])
+                    observed_masks[(route,mode)]=difference_mask(shown,hidden,body_region(expected),LIMITS['rgb_delta'])
+                    body['declared_local_edges']=native_edge_measurement(observed_masks[(route,mode)],expected)
                     body['stable_hidden_fraction']=float(stable[expected].mean()) if expected.any() else 0.
                     rows[mode]=body
                     bounds=mask_row(expected)['bounds']
@@ -121,6 +171,7 @@ def analyze(source,output,world_plain_only=False):
                         if not camera_matches(raw['camera'],captures[prefix+'_'+suffix]['camera']):
                             failures.append(prefix+' camera differs')
             measured['native_body_comparison']={}
+            measured['native_edge_comparison']={}
             if not case['native_reference'].get('restored'):
                 failures.append(case['id']+' native reference was not restored')
             native_mask=observed_masks[('native','plain')]
@@ -133,6 +184,10 @@ def analyze(source,output,world_plain_only=False):
                 measured['native_body_comparison'][route]['negative_controls']={
                     'blank_rejected':not native_body_measurement(np.zeros_like(product),native_mask)['passed'],
                     'shifted_rejected':not native_body_measurement(np.roll(product,8,axis=1),native_mask)['passed']}
+                edge=native_edge_measurement(product,native_mask)
+                edge['negative_controls']={'blank_rejected':not native_edge_measurement(
+                    np.zeros_like(product),native_mask)['passed']}
+                measured['native_edge_comparison'][route]=edge
             result['cases'].append(measured)
     if crops:
         sheet=Image.new('RGB',(160*7,180*math.ceil(len(crops)/7)),'white')
@@ -174,6 +229,10 @@ def analyze(source,output,world_plain_only=False):
     body_results=[body['passed'] for case in result['cases'] for route in case['routes'].values() for body in route.values()]
     body_results.extend(row['body']['passed'] for route in result['closeup'].values() for row in route.values())
     result['all_bodies_passed']=bool(body_results) and all(body_results)
+    result['all_native_bodies_passed']=native_body_gate(result['cases'])
+    result['all_native_edges_passed']=native_edge_gate(result['cases'])
+    result['static_pose_accepted']=bool(result['evidence_valid'] and result['matrix_completed']
+        and result['all_bodies_passed'] and result['all_native_bodies_passed'] and result['all_native_edges_passed'])
     (output/'analysis.json').write_text(json.dumps(result,ensure_ascii=True,indent=2)+'\n',encoding='ascii')
     print(json.dumps({'evidence_valid':result['evidence_valid'],'all_bodies_passed':result['all_bodies_passed'],
         'failed':[(case['id'],route,mode,body['iou']) for case in result['cases'] for route,items in case['routes'].items()

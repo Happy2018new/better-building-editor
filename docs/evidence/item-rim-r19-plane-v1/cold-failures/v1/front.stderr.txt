@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\run_visible_items_r16.py", line 396, in <module>
+    sys.exit(run(args))
+             ~~~^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\run_visible_items_r16.py", line 101, in run
+    with Client(timeout=20) as client:
+         ~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.agents\skills\pyreact-debugging\scripts\mcdk.py", line 34, in __init__
+    self.binding = load_session(live=True) if bind_session else None
+                   ~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.agents\skills\pyreact-debugging\scripts\_session.py", line 135, in load_session
+    raise RuntimeError("Stale instance: " + prefix + " process exited or changed")
+RuntimeError: Stale instance: mcdk process exited or changed

@@ -81,6 +81,13 @@ def run(args):
     report['launch_sources_sha256'] = snapshot_digest(report['launch_sources'])
     report['host_tool_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     report['process_samples']=[]
+    if args.candidate_geometry:
+        candidate=json.loads(args.candidate_geometry.read_bytes())
+        assert candidate['schema']==1 and candidate['production_qualified'] is False
+        for relative,digest in candidate['mesh_sha256'].items():
+            assert report['launch_sources'].get(relative)==digest, 'Candidate mesh source differs'
+        report['candidate_geometry']={'path':str(args.candidate_geometry.resolve()),
+            'sha256':hashlib.sha256(args.candidate_geometry.read_bytes()).hexdigest(),'data':candidate}
     report['profile_mode']='production' if args.production_profile else 'candidate'
     report['view_configuration']={'angle_degrees':args.view_angle,'editor_zoom':args.editor_zoom,
                                   'native_target_plain':args.native_target_plain}
@@ -262,6 +269,7 @@ def run(args):
                 check.run('navigator.pop()\n_result=True')
                 check.wait('workspace closed', lambda row: not row['open'] and not row['transition'], check.navigation)
                 check.run('cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n'
+                          'cam.LockModCameraPitch(True)\ncam.LockModCameraYaw(True)\n'
                           'target=tuple(s.origin[axis]+%r[axis] for axis in range(3))\n'
                           'point=tuple(target[axis]+%r[axis] for axis in range(3))\n'
                           'rot=api.GetRotFromDir(tuple(target[axis]-point[axis] for axis in range(3)))\n'
@@ -289,6 +297,7 @@ def run(args):
                     try:
                         native['prepare'] = server(NATIVE_PREPARE % (rows,platform))
                         check.run('cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n'
+                                  'cam.LockModCameraPitch(True)\ncam.LockModCameraYaw(True)\n'
                                   'assert cam.SetCameraPos(%r)\nassert cam.SetCameraRotation(%r)\n_result=True' %
                                   (tuple(native_camera['position']),tuple(native_camera['rotation'])))
                         position_code = repr(position)
@@ -316,7 +325,8 @@ def run(args):
                             native['restored'] = native['restore']['passed']
                             persist()
                 check.run('b.stop_projection()\ncam=b.factory.CreateCamera(b.level)\n'
-                          'cam.ResetCameraPos()\ncam.UnDepartCamera()\nowner.open_workspace()\n_result=True')
+                          'cam.ResetCameraPos()\ncam.LockModCameraPitch(False)\ncam.LockModCameraYaw(False)\n'
+                          'cam.UnDepartCamera()\nowner.open_workspace()\n_result=True')
                 report['process_samples'].append(dict(process_snapshot(session['game_pid']),case=case_id,phase='after'))
                 report['cases'][-1]['measurement_completed']=True
                 persist()
@@ -335,7 +345,8 @@ def run(args):
         finally:
             for label, code in (
                     ('stop projection', 'b.stop_projection()\ncam=b.factory.CreateCamera(b.level)\n'
-                     'cam.ResetCameraPos()\ncam.UnDepartCamera()\n_result=True'),
+                     'cam.ResetCameraPos()\ncam.LockModCameraPitch(False)\ncam.LockModCameraYaw(False)\n'
+                     'cam.UnDepartCamera()\n_result=True'),
                     ('blueprint restore', RESTORE if installed else ''),
                     ('profile restore', 's.item_profile=sys._visible_items_profile\n'
                      'del sys._visible_items_profile\n_result=True' if profile_saved else '')):
@@ -371,6 +382,7 @@ if __name__ == '__main__':
     parser.add_argument('--orientation-matrix', action='store_true')
     parser.add_argument('--icons-only', action='store_true')
     parser.add_argument('--orientation-cases')
+    parser.add_argument('--candidate-geometry',type=Path)
     parser.add_argument('--near-distance', type=float, default=8.)
     parser.add_argument('--view-angle', type=float, default=0.)
     parser.add_argument('--editor-zoom', type=float)

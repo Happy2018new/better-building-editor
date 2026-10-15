@@ -73,6 +73,7 @@ def analyze(source,output):
         raise ValueError('Side analysis requires completed actual native reference')
     name,aux = case['source']['item']
     catalog = json.loads((ROOT/'tools/data/item_icon_catalog_nemc_3.10.0.420447.json').read_bytes())
+    pose = report.get('candidate_geometry',{}).get('data',{}).get('pose',catalog['pose'])
     key = next(row['resource'] for row in catalog['items'] if (row['name'],row['aux'])==(name,aux))
     texture = Image.open(ROOT/'resource_pack/textures/models/modern_projection/item_icons'/(key+'.png')).convert('RGBA')
     captures = {row['label']:row for row in report['captures']}
@@ -103,8 +104,8 @@ def analyze(source,output):
         hidden = (hidden_before.astype(np.float64)+hidden_after)/2.
         stable = np.max(np.abs(hidden_before.astype(np.int16)-hidden_after.astype(np.int16)),axis=2)<=3
         size = (shown.shape[1],shown.shape[0])
-        geometric = extruded_mask(position,row,texture,catalog['pose'],size,report['camera_calibration'],facing,rotation)
-        plane = expected_mask(position,row,texture,catalog['pose'],size,report['camera_calibration'],facing,rotation)
+        geometric = extruded_mask(position,row,texture,pose,size,report['camera_calibration'],facing,rotation)
+        plane = expected_mask(position,row,texture,pose,size,report['camera_calibration'],facing,rotation)
         region = expanded(geometric,33)
         observed = difference_mask(shown,hidden,region,LIMITS['rgb_delta']) & stable
         observed_masks[route] = observed
@@ -113,13 +114,13 @@ def analyze(source,output):
         data['stable_fraction'] = float(stable[region].mean())
         data['depth_fits'] = []
         for thickness in (.0,.25,.5,.75,1.):
-            candidate = dict(catalog['pose'],thickness_pixels=thickness)
+            candidate = dict(pose,thickness_pixels=thickness)
             fitted = extruded_mask(position,row,texture,candidate,size,report['camera_calibration'],facing,rotation)
             data['depth_fits'].append(dict(overlap(observed,fitted),thickness_pixels=thickness))
         if route=='native':
             data['plane_fits'] = []
             for offset in (-.5,-.375,-.25,-.125,0.,.125,.25,.375,.5):
-                candidate = dict(catalog['pose'],front_z_pixels=catalog['pose']['front_z_pixels']+offset)
+                candidate = dict(pose,front_z_pixels=pose['front_z_pixels']+offset)
                 fitted = extruded_mask(position,row,texture,candidate,size,report['camera_calibration'],facing,rotation)
                 data['plane_fits'].append(dict(overlap(observed,fitted),front_offset_pixels=offset))
         result['routes'][route] = data
