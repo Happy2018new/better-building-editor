@@ -26,6 +26,15 @@ ATTRIBUTE_BODY = '''float depth=encodedPlane.w*32.0;
     float stripe=mod(floor(gl_FragCoord.x/4.0),32.0);
     if(abs(floor(depth+0.5)-stripe)>0.25) discard;
     gl_FragColor=vec4(vec3(0.25)+0.75*vec3(colorLookupUV,encodedPlane.w),0.);'''
+COORDINATE_BODY = '''float depth=encodedPlane.w*32.0;
+    if(depth>31.0) { gl_FragColor=vec4(0.,0.,0.,0.); return; }
+    float stripe=mod(floor(gl_FragCoord.x/4.0),32.0);
+    if(abs(floor(depth+0.5)-stripe)>0.25) discard;
+    if(mod(floor(gl_FragCoord.y/4.0),2.0)<0.5) {
+        gl_FragColor=vec4(encodedPlane.xyz,0.);
+    } else {
+        gl_FragColor=vec4(floor(fract(parallaxUV)*256.0)/255.0,encodedPlane.w,0.);
+    }'''
 
 
 def sha(path):
@@ -33,7 +42,7 @@ def sha(path):
 
 
 def generate(native, output, mode='attributes'):
-    if mode not in ('attributes', 'solid'):
+    if mode not in ('attributes', 'solid', 'coordinates'):
         raise ValueError('Unknown native portal diagnostic mode')
     output.mkdir(parents=True, exist_ok=False)
     shader = output / 'resource_pack/shaders/glsl'
@@ -45,9 +54,14 @@ def generate(native, output, mode='attributes'):
         path = native / source
         inputs[source] = sha(path)
         (shader / destination).write_bytes(path.read_bytes())
-    body = ATTRIBUTE_BODY if mode == 'attributes' else 'gl_FragColor=vec4(0.75,0.,0.75,0.);'
+    bodies = {'attributes': ATTRIBUTE_BODY, 'coordinates': COORDINATE_BODY,
+              'solid': 'gl_FragColor=vec4(0.75,0.,0.75,0.);'}
+    body = bodies[mode]
     (shader / 'r20_portal_attribute.fragment').write_text(
         FRAGMENT.replace('// NATIVE_ATTRIBUTE_BODY', body), encoding='ascii', newline='\n')
+    if mode == 'coordinates':
+        (shader / 'r19_native_portal_native.fragment').write_text(
+            FRAGMENT.replace('// NATIVE_ATTRIBUTE_BODY', body), encoding='ascii', newline='\n')
     material_source = native / 'resource_packs/vanilla/materials/portal.material'
     inputs[material_source.relative_to(native).as_posix()] = sha(material_source)
     material = json.loads(material_source.read_bytes())
@@ -87,7 +101,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--native-data', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--mode', choices=('attributes', 'solid'), default='attributes')
+    parser.add_argument('--mode', choices=('attributes', 'solid', 'coordinates'), default='attributes')
     parser.add_argument('--install-clone', type=Path)
     args = parser.parse_args()
     contract = generate(args.native_data, args.output, args.mode)

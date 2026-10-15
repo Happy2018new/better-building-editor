@@ -124,10 +124,13 @@ _result={'position':position,'rotation':(rotation[0],rotation[1]+180.,0.)}
     def current():
         return check.run('''cam=b.factory.CreateCamera(b.level)
 _result={'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),
+ 'origin':s.origin,
  'screen':b.factory.CreateGame(b.level).GetScreenSize(),
+ 'face_world_points':[(face,[tuple(s.origin[i]+p[i] for i in range(3))
+  for p in points]) for face,points in %r],
  'face_points':[(face,[cam.WorldToScreenPoint(*(tuple(s.origin[i]+p[i] for i in range(3))))
   for p in points]) for face,points in %r]}
-''' % (faces,))
+''' % (faces, faces))
     check.wait('requested native portal camera',
         lambda row: all(abs(row['position'][i]-requested['position'][i]) < .002 for i in range(3)) and
         all(abs((row['rotation'][i]-requested['rotation'][i]+180.) % 360.-180.) < .05 for i in range(2)), current)
@@ -210,7 +213,7 @@ _result=profile.world_models
 ''' % args.adapter_prefix)
             for family in args.families:
                 data = document(family)
-                check.run('''from modern_projection.projection.model import Document
+                setup = check.run('''from modern_projection.projection.model import Document
 s._loaded(Document.from_data(json.loads(%r)))
 foot=b.player_origin()
 s.origin=(foot[0],foot[1]+12,foot[2]);s.opacity=1.
@@ -219,7 +222,7 @@ b.project()
 if navigator.top is not None:navigator.pop()
 _result={'origin':s.origin,'source':s.editor.document.to_data()}
 ''' % json.dumps(data))
-                report['rows'][family] = {'ready': world_ready(check)}
+                report['rows'][family] = {'setup': setup, 'ready': world_ready(check)}
                 native_rows = check.run('''from modern_projection.projection.cell import foreground
 _result=[(tuple(s.origin[i]+p[i] for i in range(3)),foreground(value))
  for p,value in sorted(s.editor.document.blocks.items())]
