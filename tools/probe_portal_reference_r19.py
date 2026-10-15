@@ -190,6 +190,7 @@ def run(args):
                                 for p in SOURCES + RESOURCES},
               'native_adapter': args.native_adapter,
               'offset_x': args.offset_x,
+              'end_portal_front_elevation': args.end_portal_front_elevation,
               'project_source_sha256': project_sources,
               'project_source_contract_sha256': snapshot_digest(project_sources)}
     installed = visual = native = player_saved = False
@@ -233,7 +234,8 @@ _result=[(tuple(s.origin[i]+p[i] for i in range(3)),foreground(value))
                         check.run('b.stop_projection()\n_result=True')
                         native = True
                         report['rows'][family]['native_blocks'] = server(check, PLACE % (native_rows,))
-                    for name, offset in (('front', (0., 0., -4.5)),
+                    front_elevation = args.end_portal_front_elevation if family == 'end_portal' else 0.
+                    for name, offset in (('front', (0., front_elevation, -4.5)),
                                          ('oblique', (3.2, 2.2, -4.5)),
                                          ('far', (6.4, 4.4, -9.))):
                         if name not in args.views:
@@ -316,6 +318,8 @@ def main():
                         help='Journal temporary platforms and place the owned test player near each camera')
     parser.add_argument('--offset-x', type=float, default=0.,
                         help='Add a recorded world-space X offset to every measured camera')
+    parser.add_argument('--end-portal-front-elevation', type=float, default=0.,
+                        help='Raise the End portal front camera to resolve its horizontal surface')
     run(parser.parse_args())
 
 
