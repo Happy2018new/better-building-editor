@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "engine": "3.10.0.420447",
+  "product_qualified": false,
+  "report_sha256": "0ffe5700f3ee435d1b4ebd4d8ed09d88636a51d8431737b785dc6be8927c05fb",
+  "analyzer_sha256": "29970748529faa8eed26fcf16712acf7a1d0bc65347e5bb31eed1c31394d8979",
+  "body_boundary_pixels_passed": true,
+  "thresholds": {
+    "max_channel_difference": 8,
+    "allowed_changed_pixels": 0,
+    "min_negative_pixels": 20,
+    "min_support_pixels": 100
+  },
+  "method": "Exact physical native pixels; target face plus 1-pixel guard; real stone retained in occupied/control/negative/blank; support signal outside the target is measured against blank.",
+  "views": {
+    "down": {
+      "face_pixels": 7337,
+      "occupied_changed_pixels": 0,
+      "legacy_negative_changed_pixels": 7337,
+      "support_pixels": 85377,
+      "support_changed_pixels": 0,
+      "restored_changed_pixels": 0,
+      "shown_changed_pixels": 6787,
+      "gates": {
+        "boundary_roi_present": true,
+        "occupied_face_removed": true,
+        "legacy_residue_detected": true,
+        "support_visible": true,
+        "support_retained": true,
+        "body_restored": true,
+        "body_shown": true
+      },
+      "passed": true
+    },
+    "north": {
+      "face_pixels": 18586,
+      "occupied_changed_pixels": 0,
+      "legacy_negative_changed_pixels": 10008,
+      "support_pixels": 145156,
+      "support_changed_pixels": 0,
+      "restored_changed_pixels": 0,
+      "shown_changed_pixels": 6165,
+      "gates": {
+        "boundary_roi_present": true,
+        "occupied_face_removed": true,
+        "legacy_residue_detected": true,
+        "support_visible": true,
+        "support_retained": true,
+        "body_restored": true,
+        "body_shown": true
+      },
+      "passed": true
+    },
+    "south": {
+      "face_pixels": 18586,
+      "occupied_changed_pixels": 0,
+      "legacy_negative_changed_pixels": 10006,
+      "support_pixels": 141895,
+      "support_changed_pixels": 0,
+      "restored_changed_pixels": 0,
+      "shown_changed_pixels": 6168,
+      "gates": {
+        "boundary_roi_present": true,
+        "occupied_face_removed": true,
+        "legacy_residue_detected": true,
+        "support_visible": true,
+        "support_retained": true,
+        "body_restored": true,
+        "body_shown": true
+      },
+      "passed": true
+    },
+    "east": {
+      "face_pixels": 18586,
+      "occupied_changed_pixels": 0,
+      "legacy_negative_changed_pixels": 9957,
+      "support_pixels": 144190,
+      "support_changed_pixels": 0,
+      "restored_changed_pixels": 0,
+      "shown_changed_pixels": 6158,
+      "gates": {
+        "boundary_roi_present": true,
+        "occupied_face_removed": true,
+        "legacy_residue_detected": true,
+        "support_visible": true,
+        "support_retained": true,
+        "body_restored": true,
+        "body_shown": true
+      },
+      "passed": true
+    },
+    "west": {
+      "face_pixels": 18586,
+      "occupied_changed_pixels": 0,
+      "legacy_negative_changed_pixels": 9972,
+      "support_pixels": 144454,
+      "support_changed_pixels": 0,
+      "restored_changed_pixels": 0,
+      "shown_changed_pixels": 6160,
+      "gates": {
+        "boundary_roi_present": true,
+        "occupied_face_removed": true,
+        "legacy_residue_detected": true,
+        "support_visible": true,
+        "support_retained": true,
+        "body_restored": true,
+        "body_shown": true
+      },
+      "passed": true
+    }
+  }
+}

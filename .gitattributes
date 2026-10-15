@@ -279,3 +279,8 @@ docs/evidence/book-default-owner-r20-v2/** -text -diff whitespace=cr-at-eol
 docs/evidence/book-default-admission-r20-v1/** -text -diff whitespace=cr-at-eol
 docs/evidence/table-body-default-admission-r20-v1/** -text -diff whitespace=cr-at-eol
 docs/evidence/table-body-product-r20/** -text -diff whitespace=cr-at-eol
+# These shared book owners were exercised with their existing CRLF bytes.
+behavior_pack/modern_projection/projection/diagnostics.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/occupancy_shader.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/projection_companions.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/ui.py -text whitespace=cr-at-eol
