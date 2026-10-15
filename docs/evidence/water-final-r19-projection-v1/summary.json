@@ -1,0 +1,62 @@
+{
+  "cross_session_diagnostic": {
+    "acceptance": false,
+    "all_four_artwork_luminance_correlation": 0.9999006289239981,
+    "all_mirror_constant_wrong_phase_negatives_rejected": true,
+    "fixed_texel_centers": {
+      "east_correlation": 1.0,
+      "rgb_rmse": 0.0,
+      "south_correlation": 1.0
+    },
+    "limitation": "v5 numerical API points are replayed over v4 valid water pixels. v5 itself has no valid water pixels.",
+    "original_grid": {
+      "east": {
+        "correlation": 0.93705014290488,
+        "rgb_rmse": 3.1498727726276847
+      },
+      "south": {
+        "correlation": 0.9492226198204802,
+        "rgb_rmse": 2.9280922504339943
+      }
+    },
+    "same_declared_pose_viewport_origin_source": true
+  },
+  "current_source_contract": "20ab6570d676d884753b89ca2d6f35508e17e7dfac47909c245e26e86a5cf272",
+  "finding": "The localized apparent one-texel anomaly is explained by the analytical projection oracle under the cross-session numerical mapping. No water shader correction is justified by these data.",
+  "native_stone_api_hull_iou": {
+    "front": 0.9745201989068344,
+    "right": 0.9745201989068344,
+    "tilted": 0.9692268348819367
+  },
+  "numerical_native_camera_intrinsics": {
+    "api_numeric_fit_max_residual_pixels": 6e-05,
+    "center": [
+      997.4998,
+      553.5
+    ],
+    "fit_uses_images": false,
+    "focal_pixels": 852.3152
+  },
+  "original_acceptance_overwritten": false,
+  "physical_native_projection_units_confirmed_on_stone": true,
+  "product_admission_performed": false,
+  "production_qualified": false,
+  "remaining": "A fresh same-session water image pair with native points, independent stone checks, and nonzero wet/dry/section geometry contributions is still required for acceptance.",
+  "schema": 1,
+  "shader_or_resource_changes": false,
+  "v5_actual_uniform_vectors": 256,
+  "v5_cleanup_errors": [],
+  "v5_completed_restored_source_unchanged": true,
+  "v5_rejection": "All six world PNGs have one identical SHA and retain the previous stone calibration viewport; fresh WGC timestamps did not imply fresh rendered content.",
+  "v5_session": {
+    "force_used": false,
+    "game_pid": 50076,
+    "id": "ed4c642a9db84fee92cf0c0cda5d2630",
+    "mcdk_pid": 9536,
+    "owned_pids_absent": true,
+    "owner": "water-final-r19",
+    "stopped_normally": true
+  },
+  "v5_uniform_float32_mismatches": 0,
+  "v5_water_pixels_valid": false
+}

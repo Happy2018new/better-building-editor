@@ -1,0 +1,82 @@
+{
+  "alpha_controls": {},
+  "analyzer_sha256": "84d554a0280798061139d598388c56707553c204cea73481bdc02010120fdff9",
+  "animation": {},
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "evidence_valid": true,
+  "geometry": {
+    "full_pool_wet": {
+      "declared": {
+        "bounds": [
+          763,
+          479,
+          1248,
+          849
+        ],
+        "pixels": 114832
+      },
+      "iou": 0.9748295797006715,
+      "maximum_boundary_pixels": 4,
+      "observed": {
+        "bounds": [
+          760,
+          478,
+          1252,
+          852
+        ],
+        "pixels": 117797
+      },
+      "passed": true
+    },
+    "missing_pool_wet": {
+      "declared": {
+        "bounds": [
+          763,
+          479,
+          1248,
+          849
+        ],
+        "pixels": 114832
+      },
+      "iou": 0.9748295797006715,
+      "maximum_boundary_pixels": 4,
+      "observed": {
+        "bounds": [
+          760,
+          478,
+          1252,
+          852
+        ],
+        "pixels": 117797
+      },
+      "passed": true
+    }
+  },
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": false,
+    "geometry": true,
+    "transparency": false
+  },
+  "product_style_accepted": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "aebb558b9a1db242f66edf64e40a3e99cdafaed92e0dc2419cbb54afce5dec67",
+  "transparency": {},
+  "transparency_phase_controlled": true
+}

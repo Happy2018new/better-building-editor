@@ -1,0 +1,20 @@
+{
+  "capture_readbacks": 48,
+  "active_banks": 104,
+  "id_mismatches": 0,
+  "uniform_mismatches": 2,
+  "source_contract_sha256": "20ab6570d676d884753b89ca2d6f35508e17e7dfac47909c245e26e86a5cf272",
+  "cold_matches_launch": true,
+  "root_product_source_resource_matches": true,
+  "root_host_changes": [
+    "tools/analyze_book_body_boundary_r19.py",
+    "tools/analyze_visible_items_r16.py",
+    "tools/probe_book_body_owner_r19.py",
+    "tools/qualify_book_product_r18.py",
+    "tools/run_visible_items_r16.py"
+  ],
+  "float32_uniform_mismatches": [],
+  "native_uniform_contract": "Exact IEEE754 binary32 conversion of cached values; raw differences preserved",
+  "raw_uniform_difference_cause": "Two banks at alpha0.45 read back 0.44999998807907104",
+  "all_native_ids_and_float32_uniforms_match": true
+}

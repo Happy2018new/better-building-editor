@@ -1,0 +1,1108 @@
+{
+  "schema": 1,
+  "passed": true,
+  "completed": true,
+  "views": [
+    {
+      "view": "front",
+      "pose": {
+        "position": [
+          6.5,
+          12.5,
+          12.5
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          12.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          6.5,
+          12.5,
+          12.5
+        ],
+        "rotation": [
+          0.0,
+          1.3660377589985728e-05,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            910,
+            465,
+            1084,
+            640
+          ],
+          "max_boundary_error_pixels": 11
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            840,
+            395,
+            1154,
+            710
+          ],
+          "max_boundary_error_pixels": 81
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_front_signal.png",
+      "shown": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_front_shown.png",
+        "started_at": "2026-10-15T08:49:51.102095+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\a2cb3356e3c24efba4eea98d512bfc5e\\session.json",
+        "owner": "water-final-r19",
+        "game_pid": 50016,
+        "game_identity": "134365266578661503",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 30606596,
+          "pid": 50016,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 608423062195,
+          "frame_qpc_100ns": 608423189580,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          323.7994413711424,
+          639.1536153451066,
+          1290.0022136948014
+        ],
+        "sha256": "256477dbef1e2eb9a7360f130569e9f9828f89e9c937140cfb93c18fa7d5de34",
+        "bytes": 60463,
+        "finished_at": "2026-10-15T08:49:52.011020+00:00",
+        "elapsed_seconds": 0.9089211999962572,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "hidden": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_front_hidden.png",
+        "started_at": "2026-10-15T08:49:52.532211+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\a2cb3356e3c24efba4eea98d512bfc5e\\session.json",
+        "owner": "water-final-r19",
+        "game_pid": 50016,
+        "game_identity": "134365266578661503",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 30606596,
+          "pid": 50016,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 608436610670,
+          "frame_qpc_100ns": 608436704636,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          357.6957671212493,
+          642.4685430572622,
+          1686.885059858618
+        ],
+        "sha256": "cd7f4086c192b8372f5861f7c6db57f1a763322b3376c1baf25b255076bcacd0",
+        "bytes": 229878,
+        "finished_at": "2026-10-15T08:49:53.359612+00:00",
+        "elapsed_seconds": 0.8273980999947526,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "outline_comparison": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_front_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          920,
+          474,
+          1075,
+          629
+        ],
+        "predicted_bounds": [
+          920,
+          476,
+          1074,
+          629
+        ],
+        "boundary_rms_pixels": 1.118033988749895,
+        "mask_iou": 0.9808092581800016,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "view": "right",
+      "pose": {
+        "position": [
+          12.5,
+          12.5,
+          6.5
+        ],
+        "rotation": [
+          -0.0,
+          270.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          12.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          12.5,
+          12.5,
+          6.5
+        ],
+        "rotation": [
+          0.0,
+          -90.0,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            910,
+            465,
+            1084,
+            640
+          ],
+          "max_boundary_error_pixels": 11
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            840,
+            395,
+            1154,
+            710
+          ],
+          "max_boundary_error_pixels": 81
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_right_signal.png",
+      "shown": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_right_shown.png",
+        "started_at": "2026-10-15T08:49:58.713034+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\a2cb3356e3c24efba4eea98d512bfc5e\\session.json",
+        "owner": "water-final-r19",
+        "game_pid": 50016,
+        "game_identity": "134365266578661503",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 30606596,
+          "pid": 50016,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 608498443598,
+          "frame_qpc_100ns": 608498521667,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          360.1646652933037,
+          685.365168337865,
+          1423.1072076394119
+        ],
+        "sha256": "d992f4e13ca6c34e2bb009ece3312d79e2519206b730010826b1ee2bc3f1e46f",
+        "bytes": 118287,
+        "finished_at": "2026-10-15T08:49:59.538141+00:00",
+        "elapsed_seconds": 0.8251037000009092,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "hidden": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_right_hidden.png",
+        "started_at": "2026-10-15T08:49:59.981960+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\a2cb3356e3c24efba4eea98d512bfc5e\\session.json",
+        "owner": "water-final-r19",
+        "game_pid": 50016,
+        "game_identity": "134365266578661503",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 30606596,
+          "pid": 50016,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 608511231886,
+          "frame_qpc_100ns": 608511309394,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          352.0522809007967,
+          623.85448505582,
+          1663.9449336640537
+        ],
+        "sha256": "1dfd50c77e98dce81b8509088cce2af2a1202cdd5a6845e074161005bd49c2c3",
+        "bytes": 231454,
+        "finished_at": "2026-10-15T08:50:00.837866+00:00",
+        "elapsed_seconds": 0.8559029000025475,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "outline_comparison": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_right_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          920,
+          474,
+          1075,
+          629
+        ],
+        "predicted_bounds": [
+          920,
+          476,
+          1074,
+          629
+        ],
+        "boundary_rms_pixels": 1.118033988749895,
+        "mask_iou": 0.9808092581800016,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "view": "tilted",
+      "pose": {
+        "position": [
+          6.5,
+          9.5,
+          12.5
+        ],
+        "rotation": [
+          -26.56505012512207,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          12.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          6.5,
+          9.5,
+          12.5
+        ],
+        "rotation": [
+          -26.565046310424805,
+          1.3660379408975132e-05,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            917,
+            453,
+            1077,
+            646
+          ],
+          "max_boundary_error_pixels": 12
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            853,
+            373,
+            1141,
+            720
+          ],
+          "max_boundary_error_pixels": 91
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_tilted_signal.png",
+      "shown": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_tilted_shown.png",
+        "started_at": "2026-10-15T08:50:06.650002+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\a2cb3356e3c24efba4eea98d512bfc5e\\session.json",
+        "owner": "water-final-r19",
+        "game_pid": 50016,
+        "game_identity": "134365266578661503",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 30606596,
+          "pid": 50016,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 608577933297,
+          "frame_qpc_100ns": 608578035565,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          401.42144897014884,
+          639.5560441333905,
+          1347.861654223945
+        ],
+        "sha256": "00c5df585075945b80b72f86459912faa09703377386447fc5b4760ff7321a26",
+        "bytes": 87600,
+        "finished_at": "2026-10-15T08:50:07.505493+00:00",
+        "elapsed_seconds": 0.8554873000030057,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "hidden": {
+        "schema": 3,
+        "ok": true,
+        "reliable": true,
+        "background_only": false,
+        "backend": "Windows.Graphics.Capture",
+        "native_resolution": true,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_tilted_hidden.png",
+        "started_at": "2026-10-15T08:50:07.999718+00:00",
+        "foreground_policy": "allow_user_foreground",
+        "user_foreground_allowed": true,
+        "agent_activation_allowed": false,
+        "activation_fallback": false,
+        "guarded_no_activation": true,
+        "window_coordinate_units": "physical_pixels",
+        "dpi_awareness": "per_monitor_v2",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\a2cb3356e3c24efba4eea98d512bfc5e\\session.json",
+        "owner": "water-final-r19",
+        "game_pid": 50016,
+        "game_identity": "134365266578661503",
+        "noactivation_requested": true,
+        "window": {
+          "hwnd": 30606596,
+          "pid": 50016,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 283,
+          "y": 264,
+          "width": 1994,
+          "height": 1105,
+          "minimized": false
+        },
+        "helper": {
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+          "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+          "sources": {
+            "burst_main.cpp": "f8f0e2a5196b2e057a5c1c0c5755873e5b89e52c223e4eb4d04a288d4dbf4033",
+            "burst_window_capture.cpp": "016109115f2f5745dc679d338302e9a723ba87aa194f799b5e7b29cfd357ba24",
+            "burst_window_capture.h": "4ca39911944a209489ece21d2a5564103eb319f33fdace4b34f3ace20815f924",
+            "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+            "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+            "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+            "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+            "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+            "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+          }
+        },
+        "guard_before": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_before": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "guard_after": {
+          "foreground": {
+            "hwnd": 1904814,
+            "pid": 11564
+          },
+          "windows": [
+            {
+              "hwnd": 30606596,
+              "pid": 50016,
+              "process": "Minecraft.Windows.exe",
+              "title": "(1994, 1105) Minecraft",
+              "x": 283,
+              "y": 264,
+              "width": 1994,
+              "height": 1105,
+              "minimized": false,
+              "noactivate": true
+            }
+          ],
+          "background_safe": true,
+          "window_noactivate": true
+        },
+        "foreground_after": {
+          "hwnd": 1904814,
+          "pid": 11564
+        },
+        "foreground_unchanged": true,
+        "background_safe": true,
+        "helper_returncode": 0,
+        "helper_stderr": "",
+        "frame": {
+          "ok": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "request_qpc_100ns": 608591266369,
+          "frame_qpc_100ns": 608591368738,
+          "width": 1994,
+          "height": 1105
+        },
+        "width": 1994,
+        "height": 1105,
+        "variance": [
+          367.88640533630644,
+          543.3390496184261,
+          1083.3693553493554
+        ],
+        "sha256": "78b5f15a8bad2be85981b12d442ae36013dff4abbc6b5b26fe0a5217a5f1e2e8",
+        "bytes": 85014,
+        "finished_at": "2026-10-15T08:50:08.827011+00:00",
+        "elapsed_seconds": 0.8272914999979548,
+        "size": [
+          1994,
+          1105
+        ]
+      },
+      "outline_comparison": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\water-final-r19-v1\\calibration_tilted_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          927,
+          464,
+          1068,
+          634
+        ],
+        "predicted_bounds": [
+          927,
+          465,
+          1067,
+          634
+        ],
+        "boundary_rms_pixels": 0.7071067811865476,
+        "mask_iou": 0.9867616218105557,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    }
+  ],
+  "scope": "Exact full native client cube; world blocks and player position untouched",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\a2cb3356e3c24efba4eea98d512bfc5e\\session.json",
+  "native_resolution": true,
+  "skyward_tilted": true,
+  "fixture_lift_y": 64,
+  "environment": {
+    "rules": {
+      "command_blocks_enabled": true,
+      "mob_griefing": true,
+      "enable": true,
+      "keep_inventory": true,
+      "entities_drop_loot": true,
+      "daylight_cycle": false,
+      "random_tick_speed": 1,
+      "mob_spawn": true,
+      "weather_cycle": false,
+      "show_days_played": false,
+      "recipes_unlock": true,
+      "is_flat_world": true,
+      "always_day": false,
+      "skip_night_by_sleeping": true,
+      "player_sleeping_percentage": 100
+    },
+    "raining": false,
+    "thunder": false,
+    "time": 0
+  },
+  "capture_options": {
+    "clouds_during_capture": 0,
+    "clouds_before": 0
+  },
+  "weather_settle_seconds": 10.0,
+  "fixture": {
+    "cube_material": [
+      "minecraft:stone",
+      0
+    ],
+    "projection_origin": [
+      5,
+      11,
+      5
+    ],
+    "cube_cell": [
+      1,
+      1,
+      1
+    ],
+    "cube_size": [
+      3,
+      3,
+      3
+    ],
+    "player_origin": [
+      0,
+      -60,
+      0
+    ]
+  },
+  "fov_convention": "calibrated_vertical",
+  "reported_fov": 60.0,
+  "screen_aspect": 1.8014440433212997,
+  "reported_fov_is_effective": false,
+  "runtime_minecraft_version": "1.21.130.0",
+  "vertical_fov": 66.6,
+  "individual_fitted_vertical_fov": [
+    66.3,
+    66.3,
+    66.6
+  ],
+  "limits": {
+    "boundary_rms_pixels": 2,
+    "mask_iou": 0.95,
+    "outline_recall_2px": 0.985,
+    "outline_precision_2px": 0.985,
+    "source": "Native JPEG edge extraction; complete hull must agree within two pixels in all three views"
+  },
+  "environment_restored": true,
+  "capture_options_restored": true,
+  "projection_restored": true,
+  "camera_restored": true,
+  "visual_restored": true,
+  "editor_restored": true,
+  "cleanup_errors": [],
+  "restored": true
+}

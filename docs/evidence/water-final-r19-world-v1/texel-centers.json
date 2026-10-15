@@ -1,0 +1,196 @@
+{
+  "analyzer_sha256": "90142f635f85fd1ea1edb65c89917f8bac344baf08a2ddf4f0625394148a07f6",
+  "diagnostic_only": true,
+  "grid": {
+    "horizontal_texels": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "pixel_mapping": "u*15+0.5; (1-height)*15+0.5; point texture filter",
+    "vertical_texels": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ]
+  },
+  "product_admission_performed": false,
+  "rows": {
+    "full_pool_wet_east": {
+      "contrast": 8.945803498400869,
+      "correlation": 0.044594757324767746,
+      "negative_mirrored": {
+        "contrast": 8.945803498400869,
+        "correlation": 0.018182444923675115,
+        "passed": false,
+        "rgb_rmse": 13.86477135917224
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.945803498400869,
+        "correlation": -0.14571037180599475,
+        "passed": false,
+        "rgb_rmse": 14.984053193113649
+      },
+      "passed": false,
+      "rgb_rmse": 13.697665810589518,
+      "sample_viewport_bounds": [
+        [
+          [
+            1173.99841895046,
+            1237.1688281021377
+          ],
+          [
+            573.1745416471609,
+            697.3502770173945
+          ]
+        ],
+        [
+          [
+            1078.091714434094,
+            1158.9981241986131
+          ],
+          [
+            647.3299994920716,
+            799.9948838943902
+          ]
+        ]
+      ]
+    },
+    "full_pool_wet_south": {
+      "contrast": 9.138650764163813,
+      "correlation": 1.0,
+      "negative_mirrored": {
+        "contrast": 9.138650764163813,
+        "correlation": -0.16719250279663997,
+        "passed": false,
+        "rgb_rmse": 15.275025004525816
+      },
+      "negative_wrong_phase": {
+        "contrast": 9.138650764163812,
+        "correlation": -0.09418493811879577,
+        "passed": false,
+        "rgb_rmse": 14.802871343087462
+      },
+      "passed": true,
+      "rgb_rmse": 5.394460332738226e-15,
+      "sample_viewport_bounds": [
+        [
+          [
+            780.6402254966041,
+            882.4424078788793
+          ],
+          [
+            604.933665752462,
+            723.0847135965289
+          ]
+        ],
+        [
+          [
+            916.3570029779875,
+            1040.8440535337945
+          ],
+          [
+            666.806585585931,
+            804.0621308741433
+          ]
+        ]
+      ]
+    },
+    "missing_pool_wet_east": {
+      "contrast": 8.945803498400869,
+      "correlation": 0.044594757324767746,
+      "negative_mirrored": {
+        "contrast": 8.945803498400869,
+        "correlation": 0.018182444923675115,
+        "passed": false,
+        "rgb_rmse": 13.86477135917224
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.945803498400869,
+        "correlation": -0.14571037180599475,
+        "passed": false,
+        "rgb_rmse": 14.984053193113649
+      },
+      "passed": false,
+      "rgb_rmse": 13.697665810589518,
+      "sample_viewport_bounds": [
+        [
+          [
+            1173.99841895046,
+            1237.1688281021377
+          ],
+          [
+            573.1745416471609,
+            697.3502770173945
+          ]
+        ],
+        [
+          [
+            1078.091714434094,
+            1158.9981241986131
+          ],
+          [
+            647.3299994920716,
+            799.9948838943902
+          ]
+        ]
+      ]
+    },
+    "missing_pool_wet_south": {
+      "contrast": 9.138650764163813,
+      "correlation": 1.0,
+      "negative_mirrored": {
+        "contrast": 9.138650764163813,
+        "correlation": -0.16719250279663997,
+        "passed": false,
+        "rgb_rmse": 15.275025004525816
+      },
+      "negative_wrong_phase": {
+        "contrast": 9.138650764163812,
+        "correlation": -0.09418493811879577,
+        "passed": false,
+        "rgb_rmse": 14.802871343087462
+      },
+      "passed": true,
+      "rgb_rmse": 5.394460332738226e-15,
+      "sample_viewport_bounds": [
+        [
+          [
+            780.6402254966041,
+            882.4424078788793
+          ],
+          [
+            604.933665752462,
+            723.0847135965289
+          ]
+        ],
+        [
+          [
+            916.3570029779875,
+            1040.8440535337945
+          ],
+          [
+            666.806585585931,
+            804.0621308741433
+          ]
+        ]
+      ]
+    }
+  },
+  "schema": 1,
+  "source_sha256": "aebb558b9a1db242f66edf64e40a3e99cdafaed92e0dc2419cbb54afce5dec67"
+}

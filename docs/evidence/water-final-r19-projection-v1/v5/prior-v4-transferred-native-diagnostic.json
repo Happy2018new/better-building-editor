@@ -1,0 +1,302 @@
+{
+  "acceptance_unchanged": true,
+  "diagnostic_only": true,
+  "limitation": "Numerical API points from invalid-pixel v5 session transferred across identical declared camera, viewport, document origin. Cross-session diagnostic only.",
+  "production_qualified": false,
+  "variants": {
+    "0.0": {
+      "original_east": {
+        "contrast": 8.247183876478003,
+        "correlation": 0.9228447580827067,
+        "negative_constant": {
+          "contrast": 0.0,
+          "correlation": null,
+          "passed": false,
+          "rgb_rmse": 48.56613881396645
+        },
+        "negative_mirrored": {
+          "contrast": 8.247183876478003,
+          "correlation": -0.0809129000755789,
+          "passed": false,
+          "rgb_rmse": 13.541271221210028
+        },
+        "negative_wrong_phase": {
+          "contrast": 8.247183876478003,
+          "correlation": -0.04440020911086257,
+          "passed": false,
+          "rgb_rmse": 13.319196479151007
+        },
+        "passed": true,
+        "rgb_rmse": 3.6978778512105137
+      },
+      "original_south": {
+        "contrast": 7.996991400844737,
+        "correlation": 0.9634060650841926,
+        "negative_constant": {
+          "contrast": 2.842170943040401e-14,
+          "correlation": -1.9000996453497998e-15,
+          "passed": false,
+          "rgb_rmse": 48.14194864345609
+        },
+        "negative_mirrored": {
+          "contrast": 7.996991400844737,
+          "correlation": -0.1489090229897022,
+          "passed": false,
+          "rgb_rmse": 13.318742188151582
+        },
+        "negative_wrong_phase": {
+          "contrast": 7.996991400844737,
+          "correlation": -0.05205315821660341,
+          "passed": false,
+          "rgb_rmse": 12.756462502718573
+        },
+        "passed": true,
+        "rgb_rmse": 2.383367232116026
+      },
+      "texel_centers_east": {
+        "contrast": 9.080856092328345,
+        "correlation": 0.9994343007514609,
+        "negative_constant": {
+          "contrast": 0.0,
+          "correlation": null,
+          "passed": false,
+          "rgb_rmse": 48.699408663654374
+        },
+        "negative_mirrored": {
+          "contrast": 9.080856092328345,
+          "correlation": -0.17059729638280283,
+          "passed": false,
+          "rgb_rmse": 15.249084194836295
+        },
+        "negative_wrong_phase": {
+          "contrast": 9.080856092328345,
+          "correlation": -0.05562827719958005,
+          "passed": false,
+          "rgb_rmse": 14.478594793616132
+        },
+        "passed": true,
+        "rgb_rmse": 0.34787260694471084
+      },
+      "texel_centers_south": {
+        "contrast": 9.138650764163813,
+        "correlation": 1.0,
+        "negative_constant": {
+          "contrast": 0.0,
+          "correlation": null,
+          "passed": false,
+          "rgb_rmse": 48.6843920613367
+        },
+        "negative_mirrored": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.16719250279663997,
+          "passed": false,
+          "rgb_rmse": 15.275025004525816
+        },
+        "negative_wrong_phase": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.05061322525867034,
+          "passed": false,
+          "rgb_rmse": 14.489699406436591
+        },
+        "passed": true,
+        "rgb_rmse": 0.0
+      }
+    },
+    "0.5": {
+      "original_east": {
+        "contrast": 8.012996773851505,
+        "correlation": 0.93705014290488,
+        "negative_constant": {
+          "contrast": 2.842170943040401e-14,
+          "correlation": 4.1454527464528826e-16,
+          "passed": false,
+          "rgb_rmse": 48.24034509820206
+        },
+        "negative_mirrored": {
+          "contrast": 8.012996773851505,
+          "correlation": -0.15863035084608348,
+          "passed": false,
+          "rgb_rmse": 13.46349554520118
+        },
+        "negative_wrong_phase": {
+          "contrast": 8.012996773851505,
+          "correlation": -0.022647522844876207,
+          "passed": false,
+          "rgb_rmse": 12.658365588372273
+        },
+        "passed": true,
+        "rgb_rmse": 3.1498727726276847
+      },
+      "original_south": {
+        "contrast": 8.158799696066012,
+        "correlation": 0.9492226198204802,
+        "negative_constant": {
+          "contrast": 4.263256414560601e-14,
+          "correlation": 1.054450699951585e-15,
+          "passed": false,
+          "rgb_rmse": 48.38523574378866
+        },
+        "negative_mirrored": {
+          "contrast": 8.158799696066012,
+          "correlation": -0.1079710224859788,
+          "passed": false,
+          "rgb_rmse": 13.493993378397844
+        },
+        "negative_wrong_phase": {
+          "contrast": 8.158799696066012,
+          "correlation": -0.05092748116753549,
+          "passed": false,
+          "rgb_rmse": 13.159580644868523
+        },
+        "passed": true,
+        "rgb_rmse": 2.9280922504339943
+      },
+      "texel_centers_east": {
+        "contrast": 9.138650764163813,
+        "correlation": 1.0,
+        "negative_constant": {
+          "contrast": 0.0,
+          "correlation": null,
+          "passed": false,
+          "rgb_rmse": 48.6843920613367
+        },
+        "negative_mirrored": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.16719250279663997,
+          "passed": false,
+          "rgb_rmse": 15.275025004525816
+        },
+        "negative_wrong_phase": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.05061322525867034,
+          "passed": false,
+          "rgb_rmse": 14.489699406436591
+        },
+        "passed": true,
+        "rgb_rmse": 0.0
+      },
+      "texel_centers_south": {
+        "contrast": 9.138650764163813,
+        "correlation": 1.0,
+        "negative_constant": {
+          "contrast": 0.0,
+          "correlation": null,
+          "passed": false,
+          "rgb_rmse": 48.6843920613367
+        },
+        "negative_mirrored": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.16719250279663997,
+          "passed": false,
+          "rgb_rmse": 15.275025004525816
+        },
+        "negative_wrong_phase": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.05061322525867034,
+          "passed": false,
+          "rgb_rmse": 14.489699406436591
+        },
+        "passed": true,
+        "rgb_rmse": 0.0
+      }
+    },
+    "1.0": {
+      "original_east": {
+        "contrast": 8.38389543834848,
+        "correlation": 0.9593241694078826,
+        "negative_constant": {
+          "contrast": 0.0,
+          "correlation": null,
+          "passed": false,
+          "rgb_rmse": 48.402831552436965
+        },
+        "negative_mirrored": {
+          "contrast": 8.38389543834848,
+          "correlation": -0.11056029826309345,
+          "passed": false,
+          "rgb_rmse": 13.808099089592826
+        },
+        "negative_wrong_phase": {
+          "contrast": 8.38389543834848,
+          "correlation": -0.030134006614616394,
+          "passed": false,
+          "rgb_rmse": 13.310715814980991
+        },
+        "passed": true,
+        "rgb_rmse": 2.654350974695669
+      },
+      "original_south": {
+        "contrast": 8.605515096477921,
+        "correlation": 0.9833039727268118,
+        "negative_constant": {
+          "contrast": 1.4210854715202004e-14,
+          "correlation": -9.167296509245957e-16,
+          "passed": false,
+          "rgb_rmse": 48.54290912674293
+        },
+        "negative_mirrored": {
+          "contrast": 8.605515096477921,
+          "correlation": -0.08924886603805847,
+          "passed": false,
+          "rgb_rmse": 13.996923619208049
+        },
+        "negative_wrong_phase": {
+          "contrast": 8.605515096477921,
+          "correlation": -0.03368207220011659,
+          "passed": false,
+          "rgb_rmse": 13.652245867515727
+        },
+        "passed": true,
+        "rgb_rmse": 1.7488885954484272
+      },
+      "texel_centers_east": {
+        "contrast": 9.138650764163813,
+        "correlation": 1.0,
+        "negative_constant": {
+          "contrast": 0.0,
+          "correlation": null,
+          "passed": false,
+          "rgb_rmse": 48.6843920613367
+        },
+        "negative_mirrored": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.16719250279663997,
+          "passed": false,
+          "rgb_rmse": 15.275025004525816
+        },
+        "negative_wrong_phase": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.05061322525867034,
+          "passed": false,
+          "rgb_rmse": 14.489699406436591
+        },
+        "passed": true,
+        "rgb_rmse": 0.0
+      },
+      "texel_centers_south": {
+        "contrast": 9.138650764163813,
+        "correlation": 1.0,
+        "negative_constant": {
+          "contrast": 0.0,
+          "correlation": null,
+          "passed": false,
+          "rgb_rmse": 48.6843920613367
+        },
+        "negative_mirrored": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.16719250279663997,
+          "passed": false,
+          "rgb_rmse": 15.275025004525816
+        },
+        "negative_wrong_phase": {
+          "contrast": 9.138650764163813,
+          "correlation": -0.05061322525867034,
+          "passed": false,
+          "rgb_rmse": 14.489699406436591
+        },
+        "passed": true,
+        "rgb_rmse": 0.0
+      }
+    }
+  }
+}

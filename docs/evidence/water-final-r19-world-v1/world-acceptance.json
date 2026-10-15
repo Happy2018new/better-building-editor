@@ -1,0 +1,188 @@
+{
+  "budgets": {
+    "LiquidControls.update": {
+      "maximum_ms": null,
+      "p95_ms": null,
+      "p99_ms": null,
+      "passed": false,
+      "samples": 0
+    },
+    "LiquidPreview.advance": {
+      "maximum_ms": null,
+      "p95_ms": null,
+      "p99_ms": null,
+      "passed": false,
+      "samples": 0
+    },
+    "LiquidProjection.advance": {
+      "maximum_ms": 85.99996566772461,
+      "p95_ms": 0.0,
+      "p99_ms": 0.9999275207519531,
+      "passed": true,
+      "samples": 31809
+    },
+    "WorldLiquidRenderer.advance": {
+      "maximum_ms": 85.99996566772461,
+      "p95_ms": 0.0,
+      "p99_ms": 0.0,
+      "passed": true,
+      "samples": 31805
+    }
+  },
+  "evidence_valid": true,
+  "lifecycle": {
+    "full_pool_dry": true,
+    "full_pool_wet": true,
+    "missing_pool_dry": true,
+    "missing_pool_wet": true
+  },
+  "limits": {
+    "maximum_groups": 256,
+    "owner_max_ms": 100.0,
+    "owner_p95_ms": 5.0,
+    "owner_p99_ms": 16.7,
+    "restored_rgb_rmse": 2.0,
+    "side_correlation": 0.85,
+    "side_minimum_contrast": 1.0,
+    "side_rgb_rmse": 8.0
+  },
+  "maximum_observed_groups": 8,
+  "model_budget_passed": true,
+  "passed": false,
+  "schema": 1,
+  "scope": "Public isolated pool and partial-solid controls; CPU calls exclude IPC and screenshots",
+  "side_uv": {
+    "full_pool_wet_east": {
+      "background_control": "full_pool_dry",
+      "contrast": 8.458383557538687,
+      "correlation": 0.644173570363152,
+      "negative_constant": {
+        "contrast": 1.4210854715202004e-14,
+        "correlation": -5.333622457035101e-17,
+        "passed": false,
+        "rgb_rmse": 48.42630185739655
+      },
+      "negative_mirrored": {
+        "contrast": 8.458383557538687,
+        "correlation": 0.052201296289170314,
+        "passed": false,
+        "rgb_rmse": 12.815020719819357
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.458383557538687,
+        "correlation": -0.061998889531383376,
+        "passed": false,
+        "rgb_rmse": 13.583792591211886
+      },
+      "opaque_control": "full_pool_wet_side_opaque",
+      "passed": false,
+      "rgb_rmse": 7.875122883121514,
+      "surface_opacity": 1.0
+    },
+    "full_pool_wet_south": {
+      "background_control": "full_pool_dry",
+      "contrast": 8.47664650878747,
+      "correlation": 0.8308784313032587,
+      "negative_constant": {
+        "contrast": 0.0,
+        "correlation": null,
+        "passed": false,
+        "rgb_rmse": 48.40850707383976
+      },
+      "negative_mirrored": {
+        "contrast": 8.476646508787471,
+        "correlation": -0.1288536280158298,
+        "passed": false,
+        "rgb_rmse": 14.17420350210861
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.476646508787471,
+        "correlation": 0.025158682168644083,
+        "passed": false,
+        "rgb_rmse": 13.180848296489959
+      },
+      "opaque_control": "full_pool_wet_side_opaque",
+      "passed": false,
+      "rgb_rmse": 5.540394699992021,
+      "surface_opacity": 1.0
+    },
+    "missing_pool_wet_east": {
+      "background_control": "missing_pool_dry",
+      "contrast": 8.458383557538687,
+      "correlation": 0.644173570363152,
+      "negative_constant": {
+        "contrast": 1.4210854715202004e-14,
+        "correlation": -5.333622457035101e-17,
+        "passed": false,
+        "rgb_rmse": 48.42630185739655
+      },
+      "negative_mirrored": {
+        "contrast": 8.458383557538687,
+        "correlation": 0.052201296289170314,
+        "passed": false,
+        "rgb_rmse": 12.815020719819357
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.458383557538687,
+        "correlation": -0.061998889531383376,
+        "passed": false,
+        "rgb_rmse": 13.583792591211886
+      },
+      "opaque_control": "missing_pool_wet_side_opaque",
+      "passed": false,
+      "rgb_rmse": 7.875122883121514,
+      "surface_opacity": 1.0
+    },
+    "missing_pool_wet_south": {
+      "background_control": "missing_pool_dry",
+      "contrast": 8.47664650878747,
+      "correlation": 0.8308784313032587,
+      "negative_constant": {
+        "contrast": 0.0,
+        "correlation": null,
+        "passed": false,
+        "rgb_rmse": 48.40850707383976
+      },
+      "negative_mirrored": {
+        "contrast": 8.476646508787471,
+        "correlation": -0.1288536280158298,
+        "passed": false,
+        "rgb_rmse": 14.17420350210861
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.476646508787471,
+        "correlation": 0.025158682168644083,
+        "passed": false,
+        "rgb_rmse": 13.180848296489959
+      },
+      "opaque_control": "missing_pool_wet_side_opaque",
+      "passed": false,
+      "rgb_rmse": 5.540394699992021,
+      "surface_opacity": 1.0
+    }
+  },
+  "source_sha256": "aebb558b9a1db242f66edf64e40a3e99cdafaed92e0dc2419cbb54afce5dec67",
+  "source_unchanged": true,
+  "visibility": {
+    "full_pool_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 114976,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 8,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 114976
+    },
+    "missing_pool_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 114976,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 8,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 114976
+    }
+  }
+}
