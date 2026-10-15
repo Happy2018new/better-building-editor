@@ -50,7 +50,8 @@ def main():
     sources = snapshot_sources(project)
     assert sources == launch['files'], 'Cold project changed after launch'
     data_sources = host_data(project)
-    record = {'schema': 1, 'phase': args.phase, 'completed': False,
+    record = {'schema': 2, 'phase': args.phase, 'process_completed': False,
+              'completed': None, 'passed': None, 'restored': None,
               'session': {key: session[key] for key in ('owner', 'session_file', 'game_pid',
                   'game_identity', 'mcdk_pid', 'mcdk_identity')},
               'project': str(project), 'source_contract_sha256': snapshot_digest(sources),
@@ -111,7 +112,12 @@ def main():
         with (args.output / 'stdout.txt').open('w', encoding='utf8') as stdout, \
                 (args.output / 'stderr.txt').open('w', encoding='utf8') as stderr:
             process = subprocess.run(command, cwd=project, env=env, stdout=stdout, stderr=stderr)
-        record.update(returncode=process.returncode, completed=True)
+        record.update(returncode=process.returncode, process_completed=True)
+        report_path = args.output / 'report.json'
+        if report_path.is_file():
+            actual = json.loads(report_path.read_bytes())
+            record.update({key: actual.get(key) for key in ('completed', 'passed', 'restored')})
+            record['report_sha256'] = hashlib.sha256(report_path.read_bytes()).hexdigest()
     finally:
         record['elapsed_seconds'] = time.monotonic() - started
         record['source_unchanged'] = snapshot_sources(project) == sources
@@ -119,7 +125,8 @@ def main():
         record['input_file_sha256'] = {path.relative_to(frozen).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
                                        for path in sorted(frozen.rglob('*')) if path.is_file()}
         write(args.output / 'receipt.json', record)
-    print(json.dumps({key: record[key] for key in ('phase', 'completed', 'returncode', 'source_unchanged', 'elapsed_seconds')}))
+    print(json.dumps({key: record[key] for key in ('phase', 'process_completed', 'completed',
+        'passed', 'restored', 'returncode', 'source_unchanged', 'elapsed_seconds')}))
     return process.returncode
 
 

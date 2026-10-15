@@ -1,0 +1,193 @@
+"""Generate the closed, disabled liquid deployment from a concrete resource bundle."""
+import argparse
+import json
+from pathlib import Path, PureWindowsPath
+import pprint
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
+from projection import block_registry, liquid_shape_data, liquid_face_texture_data, liquid_flow_top_data
+from generate_liquid_payload_poc import source_snapshot
+from generate_liquid_skeleton_resources import digest
+
+TEMPLATE = 'native_water_side_nw_bottom_edges_v1'
+
+
+def native_fingerprints(values):
+    normalized = {}
+    for reference, fingerprint in values.items():
+        path = PureWindowsPath(reference)
+        if path.root or path.drive or '..' in path.parts:
+            raise ValueError('Native texture source fingerprints must use relative paths')
+        name = path.as_posix()
+        if name in normalized:
+            raise ValueError('Native texture source fingerprints repeat a path')
+        normalized[name] = fingerprint
+    return normalized
+
+
+def native_source_root(contract):
+    artwork = contract['textures']['still_water_grey']
+    texture = PureWindowsPath(artwork['flipbook']['flipbook_texture'] + '.png')
+    if texture.root or texture.drive or '..' in texture.parts:
+        raise ValueError('Native liquid artwork must use a relative resource path')
+    relative = PureWindowsPath('resource_packs/vanilla') / texture
+    archived = PureWindowsPath(artwork['source'])
+    if (not archived.root or '..' in archived.parts or len(archived.parts) <= len(relative.parts)
+            or archived.parts[-len(relative.parts):] != relative.parts):
+        raise ValueError('Native liquid artwork source differs from its metadata path')
+    return archived.parents[len(relative.parts) - 1]
+
+
+def resource_profile(contract, frozen=False, flowing_top=False):
+    if not contract.get('world_bone_matrix') or not contract.get('preview_depth'):
+        raise ValueError('Deployment needs both existing UI-depth and world-bone resource paths')
+    models, capabilities = [], []
+    suffix = '_frozen' if frozen else ''
+    for texture, template in (('still_water_grey', None), ('flowing_water_grey', TEMPLATE)):
+        model = 'modern_projection_liquid_' + texture + suffix
+        if model not in contract['models'] or model + '_world' not in contract['models']:
+            raise ValueError('Deployment bundle lacks separate UI/world artwork models: ' + texture)
+        for name, transform in ((model, 'native_ui_neg_x_neg_z_neg_y_center1_5'),
+                                (model + '_world', 'native_bone_after_reverse_z')):
+            options = contract['model_options'].get(name, {})
+            if (options.get('texture') != texture or options.get('transform') != transform
+                    or options.get('uv_rotations') != [0]
+                    or options.get('preview_depth') is not (name == model)):
+                raise ValueError('Deployment model transform/depth/rotation differs: ' + name)
+        models.append((texture, template, model, model + '_world'))
+        capabilities.append((texture, template, (0,)))
+    candidate = contract.get('flow_top_candidate')
+    if flowing_top:
+        from generate_liquid_flow_top import SAMPLING, DEFAULT_SOURCE
+        if (not isinstance(candidate, dict) or candidate.get('candidate_sha256') != liquid_flow_top_data.CANDIDATE_SHA256
+                or candidate.get('source_file') != DEFAULT_SOURCE.relative_to(ROOT).as_posix()
+                or candidate.get('template') != liquid_flow_top_data.TEMPLATE
+                or candidate.get('sampling') != SAMPLING
+                or any(candidate.get(flag) is not False for flag in
+                       ('native_direction_verified', 'native_uv_accepted', 'production_accepted'))):
+            raise ValueError('Deployment flow top differs from its explicit unverified candidate')
+        model = 'modern_projection_liquid_flowing_water_grey_top' + suffix
+        for name, transform in ((model, 'native_ui_neg_x_neg_z_neg_y_center1_5'),
+                                (model + '_world', 'native_bone_after_reverse_z')):
+            options = contract['model_options'].get(name, {})
+            expected_sampling = dict(SAMPLING, pixel_coordinates='liquidUv*FRAME_PIXELS')
+            if (name not in contract['models'] or options.get('texture') != 'flowing_water_grey'
+                    or options.get('transform') != transform or options.get('uv_rotations') != list(range(256))
+                    or options.get('uv_template') != candidate['template'] or options.get('faces') != [0]
+                    or options.get('sampling') != expected_sampling
+                    or options.get('preview_depth') is not (name == model)):
+                raise ValueError('Deployment flow top model transform/depth/rotation/sampling differs: ' + name)
+        models.append(('flowing_water_grey', candidate['template'], model, model + '_world'))
+        capabilities.append(('flowing_water_grey', candidate['template'], tuple(range(256))))
+    result = {'schema_version': 2, 'payload_version': contract['payload_version'],
+            'game_version': block_registry.source_version(),
+            'palette_sha256': block_registry.fingerprint(),
+            'shape_candidate_sha256': liquid_shape_data.CANDIDATE_SHA256,
+            'face_texture_rows_sha256': liquid_face_texture_data.RESOURCE_ROWS_SHA256,
+            'models': tuple(models), 'uv_rotations': tuple(capabilities),
+            'supported_names': ('minecraft:water', 'minecraft:flowing_water'),
+            'side_templates': {'flowing_water_grey': (TEMPLATE, 0)},
+            'world_scale': (16., 16., 16.), 'world_rotation': (0., 0., 0.),
+            'max_groups': 256}
+    if flowing_top:
+        result['flow_top_candidate_sha256'] = candidate['candidate_sha256']
+        result['top_templates'] = {'flowing_water_grey': candidate['template']}
+    return result
+
+
+def verify_installed_resources(path, project):
+    contract = json.loads(path.read_bytes())
+    for relative, expected in contract['output_sha256'].items():
+        installed = project / relative
+        if relative in ('resource_pack/materials/entity.material', 'resource_pack/models/netease_models.json'):
+            generated = json.loads((path.parent / relative).read_bytes())
+            current = json.loads(installed.read_bytes())
+            if relative.endswith('entity.material'):
+                generated, current = generated['materials'], current['materials']
+            if any(current.get(name) != value for name, value in generated.items()):
+                raise ValueError('Installed liquid model/material differs from the bundle: ' + relative)
+        elif digest(installed) != expected:
+            raise ValueError('Installed liquid resource differs from the bundle: ' + relative)
+
+
+def runtime_source(path, native, project=ROOT):
+    contract = json.loads(path.read_bytes())
+    snapshot = source_snapshot(native)
+    if (native_fingerprints(contract['native_source_sha256']) !=
+            native_fingerprints(snapshot['native_source_sha256']) or
+            any(contract.get(key) != snapshot[key] for key in
+                ('native_atlas_entries', 'native_flipbook_entries'))):
+        raise ValueError('Deployment native texture metadata differs from installed bytes')
+    if contract['generator_sha256'] != digest(ROOT / 'tools/generate_liquid_skeleton_resources.py'):
+        raise ValueError('Deployment resource generator differs from the concrete bundle')
+    original_native = native_source_root(contract)
+    if contract.get('flow_top_candidate') is not None:
+        from generate_liquid_flow_top import DEFAULT_SOURCE, validate, verify_native, digest as candidate_digest
+        candidate = contract['flow_top_candidate']
+        if candidate.get('source_file') != DEFAULT_SOURCE.relative_to(ROOT).as_posix():
+            raise ValueError('Deployment flow top needs its versioned relative source file')
+        source_path = project / candidate['source_file']
+        data = validate(json.loads(source_path.read_bytes()),
+                        json.loads((ROOT / 'tools/data/block_registry_manifest.json').read_bytes()))
+        verify_native(data, native)
+        if (digest(source_path) != candidate['source_sha256'] or candidate_digest(data) != candidate['candidate_sha256']
+                or digest(ROOT / 'tools/generate_liquid_flow_top.py') != candidate['generator_sha256']
+                or digest(project / 'behavior_pack/modern_projection/projection/liquid_flow_top.py') != candidate['implementation_sha256']
+                or data['native_source_sha256'] != candidate['native_source_sha256']):
+            raise ValueError('Deployment flow top candidate source or generator differs from the bundle')
+    for reference, expected in contract['source_sha256'].items():
+        archived = PureWindowsPath(reference)
+        if archived.name == 'modern_projection_liquid_preview_depth.h':
+            current = project / 'resource_pack/shaders/glsl/modern_projection_liquid_preview_depth.h'
+        else:
+            relative = archived.relative_to(original_native)
+            if relative.root or relative.drive or '..' in relative.parts:
+                raise ValueError('Native liquid resource source escapes the selected installation')
+            current = native.joinpath(*relative.parts)
+        if digest(current) != expected:
+            raise ValueError('Deployment resource source differs from the concrete bundle: ' + reference)
+    for relative, expected in contract['output_sha256'].items():
+        if digest(path.parent / relative) != expected:
+            raise ValueError('Deployment resource bytes differ from the bundle: ' + relative)
+    for key in ('still_water_grey', 'flowing_water_grey'):
+        texture = contract['textures'][key]
+        relative = PureWindowsPath(texture['flipbook']['flipbook_texture'] + '.png')
+        if relative.root or relative.drive or '..' in relative.parts:
+            raise ValueError('Native liquid artwork must use a relative resource path')
+        archived = PureWindowsPath(texture['source'])
+        if ('..' in archived.parts or archived.relative_to(original_native) !=
+                PureWindowsPath('resource_packs/vanilla') / relative):
+            raise ValueError('Native liquid artwork source differs from its metadata path')
+        source = native.joinpath('resource_packs', 'vanilla', *relative.parts)
+        if digest(source) != texture['sha256']:
+            raise ValueError('Deployment liquid artwork differs from installed bytes: ' + key)
+    verify_installed_resources(path, project)
+    resources = resource_profile(contract)
+    frozen = resource_profile(contract, True)['models']
+    result = ('"""Generated native liquid resources; visible qualification is still required."""\n'
+            'PRODUCTION_QUALIFIED = False\nQUALIFICATION_SHA256 = None\n'
+            'QUALIFICATION_RESOURCE_CONTRACT_SHA256 = None\n'
+            'RESOURCE_CONTRACT_SHA256 = %r\nRESOURCES = %s\nFROZEN_MODELS = %s\n' %
+            (digest(path), pprint.pformat(resources, width=100, sort_dicts=True),
+             pprint.pformat(frozen, width=100)))
+    top_resources = resource_profile(contract, flowing_top=True) if contract.get('flow_top_candidate') else None
+    top_frozen = resource_profile(contract, True, True)['models'] if top_resources else None
+    return result + 'FLOWING_TOP_RESOURCES = %s\nFROZEN_FLOWING_TOP_MODELS = %s\n' % (
+        pprint.pformat(top_resources, width=100, sort_dicts=True), pprint.pformat(top_frozen, width=100))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--contract', type=Path, required=True)
+    parser.add_argument('--native-data', type=Path, required=True)
+    parser.add_argument('--output', type=Path,
+                        default=ROOT / 'behavior_pack/modern_projection/projection/liquid_resource_data.py')
+    args = parser.parse_args()
+    args.output.write_text(runtime_source(args.contract, args.native_data), encoding='ascii')
+    print('Generated liquid deployment: production qualification gate closed')
+
+
+if __name__ == '__main__':
+    main()

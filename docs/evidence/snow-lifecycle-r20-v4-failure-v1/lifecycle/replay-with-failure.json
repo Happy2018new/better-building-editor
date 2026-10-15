@@ -1,0 +1,350 @@
+{
+  "schema": 1,
+  "capture_count": 18,
+  "capture_bytes_verified": true,
+  "original_completed": false,
+  "original_passed": false,
+  "original_restored": true,
+  "original_cleanup_errors": [],
+  "pixels_replayed": true,
+  "workflow_accepted": false,
+  "production_accepted": false,
+  "qualification_changed": false,
+  "responses": {
+    "ui_hiding": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 1958
+      }
+    ],
+    "ui_showing": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 1958
+      }
+    ],
+    "control_plant": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 21164
+      }
+    ],
+    "control_snow": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 18618
+      }
+    ],
+    "control_covered": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 38360
+      }
+    ],
+    "strict_front_erase": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 25602
+      }
+    ],
+    "strict_front_undo": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 42126
+      }
+    ],
+    "strict_front_redo": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 25602
+      }
+    ],
+    "strict_front_restore": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 42126
+      }
+    ],
+    "strict_back_erase": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 22547
+      }
+    ],
+    "strict_back_undo": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 42126
+      }
+    ],
+    "auto_remove_snow": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 25602
+      }
+    ],
+    "auto_add_snow": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 42126
+      }
+    ]
+  },
+  "controls": {
+    "plant": {
+      "passed": true,
+      "expected_pixels": 21816,
+      "observed_pixels": 21164,
+      "recall": 1.0,
+      "precision": 1.0,
+      "edge_tolerance_pixels": 3,
+      "minimum_observable_pixels": 80,
+      "expected_empty": false
+    },
+    "snow": {
+      "passed": true,
+      "expected_visible_side_pixels": 18628,
+      "side_recall": 1.0,
+      "full_hull_diagnostic": {
+        "passed": false,
+        "expected_pixels": 37636,
+        "observed_pixels": 18618,
+        "recall": 0.5564618981825912,
+        "precision": 1.0,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      },
+      "minimum_side_recall": 0.9,
+      "minimum_hull_precision": 0.98,
+      "full_hull_recall_required": false,
+      "method": "Independent affine snow sides and complete hull; white top contrast is not guaranteed"
+    },
+    "covered": {
+      "height": 0,
+      "passed": true,
+      "valid_baseline": true,
+      "checks": {
+        "observable_controls": true,
+        "foliage_stays_at_standalone_position": true,
+        "remaining_foliage_matches_standalone": true,
+        "snow_stays_at_control_position": true,
+        "plant_contributes_beyond_snow": true,
+        "upper_foliage_retained": true
+      },
+      "failures": [],
+      "plant_pixels": 21164,
+      "snow_pixels": 37636,
+      "covered_contribution_pixels": 19742,
+      "upper_pixels": 18860,
+      "standalone_uncovered_pixels": 17943,
+      "fully_occluded_by_snow_control": false,
+      "lower_pixels": 3204,
+      "upper_retained": 1.0,
+      "lower_retained": 0.5561797752808989,
+      "lower_snow_control_coverage": 0.9662921348314607,
+      "outside_standalone_ratio": 0.0,
+      "remaining_color_match": 1.0,
+      "upper_geometry": "native alpha texels above snow",
+      "upper_edge_tolerance_pixels": 3,
+      "snow_outside_plant_retained": 1.0,
+      "limits": {
+        "minimum_baseline_pixels": 80,
+        "upper_retention": 0.65,
+        "high_lower_retention": 0.25,
+        "high_lower_snow_coverage": 0.65,
+        "outside_standalone_ratio": 0.15,
+        "color_match": 0.6,
+        "snow_retention": 0.9
+      }
+    }
+  },
+  "steps": [
+    {
+      "label": "strict_front_erase",
+      "checks": {
+        "passed": true,
+        "expected_pixels": 21164,
+        "observed_pixels": 25602,
+        "recall": 1.0,
+        "precision": 0.8317709553941098,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      }
+    },
+    {
+      "label": "strict_front_undo",
+      "checks": {
+        "passed": true,
+        "expected_pixels": 38360,
+        "observed_pixels": 42126,
+        "recall": 1.0,
+        "precision": 0.9248919906945829,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      }
+    },
+    {
+      "label": "strict_front_redo",
+      "checks": {
+        "passed": true,
+        "expected_pixels": 21164,
+        "observed_pixels": 25602,
+        "recall": 1.0,
+        "precision": 0.8317709553941098,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      }
+    },
+    {
+      "label": "strict_front_restore",
+      "checks": {
+        "passed": true,
+        "expected_pixels": 38360,
+        "observed_pixels": 42126,
+        "recall": 1.0,
+        "precision": 0.9248919906945829,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      }
+    },
+    {
+      "label": "strict_back_erase",
+      "checks": {
+        "passed": true,
+        "expected_pixels": 18618,
+        "observed_pixels": 22547,
+        "recall": 1.0,
+        "precision": 0.846764536301947,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      }
+    },
+    {
+      "label": "strict_back_undo",
+      "checks": {
+        "passed": true,
+        "expected_pixels": 38360,
+        "observed_pixels": 42126,
+        "recall": 1.0,
+        "precision": 0.9248919906945829,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      }
+    },
+    {
+      "label": "auto_remove_snow",
+      "checks": {
+        "passed": true,
+        "expected_pixels": 21164,
+        "observed_pixels": 25602,
+        "recall": 1.0,
+        "precision": 0.8317709553941098,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      }
+    },
+    {
+      "label": "auto_add_snow",
+      "checks": {
+        "passed": true,
+        "expected_pixels": 38360,
+        "observed_pixels": 42126,
+        "recall": 1.0,
+        "precision": 0.9248919906945829,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      }
+    }
+  ],
+  "failed_step": {
+    "label": "saved_library_load",
+    "responses": [
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 37667
+      },
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 37667
+      },
+      {
+        "native_clock_advanced": true,
+        "render_ticks_advanced": true,
+        "changed_pixels_replayed": true,
+        "changed_pixels": 37667
+      }
+    ],
+    "checks": [
+      {
+        "passed": false,
+        "expected_pixels": 38360,
+        "observed_pixels": 37667,
+        "recall": 0.21238269030239834,
+        "precision": 0.21044946504898188,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      },
+      {
+        "passed": false,
+        "expected_pixels": 38360,
+        "observed_pixels": 37667,
+        "recall": 0.21238269030239834,
+        "precision": 0.21044946504898188,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      },
+      {
+        "passed": false,
+        "expected_pixels": 38360,
+        "observed_pixels": 37667,
+        "recall": 0.21238269030239834,
+        "precision": 0.21044946504898188,
+        "edge_tolerance_pixels": 3,
+        "minimum_observable_pixels": 80,
+        "expected_empty": false
+      }
+    ],
+    "accepted": false
+  }
+}

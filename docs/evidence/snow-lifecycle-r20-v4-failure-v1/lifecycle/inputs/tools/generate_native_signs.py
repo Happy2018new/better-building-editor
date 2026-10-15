@@ -1,0 +1,111 @@
+"""Retain native sign pose/style observations and generate versioned templates."""
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'behavior_pack/modern_projection'))
+from projection import block_registry as registry
+from projection.nbt_spatial import root_payload, scalar
+
+POSE_FIELDS = ('signStandingRotation','facingDirection','signHangingSignBit','signAttachedSignBit')
+STYLE_FIELDS = (('Text','signRealText',8),('SignTextColor','signColor',3),
+                ('IgnoreLighting','signGlowing',1),('PersistFormatting','signShouldPersistFormatting',1),
+                ('HideGlowOutline','signHideGlowOutline',1))
+
+
+def read_report(path):
+    raw=path.read_bytes()
+    data=json.loads(raw)
+    native=data.get('native',{})
+    if (data.get('schema')!=1 or not data.get('completed') or not data.get('cleanup',{}).get('cleaned') or
+            native.get('game_version')!=registry.source_version() or
+            native.get('palette_sha256')!=registry.fingerprint()):
+        raise ValueError('A completed, restored matching native sign report is required')
+    return data,hashlib.sha256(raw).hexdigest()
+
+
+def row_actor(row):
+    if row['block']!={'name':row['name'],'aux':row.get('aux',row['block']['aux'])}:
+        raise ValueError('Sign state changed during the native probe')
+    value=(row['name'],row['block']['aux'])
+    state=registry.states(value)
+    observed=row['palette']['states']
+    if len(observed)!=1 or tuple(observed[0]['material'])!=value or observed[0]['value']!=state:
+        raise ValueError('Client sign states do not match the native registry')
+    actors=row['palette']['actor'].get(row['name'],{})
+    if len(actors)!=1:
+        raise ValueError('Expected one native sign actor')
+    actor=next(iter(actors.values()))
+    if 'ground_sign_direction' in state and actor['signStandingRotation']!=state['ground_sign_direction']:
+        raise ValueError('Native standing sign angle mapping changed')
+    if 'facing_direction' in state and actor['facingDirection']!=state['facing_direction']:
+        raise ValueError('Native sign face mapping changed')
+    if 'hanging' in state:
+        if actor['signHangingSignBit']!=(not state['hanging']) or actor['signAttachedSignBit']!=(state['hanging'] and state['attached_bit']):
+            raise ValueError('Native hanging sign pose mapping changed')
+    return actor
+
+
+def generate(styles_path,poses_path,target,snapshot,check):
+    styles,styles_hash=read_report(styles_path)
+    poses,poses_hash=read_report(poses_path)
+    templates={}
+    observations=[]
+    oak=set()
+    for row in poses['client']['rows']:
+        actor=row_actor(row)
+        if row['name']=='minecraft:oak_hanging_sign':oak.add(row['block']['aux'])
+        templates.setdefault(row['name'],actor)
+        observations.append({'material':[row['name'],row['block']['aux']],
+                             'actor':actor,'states':registry.states((row['name'],row['block']['aux']))})
+    if oak!=set(registry.aux_values('minecraft:oak_hanging_sign')):
+        raise ValueError('Expected every native oak hanging sign state')
+    defaults=json.loads((ROOT/'tools/data/native_block_entity_defaults_nemc_3.9.0.401155.json').read_text())
+    expected={name for name,row in defaults['block_entities'].items() if scalar(row['nbt'],'id') in ('Sign','HangingSign')}
+    if set(templates)!=expected:
+        raise ValueError('Expected every sign species observed in this registry')
+    observed_styles=[]
+    for row in styles['client']['rows']:
+        actor=row_actor(row)
+        root=root_payload(row['nbt'])
+        for name,suffix in (('FrontText',''),('BackText','Back')):
+            side=root_payload(root[name])
+            for source,target_key,kind in STYLE_FIELDS:
+                field=side[source]
+                value=scalar(field,'__value__')
+                if scalar(field,'__type__')!=kind or actor[target_key+suffix]!=(bool(value) if kind==1 else value):
+                    raise ValueError('Native sign text/style field mapping changed')
+        observed_styles.append({'material':[row['name'],row['block']['aux']],
+                                'actor':actor,'nbt':row['nbt']})
+    if {row['material'][0] for row in observed_styles}!={'minecraft:standing_sign','minecraft:oak_hanging_sign'}:
+        raise ValueError('Expected standing and hanging two-sided style observations')
+    data={'schema_version':1,'game_version':registry.source_version(),'palette_sha256':registry.fingerprint(),
+          'style_report_sha256':styles_hash,'pose_report_sha256':poses_hash,
+          'scope':'native field mapping and every oak hanging pose; GPU appearance separate',
+          'poses':observations,'styles':observed_styles}
+    snapshot_text=json.dumps(data,ensure_ascii=True,sort_keys=True,separators=(',',':'))+'\n'
+    text='\n'.join(('# Generated by tools/generate_native_signs.py; do not edit.',
+        'from __future__ import unicode_literals','SCHEMA_VERSION = 1',
+        'SOURCE_VERSION = '+repr(registry.source_version()),'PALETTE_SHA256 = '+repr(registry.fingerprint()),
+        'SOURCE_SHA256 = '+repr(hashlib.sha256(snapshot_text.encode('ascii')).hexdigest()),
+        'TEMPLATES = '+repr(templates),'STYLE_FIELDS = '+repr(STYLE_FIELDS),
+        'OBSERVED_STYLES = '+repr(observed_styles),''))
+    for path,content in ((target,text),(snapshot,snapshot_text)):
+        if check:
+            if not path.exists() or path.read_text(encoding='ascii')!=content:raise ValueError('Stale native signs: '+str(path))
+        else:path.write_text(content,encoding='ascii')
+    print('Native signs: %d species, %d pose observations, %d style observations' % (len(templates),len(observations),len(observed_styles)))
+
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('styles',type=Path)
+    parser.add_argument('poses',type=Path)
+    parser.add_argument('--target',type=Path,default=ROOT/'behavior_pack/modern_projection/projection/native_sign_data.py')
+    parser.add_argument('--snapshot',type=Path,default=ROOT/'tools/data/native_signs_nemc_3.9.0.401155.json')
+    parser.add_argument('--check',action='store_true')
+    args=parser.parse_args()
+    generate(args.styles,args.poses,args.target,args.snapshot,args.check)

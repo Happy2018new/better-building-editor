@@ -30,6 +30,70 @@ del sys._snow_lifecycle_saved
 _result=True
 '''
 
+RESTORE_CAMERA_POSE = '''pose,pivot,pan=sys._snow_lifecycle_saved['camera']
+s.camera_view(*pose)
+_result=True
+'''
+
+RESTORE_CAMERA_PAN = '''pose,pivot,pan=sys._snow_lifecycle_saved['camera']
+s.camera_pivot=pivot
+s.camera_pan=pan
+s.emit()
+_result=True
+'''
+
+CAMERA_STATE = '''def _snow_camera_state():
+ from modern_projection.pyreact.host import _ACTIVE_HOST
+ from modern_projection.projection.model import bounds
+ host=_ACTIVE_HOST[0]
+ assert host is not None,'Snow camera requires an active host'
+ matches=[]
+ for slot in host._animation_frames.values():
+  callback=slot.get('callback')
+  code=getattr(callback,'__code__',getattr(callback,'func_code',None))
+  closure=getattr(callback,'__closure__',getattr(callback,'func_closure',None))
+  if code is None or code.co_name!='tick' or not closure:continue
+  if getattr(callback,'__module__','')!='modern_projection.projection.scene':continue
+  scope=dict(zip(code.co_freevars,[cell.cell_contents for cell in closure]))
+  if scope.get('session') is not s:continue
+  globals_=getattr(callback,'__globals__',getattr(callback,'func_globals',None))
+  matches.append((scope,globals_))
+ assert len(matches)==1,'Snow camera requires exactly one owned Scene tick'
+ scope,globals_=matches[0]
+ camera=scope['camera']
+ scale=globals_['Theme'].scale
+ return {'pose':(camera.yaw,camera.pitch,camera.zoom),'target':camera.target,
+  'pan':camera.pan,'pan_target':camera.pan_target,'pivot':camera.pivot,
+  'center':camera.center(s.scene_size),'size':s.scene_size,
+  'depth':camera.depth,'depth_target':camera.depth_target,
+  'viewport':(scope['width']*scale,scope['height']*scale),'theme_scale':scale,
+  'scene':{'origin':s.scene_origin,'size':s.scene_size,'scale':s.scene_scale,
+   'document_bounds':bounds(s.editor.document.blocks) if s.editor.document.blocks else None,
+   'tiles':[{'key':key,'origin':part['origin'],'size':part['size'],'name':part.get('name'),
+    'center':tuple(part['origin'][i]+part['size'][i]/2.-s.scene_origin[i] for i in range(3)),
+    'render_layout':b.model_layouts.get(part.get('name'))} for key,part in sorted(s.tiles.parts.items())]},
+  'session':{'pose':s.camera_pose,'target':(s.camera_yaw,s.camera_pitch,s.zoom),
+   'pan':s.camera_pan,'pivot':s.camera_pivot,'reset_revision':s.camera_reset_revision,
+   'observed_reset_revision':scope['reset_revision'].current}}
+_result=json.dumps(_snow_camera_state())
+del _snow_camera_state
+'''
+
+
+def camera_stable(observed, pose, pan=None, pivot=None):
+    declared = observed['session']
+    if declared['reset_revision'] != declared['observed_reset_revision']:
+        return False
+    if any(abs(a - b) >= .001 for key in ('pose', 'target') for a, b in zip(observed[key], pose)):
+        return False
+    if any(abs(a - b) >= .001 for a, b in zip(declared['target'], pose)):
+        return False
+    if pan is not None and any(abs(a - b) >= .00001
+            for values in (observed['pan'], observed['pan_target'], declared['pan']) for a, b in zip(values, pan)):
+        return False
+    return pivot is None or all(abs(a - b) < .00001 for a, b in zip(observed['center'], pivot))
+
+
 BIND_SOURCE = '''from modern_projection.projection.cell import encode
 doc=s.editor.document
 metadata={'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)}
@@ -37,7 +101,11 @@ sys._blueprint_qa_expected={'metadata':metadata,'previous_document_id':None,
  'editor_id':id(s.editor),'document_id':id(doc)}
 _result=json.dumps({'metadata':metadata,'editor_id':id(s.editor),'document_id':id(doc),
  'cells':[(pos,encode(value)) for pos,value in sorted(doc.blocks.items())],
- 'edit_layer':s.editor.edit_layer,'history':len(s.editor.undo_stack),'future':len(s.editor.redo_stack)})
+ 'edit_layer':s.editor.edit_layer,'history':len(s.editor.undo_stack),'future':len(s.editor.redo_stack),
+ 'camera':{'pose':s.camera_pose,'target':(s.camera_yaw,s.camera_pitch,s.zoom),
+  'pan':s.camera_pan,'pivot':s.camera_pivot,'depth':s.camera_depth,'depth_pose':s.camera_depth_pose,
+  'reset_revision':s.camera_reset_revision},
+ 'scene':{'origin':s.scene_origin,'size':s.scene_size,'scale':s.scene_scale}})
 '''
 
 STEPS = (
@@ -90,6 +158,7 @@ def main():
     parser.add_argument('--height', type=int, choices=range(8), default=0)
     parser.add_argument('--timeout', type=float, default=45.)
     parser.add_argument('--max-handles', type=int, default=215000)
+    parser.add_argument('--minimum-commit-gib', type=float, default=6.)
     args = parser.parse_args()
     sys.path.insert(0, str(args.project.resolve(strict=True) / 'tools'))
     sys.path.insert(0, str(args.project.resolve() / '.agents/skills/pyreact-debugging/scripts'))
@@ -104,6 +173,7 @@ def main():
     from native_draw_response import (INSTALL, REMOVE, capture_response, frame_count, ui_preflight)
     from check_native_dialogs import assertion_dialogs
     from probe_liquid_workspace import transport
+    from census_intrinsic_glint_ui_r21 import commit_at_boundary
 
     session = load_session(live=True)
     assert Path(session['project']).resolve() == args.project.resolve()
@@ -115,11 +185,25 @@ def main():
               'owner': session['owner'], 'game_pid': session['game_pid'],
               'game_identity': session['game_identity'], 'plant': args.plant, 'height': args.height,
               'persistent_library_writes': False, 'qualification_changed': False,
-              'assets': asset_record, 'declared_editor_pan': [0., -.12]}
+              'assets': asset_record, 'declared_editor_pan': [0., -.12],
+              'minimum_available_commit_gib': args.minimum_commit_gib, 'resource_checks': []}
     started = time.monotonic()
 
     class GuardedCheck(SignCheck):
+        def resource_gate(self, phase):
+            sample = dict(commit_at_boundary(), phase=phase)
+            report['resource_checks'].append(sample)
+            if sample['commit_available_bytes'] < args.minimum_commit_gib * 1024 ** 3:
+                write_json(args.output, report)
+                raise RuntimeError('Snow lifecycle available system commit gate reached; restore')
+
+        def run(self, code):
+            if not getattr(self, 'resource_restore_mode', False):
+                self.resource_gate('before_native_call')
+            return super().run(code)
+
         def capture(self, label, tree=None):
+            self.resource_gate('before_capture:' + label)
             if time.monotonic() - started > 900.:
                 raise RuntimeError('Snow lifecycle time budget reached; restore')
             dialogs = [row for row in assertion_dialogs() if row['pid'] == session['game_pid']]
@@ -151,11 +235,15 @@ def main():
             masks, controls = {}, {}
             for kind in ('blank', 'plant', 'snow', 'covered'):
                 before = frame_count(check)
-                source = check.run((LOAD % (args.plant, args.height, kind)) +
-                                   '\ns.camera_pan=(0.,-.12)\ns.emit()')
+                source = check.run(LOAD % (args.plant, args.height, kind))
                 state = check.editor_preview(kind + ' control', source['metadata'], source['editor_id'], source['document_id'])
-                camera = check.run('_result=json.dumps({"pose":s.camera_pose,"pan":s.camera_pan,'
-                                   '"pivot":s.camera_pivot,"size":s.scene_size})')
+                declared = check.run(CAMERA_STATE)['session']
+                check.wait('settle snow control pose', lambda value: camera_stable(value, declared['target']),
+                           lambda: check.run(CAMERA_STATE))
+                check.run('s.camera_pan=(0.,-.12)\ns.emit()\n_result=True')
+                camera = check.wait('settle snow control pan',
+                    lambda value: camera_stable(value, declared['target'], (0., -.12), declared['pivot']),
+                    lambda: check.run(CAMERA_STATE))
                 expected = None
                 if kind == 'plant':
                     expected = editor_cross_above_snow(crop, camera, source['focus'], -1, model, texture)
@@ -212,14 +300,20 @@ def main():
                 if label == 'saved_library_load':
                     check.wait('complete snow lifecycle library load', bool,
                                lambda: check.run('_result=s.io_job is None'))
-                    check.run("pose,pivot,pan=sys._snow_lifecycle_saved['camera']\n"
-                              's.camera_pivot=pivot\ns.camera_pan=pan\ns.camera_view(*pose)\n_result=True')
-                    check.wait('restore snow library camera',
-                        lambda value: all(abs(a - b) < .01 for a, b in zip(value['expected'], value['actual'])),
-                        lambda: check.run("_result=json.dumps({'expected':sys._snow_lifecycle_saved['camera'][0],"
-                                          "'actual':s.camera_pose})"))
+                    check.run(RESTORE_CAMERA_POSE)
+                    saved_camera = check.run('_result=json.dumps(sys._snow_lifecycle_saved["camera"])')
+                    check.wait('restore snow library camera', lambda value: camera_stable(value, saved_camera[0]),
+                               lambda: check.run(CAMERA_STATE))
+                    # Scene's zoom effect rebases pan. Apply the explicit pan after zoom settles.
+                    check.run(RESTORE_CAMERA_PAN)
+                    check.wait('restore snow library pan',
+                        lambda value: camera_stable(value, saved_camera[0], saved_camera[2], saved_camera[1]),
+                        lambda: check.run(CAMERA_STATE))
                 result = check.run(BIND_SOURCE)
                 state = check.editor_preview(label, result['metadata'], result['editor_id'], result['document_id'])
+                camera = check.run(CAMERA_STATE)
+                report['active_step'].update(source=result, state=state, camera_state=camera, phase='before_capture')
+                write_json(args.output, report)
 
                 def validate(record):
                     frame = capture_frame(record['path'], crop, blank['path'])
@@ -229,13 +323,14 @@ def main():
                 frame = capture_frame(picture['path'], crop, blank['path'])
                 comparison = shape_metrics(masks[expected], frame['object'])
                 report['steps'].append({'label': label, 'expected_control': expected, 'source': result,
-                    'state': state, 'screenshot': picture, 'native_response': response,
+                    'state': state, 'camera_state': camera, 'screenshot': picture, 'native_response': response,
                     'mask': save_mask(frame['object'], args.output, label), 'checks': comparison,
                     'passed': comparison['passed']})
                 report['active_step'] = None
                 write_json(args.output, report)
             report['completed'] = True
         finally:
+            check.resource_restore_mode = True
             prior = sys.exc_info()
             if prior[0] is not None:
                 report['error'] = prior[0].__name__ + ': ' + str(prior[1])

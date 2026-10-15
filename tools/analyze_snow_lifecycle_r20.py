@@ -14,7 +14,7 @@ from verify_snow_plant_visibility import (capture_frame, compare_controls,
     editor_cross_above_snow, editor_snow_geometry)
 
 
-def response_checks(response, reference, crop, expected_capture=None):
+def response_checks(response, reference, crop, expected_capture=None, accepted=True):
     reference_clock = native_clock(reference)
     reference_clock['crop'] = list(reference_clock['crop'])
     if reference_clock != response['reference_clock']:
@@ -39,8 +39,8 @@ def response_checks(response, reference, crop, expected_capture=None):
         rows.append(row)
     if not rows or not rows[-1]['native_clock_advanced']:
         raise ValueError('Snow native response has no advanced final native clock')
-    if not response['passed']:
-        raise ValueError('Snow native response was not accepted during acquisition')
+    if response['passed'] is not accepted:
+        raise ValueError('Snow native response acceptance differs from the acquisition state')
     if expected_capture is not None and response['attempts'][-1]['capture']['sha256'] != expected_capture['sha256']:
         raise ValueError('Snow native response does not bind the selected screenshot')
     if crop is not None and rows[-1]['changed_pixels'] < response['minimum_changed_pixels']:
@@ -48,9 +48,9 @@ def response_checks(response, reference, crop, expected_capture=None):
     return rows
 
 
-def analyze(report):
+def analyze(report, failure_response=None):
     captures = {}
-    for record in walk(report):
+    for record in walk([report, failure_response]):
         if 'path' in record and 'sha256' in record:
             verified_path(record)
         if 'capture' not in record or 'path' not in record:
@@ -128,6 +128,25 @@ def analyze(report):
         if check['passed'] != row['passed'] or check != row['checks']:
             raise ValueError('Snow lifecycle edit replay changed: ' + row['label'])
         result['steps'].append({'label': row['label'], 'checks': check})
+    if failure_response is not None:
+        active = report.get('active_step')
+        if report['completed'] or not active or failure_response['passed']:
+            raise ValueError('Snow failed response does not belong to an incomplete active step')
+        index = len(report['steps'])
+        if index >= len(STEPS) or (active['label'], active['expected_control']) != STEPS[index][:2]:
+            raise ValueError('Snow failed response is missing its next lifecycle step')
+        responses = response_checks(failure_response, blank, crop, accepted=False)
+        checks = []
+        for attempt in failure_response['attempts']:
+            frame = capture_frame(attempt['capture']['path'], crop, blank['path'])
+            check = shape_metrics(frames[active['expected_control']]['object'], frame['object'])
+            if check != attempt['validation']:
+                raise ValueError('Snow failed response pixel validation differs')
+            checks.append(check)
+        if checks[-1]['passed']:
+            raise ValueError('Snow failed lifecycle response unexpectedly meets its shape gate')
+        result['failed_step'] = {'label': active['label'], 'responses': responses, 'checks': checks,
+                                 'accepted': False}
     result['pixels_replayed'] = True
     result['workflow_accepted'] = (report['completed'] and report['restored']
         and not report['cleanup_errors'] and len(report['steps']) == len(STEPS)
@@ -140,8 +159,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('report', type=Path)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--failure-response', type=Path)
     args = parser.parse_args()
-    result = analyze(json.loads(args.report.read_bytes()))
+    failure = json.loads(args.failure_response.read_bytes()) if args.failure_response else None
+    result = analyze(json.loads(args.report.read_bytes()), failure)
     args.output.write_text(json.dumps(result, indent=2) + '\n', encoding='utf8')
     print(json.dumps({key: result[key] for key in ('capture_count', 'capture_bytes_verified',
         'pixels_replayed', 'original_completed', 'original_restored', 'workflow_accepted', 'production_accepted')}))

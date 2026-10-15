@@ -83,6 +83,29 @@ class SnowLifecycleReplayR20Tests(unittest.TestCase):
             with self.subTest(corrupted=corrupted), self.assertRaises(ValueError):
                 analyze(report)
 
+    def test_failed_native_library_load_replays_without_becoming_an_accepted_workflow(self):
+        package = ROOT / 'docs/evidence/snow-lifecycle-r20-v4-failure-v1'
+        manifest = json.loads((package / 'manifest.json').read_bytes())
+        report = remap(json.loads((package / 'lifecycle/report.json').read_bytes()),
+                       manifest['original_to_package'], package)
+        failure = remap(json.loads((package / 'lifecycle/report_saved_library_load_response_error.json').read_bytes()),
+                        manifest['original_to_package'], package)
+        result = analyze(report, failure)
+        self.assertEqual(18, result['capture_count'])
+        self.assertTrue(result['pixels_replayed'])
+        self.assertFalse(result['original_completed'])
+        self.assertTrue(result['original_restored'])
+        self.assertFalse(result['workflow_accepted'])
+        self.assertEqual('saved_library_load', result['failed_step']['label'])
+        for field in ('passed', 'validation'):
+            broken = copy.deepcopy(failure)
+            if field == 'passed':
+                broken['passed'] = True
+            else:
+                broken['attempts'][-1]['validation']['recall'] = 1.
+            with self.subTest(corrupted=field), self.assertRaises(ValueError):
+                analyze(report, broken)
+
 
 if __name__ == '__main__':
     unittest.main()

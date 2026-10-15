@@ -205,3 +205,61 @@ command phase receipt without changing the frozen v3 clone or old evidence.
 Replay tests use the immutable original h4 captures, explicitly labeled as a
 control adapter rather than a native workflow, and reject changed owner,
 render ticks, clock, response screenshot and expected alpha.
+
+## V4 Lifecycle Failure And Camera Recovery
+
+The frozen v4 run uses source contract
+`342accbbbded82443a1341dab92553435b6a9d3b596be15df87052e364d0a466`.
+Its owned 3.10/1.21.130 instance completes all four controls and the first eight
+editing steps. The independent h0 snow side recall and hull precision are both
+1.0; strict erase/undo/redo, background erase/undo, and automatic snow removal
+and addition all meet their recorded pixel gates. The final saved-library-load
+capture contains the snow and plant but is displaced downward by about 46
+physical pixels. Three fresh attempts repeat the mismatch, with shape recall
+0.21238 and precision 0.21045. The original report remains `completed=false`,
+`passed=false`, `restored=true`, with no cleanup errors or persistent library
+writes. Its 120 resource samples retain at least 8.0488 GiB available system
+commit. Frozen product and host-data hashes remain unchanged.
+
+The original outer receipt's `completed=true` meant only that its child process
+terminated; the child exited 1. New wrapper receipts separate `process_completed`
+from the actual report's `completed`, `passed` and `restored`, and bind that report
+by hash. The old receipt is preserved without rewriting its fields.
+
+An offline replay of the real Scene `aim` and camera-update AST fragments
+reproduces a probe recovery race. When pan is set before the restored zoom has
+converged, a frame before the zoom effect makes that effect rebase an unfinished
+pan, producing roughly 46 pixels of displacement at a 5 ms frame interval.
+The generated storage commands retain exact document cells, scene origin and
+size, so no coordinate import change is established. The failed acquisition did
+not retain the actual final Scene camera, so the offline reproduction explains
+a matching mechanism without establishing the precise live scheduling order.
+
+The next probe restores and waits for actual rotation/zoom first, then restores
+pan and waits for its actual convergence. A read-only, session-bound inspection
+of the registered Scene tick closure records the real OrbitCamera pose, target,
+pan, pan target, pivot/center, native viewport, scene bounds and tile centers.
+It rejects absent or duplicate owned Scene callbacks. Each step persists these
+observations and source state before capture, including when its pixel gate
+fails. No product camera implementation, image position, acceptance threshold
+or rendering qualification is changed. AST regression covers both tick/effect
+orders and explicitly reproduces the old failure. Native verification of this
+recovery change is still pending.
+
+`docs/evidence/snow-lifecycle-r20-v4-failure-v1` retains 972 manifested files
+totaling 15,967,362 bytes, including original capture/report/receipt bytes,
+acquisition inputs, cold business Python, used assets and exact process-exit
+observations. Its standalone replay checks all 18 original native captures,
+including the three rejected final attempts, and reproduces the failed shape
+metrics without accepting the workflow:
+
+```powershell
+python -X utf8 docs/evidence/snow-lifecycle-r20-v4-failure-v1/verify_package.py --pixels
+```
+
+During the first ordinary stop wait, the exact owned game handle reports exit
+`0xC0000409` and the exact MCDK handle reports exit `0`. This records the exit
+codes, not a proven exit cause. A second ordinary stop finalizes stale instance
+metadata. No force termination or window mutation is used. Full snow acceptance
+remains open, including the complete nine-step native workflow and broader
+plant/height/position/neighborhood coverage.
