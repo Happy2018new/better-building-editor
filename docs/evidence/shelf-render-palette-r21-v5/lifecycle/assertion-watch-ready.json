@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "owners": [
+    "item-r20",
+    "portal-r20-native-*",
+    "shield-r20-*",
+    "snow-r20-*",
+    "water-r20-*",
+    "root-shelf-r20-*",
+    "book-r20-*"
+  ],
+  "until": "2026-10-16T08:00:00+08:00",
+  "host_sha256": "704cc3de732c3315d046dbcee393d72cb34fd60f232e16f64978b3e61f9cad89",
+  "known_assert_recoveries": [
+    {
+      "schema_version": 1,
+      "owner": "portal-r20-native-v5",
+      "session_id": "70e6452238be4cbe996dbe9bb24f01bb",
+      "game_pid": 44560,
+      "game_identity": "134365567745828977",
+      "observed_at": "2026-10-16T00:56:03.880626+08:00",
+      "dialog": {
+        "hwnd": 5050924,
+        "pid": 44560,
+        "process": "Minecraft.Windows.exe",
+        "title": "Assert Failure - ctrl+C to copy this message to the clipboard!",
+        "x": 633,
+        "y": 446,
+        "width": 456,
+        "height": 210,
+        "minimized": false,
+        "text": "\u4e2d\u6b62(&A)\n\u91cd\u8bd5(&R)\n\u5ffd\u7565(&I)\nAssertion failed: The disabled skin popup has been displayed but the level data has no disabled cosmetics\nCondition is false: false\nFunction: void __cdecl DisabledSkinScreenController::onEntered(void) in C:\\jw\\gm\\handheld\\src-client\\common\\client\\gui\\screens\\controllers\\DisabledSkinScreenController.cpp @ 47\n"
+      },
+      "action": "WM_COMMAND IDIGNORE",
+      "agent_activation": false,
+      "dismissed": true,
+      "completed_at": "2026-10-16T00:56:04.012730+08:00"
+    }
+  ],
+  "other_assertions": [
+    {
+      "session_id": "03296b16e7ca4f17b33f5594416e1fe2",
+      "dialog": {
+        "hwnd": 19727668,
+        "pid": 14124,
+        "process": "Minecraft.Windows.exe",
+        "title": "Assert Failure - ctrl+C to copy this message to the clipboard!",
+        "x": 631,
+        "y": 446,
+        "width": 458,
+        "height": 210,
+        "minimized": false,
+        "text": "\u4e2d\u6b62(&A)\n\u91cd\u8bd5(&R)\n\u5ffd\u7565(&I)\nAssertion failed: Mesh missing vertex field NORMAL required by shader. Skipping draw.\nCondition is false: false\nFunction: bool __cdecl mce::ShaderBase::checkVertexFormat(const class mce::VertexFormat &) const in C:\\jw\\gm\\handheld\\src-deps\\Renderer\\src\\HAL\\Base\\ShaderBase.cpp @ 118\n"
+      }
+    },
+    {
+      "session_id": "03296b16e7ca4f17b33f5594416e1fe2",
+      "dialog": {
+        "hwnd": 29103200,
+        "pid": 14124,
+        "process": "Minecraft.Windows.exe",
+        "title": "Assert Failure - ctrl+C to copy this message to the clipboard!",
+        "x": 631,
+        "y": 446,
+        "width": 458,
+        "height": 210,
+        "minimized": false,
+        "text": "\u4e2d\u6b62(&A)\n\u91cd\u8bd5(&R)\n\u5ffd\u7565(&I)\nAssertion failed: Mesh missing vertex field NORMAL required by shader. Skipping draw.\nCondition is false: false\nFunction: bool __cdecl mce::ShaderBase::checkVertexFormat(const class mce::VertexFormat &) const in C:\\jw\\gm\\handheld\\src-deps\\Renderer\\src\\HAL\\Base\\ShaderBase.cpp @ 118\n"
+      }
+    }
+  ],
+  "errors": [
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\385d9d2baa9644d2ab57aa2510009965\\session.json: [Errno 13] Permission denied: 'C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\385d9d2baa9644d2ab57aa2510009965\\\\session.json'"
+  ],
+  "checked_at": "2026-10-16T07:16:27.374818+08:00",
+  "eligible_sessions": [
+    {
+      "id": "d04ce3b1c7824507b824d172362d8746",
+      "owner": "root-shelf-r20-render-palette-v5",
+      "game_pid": 35000
+    }
+  ]
+}

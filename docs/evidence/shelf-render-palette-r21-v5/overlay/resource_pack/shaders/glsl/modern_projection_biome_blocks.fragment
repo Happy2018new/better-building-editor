@@ -1,0 +1,237 @@
+// __multiversion__
+// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.
+
+// Preserve the 19487 actor tag, projection matrices and small tint-error tests.
+precision highp float;
+#include "fragmentVersionCentroid.h"
+
+#if __VERSION__ >= 300
+	#ifndef BYPASS_PIXEL_SHADER
+		#if defined(TEXEL_AA) && defined(TEXEL_AA_FEATURE)
+			_centroid in highp vec2 uv0;
+			_centroid in highp vec2 uv1;
+		#else
+			_centroid in vec2 uv0;
+			_centroid in vec2 uv1;
+		#endif
+	#endif
+#else
+	#ifndef BYPASS_PIXEL_SHADER
+		varying vec2 uv0;
+		varying vec2 uv1;
+	#endif
+#endif
+
+varying vec4 color;
+#ifdef FOG
+varying vec4 fogColor;
+#endif
+varying vec4 light;
+varying highp float previewClip;
+varying highp vec2 gridPosition;
+varying highp float outlineHue;
+varying highp vec4 renderContext;
+
+#include "uniformShaderConstants.h"
+#include "uniformWorldConstants.h"
+#include "util.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;   // terrain foliage texture
+// LAYOUT_BINDING(1) uniform sampler2D TEXTURE_2;   // light texture
+
+//#ifdef ENABLE_SET_TRANSPARENCY
+uniform float COMMON_BLOCK_GEO_FLOAT1_1; 
+uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
+//#endif
+
+// Stable colors for our UI/client actors. PaperDoll does not reliably bind
+// the foliage colormap at TEXTURE_1 (inventory renders can leave another
+// texture there). Only our tagged draws bypass that unrelated texture.
+vec3 buildingBiomeTint(float index, bool foliageFace) {
+    vec3 grass = vec3(146.0,188.0,88.0);
+    vec3 foliage = vec3(119.0,171.0,47.0);
+    if (index > 1.5 && index < 2.5) { grass=vec3(121.0,191.0,90.0); foliage=vec3(89.0,174.0,48.0); }
+    if (index > 2.5 && index < 3.5) { grass=vec3(136.0,186.0,103.0); foliage=vec3(107.0,169.0,65.0); }
+    if (index > 3.5 && index < 4.5) { grass=vec3(134.0,181.0,131.0); foliage=vec3(104.0,164.0,100.0); }
+    if (index > 4.5 && index < 5.5) { grass=vec3(76.0,118.0,60.0); foliage=vec3(106.0,112.0,57.0); }
+    if (index > 5.5 && index < 6.5) { grass=vec3(76.0,118.0,60.0); foliage=vec3(141.0,177.0,39.0); }
+    if (index > 6.5 && index < 7.5) { grass=vec3(88.0,203.0,60.0); foliage=vec3(48.0,187.0,11.0); }
+    if (index > 7.5 && index < 9.5) { grass=vec3(190.0,182.0,84.0); foliage=vec3(174.0,164.0,42.0); }
+    if (index > 9.5 && index < 10.5) { grass=vec3(128.0,180.0,150.0); foliage=vec3(96.0,161.0,123.0); }
+    if (index > 10.5 && index < 11.5) { grass=vec3(119.0,130.0,114.0); foliage=vec3(135.0,141.0,118.0); }
+    if (index > 11.5 && index < 12.5) { grass=vec3(182.0,219.0,97.0); foliage=vec3(182.0,219.0,97.0); }
+    if (index > 12.5 && index < 13.5) { grass=vec3(144.0,129.0,77.0); foliage=vec3(174.0,164.0,42.0); }
+    if (index > 13.5 && index < 14.5) { grass=vec3(80.0,122.0,50.0); foliage=vec3(89.0,174.0,48.0); }
+    return (foliageFace ? foliage : grass) / 255.0;
+}
+
+#ifndef SEASONS
+// Keep this predicate in sync with the vertex shader. This continuous range
+// covers vanilla green/yellow/brown grass and its interpolated colors, while
+// excluding neutral vertex lighting. Fixed block pigments stay in TEXTURE_0.
+bool grassVertexTint(vec3 tint) {
+    return tint.g > tint.r*0.85 && tint.g > tint.b*1.05;
+}
+#endif
+
+// Vanilla grass_side is an opaque atlas sprite whose gray grass fringe is
+// already multiplied by one of these world-biome overlay colors. Recover its
+// source tint from the fringe's chroma; dirt and other block textures do not
+// lie on one of these color rays.
+float sideTintError(vec3 pixel, vec3 source) {
+    float shade = dot(pixel, source) / dot(source, source);
+    vec3 delta = pixel - source*shade;
+    return shade > 0.25 && shade < 0.9 ? dot(delta, delta) : 1.0;
+}
+
+vec3 grassSideSource(vec3 pixel) {
+    vec3 source = vec3(0.0);
+    float best = 0.000324;
+    #define SIDE_COLOR(R,G,B) { vec3 candidate = vec3(R,G,B)/255.0; \
+        float error = sideTintError(pixel, candidate); \
+        if (error < best) { best = error; source = candidate; } }
+    SIDE_COLOR(121.0,192.0,90.0)
+    SIDE_COLOR(138.0,182.0,137.0)
+    SIDE_COLOR(191.0,183.0,85.0)
+    SIDE_COLOR(89.0,201.0,60.0)
+    SIDE_COLOR(85.0,201.0,63.0)
+    SIDE_COLOR(136.0,187.0,102.0)
+    SIDE_COLOR(134.0,184.0,127.0)
+    SIDE_COLOR(100.0,199.0,63.0)
+    SIDE_COLOR(134.0,183.0,131.0)
+    SIDE_COLOR(131.0,181.0,147.0)
+    SIDE_COLOR(128.0,180.0,151.0)
+    SIDE_COLOR(145.0,189.0,89.0)
+    SIDE_COLOR(144.0,129.0,77.0)
+    SIDE_COLOR(142.0,185.0,113.0)
+    SIDE_COLOR(106.0,112.0,57.0)
+    SIDE_COLOR(80.0,122.0,50.0)
+    SIDE_COLOR(119.0,130.0,114.0)
+    #undef SIDE_COLOR
+    return source;
+}
+
+void main()
+{
+    // Tessellate the complete neighbor tile, but show only its center cell.
+    if (renderContext.w > 0.5 &&
+        (any(lessThan(renderContext.xyz,vec3(0.9999))) ||
+         any(greaterThan(renderContext.xyz,vec3(2.0001))))) discard;
+    if (previewClip > 0.0) discard;
+    if (abs(EXTRA_ACTOR_UNIFORM4.x-19491.0) < 0.25) {
+        gl_FragColor=vec4(color.rgb,1.0);
+        return;
+    }
+
+    float overlayTag = floor(CURRENT_COLOR.r*255.0+0.5);
+    if (abs(PROJ[3][3]) > 0.5 && overlayTag >= 223.0 && overlayTag <= 226.0) {
+        // Grid and outlines share both coverage and visible width, including
+        // low-subpixel-precision GPUs. The wide source quad is trimmed here.
+        // The extra 0.0005 UI unit ensures containment across separately
+        // translated models, whose float32 centres can round differently.
+        float coverageTolerance = overlayTag == 223.0 ? 0.016 : 0.0165;
+        if (abs(gridPosition.x) > gridPosition.y+coverageTolerance) discard;
+        vec3 ink = vec3(71.0,122.0,244.0)/255.0;
+        if (overlayTag == 223.0) ink = vec3(155.0,172.0,204.0)/255.0;
+        if (overlayTag == 225.0) {
+            vec3 hue = clamp(abs(fract(outlineHue+vec3(0.0,2.0/3.0,1.0/3.0))*6.0-3.0)-1.0,0.0,1.0);
+            ink = 0.98*mix(vec3(1.0),hue,0.55);
+        }
+        if (overlayTag == 226.0) ink = vec3(211.0,92.0,114.0)/255.0;
+        gl_FragColor = vec4(ink,CURRENT_COLOR.a);
+        return;
+    }
+#ifdef BYPASS_PIXEL_SHADER
+	gl_FragColor = vec4(0, 0, 0, 0);
+	return;
+#else 
+#if !defined(TEXEL_AA) || !defined(TEXEL_AA_FEATURE)
+	vec4 diffuse = texture2D(TEXTURE_0, uv0);
+#else
+	vec4 diffuse = texture2D_AA(TEXTURE_0, uv0);
+#endif
+	
+#ifdef SEASONS_FAR
+	diffuse.a = 1.0;
+#endif
+
+#if USE_ALPHA_TEST
+	#ifdef ALPHA_TO_COVERAGE
+	#define ALPHA_THRESHOLD 0.05
+	#else
+	#define ALPHA_THRESHOLD 0.5
+	#endif
+	if(diffuse.a < ALPHA_THRESHOLD)
+		discard;
+#endif
+
+vec4 inColor = color;
+bool preview = abs(PROJ[3][3]) > 0.5;
+float previewTag = floor(CURRENT_COLOR.r*255.0+0.5);
+bool buildingUI = preview && previewTag >= 209.0 && previewTag <= 222.0;
+bool buildingWorld = !preview && abs(EXTRA_ACTOR_UNIFORM4.x-19487.0) < 0.25;
+// Transparent context meshes must not leave an invisible depth plate.
+if (buildingWorld && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5 &&
+    EXTRA_ACTOR_UNIFORM4.w <= 0.0) discard;
+float biomeIndex = buildingUI ? previewTag-208.0 : EXTRA_ACTOR_UNIFORM4.y;
+
+#if defined(BLEND) && !defined(USE_TEXEL_AA)
+	diffuse.a *= inColor.a;
+#endif
+
+#if !defined(ALWAYS_LIT)
+	//diffuse *= texture2D( TEXTURE_2, uv1 );
+	diffuse *= light;
+#endif
+
+#ifndef SEASONS
+	#if !USE_ALPHA_TEST && !defined(BLEND)
+		diffuse.a = inColor.a;
+	#endif
+	
+    // Native grass tops carry an already sampled grass vertex tint instead
+    // of SEASONS UVs. Plain blocks (including green glass/wool) have neutral
+    // vertex colors: their actual color is in TEXTURE_0 and stays untouched.
+    if ((buildingUI || buildingWorld) && grassVertexTint(inColor.rgb)) {
+        inColor.rgb = buildingBiomeTint(biomeIndex, false);
+    }
+    // Grass-side recovery also applies to the blended world projection.
+    // Alpha-tested foliage can have fixed green pigments (birch/spruce),
+    // so it must never be treated as the grass-side atlas overlay.
+    #if !USE_ALPHA_TEST
+    else if (buildingUI || buildingWorld) {
+        vec3 source = grassSideSource(diffuse.rgb);
+        if (source.g > 0.0) {
+            diffuse.rgb *= buildingBiomeTint(biomeIndex, false) / source;
+        }
+    }
+    #endif
+	diffuse.rgb *= inColor.rgb;
+#else
+	vec2 uv = inColor.xy;
+    vec3 tint;
+    if (buildingUI || buildingWorld) {
+        tint = buildingBiomeTint(biomeIndex, USE_ALPHA_TEST != 0);
+    } else {
+        tint = texture2D(TEXTURE_1, uv).rgb*2.0;
+    }
+    diffuse.rgb *= mix(vec3(1.0), tint, inColor.b);
+	diffuse.rgb *= inColor.aaa;
+	diffuse.a = 1.0;
+#endif
+
+#ifdef FOG
+	diffuse.rgb = mix( diffuse.rgb, fogColor.rgb, fogColor.a );
+#endif
+//#ifdef ENABLE_SET_TRANSPARENCY
+    diffuse.a *= buildingWorld && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5 ? EXTRA_ACTOR_UNIFORM4.w : COMMON_BLOCK_GEO_FLOAT1_1;
+//#endif
+    // Scene's transparent image immediately below the preview renderers seeds
+    // CURRENT_COLOR with inherited UI alpha. Perspective world projections
+    // retain their own COMMON_BLOCK_GEO_FLOAT1_1 transparency.
+	if (abs(PROJ[3][3]) > 0.5) diffuse.a *= CURRENT_COLOR.a;
+	gl_FragColor = diffuse;
+	
+#endif // BYPASS_PIXEL_SHADER
+}
