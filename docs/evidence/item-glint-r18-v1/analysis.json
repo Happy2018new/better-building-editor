@@ -1,0 +1,1586 @@
+{
+  "schema": 1,
+  "source_sha256": "518bd6d1fccf6f7def7fae23e259f333710d9e92ec0546f5ac1fe0526532aba8",
+  "analyzer_sha256": "f499d3d98caa4f65167fab77a05b804c0bad505fdc73f86b7c1dd2e6680cd1de",
+  "capture_failures": [],
+  "cases": [],
+  "production_qualified": false,
+  "scope": "Static measured flat-icon geometry and actual native frame body; animation measured separately",
+  "resource_contract": {
+    "layout_version": 1,
+    "resource_sha256": "515be879b61fc352b3e00e66d063f8da6e05036a8cd7d83aa54db563fb86815e"
+  },
+  "profile_mode": "candidate",
+  "view_configuration": {
+    "angle_degrees": 0.0,
+    "editor_zoom": null,
+    "native_target_plain": false
+  },
+  "world_measured_modes": [
+    "plain",
+    "enchanted"
+  ],
+  "requested_cases": [],
+  "completed_cases": [],
+  "matrix_completed": true,
+  "closeup": {
+    "editor": {
+      "empty": {
+        "body": {
+          "unexpected_pixels": 0,
+          "passed": true
+        },
+        "motion": {
+          "eligible_pixels": 10164,
+          "inside_pixels": 0,
+          "escaped_pixels": 0,
+          "fraction": 0.0,
+          "enchanted": false,
+          "passed": true
+        }
+      },
+      "enchanted": {
+        "body": {
+          "observed": {
+            "pixels": 10208,
+            "bounds": [
+              918,
+              512,
+              1095,
+              688
+            ]
+          },
+          "declared": {
+            "pixels": 10208,
+            "bounds": [
+              917,
+              513,
+              1094,
+              689
+            ]
+          },
+          "iou": 0.9386572975026113,
+          "maximum_boundary_pixels": 1,
+          "passed": true
+        },
+        "motion": {
+          "eligible_pixels": 10208,
+          "inside_pixels": 10208,
+          "escaped_pixels": 0,
+          "fraction": 1.0,
+          "enchanted": true,
+          "passed": true
+        }
+      },
+      "plain": {
+        "body": {
+          "observed": {
+            "pixels": 10164,
+            "bounds": [
+              1272,
+              512,
+              1448,
+              688
+            ]
+          },
+          "declared": {
+            "pixels": 10219,
+            "bounds": [
+              1271,
+              513,
+              1448,
+              689
+            ]
+          },
+          "iou": 0.9291122468294529,
+          "maximum_boundary_pixels": 1,
+          "passed": true
+        },
+        "motion": {
+          "eligible_pixels": 10219,
+          "inside_pixels": 0,
+          "escaped_pixels": 0,
+          "fraction": 0.0,
+          "enchanted": false,
+          "passed": true
+        }
+      }
+    },
+    "world": {
+      "empty": {
+        "body": {
+          "unexpected_pixels": 0,
+          "passed": true
+        },
+        "motion": {
+          "eligible_pixels": 7832,
+          "inside_pixels": 0,
+          "escaped_pixels": 0,
+          "fraction": 0.0,
+          "enchanted": false,
+          "passed": true
+        }
+      },
+      "enchanted": {
+        "body": {
+          "observed": {
+            "pixels": 8473,
+            "bounds": [
+              857,
+              472,
+              1014,
+              629
+            ]
+          },
+          "declared": {
+            "pixels": 7827,
+            "bounds": [
+              859,
+              475,
+              1013,
+              629
+            ]
+          },
+          "iou": 0.9046506193035756,
+          "maximum_boundary_pixels": 3,
+          "passed": true
+        },
+        "motion": {
+          "eligible_pixels": 7827,
+          "inside_pixels": 8192,
+          "escaped_pixels": 281,
+          "fraction": 1.0466334483199182,
+          "enchanted": true,
+          "passed": true
+        }
+      },
+      "plain": {
+        "body": {
+          "observed": {
+            "pixels": 8819,
+            "bounds": [
+              1166,
+              472,
+              1329,
+              629
+            ]
+          },
+          "declared": {
+            "pixels": 7814,
+            "bounds": [
+              1166,
+              475,
+              1325,
+              629
+            ]
+          },
+          "iou": 0.8536721274935919,
+          "maximum_boundary_pixels": 4,
+          "passed": true
+        },
+        "motion": {
+          "eligible_pixels": 7814,
+          "inside_pixels": 0,
+          "escaped_pixels": 0,
+          "fraction": 0.0,
+          "enchanted": false,
+          "passed": true
+        }
+      }
+    }
+  },
+  "native_closeup": {
+    "capture_failures": [],
+    "routes": {
+      "editor": {
+        "duration": {
+          "seconds": 38.363065199999255,
+          "ordered": true,
+          "frame_intervals_seconds": [
+            1.8363514000011492,
+            1.6908795999988797,
+            1.6969535000025644,
+            1.7817759999961709,
+            1.8787547000029008,
+            1.654527099999541,
+            1.8424060999968788,
+            2.206035300005169,
+            2.248455999993894,
+            1.9817747000051895,
+            2.042396799995913,
+            2.102998700000171,
+            2.127223399998911,
+            2.254524300005869,
+            2.327226299996255,
+            2.290873800004192,
+            2.145435099999304,
+            2.2544917999985046,
+            1.999980599997798
+          ],
+          "passed": true
+        },
+        "items": {
+          "empty": {
+            "body": {
+              "pixels": 0,
+              "bounds": null
+            },
+            "extent_pixels": [
+              0,
+              0
+            ],
+            "scale_passed": true,
+            "negative_control_passed": true,
+            "temporal": {
+              "eligible_pixels": 10164,
+              "inside_pixels": 0,
+              "escaped_pixels": 0,
+              "fraction": 0.0,
+              "enchanted": false,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 10164,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "luma_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "motion_fraction_rgb_gt2": 0.0,
+              "motion_fraction_rgb_gt8": 0.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "mean_body_luma_p50_p90": [
+                77.91718638331365,
+                77.91718638331365
+              ],
+              "highlight_centroid_body_widths_per_second": [],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          },
+          "enchanted": {
+            "body": {
+              "pixels": 10208,
+              "bounds": [
+                918,
+                512,
+                1095,
+                688
+              ]
+            },
+            "extent_pixels": [
+              177,
+              176
+            ],
+            "scale_passed": true,
+            "negative_control_passed": null,
+            "temporal": {
+              "eligible_pixels": 10208,
+              "inside_pixels": 10208,
+              "escaped_pixels": 0,
+              "fraction": 1.0,
+              "enchanted": true,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 10208,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                118.5,
+                163.0,
+                197.0
+              ],
+              "luma_range_p50_p90_max": [
+                27.166399999999996,
+                39.960199999999986,
+                48.7012
+              ],
+              "motion_fraction_rgb_gt2": 1.0,
+              "motion_fraction_rgb_gt8": 1.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.5449843260188088,
+                0.7839439655172413,
+                0.8893318965517242
+              ],
+              "mean_body_luma_p50_p90": [
+                111.20010234130092,
+                115.00542123040752
+              ],
+              "highlight_centroid_body_widths_per_second": [
+                0.06311509311522842,
+                0.10511828533836792,
+                0.041015614614909775,
+                0.08586446988502533,
+                0.02888969891671956,
+                0.07302422297011976,
+                0.004863043199270112,
+                0.18017609685731498,
+                0.1181593559269869,
+                0.006818338127573734,
+                0.037786743657470256,
+                0.018072763043296816,
+                0.07448792768603917,
+                0.08971714553435613,
+                0.025461052800910038,
+                0.06949655735013305,
+                0.18912527365714416,
+                0.0516340588368225,
+                0.06715777643202829
+              ],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          },
+          "plain": {
+            "body": {
+              "pixels": 10164,
+              "bounds": [
+                1272,
+                512,
+                1448,
+                688
+              ]
+            },
+            "extent_pixels": [
+              176,
+              176
+            ],
+            "scale_passed": true,
+            "negative_control_passed": null,
+            "temporal": {
+              "eligible_pixels": 10164,
+              "inside_pixels": 0,
+              "escaped_pixels": 0,
+              "fraction": 0.0,
+              "enchanted": false,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 10164,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "luma_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "motion_fraction_rgb_gt2": 0.0,
+              "motion_fraction_rgb_gt8": 0.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "mean_body_luma_p50_p90": [
+                91.97888095238095,
+                91.97888095238095
+              ],
+              "highlight_centroid_body_widths_per_second": [],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          }
+        },
+        "gif": {
+          "path": "editor-comparison.gif",
+          "sha256": "88088f9ae8c4148acb9f85ea739329c695979febced493730080a451b6dc494b",
+          "crop": [
+            532,
+            481,
+            1480,
+            721
+          ],
+          "duration_milliseconds": [
+            1840,
+            1690,
+            1700,
+            1780,
+            1880,
+            1650,
+            1840,
+            2210,
+            2250,
+            1980,
+            2040,
+            2100,
+            2130,
+            2250,
+            2330,
+            2290,
+            2150,
+            2250,
+            2000,
+            2000
+          ],
+          "playback": "Native QPC intervals rounded to GIF 10ms; final frame held for final interval",
+          "pixels": "Fixed crop only; no resizing, synthesis, enhancement or runtime overlay"
+        }
+      },
+      "world": {
+        "duration": {
+          "seconds": 46.59925709999516,
+          "ordered": true,
+          "frame_intervals_seconds": [
+            2.6666501999934553,
+            2.3393292000037036,
+            2.6484704000031343,
+            2.2787459999963176,
+            2.4666465999980574,
+            2.3999642000053427,
+            2.5393199999962235,
+            2.59389789999841,
+            2.5514688000039314,
+            2.64238469999691,
+            2.5514804999984335,
+            2.3150972000003094,
+            2.3817855000015697,
+            2.3151254000040353,
+            2.296913099999074,
+            2.218152099994768,
+            2.3211912000042503,
+            2.3575560999961453,
+            2.7150780000010855
+          ],
+          "passed": true
+        },
+        "items": {
+          "empty": {
+            "body": {
+              "pixels": 0,
+              "bounds": null
+            },
+            "extent_pixels": [
+              0,
+              0
+            ],
+            "scale_passed": true,
+            "negative_control_passed": true,
+            "temporal": {
+              "eligible_pixels": 7832,
+              "inside_pixels": 0,
+              "escaped_pixels": 0,
+              "fraction": 0.0,
+              "enchanted": false,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 7832,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "luma_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "motion_fraction_rgb_gt2": 0.0,
+              "motion_fraction_rgb_gt8": 0.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "mean_body_luma_p50_p90": [
+                77.95108207354441,
+                77.95108207354441
+              ],
+              "highlight_centroid_body_widths_per_second": [],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          },
+          "enchanted": {
+            "body": {
+              "pixels": 8473,
+              "bounds": [
+                857,
+                472,
+                1014,
+                629
+              ]
+            },
+            "extent_pixels": [
+              157,
+              157
+            ],
+            "scale_passed": true,
+            "negative_control_passed": null,
+            "temporal": {
+              "eligible_pixels": 8473,
+              "inside_pixels": 8473,
+              "escaped_pixels": 0,
+              "fraction": 1.0,
+              "enchanted": true,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 8473,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                105.0,
+                154.0,
+                183.0
+              ],
+              "luma_range_p50_p90_max": [
+                24.51780000000001,
+                36.955560000000006,
+                48.7882
+              ],
+              "motion_fraction_rgb_gt2": 1.0,
+              "motion_fraction_rgb_gt8": 1.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.5240528738345331,
+                0.705122152720406,
+                0.857759943349463
+              ],
+              "mean_body_luma_p50_p90": [
+                106.90478680514576,
+                112.28695867343326
+              ],
+              "highlight_centroid_body_widths_per_second": [
+                0.08846272108301428,
+                0.22775867689322932,
+                0.13775295443622262,
+                0.030044497258427012,
+                0.031319197149486035,
+                0.16602104875867138,
+                0.10771719169067437,
+                0.01857843463656211,
+                0.054878442590581326,
+                0.1677329696349395,
+                0.1422227047280624,
+                0.029268948682188666,
+                0.02293687556569215,
+                0.14721978861786622,
+                0.05117093430520951,
+                0.060409905541349895,
+                0.04053938862734277,
+                0.05541131700696322,
+                0.01886032289145339
+              ],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          },
+          "plain": {
+            "body": {
+              "pixels": 8868,
+              "bounds": [
+                1166,
+                472,
+                1331,
+                629
+              ]
+            },
+            "extent_pixels": [
+              165,
+              157
+            ],
+            "scale_passed": true,
+            "negative_control_passed": null,
+            "temporal": {
+              "eligible_pixels": 8868,
+              "inside_pixels": 0,
+              "escaped_pixels": 0,
+              "fraction": 0.0,
+              "enchanted": false,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 8868,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "luma_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "motion_fraction_rgb_gt2": 0.0,
+              "motion_fraction_rgb_gt8": 0.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "mean_body_luma_p50_p90": [
+                88.70016714027966,
+                88.70016714027966
+              ],
+              "highlight_centroid_body_widths_per_second": [],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          }
+        },
+        "gif": {
+          "path": "world-comparison.gif",
+          "sha256": "a9e8f3a2bfadb05e4c946711292c8547c3a6e251d74d3d7a69fb538ca94f2b59",
+          "crop": [
+            519,
+            443,
+            1357,
+            661
+          ],
+          "duration_milliseconds": [
+            2670,
+            2340,
+            2650,
+            2280,
+            2470,
+            2400,
+            2540,
+            2590,
+            2550,
+            2640,
+            2550,
+            2320,
+            2380,
+            2320,
+            2300,
+            2220,
+            2320,
+            2360,
+            2720,
+            2720
+          ],
+          "playback": "Native QPC intervals rounded to GIF 10ms; final frame held for final interval",
+          "pixels": "Fixed crop only; no resizing, synthesis, enhancement or runtime overlay"
+        }
+      },
+      "world_missing": {
+        "duration": {
+          "seconds": 44.49625119999837,
+          "ordered": true,
+          "frame_intervals_seconds": [
+            2.5272272000001976,
+            2.8363454999998794,
+            2.381760900003428,
+            2.460564000000886,
+            2.4120994999975665,
+            2.460564599998179,
+            2.4605616999979247,
+            2.424194000006537,
+            2.327226999994309,
+            2.3029979999992065,
+            2.357568999999785,
+            2.3029663000052096,
+            2.3575391999984276,
+            2.2060263000021223,
+            2.20601539999916,
+            2.3151189999989583,
+            2.0363228999995044,
+            2.0908896999972058,
+            2.030260999999882
+          ],
+          "passed": true
+        },
+        "items": {
+          "empty": {
+            "body": {
+              "pixels": 0,
+              "bounds": null
+            },
+            "extent_pixels": [
+              0,
+              0
+            ],
+            "scale_passed": true,
+            "negative_control_passed": true,
+            "temporal": {
+              "eligible_pixels": 7832,
+              "inside_pixels": 0,
+              "escaped_pixels": 0,
+              "fraction": 0.0,
+              "enchanted": false,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 7832,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "luma_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "motion_fraction_rgb_gt2": 0.0,
+              "motion_fraction_rgb_gt8": 0.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "mean_body_luma_p50_p90": [
+                77.95108207354441,
+                77.95108207354441
+              ],
+              "highlight_centroid_body_widths_per_second": [],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          },
+          "enchanted": {
+            "body": {
+              "pixels": 8473,
+              "bounds": [
+                857,
+                472,
+                1014,
+                629
+              ]
+            },
+            "extent_pixels": [
+              157,
+              157
+            ],
+            "scale_passed": true,
+            "negative_control_passed": null,
+            "temporal": {
+              "eligible_pixels": 8473,
+              "inside_pixels": 8473,
+              "escaped_pixels": 0,
+              "fraction": 1.0,
+              "enchanted": true,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 8473,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                118.0,
+                170.0,
+                194.0
+              ],
+              "luma_range_p50_p90_max": [
+                28.169200000000004,
+                41.90424,
+                52.00360000000001
+              ],
+              "motion_fraction_rgb_gt2": 1.0,
+              "motion_fraction_rgb_gt8": 1.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.5570400094417562,
+                0.7621267555765372,
+                0.9015460875722885
+              ],
+              "mean_body_luma_p50_p90": [
+                108.71139486604508,
+                114.35254371061016
+              ],
+              "highlight_centroid_body_widths_per_second": [
+                0.020099464678600836,
+                0.021201090121289984,
+                0.08836061618224263,
+                0.09378577263943498,
+                0.020930115116306613,
+                0.017487329070025315,
+                0.14868823208047965,
+                0.12304148546152856,
+                0.020248293698963523,
+                0.04891631615653104,
+                0.18334101491891697,
+                0.07656879547080901,
+                0.057945043941089666,
+                0.01926061945792913,
+                0.039777876075697,
+                0.036618829117691015,
+                0.031224530184627407,
+                0.02815016362179786,
+                0.020060936478903914
+              ],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          },
+          "plain": {
+            "body": {
+              "pixels": 8868,
+              "bounds": [
+                1166,
+                472,
+                1331,
+                629
+              ]
+            },
+            "extent_pixels": [
+              165,
+              157
+            ],
+            "scale_passed": true,
+            "negative_control_passed": null,
+            "temporal": {
+              "eligible_pixels": 8868,
+              "inside_pixels": 0,
+              "escaped_pixels": 0,
+              "fraction": 0.0,
+              "enchanted": false,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 8868,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "luma_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "motion_fraction_rgb_gt2": 0.0,
+              "motion_fraction_rgb_gt8": 0.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "mean_body_luma_p50_p90": [
+                88.70016714027966,
+                88.70016714027966
+              ],
+              "highlight_centroid_body_widths_per_second": [],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          }
+        },
+        "gif": {
+          "path": "world_missing-comparison.gif",
+          "sha256": "cbe59f1c4df7027b3092080754e2b7c30abf903a5652ec1ab9cbf6c5b428244f",
+          "crop": [
+            519,
+            443,
+            1357,
+            661
+          ],
+          "duration_milliseconds": [
+            2530,
+            2840,
+            2380,
+            2460,
+            2410,
+            2460,
+            2460,
+            2420,
+            2330,
+            2300,
+            2360,
+            2300,
+            2360,
+            2210,
+            2210,
+            2320,
+            2040,
+            2090,
+            2030,
+            2030
+          ],
+          "playback": "Native QPC intervals rounded to GIF 10ms; final frame held for final interval",
+          "pixels": "Fixed crop only; no resizing, synthesis, enhancement or runtime overlay"
+        }
+      },
+      "native": {
+        "duration": {
+          "seconds": 38.253970700003265,
+          "ordered": true,
+          "frame_intervals_seconds": [
+            1.8787594000023091,
+            2.090881800002535,
+            1.9393859999981942,
+            1.775731800000358,
+            2.0059955999968224,
+            1.8787752000062028,
+            1.9454202999986592,
+            1.9696685999952024,
+            1.939356200004113,
+            1.8787536999952863,
+            1.9696653999999398,
+            2.084832500004268,
+            2.284805700001016,
+            2.2666385999982595,
+            1.97570679999626,
+            1.8605759000056423,
+            2.0666411999991396,
+            2.024213400000008,
+            2.41816259999905
+          ],
+          "passed": true
+        },
+        "items": {
+          "empty": {
+            "body": {
+              "pixels": 0,
+              "bounds": null
+            },
+            "extent_pixels": [
+              0,
+              0
+            ],
+            "scale_passed": true,
+            "negative_control_passed": true,
+            "temporal": {
+              "eligible_pixels": 7832,
+              "inside_pixels": 0,
+              "escaped_pixels": 0,
+              "fraction": 0.0,
+              "enchanted": false,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 7832,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "luma_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "motion_fraction_rgb_gt2": 0.0,
+              "motion_fraction_rgb_gt8": 0.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "mean_body_luma_p50_p90": [
+                72.47375812053117,
+                72.47375812053117
+              ],
+              "highlight_centroid_body_widths_per_second": [],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          },
+          "enchanted": {
+            "body": {
+              "pixels": 8614,
+              "bounds": [
+                856,
+                472,
+                1014,
+                630
+              ]
+            },
+            "extent_pixels": [
+              158,
+              158
+            ],
+            "scale_passed": true,
+            "negative_control_passed": null,
+            "temporal": {
+              "eligible_pixels": 8614,
+              "inside_pixels": 8614,
+              "escaped_pixels": 0,
+              "fraction": 1.0,
+              "enchanted": true,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 8614,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                74.0,
+                113.0,
+                137.0
+              ],
+              "luma_range_p50_p90_max": [
+                17.301999999999996,
+                25.380200000000006,
+                30.669399999999996
+              ],
+              "motion_fraction_rgb_gt2": 1.0,
+              "motion_fraction_rgb_gt8": 1.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.43382865103320173,
+                0.6948572091943348,
+                0.8605874158346878
+              ],
+              "mean_body_luma_p50_p90": [
+                87.80630167169724,
+                90.18599731831901
+              ],
+              "highlight_centroid_body_widths_per_second": [
+                0.03183928860112178,
+                0.07124597049604475,
+                0.06337127829517755,
+                0.09074632060640189,
+                0.2582606821670915,
+                0.30430771799115125,
+                0.15594893760640408,
+                0.35554868260184586,
+                0.30406133860929097,
+                0.025383855491140042,
+                0.05377106913108597,
+                0.26374318598991026,
+                0.16835342424223734,
+                0.08271816552506048,
+                0.12221259188381209,
+                0.17136600752691047,
+                0.05217079887769165
+              ],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          },
+          "plain": {
+            "body": {
+              "pixels": 8986,
+              "bounds": [
+                1167,
+                472,
+                1332,
+                630
+              ]
+            },
+            "extent_pixels": [
+              165,
+              158
+            ],
+            "scale_passed": true,
+            "negative_control_passed": null,
+            "temporal": {
+              "eligible_pixels": 8986,
+              "inside_pixels": 0,
+              "escaped_pixels": 0,
+              "fraction": 0.0,
+              "enchanted": false,
+              "passed": true
+            },
+            "glint": {
+              "body_pixels": 8986,
+              "status": "MEASURED",
+              "rgb_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "luma_range_p50_p90_max": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "motion_fraction_rgb_gt2": 0.0,
+              "motion_fraction_rgb_gt8": 0.0,
+              "visible_highlight_fraction_p10_p50_p90": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "mean_body_luma_p50_p90": [
+                68.8817373469842,
+                68.8817373469842
+              ],
+              "highlight_centroid_body_widths_per_second": [],
+              "speed_limitations": "Sparse frame centroid displacement; not continuous phase velocity"
+            }
+          }
+        },
+        "gif": {
+          "path": "native-comparison.gif",
+          "sha256": "29c1349d9c96906395f9a9645e1ca2d96051e8ad6a6639f3e12f9540833eae96",
+          "crop": [
+            519,
+            443,
+            1357,
+            661
+          ],
+          "duration_milliseconds": [
+            1880,
+            2090,
+            1940,
+            1780,
+            2010,
+            1880,
+            1950,
+            1970,
+            1940,
+            1880,
+            1970,
+            2080,
+            2280,
+            2270,
+            1980,
+            1860,
+            2070,
+            2020,
+            2420,
+            2420
+          ],
+          "playback": "Native QPC intervals rounded to GIF 10ms; final frame held for final interval",
+          "pixels": "Fixed crop only; no resizing, synthesis, enhancement or runtime overlay"
+        }
+      }
+    },
+    "production_qualified": false,
+    "native_parity_accepted": false,
+    "lighting_limitations": "Clear noon is fixed; native lighting and custom material lighting are different",
+    "source": {
+      "observed": [
+        {
+          "item_api": {
+            "count": 1,
+            "newItemName": "minecraft:diamond_sword",
+            "enchantData": [
+              [
+                9,
+                3
+              ]
+            ],
+            "durability": 1561,
+            "itemId": 276,
+            "customTips": "",
+            "extraId": "",
+            "newAuxValue": 0,
+            "modEnchantData": [],
+            "modId": "",
+            "modItemId": "",
+            "itemName": "minecraft:diamond_sword",
+            "auxValue": 0,
+            "showInHand": true
+          },
+          "source": {
+            "support": [
+              7,
+              -40,
+              8
+            ],
+            "material": [
+              "minecraft:frame",
+              2
+            ],
+            "placed_material": [
+              "minecraft:frame",
+              2
+            ],
+            "mode": "enchanted",
+            "position": [
+              7,
+              -40,
+              7
+            ],
+            "rotation": 0.0,
+            "item_write_route": "native inventory PlayerUseItemToPos only; no subsequent frame setters",
+            "placed_block": {
+              "aux": 2,
+              "name": "minecraft:frame"
+            }
+          },
+          "typed_nbt": {
+            "z": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "Item": {
+              "Count": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "WasPickedUp": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "tag": {
+                "ench": [
+                  {
+                    "lvl": {
+                      "__type__": 2,
+                      "__value__": 3
+                    },
+                    "id": {
+                      "__type__": 2,
+                      "__value__": 9
+                    },
+                    "modEnchant": {
+                      "__type__": 8,
+                      "__value__": ""
+                    }
+                  }
+                ]
+              },
+              "Damage": {
+                "__type__": 2,
+                "__value__": 0
+              },
+              "Name": {
+                "__type__": 8,
+                "__value__": "minecraft:diamond_sword"
+              }
+            },
+            "ItemDropChance": {
+              "__type__": 5,
+              "__value__": 1.0
+            },
+            "ItemRotation": {
+              "__type__": 5,
+              "__value__": 0.0
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -40
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "ItemFrame"
+            }
+          }
+        },
+        {
+          "item_api": null,
+          "source": {
+            "support": [
+              8,
+              -40,
+              8
+            ],
+            "material": [
+              "minecraft:frame",
+              2
+            ],
+            "placed_material": [
+              "minecraft:frame",
+              2
+            ],
+            "mode": "empty",
+            "position": [
+              8,
+              -40,
+              7
+            ],
+            "rotation": 0.0,
+            "placed_block": {
+              "aux": 2,
+              "name": "minecraft:frame"
+            }
+          },
+          "typed_nbt": {
+            "y": {
+              "__type__": 3,
+              "__value__": -40
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 8
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "ItemFrame"
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 7
+            }
+          }
+        },
+        {
+          "item_api": {
+            "count": 1,
+            "newItemName": "minecraft:diamond_sword",
+            "enchantData": [],
+            "durability": 1561,
+            "itemId": 276,
+            "customTips": "",
+            "extraId": "",
+            "newAuxValue": 0,
+            "modEnchantData": [],
+            "modId": "",
+            "modItemId": "",
+            "itemName": "minecraft:diamond_sword",
+            "auxValue": 0,
+            "showInHand": true
+          },
+          "source": {
+            "support": [
+              6,
+              -40,
+              8
+            ],
+            "material": [
+              "minecraft:frame",
+              2
+            ],
+            "placed_material": [
+              "minecraft:frame",
+              2
+            ],
+            "mode": "plain",
+            "position": [
+              6,
+              -40,
+              7
+            ],
+            "rotation": 0.0,
+            "item_write_route": "native inventory PlayerUseItemToPos only; no subsequent frame setters",
+            "placed_block": {
+              "aux": 2,
+              "name": "minecraft:frame"
+            }
+          },
+          "typed_nbt": {
+            "z": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "Item": {
+              "Count": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "WasPickedUp": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "Damage": {
+                "__type__": 2,
+                "__value__": 0
+              },
+              "Name": {
+                "__type__": 8,
+                "__value__": "minecraft:diamond_sword"
+              }
+            },
+            "ItemDropChance": {
+              "__type__": 5,
+              "__value__": 1.0
+            },
+            "ItemRotation": {
+              "__type__": 5,
+              "__value__": 0.0
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -40
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 6
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "ItemFrame"
+            }
+          }
+        }
+      ],
+      "source": "public test.entities.item_contents first frame pair; actual native frame and inventory diamond sword interaction; AddEnchantToInvItem(9,3), no subsequent frame setters",
+      "kind": "actual native frame blocks",
+      "coordinates_confirmed_air": true,
+      "dimension": 0
+    },
+    "reference_valid": true,
+    "comparison_status": "SCORED_AGAINST_VISIBLE_NATIVE_ITEMS",
+    "paired_native_body": {
+      "world": {
+        "plain": {
+          "product": {
+            "pixels": 8868,
+            "bounds": [
+              1166,
+              472,
+              1331,
+              629
+            ]
+          },
+          "native": {
+            "pixels": 8986,
+            "bounds": [
+              1167,
+              472,
+              1332,
+              630
+            ]
+          },
+          "limits": {
+            "edge_tolerance_pixels": 2,
+            "minimum_recall": 0.985,
+            "minimum_precision": 0.985,
+            "minimum_extent_pixels": 48
+          },
+          "recall": 1.0,
+          "precision": 1.0,
+          "scale_passed": true,
+          "passed": true
+        },
+        "enchanted": {
+          "product": {
+            "pixels": 8473,
+            "bounds": [
+              857,
+              472,
+              1014,
+              629
+            ]
+          },
+          "native": {
+            "pixels": 8614,
+            "bounds": [
+              856,
+              472,
+              1014,
+              630
+            ]
+          },
+          "limits": {
+            "edge_tolerance_pixels": 2,
+            "minimum_recall": 0.985,
+            "minimum_precision": 0.985,
+            "minimum_extent_pixels": 48
+          },
+          "recall": 1.0,
+          "precision": 1.0,
+          "scale_passed": true,
+          "passed": true
+        }
+      },
+      "world_missing": {
+        "plain": {
+          "product": {
+            "pixels": 8868,
+            "bounds": [
+              1166,
+              472,
+              1331,
+              629
+            ]
+          },
+          "native": {
+            "pixels": 8986,
+            "bounds": [
+              1167,
+              472,
+              1332,
+              630
+            ]
+          },
+          "limits": {
+            "edge_tolerance_pixels": 2,
+            "minimum_recall": 0.985,
+            "minimum_precision": 0.985,
+            "minimum_extent_pixels": 48
+          },
+          "recall": 1.0,
+          "precision": 1.0,
+          "scale_passed": true,
+          "passed": true
+        },
+        "enchanted": {
+          "product": {
+            "pixels": 8473,
+            "bounds": [
+              857,
+              472,
+              1014,
+              629
+            ]
+          },
+          "native": {
+            "pixels": 8614,
+            "bounds": [
+              856,
+              472,
+              1014,
+              630
+            ]
+          },
+          "limits": {
+            "edge_tolerance_pixels": 2,
+            "minimum_recall": 0.985,
+            "minimum_precision": 0.985,
+            "minimum_extent_pixels": 48
+          },
+          "recall": 1.0,
+          "precision": 1.0,
+          "scale_passed": true,
+          "passed": true
+        }
+      }
+    },
+    "glint_visibility_limits": {
+      "minimum_native_rgb_range_ratio": 0.8,
+      "minimum_native_luma_range_ratio": 0.8,
+      "minimum_native_visible_coverage_ratio": 0.7,
+      "minimum_body_extent_pixels": 150
+    },
+    "glint_visibility_comparison": {
+      "editor": {
+        "ratios_to_real_native": {
+          "rgb_range": 1.4424778761061947,
+          "luma_range": 1.5744635582067903,
+          "visible_coverage": 1.1282087242445105,
+          "centroid_speed": 0.5495160146499095
+        },
+        "passed": true,
+        "status": "MEASURED",
+        "centroid_speed_role": "Diagnostic only: thresholded bright-area centroid displacement is not texture phase velocity",
+        "continuous_motion_accepted": false,
+        "scope": "Visible contrast over sparse QPC-timed captures; continuous motion requires verified dense frames"
+      },
+      "world": {
+        "ratios_to_real_native": {
+          "rgb_range": 1.3628318584070795,
+          "luma_range": 1.456078360296609,
+          "visible_coverage": 1.0147727380391909,
+          "centroid_speed": 0.45340104610204934
+        },
+        "passed": true,
+        "status": "MEASURED",
+        "centroid_speed_role": "Diagnostic only: thresholded bright-area centroid displacement is not texture phase velocity",
+        "continuous_motion_accepted": false,
+        "scope": "Visible contrast over sparse QPC-timed captures; continuous motion requires verified dense frames"
+      },
+      "world_missing": {
+        "ratios_to_real_native": {
+          "rgb_range": 1.5044247787610618,
+          "luma_range": 1.6510602753327395,
+          "visible_coverage": 1.0968106043833081,
+          "centroid_speed": 0.2996322109959394
+        },
+        "passed": true,
+        "status": "MEASURED",
+        "centroid_speed_role": "Diagnostic only: thresholded bright-area centroid displacement is not texture phase velocity",
+        "continuous_motion_accepted": false,
+        "scope": "Visible contrast over sparse QPC-timed captures; continuous motion requires verified dense frames"
+      }
+    },
+    "native_glint_visibility_accepted": true,
+    "native_glint_accepted": false,
+    "continuous_motion_required": "Use verified uninterrupted native-window frames; sparse captures grant visibility only"
+  },
+  "evidence_valid": true,
+  "all_bodies_passed": true
+}
