@@ -1,0 +1,548 @@
+{
+  "schema_version": 1,
+  "production_qualified": false,
+  "source_report_sha256": "7d45c2236b98b0782143be7f4884e0821097982f28c2ee6149f7027521c41993",
+  "cases": [
+    {
+      "label": "oak_0_south",
+      "states": {
+        "powered_bit": false,
+        "powered_shelf_type": 0,
+        "minecraft:cardinal_direction": "south"
+      },
+      "scores": {
+        "unpowered": {
+          "native_pixels": 43152,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 15744,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.8973527572550201,
+          "native_bounds": [
+            69,
+            54,
+            312,
+            252
+          ],
+          "middle_pixels": 13331,
+          "middle_rgb_gain": [
+            0.7182181985733821,
+            0.7190750523140856,
+            0.7208840211856773
+          ],
+          "middle_channel_correlation": [
+            0.9662978194920605,
+            0.9638737817737659,
+            0.9439932693305554
+          ],
+          "middle_normalized_rmse": 4.60780017135054,
+          "middle_raw_rmse": 27.137668088472967
+        },
+        "unpowered_ao": {
+          "native_pixels": 43152,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 15744,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.8973527572550201,
+          "native_bounds": [
+            69,
+            54,
+            312,
+            252
+          ],
+          "middle_pixels": 13331,
+          "middle_rgb_gain": [
+            0.8950988387890902,
+            0.8980621816598187,
+            0.9005322914461925
+          ],
+          "middle_channel_correlation": [
+            0.9665477225657311,
+            0.967171513550134,
+            0.9513539856785603
+          ],
+          "middle_normalized_rmse": 4.450031843551929,
+          "middle_raw_rmse": 9.046249004901716
+        },
+        "unpowered_baked": {
+          "native_pixels": 43152,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 15744,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.8973527572550201,
+          "native_bounds": [
+            69,
+            54,
+            312,
+            252
+          ],
+          "middle_pixels": 13331,
+          "middle_rgb_gain": [
+            0.7182181985733821,
+            0.7190750523140856,
+            0.7208840211856773
+          ],
+          "middle_channel_correlation": [
+            0.9662978194920605,
+            0.9638737817737659,
+            0.9439932693305554
+          ],
+          "middle_normalized_rmse": 4.60780017135054,
+          "middle_raw_rmse": 27.137668088472967
+        },
+        "unpowered_baked_ao": {
+          "native_pixels": 43152,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 15744,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.8973527572550201,
+          "native_bounds": [
+            69,
+            54,
+            312,
+            252
+          ],
+          "middle_pixels": 13331,
+          "middle_rgb_gain": [
+            0.8950988387890902,
+            0.8980621816598187,
+            0.9005322914461925
+          ],
+          "middle_channel_correlation": [
+            0.9665477225657311,
+            0.967171513550134,
+            0.9513539856785603
+          ],
+          "middle_normalized_rmse": 4.450031843551929,
+          "middle_raw_rmse": 9.046249004901716
+        }
+      },
+      "best_diagnostic_match": "unpowered_ao",
+      "diagnostic_rmse_margin": 0.0,
+      "review_bounds": [
+        61,
+        46,
+        320,
+        260
+      ]
+    },
+    {
+      "label": "oak_8_west",
+      "states": {
+        "powered_bit": false,
+        "powered_shelf_type": 0,
+        "minecraft:cardinal_direction": "west"
+      },
+      "scores": {
+        "unpowered": {
+          "native_pixels": 42211,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 10340,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.9170276732239661,
+          "native_bounds": [
+            69,
+            54,
+            311,
+            252
+          ],
+          "middle_pixels": 13305,
+          "middle_rgb_gain": [
+            0.5395240375261638,
+            0.5403640339318148,
+            0.5405676405783426
+          ],
+          "middle_channel_correlation": [
+            0.9657260807669549,
+            0.9611757081464429,
+            0.950811468117328
+          ],
+          "middle_normalized_rmse": 3.46164023652031,
+          "middle_raw_rmse": 43.87892278432225
+        },
+        "unpowered_ao": {
+          "native_pixels": 42211,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 10340,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.9170276732239661,
+          "native_bounds": [
+            69,
+            54,
+            311,
+            252
+          ],
+          "middle_pixels": 13305,
+          "middle_rgb_gain": [
+            0.672485749932841,
+            0.6751442412447689,
+            0.6755082169554568
+          ],
+          "middle_channel_correlation": [
+            0.9661754428848777,
+            0.964731326806166,
+            0.9560648978246589
+          ],
+          "middle_normalized_rmse": 3.351486520373293,
+          "middle_raw_rmse": 25.08822164060882
+        },
+        "unpowered_baked": {
+          "native_pixels": 42211,
+          "candidate_pixels": 54255,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 10340,
+            "candidate": 56
+          },
+          "unshifted_iou": 0.6841425304212713,
+          "native_bounds": [
+            69,
+            54,
+            311,
+            252
+          ],
+          "middle_pixels": 13766,
+          "middle_rgb_gain": [
+            0.46886477294213924,
+            0.47129606392897117,
+            0.465816697921693
+          ],
+          "middle_channel_correlation": [
+            0.1222953395277134,
+            0.059769686054095,
+            0.06887568788668134
+          ],
+          "middle_normalized_rmse": 21.506984548365015,
+          "middle_raw_rmse": 60.46142711452383
+        },
+        "unpowered_baked_ao": {
+          "native_pixels": 42211,
+          "candidate_pixels": 54255,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 10340,
+            "candidate": 56
+          },
+          "unshifted_iou": 0.6841425304212713,
+          "native_bounds": [
+            69,
+            54,
+            311,
+            252
+          ],
+          "middle_pixels": 13766,
+          "middle_rgb_gain": [
+            0.5878953618309894,
+            0.5907121705039834,
+            0.5833619864478462
+          ],
+          "middle_channel_correlation": [
+            0.11963131227639792,
+            0.06013530711435994,
+            0.06791011941632619
+          ],
+          "middle_normalized_rmse": 21.447286017175532,
+          "middle_raw_rmse": 41.039618400563235
+        }
+      },
+      "best_diagnostic_match": "unpowered_ao",
+      "diagnostic_rmse_margin": 0.11015371614701719,
+      "review_bounds": [
+        61,
+        46,
+        319,
+        260
+      ]
+    },
+    {
+      "label": "oak_16_north",
+      "states": {
+        "powered_bit": false,
+        "powered_shelf_type": 0,
+        "minecraft:cardinal_direction": "north"
+      },
+      "scores": {
+        "unpowered": {
+          "native_pixels": 38714,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 408,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.9985555842145989,
+          "native_bounds": [
+            88,
+            54,
+            293,
+            252
+          ],
+          "middle_pixels": 11868,
+          "middle_rgb_gain": [
+            0.7178245248974284,
+            0.7174719860714035,
+            0.7166047236733637
+          ],
+          "middle_channel_correlation": [
+            0.9652235118318921,
+            0.9666233487485124,
+            0.9688834676279561
+          ],
+          "middle_normalized_rmse": 4.323969334476319,
+          "middle_raw_rmse": 26.588594320468204
+        },
+        "unpowered_ao": {
+          "native_pixels": 38714,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 408,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.9985555842145989,
+          "native_bounds": [
+            88,
+            54,
+            293,
+            252
+          ],
+          "middle_pixels": 11868,
+          "middle_rgb_gain": [
+            0.8947809133424828,
+            0.8964974023356828,
+            0.8961942585074715
+          ],
+          "middle_channel_correlation": [
+            0.965015102683963,
+            0.9668610854206591,
+            0.968968476717796
+          ],
+          "middle_normalized_rmse": 4.317430915822345,
+          "middle_raw_rmse": 8.894433236059516
+        },
+        "unpowered_baked": {
+          "native_pixels": 38714,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 408,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.9985555842145989,
+          "native_bounds": [
+            88,
+            54,
+            293,
+            252
+          ],
+          "middle_pixels": 11868,
+          "middle_rgb_gain": [
+            0.7178245248974284,
+            0.7174719860714035,
+            0.7166047236733637
+          ],
+          "middle_channel_correlation": [
+            0.9652235118318921,
+            0.9666233487485124,
+            0.9688834676279561
+          ],
+          "middle_normalized_rmse": 4.323969334476319,
+          "middle_raw_rmse": 26.588594320468204
+        },
+        "unpowered_baked_ao": {
+          "native_pixels": 38714,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 408,
+            "candidate": 408
+          },
+          "unshifted_iou": 0.9985555842145989,
+          "native_bounds": [
+            88,
+            54,
+            293,
+            252
+          ],
+          "middle_pixels": 11868,
+          "middle_rgb_gain": [
+            0.8947809133424828,
+            0.8964974023356828,
+            0.8961942585074715
+          ],
+          "middle_channel_correlation": [
+            0.965015102683963,
+            0.9668610854206591,
+            0.968968476717796
+          ],
+          "middle_normalized_rmse": 4.317430915822345,
+          "middle_raw_rmse": 8.894433236059516
+        }
+      },
+      "best_diagnostic_match": "unpowered_ao",
+      "diagnostic_rmse_margin": 0.0,
+      "review_bounds": [
+        80,
+        46,
+        301,
+        260
+      ]
+    },
+    {
+      "label": "oak_24_east",
+      "states": {
+        "powered_bit": false,
+        "powered_shelf_type": 0,
+        "minecraft:cardinal_direction": "east"
+      },
+      "scores": {
+        "unpowered": {
+          "native_pixels": 38770,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 408,
+            "candidate": 408
+          },
+          "unshifted_iou": 1.0,
+          "native_bounds": [
+            87,
+            54,
+            292,
+            252
+          ],
+          "middle_pixels": 11868,
+          "middle_rgb_gain": [
+            0.5391179995265425,
+            0.5391138368543554,
+            0.5386153344111427
+          ],
+          "middle_channel_correlation": [
+            0.9656033243182106,
+            0.9670743943919524,
+            0.968826589432259
+          ],
+          "middle_normalized_rmse": 3.233760962760385,
+          "middle_raw_rmse": 42.94164810669081
+        },
+        "unpowered_ao": {
+          "native_pixels": 38770,
+          "candidate_pixels": 38770,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 408,
+            "candidate": 408
+          },
+          "unshifted_iou": 1.0,
+          "native_bounds": [
+            87,
+            54,
+            292,
+            252
+          ],
+          "middle_pixels": 11868,
+          "middle_rgb_gain": [
+            0.6720207550398578,
+            0.6736338677444105,
+            0.6735971184083892
+          ],
+          "middle_channel_correlation": [
+            0.9654005133180266,
+            0.9672907593318463,
+            0.9688964106288868
+          ],
+          "middle_normalized_rmse": 3.2297705356840765,
+          "middle_raw_rmse": 24.57272039883097
+        },
+        "unpowered_baked": {
+          "native_pixels": 38770,
+          "candidate_pixels": 54255,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 408,
+            "candidate": 56
+          },
+          "unshifted_iou": 0.6245503125982327,
+          "native_bounds": [
+            87,
+            54,
+            292,
+            252
+          ],
+          "middle_pixels": 11868,
+          "middle_rgb_gain": [
+            0.4440258453848043,
+            0.4325632530287743,
+            0.4161203746212505
+          ],
+          "middle_channel_correlation": [
+            0.19351907205490845,
+            0.19491577906938418,
+            0.21371214686283418
+          ],
+          "middle_normalized_rmse": 16.69153213999504,
+          "middle_raw_rmse": 63.278720044859256
+        },
+        "unpowered_baked_ao": {
+          "native_pixels": 38770,
+          "candidate_pixels": 54255,
+          "scope": "native_projected_cell",
+          "changed_pixels_outside_scope": {
+            "native": 408,
+            "candidate": 56
+          },
+          "unshifted_iou": 0.6245503125982327,
+          "native_bounds": [
+            87,
+            54,
+            292,
+            252
+          ],
+          "middle_pixels": 11868,
+          "middle_rgb_gain": [
+            0.5567503663320671,
+            0.5420757036418391,
+            0.5210435944609426
+          ],
+          "middle_channel_correlation": [
+            0.1923387612714189,
+            0.196115206643287,
+            0.21437863905870788
+          ],
+          "middle_normalized_rmse": 16.61849931743119,
+          "middle_raw_rmse": 42.53932041767444
+        }
+      },
+      "best_diagnostic_match": "unpowered_ao",
+      "diagnostic_rmse_margin": 0.003990427076308478,
+      "review_bounds": [
+        79,
+        46,
+        300,
+        260
+      ]
+    }
+  ],
+  "limits": [
+    "Scores identify artwork candidates only; no runtime admission.",
+    "Per-channel normalization is diagnostic and does not qualify lighting.",
+    "Projected-cell scores exclude exterior background changes; exterior counts remain diagnostic."
+  ]
+}

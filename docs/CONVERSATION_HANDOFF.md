@@ -1,5 +1,13 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 02:10 光效审计与Shelf烘焙失败对照
+
+- `eacbb533`保存原生固有glint严格审计：1907标识符／2835名称aux组合，128正、1605本次probe负、1102未判定；八族aux0..15均有原生UI正例（新增debug_stick）。root独立verify重算1033 indexed文件及分类均通过。海晶石弱动画误收已在独立严格重析退回未判定；原始采集保持不变。不读取动态指示器目标／位置／时间数据，production仍False。metadata-rich成书只离线准备，未启动。
+- root `.runtime/shelf-baked-direction-r21-v1`实测完成24图，completed／restored／source_unchanged=True、cleanup为空。南北baked与原骨骼像素相同，东西出现几何／前后深度偏差（IoU约0.6245／0.6841），不能声称烘焙修复光照。失败对照已完整封存至`docs/evidence/shelf-baked-r21-v1`，261项manifest与独立像素重放通过；追加反向四分之一转候选仅用于确定坐标约定，不修改原失败副本或生产路由。
+- root Shelf session `8cb238173c874c6a9d095c454e03b60e`已恢复并退出；精确保留句柄记录MC7156=0xC0000409、MCDK27752=0，普通stop超时后仅finalize已退出会话，无force。不能把登记stopped记作正常引擎退出。
+- 01:55后MC／WGC独占交给book plain24候选。首个v1在无条件air写入返回False处失败，未拍图，恢复／source unchanged均True；正在以最小host v2修正幂等写入检查后继续同一存活实例。未授权packed矩阵。后续item最小方块pose／人工附魔、portal坐标、shield真实合成产物、snow生命周期和water alpha按资源轮换。
+- root全量回归在`7de84071`完成3050项／391.473秒／OK／1 skipped，234运行时文件零白名单违规；此结果不包含之后glint规则和本次Shelf诊断工具增量，各自另行定点验证。08:00休眠任务再次读回启用且StartWhenAvailable=False，继续开发至截止，不push／合main。
+
 ## 2026-10-16 01:28 旗帜物品结论与顺序验证
 
 - 已在01:30截止前明确告知用户：原生旗帜方块的0/3/6层图案可在可旋转编辑器中显示，不等于框内旗帜物品已经支持。root亲自对照原生frame物品的底部中央短杆与wall-banner候选的突出上横杆，确认形态不同。后续需要独立物品外形／姿态适配；尚无证据必须重写全部图案着色，带图案盾牌也未完成。

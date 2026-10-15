@@ -54,7 +54,7 @@ def verify_matrix(folder, replay=False):
                       'pixels_replayed': replay, 'production_qualified': False}))
 
 
-def freeze_matrix(report_path, review, project, output):
+def freeze_matrix(report_path, review, project, output, experiment='direction'):
     report = json.loads(report_path.read_bytes())
     if report.get('source_unchanged') is not True:
         raise ValueError('Shelf matrix must bind unchanged project sources')
@@ -83,22 +83,31 @@ def freeze_matrix(report_path, review, project, output):
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, target)
             inputs[relative] = expected
+    findings = {
+        'direction': ('Engine-direction and bone controls were pixel-identical; AO remained too bright.',
+                      'Engine face-directional and bone-rotation controls produce identical candidate pixels. '
+                      'AO improves the brightness difference but does not close it. Native east/west middle '
+                      'backing is about 0.75 times north/south; the candidate does not reproduce that difference.'),
+        'baked': ('Baked north/south matched bone controls, while east/west geometry differed and was rejected.',
+                  'The baked coordinate candidate matches its bone-rotation control for north/south, but '
+                  'east/west differs in silhouette and apparent depth. This experiment fails geometry acceptance '
+                  'and does not establish a lighting fix. Rotation sign and native face conventions remain open.')}
+    finding, description = findings[experiment]
     (output/'index.json').write_text(json.dumps({
         'schema_version': 1, 'production_qualified': False, 'observation': observation,
+        'experiment': experiment,
         'candidate_input_sha256': inputs,
         'limits': ['Diagnostic shelf body comparisons only; no content or product admission.',
                    'All declared project hashes are checked while packing; only relevant oak assets are copied.',
                    'Per-channel normalization does not qualify absolute lighting.',
-                   'Engine-direction and bone controls were pixel-identical; AO remained too bright.']},
+                   finding]},
         indent=2)+'\n', encoding='ascii', newline='\n')
     (output/'README.md').write_text(
         '# Shelf direction and lighting diagnostic, R21\n\n'
         'NEMC 3.10.0.420447. All 24 original PNGs, receipts, native projected-cell corners, '
         'acquisition hosts, analysis and relevant oak candidate assets are preserved. '
         'The capture completed, restored its world/editor state and retained unchanged sources.\n\n'
-        'Engine face-directional and bone-rotation controls produce identical candidate pixels. '
-        'AO improves the brightness difference but does not close it. Native east/west middle '
-        'backing is about 0.75 times north/south; the candidate does not reproduce that difference. '
+        + description + ' '
         'Normalized texture comparisons are diagnostic only. Neither production routing nor '
         'three-slot item content is qualified.\n\n'
         'The portable analysis uses native physical projected-cell corners to exclude exterior '
@@ -121,6 +130,7 @@ def main():
     parser.add_argument('--candidate', type=Path)
     parser.add_argument('--matrix-report', type=Path)
     parser.add_argument('--project', type=Path)
+    parser.add_argument('--experiment', choices=('direction', 'baked'), default='direction')
     parser.add_argument('--verify', action='store_true')
     parser.add_argument('--replay', action='store_true')
     parser.add_argument('--output', type=Path, required=True)
@@ -131,7 +141,7 @@ def main():
     if args.matrix_report:
         if args.review is None or args.project is None:
             parser.error('--matrix-report requires --review and --project')
-        freeze_matrix(args.matrix_report, args.review, args.project, args.output)
+        freeze_matrix(args.matrix_report, args.review, args.project, args.output, args.experiment)
         return
     if any(value is None for value in (args.native_report, args.body_report, args.review, args.candidate)):
         parser.error('The original shelf package requires both reports, review and candidate')

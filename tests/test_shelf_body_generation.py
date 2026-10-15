@@ -89,6 +89,22 @@ class ShelfBodyGenerationTests(unittest.TestCase):
                         self.assertGreaterEqual(cube['origin'][i], low)
                         self.assertLessEqual(cube['origin'][i] + cube['size'][i], high)
 
+    def test_opposite_sign_controls_preserve_axis_bounds_and_distinct_identity(self):
+        for front in FRONTS:
+            for direction in DIRECTIONS:
+                direct = baked_body_model(self.reference, front, direction, True)
+                reverse = baked_body_model(self.reference, front, direction, True, reverse=True)
+                inverse = DIRECTIONS[-DIRECTIONS.index(direction) % 4]
+                expected = baked_body_model(self.reference, front, inverse, True)
+                actual = reverse['netease:block_geometry']
+                self.assertNotEqual(direct['netease:block_geometry']['description']['identifier'],
+                                    actual['description']['identifier'])
+                self.assertEqual(expected['netease:block_geometry']['bones'], actual['bones'])
+                if direction in ('north', 'south'):
+                    self.assertEqual(direct['netease:block_geometry']['bones'], actual['bones'])
+                else:
+                    self.assertNotEqual(direct['netease:block_geometry']['bones'], actual['bones'])
+
 
 if __name__ == '__main__':
     unittest.main()

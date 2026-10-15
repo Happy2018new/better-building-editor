@@ -31,23 +31,27 @@ def rotate_cubes_once(cubes):
     return result
 
 
-def baked_body_model(reference, front, direction, use_ao):
+def baked_body_model(reference, front, direction, use_ao, reverse=False):
     model = body_model(reference, 'oak', front, 'north')
     geometry = model['netease:block_geometry']
-    stem = 'preview_shelf_oak_' + front + '_' + direction + '_baked' + ('_ao' if use_ao else '')
+    suffix = '_baked_reverse' if reverse else '_baked'
+    stem = 'preview_shelf_oak_' + front + '_' + direction + suffix + ('_ao' if use_ao else '')
     geometry['description'].update(identifier='modern_projection:' + stem, use_ao=use_ao)
     bone = geometry['bones'][0]
-    for unused in range(DIRECTIONS.index(direction)):
+    turns = DIRECTIONS.index(direction)
+    if reverse:
+        turns = -turns % 4
+    for unused in range(turns):
         bone['cubes'] = rotate_cubes_once(bone['cubes'])
     return model
 
 
-def baked_controls(reference, project):
+def baked_controls(reference, project, reverse=False):
     blocks = {}
     for front in FRONTS:
         for direction in DIRECTIONS:
             for use_ao in (False, True):
-                model = baked_body_model(reference, front, direction, use_ao)
+                model = baked_body_model(reference, front, direction, use_ao, reverse)
                 identifier = model['netease:block_geometry']['description']['identifier']
                 stem = identifier.split(':', 1)[1]
                 write_json(project / ('resource_pack/models/netease_block/' + stem + '.json'), model)
@@ -90,6 +94,8 @@ def main():
     parser.add_argument('--project', type=Path, required=True)
     parser.add_argument('--reference', type=Path, required=True)
     parser.add_argument('--baked-rotation', action='store_true')
+    parser.add_argument('--reverse-baked-rotation', action='store_true',
+                        help='Add opposite-sign coordinate controls; not an SDK equivalence claim')
     args = parser.parse_args()
     args.project.mkdir(parents=True, exist_ok=False)
     for folder in ('behavior_pack', 'resource_pack'):
@@ -118,9 +124,11 @@ def main():
             additions[identifier] = {'netease_model': identifier, 'sound': 'wood'}
     merge_registry(args.project / 'resource_pack/blocks.json', additions)
     baked = baked_controls(reference, args.project) if args.baked_rotation else {}
+    reverse = baked_controls(reference, args.project, reverse=True) if args.reverse_baked_rotation else {}
     contract = {'schema_version': 1, 'production_qualified': False,
                 'control_identifiers': sorted(blocks), 'bone_ao_controls': sorted(additions),
                 'baked_rotation_controls': sorted(baked),
+                'reverse_baked_rotation_controls': sorted(reverse),
                 'baked_uv_contract': 'Native 1.13.0 rot field; up +90, down -90 per north-to-east turn.',
                 'reference_sha256': hashlib.sha256(args.reference.read_bytes()).hexdigest(),
                 'limits': ['Engine direction mapping and lighting require native matched captures.',
