@@ -1,5 +1,21 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-16 08:00 截止及休眠执行确认
+
+- 截止后的独立系统读回确认：计划任务LastRunTime为2026-10-16 08:00:01、LastTaskResult=0；Kernel-Power事件42于08:00:07.452记录Application API进入睡眠。任务动作仍为shutdown.exe /h。电脑恢复运行后仅完成在途证据提交和本交接，不继续新开发，不重复休眠。
+- `4b3d80af`保存最后的五图marker包 `docs/evidence/lectern-body-candidate-r21-context-hidden-v1`，32payload加manifest，manifest `9afc8425eeef13952fc40ff481e948faaf19531918d8ed967861ca344a80754b`。root已在独立Temp切cwd以python -I -B标准库replay通过，33个stage blob全部精确对磁盘验证。全部五原图、完整原report／restore、3144源码清单、相关source／config、一次normalclose失败、exact异常退出与finalize保留；world-only，candidate／Scene／UI／production／正常退出资格均False。下节“精简包整理中”已被本项保存结果取代。
+- 新开发须等待用户下一轮安排。未关闭范围、用户约束及冻结入口均按下节续接；本轮没有push或合入main。
+
+## 2026-10-16 07:54 运行窗口已全部恢复退出，离线保存至08:00
+
+- 本轮不再启动游戏。07:54:06独立CIM读回有效路径且线程数大于0的MC为0；最后Book owner已明确归还MC/WGC，所有自有exec结束。08:00+08休眠任务仍Ready／Enabled，执行shutdown.exe /h、StartWhenAvailable=False，无电池／idle／network前提；powercfg /a确认本机支持休眠。不push／合main，仍dev，index在各证据commit后清空，两原water tracked WIP和五用户probe未改。
+- `5f7db325`保存Water缓存／S+E便携包与三工具、说明：`docs/evidence/water-cache-ui-r21-v1`，74payload加manifest，manifest `bec3fc6cc9a8f27e1a30a2dc4464d167074a1220ea014dba69704b2a1f2da551`。root独立Temp切cwd、python -I -B标准库replay通过，79stage blob精确核对。cache A/B各60稳定帧，source validations 240→0，其余state／回调相同；两路native submissions均0，旧169／230／370／435ms停顿仍开。游戏hashlib.sha256和new('sha256')都不可用；保留原0phase失败，用host SHA及实际编译字符串逐byte读回，不伪造game SHA。S+E首0phase/0capture失败为assertion_dialogs错误传参，外层v2只无参枚举后按owner PID过滤并改两处读取成功AB报告的路径，冻结runtime／candidate不改。
+- Water同session S／SE／S restore／SE repeat／final S五相11图及depth步进返回全部完成恢复，source不变、cleanup空；每相wet-minus-hidden96436px，candidate／repeat／restore对baseline wet像素差0，结论baseline_has_signal／repair_accepted=False。root实看baseline、candidate和depth三原图，水面确实可见，depth图未明显切开该fixture，不能关闭广泛clipping。唯一normalclose超时，exact observer07:38:24记录MC8756=0xC0000409／MCDK48772=0，随后finalize stopped／readyFalse、全部exec结束，无force／重复close。
+- `b5d5818f`保存Banner V16三图便携包：`docs/evidence/banner-item-scale-r21-v16`，146payload加manifest，manifest `f13aaebbc23701ead00f299c9f54c9a15eaa150e93ae3e9235b5413bbde42c8c`。root独立Temp隔离标准库replay及147stage blob精确验证通过，并逐张打开negative／small／large原图。同typed minecraft:banner、同actor及binding0，仅bind一次.0625，再SetBindItemScale(1.0,False)一次；多层图案和短柄可见，证实原生item路径保留这些内容。但整体横向斜置、越PaperDoll右边界，frame姿态／比例／绝对厚度／Scene裁剪与共同深度／产品资格仍False，不用standing／wall block验收。3140冻结源打包时重验；只有launch资源snapshot归档，console-only逐次资源snapshot未重造。客户端恢复、服务端destroy、actual absent均通过；一次normalclose超时，07:45:41 exact MC50444=0xC0000409／MCDK14088=0，07:45:55 finalize stopped，无force／重复close。
+- Book最后五图world隐藏层复验session7148a861201a474789f20f51219b2b6f完成24.3071s，completed／restored／source_unchanged=True、cleanup空；root与Book代理逐张实看native_two／native_lower／projected_full／projected_hidden／projected_shown。cyan双格→下格露顶→恢复双格支持c9463079隐藏邻居过滤，但只是marker world路径，不是lectern本体／书／Scene／UI外观验收；首图背景加载差异保留，不全屏拟合。一次normalclose超时，retained observer记录MC46100于07:51:09.579以0xC0000409退出、MCDK47428于07:51:10.581以0退出；07:52:54 finalize0／stopped／readyFalse，三原process identity均null，全部exec结束。精简五图便携包离线整理中，原报告与现场恢复均已落盘。
+- 本轮有限正结果仍包括普通剑四路方向／速度／动态R/G亮度、草方块三角度overlay修正、native lectern book oracle和世界隐藏邻居过滤；均保留各自姿态／来源／材质条件。展示架sameCombine邻域AO负例、末地门正常TIME六图有限可见、带图案盾Scene创建失败／UI白底差异、水不可见态归因、方块glint动态及所有广泛资格均不能借这些结果关闭。固有glint只确证8类128对，1102对未判定；未测NBT不能扩大。empty frame原生朝向亮度保留，lectern powered不增外观variants，动态指南针不读目标／位置／时间NBT。
+- Snow v7的lily_of_the_valley h4及crimson_roots h7仍未launch，49图最小矩阵按20–25分钟恢复退出预留不能安全加入本轮末尾；launcher／plan／921host／3116冷源保留。下轮须从冻结入口重验后单独排窗口，不能把离线准备或之前失败计作holdout通过。下一轮继续原优先事项，不将所有待办重置为新功能。
+
 ## 2026-10-16 07:30 三角度草方块与正常时间末地门证据已保存
 
 - 开发继续至08:00+08，休眠任务 `Codex-BetterBuildingEditor-R20-Hibernate-20261016` 已读回Ready／Enabled、触发2026-10-16T08:00:00+08:00、shutdown.exe /h、StartWhenAvailable=False。仍在dev，不push／合main；两原water tracked WIP和五用户probe不动。普通6GiB／Item及Water启动9GiB，BLAS单线程，实际单MC/WGC owner，无激活／resize／桌面输入／force。
