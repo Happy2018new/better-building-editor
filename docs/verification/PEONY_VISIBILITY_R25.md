@@ -24,4 +24,18 @@
 
 三文件补丁按 base／candidate SHA 检查并备份后应用；两个生产文件字节完全符合候选。Git 对新增宿主测试的 CRLF 转换已另存，随后按候选原字节恢复，没有改变受保护生产文件的行尾。5 项宿主回归、真实页面函数 472 卡可达及实际 Python2 原生状态／Document 往返查询通过。宿主 unittest 使用 pathlib，不在 Python2 运行；其首次 Python2 import 失败保留，没有计作通过。Python2 的生产路径单独验证。主仓 MCP 对集中蓝图模块实际扫描 1 文件，解析通过且无 finding。
 
-此入口仍等待最终集成冷包的实际卡片导航、孤立半格显示和恢复检查；`manual_review_ready=false`，新增人工关闭仍为 0。补丁和应用备份在 `.runtime/round-20261021/peony-blueprint-v1/` 与 `peony-blueprint-main-apply-v1/`。原 R09／R10 Document、历史 471 卡顺序／metadata 保持不变。
+入口提交时仍等待集成冷包的实际卡片导航、孤立半格显示和恢复检查；该项已由下述独立冷启动补齐。补丁和应用备份在 `.runtime/round-20261021/peony-blueprint-v1/` 与 `peony-blueprint-main-apply-v1/`。原 R09／R10 Document、历史 471 卡顺序／metadata 保持不变。
+
+## 集成冷包的真实入口补查
+
+基于 `103633d06813488f2c3da563ddc0969366596f6d` 的独立 source-only 冷包，运行时 3703 文件，来源清单 SHA256 为 `21a9d5647c943f431ca8c0a8a949ee261ebbc3060256f264ccaeb5a3be7f8044`。配置和 769 个宿主文件分别冻结，不把宿主、缓存或配置混入运行时数量。检查期间没有热重载、候选/profile 赋值、资源别名或真实世界写入；运行时、配置、原宿主和重试宿主均前后不变。
+
+实际挂载的分类控件、卡片载入按钮和确认按钮回调成功载入 `test.blocks.peony_visibility`，保留全部 7 格及原生 bool 状态。当前原生提交包含正式 `ordinary_peony_bottom/top` 两种资源。六个编辑器视图覆盖整株、孤立下半及孤立上半的 0°／180°，两种纹理分别可见，没有补造伙伴。450% 视图仍含同一整排，pivot 修改没有独立重居中目标，故只能描述为整排近景，不能算独立裁切场景或精确网格测量。
+
+主代理复核全部十张原图的字节与 SHA，并实际读取[十图对照](../evidence/peony-entry-r25-v1/controls.jpg)。[证据索引](../evidence/peony-entry-r25-v1/evidence-index.json)保留原图与报告来源；原始 `live-v3/report.json` SHA256 为 `a8abacbdeeeb95f3d41f54ce035a294fc4fa5fafff874209e891a03e684df7fd`。本次支持 `manual_review_ready=true`，人工关闭仍为 **0**。实际控件回调未投递 Windows 鼠标事件，不替代原生鼠标命中或用户外观验收。
+
+同轮 R08 压力板卡片通过真实挂载回调和确认流程载入，24 格文档与当前原生提交保持，编辑器有显示。但载入前截图已滚过该卡，不能证明该卡当时在屏幕上可见，也未验收压力板厚度或红石行为；R09／R10 本次未重测。
+
+首次启动在生成进程后的 manifest 原子替换遇到 WinError 5，旧 manifest、待替换临时文件和精确身份回收记录保留。独立重试宿主只增加有界替换重试；原运行时及旧输入不变。第二次采图因冻结宿主缺少非平面 `tools/native_wgc` 来源依赖失败并独立恢复，之后新增独立 capture-host-v3，才取得本次成功结果，未覆盖失败记录。
+
+独立恢复成功，两个 owner 均已停止。成功 owner `peony-r25-entry-v2` 普通 stop 返回 1，完整等待后 game 以 `0xC0000409`、MCDK 以 0 退出；未执行 force，精确身份复核为 inactive 后 registry 收尾返回 0。该异常退出与入口／恢复成功分别记录。完整冻结包、十张原图和清理回执位于 `.runtime/round-20261021/peony-entry-v1/`。
