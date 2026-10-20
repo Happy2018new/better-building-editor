@@ -43,3 +43,11 @@
 | `t08-storage-fixed-v2.json`：修正工具后分页通过 | `33a5fa9b16df817af065aaa24812bd0ce34cedc4aa865cdeb4b16fbd9db4065b` |
 
 取证时生产 `bridge.py` SHA-256 为 `c61c4fbdac9eb62fcb5a98a94de790a3e3707dd52364836cc6af90e0b8ba42d8`；冷副本原 bridge 为 `ee48886d1c43d24dd719420be61765a0c6c0e94887c8f81dcf5df439a531dd23`；共同的 `transfer.py` 为 `3311a07e89943bd21e0fa42a29e1140486d3e7e1ec423202a0de678de07d11da`。三个方法的独立源码指纹、私有存储调用、SDK 返回类型与恢复结果均写入成功报告。
+
+## 修复提交后的冷源补验
+
+同日另从正式提交 `83a551cf819a41f5b55302e6f1f45f4da8858498` 冻结两包 3699 文件，manifest SHA-256 为 `457ede616b391ab508fa690de53125caf60f786be0ea620bc905a52df61a8779`，四种自动重载关闭；在新的 `portal-pure83-r25-v1` 中使用未经运行时替换的生产 bridge 重做 T04 镜像内联和 T08 旋转分页。两例真实 `Session.save/load`、完整 typed 文档语义、严格 editor 状态与嵌套 storage 完成／恢复断言均通过，SDK 写入分别为 1 次、2 次。两张载回后的原图已读，双箱、门与定位块可见。独立只读审计确认原对象／文档／状态、factory、临时标记恢复，冻结源不变。
+
+此增量补上“修复后冷启”的窄范围；仍未验证跨客户端重启持久性。SDK key 仍是 UUID 私有 namespace，用户库前后相同，临时 key tombstone 已读回，不宣称写过用户真实建筑库或物理删除配置文件。普通停止后游戏退出码 `0xC0000409`、MCDK 为 0，已退出并完成元数据清理，不能计作正常退出。
+
+原始失败与上方同实例方法补丁记录保持。新三份报告、六份独立只读检查和 14 张已读原图的路径／SHA 见 [冷源证据索引](../evidence/transform-cold-r25-v1/evidence-index.json)；根代理另核对索引全部 28 项文件字节和 SHA 无差异。本次新增人工关闭数为 0。

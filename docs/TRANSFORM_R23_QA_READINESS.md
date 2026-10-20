@@ -56,3 +56,9 @@ v8 的 T01 通过原五阶段以及修正后 `--missing` 的 empty、occupied、
 `check_blueprint_neighbor_context.py` 的旧诊断要求所有轨道都完整复制邻域，并禁止独立 overlay。当前四类 `rail_direction=2..5` 坡轨已采用独立主体，因此旧 oracle 错把当前合法提交判为缺格；19 个产品用例的闭包、擦除、保留其他主体及撤销/重做本身仍通过。
 
 工具现在用独立的四类轨道名和方向字面量核对该窄路由：坡轨目标必须恰在自己的 overlay 提交正确主体；邻域不得重复坡轨前景，但仍保留 secondary layer；平轨和弯轨保持 context 检查。逐层同槽重复、冲突材质、缺主体、错误主体、重复 context 和缺 secondary 的负例均拒绝。17 个连接矩阵测试通过，不增加产品外观关闭数。
+
+## 2026-10-21 冷源补验增量
+
+正式 `83a551cf` 独立冻结包补做 T08 异步旋转、默认主材质完整投影和四种受控 missing 门像素，以及 T04 镜像内联、T08 旋转分页的真实 ConfigClient 保存载回。三份报告及嵌套存储恢复均通过，独立恢复和 source 字节不变检查通过；14 张原图已读。门的缺失阶段不再留下底木条，保存载回保留完整 typed 语义。详见[配置边界记录](verification/CONFIG_WIRE_R25.md)、[门所有权记录](verification/DOOR_CONTEXT_R25.md)及[冷源索引](evidence/transform-cold-r25-v1/evidence-index.json)。
+
+此增量仅提升明确覆盖的自动验证状态，不回写旧 v3c—v8 记录。T05、本轮未覆盖的组合、真实世界占用扫描、跨客户端重启持久性及玩家人工验收仍待完成；新增人工关闭 0。实例普通关闭后游戏异常退出 `0xC0000409`，已确认身份消失并 finalize，未取得正常退出资格。

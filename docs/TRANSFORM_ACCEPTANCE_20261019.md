@@ -2,7 +2,7 @@
 
 本记录对应本轮截止北京时间 23:30 的开发，补齐周末清单 T01、T04、T05、T08 的小场景输入。六种操作仍使用现有 `state_transform`、`Editor.run` 和 `EditJob`，没有另写变换算法。
 
-当前结论：**四份候选已注册到内置蓝图，45 项合并离线检查及全表独立几何／群律审计通过；编辑器像素、完整投影、缺失投影、原生参照和人工验收仍待分别验证。** 新建测试输入不计作既有渲染问题关闭。周末总清单仍在 [2026-10-24-transforms.md](acceptance/2026-10-24-transforms.md)。
+初始离线结论：**四份候选已注册到内置蓝图，45 项合并离线检查及全表独立几何／群律审计通过。** 10-19 的实机增量见[就绪记录](TRANSFORM_R23_QA_READINESS.md)，10-21 的正式冷源补验见本页末尾；各项证据只覆盖明确记录的场景，人工验收仍待分别完成。新建测试输入不计作既有渲染问题关闭。周末总清单仍在 [2026-10-24-transforms.md](acceptance/2026-10-24-transforms.md)。
 
 ## 入口和恢复
 
@@ -80,3 +80,13 @@ python tools/verify_transform_acceptance.py --audit-registry --output docs/evide
 | T02／T03／T06／T07 | 仅与本轮候选有交集的少量内容受到前检，不代表其余状态、层、连接和 NBT 完整验收 |
 | 旋转中心 | 当前实现以选区最小角为新包围盒锚点；若产品要求固定世界中心，需要另行明确交互语义，不能用回归通过掩盖差异 |
 | 人工验收 | 本轮没有取得新的用户人工结论，仍按周末清单执行 |
+
+## 2026-10-21 正式冷源增量
+
+提交 `83a551cf819a41f5b55302e6f1f45f4da8858498` 的独立冻结两包共 3699 文件，manifest SHA-256 为 `457ede616b391ab508fa690de53125caf60f786be0ea620bc905a52df61a8779`。四种自动重载关闭，没有运行时 context／Config 边界补丁、别名或 profile 替换。
+
+T08 公开 `rotate_y90` 的异步任务、完整 typed 文档和严格 editor 状态检查通过。前后编辑器、完整投影及隐藏参照均实际读图。四种受控 missing 的观察值为 `[1,1] → [2,1] → [2,2] → [1,1]`，门依次完整、仅上半、整体消失无底条、完整恢复；双箱、地板及绿色定位块保持。这里仍使用受控 observer，未覆盖真实世界占用扫描，也未新增 T04／T05 missing 组合。
+
+T04 镜像后的内联存储与 T08 旋转后的分页存储，均经生产 `Session.save/load` 和实际 SDK ConfigClient 保存、载回，嵌套完成／恢复和完整语义断言通过。载回原图分别可见完整双箱、门和定位块。SDK key 只重定向到 UUID 私有 namespace，用户库未改，临时 key tombstone 已读回；没有跨客户端重启持久性结论。
+
+三轮后均有独立只读恢复检查，原 session/editor/document、完整 data、页面与 factory、临时标记恢复，源字节未变。旧材质污染失败及 WGC 路径错误不删除。普通停止后游戏实际退出 `0xC0000409`、MCDK 退出 0，只记录已退出并 finalize。本增量不是新变换实现，新增人工关闭 0。证据与小图见[冷源索引](evidence/transform-cold-r25-v1/evidence-index.json)及[对照图](evidence/transform-cold-r25-v1/controls.jpg)。

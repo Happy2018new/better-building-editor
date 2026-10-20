@@ -1154,5 +1154,194 @@
       "Other v8 editor/complete-projection PNGs were not included in the original-image inspection claim."
     ],
     "issues_closed": 0
+  },
+  "r25_cold_increment": {
+    "date": "2026-10-21",
+    "source_commit": "83a551cf819a41f5b55302e6f1f45f4da8858498",
+    "source_manifest_sha256": "457ede616b391ab508fa690de53125caf60f786be0ea620bc905a52df61a8779",
+    "source_file_count": 3699,
+    "manual_acceptance_closed": 0,
+    "runtime_context_patch": false,
+    "runtime_config_boundary_patch": false,
+    "source_unchanged": true,
+    "reviewed_original_count": 14,
+    "root_artifact_hash_checks": 28,
+    "evidence_index": {
+      "path": "docs/evidence/transform-cold-r25-v1/evidence-index.json",
+      "sha256": "acd772c944a179a75644ef5cf993ce17d36e306a9f6c997f6d312a52aee2a7a6",
+      "bytes": 10492
+    },
+    "coverage": {
+      "t08_async_rotate_typed_semantics": true,
+      "t08_full_projection_pixels": true,
+      "t08_hidden_projection_pixels": true,
+      "t08_controlled_observer_missing_door_pixels": true,
+      "real_world_occupancy_scan": false,
+      "t04_storage_editor_reload_pixels": true,
+      "t08_storage_editor_reload_pixels": true,
+      "t04_storage_full_projection": false,
+      "t05_exercised": false,
+      "client_restart_persistence": false
+    },
+    "storage": {
+      "t04": {
+        "namespace": "modern_projection_r25_6ad2a801533b466e8a39afe79a8e9def_",
+        "completed": true,
+        "restored": true,
+        "storage_scope": "Production Session.save/load and bridge methods; ConfigCompClient redirects only library/archive keys to private namespace",
+        "client_restart_checked": false,
+        "save_started": {
+          "asynchronous": false
+        },
+        "load_started": {
+          "old_document_id": 1344343227920,
+          "asynchronous": true
+        },
+        "semantic_equal": true,
+        "sdk_readback_types": {
+          "registry_key_types": [
+            "unicode"
+          ],
+          "registry_version": "unicode",
+          "expected_string_type": "unicode",
+          "registry": "dict",
+          "first_material_name": "unicode",
+          "header_version": "int",
+          "registry_sha256": "unicode"
+        },
+        "sdk_storage_write_count": 1,
+        "restore": {
+          "io_cancelled_or_complete": true,
+          "errors": [],
+          "original_library_unchanged": true,
+          "factory_restored": true,
+          "session_library_restored": true,
+          "private_keys_tombstoned": [
+            "modern_projection_r25_6ad2a801533b466e8a39afe79a8e9def_modern_projection_library"
+          ],
+          "restored": true
+        },
+        "format": "inline"
+      },
+      "t08": {
+        "namespace": "modern_projection_r25_9ad56be584fb43a1bad7e90cedb8005f_",
+        "completed": true,
+        "restored": true,
+        "storage_scope": "Production Session.save/load and bridge methods; ConfigCompClient redirects only library/archive keys to private namespace",
+        "client_restart_checked": false,
+        "save_started": {
+          "asynchronous": true
+        },
+        "load_started": {
+          "old_document_id": 1344612671728,
+          "asynchronous": true
+        },
+        "semantic_equal": true,
+        "sdk_readback_types": {
+          "registry_key_types": [
+            "unicode"
+          ],
+          "registry_version": "unicode",
+          "expected_string_type": "unicode",
+          "registry": "dict",
+          "first_material_name": null,
+          "header_version": "int",
+          "registry_sha256": "unicode"
+        },
+        "sdk_storage_write_count": 2,
+        "restore": {
+          "io_cancelled_or_complete": true,
+          "errors": [],
+          "original_library_unchanged": true,
+          "factory_restored": true,
+          "session_library_restored": true,
+          "private_keys_tombstoned": [
+            "modern_projection_r25_9ad56be584fb43a1bad7e90cedb8005f_modern_projection_building_1_0",
+            "modern_projection_r25_9ad56be584fb43a1bad7e90cedb8005f_modern_projection_library"
+          ],
+          "restored": true
+        },
+        "format": "paged"
+      }
+    },
+    "artifacts": [
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/source-manifest.json",
+        "sha256": "457ede616b391ab508fa690de53125caf60f786be0ea620bc905a52df61a8779",
+        "bytes": 554357
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/cold-summary.json",
+        "sha256": "055cc27542f99bde3393b2b9a31497ee2c7e7441594d3cd46115baf290049cee",
+        "bytes": 2156
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold.json",
+        "sha256": "38aebfbeb166cb3dd81ce8e51c0f28c544a0d065e8449e6ad78a20bccdde670f",
+        "bytes": 2711
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2.json",
+        "sha256": "dc3f33f4587aacdb5565a4d4a73100a1d24259ac126e139b1f1d250e97daec4b",
+        "bytes": 2932006
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/t04-storage-cold-v1.json",
+        "sha256": "ebc0419bfa04d4f691e70f1ba63ba4b370f578a4fd19fa72969e0bcc83abc7ca",
+        "bytes": 1816455
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/t08-storage-cold-v1.json",
+        "sha256": "ec33f03555028aa19101d792a913f84d9422cae15fb12946dfb5eeffc05aa3fd",
+        "bytes": 2872445
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/initial-readonly/report.json",
+        "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+        "bytes": 4207
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/portal-restored-readonly/report.json",
+        "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+        "bytes": 4207
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/t08-v1-failure-restored-readonly/report.json",
+        "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+        "bytes": 4207
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-v2-restored-readonly/report.json",
+        "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+        "bytes": 4207
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/t04-storage-restored-readonly/report.json",
+        "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+        "bytes": 4207
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/t08-storage-restored-readonly/report.json",
+        "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+        "bytes": 4207
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/stop-identity-report.json",
+        "sha256": "5b1aaf4937ed1dddfcba3fbf32e00358710b66636b3301c819a9d13fde86584e",
+        "bytes": 534
+      },
+      {
+        "path": ".runtime/round-20261021/portal-pure83-v1/stop-finalize.json",
+        "sha256": "da4c02ec26398c5f8f115b68eb0fa7e25c349b69b481bb986d63145539dbfd92",
+        "bytes": 51457
+      }
+    ],
+    "limitations": [
+      "Controlled observer; native-world occupancy scan not qualified.",
+      "T04/T05 missing combinations not newly qualified on this cold source.",
+      "No cross-client-restart persistence proof.",
+      "Old qualification hashes and historical failures preserved.",
+      "Ordinary stop game exit 0xC0000409; not a clean exit."
+    ]
   }
 }

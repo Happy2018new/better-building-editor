@@ -55,3 +55,13 @@ T05 v2 私有近景工具误用半格浮点 focus，生产世界坐标验证明�
 `t08-production-context-independent-restore-v1.json` 与 `t05-production-context-independent-restore-v3.json` 均通过，SHA-256 均为 `4a1fa4e8fae3a8c7229a3080cbdffbb95cd23ab1311ac8d93cf238b254a567ea`。
 
 本次生产 `render_context.py` SHA-256 为 `1e4fe6bc29270ed04427526c2e8f8e6f15995fe3690cc774c1b9526eb4143b45`；冷副本原文件为 `300bf6bab79348deeeb457665c1f08904349b694ab14e52be7cbaed488310ab0`。该文件属于水的共享来源合同，确有生产漂移；本记录不更新水的资格指纹、不宣称正式水来源未变，水需按最终 bridge＋render_context 冻结来源补验。Config wire 存取修复的独立结果见 [CONFIG_WIRE_R25.md](CONFIG_WIRE_R25.md)。
+
+本 owner 结束时已先完成独立恢复，再发普通关闭请求。首个请求等待超时；随后只读 status 确认两个创建身份均已不存在，日志包含 Client／Server Destroy 和 MCP stopped，再仅完成停止元数据。没有 force、重启或新实例。该过程没有保留退出码句柄，不能作为正常退出码的证明；原关闭超时和后续检查原文均保留在私有证据目录。
+
+## 正式提交的冷源补验
+
+同日的新实例 `portal-pure83-r25-v1` 使用提交 `83a551cf` 冻结的 3699 文件两包，manifest 为 `457ede616b391ab508fa690de53125caf60f786be0ea620bc905a52df61a8779`；没有 context 方法补丁、别名替换或 profile 赋值，自动重载均关闭。T08 的实际异步 `rotate_y90` 完整 typed 语义和 editor 状态通过；已读前后编辑器、完整世界投影及四种受控 missing 的 shown／hidden 原图。观察值仍为 `[1,1] → [2,1] → [2,2] → [1,1]`，依次显示整门、仅上半、整门消失且无底木条、整门恢复，双箱、地板和定位块保持。
+
+该补验支持修复后冷启的上述窄场景，不替代真实世界占用扫描，也没有新跑 T04／T05 missing 组合或全部门状态。T04／T08 的真实 SDK 保存载回另见 [配置边界记录](CONFIG_WIRE_R25.md)。旧 WGC 路径错误的 v1 host 失败、其恢复及成功 v2 均保留；源文件字节未变，结束后独立恢复通过。普通停止后的实际游戏退出码 `0xC0000409`，不宣称正常退出。
+
+新增机器记录见 `TRANSFORM_R23_RUNTIME.json` 的 `r25_cold_increment`；小型[对照图](../evidence/transform-cold-r25-v1/controls.jpg)由原图缩放拼接，仅作导航；[完整索引](../evidence/transform-cold-r25-v1/evidence-index.json)绑定原始文件。未改写原资格哈希，新增人工关闭数为 0。

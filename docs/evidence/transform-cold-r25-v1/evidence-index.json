@@ -1,0 +1,259 @@
+{
+  "schema": 1,
+  "source_commit": "83a551cf819a41f5b55302e6f1f45f4da8858498",
+  "source_manifest_sha256": "457ede616b391ab508fa690de53125caf60f786be0ea620bc905a52df61a8779",
+  "source_file_count": 3699,
+  "runtime_context_patch": false,
+  "runtime_config_boundary_patch": false,
+  "manual_acceptance_closed": 0,
+  "old_qualification_mutated": false,
+  "reviewed_image_count": 14,
+  "reviewed_images": [
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_before_editor_closeup_native.png",
+      "sha256": "9e2b570f8bb55858bdfa7af0289d3c8c7017830f2dad7875baab1c7ea3f91d57",
+      "bytes": 255146
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_after_editor_closeup_native.png",
+      "sha256": "0671fe646b313f39553165ac3cd6e730a184896f299622a84b3ac42def294fb6",
+      "bytes": 253909
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_production_world_closeup_native.png",
+      "sha256": "d2954079df3a28c61917080d8a9e1569a8eff671edb25e1916cc3a1c5f70bd3f",
+      "bytes": 791588
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_production_world_hidden_native.png",
+      "sha256": "ec742531a0cc0a994992f5d73c8f69c082e47a6052089838c3240320812ef2dd",
+      "bytes": 805503
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t04-storage-cold-v1_t04_save_reload_editor_closeup_native.png",
+      "sha256": "e01dd071bf241c583b42d0f828b2a2ac97b2b1890d702dbea993ad8e50e263dd",
+      "bytes": 266901
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-storage-cold-v1_t08_save_reload_editor_closeup_native.png",
+      "sha256": "464de603cbee3024362d15b430eb7b405bfdf5d9d82cdd7462fedc87af7b16f2",
+      "bytes": 256267
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_missing_empty_hidden_native.png",
+      "sha256": "28af251dd422d733d669b36a37d7895672ed1ed1a3aeda19635b81ef139039ef",
+      "bytes": 805555
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_missing_empty_native.png",
+      "sha256": "765e6785b7f4ca91fe6e6f0fba9be8e3f5fecf684c0ac36adf9eb22bfaf46ba8",
+      "bytes": 795390
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_missing_occupied_hidden_native.png",
+      "sha256": "50f81eb39946ae96ebf42d3ceb3062fa76f26f65adce6a4df5df7906c3d4ce28",
+      "bytes": 805445
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_missing_occupied_native.png",
+      "sha256": "9fe4f01b43929343115ea8075f102f37be532904369c54ffc7c567013b3a4b8e",
+      "bytes": 788351
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_missing_restored_hidden_native.png",
+      "sha256": "c0db8118757820866948bf61bbf748c0b84d2fe0591c0e8bd54b7bc698377747",
+      "bytes": 805537
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_missing_restored_native.png",
+      "sha256": "9819e219d9e3eeadcd1ddfdbeb6e502dd89ca64b846999221b7d84cfa81b50a5",
+      "bytes": 795391
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_missing_single_half_hidden_native.png",
+      "sha256": "fb60ebfa0dfa101560dc85f03455b0c5be6f89ec19d5ceb8f9821afe8f7af25c",
+      "bytes": 805421
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2_t08_missing_single_half_native.png",
+      "sha256": "5503314218c240b077cf7bb65f8afaa934302f5058ddc076e8553231689a1bdc",
+      "bytes": 791577
+    }
+  ],
+  "coverage": {
+    "t08_async_rotate_typed_semantics": true,
+    "t08_full_projection_pixels": true,
+    "t08_hidden_projection_pixels": true,
+    "t08_controlled_observer_missing_door_pixels": true,
+    "real_world_occupancy_scan": false,
+    "t04_storage_editor_reload_pixels": true,
+    "t08_storage_editor_reload_pixels": true,
+    "t04_storage_full_projection": false,
+    "t05_exercised": false,
+    "client_restart_persistence": false
+  },
+  "storage": {
+    "t04": {
+      "namespace": "modern_projection_r25_6ad2a801533b466e8a39afe79a8e9def_",
+      "completed": true,
+      "restored": true,
+      "storage_scope": "Production Session.save/load and bridge methods; ConfigCompClient redirects only library/archive keys to private namespace",
+      "client_restart_checked": false,
+      "save_started": {
+        "asynchronous": false
+      },
+      "load_started": {
+        "old_document_id": 1344343227920,
+        "asynchronous": true
+      },
+      "semantic_equal": true,
+      "sdk_readback_types": {
+        "registry_key_types": [
+          "unicode"
+        ],
+        "registry_version": "unicode",
+        "expected_string_type": "unicode",
+        "registry": "dict",
+        "first_material_name": "unicode",
+        "header_version": "int",
+        "registry_sha256": "unicode"
+      },
+      "sdk_storage_write_count": 1,
+      "restore": {
+        "io_cancelled_or_complete": true,
+        "errors": [],
+        "original_library_unchanged": true,
+        "factory_restored": true,
+        "session_library_restored": true,
+        "private_keys_tombstoned": [
+          "modern_projection_r25_6ad2a801533b466e8a39afe79a8e9def_modern_projection_library"
+        ],
+        "restored": true
+      },
+      "format": "inline"
+    },
+    "t08": {
+      "namespace": "modern_projection_r25_9ad56be584fb43a1bad7e90cedb8005f_",
+      "completed": true,
+      "restored": true,
+      "storage_scope": "Production Session.save/load and bridge methods; ConfigCompClient redirects only library/archive keys to private namespace",
+      "client_restart_checked": false,
+      "save_started": {
+        "asynchronous": true
+      },
+      "load_started": {
+        "old_document_id": 1344612671728,
+        "asynchronous": true
+      },
+      "semantic_equal": true,
+      "sdk_readback_types": {
+        "registry_key_types": [
+          "unicode"
+        ],
+        "registry_version": "unicode",
+        "expected_string_type": "unicode",
+        "registry": "dict",
+        "first_material_name": null,
+        "header_version": "int",
+        "registry_sha256": "unicode"
+      },
+      "sdk_storage_write_count": 2,
+      "restore": {
+        "io_cancelled_or_complete": true,
+        "errors": [],
+        "original_library_unchanged": true,
+        "factory_restored": true,
+        "session_library_restored": true,
+        "private_keys_tombstoned": [
+          "modern_projection_r25_9ad56be584fb43a1bad7e90cedb8005f_modern_projection_building_1_0",
+          "modern_projection_r25_9ad56be584fb43a1bad7e90cedb8005f_modern_projection_library"
+        ],
+        "restored": true
+      },
+      "format": "paged"
+    }
+  },
+  "artifacts": [
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/source-manifest.json",
+      "sha256": "457ede616b391ab508fa690de53125caf60f786be0ea620bc905a52df61a8779",
+      "bytes": 554357
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/cold-summary.json",
+      "sha256": "055cc27542f99bde3393b2b9a31497ee2c7e7441594d3cd46115baf290049cee",
+      "bytes": 2156
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold.json",
+      "sha256": "38aebfbeb166cb3dd81ce8e51c0f28c544a0d065e8449e6ad78a20bccdde670f",
+      "bytes": 2711
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-cold-v2.json",
+      "sha256": "dc3f33f4587aacdb5565a4d4a73100a1d24259ac126e139b1f1d250e97daec4b",
+      "bytes": 2932006
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t04-storage-cold-v1.json",
+      "sha256": "ebc0419bfa04d4f691e70f1ba63ba4b370f578a4fd19fa72969e0bcc83abc7ca",
+      "bytes": 1816455
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-storage-cold-v1.json",
+      "sha256": "ec33f03555028aa19101d792a913f84d9422cae15fb12946dfb5eeffc05aa3fd",
+      "bytes": 2872445
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/initial-readonly/report.json",
+      "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+      "bytes": 4207
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/portal-restored-readonly/report.json",
+      "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+      "bytes": 4207
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-v1-failure-restored-readonly/report.json",
+      "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+      "bytes": 4207
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-context-v2-restored-readonly/report.json",
+      "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+      "bytes": 4207
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t04-storage-restored-readonly/report.json",
+      "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+      "bytes": 4207
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/t08-storage-restored-readonly/report.json",
+      "sha256": "516a1f11b110a19ed7f9387905b1c934e51611b93999cbc08a85ab9c1d6dbb2a",
+      "bytes": 4207
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/stop-identity-report.json",
+      "sha256": "5b1aaf4937ed1dddfcba3fbf32e00358710b66636b3301c819a9d13fde86584e",
+      "bytes": 534
+    },
+    {
+      "path": ".runtime/round-20261021/portal-pure83-v1/stop-finalize.json",
+      "sha256": "da4c02ec26398c5f8f115b68eb0fa7e25c349b69b481bb986d63145539dbfd92",
+      "bytes": 51457
+    }
+  ],
+  "overlay": {
+    "path": ".runtime/round-20261021/transform-doc-overlay-v1/OVERLAY.md",
+    "sha256": "7605033e55304a7c46a2509503870f045019528731582f463c2ee5f842d0e02d",
+    "bytes": 4399
+  },
+  "builder": {
+    "path": ".runtime/round-20261021/transform-doc-overlay-v1/build_index.py",
+    "sha256": "5669b1fa48b49b69e237f43299f094466eaa742241e1363acaa59b677df93637",
+    "bytes": 3648
+  },
+  "exit_limit": "ordinary stop; game exit 0xC0000409, MCDK exit 0; normal shutdown not qualified"
+}
