@@ -22,6 +22,8 @@ NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
 MAX_CONTEXT_CHUNK_CACHE = 32
 TARGETS_PER_UNIT = 16
+_STATIC_CHEST_BODIES = frozenset((name, 0) for names in CHEST_PROXIES.values()
+                                 for name in names.values())
 _NOT_RENDERED = object()
 LOCAL_NEIGHBORS = tuple((x, y, z, (y * 64 + x) * 64 + z)
                         for x, y, z in NEIGHBORS)
@@ -97,15 +99,19 @@ def _door(material):
             material[0].endswith('_door'))
 
 
-def _hidden_door_neighbor(cell, target):
-    # Native door copies can protrude into an adjacent target's clip box.
-    # A door target still needs its other half to tessellate the upper body.
-    return target is not None and _door(cell.get('common')) and not _door(target.get('common'))
+def _hidden_neighbor(cell, target):
+    # Door/chest copies can leave faces on an unrelated target's clip boundary.
+    # Preserve paired geometry when the target belongs to the same family.
+    if target is None:
+        return False
+    material, target_material = cell.get('common'), target.get('common')
+    return ((_door(material) and not _door(target_material)) or
+            (material in _STATIC_CHEST_BODIES and target_material not in _STATIC_CHEST_BODIES))
 
 
 def _context_cell(cell, target=None):
     if (independent_lectern_body(cell.get('common')) or
-            independent_rail_body(cell.get('common')) or _hidden_door_neighbor(cell, target)):
+            independent_rail_body(cell.get('common')) or _hidden_neighbor(cell, target)):
         return {'extra': cell['extra']} if 'extra' in cell else {}
     return context_cell(cell)
 
@@ -149,11 +155,11 @@ class _ContextWriter(object):
 
     def put(self, rendered, index, delta, target=None):
         cell = rendered[0]
-        hide_door = _hidden_door_neighbor(cell, target)
-        key = (id(rendered), hide_door)
+        hide_neighbor = _hidden_neighbor(cell, target)
+        key = (id(rendered), hide_neighbor)
         plan = self.cache.get(key)
         if plan is None:
-            layers = (('extra',) if hide_door or _independent_body(cell.get('common')) or
+            layers = (('extra',) if hide_neighbor or _independent_body(cell.get('common')) or
                       _native_actor_mesh(cell, self.native_render_profile)
                       else ('common', 'extra'))
             buckets = []
