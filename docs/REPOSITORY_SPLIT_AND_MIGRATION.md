@@ -2,6 +2,14 @@
 
 更新日期：2026-10-20。时间均为北京时间（Asia/Shanghai）。
 
+## 2026-10-21 R25：已提交边界来源刷新
+
+`nemc-block-renderer` 已由原同步器生成本地 `main` 提交 **`75029ca`**，绑定主仓已提交 `15cdb08446f813e6f41b9a987b622f2db70e0201`；所绑定路径没有WIP。实际边界变化为门邻域归属修复后的 `render_context`，SHA-256 为 `1e4fe6bc29270ed04427526c2e8f8e6f15995fe3690cc774c1b9526eb4143b45`。纯layout、geometry_palette及其余七个边界、三资源与状态绑定未变；Python3／真实Python2各7项及66,249次布局对等通过，报告为库内 `docs/verification/2026-10-21-layout-parity-r25.json`。同步当时 `--check` 为stale=0；主仓后续仅文档提交导致HEAD字段变化时，必须区分HEAD提示与真实逐源变化，不因提示反复刷新纯文档版本。
+
+状态库仍为干净 `58534dc5956848b4e6e5bcba97ad7112e2802388`，六个源完整字节未变，manifest SHA `36a7a2ad36dfdaa948474daf086a5716a2fbd0fc6c46dc810c5e30e6f04626ae`；本轮没有把旧16／11项测试结果冒称新执行。root首次只读审计误将selected-symbols输出SHA当完整源SHA，原失败保留，随后改查source_sha256后六源一致。
+
+两库均未push，host仍未cutover；本次刷新是阶段0／1来源维护，不继承GPU资格。海带候选若合入而改变geometry_palette／bridge／render_context／tiles，应再由同步器另存新来源与相应对等报告，旧报告和水owner失败不覆盖。10-23周五冻结前不追加大迁移，10-31—11-03首期固定版本接入及每周期6小时重构容量保持原计划；没有新增账单或额外预算。
+
 本文件说明 `better-building-editor` 与两个新仓库之间的职责边界、迁移顺序、发布耦合和重构规则。它不替代 [统一待办](IMPLEMENTATION_GAPS.md)，也不把新仓库尚未接入主程序写成已完成。
 
 ## 2026-10-20 R24：产品水边界与迁移接续
