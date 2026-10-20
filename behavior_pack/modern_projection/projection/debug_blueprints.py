@@ -42,7 +42,7 @@ from .debug_transform_acceptance import (METADATA as TRANSFORM_ACCEPTANCE_METADA
 from .debug_barrier_blueprints import METADATA as BARRIER_METADATA, VISUAL_CASE as BARRIER_VISUAL_CASE
 from .debug_pressure_blueprints import METADATA as PRESSURE_METADATA, VISUAL_CASE as PRESSURE_VISUAL_CASE
 from .debug_ordinary_plant_blueprints import (METADATA as ORDINARY_PLANT_METADATA,
-                                              CORAL_METADATA)
+                                              CORAL_METADATA, PEONY_METADATA)
 
 from .debug_coral_blueprints import (METADATA as CORAL_REVIEW_METADATA,
                                       VISUAL_CASES as CORAL_REVIEW_VISUAL_CASES)
@@ -85,6 +85,7 @@ BLUEPRINTS = (
     PRESSURE_METADATA,
     ORDINARY_PLANT_METADATA,
     CORAL_METADATA,
+    PEONY_METADATA,
 ) + CORAL_REVIEW_METADATA + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA + TRANSFORM_ACCEPTANCE_METADATA
 BLUEPRINTS += ORDINARY_METADATA + context_metadata(BLUEPRINTS)
 VISUAL_CASES = {
@@ -375,6 +376,9 @@ def build(identity):
     if identity == CORAL_METADATA[0]:
         from .debug_ordinary_plant_blueprints import populate_corals
         return populate_corals(fixture)
+    if identity == PEONY_METADATA[0]:
+        from .debug_ordinary_plant_blueprints import populate_peonies
+        return populate_peonies(fixture)
     if identity == PRESSURE_METADATA[0]:
         from .debug_pressure_blueprints import populate
         return populate(fixture)

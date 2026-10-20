@@ -17,3 +17,11 @@
 ## 检查
 
 主仓生成器`generate_ordinary_plant_proxies.py --check`通过，29份生成物一致。30项Python3回归（ordinary plant、geometry palette、peony资源及运行时）与3项真实Python2.7运行时回归通过，覆盖原版独立上下纹理／alpha／双面UV、非法状态类型和半格错绑拒绝、孤立或裁剪半格不补造伙伴、typed NBT和无关输出保持。MCP定点review扫描`ordinary_plant_data`1文件，解析通过、0 findings。原始命令／输出在`.runtime/round-20261021/peony-main-apply-v1/checks-v1/`；应用前14文件、tracked补丁、原index及HEAD备份在同目录上级。
+
+## 集中检查入口
+
+主仓已追加 `test.blocks.peony_visibility`，位于“测试蓝图 → 方块表”，标题“芍药 · 整株／下半／上半”。16×6×8 的小场景从左到右为整株、孤立下半、孤立上半；孤立上半与整株上半保持同一高度，并在下方故意留空。共四个原生半格、三个石头支撑；不自动补全伙伴，原文档保留原生名称及 bool 状态。
+
+三文件补丁按 base／candidate SHA 检查并备份后应用；两个生产文件字节完全符合候选。Git 对新增宿主测试的 CRLF 转换已另存，随后按候选原字节恢复，没有改变受保护生产文件的行尾。5 项宿主回归、真实页面函数 472 卡可达及实际 Python2 原生状态／Document 往返查询通过。宿主 unittest 使用 pathlib，不在 Python2 运行；其首次 Python2 import 失败保留，没有计作通过。Python2 的生产路径单独验证。主仓 MCP 对集中蓝图模块实际扫描 1 文件，解析通过且无 finding。
+
+此入口仍等待最终集成冷包的实际卡片导航、孤立半格显示和恢复检查；`manual_review_ready=false`，新增人工关闭仍为 0。补丁和应用备份在 `.runtime/round-20261021/peony-blueprint-v1/` 与 `peony-blueprint-main-apply-v1/`。原 R09／R10 Document、历史 471 卡顺序／metadata 保持不变。
