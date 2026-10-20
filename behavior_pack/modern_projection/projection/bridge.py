@@ -9,7 +9,7 @@ import traceback
 import mod.client.extraClientApi as clientApi
 from .model import AIR, Document, Editor, add, bounds, block
 from .world import coordinate
-from .transfer import Receiver, packets
+from .transfer import Receiver, packets, _wire_text
 
 
 def native(value):
@@ -260,10 +260,12 @@ class ClientBridge(object):
         return detach
 
     def load_library(self):
-        return self.factory.CreateConfigClient(self.level).GetConfigData('modern_projection_library', True)
+        # ConfigClient returns UTF-8 protocol bytes, as SDK network packets do.
+        # Decode the encoded wire tree before strict semantic/NBT validation.
+        return _wire_text(self.factory.CreateConfigClient(self.level).GetConfigData('modern_projection_library', True))
 
     def load_preferences(self):
-        return self.factory.CreateConfigClient(self.level).GetConfigData('modern_projection_preferences', True)
+        return _wire_text(self.factory.CreateConfigClient(self.level).GetConfigData('modern_projection_preferences', True))
 
     def save_preferences(self, value):
         return self.factory.CreateConfigClient(self.level).SetConfigData('modern_projection_preferences', value, True)
@@ -336,7 +338,7 @@ class ClientBridge(object):
 
     def load_archive_page(self, identity, part):
         key = native('modern_projection_building_%d_%d' % (identity, part))
-        return self.factory.CreateConfigClient(self.level).GetConfigData(key, True)
+        return _wire_text(self.factory.CreateConfigClient(self.level).GetConfigData(key, True))
 
     def save_archive_page(self, identity, part, value):
         key = native('modern_projection_building_%d_%d' % (identity, part))
