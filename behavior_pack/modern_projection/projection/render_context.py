@@ -90,9 +90,20 @@ def _independent_body(material):
             independent_rail_body(material))
 
 
-def _context_cell(cell):
+def _door(material):
+    return (material is not None and material[0].startswith('minecraft:') and
+            material[0].endswith('_door'))
+
+
+def _hidden_door_neighbor(cell, target):
+    # Native door copies can protrude into an adjacent target's clip box.
+    # A door target still needs its other half to tessellate the upper body.
+    return target is not None and _door(cell.get('common')) and not _door(target.get('common'))
+
+
+def _context_cell(cell, target=None):
     if (independent_lectern_body(cell.get('common')) or
-            independent_rail_body(cell.get('common'))):
+            independent_rail_body(cell.get('common')) or _hidden_door_neighbor(cell, target)):
         return {'extra': cell['extra']} if 'extra' in cell else {}
     return context_cell(cell)
 
@@ -134,12 +145,13 @@ class _ContextWriter(object):
         self.palette, self.cache = palette, {}
         self.native_render_profile = native_render_profile
 
-    def put(self, rendered, index, delta):
-        key = id(rendered)
+    def put(self, rendered, index, delta, target=None):
+        cell = rendered[0]
+        hide_door = _hidden_door_neighbor(cell, target)
+        key = (id(rendered), hide_door)
         plan = self.cache.get(key)
         if plan is None:
-            cell = rendered[0]
-            layers = (('extra',) if _independent_body(cell.get('common')) or
+            layers = (('extra',) if hide_door or _independent_body(cell.get('common')) or
                       _native_actor_mesh(cell, self.native_render_profile)
                       else ('common', 'extra'))
             buckets = []
@@ -196,7 +208,7 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
             cell = cells.get(_index(original, logical_volume))
             if cell is None:
                 continue
-            _put(data, _context_cell(cell), context_position(target, neighbor), original)
+            _put(data, _context_cell(cell, cells[target_index]), context_position(target, neighbor), original)
         body = cells[target_index].get('common')
         if _independent_body(body):
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
@@ -382,7 +394,7 @@ class ContextPaletteBuilder(object):
             if rendered is None or rendered[0] is None:
                 continue
             # All 27 cells move by the same delta into this target's tile.
-            _put_encoded(self.data, _context_cell(rendered[0]), center_index + index_delta, delta)
+            _put_encoded(self.data, _context_cell(rendered[0], center[0]), center_index + index_delta, delta)
         body = center[0].get('common') if center[0] is not None else None
         if _independent_body(body):
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
@@ -469,7 +481,7 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                 rendered = center if nx == ny == nz == 0 else self.material(x, y, z)
                 if rendered is None or rendered[0] is None:
                     continue
-                writer.put(rendered, center_index + index_delta, delta)
+                writer.put(rendered, center_index + index_delta, delta, center[0])
             if center[1] is not None:
                 overlay['common'].setdefault(center[1], []).append((ly * 16 + lx) * 16 + lz)
             if number % TARGETS_PER_UNIT == 0:
