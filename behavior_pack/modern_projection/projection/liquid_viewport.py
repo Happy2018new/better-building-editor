@@ -37,9 +37,15 @@ def group_view(origin, camera, scene_origin, scene_size, viewport, unit):
 class LiquidControls(object):
     """Scene-owned controls; their containing components own native unmounting."""
     def __init__(self, registry, model_component, renderer_factory=SkeletonLiquidRenderer,
-                 distance_adapter=with_preview_distance):
+                 distance_adapter=with_preview_distance, request_starts_per_frame=None):
+        if (request_starts_per_frame is not None and (isinstance(request_starts_per_frame, bool)
+                or not isinstance(request_starts_per_frame, integer_types)
+                or request_starts_per_frame < 1)):
+            raise ValueError('Liquid request starts need a positive per-frame budget')
         self.registry, self.model_component = registry, model_component
         self.renderer_factory, self.distance_adapter = renderer_factory, distance_adapter
+        self.request_starts_per_frame = request_starts_per_frame
+        self.last_started_entry = None
         self.pending = False
         self.error = None
         self.closed = False
@@ -73,11 +79,30 @@ class LiquidControls(object):
             entry['distance_request'] = group, distance, displayed
         return displayed
 
+    def _entries(self):
+        entries = tuple(self.registry.items())
+        if self.request_starts_per_frame is not None and self.last_started_entry is not None:
+            for index, pair in enumerate(entries):
+                if pair[1] is self.last_started_entry:
+                    return entries[index + 1:] + entries[:index + 1]
+            self.last_started_entry = None
+        return entries
+
+    def _start_request(self, entry, remaining):
+        def start():
+            if remaining[0] == 0:
+                return False
+            remaining[0] -= 1
+            self.last_started_entry = entry
+            return True
+        return start
+
     def update(self, groups, view_at, pose_at, clip_offset, now):
         if self.closed:
             return False
         self.pending, self.error = any(key not in self.registry for key in groups), None
-        for key, entry in tuple(self.registry.items()):
+        remaining_starts = [self.request_starts_per_frame]
+        for key, entry in self._entries():
             dolls, surfaces = entry['dolls'], entry['surfaces']
             if not all(ref.current for ref in dolls + surfaces):
                 entry.pop('distance_request', None)
@@ -132,7 +157,10 @@ class LiquidControls(object):
             request = displayed, pose
             if entry.get('ready_request') == request:
                 continue
-            if renderer.update(displayed, pose, now):
+            ready = (renderer.update(displayed, pose, now) if self.request_starts_per_frame is None
+                else renderer.update(displayed, pose, now,
+                    start_request=self._start_request(entry, remaining_starts)))
+            if ready:
                 entry['ready_request'] = request
             else:
                 entry.pop('ready_request', None)
@@ -152,6 +180,7 @@ class LiquidControls(object):
             entry.pop('distance_request', None)
 
     def invalidate(self):
+        self.last_started_entry = None
         for entry in self.registry.values():
             renderer = entry.get('renderer')
             if renderer is not None:
@@ -164,6 +193,7 @@ class LiquidControls(object):
 
     def close(self):
         self.closed = True
+        self.last_started_entry = None
         for entry in self.registry.values():
             entry.pop('distance_request', None)
             renderer = entry.get('renderer')

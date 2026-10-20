@@ -207,7 +207,7 @@ class SkeletonLiquidRenderer(object):
             self.poses[slot] = pose
         return self._payload(slot, staging=staging)
 
-    def update(self, group, pose, now):
+    def update(self, group, pose, now, start_request=None):
         if self.closed:
             return False
         if not self.restore_publication():
@@ -246,6 +246,10 @@ class SkeletonLiquidRenderer(object):
         if self.pending is not None and not self._settle(group, pose, now):
             return False
         if self._shape(self.groups[self.front]) != self._shape(group):
+            # Existing fronts and settling uploads still advance above. The
+            # caller may spread only new shape submissions across frames.
+            if start_request is not None and not start_request():
+                return False
             back = 1 - self.front
             self._show(back, False)
             self.error = None
