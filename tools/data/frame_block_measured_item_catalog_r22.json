@@ -1,0 +1,675 @@
+{
+  "schema": 1,
+  "engine_version": "3.10.0.420447",
+  "pose": {
+    "schema": 1,
+    "shape": "full_cube",
+    "scale_blocks": 0.25,
+    "center_offset_blocks": [
+      0.0,
+      0.0,
+      0.4375
+    ],
+    "accepted": false,
+    "status": "measured_stone_quartz_grass_candidate_requires_full_native_gates"
+  },
+  "palette_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "source_sha256": {
+    "vanilla/blocks.json": "cb3aad2d0d012bfb63a462ec9a5d8af54128c8afc26d74ac6f4ae074c9d50faa",
+    "vanilla/textures/terrain_texture.json": "9ce3e389999a7aff19968a60fd21dad1811cf63ec3edd6afac0af0df649e212c",
+    "vanilla/textures/flipbook_textures.json": "54fef45e43eabb065a703f829d70320430c746744289775e57af582cb240fd7a",
+    "vanilla_netease/textures/terrain_texture.json": "2a49e7d28d5df7e460cb129d050a2adc60e29c92615c19a14893ab95a6722ae0"
+  },
+  "observation_sha256": {
+    "texture": "873a810852c498be212245fe33a6d6bacc195ac842c98c27dfb85f61de264f3b",
+    "basic": "59f7a794e7c71b9a8997d4f78a8c5dbb5bacdcf16ef6754f730b71b2545af827"
+  },
+  "shape_metadata": {
+    "path": "tools/data/native_block_metadata_nemc_3.9.0.401155.json",
+    "sha256": "1f7f6f2286dc7bd8dee748899ba8f12a973532d151c2047ec400c9ee8342d460",
+    "version": "NEMC 3.9.0.401155",
+    "scope": "Candidate shape sieve only; not 3.10 native visual acceptance"
+  },
+  "native_items": {
+    "minecraft:stone": {
+      "itemType": "block",
+      "itemCategory": "nature",
+      "id_aux": 65536
+    },
+    "minecraft:quartz_block": {
+      "itemType": "block",
+      "itemCategory": "construction",
+      "id_aux": 10158080
+    },
+    "minecraft:grass_block": {
+      "itemType": "block",
+      "itemCategory": "nature",
+      "id_aux": 131072
+    }
+  },
+  "resources": {
+    "088a7d10a45b8429": {
+      "bitmap_sha256": "ab130fe030a9686eb0f5817b37a652535747d6ed22abc07c6741ed48a504dd8b",
+      "rectangles": {
+        "north": [
+          0.018518518518518517,
+          0.027777777777777776,
+          0.3148148148148148,
+          0.4722222222222222
+        ],
+        "south": [
+          0.35185185185185186,
+          0.027777777777777776,
+          0.6481481481481481,
+          0.4722222222222222
+        ],
+        "west": [
+          0.6851851851851852,
+          0.027777777777777776,
+          0.9814814814814815,
+          0.4722222222222222
+        ],
+        "east": [
+          0.018518518518518517,
+          0.5277777777777778,
+          0.3148148148148148,
+          0.9722222222222222
+        ],
+        "up": [
+          0.35185185185185186,
+          0.5277777777777778,
+          0.6481481481481481,
+          0.9722222222222222
+        ],
+        "down": [
+          0.6851851851851852,
+          0.5277777777777778,
+          0.9814814814814815,
+          0.9722222222222222
+        ]
+      },
+      "material": "opaque",
+      "faces": {
+        "north": {
+          "atlas_key": "grass_carried",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": {
+              "path": "textures/blocks/grass_side",
+              "overlay_color": "#79c05a"
+            }
+          },
+          "path": "vanilla/textures/blocks/grass_side.tga",
+          "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [
+            "alpha_mask_overlay_pending_native_pixels"
+          ],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "south": {
+          "atlas_key": "grass_carried",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": {
+              "path": "textures/blocks/grass_side",
+              "overlay_color": "#79c05a"
+            }
+          },
+          "path": "vanilla/textures/blocks/grass_side.tga",
+          "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [
+            "alpha_mask_overlay_pending_native_pixels"
+          ],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "west": {
+          "atlas_key": "grass_carried",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": {
+              "path": "textures/blocks/grass_side",
+              "overlay_color": "#79c05a"
+            }
+          },
+          "path": "vanilla/textures/blocks/grass_side.tga",
+          "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [
+            "alpha_mask_overlay_pending_native_pixels"
+          ],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "east": {
+          "atlas_key": "grass_carried",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": {
+              "path": "textures/blocks/grass_side",
+              "overlay_color": "#79c05a"
+            }
+          },
+          "path": "vanilla/textures/blocks/grass_side.tga",
+          "sha256": "a99ffa54bb739a112d3abb870cfa0db580dd43a8dffcc05a0da0604777939cfb",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [
+            "alpha_mask_overlay_pending_native_pixels"
+          ],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "up": {
+          "atlas_key": "grass_carried_top",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/grass_carried"
+          },
+          "path": "vanilla/textures/blocks/grass_carried.png",
+          "sha256": "8d109d7f46dc9fe22d32c4375da4707aa7a80c14336a0f158e7e68fe519ad8fc",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "down": {
+          "atlas_key": "grass_carried_bottom",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/dirt"
+          },
+          "path": "vanilla/textures/blocks/dirt.png",
+          "sha256": "34bf03b346c0e86214a32117e3f892529da6b76ca8096347cbb6be3da313deab",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        }
+      },
+      "definition": {
+        "pack": "vanilla",
+        "value": {
+          "isotropic": {
+            "up": true,
+            "down": true
+          },
+          "textures": {
+            "up": "grass_top",
+            "down": "grass_bottom",
+            "side": "grass_side"
+          },
+          "carried_textures": {
+            "up": "grass_carried_top",
+            "down": "grass_carried_bottom",
+            "side": "grass_carried"
+          },
+          "sound": "grass"
+        }
+      },
+      "definition_key": "grass",
+      "texture_selection": "carried_textures"
+    },
+    "3694abb015dcb2e6": {
+      "bitmap_sha256": "8c7c61cc8b3b8c9a503276361552a661bb18fb0e0e6d4a2261ef11d4297c45e5",
+      "rectangles": {
+        "north": [
+          0.018518518518518517,
+          0.027777777777777776,
+          0.3148148148148148,
+          0.4722222222222222
+        ],
+        "south": [
+          0.35185185185185186,
+          0.027777777777777776,
+          0.6481481481481481,
+          0.4722222222222222
+        ],
+        "west": [
+          0.6851851851851852,
+          0.027777777777777776,
+          0.9814814814814815,
+          0.4722222222222222
+        ],
+        "east": [
+          0.018518518518518517,
+          0.5277777777777778,
+          0.3148148148148148,
+          0.9722222222222222
+        ],
+        "up": [
+          0.35185185185185186,
+          0.5277777777777778,
+          0.6481481481481481,
+          0.9722222222222222
+        ],
+        "down": [
+          0.6851851851851852,
+          0.5277777777777778,
+          0.9814814814814815,
+          0.9722222222222222
+        ]
+      },
+      "material": "opaque",
+      "faces": {
+        "north": {
+          "atlas_key": "flattened_quartz_block_side",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/quartz_block_side"
+          },
+          "path": "vanilla/textures/blocks/quartz_block_side.png",
+          "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "south": {
+          "atlas_key": "flattened_quartz_block_side",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/quartz_block_side"
+          },
+          "path": "vanilla/textures/blocks/quartz_block_side.png",
+          "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "west": {
+          "atlas_key": "flattened_quartz_block_side",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/quartz_block_side"
+          },
+          "path": "vanilla/textures/blocks/quartz_block_side.png",
+          "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "east": {
+          "atlas_key": "flattened_quartz_block_side",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/quartz_block_side"
+          },
+          "path": "vanilla/textures/blocks/quartz_block_side.png",
+          "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "up": {
+          "atlas_key": "flattened_quartz_block_top",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/quartz_block_top"
+          },
+          "path": "vanilla/textures/blocks/quartz_block_top.png",
+          "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "down": {
+          "atlas_key": "flattened_quartz_block_top",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/quartz_block_top"
+          },
+          "path": "vanilla/textures/blocks/quartz_block_top.png",
+          "sha256": "82faaa7f59818cb25509064cedbdd8b0ff0d296c28ba904eacb6abcc781fbff3",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        }
+      },
+      "definition": {
+        "pack": "vanilla",
+        "value": {
+          "textures": {
+            "up": "flattened_quartz_block_top",
+            "down": "flattened_quartz_block_top",
+            "side": "flattened_quartz_block_side"
+          },
+          "sound": "stone"
+        }
+      },
+      "definition_key": "quartz_block",
+      "texture_selection": "textures"
+    },
+    "4e210f8fbdabb72a": {
+      "bitmap_sha256": "7bee6b6b35244747d9911074910d4a4e9ad4e60cb00c8a1826b79db39e72575e",
+      "rectangles": {
+        "north": [
+          0.018518518518518517,
+          0.027777777777777776,
+          0.3148148148148148,
+          0.4722222222222222
+        ],
+        "south": [
+          0.35185185185185186,
+          0.027777777777777776,
+          0.6481481481481481,
+          0.4722222222222222
+        ],
+        "west": [
+          0.6851851851851852,
+          0.027777777777777776,
+          0.9814814814814815,
+          0.4722222222222222
+        ],
+        "east": [
+          0.018518518518518517,
+          0.5277777777777778,
+          0.3148148148148148,
+          0.9722222222222222
+        ],
+        "up": [
+          0.35185185185185186,
+          0.5277777777777778,
+          0.6481481481481481,
+          0.9722222222222222
+        ],
+        "down": [
+          0.6851851851851852,
+          0.5277777777777778,
+          0.9814814814814815,
+          0.9722222222222222
+        ]
+      },
+      "material": "opaque",
+      "faces": {
+        "north": {
+          "atlas_key": "flattened_stone",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/stone"
+          },
+          "path": "vanilla/textures/blocks/stone.png",
+          "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "south": {
+          "atlas_key": "flattened_stone",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/stone"
+          },
+          "path": "vanilla/textures/blocks/stone.png",
+          "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "west": {
+          "atlas_key": "flattened_stone",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/stone"
+          },
+          "path": "vanilla/textures/blocks/stone.png",
+          "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "east": {
+          "atlas_key": "flattened_stone",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/stone"
+          },
+          "path": "vanilla/textures/blocks/stone.png",
+          "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "up": {
+          "atlas_key": "flattened_stone",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/stone"
+          },
+          "path": "vanilla/textures/blocks/stone.png",
+          "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        },
+        "down": {
+          "atlas_key": "flattened_stone",
+          "atlas_pack": "vanilla",
+          "entry": {
+            "textures": "textures/blocks/stone"
+          },
+          "path": "vanilla/textures/blocks/stone.png",
+          "sha256": "12f1c99206df13e951a68b9e5e294c5e0e15c252c3bb141632c8c969a909d1a8",
+          "size": [
+            16,
+            16
+          ],
+          "source_size": [
+            16,
+            16
+          ],
+          "operations": [],
+          "degradation": [],
+          "native_flipbooks": []
+        }
+      },
+      "definition": {
+        "pack": "vanilla",
+        "value": {
+          "textures": "flattened_stone",
+          "sound": "stone"
+        }
+      },
+      "definition_key": "stone",
+      "texture_selection": "textures"
+    }
+  },
+  "items": [
+    {
+      "name": "minecraft:grass_block",
+      "aux": 0,
+      "block_material": [
+        "minecraft:grass_block",
+        0
+      ],
+      "observed_item_texture": "textures/blocks/grass_side",
+      "resource": "088a7d10a45b8429",
+      "definition_key": "grass",
+      "texture_selection": "carried_textures",
+      "shape_evidence": "native_3_9_solid_metadata_plus_3_10_asset_candidate",
+      "degradation": [
+        "fixed_default_item_axes"
+      ]
+    },
+    {
+      "name": "minecraft:quartz_block",
+      "aux": 0,
+      "block_material": [
+        "minecraft:quartz_block",
+        0
+      ],
+      "observed_item_texture": "textures/blocks/quartz_block_side",
+      "resource": "3694abb015dcb2e6",
+      "definition_key": "quartz_block",
+      "texture_selection": "textures",
+      "shape_evidence": "native_3_9_solid_metadata_plus_3_10_asset_candidate",
+      "degradation": [
+        "fixed_default_item_axes"
+      ]
+    },
+    {
+      "name": "minecraft:stone",
+      "aux": 0,
+      "block_material": [
+        "minecraft:stone",
+        0
+      ],
+      "observed_item_texture": "textures/blocks/stone",
+      "resource": "4e210f8fbdabb72a",
+      "definition_key": "stone",
+      "texture_selection": "textures",
+      "shape_evidence": "native_3_9_solid_metadata_plus_3_10_asset_candidate",
+      "degradation": [
+        "fixed_default_item_axes"
+      ]
+    }
+  ],
+  "unsupported": {},
+  "production_qualified": false,
+  "qualification_sha256": null,
+  "qualification_resource_sha256": null,
+  "qualified_materials": [],
+  "required_native_gates": [
+    "six_faces",
+    "eight_rotations",
+    "three_dimensional_thickness",
+    "frame_body_depth",
+    "editor_shared_depth",
+    "world_full_missing",
+    "material_specific_alpha",
+    "artificial_enchantment_payload",
+    "glint_six_face_uv_rotation_occlusion"
+  ]
+}

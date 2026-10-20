@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 sys.path.insert(0, str(ROOT / 'tools'))
 from projection import liquid_deployment as deployment, liquid_resource_data as source
+from projection import liquid_product_qualification_data as product_qualification
+from projection.liquid_render_target_data import TARGET_ENGINE_VERSION
 from projection.cell import make_cell
 from projection.debug_blueprints import material
 from projection.model import Document
@@ -25,20 +27,23 @@ from projection.liquid_render_plan import iter_groups
 
 class LiquidDeploymentTests(unittest.TestCase):
     def test_production_gate_is_closed_until_actual_native_qualification(self):
-        self.assertFalse(source.PRODUCTION_QUALIFIED)
-        self.assertIsNone(deployment.production_profile())
-        with patch.object(source, 'PRODUCTION_QUALIFIED', True):
-            with self.assertRaisesRegex(ValueError, 'qualification fingerprint'):
-                deployment.production_profile()
-            with patch.object(source, 'QUALIFICATION_SHA256', '1' * 64):
-                with self.assertRaisesRegex(ValueError, 'different resource bundle'):
-                    deployment.production_profile()
+        with patch.object(product_qualification, 'PRODUCT_QUALIFIED', False), \
+                patch.multiple(source, PRODUCTION_QUALIFIED=False, QUALIFICATION_SHA256=None,
+                               QUALIFICATION_RESOURCE_CONTRACT_SHA256=None):
+            self.assertIsNone(deployment.production_profile(TARGET_ENGINE_VERSION))
+            with patch.object(source, 'PRODUCTION_QUALIFIED', True):
+                with self.assertRaisesRegex(ValueError, 'qualification fingerprint'):
+                    deployment.production_profile(TARGET_ENGINE_VERSION)
+                with patch.object(source, 'QUALIFICATION_SHA256', '1' * 64):
+                    with self.assertRaisesRegex(ValueError, 'different resource bundle'):
+                        deployment.production_profile(TARGET_ENGINE_VERSION)
 
     def test_same_bundle_qualification_selects_owned_ui_and_world_resources(self):
-        with patch.object(source, 'PRODUCTION_QUALIFIED', True), \
+        with patch.object(product_qualification, 'PRODUCT_QUALIFIED', False), \
+                patch.object(source, 'PRODUCTION_QUALIFIED', True), \
                 patch.object(source, 'QUALIFICATION_SHA256', '1' * 64), \
                 patch.object(source, 'QUALIFICATION_RESOURCE_CONTRACT_SHA256', source.RESOURCE_CONTRACT_SHA256):
-            profile = deployment.production_profile()
+            profile = deployment.production_profile(TARGET_ENGINE_VERSION)
         self.assertEqual((.1, -65., 0., 35.), profile.ui_pose(20., 25., 35., (200., 250.)))
         self.assertEqual((0., 50.), profile.ui_offset((200., 250.)))
         self.assertEqual((16.,) * 3, profile.world_scale)
@@ -49,13 +54,14 @@ class LiquidDeploymentTests(unittest.TestCase):
         cell = make_cell(material('oak_fence'), water, {'tag': [1, 2]})
         document = Document((4, 3, 4), {(1, 1, 1): cell})
         before = copy.deepcopy(document.to_data())
+        qualified_before = source.PRODUCTION_QUALIFIED
         profile = deployment.candidate_profile(frozen=True)
         parts = profile.provider_factory(document).surface(document, (1, 1, 1), 1, water)
         self.assertEqual({1}, {part.layer for part in parts})
         self.assertEqual({33, 30}, {part.faces for part in parts})
         self.assertEqual(before, document.to_data())
         self.assertTrue(all('_frozen' in name for name in profile.models.values()))
-        self.assertFalse(source.PRODUCTION_QUALIFIED)
+        self.assertIs(qualified_before, source.PRODUCTION_QUALIFIED)
 
     def test_generator_rejects_old_same_named_models_with_wrong_native_transform(self):
         models, options = {}, {}

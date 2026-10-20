@@ -1,0 +1,8 @@
+"""Independent shelf item acceptance, bound to the measured icon resources."""
+SCHEMA_VERSION = 1
+ENGINE_VERSION = '3.10.0.420447'
+PRODUCTION_QUALIFIED = False
+QUALIFICATION_SHA256 = None
+QUALIFICATION_RESOURCE_SHA256 = None
+QUALIFIED_ITEMS = ()
+QUALIFIED_ENCHANTMENTS = ()

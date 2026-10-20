@@ -10,7 +10,7 @@ from pathlib import Path
 
 from PIL import Image, ImageChops
 from verify_debug_blueprints import (BlueprintCheck, Client, INSTALL_PROBE, RESTORE,
-                                     write_json)
+                                     ROOT, write_json)
 
 CASES = {
     'water': ('test.layers.water', (3, 1, 6)),
@@ -195,6 +195,10 @@ def main():
     parser.add_argument('--opacity', type=float, default=.85)
     parser.add_argument('--timeout', type=float, default=90)
     parser.add_argument('--refresh', action='store_true')
+    parser.add_argument('--native-resolution', action='store_true',
+                        help='Use an owner-bound background native-window capture')
+    parser.add_argument('--capture-helper', type=Path,
+                        default=ROOT/'tools/capture_native_window.py')
     parser.add_argument('--restore-detached', action='store_true',
                         help='Restore an originally detached camera instead of player-follow mode')
     args = parser.parse_args()
@@ -210,7 +214,12 @@ def main():
     installed = visual_saved = False
     try:
         with Client(timeout=30) as client:
-            check = BlueprintCheck(client, args.output, args.timeout)
+            if args.native_resolution:
+                from verify_sign_visuals import SignCheck
+                check = SignCheck(client, args.output, args.timeout, native_resolution=True,
+                                  background_only=True, native_capture_helper=args.capture_helper)
+            else:
+                check = BlueprintCheck(client, args.output, args.timeout)
             check.run(INSTALL_PROBE)
             installed = True
             try:

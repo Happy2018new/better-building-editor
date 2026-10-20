@@ -1,6 +1,9 @@
 """Editable native fixtures preserve layers, groups and complete actor data."""
+import ast
+from functools import partial
 import json
 import sys
+from types import SimpleNamespace
 import unittest
 from pathlib import Path
 
@@ -21,6 +24,56 @@ from projection.sharing_codec import decode_steps, encode_steps
 from projection.visible_actor import entity_nbt, render_actor
 
 
+class BlueprintReachabilityTests(unittest.TestCase):
+    def test_every_registered_fixture_has_a_card_on_the_actual_public_page(self):
+        from projection.debug_ordinary_blueprints import CASES, SECTIONS, search_text
+
+        path = ROOT / 'behavior_pack/modern_projection/projection/debug_blueprint_ui.py'
+        module = ast.parse(path.read_text(encoding='utf8'), filename=str(path))
+        # Execute the real page functions with inert hosts and controlled hook state.
+        # This exercises their routing, filtering and pagination without a game UI.
+        functions = [node for node in module.body if isinstance(node, ast.FunctionDef)]
+        state, cards = [], set()
+
+        def panel(*args, **kwargs):
+            if kwargs.get('key'):
+                cards.add(kwargs['key'])
+            return kwargs
+
+        def use_state(default):
+            return next(state[0]), lambda value: None
+
+        def inert(*args, **kwargs):
+            return kwargs
+
+        scope = dict(Component=lambda function: function, partial=partial,
+                     Panel=panel, use_state=use_state, use_effect=inert,
+                     use_theme=inert, use_material_names=inert,
+                     Theme=SimpleNamespace(muted='muted'), S=inert, row=inert,
+                     text=inert, Action=inert, Segments=inert, Scroll=inert,
+                     Input=inert, line=inert, MaterialIcon=inert, PreparedColumn=inert,
+                     CATEGORIES=CATEGORIES, entries=entries, material=material,
+                     open_blueprint=open_blueprint, SECTIONS=SECTIONS,
+                     CASES=CASES, search_text=search_text,
+                     material_name=lambda value: value[0])
+        exec(compile(ast.Module(body=functions, type_ignores=[]), str(path), 'exec'), scope)
+        session = SimpleNamespace(busy=False, edit_job=None, io_job=None,
+                                  confirm=inert, page='testing')
+        reachable = set()
+        for category, unused_title in CATEGORIES:
+            sections = SECTIONS if category == 'manual' else ((None, None),)
+            for section, unused_section_title in sections:
+                for page in range(len(BLUEPRINTS) + 1):
+                    cards.clear()
+                    state[:] = [iter((category, section, '', page))]
+                    scope['TestBlueprints'](session=session)
+                    new = cards - reachable
+                    reachable.update(cards)
+                    if category != 'manual' or not new:
+                        break
+        self.assertEqual({row[0] for row in BLUEPRINTS}, reachable)
+
+
 class DebugBlueprintTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -28,7 +81,7 @@ class DebugBlueprintTests(unittest.TestCase):
 
     def test_all_fixtures_have_legal_native_layers_and_prepare_without_mutation(self):
         self.assertEqual(len(BLUEPRINTS), len(self.documents))
-        self.assertEqual(6, len(CATEGORIES))
+        self.assertEqual(7, len(CATEGORIES))
         self.assertEqual(set(self.documents), {row[0] for category, unused in CATEGORIES
                                               for row in entries(category)})
         for identity, doc in self.documents.items():
@@ -38,7 +91,8 @@ class DebugBlueprintTests(unittest.TestCase):
                 for part in (foreground(value), background(value)):
                     self.assertEqual(part, registry.canonical(part))
             prepared = prepare_palette(doc.palette_data())
-            height = doc.size[1] + (OVERLAY_BASE if identity == 'test.layers.snow' else 0)
+            source_identity = identity.replace('test.ordinary.context.', '')
+            height = doc.size[1] + (OVERLAY_BASE if source_identity == 'test.layers.snow' else 0)
             self.assertEqual((doc.size[2], doc.size[0], height), prepared['volume'])
             self.assertEqual(before, doc.blocks)
 

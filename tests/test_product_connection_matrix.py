@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection import block_registry as registry
-from projection.cell import AIR, foreground
+from projection.cell import AIR, foreground, make_cell
+import check_blueprint_neighbor_context as context_audit
 from projection.debug_blueprints import BLUEPRINTS, VISUAL_CASES, build, material
 from projection.debug_product_connections import METADATA, VISUAL_CASE, source_document
 from projection.model import Document, Editor
@@ -113,6 +114,50 @@ class PublicConnectionMatrixTests(unittest.TestCase):
             report = offline_report()
         self.assertFalse(report['passed'])
         self.assertFalse(report['rows'][-1]['passed'])
+
+    def test_independent_slope_oracle_rejects_missing_wrong_and_duplicated_bodies(self):
+        source = source_document('rail_supported_slope')
+        case = next(row for row in VISUAL_CASE['cases'] if row['id'] == 'rail_supported_slope')
+        target = case['keep']
+        prepare = context_audit.prepare_document_context
+        for fault in ('missing', 'wrong_material', 'context_duplicate', 'duplicate_slot', 'conflicting_slot'):
+            def damaged(document, targets, fault=fault):
+                data = prepare(document, targets)
+                body_slot = context_audit.index(context_audit.overlay_position(target), data['volume'])
+                value = next(value for value, slots in data['common'].items() if body_slot in slots)
+                if fault == 'missing':
+                    data['common'][value].remove(body_slot)
+                elif fault == 'wrong_material':
+                    data['common'][value].remove(body_slot)
+                    data['common'].setdefault(material('stone'), []).append(body_slot)
+                elif fault == 'context_duplicate':
+                    context_slot = context_audit.index(context_audit.context_position(target), data['volume'])
+                    data['common'][value].append(context_slot)
+                elif fault == 'duplicate_slot':
+                    data['common'][value].append(body_slot)
+                else:
+                    data['common'].setdefault(material('stone'), []).append(body_slot)
+                return data
+            with self.subTest(fault=fault), patch.object(context_audit, 'prepare_document_context', damaged):
+                self.assertFalse(context_audit.compare_target(source, target)['passed'])
+
+    def test_slope_secondary_layer_and_neighbor_slope_omission_are_both_checked(self):
+        case = next(row for row in VISUAL_CASE['cases'] if row['id'] == 'rail_supported_slope')
+        source = source_document(case['id'])
+        slope, flat = case['keep'], case['occupied']
+        self.assertTrue(context_audit.compare_target(source, slope)['passed'])
+        self.assertTrue(context_audit.compare_target(source, flat)['passed'])
+        source.blocks[slope] = make_cell(foreground(source.get(slope)), material('water'))
+        self.assertTrue(context_audit.compare_target(source, slope)['passed'])
+        self.assertTrue(context_audit.compare_target(source, flat)['passed'])
+        prepare = context_audit.prepare_document_context
+        def missing_secondary(document, targets):
+            data = prepare(document, targets)
+            data['extra'] = {}
+            return data
+        with patch.object(context_audit, 'prepare_document_context', missing_secondary):
+            self.assertFalse(context_audit.compare_target(source, slope)['passed'])
+            self.assertFalse(context_audit.compare_target(source, flat)['passed'])
 
     def test_editor_camera_uses_scene_relative_coordinates(self):
         emitted = []

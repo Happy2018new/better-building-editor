@@ -19,6 +19,7 @@ from projection.debug_blueprints import build
 from projection.entity_render import COPPER_CHEST_PROXIES
 from projection.plant_proxy_data import STATIC_PLANT_PROXIES
 from projection.centered_plant_data import CENTERED_PLANT_PROXIES
+from projection.ordinary_plant_data import ORDINARY_PLANT_PROXIES
 
 
 class GeometryPaletteTests(unittest.TestCase):
@@ -93,13 +94,15 @@ class GeometryPaletteTests(unittest.TestCase):
             self.assertEqual(states(value), result['states'][value])
         self.assertNotIn(values[-1], result['states'])
 
-    def test_grass_plants_keep_their_two_block_halves(self):
+    def test_plant_proxies_keep_all_positions_including_shared_age_meshes(self):
         source = {'common': dict((value, [index]) for index, value
                                  in enumerate(PLANT_PROXIES))}
         saved = copy.deepcopy(source)
         result = prepare_palette(source)
-        for index, proxy in enumerate(PLANT_PROXIES.values()):
-            self.assertEqual([index], result['common'][(proxy, 0)])
+        expected = {}
+        for material, indices in source['common'].items():
+            expected.setdefault((PLANT_PROXIES[material], 0), []).extend(indices)
+        self.assertEqual(expected, result['common'])
         self.assertEqual({}, result['states'])
         self.assertEqual(saved, source)
 
@@ -114,12 +117,18 @@ class GeometryPaletteTests(unittest.TestCase):
             self.assertFalse(definition['description']['register_to_creative_menu'])
             self.assertNotIn('register_to_create_menu', definition['description'])
             self.assertEqual('alpha', definition['components']['netease:render_layer']['value'])
-            self.assertTrue(definition['components']['netease:water_source']['value'])
-            self.assertTrue(definition['components']['netease:water_flow_source']['value'])
+            if proxy in ORDINARY_PLANT_PROXIES.values():
+                # Visibility fallbacks do not qualify water/snow composition.
+                self.assertNotIn('netease:water_source', definition['components'])
+                self.assertNotIn('netease:water_flow_source', definition['components'])
+            else:
+                self.assertTrue(definition['components']['netease:water_source']['value'])
+                self.assertTrue(definition['components']['netease:water_flow_source']['value'])
             self.assertEqual(proxy, model['description']['identifier'])
             self.assertEqual(2, len(model['bones']))
             self.assertEqual(proxy, appearances[proxy]['netease_model'])
-            if (proxy not in STATIC_PLANT_PROXIES.values() and
+            if (proxy not in ORDINARY_PLANT_PROXIES.values() and
+                    proxy not in STATIC_PLANT_PROXIES.values() and
                     (proxy not in CENTERED_PLANT_PROXIES.values() or proxy.endswith(':centered_bush'))):
                 self.assertEqual('textures/colormap/grass', appearances[proxy]['use_colormap'])
             else:
@@ -150,7 +159,8 @@ class GeometryPaletteTests(unittest.TestCase):
                         self.assertLessEqual(max(values), 16., proxy)
                     height = 16 if (proxy.endswith(('_bottom', '_top')) or
                                     proxy in STATIC_PLANT_PROXIES.values() or
-                                    proxy in CENTERED_PLANT_PROXIES.values()) else 12.8
+                                    proxy in CENTERED_PLANT_PROXIES.values() or
+                                    proxy in ORDINARY_PLANT_PROXIES.values()) else 12.8
                     self.assertEqual((0, height), (origin[1], origin[1] + size[1]))
 
     def test_full_cells_keep_background_states_and_actor_data_in_geometry_palette(self):

@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "description": "Compact reviewed admission, not standalone raw GPU replay",
+  "stage": "product",
+  "human_acceptance_added": 0,
+  "files": [
+    {
+      "path": "qualification.json",
+      "bytes": 15749,
+      "sha256": "a324df78aa8d714cb31a0f1093676fe574c5fce40b051ff6f53eec2840e28596",
+      "source_relative_path": ".runtime/round-20261020/water-default-v2/product-qualification-v1/qualification.json"
+    },
+    {
+      "path": "qualification_data.py",
+      "bytes": 1007,
+      "sha256": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14",
+      "source_relative_path": "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py"
+    },
+    {
+      "path": "owner-contract.json",
+      "bytes": 5580,
+      "sha256": "ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872",
+      "source_relative_path": "tools/data/liquid_product_owner_contract_v1.json"
+    },
+    {
+      "path": "resource-contract.json",
+      "bytes": 26506,
+      "sha256": "096fdd8721d02bd94924248fc2ff57810c76643caf5e96a38db5353d747fd578",
+      "source_relative_path": "tools/data/liquid_product_resource_contract_v1.json"
+    },
+    {
+      "path": "default-reviewed.json",
+      "bytes": 4436,
+      "sha256": "aabdbf63bd3cf5c2f0f479f7325c82e5c67fca1be5cb88c25bbb386735a16f6d",
+      "source_relative_path": ".runtime/round-20261020/water-default-v2/default-v2-readonly-check-reviewed-v1.json"
+    },
+    {
+      "path": "focused-tests.json",
+      "bytes": 13479,
+      "sha256": "e58656ed918e335b603b4d5ee4ace108cd684bd3c3519362e428b6629ed04035",
+      "source_relative_path": ".runtime/round-20261020/liquid-gate-tests-review-v1/focused-validation-v1.json"
+    },
+    {
+      "path": "d1-startup-failure.json",
+      "bytes": 3936,
+      "sha256": "dba54887f94e63d77227d7e80aab49641b8c06c705a2616085ddf9685f82fea9",
+      "source_relative_path": ".runtime/round-20261020/water-default-v1/default-v1-startup-failure-summary.json"
+    },
+    {
+      "path": "condition-change.json",
+      "bytes": 2559,
+      "sha256": "b8720af32281712281ad67daa7b7c6580c73f29d50a56605eca37c87a42a0813",
+      "source_relative_path": ".runtime/round-20261020/water-default-v2/condition-change-v1.json"
+    },
+    {
+      "path": "archive-parity.json",
+      "bytes": 251,
+      "sha256": "a4542314c54f1b9e63c12df6b533cc90d609fa103d2cbf427e90fe433d0cacd8",
+      "source_relative_path": ".runtime/round-20261020/water-default-v2/archive-parity-v1.json"
+    },
+    {
+      "path": "d2-stop.json",
+      "bytes": 2215,
+      "sha256": "007edfede099d7344f97f155a0b63b14aaa9556b024d6b376ec9b90e25115dda",
+      "source_relative_path": ".runtime/round-20261020/water-default-v2/stop-finalization-v1/receipt.json"
+    },
+    {
+      "path": "d2-exact-exit.json",
+      "bytes": 987,
+      "sha256": "f0a98a181ac8a714af9b4d91245aa252bd66fe60b73edc3a6538ca7d7aa4c926",
+      "source_relative_path": ".runtime/round-20261020/water-default-v2/stop-finalization-v1/exact-exit.json"
+    },
+    {
+      "path": "default-wet.png",
+      "bytes": 585393,
+      "sha256": "4fde168243ea93e9a8d7f085c3af38044e4ce8bb03bd6308bfbfec2acce67b41",
+      "source_relative_path": ".runtime/round-20261020/water-default-v2/default-v2-wet-contact.png"
+    },
+    {
+      "path": "default-occupancy.png",
+      "bytes": 228826,
+      "sha256": "3de95ef0391cad871437efc38d5e7450f1b8e4cefbc1d448adb77dc1e44ea59b",
+      "source_relative_path": ".runtime/round-20261020/water-default-v2/default-v2-occupancy-contact.png"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2786,
+      "sha256": "ee89de84781d579e192a8d6606bb65bc1a7a2f5998c0138302b5495b0518d6b8"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 2730,
+      "sha256": "f524c848df8c5c3b22f189600f95cf282de8bc05f90a21c2c73b6be70cbf5575"
+    }
+  ]
+}

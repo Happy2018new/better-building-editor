@@ -100,6 +100,18 @@ rows=[{'key':key,'name':part.get('name'),'count':part.get('count'),
  'extra_cells':sum(len(v) for v in part['data'][1].values()),
  'actor_cells':sum(len(v) for v in part['data'][2].values())}
  for key,part in sorted(t.parts.items()) if key in t.region_owners]
+for row in rows:
+ row['ready']=row['current_signature']
+ row['empty_source_current']=False
+ if (row['ready'] or row['name'] is not None or row['pending'] or not row['cache_current'] or
+     any(row[field]!=0 for field in ('count','common_cells','extra_cells','actor_cells'))):
+  continue
+ low,size=t.region_bounds(row['key'])
+ high=tuple(low[i]+size[i] for i in range(3))
+ row['source_region']=(low,size)
+ row['empty_source_current']=not any(all(low[i]<=pos[i]<high[i] for i in range(3))
+                                    for pos,value in doc.blocks.items())
+ row['ready']=row['empty_source_current']
 expected=sys._blueprint_qa_expected or {}
 document_id=id(doc)
 metadata={'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)}
@@ -134,6 +146,7 @@ _result=json.dumps({'page':s.page,'name':doc.name,'size':doc.size,'blocks':len(d
  'editor_id':id(s.editor),'document_id':document_id,
  'expected_editor_id':expected.get('editor_id'),'expected_document_id':expected.get('document_id'),
  'current_source':current_source,'all_parts_current':all(row['current_signature'] for row in rows),
+ 'all_parts_ready':all(row['ready'] for row in rows),
  'model_name':s.model_name,'parts':rows,'tile_builds':t.builds,
  'world_actors':len(b.projection_entities)+int(bool(b.entity)),
  'native_calls':[row for row in sys._blueprint_qa_records
@@ -174,7 +187,7 @@ def write_json(path, value):
 def source_matches(state, metadata, editor_id, document_id):
     return (state.get('metadata') == metadata and state.get('editor_id') == editor_id and
             state.get('document_id') == document_id and state.get('current_source') and
-            state.get('all_parts_current'))
+            state.get('all_parts_ready', state.get('all_parts_current')))
 
 
 def editor_preview_ready(state, metadata, editor_id, document_id):

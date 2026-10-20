@@ -7,6 +7,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PACKS = (ROOT / 'resource_pack', ROOT / 'extras/astral_survey_v1/resource_pack')
 FLOAT_TYPES = r'(?:float|vec[234]|mat[234](?:x[234])?)'
+# This native normalized normal/layer packet deliberately retains the same
+# lowp interface at both ends. Its raw fragment/world bytes and generated UI
+# source are checked by test_portal_native_candidate; changing their precision
+# here would invalidate the captured native rendering comparison.
+NATIVE_PLANE_INTERFACE = frozenset(
+    'resource_pack/shaders/glsl/modern_projection_portal_native_' + name
+    for name in ('original.h', 'ui.vertex', 'world.vertex'))
+NATIVE_PLANE_DECLARATION = r'\bvarying\s+lowp\s+vec4\s+encodedPlane\s*;'
 
 
 def code_only(source):
@@ -43,14 +51,21 @@ class MobileShaderPrecisionTests(unittest.TestCase):
                 self.assertTrue(all(value == 'highp' for value in defaults))
 
     def test_float_uniforms_and_varyings_do_not_override_highp_with_lower_precision(self):
-        # Native emissive samples may remain lowp; packed payloads and the
-        # vertex/fragment interface must keep the caller's highp precision.
+        # Positions, time and product payloads must retain highp. Only the
+        # exact native normalized packet above has a lower-precision contract.
         pattern = (r'\b(?:uniform|UNIFORM|varying)\s+(?:lowp|mediump)\s+'
                    + FLOAT_TYPES + r'\b')
+        native_interfaces = set()
         for path in shader_sources(('.vertex', '.fragment', '.h', '.glsl')):
-            with self.subTest(shader=path.relative_to(ROOT).as_posix()):
+            relative = path.relative_to(ROOT).as_posix()
+            with self.subTest(shader=relative):
                 code = code_only(path.read_text(encoding='utf8'))
+                if relative in NATIVE_PLANE_INTERFACE:
+                    self.assertEqual(1, len(re.findall(NATIVE_PLANE_DECLARATION, code)))
+                    code = re.sub(NATIVE_PLANE_DECLARATION, '', code, count=1)
+                    native_interfaces.add(relative)
                 self.assertNotRegex(code, pattern)
+        self.assertEqual(NATIVE_PLANE_INTERFACE, native_interfaces)
 
 
 if __name__ == '__main__':

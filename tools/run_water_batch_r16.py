@@ -41,10 +41,14 @@ def main():
     parser.add_argument('--reverse', action='store_true')
     parser.add_argument('--gallery', action='store_true')
     parser.add_argument('--production-default', action='store_true')
+    parser.add_argument('--native-world-geometry', action='store_true',
+                        help='Record same-session native stone corners for world geometry '
+                             'and native side grids for the ordinary frozen side-control matrix')
     parser.add_argument('--pool-view-scale', type=float)
     parser.add_argument('--retain', action='store_true',
                         help='Retain the owned game for sequential diagnostics after the restored batch')
     args = parser.parse_args()
+    args.launch_inputs = args.launch_inputs.resolve(strict=True)
     report = EVIDENCE / (args.name + '.json')
     camera = EVIDENCE / ('camera-' + args.name + '.json')
     if report.exists() or camera.exists():
@@ -81,8 +85,11 @@ def main():
                 time.sleep(.25)
         print(json.dumps({'workspace_initialized': True}), flush=True)
         if set(args.route) - {'editor'}:
-            run([sys.executable, 'tools/verify_camera_projection.py', str(camera), '--native-resolution',
-                 '--fixture-lift-y', '64'], args.project, env, camera.with_suffix('.log'))
+            camera_command = [sys.executable, 'tools/verify_camera_projection.py', str(camera),
+                              '--native-resolution', '--fixture-lift-y', '64']
+            if args.native_world_geometry:
+                camera_command += ['--native-api', '--native-capture-exe', str(WGC)]
+            run(camera_command, args.project, env, camera.with_suffix('.log'))
             print(json.dumps({'camera_passed': json.loads(camera.read_bytes())['passed']}), flush=True)
         command = [sys.executable, 'tools/probe_product_water.py', '--session', session['session_file'],
             '--owner', OWNER, '--capture-exe', str(WGC), '--launch-inputs', str(args.launch_inputs),
@@ -112,6 +119,8 @@ def main():
             command += ['--frozen']
             if not args.gallery and not args.reverse and not args.extras:
                 command += ['--visibility-controls', '--opaque-side-controls', '--alpha-controls']
+                if args.native_world_geometry and set(args.route) - {'editor'}:
+                    command += ['--native-side-projection']
         if args.extras:
             command += ['--extras']
         if args.reverse:

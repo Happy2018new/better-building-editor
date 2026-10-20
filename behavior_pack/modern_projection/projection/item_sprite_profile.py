@@ -76,20 +76,67 @@ def frame_block_candidate_profile(engine_version, materials=('opaque', 'cutout',
     return profile
 
 
+def measured_frame_block_candidate_profile(engine_version):
+    from .frame_block_measured_profile import candidate_items
+    profile = ItemSpriteProfile(engine_version, include_frame_blocks=False)
+    profile.items = _ItemProfiles(candidate_items(engine_version))
+    profile.content_families = ('frame',)
+    return profile
+
+
+def _with_shelf_items(profile, rows):
+    from .shelf_body import accepts_item_contents
+    if not hasattr(profile, 'frame_items'):
+        profile.frame_items = profile.items
+    combined = dict(profile.items)
+    for key, row in rows.items():
+        combined.setdefault(key, row)
+    profile.items = _ItemProfiles(combined)
+    profile.shelf_items = _ItemProfiles(rows)
+    profile.shelf_accepts = accepts_item_contents
+    if 'shelf' not in profile.content_families:
+        profile.content_families += ('shelf',)
+    return profile
+
+
+def shelf_candidate_profile(engine_version):
+    from .shelf_item_profile import candidate_items
+    profile = ItemSpriteProfile(engine_version, include_frame_blocks=False)
+    profile.items, profile.content_families = {}, ()
+    return _with_shelf_items(profile, candidate_items(engine_version))
+
+
+def ordinary_frame_candidate_profile(engine_version):
+    from .ordinary_frame_item_profile import candidate_items
+    profile = ItemSpriteProfile(engine_version, include_frame_blocks=False)
+    profile.items = _ItemProfiles(candidate_items(engine_version))
+    profile.frame_items = profile.items
+    profile.content_families = ('frame',)
+    return profile
+
+
 def production_profile(engine_version=None):
     if engine_version is not None:
         from . import item_icon_data as icons
         from .frame_block_item_profile import production_items
-        blocks = production_items(engine_version)
+        from .frame_block_measured_profile import production_items as measured_production_items
+        from .shelf_item_profile import production_items as shelf_production_items
+        from .ordinary_frame_item_profile import production_items as ordinary_production_items
+        # A narrowly measured replacement owns a pair also present in the old catalog.
+        blocks = dict(production_items(engine_version))
+        blocks.update(measured_production_items(engine_version))
+        shelves = shelf_production_items(engine_version)
+        ordinary = ordinary_production_items(engine_version)
         if engine_version != icons.ENGINE_VERSION:
             return None
         if not icons.PRODUCTION_QUALIFIED:
-            if not blocks:
+            if not blocks and not shelves and not ordinary:
                 return None
             profile = ItemSpriteProfile(engine_version, include_frame_blocks=False)
-            profile.items = _ItemProfiles(blocks)
-            profile.content_families = ('frame',)
-            return profile
+            profile.items = _ItemProfiles(_merge_items(blocks, ordinary))
+            profile.frame_items = profile.items
+            profile.content_families = ('frame',) if blocks or ordinary else ()
+            return _with_shelf_items(profile, shelves) if shelves else profile
         digest = icons.QUALIFICATION_SHA256
         if (not isinstance(digest, str) or len(digest) != 64 or
                 any(value not in '0123456789abcdef' for value in digest)):
@@ -98,12 +145,15 @@ def production_profile(engine_version=None):
             raise ValueError('Measured item qualification belongs to a different resource contract')
         profile = ItemSpriteProfile(engine_version, include_frame_blocks=False)
         profile.items = _ItemProfiles(_merge_items(profile.items, blocks))
+        frames = dict(profile.items)
+        frames.update(ordinary)
+        profile.frame_items = _ItemProfiles(frames)
         families = icons.QUALIFIED_FAMILIES
         if (not isinstance(families, tuple) or not families or
                 any(family not in profile.content_families for family in families)):
             raise ValueError('Measured item qualification requires explicit supported content families')
-        profile.content_families = families if not blocks or 'frame' in families else ('frame',) + families
-        return profile
+        profile.content_families = families if not (blocks or ordinary) or 'frame' in families else ('frame',) + families
+        return _with_shelf_items(profile, shelves) if shelves else profile
     if not source.PRODUCTION_QUALIFIED:
         return None
     digest = source.QUALIFICATION_SHA256

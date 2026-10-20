@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT / 'tools'))
 from check_native_actor_materials import check as check_actor_materials
 from configure_development_runtime import load_target
 MODULES = (
+    'block_display_names_data',
     'block_registry_data', 'block_traits_data', 'entity_defaults_data',
     'appearance_defaults_data', 'frame_rotation_data', 'native_appearance',
     'item_contents_data',
@@ -290,6 +291,8 @@ def commands(manifest, tests=False):
     rows = [
         ['tools/check_block_registry.py', manifest['source_file']],
         ['tools/generate_block_traits.py', 'tools/data/native_block_metadata_nemc_' + version + '.json', '--check'],
+        ['tools/generate_block_display_names.py', '--check'],
+        ['tools/generate_barrier_marker_r23.py', '--check', '--registered'],
         ['tools/generate_entity_blueprints.py', 'tools/data/native_block_entity_defaults_nemc_' + version + '.json', '--check'],
         ['tools/generate_shulker_proxies.py', '--check'],
         ['tools/generate_copper_chest_proxies.py', '--check'],
@@ -312,6 +315,8 @@ def commands(manifest, tests=False):
         ['tools/check_snow_blueprints.py', '--check'],
         ['tools/generate_static_plant_proxies.py', '--check'],
         ['tools/generate_centered_plant_profiles.py', '--check'],
+        ['tools/generate_firefly_bush_animation.py', '--check'],
+        ['tools/generate_ordinary_plant_proxies.py', '--check'],
         ['tools/generate_bed_proxies.py', '--check'],
         ['tools/generate_scaffold_support.py', '--check'],
         ['tools/generate_biome_water.py', '--source',

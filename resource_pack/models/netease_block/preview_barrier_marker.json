@@ -1,0 +1,147 @@
+{
+  "format_version": "1.13.0",
+  "netease:block_geometry": {
+    "description": {
+      "identifier": "modern_projection:preview_barrier_marker",
+      "textures": [
+        "modern_projection_barrier_marker"
+      ],
+      "item_texture": "modern_projection_barrier_marker",
+      "use_ao": false
+    },
+    "bones": [
+      {
+        "name": "marker_z",
+        "pivot": [
+          -8,
+          8,
+          8
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -14,
+              2,
+              8
+            ],
+            "size": [
+              12,
+              12,
+              0
+            ],
+            "uv": {
+              "north": {
+                "uv": [
+                  0,
+                  0
+                ],
+                "uv_size": [
+                  16,
+                  16
+                ]
+              },
+              "south": {
+                "uv": [
+                  16,
+                  0
+                ],
+                "uv_size": [
+                  -16,
+                  16
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "marker_x",
+        "pivot": [
+          -8,
+          8,
+          8
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -8,
+              2,
+              2
+            ],
+            "size": [
+              0,
+              12,
+              12
+            ],
+            "uv": {
+              "west": {
+                "uv": [
+                  0,
+                  0
+                ],
+                "uv_size": [
+                  16,
+                  16
+                ]
+              },
+              "east": {
+                "uv": [
+                  16,
+                  0
+                ],
+                "uv_size": [
+                  -16,
+                  16
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "marker_y",
+        "pivot": [
+          -8,
+          8,
+          8
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -14,
+              8,
+              2
+            ],
+            "size": [
+              12,
+              0,
+              12
+            ],
+            "uv": {
+              "up": {
+                "uv": [
+                  0,
+                  0
+                ],
+                "uv_size": [
+                  16,
+                  16
+                ]
+              },
+              "down": {
+                "uv": [
+                  0,
+                  16
+                ],
+                "uv_size": [
+                  16,
+                  -16
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -102,11 +102,13 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     registry = use_ref({}).current
     liquid_profile = getattr(session, 'liquid_profile', None)
     liquid_registry = use_ref({}).current
-    liquid = use_memo(lambda: LiquidPreview(session, liquid_profile.provider_factory,
+    liquid = use_memo(lambda: getattr(liquid_profile, 'preview_factory', LiquidPreview)(
+        session, liquid_profile.provider_factory,
         liquid_profile.models, liquid_profile.max_groups) if liquid_profile is not None else None,
         [session, liquid_profile])
     liquid_controls = use_memo(lambda: LiquidControls(liquid_registry,
-        session.bridge.factory.CreateModel(None)) if liquid is not None else None, [liquid])
+        session.bridge.factory.CreateModel(None), request_starts_per_frame=getattr(
+            liquid_profile, 'ui_request_starts_per_frame', None)) if liquid is not None else None, [liquid])
     def own_liquid():
         if liquid is None:
             return

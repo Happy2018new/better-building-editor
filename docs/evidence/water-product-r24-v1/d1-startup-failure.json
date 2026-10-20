@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-19T21:49:37.259891+00:00",
+  "owner": "water-r24-default-v1",
+  "session_id": "5c45c6ebf67f47fabca8e75f05535e78",
+  "source_contract_sha256": "c69b5d1c7dce7318bdd30b1fb836ce020fd7a948c383661243acaf97ebfec24d",
+  "source_unchanged": true,
+  "source_differences_from_stable_v2": [
+    "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py"
+  ],
+  "source_difference_is_not_a_causal_attribution": true,
+  "stopped_by": "unchanged_absolute_handle_guard",
+  "guard_breach": {
+    "kind": "game",
+    "handles": 250134,
+    "previous": 249888,
+    "at": "2026-10-19T21:48:04.436995+00:00"
+  },
+  "guard_stop_exit_code": 0,
+  "processes": {
+    "game": {
+      "pid": 17224,
+      "identity": "134369195038005717",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+      "state": "exited",
+      "exit_code": 1,
+      "exit_code_hex": "0x00000001",
+      "observed_at": "2026-10-19T21:48:06.628073+00:00"
+    },
+    "mcdk": {
+      "pid": 3116,
+      "identity": "134369195035571058",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "state": "exited",
+      "exit_code": 0,
+      "exit_code_hex": "0x00000000",
+      "observed_at": "2026-10-19T21:48:06.630565+00:00"
+    }
+  },
+  "camera_executed": false,
+  "product_D_executed": false,
+  "default_path_passed": false,
+  "qualification_performed_by_this_agent": false,
+  "gate_mutation_performed_by_this_agent": false,
+  "thresholds_modified": false,
+  "restart_performed": false,
+  "issues_closed": 0,
+  "watcher_cleanup": {
+    "pid": 46736,
+    "identity": "134369194769215577",
+    "stopped_by_exact_process_handle": true
+  },
+  "live_source_modified": false,
+  "stable_v2_session_contacted": false,
+  "files": {
+    "admission-binding-v1.json": {
+      "sha256": "7fad2cb6abd6980b2a91665e9a24f38a11af7e8f1898237b80c3f1d88055b62b",
+      "bytes": 1080
+    },
+    "default-v1-launch-inputs.json": {
+      "sha256": "11a2d1d905c1581bbe41955b4b8d132b4e8cad0a9d9ec14560a90bea9d9b5e50",
+      "bytes": 640094
+    },
+    "default-v1-launch-source.zip": {
+      "sha256": "4cbb8d6482823012512c0602e82e57b104e91079be9e779d3d28de66131a199b",
+      "bytes": 49274595
+    },
+    "launch/launch.json": {
+      "sha256": "a0e990e9f40c84e11f4ae0509a6822fc8d3cb2527fa882cbeeaaa9016087f69a",
+      "bytes": 55501
+    },
+    "launch/exact-exit.json": {
+      "sha256": "da672f0c93df7ca7a4f1551b3cce6f544095ddf604bd2134d85e245fa71347b2",
+      "bytes": 986
+    },
+    "continuous-handle-guard-v1.json": {
+      "sha256": "321bf25170bd9f3fb094800b9672acd2bfe05a1b9d72a6ac8c576b34e085cbce",
+      "bytes": 97620
+    },
+    "postlaunch-handle-observation-v1.json": {
+      "sha256": "65891ba65a53729c83a4c0c7ffe8607c24ec5b76afdb4165fa4a34610592ab38",
+      "bytes": 3416
+    },
+    "startup-session-read-v1.json": {
+      "sha256": "85cff2b792bd5d3960dd930bba2e1eada1eccda4f04e64475815c9b7b14c9415",
+      "bytes": 897
+    },
+    "startup-diagnostics-v1/receipt.json": {
+      "sha256": "24b7e084ed13e632025d79d2b94ac0b9850e0bac21240b16441437786fa06f9a",
+      "bytes": 890
+    },
+    "startup-diagnostics-v1/mcdk-log-snapshot.txt": {
+      "sha256": "152a173f9987be4a2ff2457b4446b9a7df75c17563ceab52e1c3cb67ece40871",
+      "bytes": 247625
+    },
+    "command-plan-correction-v1.json": {
+      "sha256": "d2b4bf7f6c343b05dccf416e8be0dafdb1f6b2bdc1e613ddbf87a784dfe2031c",
+      "bytes": 982
+    },
+    "disabled-skin-watcher-final-v1.json": {
+      "sha256": "75222ea21669ba4f2c98a0e0ef0fa69449cc54e86dcd3e91491070c9a9a5a17d",
+      "bytes": 364
+    }
+  },
+  "host_sha256": "73719a79ea9ccf6e7fbcae961a5b6c142354453052477ff01e85ca7099a72b1d"
+}

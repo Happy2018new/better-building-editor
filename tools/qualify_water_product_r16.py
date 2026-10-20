@@ -14,6 +14,7 @@ import sys
 
 import numpy as np
 
+import analyze_product_water as product_analysis
 from analyze_product_water import analyze, expected_mask, rgb
 from analyze_product_water_biome import biome_analysis
 from analyze_product_water_flow import analyze_flow
@@ -38,6 +39,7 @@ NEIGHBORS = frozenset(('neighbor_oak_slab', 'neighbor_oak_stairs', 'neighbor_gla
                        'neighbor_stone', 'transparent_overlap'))
 REGISTRATIONS = frozenset(('resource_pack/models/netease_models.json',
                             'resource_pack/materials/entity.material'))
+NATIVE_GEOMETRY_ORACLE = 'native_stone_camera_with_opaque_support_depth'
 
 
 def sha(path):
@@ -78,9 +80,52 @@ def source_closure(project, report, contract):
         require(launch.get('source_sha256') == captured, 'Launch archive differs from the capture')
 
 
-def collect(path, project, contract):
+def analysis_oracles(report, native_world_geometry=False):
+    """Declare the separate geometric and sampling contracts; never infer a mode."""
+    world = bool(set(report.get('routes', ())) & {'full', 'missing'})
+    masks = NATIVE_GEOMETRY_ORACLE if world and native_world_geometry else 'analytic_camera'
+    return {
+        'editor_masks': 'captured_paperdoll_layout',
+        'world_geometry_alpha_transparency_masks': masks if world else None,
+        'world_animation_visibility_masks': masks if world else None,
+        'qualifier_world_visibility_masks': masks if world else None,
+        # These independent analyzers retain their existing interfaces/defaults.
+        'frozen_world_visibility_masks': 'analytic_camera' if world else None,
+        'world_flow_physical_samples': 'analytic_camera' if world else None,
+        'world_biome_color_regions': 'analytic_camera' if world else None,
+        'world_side_uv': ('native_api' if report.get('native_side_projection_requested')
+                          else 'analytic_camera') if world else None,
+    }
+
+
+def analyze_report(path, native_world_geometry=False):
+    """Keep raw JSON unchanged and share only an independently validated oracle."""
     report = json.loads(path.read_bytes())
-    measured = analyze(path)
+    use_native = native_world_geometry and bool(set(report.get('routes', ())) & {'full', 'missing'})
+    if not use_native:
+        return report, analyze(path)
+    measured = analyze(path, native_world_geometry=True)
+    require(measured['evidence_valid'],
+            'Invalid native world water evidence; no analytic fallback: ' +
+            json.dumps(measured.get('capture_failures', ()), sort_keys=True))
+    oracle = measured.get('geometry_oracle')
+    model = oracle.get('model') if isinstance(oracle, dict) else None
+    require(isinstance(model, dict) and oracle.get('kind') == NATIVE_GEOMETRY_ORACLE and
+            oracle.get('calibration_sha256') == report.get('camera_calibration', {}).get('sha256') and
+            model.get('session_binding') == report.get('session_binding') and
+            model.get('source_contract_sha256') == report.get('source_contract_sha256') and
+            model.get('fit_input') == '24 native stone corners; no water pixels',
+            'Native world water oracle lacks its independently validated stone/session/source binding')
+    # This object key cannot be supplied by JSON. Qualifier masks reuse the exact
+    # model already checked by analyze(), including the native stone PNGs and
+    # readbacks; serialized model fields never select an oracle on their own.
+    report[product_analysis._NATIVE_WORLD_GEOMETRY] = model
+    measured['analytic_geometry_diagnostic'] = analyze(path)
+    return report, measured
+
+
+def collect(path, project, contract, native_world_geometry=False):
+    report, measured = analyze_report(path, native_world_geometry)
     require(measured['evidence_valid'], 'Invalid water capture/cleanup/source binding: ' + str(path))
     require(not report.get('owned_native_assertions') and
             report.get('owned_native_assertion_checks', 0) >= len(report['captures']),
@@ -245,20 +290,23 @@ def qualify(args):
             (project / MODULE / 'liquid_product_owner_data.py').read_bytes().replace(b'\r\n', b'\n') == expected_module,
             'Regenerate the current water owner contract before qualification')
     reports, analyses, provenance = {}, {}, {}
+    native_world_geometry = getattr(args, 'native_world_geometry', False)
     reports['frozen'], analyses['frozen'], provenance['frozen'] = [], [], []
     for path in args.frozen_report:
-        report, measured = collect(path, project, contract)
+        report, measured = collect(path, project, contract, native_world_geometry)
         reports['frozen'].append(report)
         analyses['frozen'].append(measured)
         provenance['frozen'].append({'path': str(path.resolve()), 'sha256': sha(path),
-                                    'source_contract_sha256': report['source_contract_sha256']})
+            'source_contract_sha256': report['source_contract_sha256'],
+            'analysis_oracles': analysis_oracles(report, native_world_geometry)})
     for name in ('animated', 'biome', 'reverse', 'gallery', 'default'):
         path = getattr(args, name + '_report')
         if path is None:
             continue
-        reports[name], analyses[name] = collect(path, project, contract)
+        reports[name], analyses[name] = collect(path, project, contract, native_world_geometry)
         provenance[name] = {'path': str(path.resolve()), 'sha256': sha(path),
-                            'source_contract_sha256': reports[name]['source_contract_sha256']}
+            'source_contract_sha256': reports[name]['source_contract_sha256'],
+            'analysis_oracles': analysis_oracles(reports[name], native_world_geometry)}
     frozen_reports = reports['frozen']
     frozen_coverage(frozen_reports)
     acceptance = frozen_matrix(args.frozen_report, frozen_reports)
@@ -308,6 +356,8 @@ def qualify(args):
         'resource_contract_sha256': sha(project / RESOURCE),
         'implementation_contract_sha256': sha(project / OWNER),
         'implementation_sha256': {name: sha(project / name) for name in SOURCES},
+        'native_world_geometry_requested': native_world_geometry,
+        'qualifier_sha256': sha(Path(__file__)),
         'evidence': provenance, 'gates': {name: name != 'default_path' or 'default' in reports
                                         for name in sorted(REQUIRED_GATES)},
         'neighbor_pixels': neighbor_pixels, 'reverse_pixels': reverse_pixels,
@@ -315,6 +365,7 @@ def qualify(args):
         'limits': ['Declared Java-style water geometry and biome presets; exact native parity is not claimed.',
                    'CPU owner timings exclude host IPC/capture but include game-thread scheduling pauses.',
                    'Measured model budget is the observed public fixtures, not the configured capacity of 256.',
+                   'Geometry oracle selection does not switch the independent frozen visibility, flow or biome samplers; their existing analytic contracts are declared per report.',
                    'Candidate admission is disposable and must be followed by a cold-start default test.']}
     args.output.mkdir(parents=True)
     for name, measured in dict(analyses, acceptance=acceptance, flow=flow, biome_pixels=biome).items():
@@ -335,6 +386,8 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--admit-candidate', action='store_true')
     parser.add_argument('--accept-reviewed', action='store_true')
+    parser.add_argument('--native-world-geometry', action='store_true',
+                        help='Explicitly use same-session native stone geometry for world geometry/alpha/transparency/animation and qualifier visibility masks; retain analytic diagnostics and the existing independent sampler contracts')
     manifest = qualify(parser.parse_args())
     print(json.dumps({'stage': manifest['stage'], 'gates': manifest['gates']}))
 

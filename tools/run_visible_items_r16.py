@@ -91,7 +91,9 @@ def run(args):
             assert report['launch_sources'].get(relative)==digest, 'Candidate mesh source differs'
         report['candidate_geometry']={'path':str(args.candidate_geometry.resolve()),
             'sha256':hashlib.sha256(args.candidate_geometry.read_bytes()).hexdigest(),'data':candidate}
-    report['profile_mode']=('frame_block_candidate' if args.frame_block_item else
+    report['profile_mode']=('measured_frame_block_production' if args.frame_block_item and args.production_profile else
+                            'measured_frame_block_candidate' if getattr(args,'measured_frame_blocks',False) else
+                            'frame_block_candidate' if args.frame_block_item else
                             'production' if args.production_profile else 'candidate')
     report['view_configuration']={'angle_degrees':args.view_angle,'editor_zoom':args.editor_zoom,
                                   'native_target_plain':args.native_target_plain,
@@ -178,15 +180,18 @@ def run(args):
             installed = True
             report['environment'] = environment(client, ENV_SETUP)
             environment_saved = True
-            resource_module = 'frame_block_item_data' if args.frame_block_item else 'item_icon_data'
+            resource_module = ('frame_block_measured_data' if getattr(args,'measured_frame_blocks',False) else
+                               'frame_block_item_data' if args.frame_block_item else 'item_icon_data')
             report['resource_contract']=check.run(
                 'from modern_projection.projection import %s as resource_data\n' % resource_module+
                 '_result={"resource_sha256":resource_data.RESOURCE_SHA256,"layout_version":resource_data.LAYOUT_VERSION}')
-            if args.frame_block_item:
-                check.run("from modern_projection.projection.item_sprite_profile import frame_block_candidate_profile\n"
+            if args.frame_block_item and not args.production_profile:
+                factory = ('measured_frame_block_candidate_profile' if getattr(args,'measured_frame_blocks',False)
+                           else 'frame_block_candidate_profile')
+                check.run("from modern_projection.projection.item_sprite_profile import %s\n" % factory +
                           "assert not hasattr(sys,'_visible_items_profile')\n"
                           "sys._visible_items_profile=s.item_profile\n"
-                          "s.item_profile=frame_block_candidate_profile('3.10.0.420447')\n_result=True")
+                          "s.item_profile=%s('3.10.0.420447')\n_result=True" % factory)
                 profile_saved = True
             elif args.production_profile:
                 check.run('assert s.item_profile is not None and s.item_profile.engine_version=="3.10.0.420447"\n_result=True')
@@ -208,7 +213,8 @@ def run(args):
             compiler_lines = Path(session['log']).read_text(encoding='utf8', errors='replace').splitlines()
             report['native_item_shader_errors'] = [line for line in compiler_lines
                 if 'Compiler error shaders/glsl/modern_projection_item_icon' in line or
-                   'Compiler error shaders/glsl/modern_projection_frame_block' in line]
+                   'Compiler error shaders/glsl/modern_projection_frame_block' in line or
+                   'Compiler error shaders/glsl/modern_projection_measured_frame_block' in line]
             assert not report['native_item_shader_errors'], report['native_item_shader_errors']
             if not args.skip_closeup:
                 closeup(check, client, session, report, STATE, CAMERA, output, args.wgc,
@@ -402,7 +408,8 @@ def run(args):
             compiler_lines = Path(session['log']).read_text(encoding='utf8', errors='replace').splitlines()
             report['native_item_shader_errors'] = [line for line in compiler_lines
                 if 'Compiler error shaders/glsl/modern_projection_item_icon' in line or
-                   'Compiler error shaders/glsl/modern_projection_frame_block' in line]
+                   'Compiler error shaders/glsl/modern_projection_frame_block' in line or
+                   'Compiler error shaders/glsl/modern_projection_measured_frame_block' in line]
             assert not report['native_item_shader_errors'], report['native_item_shader_errors']
             report['completed'] = True
         except Exception as error:
@@ -455,6 +462,8 @@ if __name__ == '__main__':
                         help='Copy observed enchant tags onto an actual native Item.Block compound.')
     parser.add_argument('--frame-block-batch', type=Path,
                         help='Bounded item, orientation and view rows sharing one calibration.')
+    parser.add_argument('--measured-frame-blocks', action='store_true',
+                        help='Use independently named stone/quartz/grass measured resources.')
     parser.add_argument('--near-distance', type=float, default=8.)
     parser.add_argument('--view-angle', type=float, default=0.)
     parser.add_argument('--editor-zoom', type=float)
@@ -465,6 +474,8 @@ if __name__ == '__main__':
     parser.add_argument('--minimum-commit-gib', type=float, default=0.)
     parser.add_argument('--names', default='diamond_sword,apple,beef,diamond_pickaxe,iron_ingot,bed,bow,bucket,bone,bread,emerald,fishing_rod')
     args=parser.parse_args()
+    if args.measured_frame_blocks and not args.frame_block_item:
+        parser.error('--measured-frame-blocks requires --frame-block-item')
     if args.frame_block_enchanted and not args.frame_block_item:
         parser.error('--frame-block-enchanted requires --frame-block-item')
     if args.frame_block_batch and not args.frame_block_item:
@@ -473,7 +484,7 @@ if __name__ == '__main__':
         if ':' not in args.frame_block_item:
             args.frame_block_item='minecraft:'+args.frame_block_item
         if (not args.orientation_matrix or not args.icons_only or not args.skip_closeup or
-                args.production_profile or args.native_target=='enchanted'):
+                (args.production_profile and not args.measured_frame_blocks) or args.native_target=='enchanted'):
             parser.error('Frame blocks require --orientation-matrix --icons-only --skip-closeup and a plain candidate target')
         args.native_target_plain=True
     if args.native_target_plain and args.native_target:

@@ -57,6 +57,52 @@ class PortalNativeCandidateTests(unittest.TestCase):
                              {group.model_name for group in groups})
         self.assertEqual(before, document.to_data())
 
+    def test_world_only_native_scope_keeps_preview_and_cache_identity_separate(self):
+        legacy = portal_profile.candidate_profile()
+        world = portal_profile.native_world_candidate_profile()
+        native = portal_profile.native_candidate_profile()
+        self.assertEqual(legacy.models, world.models)
+        self.assertEqual(native.world_models['end_gateway'], world.world_models['end_gateway'])
+        self.assertEqual(legacy.world_models['end_portal'], world.world_models['end_portal'])
+        self.assertNotEqual(legacy.identity, world.identity)
+        self.assertNotEqual(native.identity, world.identity)
+        self.assertTrue(all(row['qualified'] is False for row in
+                            portal_profile.NATIVE_WORLD_QUALIFICATIONS.values()))
+        self.assertIsNone(portal_profile.native_world_production_profile(portal_profile.ENGINE_VERSION))
+        gateway_row = portal_profile.NATIVE_WORLD_QUALIFICATIONS['end_gateway']
+        with patch.dict(gateway_row, qualified=True):
+            with self.assertRaises(ValueError):
+                portal_profile.production_profile(portal_profile.ENGINE_VERSION)
+            with patch.dict(gateway_row, sha256='a' * 64):
+                selected = portal_profile.production_profile(portal_profile.ENGINE_VERSION)
+                self.assertEqual(world.identity, selected.identity)
+                self.assertEqual(legacy.models, selected.models)
+                self.assertEqual(world.world_models, selected.world_models)
+                self.assertIsNone(portal_profile.native_world_production_profile('3.10.0.420448'))
+                self.assertFalse(portal_profile.NATIVE_PRODUCT_QUALIFIED)
+        for families in ((), ('unknown',), ('end_gateway', 'end_gateway')):
+            with self.assertRaises(ValueError):
+                portal_profile.native_world_candidate_profile(families=families)
+        both = portal_profile.native_world_candidate_profile(families=('end_gateway', 'end_portal'))
+        self.assertEqual(native.world_models, both.world_models)
+        self.assertNotEqual(world.identity, both.identity)
+        self.assertEqual(both.identity, portal_profile.native_world_candidate_profile(
+            families=('end_portal', 'end_gateway')).identity)
+
+    def test_each_native_world_family_requires_its_own_qualification(self):
+        legacy = portal_profile.candidate_profile()
+        native = portal_profile.native_candidate_profile()
+        for selected, remaining in (('end_gateway', 'end_portal'), ('end_portal', 'end_gateway')):
+            with patch.dict(portal_profile.NATIVE_WORLD_QUALIFICATIONS[selected],
+                            qualified=True, sha256='a' * 64):
+                result = portal_profile.production_profile(portal_profile.ENGINE_VERSION)
+                self.assertEqual(legacy.models, result.models)
+                self.assertEqual(native.world_models[selected], result.world_models[selected])
+                self.assertEqual(legacy.world_models[remaining], result.world_models[remaining])
+                with patch.dict(portal_profile.NATIVE_WORLD_QUALIFICATIONS[remaining], qualified=True):
+                    with self.assertRaises(ValueError):
+                        portal_profile.production_profile(portal_profile.ENGINE_VERSION)
+
     def test_measured_world_source_and_native_artwork_retain_raw_bytes(self):
         frozen = EVIDENCE / 'frozen/resource_pack'
         actual = self.output / 'resource_pack'

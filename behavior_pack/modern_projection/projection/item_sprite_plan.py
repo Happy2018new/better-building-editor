@@ -69,6 +69,10 @@ def sprite_content(material, actor, profiles):
     key = sprite_item(item, profiles)
     if key is None:
         return None
+    profile = profiles.get(key)
+    names = profile.get('frame_names')
+    if names is not None and material[0] not in names:
+        return None
     root = root_payload(entity_nbt(actor))
     rotation = scalar(root, 'ItemRotation')
     tag = root.get(field_key(root, 'ItemRotation'))
@@ -79,6 +83,9 @@ def sprite_content(material, actor, profiles):
     record = block_registry.states(material)
     facing = record.get('facing_direction') if record is not None else None
     if abs(step - rounded) > .00001 or facing not in range(6):
+        return None
+    poses = profile.get('frame_poses')
+    if poses is not None and (facing, rounded % 8) not in poses:
         return None
     return key, facing, rounded % 8, item_glint(item)
 
@@ -93,6 +100,8 @@ def sprite_item(item, profiles, family='frame'):
         return None
     if family not in profile.get('content_families', ('frame', 'shelf', 'campfire')):
         return None
+    if profile.get('enchantment_qualified') is False and item_glint(item):
+        return None
     key = profile.get('resource_key', key)
     if name in UNTRACKED_INDICATORS:
         return key
@@ -106,7 +115,7 @@ def _contents(material, actor, profile):
     if material[0] in FRAME_NAMES:
         if 'frame' not in profile.content_families:
             return ()
-        content = sprite_content(material, actor, profile.items)
+        content = sprite_content(material, actor, getattr(profile, 'frame_items', profile.items))
         return () if content is None else (content + (0,),)
     if getattr(profile, 'engine_version', None) is None:
         return ()
@@ -118,7 +127,13 @@ def _contents(material, actor, profile):
     for slot in slots:
         if slot.family not in profile.content_families:
             continue
-        key = sprite_item(slot.item, profile.items, slot.family)
+        profiles = profile.items
+        if slot.family == 'shelf':
+            accepts = getattr(profile, 'shelf_accepts', None)
+            if accepts is not None and not accepts(material, actor):
+                continue
+            profiles = getattr(profile, 'shelf_items', profiles)
+        key = sprite_item(slot.item, profiles, slot.family)
         if key is None:
             continue
         if slot.family == 'shelf':

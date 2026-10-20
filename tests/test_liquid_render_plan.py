@@ -12,6 +12,7 @@ from projection.debug_blueprints import material
 from projection.model import Document
 from projection.liquid_render_plan import (ALL_FACES, FACE_NAMES, LiquidGroup, LiquidSurface,
                                            iter_groups, iter_group_steps, render_steps)
+from projection.liquid_product_plan import iter_groups as product_groups
 
 
 class SuppliedShapeProvider(object):
@@ -49,6 +50,47 @@ class LiquidRenderPlanTests(unittest.TestCase):
         self.assertEqual(1, sum(len(group.surfaces) for group in groups))
         self.assertIs(document, provider.requests[0][0])
         self.assertEqual(water, provider.requests[0][0].get((2, 1, 1)))
+
+    def test_declared_ownership_filters_draws_without_replacing_source_or_targets(self):
+        water, lava = material('water'), material('flowing_lava', {'liquid_depth': 3})
+        document = Document((4, 3, 4), {(1, 1, 1): make_cell(water, lava, {'opaque': b'\x00\xff'}),
+                                       (2, 1, 1): make_cell(lava, water)})
+        targets = document.palette_data()
+        before = deepcopy((document.to_data(), targets))
+        for selected in (None, targets):
+            provider = SuppliedShapeProvider()
+            provider.supported_names = frozenset((water[0],))
+            groups = list(product_groups(document, provider, selected))
+            self.assertEqual({((1, 1, 1), 0), ((2, 1, 1), 1)},
+                {(shape.position, shape.layer) for group in groups for shape in group.surfaces})
+            self.assertEqual(2, len(provider.requests))
+            self.assertTrue(all(request[0] is document for request in provider.requests))
+            self.assertTrue(all(request[3] == water for request in provider.requests))
+            self.assertEqual(lava, provider.requests[0][0].get_layer((1, 1, 1), 1))
+        self.assertEqual(before, (document.to_data(), targets))
+
+    def test_legacy_planner_does_not_treat_provider_declarations_as_draw_filters(self):
+        water, lava = material('water'), material('lava')
+        document = Document((2, 1, 1), {(0, 0, 0): water, (1, 0, 0): lava})
+        for selected in (None, document.palette_data()):
+            for names in (None, frozenset((water[0], lava[0])), frozenset(), frozenset((water[0],))):
+                with self.subTest(targets=selected is not None, names=names):
+                    provider = SuppliedShapeProvider()
+                    if names is not None:
+                        provider.supported_names = names
+                    groups = list(iter_groups(document, provider, selected))
+                    expected = {water[0], lava[0]}
+                    self.assertEqual(expected, {request[3][0] for request in provider.requests})
+                    self.assertEqual(len(expected), sum(len(group.surfaces) for group in groups))
+
+    def test_unowned_targets_still_validate_source_identity(self):
+        document = Document((2, 1, 1), {(0, 0, 0): material('water'), (1, 0, 0): material('lava')})
+        provider = SuppliedShapeProvider()
+        provider.supported_names = frozenset(('minecraft:water',))
+        for common in ({material('lava'): [2]}, {material('lava'): [1, 1]},
+                       {material('flowing_lava'): [1]}):
+            with self.subTest(common=common), self.assertRaises(ValueError):
+                list(product_groups(document, provider, {'volume': (1, 2, 1), 'common': common}))
 
     def test_full_groups_are_bounded_and_partial_groups_use_their_own_origins(self):
         document = Document((8, 2, 4), {(x, 1, z): material('water') for x in range(8) for z in range(4)})

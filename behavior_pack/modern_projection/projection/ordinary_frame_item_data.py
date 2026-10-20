@@ -1,0 +1,9 @@
+"""Explicit ordinary frame baseline acceptance, independent of the icon catalog gate."""
+SCHEMA_VERSION = 1
+ENGINE_VERSION = '3.10.0.420447'
+PRODUCTION_QUALIFIED = False
+QUALIFICATION_SHA256 = None
+QUALIFICATION_RESOURCE_SHA256 = None
+QUALIFIED_ITEMS = ()
+QUALIFIED_ENCHANTMENTS = ()
+QUALIFIED_FRAME_POSES = {}

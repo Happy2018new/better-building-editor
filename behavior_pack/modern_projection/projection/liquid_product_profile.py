@@ -5,6 +5,7 @@ from .liquid_profile import _models, _side_templates, _text, _uv_rotations, _vec
 from .liquid_render_plan import WATER_NAMES
 from .liquid_product_render import ProductWorldLiquidRenderer
 from .liquid_product_projection import ProductLiquidProjection
+from .liquid_product_preview import ProductLiquidPreview
 from .liquid_transport import PAYLOAD_VERSION
 from .storage import integer_types
 
@@ -13,6 +14,7 @@ class ProductLiquidProfile(object):
     """SDK-free resource adapter over a complete immutable document snapshot."""
     renderer_factory = ProductWorldLiquidRenderer
     projection_factory = ProductLiquidProjection
+    preview_factory = ProductLiquidPreview
 
     def __init__(self, resources, ui_pose, ui_offset):
         liquid_render_target_data.check_version(block_registry.source_version(), block_registry.fingerprint())

@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 import generate_liquid_face_textures as generate
 from projection.debug_blueprints import material
 from projection.liquid_face_textures import LiquidFaceTextures
-from projection.liquid_render_plan import LiquidSurface, iter_groups, render_steps
+from projection.liquid_render_plan import LIQUID_NAMES, LiquidSurface, iter_groups, render_steps
 from projection.model import Document
 
 
@@ -25,6 +25,20 @@ class Shapes(object):
 
 
 class LiquidFaceTextureTests(unittest.TestCase):
+    def test_provider_ownership_is_detached_immutable_and_preserves_empty_or_legacy_declarations(self):
+        for declaration in (None, set(), {'minecraft:water'}, set(LIQUID_NAMES)):
+            with self.subTest(declaration=declaration):
+                shapes = Shapes()
+                if declaration is not None:
+                    shapes.supported_names = declaration
+                provider = LiquidFaceTextures(shapes, {'flowing_water_grey': ('verified_side', 0)})
+                expected = LIQUID_NAMES if declaration is None else frozenset(declaration)
+                self.assertIsInstance(provider.supported_names, frozenset)
+                self.assertEqual(expected, provider.supported_names)
+                if declaration is not None:
+                    declaration.clear()
+                self.assertEqual(expected, provider.supported_names)
+
     def test_snapshot_reproduces_current_runtime_and_rejects_resource_drift(self):
         data = json.loads(generate.DEFAULT_SOURCE.read_text(encoding='utf8'))
         manifest = json.loads((ROOT / 'tools/data/block_registry_manifest.json').read_text(encoding='utf8'))

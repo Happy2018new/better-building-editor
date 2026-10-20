@@ -120,15 +120,19 @@ def main():
     parser.add_argument('--report', type=Path, required=True)
     parser.add_argument('--project', type=Path, default=ROOT,
                         help='Frozen diagnostic resources, defaults to this project')
+    parser.add_argument('--shader-prefix', default='modern_projection_frame_block')
+    parser.add_argument('--materials', nargs='+', choices=('opaque', 'cutout', 'translucent'),
+                        default=('opaque', 'cutout', 'translucent'))
+    parser.add_argument('--mesh-directory', default='resource_pack/models/modern_projection/frame_block_items')
     args = parser.parse_args()
     if args.report.exists():
         parser.error('Choose a fresh frame-block shader report')
     shaders = args.project / 'resource_pack/shaders/glsl'
     cases, hashes = [], {}
-    for material in ('opaque', 'cutout', 'translucent'):
+    for material in args.materials:
         for route in ('', '_world'):
-            vertex = shaders / ('modern_projection_frame_block' + route + '.vertex')
-            fragment = shaders / ('modern_projection_frame_block_' + material + '.fragment')
+            vertex = shaders / (args.shader_prefix + route + '.vertex')
+            fragment = shaders / (args.shader_prefix + '_' + material + '.fragment')
             for path in (vertex, fragment):
                 hashes[path.name] = hashlib.sha256(path.read_bytes()).hexdigest()
             for version in (100, 300):
@@ -147,9 +151,9 @@ def main():
         try:
             page = browser.new_page()
             results = page.evaluate(COMPILE, cases)
-            source = (shaders / 'modern_projection_frame_block.vertex').read_text(encoding='ascii')
+            source = (shaders / (args.shader_prefix + '.vertex')).read_text(encoding='ascii')
             function = source[source.index('vec2 blockFaceUv('):source.index('void main() {')]
-            mesh_path = next((args.project / 'resource_pack/models/modern_projection/frame_block_items').glob('*_mesh.json'))
+            mesh_path = next((args.project / args.mesh_directory).glob('*_mesh.json'))
             vertices = json.loads(mesh_path.read_bytes())['mesh'][0]['vertices']
             uv_results = page.evaluate(UV_CHECK, {'function': function,
                 'vertices': [row['pos'] + row['normal'] for row in vertices],

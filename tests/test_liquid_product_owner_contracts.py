@@ -70,7 +70,7 @@ class ProductWaterOwnerContracts(unittest.TestCase):
     def owners(self, document):
         adapter = deployment.candidate_profile()
         selected_session = session(document)
-        preview = LiquidPreview(selected_session, adapter.provider_factory, adapter.models, adapter.max_groups)
+        preview = adapter.preview_factory(selected_session, adapter.provider_factory, adapter.models, adapter.max_groups)
         runtime = Runtime()
         runtime.session = selected_session
         world = adapter.projection_factory(runtime, document, (10, 64, 20), adapter, 0)

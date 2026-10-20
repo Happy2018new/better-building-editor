@@ -35,11 +35,39 @@ def advance(owner):
 class ProductLiquidProfileTests(unittest.TestCase):
     def test_unaccepted_product_and_native_profiles_remain_disabled(self):
         from projection import liquid_deployment, liquid_resource_data
-        self.assertFalse(qualification.PRODUCT_QUALIFIED)
-        self.assertIsNone(deployment.production_profile())
-        self.assertFalse(liquid_resource_data.PRODUCTION_QUALIFIED)
-        self.assertIsNone(liquid_deployment.production_profile())
+        from projection.session import Session
+        with patch.object(qualification, 'PRODUCT_QUALIFIED', False), \
+                patch.object(liquid_resource_data, 'PRODUCTION_QUALIFIED', False):
+            self.assertIsNone(deployment.production_profile(deployment.TARGET_ENGINE_VERSION))
+            self.assertIsNone(liquid_deployment.production_profile(deployment.TARGET_ENGINE_VERSION))
+            self.assertIsNone(Session(SimpleNamespace(engine_version=deployment.TARGET_ENGINE_VERSION)).liquid_profile)
         self.assertEqual('java_snapshot_water_v1', deployment.candidate_profile().style_version)
+
+    def test_generated_product_gate_selects_the_session_default_profile(self):
+        from projection.liquid_product_profile import ProductLiquidProfile
+        from projection.session import Session
+        self.assertIs(qualification.PRODUCT_QUALIFIED, True)
+        self.assertEqual('product', qualification.QUALIFICATION_STAGE)
+        self.assertEqual(16, len(qualification.GATES))
+        self.assertEqual(deployment.REQUIRED_GATES, set(qualification.GATES))
+        self.assertTrue(all(value is True for value in qualification.GATES.values()))
+        selected = Session(SimpleNamespace(engine_version=deployment.TARGET_ENGINE_VERSION)).liquid_profile
+        self.assertIsInstance(selected, ProductLiquidProfile)
+        expected = deployment.candidate_profile()
+        self.assertEqual(expected.models, selected.models)
+        self.assertEqual(expected.world_models, selected.world_models)
+        self.assertEqual(rules.PRODUCT_RULES_SHA256, selected.rules_sha256)
+        self.assertEqual(rules.PRODUCT_STYLE_VERSION, selected.style_version)
+        self.assertIs(expected.preview_factory, selected.preview_factory)
+        self.assertIs(expected.projection_factory, selected.projection_factory)
+
+    def test_session_rejects_product_water_for_unknown_or_different_engine_versions(self):
+        from projection import liquid_resource_data
+        from projection.session import Session
+        with patch.object(liquid_resource_data, 'PRODUCTION_QUALIFIED', False):
+            for version in (None, '3.9.0.401155', '3.10.0.420448', '3.11.0', '3.10'):
+                with self.subTest(version=version):
+                    self.assertIsNone(Session(SimpleNamespace(engine_version=version)).liquid_profile)
 
     def test_qualification_requires_all_routes_and_exact_rules_resources_style(self):
         from projection import liquid_product_resource_data as resources
@@ -91,7 +119,7 @@ class ProductLiquidProfileTests(unittest.TestCase):
             document = source_document(identity)
             before = copy.deepcopy(document.to_data())
             s = session(document)
-            preview = LiquidPreview(s, adapter.provider_factory, adapter.models, adapter.max_groups)
+            preview = adapter.preview_factory(s, adapter.provider_factory, adapter.models, adapter.max_groups)
             advance(preview)
             runtime = Runtime()
             runtime.session = s
@@ -106,7 +134,7 @@ class ProductLiquidProfileTests(unittest.TestCase):
             for group in preview.groups.values():
                 validate_uniforms(group.uniforms)
                 self.assertIn('_product_', group.model_name)
-            frozen_preview = LiquidPreview(s, frozen.provider_factory, frozen.models, frozen.max_groups)
+            frozen_preview = frozen.preview_factory(s, frozen.provider_factory, frozen.models, frozen.max_groups)
             advance(frozen_preview)
             self.assertEqual(sorted(group.uniforms for group in preview.groups.values()),
                              sorted(group.uniforms for group in frozen_preview.groups.values()), identity)
@@ -121,7 +149,7 @@ class ProductLiquidProfileTests(unittest.TestCase):
         document = source_document('wet_oak_fence')
         before = document.blocks.copy()
         s = session(document)
-        preview = LiquidPreview(s, adapter.provider_factory, adapter.models, adapter.max_groups)
+        preview = adapter.preview_factory(s, adapter.provider_factory, adapter.models, adapter.max_groups)
         runtime = Runtime()
         runtime.session = s
         world = LiquidProjection(runtime, document, (10, 64, 20), adapter, 0)

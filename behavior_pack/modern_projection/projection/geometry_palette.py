@@ -3,6 +3,7 @@
 from .block_registry import canonical, states
 from . import block_registry as registry
 from . import centered_plant_data as centered_source
+from . import ordinary_plant_data as ordinary_source
 from .native_layers import normalize_palette_layers
 from .visible_actor import render_actor
 from .entity_render import INTERNAL_BLOCKS, native_actor, prepare_static_entities
@@ -13,6 +14,8 @@ from .centered_plant_data import CENTERED_PLANT_PROXIES, CENTERED_PLANT_MAX_Y
 from .static_frame_item import INTERNAL_FRAME_ITEMS, frame_item_proxy
 from .native_appearance import FRAME_NAMES
 from .spawner_marker_data import MARKERS as SPAWNER_MARKERS
+from .shelf_body import INTERNAL_BLOCKS as SHELF_BLOCKS, prepare_shelves
+from .barrier_render import PROXIES as BARRIER_PROXIES
 from .plant_position import (plant_render, position_sensitive,
                              render_origin as validate_render_origin)
 
@@ -24,6 +27,12 @@ def validate_plant_source():
             getattr(centered_source, 'SOURCE_VERSION', None) != registry.source_version() or
             getattr(centered_source, 'PALETTE_SHA256', None) != registry.fingerprint()):
         raise ValueError('Centered plant profiles need regeneration for this block registry')
+    if (ordinary_source.SCHEMA_VERSION != 1 or
+            ordinary_source.SOURCE_VERSION != registry.source_version() or
+            ordinary_source.PALETTE_SHA256 != registry.fingerprint() or
+            ordinary_source.STYLE != 'fixed_centered_snapshot' or
+            ordinary_source.NATIVE_MESH_AUTHORITY or ordinary_source.SNOW_QUALIFIED):
+        raise ValueError('Ordinary plant profiles need regeneration for this block registry')
 
 
 # Snow-covered native leaves can lose faces in CombineBlockPaletteToGeometry.
@@ -48,6 +57,7 @@ PLANT_PROXIES = {
     ('minecraft:large_fern', 1): 'modern_projection:preview_large_fern_top',
 }
 PLANT_PROXIES.update(CENTERED_PLANT_PROXIES)
+PLANT_PROXIES.update(ordinary_source.ORDINARY_PLANT_PROXIES)
 PLANT_MAX_Y = dict(CENTERED_PLANT_MAX_Y)
 
 # The engine can return item metadata for hidden custom blocks despite
@@ -57,6 +67,8 @@ INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROX
                                  list(INTERNAL_BLOCKS) +
                                  list(INTERNAL_FRAME_ITEMS) +
                                  list(SPAWNER_MARKERS.values()) +
+                                 list(SHELF_BLOCKS) +
+                                 list(BARRIER_PROXIES.values()) +
                                  ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
 
 
@@ -85,7 +97,8 @@ def _proxy_foreground(entries, records, volume, render_origin, overlay_base):
                 if record is not None and (proxy is None or record):
                     state_records[rendered] = record
             continue
-        proxy = LEAF_PROXIES.get(value[0]) or PLANT_PROXIES.get(value)
+        proxy = (LEAF_PROXIES.get(value[0]) or PLANT_PROXIES.get(value) or
+                 BARRIER_PROXIES.get(value[0]))
         rendered = (proxy, 0) if proxy is not None else value
         result.setdefault(rendered, []).extend(positions)
         record = states(rendered) if proxy is not None else records.get(value)
@@ -237,6 +250,7 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
     common, static_actors = prepare_static_entities(common, source.get('actor', {}), source.get('volume'),
                                                    inferred_chest_parts, inferred_bed_colors,
                                                    native_render_profile)
+    common, common_states, shelf_actors = prepare_shelves(common, common_states)
     common, common_states = _proxy_foreground(common, common_states, source.get('volume'),
                                              render_origin, overlay_base)
     for entries in (common, extra):
@@ -252,7 +266,7 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
             continue
         rendered = {}
         for index, payload in entries.items():
-            if (normalized_name, index) in static_actors:
+            if (normalized_name, index) in static_actors or (normalized_name, index) in shelf_actors:
                 continue
             material = materials.get(index)
             actor = native_actor(material, payload) if material is not None else render_actor(payload)

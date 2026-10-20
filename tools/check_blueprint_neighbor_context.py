@@ -1,8 +1,9 @@
 """Audit production missing-only context palettes without claiming pixels.
 
 The report checks the final virtual native palette emitted by
-``ContextPaletteBuilder``.  Every selected cell owns one 3x3x3 tile; occupied
-neighbors live in that tile and there is no separate center-only palette.
+``ContextPaletteBuilder``. Ordinary targets own neighbor-context tiles;
+fixed-state rail slopes own independent bodies and retain any secondary-layer
+context. Occupied neighbors remain document data, not world writes.
 """
 import argparse
 import json
@@ -18,7 +19,16 @@ from projection.geometry_palette import prepare_palette
 from projection.model import Document
 from projection.nbt_spatial import rebase
 from projection.render_context import prepare_document_context
-from projection.render_layout import context_position
+from projection.render_layout import context_position, overlay_position
+
+RAIL_NAMES = frozenset(('minecraft:rail', 'minecraft:golden_rail',
+                        'minecraft:detector_rail', 'minecraft:activator_rail'))
+
+
+def independent_slope(cell):
+    """Independent oracle for the accepted four-family fixed-slope route."""
+    return (cell is not None and cell['front'][0] in RAIL_NAMES and
+            states(cell['front']).get('rail_direction') in (2, 3, 4, 5))
 
 FIXTURE = 'test.connections.context'
 CASES = (
@@ -102,6 +112,16 @@ def compare_target(source, target):
     volume = actual['volume']
     expected_positions = []
     failures = []
+    for layer in ('common', 'extra', 'actor'):
+        seen = set()
+        for value, entries in actual.get(layer, {}).items():
+            for slot in entries:
+                if slot in seen:
+                    failures.append({'reason': 'duplicate_layer_slot', 'layer': layer, 'slot': slot})
+                seen.add(slot)
+    target_cell = source_cells.get(target)
+    target_slope = independent_slope(target_cell)
+    requires_context = not (target_slope and target_cell['back'] == AIR)
     for dy in (-1, 0, 1):
         for dx in (-1, 0, 1):
             for dz in (-1, 0, 1):
@@ -109,10 +129,22 @@ def compare_target(source, target):
                 source_value = source.blocks.get(pos, AIR)
                 if source_value == AIR:
                     continue
+                if not requires_context:
+                    continue
+                want = expected_cell(source_cells, pos)
+                if independent_slope(want):
+                    # The adjacent slope owns its whole mesh in its own draw;
+                    # its secondary layer still supplies neighbor context.
+                    want = dict(want, front=AIR, actor=None)
+                if want['front'] == AIR and want['back'] == AIR and want['actor'] is None:
+                    slot = index(context_position(target, (dx, dy, dz)), volume)
+                    if actual_cell(actual, slot) is not None:
+                        failures.append({'position': pos, 'reason': 'unowned_slope_context',
+                                         'slot': slot, 'actual': actual_cell(actual, slot)})
+                    continue
                 expected_positions.append(pos)
                 slot = index(context_position(target, (dx, dy, dz)), volume)
                 got = actual_cell(actual, slot)
-                want = expected_cell(source_cells, pos)
                 if got is None:
                     failures.append({'position': pos, 'reason': 'missing_context_slot', 'slot': slot})
                     continue
@@ -129,6 +161,16 @@ def compare_target(source, target):
                                          'slot': slot})
     allowed = set(index(context_position(target, (dx, dy, dz)), volume)
                    for dy in (-1, 0, 1) for dx in (-1, 0, 1) for dz in (-1, 0, 1))
+    if not requires_context:
+        allowed.clear()
+    if target_slope:
+        body_slot = index(overlay_position(target), volume)
+        allowed.add(body_slot)
+        want = dict(target_cell, back=AIR, actor=None)
+        got = actual_cell(actual, body_slot)
+        if got != want:
+            failures.append({'position': target, 'reason': 'independent_slope_body_mismatch',
+                             'slot': body_slot, 'expected': want, 'actual': got})
     extra_slots = sorted(set(slot for layer in ('common', 'extra')
                              for entries in actual[layer].values() for slot in entries) - allowed)
     if extra_slots:
@@ -150,6 +192,7 @@ def compare_target(source, target):
     return {
         'target': target, 'volume': volume, 'expected_neighbor_cells': len(expected_positions),
         'actual_context_slots': len(expected_state_slots), 'passed': not failures,
+        'route': 'independent_slope' if target_slope else 'context_tile',
         'failures': failures, 'scope': 'CPU palette layers, state records, actor rebasing; no native pixels',
     }
 

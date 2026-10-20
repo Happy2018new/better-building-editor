@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "resource_version": "NEMC 3.10.0.420447",
+  "source_pack": "vanilla",
+  "files": {
+    "flipbook_textures.json": {
+      "source": "textures/flipbook_textures.json",
+      "bytes": 29973,
+      "sha256": "54fef45e43eabb065a703f829d70320430c746744289775e57af582cb240fd7a"
+    },
+    "body.png": {
+      "source": "textures/blocks/firefly_bush.png",
+      "bytes": 489,
+      "sha256": "cdbe8e8d2ac7988655a4f2cfc4aa4595ca9a5719182c031aff59f836022b6f90"
+    },
+    "fireflies.png": {
+      "source": "textures/blocks/firefly_bush_firefly.png",
+      "bytes": 212,
+      "sha256": "717f53c55b6ad630a37e83a5f7729eaa8ca0f3557c9bdec6e2ee51f049840486"
+    },
+    "carried.png": {
+      "source": "textures/items/firefly_bush.png",
+      "bytes": 277,
+      "sha256": "1844250d2441b77b777e2a923e12b95a8541ddbdc067d0cb8710062aca6ace7f"
+    }
+  },
+  "native_cadence": {
+    "flipbook_texture": "textures/blocks/firefly_bush_firefly",
+    "atlas_tile": "firefly_bush",
+    "atlas_index": 1,
+    "ticks_per_frame": 3
+  },
+  "fixed_centered_geometry_source": "tools/data/centered_plant_profiles_nemc_3.9.0.401155.json",
+  "geometry_changes": false,
+  "snow_alpha_bounds_changes": false,
+  "independent_particles_implemented": false
+}

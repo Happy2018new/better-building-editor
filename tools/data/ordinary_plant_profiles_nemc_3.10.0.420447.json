@@ -1,0 +1,390 @@
+{
+  "schema": 1,
+  "resource_version": "NEMC 3.10.0.420447",
+  "registry_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "style": {
+    "name": "fixed_centered_snapshot",
+    "height": 1,
+    "cell_span": [
+      0.1,
+      0.9
+    ],
+    "native_random_offset": false,
+    "native_mesh_authority": false,
+    "snow_qualification": false
+  },
+  "template": {
+    "path": "resource_pack/models/netease_block/preview_fern.json",
+    "sha256": "f460cb21dee29470140e1e759eeae75afcd9406f5982806cabea9e4d47d70f96"
+  },
+  "native_sources": {
+    "blocks_sha256": "cb3aad2d0d012bfb63a462ec9a5d8af54128c8afc26d74ac6f4ae074c9d50faa",
+    "terrain_sha256": "9ce3e389999a7aff19968a60fd21dad1811cf63ec3edd6afac0af0df649e212c"
+  },
+  "plants": {
+    "acacia_sapling": {
+      "native_definition": {
+        "textures": "acacia_sapling",
+        "sound": "grass"
+      },
+      "native_texture_key": "acacia_sapling",
+      "native_atlas_record": {
+        "textures": "textures/blocks/sapling_acacia"
+      },
+      "native_texture_path": "textures/blocks/sapling_acacia.png",
+      "native_texture_sha256": "f9a575d1768fc7fdbdae3d24cd7e7c9b77da42a516424dec851b47366aeba1e6",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        2,
+        0,
+        14,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:acacia_sapling",
+            0
+          ],
+          "states": {
+            "age_bit": false
+          }
+        },
+        {
+          "material": [
+            "minecraft:acacia_sapling",
+            1
+          ],
+          "states": {
+            "age_bit": true
+          }
+        }
+      ]
+    },
+    "brain_coral": {
+      "native_definition": {
+        "textures": "brain_coral",
+        "carried_textures": "brain_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "brain_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_pink"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_pink.png",
+      "native_texture_sha256": "ae5412fca21700b73e853bbfa024898e49a24cfcce660c1d4120b3551d7d58de",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        1,
+        16,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:brain_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    },
+    "bubble_coral": {
+      "native_definition": {
+        "textures": "bubble_coral",
+        "carried_textures": "bubble_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "bubble_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_purple"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_purple.png",
+      "native_texture_sha256": "e49e41388543bad6dfb8f775d53367c3b6ea8a4953b8db129acaa06a32830175",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        4,
+        16,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:bubble_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    },
+    "fire_coral": {
+      "native_definition": {
+        "textures": "fire_coral",
+        "carried_textures": "fire_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "fire_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_red"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_red.png",
+      "native_texture_sha256": "b35c0b7cd07164326008784c2f7b93c7210db221587896a3949c183d554e9076",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        16,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:fire_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    },
+    "horn_coral": {
+      "native_definition": {
+        "textures": "horn_coral",
+        "carried_textures": "horn_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "horn_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_yellow"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_yellow.png",
+      "native_texture_sha256": "855c49acceb5e31540463f7b11b8380ea23b463bf361a8997cbc3d3296946e7e",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        1,
+        2,
+        15,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:horn_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    },
+    "tube_coral": {
+      "native_definition": {
+        "textures": "tube_coral",
+        "carried_textures": "tube_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "tube_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_blue"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_blue.png",
+      "native_texture_sha256": "1060bf7b0f981c17129bc261546b5d435891ed4a72907708957cde38d6869573",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        1,
+        2,
+        16,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:tube_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    },
+    "dead_brain_coral": {
+      "native_definition": {
+        "textures": "dead_brain_coral",
+        "carried_textures": "dead_brain_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "dead_brain_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_pink_dead"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_pink_dead.png",
+      "native_texture_sha256": "ce6597e72ed600a40c5261d5d6d24437fbaf902549007c814c2352d7b3c53e1a",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        1,
+        16,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:dead_brain_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    },
+    "dead_bubble_coral": {
+      "native_definition": {
+        "textures": "dead_bubble_coral",
+        "carried_textures": "dead_bubble_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "dead_bubble_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_purple_dead"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_purple_dead.png",
+      "native_texture_sha256": "5035fe41dc7b521e84b29d6d58dfe818253263240cb599127fcf149ccd035e8c",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        4,
+        16,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:dead_bubble_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    },
+    "dead_fire_coral": {
+      "native_definition": {
+        "textures": "dead_fire_coral",
+        "carried_textures": "dead_fire_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "dead_fire_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_red_dead"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_red_dead.png",
+      "native_texture_sha256": "be5643ce87ee2b58cd0c91ceb4df9f9d22ded260def705642c2792f33eaa63b9",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        16,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:dead_fire_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    },
+    "dead_horn_coral": {
+      "native_definition": {
+        "textures": "dead_horn_coral",
+        "carried_textures": "dead_horn_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "dead_horn_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_yellow_dead"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_yellow_dead.png",
+      "native_texture_sha256": "9520f2cc5b4190274908db6775a84262886b7b19aee02a82339fb4f83064ecde",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        1,
+        2,
+        15,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:dead_horn_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    },
+    "dead_tube_coral": {
+      "native_definition": {
+        "textures": "dead_tube_coral",
+        "carried_textures": "dead_tube_coral",
+        "sound": "stone"
+      },
+      "native_texture_key": "dead_tube_coral",
+      "native_atlas_record": {
+        "textures": "textures/blocks/coral_plant_blue_dead"
+      },
+      "native_texture_path": "textures/blocks/coral_plant_blue_dead.png",
+      "native_texture_sha256": "79e843481b489d2f2ea0f231cfeb59ba4366f3451b2d9ddbb68c6593ef13ed7d",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        1,
+        2,
+        16,
+        16
+      ],
+      "native_states": [
+        {
+          "material": [
+            "minecraft:dead_tube_coral",
+            0
+          ],
+          "states": {}
+        }
+      ]
+    }
+  },
+  "cold_candidate_manifest_sha256": "40e7a1e72ebb0497716daf4a4cf0f22112b2b5c3e7616a58f2fc01142ad139c0"
+}

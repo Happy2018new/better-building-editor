@@ -35,7 +35,9 @@ def main():
     parser.add_argument('--owner', required=True)
     parser.add_argument('--capture-exe', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--origin-x', type=int, default=3)
     parser.add_argument('--origin-y', type=int, default=3)
+    parser.add_argument('--origin-z', type=int, default=3)
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh diagnostic')
@@ -46,7 +48,9 @@ def main():
     bound = load_session(args.session, args.owner, live=True)
     if Path(bound['project']).resolve() != args.project.resolve(strict=True):
         parser.error('Project differs from the bound game')
-    report = {'completed': False, 'restored': False, 'session_id': bound['id'], 'captures': {}}
+    report = {'completed': False, 'restored': False, 'session_id': bound['id'], 'captures': {},
+              'diagnostic_only': True, 'product_admission_performed': False,
+              'requested_origin': [args.origin_x, args.origin_y, args.origin_z]}
     with probe.base.Client(timeout=45) as client:
         check = probe.blueprints.BlueprintCheck(client, args.output, 45.)
         installed = False
@@ -56,10 +60,12 @@ def main():
             check.run(probe.PROFILE % (True, True))
             report['saved_view'] = check.run(probe.visuals.SAVE_VISUAL)
             check.run(probe.LOAD % (('pool', 'wet', (35., 25., 4.6)),))
-            check.run('s.origin=(3,%r,3)\ns.opacity=1.\ns.projection_missing=False\nb.project()\n_result=True' % args.origin_y)
+            origin = (args.origin_x, args.origin_y, args.origin_z)
+            check.run('s.origin=%r\ns.opacity=1.\ns.projection_missing=False\nb.project()\n_result=True' % (origin,))
             report['ready'] = check.wait('world water ready', probe.workspace.world_ready,
                                         lambda: check.run(probe.WORLD_STATE))
-            report['camera'] = check.run(probe.CAMERA % (((6.5, args.origin_y + 3.5, 6.5), (3., 2.5, 4.)),))
+            target = tuple(axis + 3.5 for axis in origin)
+            report['camera'] = check.run(probe.CAMERA % ((target, (3., 2.5, 4.)),))
             for phase in ('baseline', 'reapplied'):
                 if phase == 'reapplied':
                     report['writes'] = check.run(probe.workspace.WATER_OWNER + REAPPLY)

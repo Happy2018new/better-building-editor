@@ -1,6 +1,7 @@
 """Water-specific policy injection without changing other surface owners."""
 from .liquid_projection import LiquidProjection
 from .liquid_product_render import ProductWorldLiquidRenderer
+from .liquid_product_plan import projection_plan
 
 
 class ProductLiquidProjection(LiquidProjection):
@@ -8,5 +9,6 @@ class ProductLiquidProjection(LiquidProjection):
                  renderer_factory=None, plan_factory=None):
         factory = renderer_factory if renderer_factory is not None else getattr(
             profile, 'renderer_factory', ProductWorldLiquidRenderer)
+        plan = projection_plan if plan_factory is None else plan_factory
         LiquidProjection.__init__(self, bridge, document, origin, profile, dimension,
-                                  hidden, layer, factory, plan_factory)
+                                  hidden, layer, factory, plan)

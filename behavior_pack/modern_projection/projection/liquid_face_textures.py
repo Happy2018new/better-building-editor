@@ -1,6 +1,6 @@
 """Split native top, bottom and side materials without changing saved layers."""
 from . import block_registry, liquid_face_texture_data as source, liquid_render_target_data
-from .liquid_render_plan import LiquidSurface
+from .liquid_render_plan import LIQUID_NAMES, LiquidSurface
 
 
 class LiquidFaceTextures(object):
@@ -16,6 +16,7 @@ class LiquidFaceTextures(object):
                 or source.PALETTE_SHA256.lower() != block_registry.fingerprint().lower()):
             raise ValueError('Native liquid face textures need regeneration for this registry')
         self.provider, self.side_templates = provider, dict(side_templates)
+        self.supported_names = frozenset(getattr(provider, 'supported_names', LIQUID_NAMES))
         self.top_templates = None if top_templates is None else dict(top_templates)
         self.uv_rotations = (None if uv_rotations is None else
                              dict((key, frozenset(codes)) for key, codes in uv_rotations.items()))

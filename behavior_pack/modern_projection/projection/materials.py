@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 import re
 from .catalog import MATERIALS
+from .block_display_names_data import FALLBACK_NAMES
 DISPLAY_NAMES = dict((tuple(m[:2]), m[2]) for m in MATERIALS)
 MATERIAL_CHANNELS = ('material', 'secondary', 'source', 'filter_material')
 
@@ -19,7 +20,10 @@ def display_name(value):
         value = canonical(value)
     except ValueError:
         pass  # Keep damaged/unsupported archived entries readable.
-    return DISPLAY_NAMES.get(value, DISPLAY_NAMES.get((value[0], 0), value[0].split(':')[-1]))
+    # Split technical block IDs can have empty/untranslated inventory labels.
+    # Their observed item names are independent of direction and slab half.
+    return FALLBACK_NAMES.get(value[0], DISPLAY_NAMES.get(value,
+                             DISPLAY_NAMES.get((value[0], 0), value[0].split(':')[-1])))
 
 
 def with_aux(value, raw):

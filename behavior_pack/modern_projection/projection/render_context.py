@@ -13,6 +13,8 @@ from .storage import integer_types
 from .plant_position import position_sensitive, render_origin as validate_render_origin
 from .native_render_profile import coordinate_mode, profile_identity
 from .static_table import context_cell, independent_body
+from .lectern_body import independent_body as independent_lectern_body
+from .rail_render_profile import independent_body as independent_rail_body
 
 NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
@@ -83,6 +85,33 @@ def _put_encoded(data, cell, index, delta):
         data['actor'].setdefault(name, {})[index] = rebase(payload, delta)
 
 
+def _independent_body(material):
+    return (independent_body(material) or independent_lectern_body(material) or
+            independent_rail_body(material))
+
+
+def _context_cell(cell):
+    if (independent_lectern_body(cell.get('common')) or
+            independent_rail_body(cell.get('common'))):
+        return {'extra': cell['extra']} if 'extra' in cell else {}
+    return context_cell(cell)
+
+
+def _requires_context_tile(cell):
+    # A fixed-state slope owns its whole mesh. Without a secondary layer its
+    # tile has no target surface, so copied supports would only add unowned
+    # boundary planes. Other targets still read this cell from the snapshot.
+    return not (cell is not None and independent_rail_body(cell.get('common')) and
+                cell.get('extra') in (None, AIR))
+
+
+def _put_independent_body(data, cell, index, delta):
+    body = {'common': cell['common']}
+    if independent_lectern_body(cell['common']) and 'actor' in cell:
+        body['actor'] = cell['actor']
+    _put_encoded(data, body, index, delta)
+
+
 def _native_actor_mesh(cell, native_render_profile=None):
     actor = cell.get('actor')
     if actor is None or not isinstance(actor[1], dict):
@@ -110,7 +139,7 @@ class _ContextWriter(object):
         plan = self.cache.get(key)
         if plan is None:
             cell = rendered[0]
-            layers = (('extra',) if independent_body(cell.get('common')) or
+            layers = (('extra',) if _independent_body(cell.get('common')) or
                       _native_actor_mesh(cell, self.native_render_profile)
                       else ('common', 'extra'))
             buckets = []
@@ -158,7 +187,8 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
         target_index = _index(target, logical_volume)
         if target_index not in cells:
             raise ValueError('Context target is absent from the complete source palette')
-        for neighbor in NEIGHBORS:
+        neighbors = NEIGHBORS if _requires_context_tile(cells[target_index]) else ()
+        for neighbor in neighbors:
             original = tuple(target[axis] + neighbor[axis] for axis in range(3))
             if any(original[axis] < 0 or original[axis] >= logical_volume[(1, 2, 0)[axis]]
                    for axis in range(3)):
@@ -166,11 +196,12 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
             cell = cells.get(_index(original, logical_volume))
             if cell is None:
                 continue
-            _put(data, context_cell(cell), context_position(target, neighbor), original)
+            _put(data, _context_cell(cell), context_position(target, neighbor), original)
         body = cells[target_index].get('common')
-        if independent_body(body):
+        if _independent_body(body):
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
-            data['common'].setdefault(body, []).append(_index(pos, volume))
+            _put_independent_body(data, cells[target_index], _index(pos, volume),
+                                  (0, OVERLAY_BASE, 0))
         overlay = overlays.get(target_index)
         if overlay is not None:
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
@@ -342,7 +373,8 @@ class ContextPaletteBuilder(object):
         center_index = _index((cx, cy, cz), self.data['volume'])
         delta = (cx - tx, cy - ty, cz - tz)
         sx, sy, sz = self.document.size
-        for nx, ny, nz, index_delta in self.neighbors:
+        neighbors = self.neighbors if _requires_context_tile(center[0]) else ()
+        for nx, ny, nz, index_delta in neighbors:
             x, y, z = tx + nx, ty + ny, tz + nz
             if not (0 <= x < sx and 0 <= y < sy and 0 <= z < sz):
                 continue
@@ -350,11 +382,12 @@ class ContextPaletteBuilder(object):
             if rendered is None or rendered[0] is None:
                 continue
             # All 27 cells move by the same delta into this target's tile.
-            _put_encoded(self.data, context_cell(rendered[0]), center_index + index_delta, delta)
+            _put_encoded(self.data, _context_cell(rendered[0]), center_index + index_delta, delta)
         body = center[0].get('common') if center[0] is not None else None
-        if independent_body(body):
+        if _independent_body(body):
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
-            self.data['common'].setdefault(body, []).append(_index(pos, self.data['volume']))
+            _put_independent_body(self.data, center[0], _index(pos, self.data['volume']),
+                                  (0, OVERLAY_BASE, 0))
         if center[1] is not None:
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
             self.data['common'].setdefault(center[1], []).append(_index(pos, self.data['volume']))
@@ -416,18 +449,20 @@ class ContextBatchBuilder(ContextPaletteBuilder):
             delta = (cx - tx, cy - ty, cz - tz)
             center_index = (cy * 64 + cx) * 64 + cz
             body = center[0].get('common') if center[0] is not None else None
-            if independent_body(body):
+            if _independent_body(body):
                 # A neighboring tile cannot distinguish ownership of a shared
                 # boundary plane. Emit this body only in its target's local batch.
-                overlay['common'].setdefault(body, []).append((ly * 16 + lx) * 16 + lz)
-            if center[0] is not None and _native_actor_mesh(center[0], self.native_render_profile):
+                _put_independent_body(overlay, center[0], (ly * 16 + lx) * 16 + lz,
+                                      tuple(-value for value in origin))
+            elif center[0] is not None and _native_actor_mesh(center[0], self.native_render_profile):
                 # Native block actors carry a model-local POSITION. Their
                 # model transform cannot use the packed neighbor-tile decoder.
                 actor_cell = {'common': center[0].get('common'),
                               'actor': center[0].get('actor')}
                 _put_encoded(overlay, actor_cell, (ly * 16 + lx) * 16 + lz,
                              tuple(-value for value in origin))
-            for nx, ny, nz, index_delta in LOCAL_NEIGHBORS:
+            neighbors = LOCAL_NEIGHBORS if _requires_context_tile(center[0]) else ()
+            for nx, ny, nz, index_delta in neighbors:
                 x, y, z = tx + nx, ty + ny, tz + nz
                 if not (0 <= x < sx and 0 <= y < sy and 0 <= z < sz):
                     continue

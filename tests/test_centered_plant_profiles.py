@@ -33,13 +33,15 @@ class CenteredPlantProfilesTests(unittest.TestCase):
             self.assertEqual(profile['mesh']['height']*(1.-profile['alpha_bounds'][1]/16.),
                              PLANT_MAX_Y[('minecraft:'+name, 0)])
 
-    def test_all_generated_meshes_stay_in_cell_and_have_original_texture(self):
+    def test_all_generated_meshes_stay_in_cell_and_keep_native_texture_profiles(self):
         files = outputs(self.profile)
         atlas = files[ROOT/'resource_pack/textures/terrain_texture.json']['texture_data']
         for name, plant in self.profile['plants'].items():
             if name in EXISTING:
                 continue
-            self.assertEqual(plant['texture_path'].rsplit('.', 1)[0], atlas['modern_projection_centered_'+name]['textures'])
+            expected = ('textures/blocks/modern_projection_r23_firefly_composited' if name == 'firefly_bush'
+                        else plant['texture_path'].rsplit('.', 1)[0])
+            self.assertEqual(expected, atlas['modern_projection_centered_'+name]['textures'])
             model = files[ROOT/'resource_pack/models/netease_block'/('centered_'+name+'.json')]['netease:block_geometry']
             for bone in model['bones']:
                 self.assertEqual([-8, 8, 8], bone['pivot'])

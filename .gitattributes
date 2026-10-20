@@ -345,3 +345,62 @@ docs/FRAME_BLOCK_LIGHT_HOLDOUT_R21.md text eol=lf
 docs/evidence/item-glint-final-r21-sword-v1/** -text -diff whitespace=cr-at-eol
 # Normal-time portal replay binds original mixed-line-ending source and receipts.
 docs/evidence/portal-native-candidate-r21-v12/** -text -diff whitespace=cr-at-eol
+# R23 animation generation and native provenance retain the cold-tested bytes.
+tools/data/firefly_bush_animation_nemc_3.10.0.420447/flipbook_textures.json -text whitespace=cr-at-eol
+resource_pack/textures/flipbook_textures.json -text whitespace=cr-at-eol
+resource_pack/textures/terrain_texture.json -text whitespace=cr-at-eol
+
+# R24 qualified water/coral sources and compact review bundles retain exact tested bytes.
+behavior_pack/modern_projection/projection/biome_water_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/biomes.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/block_registry.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/block_registry_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/block_traits.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/block_traits_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/bridge.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/debug_blueprints.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/debug_coral_blueprints.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/debug_ordinary_plant_blueprints.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/debug_product_water_blueprints.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/geometry_palette.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_deployment.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_face_texture_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_face_textures.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_native_shapes.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_preview.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_product_deployment.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_product_flow_top.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_product_plan.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_product_preview.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_product_profile.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_product_projection.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_product_qualification_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_product_render.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_product_shape_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_projection.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_render.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_render_ownership.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_render_plan.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_render_target_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_scene.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_shape.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_transport.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_viewport.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/occupancy.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/projection_companions.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/render_context.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/scene.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/session.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/tiles.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/ui.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/world_projection.py -text whitespace=cr-at-eol
+tools/data/liquid_product_owner_contract_v1.json -text whitespace=cr-at-eol
+tools/data/liquid_product_resource_contract_v1.json -text whitespace=cr-at-eol
+tools/qualify_water_product_r16.py -text whitespace=cr-at-eol
+docs/evidence/water-product-r24-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/coral-r24-v1/** -text -diff whitespace=cr-at-eol
+
+# Barrier generation compares these authored JSON resources byte for byte.
+behavior_pack/netease_blocks/preview_barrier_marker.json text eol=lf
+resource_pack/models/netease_block/preview_barrier_marker.json text eol=lf
+tools/data/barrier_registration_r23.json text eol=lf

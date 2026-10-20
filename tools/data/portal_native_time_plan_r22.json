@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "owner": "portal-r22-native-acceptance-v14",
+  "expected_capture_count": 78,
+  "complete_matrix_family": "end_portal",
+  "temporal_baseline_family": "end_gateway",
+  "sample_count": 9,
+  "target_interval_seconds": 4.0,
+  "target_span_seconds": 32.0,
+  "route_order": ["native", "candidate", "native_repeat"],
+  "poses": ["front", "oblique"],
+  "metrics": ["luminance_mean", "cyan_star_ratio", "nonblack_ratio"],
+  "source_requirement": "Normal-TIME world shader, mesh and texture remain byte-identical to v13/v12.",
+  "sampling_comparability": {
+    "sample_count_per_route_and_pose": 9,
+    "minimum_actual_span_seconds": 30.0,
+    "maximum_actual_span_seconds": 36.0,
+    "maximum_route_span_difference_seconds": 3.0,
+    "failure_result": "Sampling does not distinguish phase from route; no qualification."
+  },
+  "predeclared_interpretation": [
+    "Preserve raw absolute metrics, image pixels, native particles and all receipt failures.",
+    "First compare native A with native B; report each window and pooled extrema, mean and standard deviation.",
+    "If any candidate metric mean falls outside the pooled native observed interval, this experiment does not explain that difference by measured native self-variation.",
+    "If all candidate metric means fall inside, classify as consistent with the measured native phase variation only; this is not proof of equivalence.",
+    "Stable candidate discrepancies with stable native repeats require shader-coordinate investigation; do not fit brightness or phase to erase them.",
+    "No result automatically grants production qualification. Representative original frames, key product routes and a later cold default production smoke remain required."
+  ],
+  "forbidden_fits": ["phase", "spatial", "exposure", "color", "density"],
+  "native_material_override": false,
+  "native_qualification_gates": false,
+  "thresholds_may_change_after_capture": false
+}

@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "owner": "water-r24-default-v2",
+  "session_id": "f74846cc1fc34de98c5eefd135ae874b",
+  "started_at": "2026-10-19T22:22:23.020328+00:00",
+  "normal_stop_requested": true,
+  "force_executed": true,
+  "source_or_gate_modified": false,
+  "host_sha256": "a0cedde25a396b1c63ca78c6f6fd63da04d28482b214f24c84af25415a4e67a6",
+  "identities_before": {
+    "game": "134369208970143762",
+    "mcdk": "134369208968154134"
+  },
+  "normal_returncode": 1,
+  "force_reason": "Identity-matched owned processes remained after normal close and 20 seconds grace.",
+  "force_returncode": 0,
+  "game_exit": "0x00000001",
+  "mcdk_exit": "0x00000000",
+  "exit_is_abnormal": true,
+  "auxiliary_processes": [
+    {
+      "name": "observer",
+      "pid": 29832,
+      "expected_identity": "134369209047839301",
+      "live_identity_before": null,
+      "already_ended": true,
+      "live_identity_after": null
+    },
+    {
+      "name": "disabled_skin_watcher",
+      "pid": 27556,
+      "expected_identity": "134369208786302575",
+      "live_identity_before": "134369208786302575",
+      "terminated_owned": true,
+      "live_identity_after": null
+    },
+    {
+      "name": "continuous_handle_guard",
+      "pid": 27744,
+      "expected_identity": "134369209798145436",
+      "live_identity_before": null,
+      "already_ended": true,
+      "live_identity_after": null
+    }
+  ],
+  "minecraft_process_observation": [
+    {
+      "pid": 8428,
+      "live_creation_identity": null
+    },
+    {
+      "pid": 12336,
+      "live_creation_identity": null
+    },
+    {
+      "pid": 16644,
+      "live_creation_identity": null
+    },
+    {
+      "pid": 21316,
+      "live_creation_identity": null
+    },
+    {
+      "pid": 22972,
+      "live_creation_identity": null
+    },
+    {
+      "pid": 23116,
+      "live_creation_identity": null
+    },
+    {
+      "pid": 40884,
+      "live_creation_identity": null
+    },
+    {
+      "pid": 42116,
+      "live_creation_identity": null
+    },
+    {
+      "pid": 52244,
+      "live_creation_identity": null
+    }
+  ],
+  "active_minecraft_count": 0,
+  "completed_at": "2026-10-19T22:22:55.585076+00:00"
+}

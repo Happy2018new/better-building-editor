@@ -34,10 +34,23 @@ from .debug_portal_blueprints import METADATA as PORTAL_METADATA, VISUAL_CASE as
 from .debug_compatibility_blueprints import (METADATA as COMPATIBILITY_METADATA,
                                             VISUAL_CASES as COMPATIBILITY_VISUAL_CASES)
 from .debug_slab_blueprints import METADATA as SLAB_METADATA, VISUAL_CASE as SLAB_VISUAL_CASE
+from .debug_ordinary_blueprints import (METADATA as ORDINARY_METADATA, CASES as ORDINARY_CASES,
+                                        context_metadata)
+from .debug_transform_acceptance import (METADATA as TRANSFORM_ACCEPTANCE_METADATA,
+                                         VISUAL_CASES as TRANSFORM_ACCEPTANCE_VISUAL_CASES,
+                                         prepare as prepare_transform_acceptance)
+from .debug_barrier_blueprints import METADATA as BARRIER_METADATA, VISUAL_CASE as BARRIER_VISUAL_CASE
+from .debug_pressure_blueprints import METADATA as PRESSURE_METADATA, VISUAL_CASE as PRESSURE_VISUAL_CASE
+from .debug_ordinary_plant_blueprints import (METADATA as ORDINARY_PLANT_METADATA,
+                                              CORAL_METADATA)
+
+from .debug_coral_blueprints import (METADATA as CORAL_REVIEW_METADATA,
+                                      VISUAL_CASES as CORAL_REVIEW_VISUAL_CASES)
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
-              ('transforms', '变换'), ('entities', '方块实体'), ('registry', '方块表'))
+              ('transforms', '变换'), ('entities', '方块实体'), ('registry', '方块表'),
+              ('manual', '人工检查'))
 BLUEPRINTS = (
     ('test.layers.water', 'layers', '含水方块', (32, 8, 24), 'minecraft:oak_fence'),
     LIQUID_METADATA,
@@ -68,8 +81,15 @@ BLUEPRINTS = (
     ACTION_METADATA,
     BOTANICAL_METADATA,
     PRODUCT_METADATA,
-) + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA
+    BARRIER_METADATA,
+    PRESSURE_METADATA,
+    ORDINARY_PLANT_METADATA,
+    CORAL_METADATA,
+) + CORAL_REVIEW_METADATA + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA + TRANSFORM_ACCEPTANCE_METADATA
+BLUEPRINTS += ORDINARY_METADATA + context_metadata(BLUEPRINTS)
 VISUAL_CASES = {
+    'barrier_visibility': BARRIER_VISUAL_CASE,
+    'pressure_signals': PRESSURE_VISUAL_CASE,
     'slab_interactions': SLAB_VISUAL_CASE,
     'neighbor_actions': ACTION_MATRIX,
     'product_connections': PRODUCT_VISUAL_CASE,
@@ -154,6 +174,8 @@ VISUAL_CASES = {
 }
 VISUAL_CASES.update(COMPATIBILITY_VISUAL_CASES)
 VISUAL_CASES.update(ITEM_CATALOGUE_VISUAL_CASES)
+VISUAL_CASES.update(TRANSFORM_ACCEPTANCE_VISUAL_CASES)
+VISUAL_CASES.update(CORAL_REVIEW_VISUAL_CASES)
 
 
 def entries(category=None):
@@ -339,7 +361,32 @@ def build(identity):
     metadata = next((row for row in BLUEPRINTS if row[0] == identity), None)
     if metadata is None:
         raise ValueError('找不到这份测试蓝图')
+    if identity.startswith('test.ordinary.context.'):
+        document = build(identity[len('test.ordinary.context.'):])
+        document.name = metadata[2]
+        return document
     fixture = Fixture(metadata)
+    if identity in CORAL_REVIEW_VISUAL_CASES:
+        from .debug_coral_blueprints import populate
+        return populate(fixture, identity)
+    if identity == ORDINARY_PLANT_METADATA[0]:
+        from .debug_ordinary_plant_blueprints import populate
+        return populate(fixture)
+    if identity == CORAL_METADATA[0]:
+        from .debug_ordinary_plant_blueprints import populate_corals
+        return populate_corals(fixture)
+    if identity == PRESSURE_METADATA[0]:
+        from .debug_pressure_blueprints import populate
+        return populate(fixture)
+    if identity == BARRIER_METADATA[0]:
+        from .debug_barrier_blueprints import populate
+        return populate(fixture)
+    if identity in TRANSFORM_ACCEPTANCE_VISUAL_CASES:
+        from .debug_transform_acceptance import populate
+        return populate(fixture, identity)
+    if identity in ORDINARY_CASES:
+        from .debug_ordinary_blueprints import populate
+        return populate(fixture, identity)
     if identity == SLAB_METADATA[0]:
         from .debug_slab_blueprints import populate
         return populate(fixture)
@@ -424,4 +471,8 @@ def open_blueprint(session, identity):
     document = build(identity)
     session._loaded(document)
     session.progress = None
-    session.editor.message = '已载入测试蓝图'
+    if prepare_transform_acceptance(session.editor, identity):
+        row = TRANSFORM_ACCEPTANCE_VISUAL_CASES[identity]
+        session.camera_focus_request = tuple(axis + .5 for axis in row['focus'])
+    else:
+        session.editor.message = '已载入测试蓝图'
