@@ -43,7 +43,7 @@ ORIENT = '''vec3 orientItem(vec3 point, float facing, float rotation, float item
     else if(facing>2.5 && facing<3.5) point=vec3(-point.x,point.y,-point.z);
     else if(facing>3.5 && facing<4.5) point=vec3(-point.z,point.y,point.x);
     else if(facing>4.5) point=vec3(point.z,point.y,-point.x);
-    point.x=-point.x;
+    if(itemLayout<0.5 || itemLayout>3.5) point.x=-point.x;
     return point;
 }
 float frameIntensity(vec3 normal) {
@@ -69,6 +69,8 @@ WORLD_NORMAL = '''vec4 entityNormal=vec4(itemNormal,0.0);
     #endif
     itemNormal=normalize((WORLD*entityNormal).xyz);
     '''
+# Keep the shelf's extruded frame mesh centered before halving its thickness.
+# Frame and campfire layouts retain their original handedness and placement.
 LAYOUT = '''float itemLayout=EXTRA_VECTOR2.x;
     if(slot>0.5) itemLayout=EXTRA_VECTOR2.y;
     if(slot>1.5) itemLayout=EXTRA_VECTOR2.z;
@@ -76,7 +78,7 @@ LAYOUT = '''float itemLayout=EXTRA_VECTOR2.x;
     if(itemLayout>0.5 && itemLayout<3.5) {
         point.xy*=0.5;
         point.x+=(itemLayout-2.0)*0.3;
-        point.z=0.3125;
+        point.z=(point.z-0.4375)*0.5-0.25;
     } else if(itemLayout>3.5) {
         float index=itemLayout-4.0;
         point.xy*=0.6;

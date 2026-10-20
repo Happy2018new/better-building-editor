@@ -1,0 +1,70 @@
+{
+  "sources": {
+    "tools/generate_item_icon_catalog.py": "844fa278c98f9b1dfe4c1933bec2d0444878dca70836bec99288bbc71cf9c153",
+    "resource_pack/shaders/glsl/modern_projection_item_icon.vertex": "e1df1493a9cac52907fcf60dc650fe24b019e8dc3f68e2edec2e34d11aa2433c",
+    "resource_pack/shaders/glsl/modern_projection_item_icon_world.vertex": "8343deb6551433215463d8e12af424aa773903a91bcc8752dc4356ba3a5270bf",
+    "behavior_pack/modern_projection/projection/item_icon_data.py": "680eb674267c34bebecedac2f75cd74048754d0886a6e87b64d94c4dfb8ed41e"
+  },
+  "raw_reports": {
+    ".runtime/round-20261021/shelf-layout-smoke-v2/report.json": "673dad8a42bca88f35b37d786bc76b1c4355ffcfcaf270f8c057b4ab355a2261",
+    ".runtime/round-20261021/shelf-layout-depth-v2/report.json": "c34f3391671d2aa26f339f960c83d310cb8936f7d934ea82d08d89bf6c49075d",
+    ".runtime/round-20261021/shelf-native-state-v1/report.json": "78f504adcb968bdcf1c74ace46901567425bb60d02368b1991d419852cb71866",
+    ".runtime/round-20261021/shelf-native-state-v1/native-readback-comparison-v1.json": "cf733311dd29962fe1689951497e0b43b824b2d0137434363c312ea84cf9ad14",
+    ".runtime/round-20261021/shelf-layout-smoke-v3/report.json": "cb362db0dd7bdc9322fb8b4a0040e3cb31aea181bb1dc8e910561c6d7c019b27",
+    ".runtime/round-20261021/shelf-layout-smoke-v3/independent-readback-v2.json": "a6d60ffdb5001888dcd67175b450046d8c2ba9ce441e51ca86ba48021dbab27a"
+  },
+  "controls": [
+    {
+      "file": "scene_items_only.png",
+      "sha256": "c6c94523991f0070ab7319aaf4e64b91d5082e24bf6fda08828313894967a6f6",
+      "crop": [
+        700,
+        350,
+        1250,
+        700
+      ],
+      "label": "editor: items only"
+    },
+    {
+      "file": "scene_empty.png",
+      "sha256": "9f8d986ed5d462e31267275aaec4d097e6f18f5e3fbd6c37ff792a2572be2717",
+      "crop": [
+        700,
+        350,
+        1250,
+        700
+      ],
+      "label": "editor: empty"
+    },
+    {
+      "file": "depth_front_native.png",
+      "sha256": "8f17a76fd5f1e5acb6784e572a084db25b233e8512019567fbd160bd3554aaff",
+      "crop": [
+        750,
+        400,
+        1500,
+        740
+      ],
+      "label": "native front"
+    },
+    {
+      "file": "depth_front_projected.png",
+      "sha256": "d36dbc69ede6859a3069def68afa4a33b18fda9baf414f43a39bd38866acdc5a",
+      "crop": [
+        750,
+        400,
+        1500,
+        740
+      ],
+      "label": "candidate front"
+    }
+  ],
+  "editor_native_state_frames": 12,
+  "matching_front_readbacks": 72,
+  "smoke_frames": 32,
+  "native_reference_frames": 8,
+  "prior_editor_blank_retained": true,
+  "production_qualified": false,
+  "native_depth_qualified": false,
+  "manual_issues_closed": 0
+}
