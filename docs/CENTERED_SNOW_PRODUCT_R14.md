@@ -1,5 +1,12 @@
 # Centered Snow Plant Product Profile
 
+**2026-10-19 scope update:** the static implementation described below remains
+the current baseline. The user's explicit OB-01 requirement now includes firefly
+bush animation in the editor and projection. The historical exclusion below
+does not close or remove that requirement. Texture animation and independent
+fireflies are tracked separately in [the R23 investigation](FIREFLY_BUSH_R23.md);
+its offline resource candidates have not acquired runtime acceptance.
+
 The product's declared plant position is fixed at the cell center. Native
 random offsets are not part of this snapshot editor's design. The earlier
 native-coordinate and silhouette comparisons remain intact diagnostics; their

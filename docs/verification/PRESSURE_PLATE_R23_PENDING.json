@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "recorded_date": "2026-10-19",
+  "issue": "OB-09",
+  "status": "open_pending_runtime_verification",
+  "runtime_retry_allowed": false,
+  "runtime_retry_condition": "A new explicit owner-coordinated runtime slot with a usable visible game window.",
+  "failure_report": {
+    "path": ".runtime/round-20261019/pressure-product-default-v2.json",
+    "sha256": "30f863c70228f6b0b5c4af72e70d4a8b81267598267a1456f1999a5a66975026",
+    "source_sha256": "aef3ed662b1c6ead8786c6c9106fdaf6867c53f641db3e4dfa175775e557c9a2",
+    "completed": false,
+    "case_count": 0,
+    "product_fix_enabled": false,
+    "pixels_accepted": false,
+    "error_type": "ProtectedWindowError",
+    "preflight": {
+      "ok": false,
+      "category": "protected_execute_code_preflight",
+      "execute_code_blocked": true,
+      "execute_code_dispatched": false,
+      "python_return_checked": false,
+      "window_unavailable": true,
+      "guard_invalid": false,
+      "owned_process_foreground": false,
+      "background_only": true,
+      "activation_fallback": false,
+      "user_foreground_allowed": false,
+      "agent_activation_allowed": false,
+      "owner": "ordinary-r23-v2",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\982665a1e5044e1e9bcd84a4dec75d69\\session.json",
+      "game_pid": 48852,
+      "game_identity": "134368736883537947",
+      "window_guard": {
+        "foreground": {
+          "hwnd": 7410724,
+          "pid": 35212,
+          "process": "ChatGPT.exe",
+          "identity": "134368687599254613",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [],
+        "background_safe": true,
+        "window_noactivate": false
+      },
+      "reason": "owned_game_has_no_usable_visible_window"
+    }
+  },
+  "no_runtime_mutation": {
+    "basis": "Protected execute_code preflight did not dispatch SDK code.",
+    "sdk_execute_code_dispatched": false,
+    "probe_installed": false,
+    "camera_changed": false,
+    "new_screenshots": 0,
+    "cleanup_required_for_this_attempt": false
+  },
+  "owner_followup": {
+    "source": "root owner offline window inspection, 2026-10-19",
+    "hwnd": 5640618,
+    "window_exists": true,
+    "is_window_visible": true,
+    "is_iconic": true,
+    "coordinates_offscreen": true,
+    "decision": "Stop all four batches; do not restore or activate the window; return lifecycle control to root."
+  },
+  "planned_recipe": {
+    "signals": [
+      0,
+      1,
+      15
+    ],
+    "zoom": 2.5,
+    "route": "product_editor_and_projection",
+    "raw_actors": false,
+    "support": "minecraft:quartz_block",
+    "batches": [
+      {
+        "index": 1,
+        "name": "default",
+        "materials": [
+          "minecraft:stone_pressure_plate",
+          "minecraft:wooden_pressure_plate",
+          "minecraft:light_weighted_pressure_plate",
+          "minecraft:heavy_weighted_pressure_plate"
+        ],
+        "status": "blocked_before_dispatch",
+        "pixels_accepted": false
+      },
+      {
+        "index": 2,
+        "name": "wood_a",
+        "materials": [
+          "minecraft:acacia_pressure_plate",
+          "minecraft:bamboo_pressure_plate",
+          "minecraft:birch_pressure_plate",
+          "minecraft:cherry_pressure_plate"
+        ],
+        "status": "not_attempted",
+        "pixels_accepted": false
+      },
+      {
+        "index": 3,
+        "name": "wood_b",
+        "materials": [
+          "minecraft:crimson_pressure_plate",
+          "minecraft:dark_oak_pressure_plate",
+          "minecraft:jungle_pressure_plate",
+          "minecraft:mangrove_pressure_plate"
+        ],
+        "status": "not_attempted",
+        "pixels_accepted": false
+      },
+      {
+        "index": 4,
+        "name": "remaining",
+        "materials": [
+          "minecraft:pale_oak_pressure_plate",
+          "minecraft:polished_blackstone_pressure_plate",
+          "minecraft:spruce_pressure_plate",
+          "minecraft:warped_pressure_plate"
+        ],
+        "status": "not_attempted",
+        "pixels_accepted": false
+      }
+    ]
+  },
+  "acceptance_limits": {
+    "first_run_report": ".runtime/round-20261019/pressure-native-v1.json",
+    "first_run_cleanup_report": ".runtime/round-20261019/pressure-cleanup-v1.json",
+    "first_run_projection_materials_with_visible_thickness_difference": 4,
+    "first_run_editor_materials_with_visible_thickness_difference": 2,
+    "additional_materials_with_no_runtime_images": 12,
+    "complete_four_material_editor_view": false,
+    "native_world_dimension_reference": false,
+    "business_code_changes": 0,
+    "issues_closed": 0
+  }
+}

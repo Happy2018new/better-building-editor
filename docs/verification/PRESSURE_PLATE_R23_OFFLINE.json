@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "at": "2026-10-19T08:44:15.056101+00:00",
+  "kind": "offline metadata route preservation only",
+  "runtime_sdk_called": false,
+  "thickness_accepted": false,
+  "script": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\pressure_r23_offline.py",
+  "script_sha256": "e2e0857d4ad8056dd7207d9b8e4cf681047fcfe135c36965408aabde27549f0c",
+  "script_source": "# -*- coding: utf-8 -*-\nfrom __future__ import unicode_literals\nimport sys,json,hashlib\nsys.path.insert(0,'D:\\\\Happy2018newの个人文件\\\\GitHub\\\\better-building-editor\\\\behavior_pack\\\\modern_projection')\ndef native(value):\n    return value.encode('utf8') if bytes is str and isinstance(value, type('')) else value\n\ndef _native_tree(value):\n    if isinstance(value, dict):\n        return dict((_native_tree(key), _native_tree(item)) for key, item in value.items())\n    if isinstance(value, tuple):\n        return tuple(_native_tree(item) for item in value)\n    if isinstance(value, list):\n        return [_native_tree(item) for item in value]\n    return native(value)\n\ndef _native_palette(data):\n    \"\"\"Convert SDK strings without copying the potentially large integer lists.\"\"\"\n    result = {}\n    for key, value in data.items():\n        if key in ('_native_render_profile', '_cauldron_profile', '_liquid_render_profile', '_spawner_profile', '_portal_profile'):\n            continue\n        if key in ('common', 'extra'):\n            result[native(key)] = dict((_native_tree(material), indices)\n                                       for material, indices in value.items())\n        else:\n            result[native(key)] = _native_tree(value)\n    return result\nfrom projection.model import Document\nfrom projection.geometry_palette import prepare_palette\nfrom projection import block_registry as registry\ncount=0; names=[]\nfor name in sorted(registry.BLOCKS):\n if not name.endswith('pressure_plate'):continue\n names.append(name)\n for aux in registry.aux_values(name):\n  value=(name,aux); prepared=prepare_palette(Document((1,1,1),{(0,0,0):value}).palette_data())\n  native_data=_native_palette(prepared); key=(native(name),aux)\n  assert native_data[native('common')]=={key:[0]}\n  assert native_data[native('states')][key]=={native('redstone_signal'):aux}\n  assert type(next(iter(native_data[native('states')][key]))) is type(native('redstone_signal'))\n  assert type(native_data[native('states')][key][native('redstone_signal')]) is int\n  count+=1\nprint(json.dumps({'python':sys.version.split()[0],'names':names,'records':count,'native_signal_type':'int','stages':['Document.palette_data','prepare_palette','exact extracted _native_palette'],'passed':True}))\n\nfrom projection.render_context import prepare_context_palette,prepare_document_context,prepare_context_batches\nchecks=0\nfor name in names:\n blocks={}\n signals=(0,1,7,15)\n for x,signal in zip((0,15,16,31),signals):\n  blocks[(x,0,0)]=('minecraft:quartz_block',0)\n  blocks[(x,1,0)]=(name,signal)\n doc=Document((32,2,1),blocks)\n source=doc.palette_data(); expected={(name,signal) for signal in signals}\n whole=prepare_context_palette(source,source)\n synchronous=prepare_document_context(doc,source)\n batches=prepare_context_batches(doc,source)\n variants=[('whole',whole),('incremental',synchronous)]+[('batch_'+str(index),row[2]) for index,row in enumerate(batches['_context_batches'])]\n observed={}\n for label,palette in variants:\n  native_palette=_native_palette(palette)\n  matched=set(value for value in palette['common'] if value[0]==name)\n  if label.startswith('batch_'):\n   observed.update((value,True) for value in matched)\n  else:\n   assert matched==expected,(name,label,matched)\n  for value in matched:\n   assert palette['states'][value]=={'redstone_signal':value[1]},(name,label,value)\n   assert native_palette[native('states')][(native(name),value[1])]=={native('redstone_signal'):value[1]}\n   checks+=1\n assert set(observed)==expected,(name,observed)\nprint(json.dumps({'python':sys.version.split()[0],'context_checks':checks,'names':len(names),'signals':[0,1,7,15],'positions':[0,15,16,31],'paths':['complete_palette_context','incremental_document_context','production_packed_batches'],'passed':True}))\n",
+  "source_sha256": {
+    "behavior_pack/modern_projection/projection/model.py": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2",
+    "behavior_pack/modern_projection/projection/geometry_palette.py": "49647436cb523208b9f37fc4bf15ecd81e4d9a2f858135dbe41401f453f481c4",
+    "behavior_pack/modern_projection/projection/bridge.py": "ee48886d1c43d24dd719420be61765a0c6c0e94887c8f81dcf5df439a531dd23",
+    "behavior_pack/modern_projection/projection/render_context.py": "749b64e7d036c77bed792e38d715eb7691915f764d8f43652d44f970d5ee31d3",
+    "behavior_pack/modern_projection/projection/block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+    "behavior_pack/modern_projection/projection/block_registry_data.py": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1"
+  },
+  "results": [
+    {
+      "executable": "D:/Program/Python27/python.exe",
+      "exit_code": 0,
+      "rows": [
+        {
+          "python": "2.7.13",
+          "native_signal_type": "int",
+          "records": 256,
+          "names": [
+            "minecraft:acacia_pressure_plate",
+            "minecraft:bamboo_pressure_plate",
+            "minecraft:birch_pressure_plate",
+            "minecraft:cherry_pressure_plate",
+            "minecraft:crimson_pressure_plate",
+            "minecraft:dark_oak_pressure_plate",
+            "minecraft:heavy_weighted_pressure_plate",
+            "minecraft:jungle_pressure_plate",
+            "minecraft:light_weighted_pressure_plate",
+            "minecraft:mangrove_pressure_plate",
+            "minecraft:pale_oak_pressure_plate",
+            "minecraft:polished_blackstone_pressure_plate",
+            "minecraft:spruce_pressure_plate",
+            "minecraft:stone_pressure_plate",
+            "minecraft:warped_pressure_plate",
+            "minecraft:wooden_pressure_plate"
+          ],
+          "passed": true,
+          "stages": [
+            "Document.palette_data",
+            "prepare_palette",
+            "exact extracted _native_palette"
+          ]
+        },
+        {
+          "context_checks": 224,
+          "paths": [
+            "complete_palette_context",
+            "incremental_document_context",
+            "production_packed_batches"
+          ],
+          "python": "2.7.13",
+          "positions": [
+            0,
+            15,
+            16,
+            31
+          ],
+          "signals": [
+            0,
+            1,
+            7,
+            15
+          ],
+          "names": 16,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "executable": "D:\\Program\\Python\\python.exe",
+      "exit_code": 0,
+      "rows": [
+        {
+          "python": "3.13.13",
+          "names": [
+            "minecraft:acacia_pressure_plate",
+            "minecraft:bamboo_pressure_plate",
+            "minecraft:birch_pressure_plate",
+            "minecraft:cherry_pressure_plate",
+            "minecraft:crimson_pressure_plate",
+            "minecraft:dark_oak_pressure_plate",
+            "minecraft:heavy_weighted_pressure_plate",
+            "minecraft:jungle_pressure_plate",
+            "minecraft:light_weighted_pressure_plate",
+            "minecraft:mangrove_pressure_plate",
+            "minecraft:pale_oak_pressure_plate",
+            "minecraft:polished_blackstone_pressure_plate",
+            "minecraft:spruce_pressure_plate",
+            "minecraft:stone_pressure_plate",
+            "minecraft:warped_pressure_plate",
+            "minecraft:wooden_pressure_plate"
+          ],
+          "records": 256,
+          "native_signal_type": "int",
+          "stages": [
+            "Document.palette_data",
+            "prepare_palette",
+            "exact extracted _native_palette"
+          ],
+          "passed": true
+        },
+        {
+          "python": "3.13.13",
+          "context_checks": 224,
+          "names": 16,
+          "signals": [
+            0,
+            1,
+            7,
+            15
+          ],
+          "positions": [
+            0,
+            15,
+            16,
+            31
+          ],
+          "paths": [
+            "complete_palette_context",
+            "incremental_document_context",
+            "production_packed_batches"
+          ],
+          "passed": true
+        }
+      ]
+    }
+  ]
+}

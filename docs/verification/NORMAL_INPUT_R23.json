@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "result": "not qualified; native missing NORMAL vertex-field assertion blocks the cold shader diagnostic",
+  "issues_closed": 0,
+  "pixels_accepted": false,
+  "normal_input_qualified": false,
+  "production_enabled": false,
+  "face_rejection_added": false,
+  "source": "Read-only packs from firefly-r23-c-v1 cold snapshot; own normal-r23-input-v1 project, no MC access to firefly",
+  "binding": {
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\328ce5b1443e48cb93c751b6ac580430\\session.json",
+    "owner": "normal-r23-input-v1",
+    "game_pid": 36396,
+    "game_identity": "134368939196332733",
+    "project": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\normal-r23-input-v1"
+  },
+  "snapshot_resources": {
+    "resource_pack/materials/terrain.material": "b20079f22bb9272d036f1ca4c1c148ab2a0a9c05ad0cf894b644db93ebd5971b",
+    "resource_pack/shaders/glsl/modern_projection_biome_blocks.vertex": "71a216cc61bf4856bc08481057f0e5ad718da34187e4c84abd9f308a6bd1a611",
+    "resource_pack/shaders/glsl/modern_projection_biome_blocks.fragment": "8eb93ebb45453ab157ab7ca51cf594f284736519d1b75aedbcbd490d120c74c6"
+  },
+  "scope": "Two private shader overrides emit unnormalized NORMAL; terrain unchanged; no new discard. Global shader scope does not isolate the failing draw to one Combine target or prove every mesh lacks NORMAL.",
+  "v2_gate_correction": "v2 was not run: its renderContext.w gate would skip ordinary stone and raw_loaded. v3 removes only that diagnostic gate in the private fragment shader.",
+  "files": {
+    "manifest": {
+      "path": ".runtime/round-20261019/concrete-color/normal-input-v3/manifest.json",
+      "sha256": "d6f7f1cdbf4a1cdd4fe09db586dfb27d753e7c67b29ed36411bce1a6d0f1e1ad",
+      "bytes": 3664
+    },
+    "diff": {
+      "path": ".runtime/round-20261019/concrete-color/normal-input-v3/changes.diff",
+      "sha256": "5532cceee8565ec2e414d7227596624e4a485525818408a52038ae888fd20220",
+      "bytes": 2272
+    },
+    "compile": {
+      "path": ".runtime/round-20261019/concrete-color/normal-input-v3/compile.json",
+      "sha256": "74579b399391d2bcb10c83e5050afbca502e2723b297e1163181b3e7349413d9",
+      "bytes": 6713
+    },
+    "link": {
+      "path": ".runtime/round-20261019/concrete-color/normal-input-v3/compile/link-300-v1.json",
+      "sha256": "c1cd9b285fd324e36114b6ebfda460e76ea3357081a07a05bf7d38e3d29c4841",
+      "bytes": 1421
+    },
+    "plan": {
+      "path": ".runtime/round-20261019/concrete-color/normal-six-face-plan-v3.json",
+      "sha256": "ab174ebb7e71edd94232405cac2eecb829afb1f9b3f34b1ef1df0560636e8375",
+      "bytes": 4156
+    },
+    "wrapper": {
+      "path": ".runtime/round-20261019/concrete-color/capture_normal_input_v3.py",
+      "sha256": "c96e9ac2d08f2409f298d912f46e9255defcd90d1350c8da7e985f7e585d2a50",
+      "bytes": 4151
+    },
+    "runtime": {
+      "path": ".runtime/round-20261019/concrete-color/normal-six-face-runtime-v3.json",
+      "sha256": "b8d08f73c378d1ec75c3445031b63953b058f6a72477913224bb728c183130d8",
+      "bytes": 7453
+    },
+    "assertion": {
+      "path": ".runtime/round-20261019/concrete-color/normal-v3-failure/assertion-status.json",
+      "sha256": "5bcd1a51b9c6117c54191d3549be3839b84acbd97355106a21183688ac76abdc",
+      "bytes": 1257
+    },
+    "normal_close": {
+      "path": ".runtime/round-20261019/concrete-color/normal-v3-failure/normal-close.json",
+      "sha256": "e5e126c9d3a2f5f0bfc5c5cafc3043f36a02ab35a869e9dd5832f182bc77bb8f",
+      "bytes": 627
+    },
+    "forced_cleanup": {
+      "path": ".runtime/round-20261019/concrete-color/normal-v3-failure/forced-cleanup.json",
+      "sha256": "4373bc50fded40bc8ce0d7f551e6924d17549460bdaa1d5b06942bf758610a60",
+      "bytes": 750
+    },
+    "watcher_cleanup": {
+      "path": ".runtime/round-20261019/concrete-color/normal-v3-failure/watcher-cleanup.json",
+      "sha256": "c485cff3893a5b1fc049d52f050f2a1e4809dd5dbfd00e379e7d23c1ca9f6c3f",
+      "bytes": 167
+    },
+    "exact_exit": {
+      "path": ".runtime/round-20261019/launch-normal-r23-input-v1/exact-exit.json",
+      "sha256": "a68b88aca542aa1db40c477c076f2daebbdafa1b1c9b05d769d461e12dfe8eb2",
+      "bytes": 986
+    },
+    "launch": {
+      "path": ".runtime/round-20261019/launch-normal-r23-input-v1/launch.json",
+      "sha256": "ec8ca9b7042468f8654eb6263cdd142381de61351561a165ac6510adf2c4797e",
+      "bytes": 1782
+    },
+    "snapshot": {
+      "path": ".runtime/projects/normal-r23-input-v1/source-manifest.json",
+      "sha256": "abe26e9bd6f85ffb24ce2838c43874062aa0c9401602e10da2513a6e9806e00d",
+      "bytes": 726569
+    }
+  },
+  "offline": {
+    "compile_variants": 16,
+    "compile_passed": 12,
+    "inherited_ES100_fragment_line_continuation_failures": 4,
+    "GLSL300_link_variants": 4,
+    "GLSL300_links_passed": 4
+  },
+  "runtime": {
+    "launch_ready": true,
+    "captures": 0,
+    "completed": false,
+    "restored": false,
+    "failure_stage": "Waiting for the first product air fixture (shared stone support); no accepted air/stone pixel or direction/magnitude observation.",
+    "assertion": {
+      "session_id": "328ce5b1443e48cb93c751b6ac580430",
+      "dialog": {
+        "hwnd": 4000792,
+        "pid": 36396,
+        "process": "Minecraft.Windows.exe",
+        "title": "Assert Failure - ctrl+C to copy this message to the clipboard!",
+        "x": 631,
+        "y": 446,
+        "width": 458,
+        "height": 210,
+        "minimized": false,
+        "text": "中止(&A)\n重试(&R)\n忽略(&I)\nAssertion failed: Mesh missing vertex field NORMAL required by shader. Skipping draw.\nCondition is false: false\nFunction: bool __cdecl mce::ShaderBase::checkVertexFormat(const class mce::VertexFormat &) const in C:\\jw\\gm\\handheld\\src-deps\\Renderer\\src\\HAL\\Base\\ShaderBase.cpp @ 118\n"
+      }
+    },
+    "assertion_ignored": false,
+    "protected_execute_code": "Modal assertion was not noactivate; normal protected guard refused further execution. Cleanup readback could not dispatch; no bypass.",
+    "normal_close": {
+      "owner": "normal-r23-input-v1",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\328ce5b1443e48cb93c751b6ac580430\\session.json",
+      "game_pid": 36396,
+      "game_identity": "134368939196332733",
+      "mode": "normal WM_CLOSE only",
+      "force": false,
+      "reason": "Private NORMAL shader native missing-vertex-field assertion; capture/restore blocked by modal guard",
+      "restore_in_memory_verified": false,
+      "world_writes": false,
+      "completed": false,
+      "error": "Game has not closed; inspect it or explicitly use stop --force",
+      "process_alive": {
+        "game": true,
+        "mcdk": true
+      }
+    },
+    "forced_cleanup": {
+      "owner": "normal-r23-input-v1",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\328ce5b1443e48cb93c751b6ac580430\\session.json",
+      "mode": "forced cleanup after normal WM_CLOSE timeout",
+      "identities_before": {
+        "game": {
+          "pid": 36396,
+          "expected_identity": "134368939196332733",
+          "actual_identity": "134368939196332733"
+        },
+        "mcdk": {
+          "pid": 46840,
+          "expected_identity": "134368939192809164",
+          "actual_identity": "134368939192809164"
+        }
+      },
+      "force": true,
+      "assertion_ignored": false,
+      "runtime_restore_verified": false,
+      "captures": 0,
+      "state": "stopped",
+      "completed": true,
+      "process_alive": {
+        "game": false,
+        "mcdk": false
+      }
+    }
+  },
+  "conclusions": [
+    "Material vertexFields and offline GLSL link do not establish runtime mesh vertex attributes.",
+    "At least one draw using the private override lacks NORMAL; precise mesh attribution is not established by this global diagnostic.",
+    "Six-face signs, magnitude, and raw/product consistency remain unmeasured; no NORMAL-based face rejection may be enabled from this evidence.",
+    "Original assertion, zero captures, unverified restoration, normal-close timeout, and forced cleanup remain separate retained facts."
+  ]
+}

@@ -1,0 +1,749 @@
+{
+  "schema_version": 1,
+  "analysis_date": "2026-10-17",
+  "new_version_label": "NEMC 3.10 (user supplied; exact patch not embedded in dump)",
+  "sources": {
+    "old": {
+      "path": "docs/reference/block_palettes/nemc_3.9.0.401155.json",
+      "bytes": 8547976,
+      "sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01",
+      "version": "NEMC 3.9.0.401155"
+    },
+    "new": {
+      "original_path": "C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/logs/block_palette.json",
+      "archive": "docs/reference/block_palettes/nemc_3.10_user_dump_20261017.json.gz",
+      "bytes": 8697146,
+      "sha256": "6B12729DC5B870318A689B045C0D1CC5BD6F4B70775CA352EA4A47ED45FA4E07",
+      "gzip_bytes": 294581,
+      "gzip_sha256": "6284441e8fc8f8c1aea16454acb8b9ef050c84cd509e18b2aed0bff7623486f9",
+      "root_keys": [
+        "blocks"
+      ],
+      "embedded_version": null
+    }
+  },
+  "namespace_comparison": {
+    "minecraft": {
+      "old_names": 1321,
+      "new_names": 1321,
+      "old_records": 15839,
+      "new_records": 15839,
+      "added_records": 0,
+      "removed_records": 0,
+      "typed_state_changes_at_shared_aux": 0,
+      "default_aux_changes": 0,
+      "metadata_changes": {
+        "block_id": 0,
+        "name_hash": 0,
+        "network_id": 0
+      },
+      "normalized_all_fields_old_sha256": "d62d7154d491d848df0e79d4ddcd4722aeca55c3c71eee08adf1f267100a30c6",
+      "normalized_all_fields_new_sha256": "d62d7154d491d848df0e79d4ddcd4722aeca55c3c71eee08adf1f267100a30c6"
+    },
+    "modern_projection": {
+      "old_names": 19,
+      "new_names": 728,
+      "old_records": 19,
+      "new_records": 728,
+      "added_records": 709,
+      "removed_records": 0,
+      "typed_state_changes_at_shared_aux": 0,
+      "default_aux_changes": 0,
+      "metadata_changes": {
+        "block_id": 19,
+        "name_hash": 0,
+        "network_id": 0
+      },
+      "normalized_all_fields_old_sha256": "fd8bc5db75b2ae74c4dcabad586f1aa3b2fe0e85b105f85f37706e06ae90aba1",
+      "normalized_all_fields_new_sha256": "ec3cf02e99ca6824080753a84046244f6fa53b5e7108c3160f6750b2a441b55c"
+    }
+  },
+  "state_keys": {
+    "old_count": 113,
+    "new_count": 113,
+    "added": [],
+    "removed": []
+  },
+  "added_proxy_groups": {
+    "centered_": {
+      "names": 27,
+      "records": 27,
+      "examples": [
+        "modern_projection:centered_allium",
+        "modern_projection:centered_azure_bluet",
+        "modern_projection:centered_blue_orchid"
+      ]
+    },
+    "preview_bed_": {
+      "names": 128,
+      "records": 128,
+      "examples": [
+        "modern_projection:preview_bed_black_0_foot",
+        "modern_projection:preview_bed_black_0_head",
+        "modern_projection:preview_bed_black_1_foot"
+      ]
+    },
+    "preview_chest_": {
+      "names": 28,
+      "records": 28,
+      "examples": [
+        "modern_projection:preview_chest_ender_east_single",
+        "modern_projection:preview_chest_ender_north_single",
+        "modern_projection:preview_chest_ender_south_single"
+      ]
+    },
+    "preview_copper_chest_": {
+      "names": 48,
+      "records": 48,
+      "examples": [
+        "modern_projection:preview_copper_chest_default_east_main",
+        "modern_projection:preview_copper_chest_default_east_single",
+        "modern_projection:preview_copper_chest_default_east_sub"
+      ]
+    },
+    "preview_enchanting_body": {
+      "names": 1,
+      "records": 1,
+      "examples": [
+        "modern_projection:preview_enchanting_body"
+      ]
+    },
+    "preview_fungi": {
+      "names": 4,
+      "records": 4,
+      "examples": [
+        "modern_projection:preview_brown_mushroom",
+        "modern_projection:preview_crimson_fungus",
+        "modern_projection:preview_red_mushroom"
+      ]
+    },
+    "preview_heads_skulls": {
+      "names": 80,
+      "records": 80,
+      "examples": [
+        "modern_projection:preview_creeper_head_floor_0",
+        "modern_projection:preview_creeper_head_floor_1",
+        "modern_projection:preview_creeper_head_floor_10"
+      ]
+    },
+    "preview_item_": {
+      "names": 48,
+      "records": 48,
+      "examples": [
+        "modern_projection:preview_item_minecraft_diamond_sword_0_f0_r0",
+        "modern_projection:preview_item_minecraft_diamond_sword_0_f0_r1",
+        "modern_projection:preview_item_minecraft_diamond_sword_0_f0_r2"
+      ]
+    },
+    "preview_shelf_": {
+      "names": 240,
+      "records": 240,
+      "examples": [
+        "modern_projection:preview_shelf_acacia_center_east_body",
+        "modern_projection:preview_shelf_acacia_center_north_body",
+        "modern_projection:preview_shelf_acacia_center_south_body"
+      ]
+    },
+    "preview_shulker_": {
+      "names": 102,
+      "records": 102,
+      "examples": [
+        "modern_projection:preview_shulker_black_0",
+        "modern_projection:preview_shulker_black_1",
+        "modern_projection:preview_shulker_black_2"
+      ]
+    },
+    "preview_spawner_": {
+      "names": 3,
+      "records": 3,
+      "examples": [
+        "modern_projection:preview_spawner_empty",
+        "modern_projection:preview_spawner_present",
+        "modern_projection:preview_spawner_unknown"
+      ]
+    }
+  },
+  "shared_custom_block_id_changes": [
+    {
+      "name": "modern_projection:preview_acacia_leaves",
+      "data": 0,
+      "old_block_id": 10018,
+      "new_block_id": 10700
+    },
+    {
+      "name": "modern_projection:preview_azalea_leaves",
+      "data": 0,
+      "old_block_id": 10017,
+      "new_block_id": 10699
+    },
+    {
+      "name": "modern_projection:preview_azalea_leaves_flowered",
+      "data": 0,
+      "old_block_id": 10016,
+      "new_block_id": 10698
+    },
+    {
+      "name": "modern_projection:preview_birch_leaves",
+      "data": 0,
+      "old_block_id": 10015,
+      "new_block_id": 10569
+    },
+    {
+      "name": "modern_projection:preview_cherry_leaves",
+      "data": 0,
+      "old_block_id": 10014,
+      "new_block_id": 10567
+    },
+    {
+      "name": "modern_projection:preview_dark_oak_leaves",
+      "data": 0,
+      "old_block_id": 10013,
+      "new_block_id": 10469
+    },
+    {
+      "name": "modern_projection:preview_fern",
+      "data": 0,
+      "old_block_id": 10012,
+      "new_block_id": 10467
+    },
+    {
+      "name": "modern_projection:preview_grid",
+      "data": 0,
+      "old_block_id": 10011,
+      "new_block_id": 10466
+    },
+    {
+      "name": "modern_projection:preview_jungle_leaves",
+      "data": 0,
+      "old_block_id": 10010,
+      "new_block_id": 10417
+    },
+    {
+      "name": "modern_projection:preview_large_fern_bottom",
+      "data": 0,
+      "old_block_id": 10009,
+      "new_block_id": 10416
+    },
+    {
+      "name": "modern_projection:preview_large_fern_top",
+      "data": 0,
+      "old_block_id": 10008,
+      "new_block_id": 10415
+    },
+    {
+      "name": "modern_projection:preview_mangrove_leaves",
+      "data": 0,
+      "old_block_id": 10007,
+      "new_block_id": 10414
+    },
+    {
+      "name": "modern_projection:preview_oak_leaves",
+      "data": 0,
+      "old_block_id": 10006,
+      "new_block_id": 10413
+    },
+    {
+      "name": "modern_projection:preview_outline",
+      "data": 0,
+      "old_block_id": 10005,
+      "new_block_id": 10412
+    },
+    {
+      "name": "modern_projection:preview_pale_oak_leaves",
+      "data": 0,
+      "old_block_id": 10004,
+      "new_block_id": 10411
+    },
+    {
+      "name": "modern_projection:preview_short_grass",
+      "data": 0,
+      "old_block_id": 10003,
+      "new_block_id": 10169
+    },
+    {
+      "name": "modern_projection:preview_spruce_leaves",
+      "data": 0,
+      "old_block_id": 10002,
+      "new_block_id": 10043
+    },
+    {
+      "name": "modern_projection:preview_tall_grass_bottom",
+      "data": 0,
+      "old_block_id": 10001,
+      "new_block_id": 10042
+    },
+    {
+      "name": "modern_projection:preview_tall_grass_top",
+      "data": 0,
+      "old_block_id": 10000,
+      "new_block_id": 10041
+    }
+  ],
+  "registry_check": {
+    "source_version": "NEMC 3.9.0.401155",
+    "source_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+    "names": 1340,
+    "records": 15858,
+    "typed_records_equal_archived_old": true,
+    "default_aux_mismatches": 0
+  },
+  "relevant_block_checks": [
+    {
+      "name": "minecraft:rail",
+      "old_records": 10,
+      "new_records": 10,
+      "typed_records_identical": true,
+      "state_domains": {
+        "rail_direction": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:golden_rail",
+      "old_records": 12,
+      "new_records": 12,
+      "typed_records_identical": true,
+      "state_domains": {
+        "rail_data_bit": {
+          "type": "byte",
+          "values": [
+            0,
+            1
+          ]
+        },
+        "rail_direction": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:detector_rail",
+      "old_records": 12,
+      "new_records": 12,
+      "typed_records_identical": true,
+      "state_domains": {
+        "rail_data_bit": {
+          "type": "byte",
+          "values": [
+            0,
+            1
+          ]
+        },
+        "rail_direction": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:activator_rail",
+      "old_records": 12,
+      "new_records": 12,
+      "typed_records_identical": true,
+      "state_domains": {
+        "rail_data_bit": {
+          "type": "byte",
+          "values": [
+            0,
+            1
+          ]
+        },
+        "rail_direction": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:stone_pressure_plate",
+      "old_records": 16,
+      "new_records": 16,
+      "typed_records_identical": true,
+      "state_domains": {
+        "redstone_signal": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:light_weighted_pressure_plate",
+      "old_records": 16,
+      "new_records": 16,
+      "typed_records_identical": true,
+      "state_domains": {
+        "redstone_signal": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:heavy_weighted_pressure_plate",
+      "old_records": 16,
+      "new_records": 16,
+      "typed_records_identical": true,
+      "state_domains": {
+        "redstone_signal": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:kelp",
+      "old_records": 26,
+      "new_records": 26,
+      "typed_records_identical": true,
+      "state_domains": {
+        "kelp_age": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:big_dripleaf",
+      "old_records": 32,
+      "new_records": 32,
+      "typed_records_identical": true,
+      "state_domains": {
+        "big_dripleaf_head": {
+          "type": "byte",
+          "values": [
+            0,
+            1
+          ]
+        },
+        "big_dripleaf_tilt": {
+          "type": "string",
+          "values": [
+            "full_tilt",
+            "none",
+            "partial_tilt",
+            "unstable"
+          ]
+        },
+        "minecraft:cardinal_direction": {
+          "type": "string",
+          "values": [
+            "east",
+            "north",
+            "south",
+            "west"
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:firefly_bush",
+      "old_records": 1,
+      "new_records": 1,
+      "typed_records_identical": true,
+      "state_domains": {}
+    },
+    {
+      "name": "minecraft:ladder",
+      "old_records": 6,
+      "new_records": 6,
+      "typed_records_identical": true,
+      "state_domains": {
+        "facing_direction": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:barrier",
+      "old_records": 1,
+      "new_records": 1,
+      "typed_records_identical": true,
+      "state_domains": {}
+    },
+    {
+      "name": "minecraft:client_request_placeholder_block",
+      "old_records": 1,
+      "new_records": 1,
+      "typed_records_identical": true,
+      "state_domains": {}
+    },
+    {
+      "name": "minecraft:acacia_sapling",
+      "old_records": 2,
+      "new_records": 2,
+      "typed_records_identical": true,
+      "state_domains": {
+        "age_bit": {
+          "type": "byte",
+          "values": [
+            0,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:brain_coral",
+      "old_records": 1,
+      "new_records": 1,
+      "typed_records_identical": true,
+      "state_domains": {}
+    },
+    {
+      "name": "minecraft:bubble_coral",
+      "old_records": 1,
+      "new_records": 1,
+      "typed_records_identical": true,
+      "state_domains": {}
+    },
+    {
+      "name": "minecraft:cactus_flower",
+      "old_records": 1,
+      "new_records": 1,
+      "typed_records_identical": true,
+      "state_domains": {}
+    },
+    {
+      "name": "minecraft:mangrove_roots",
+      "old_records": 1,
+      "new_records": 1,
+      "typed_records_identical": true,
+      "state_domains": {}
+    },
+    {
+      "name": "minecraft:redstone_wire",
+      "old_records": 16,
+      "new_records": 16,
+      "typed_records_identical": true,
+      "state_domains": {
+        "redstone_signal": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:oak_shelf",
+      "old_records": 32,
+      "new_records": 32,
+      "typed_records_identical": true,
+      "state_domains": {
+        "minecraft:cardinal_direction": {
+          "type": "string",
+          "values": [
+            "east",
+            "north",
+            "south",
+            "west"
+          ]
+        },
+        "powered_bit": {
+          "type": "byte",
+          "values": [
+            0,
+            1
+          ]
+        },
+        "powered_shelf_type": {
+          "type": "int",
+          "values": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:copper_chest",
+      "old_records": 4,
+      "new_records": 4,
+      "typed_records_identical": true,
+      "state_domains": {
+        "minecraft:cardinal_direction": {
+          "type": "string",
+          "values": [
+            "east",
+            "north",
+            "south",
+            "west"
+          ]
+        }
+      }
+    },
+    {
+      "name": "minecraft:lectern",
+      "old_records": 8,
+      "new_records": 8,
+      "typed_records_identical": true,
+      "state_domains": {
+        "minecraft:cardinal_direction": {
+          "type": "string",
+          "values": [
+            "east",
+            "north",
+            "south",
+            "west"
+          ]
+        },
+        "powered_bit": {
+          "type": "byte",
+          "values": [
+            0,
+            1
+          ]
+        }
+      }
+    }
+  ],
+  "analysis_limits": [
+    "No version or engine build is embedded in either input dump.",
+    "Block palette does not contain block entity NBT or rendering geometry/materials.",
+    "Registration of a custom proxy does not establish runtime rendering qualification.",
+    "Production registry and dependent generated resources were not regenerated."
+  ],
+  "verification": {
+    "existing_comparator_tests_passed": 7,
+    "new_source_archive_roundtrip": true,
+    "minecraft_all_fields_normalized_identical": true
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "schema": 1,
+  "generated_at": "2026-10-19T23:28:08.499830+00:00",
+  "round": "R24",
+  "stage": "development_validation_not_manual_acceptance",
+  "deadline": "2026-10-20T08:00:00+08:00",
+  "planned_source_freeze": "07:45 Asia/Shanghai",
+  "water": {
+    "engine": "3.10.0.420447",
+    "profile": "java_snapshot_water_v1",
+    "stage": "product",
+    "strict_true_gates": 16,
+    "normal_session_default_enabled": true,
+    "native_water_accepted": false,
+    "lava": "Previously accepted native path retained.",
+    "qualification_sha256": "a324df78aa8d714cb31a0f1093676fe574c5fce40b051ff6f53eec2840e28596",
+    "gate_sha256": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14"
+  },
+  "full_suite": {
+    "result": {
+      "schema": 1,
+      "command": [
+        "D:\\Program\\Python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests"
+      ],
+      "started_at": "2026-10-19T23:11:38.069664+00:00",
+      "completed_at": "2026-10-19T23:16:49.709037+00:00",
+      "exit_code": 0,
+      "seconds": 311.275,
+      "tests_run": 3333,
+      "unittest_reported_seconds": 304.057,
+      "ok": true,
+      "source_unchanged": true,
+      "input_files": 1388,
+      "gate_sha256": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14",
+      "log_sha256": "abdbb73ef7a50b65d434885f0767522445946b7566efc09eb82155265d236148",
+      "offline_only": true,
+      "mc_started_by_runner": false
+    },
+    "skipped": 1,
+    "recorded_inputs_rechecked_now": 1388,
+    "source_drift": [],
+    "new_git_tests_added_after_full_suite": 3,
+    "later_full_suite_run_claimed": false
+  },
+  "version_bundle": {
+    "checks": 33,
+    "all_passed": true,
+    "provenance_files": 101
+  },
+  "focused_checks": {
+    "product_gate_modules": 5,
+    "product_gate_tests": 63,
+    "qualified_git_and_owner_tests": 11,
+    "skipped": 0
+  },
+  "git_bytes": {
+    "clean_smudge_files": 78,
+    "all_identical": true,
+    "core_autocrlf": true,
+    "pre_fix_changed_files": 20,
+    "project_index_modified": false,
+    "gpu_qualification_granted": false
+  },
+  "compact_bundles": [
+    {
+      "bundle": "water-product-r24-v1",
+      "manifest": {
+        "path": "docs/evidence/water-product-r24-v1/manifest.json",
+        "bytes": 3922,
+        "sha256": "2a7a0bc8746404286a5223ce01531c8426c876fca4870e3ca5d7e59127486ba6"
+      },
+      "fresh_verification": {
+        "bundle_integrity": true,
+        "stage": "product",
+        "gates": 16,
+        "files": 15,
+        "source_files_checked": 39,
+        "raw_pixel_replay_performed": false
+      }
+    },
+    {
+      "bundle": "coral-r24-v1",
+      "manifest": {
+        "path": "docs/evidence/coral-r24-v1/manifest.json",
+        "bytes": 3391,
+        "sha256": "8ff8ae49a81562e8f90a3fdb62ae5803caeaaa93360090c7b140f111e4ee08e4"
+      },
+      "fresh_verification": {
+        "bundle_integrity": true,
+        "files": 15,
+        "semantic_ui_cards": 5,
+        "galleries": 3,
+        "routes_per_gallery": 3,
+        "source_files_checked": 4,
+        "native_mouse_clicked": false,
+        "manual_issues_closed": 0,
+        "raw_pixel_replay_performed": false
+      }
+    }
+  ],
+  "coral": {
+    "dry_plant_rows": 60,
+    "wet_plant_rows": 60,
+    "wet_independent_visibility_captures": 180,
+    "native_block_targets": 60,
+    "native_block_captures": 150,
+    "bounded_fan_states": 6,
+    "successful_fan_runs": 18,
+    "fan_captures": 154,
+    "cold_semantic_ui_cards": 5,
+    "cold_galleries_by_routes": 9,
+    "native_mouse_clicked": false,
+    "additional_manual_closures": 0,
+    "remaining_fan_states": 54,
+    "offline_documents": 162,
+    "planned_route_views": 198,
+    "planned_minimum_presentations": 594,
+    "remaining_matrix_executed": false
+  },
+  "pressure_entry": {
+    "reachable_registered_cards": 471,
+    "document_bytes_unchanged": 1228,
+    "metadata_delta": "manual -> registry",
+    "final_frozen_candidate_cold_check_pending": true
+  },
+  "peony": {
+    "stage": "private_offline_delivery_only",
+    "runtime_admitted": false,
+    "root_rechecked_frozen_files": 49,
+    "host_checks": 35,
+    "python2_checks": 55,
+    "concrete_payloads_compiled": 32,
+    "mod_review_parsed": 35,
+    "mod_review_warnings": 5,
+    "independent_memory_checks_reported_by_reviewer": 8,
+    "admission_blockers": [
+      "Complete original asynchronous preview restoration.",
+      "Actual camera attachment/detachment readback.",
+      "Loaded chunks plus complete all-AIR region observation."
+    ],
+    "collect_success_integration_covered": false,
+    "mc_connections": 0,
+    "additional_closures": 0
+  },
+  "library_readonly_check": {
+    "schema": 1,
+    "generated_at": "2026-10-19T23:10:01.544192+00:00",
+    "mode": "read_only",
+    "libraries": [
+      {
+        "repository": "nemc-block-states",
+        "head": "58534dc5956848b4e6e5bcba97ad7112e2802388",
+        "snapshot_manifest_sha256": "36a7a2ad36dfdaa948474daf086a5716a2fbd0fc6c46dc810c5e30e6f04626ae",
+        "source_rows_checked": 19,
+        "source_differences": [],
+        "generator_check": {
+          "command": [
+            "D:\\Program\\Python\\python.exe",
+            "-B",
+            "tools/sync_from_bbe.py",
+            "--source",
+            "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor",
+            "--check"
+          ],
+          "returncode": 0,
+          "stdout": "{\"bytes\": 382771, \"check\": true, \"outputs\": 9, \"stale\": 0}\n",
+          "stderr": ""
+        },
+        "tracked_source_unchanged": true,
+        "tracked_files_checked": 23,
+        "library_refreshed": false,
+        "host_dependency_switched": false
+      },
+      {
+        "repository": "nemc-block-renderer",
+        "head": "a96b335a034571516f8bf257cfb3d24d1252f11b",
+        "snapshot_manifest_sha256": "e2898c179512f720e2983904563ec0d856b2aa210630dbc31072a8f42dfc9580",
+        "source_rows_checked": 12,
+        "source_differences": [],
+        "generator_check": {
+          "command": [
+            "D:\\Program\\Python\\python.exe",
+            "-B",
+            "tools/sync_from_bbe.py",
+            "--source",
+            "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor",
+            "--check",
+            "--states",
+            "D:\\Happy2018newの个人文件\\GitHub\\nemc-block-states"
+          ],
+          "returncode": 0,
+          "stdout": "{\"bytes\": 19395, \"check\": true, \"outputs\": 4, \"stale\": 0}\n",
+          "stderr": ""
+        },
+        "tracked_source_unchanged": true,
+        "tracked_files_checked": 17,
+        "library_refreshed": false,
+        "host_dependency_switched": false
+      }
+    ],
+    "scope": "Existing library manifests only; does not cover new host water/coral sources.",
+    "gpu_qualification_granted": false
+  },
+  "manual_baseline": {
+    "default_names": 892,
+    "dynamic_names": 34,
+    "dynamic_states": 387,
+    "unique_observations": 1245,
+    "added_this_round": 0
+  },
+  "limits": [
+    "No 256-group stress claim; observed maximum eight groups.",
+    "No exact native mesh equivalence claim for coral blocks or all fan states.",
+    "Wet fans, remaining fan states and all transforms remain separately pending.",
+    "Prior failures and abnormal/forced exits retained; socket root cause open.",
+    "No new billing statement; no cost or remaining-hour deduction inferred.",
+    "No new library migration or host dependency switch.",
+    "Compact bundles do not independently replay the complete GPU raw evidence.",
+    "Summary creation starts no MC and does not stage, commit or push."
+  ],
+  "runtime_report_references": [
+    {
+      "path": ".runtime/round-20261020/final-product-suite-v1/result.json",
+      "bytes": 698,
+      "sha256": "d1e627c87b3f43e97ca18d0b0e31da000a3c4fcb075080daaeb8245d57d3fe33"
+    },
+    {
+      "path": ".runtime/round-20261020/final-product-suite-v1/inputs.json",
+      "bytes": 159599,
+      "sha256": "29cf87413dbe7a207ab34c4cce488ce033ba9cc45de036e94c6d00add4f7d659"
+    },
+    {
+      "path": ".runtime/round-20261020/final-product-suite-v1/output.log",
+      "bytes": 31557,
+      "sha256": "abdbb73ef7a50b65d434885f0767522445946b7566efc09eb82155265d236148"
+    },
+    {
+      "path": ".runtime/round-20261020/version-bundle-final-product-v1.json",
+      "bytes": 13051,
+      "sha256": "5429e7e67bee4b906f50a28640a856dc1cb1923bd6092f58d07be030606ddaf2"
+    },
+    {
+      "path": ".runtime/round-20261020/git-roundtrip-before-v1/report.json",
+      "bytes": 35168,
+      "sha256": "79ac77de57588bc0716446e5c2875bd9ab7fee4dee66e3f7eb92a31cd5aa5b41"
+    },
+    {
+      "path": ".runtime/round-20261020/git-roundtrip-after-v1.json",
+      "bytes": 31549,
+      "sha256": "7baaa4e7ec92375d700edbccf648290a9c1bfc8d379f373166b6761172003234"
+    },
+    {
+      "path": ".runtime/round-20261020/qualified-git-tests-v1.log",
+      "bytes": 116,
+      "sha256": "bd679efa5dcdb2fe62c602d1b2ba5cd246228d8289841e10c2b72773ad33ca52"
+    },
+    {
+      "path": ".runtime/round-20261020/library-drift-readonly-v1.json",
+      "bytes": 2141,
+      "sha256": "72c8127395ea6b848b3bfde600e0907cca7eabdf1208850c89289d39a18e5ee0"
+    },
+    {
+      "path": ".runtime/round-20261020/remaining54-root-readonly-v1.json",
+      "bytes": 203,
+      "sha256": "2b6f992fbd1a3514e7e95ce00b598d41935d62b909fc9e2524124b4c05de0d9c"
+    },
+    {
+      "path": ".runtime/round-20261020/pressure-ui-reachability-v1/receipt.json",
+      "bytes": 2759,
+      "sha256": "332920709ea3ccb3516cf89fdaa1fe0715ae9eb64d085f594520889fdf8798af"
+    },
+    {
+      "path": ".runtime/round-20261020/peony-runtime-v1/review-v2/runtime-contract.json",
+      "bytes": 1632,
+      "sha256": "94584f5a0a29cab0189760ad87ff18186ef4b5f9747c26775b44b74d63b1124c"
+    },
+    {
+      "path": ".runtime/round-20261020/peony-runtime-v1/review-v2/freeze-manifest-v2.json",
+      "bytes": 8179,
+      "sha256": "e084fc6a0e436fd8892c19db3c475ed51ea0bb1f8eea226280214b1384b87381"
+    },
+    {
+      "path": ".runtime/round-20261020/coral-fans-remaining54-plan-v1/handoff-receipt-v1.json",
+      "bytes": 3151,
+      "sha256": "cf0d14dae83461868e14018213a024c7b9804c288b18e1f04f50124c76e8151a"
+    }
+  ]
+}

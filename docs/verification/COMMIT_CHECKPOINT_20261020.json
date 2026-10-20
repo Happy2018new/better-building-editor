@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "purpose": "Local development commits; no release qualification or new GPU run",
+  "branch": "dev",
+  "initial_head": "e44735c2e5269526e72e70f3ee502c072182c882",
+  "source_commit": "53d74240a51a4ae6328d3f40023b031b64e329c5",
+  "commits": [
+    {
+      "sha": "b2b03a69",
+      "title": "test: preserve deferred native burst capture and replay"
+    },
+    {
+      "sha": "453a168a",
+      "title": "perf: spread liquid preview requests across frames"
+    },
+    {
+      "sha": "53d74240",
+      "title": "feat: integrate custom water and ordinary block preview fixes"
+    }
+  ],
+  "validation": {
+    "capture_replay_tests": 44,
+    "liquid_isolated_tests": 76,
+    "integration_focused_tests": 347,
+    "counts_overlap": true,
+    "clean_source_snapshot": true,
+    "external_sdk_supplied_locally": true,
+    "sdk_committed": false,
+    "version_bundle_checks": 33,
+    "qualified_paths_matching_staged_bytes": 78,
+    "water_compact_bundle": {
+      "integrity": true,
+      "product_gates": 16,
+      "current_source_files": 39,
+      "raw_pixel_replay_performed": false
+    },
+    "coral_compact_bundle": {
+      "integrity": true,
+      "current_source_files": 4,
+      "raw_pixel_replay_performed": false
+    }
+  },
+  "legacy_qualification_audit": {
+    "schema": 1,
+    "source": "index",
+    "verified": false,
+    "bundles": [
+      {
+        "bundle": "cauldron",
+        "enabled": true,
+        "verified": true,
+        "source_count": 12,
+        "resource_count": 31,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d",
+        "errors": []
+      },
+      {
+        "bundle": "banner",
+        "enabled": true,
+        "verified": true,
+        "source_count": 6,
+        "resource_count": 4,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+        "errors": []
+      },
+      {
+        "bundle": "portal",
+        "enabled": true,
+        "verified": false,
+        "source_count": 25,
+        "resource_count": 16,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "36ecdb6c95b5926a01e5e6ff4215881a85b2d261df1ea7059b1ea331c057e915",
+        "errors": [
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/geometry_palette.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_render.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_viewport.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/portal_profile.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/render_context.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/scene.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/session.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/world_projection.py"
+        ]
+      },
+      {
+        "bundle": "spawner",
+        "enabled": true,
+        "verified": false,
+        "source_count": 12,
+        "resource_count": 9,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "e3bbc9a55b03252c08f7d6bebbcfe1912464fb295bd481221ce74f8cc3861eb9",
+        "errors": [
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/bridge.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/geometry_palette.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/render_context.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/scene.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/session.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/world_projection.py"
+        ]
+      },
+      {
+        "bundle": "book",
+        "enabled": true,
+        "verified": false,
+        "source_count": 28,
+        "resource_count": 19,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "f1a812fad35459d89c2a927c3d0db70f16458ed0b9cd5e9d47bda780a588f822",
+        "errors": [
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/bridge.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/geometry_palette.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_render.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_viewport.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy_shader.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/render_context.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/scene.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/world_projection.py"
+        ]
+      }
+    ],
+    "pixel_acceptance_claimed": false
+  },
+  "qualification_baselines": {
+    "e44735c2": [
+      {
+        "bundle": "cauldron",
+        "enabled": true,
+        "verified": true,
+        "source_count": 12,
+        "resource_count": 31,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d",
+        "errors": []
+      },
+      {
+        "bundle": "banner",
+        "enabled": true,
+        "verified": true,
+        "source_count": 6,
+        "resource_count": 4,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+        "errors": []
+      },
+      {
+        "bundle": "portal",
+        "enabled": true,
+        "verified": false,
+        "source_count": 25,
+        "resource_count": 16,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "36ecdb6c95b5926a01e5e6ff4215881a85b2d261df1ea7059b1ea331c057e915",
+        "errors": [
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_viewport.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/portal_profile.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/render_context.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/scene.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/session.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/world_projection.py"
+        ]
+      },
+      {
+        "bundle": "spawner",
+        "enabled": true,
+        "verified": false,
+        "source_count": 12,
+        "resource_count": 9,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "e3bbc9a55b03252c08f7d6bebbcfe1912464fb295bd481221ce74f8cc3861eb9",
+        "errors": [
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/bridge.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/render_context.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/scene.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/session.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/world_projection.py"
+        ]
+      },
+      {
+        "bundle": "book",
+        "enabled": true,
+        "verified": false,
+        "source_count": 28,
+        "resource_count": 19,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "f1a812fad35459d89c2a927c3d0db70f16458ed0b9cd5e9d47bda780a588f822",
+        "errors": [
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/bridge.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_viewport.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy_shader.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/render_context.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/world_projection.py"
+        ]
+      }
+    ],
+    "HEAD": [
+      {
+        "bundle": "cauldron",
+        "enabled": true,
+        "verified": true,
+        "source_count": 12,
+        "resource_count": 31,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d",
+        "errors": []
+      },
+      {
+        "bundle": "banner",
+        "enabled": true,
+        "verified": true,
+        "source_count": 6,
+        "resource_count": 4,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+        "errors": []
+      },
+      {
+        "bundle": "portal",
+        "enabled": true,
+        "verified": false,
+        "source_count": 25,
+        "resource_count": 16,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "36ecdb6c95b5926a01e5e6ff4215881a85b2d261df1ea7059b1ea331c057e915",
+        "errors": [
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_render.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_viewport.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/portal_profile.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/render_context.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/scene.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/session.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/world_projection.py"
+        ]
+      },
+      {
+        "bundle": "spawner",
+        "enabled": true,
+        "verified": false,
+        "source_count": 12,
+        "resource_count": 9,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "e3bbc9a55b03252c08f7d6bebbcfe1912464fb295bd481221ce74f8cc3861eb9",
+        "errors": [
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/bridge.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/render_context.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/scene.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/session.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/world_projection.py"
+        ]
+      },
+      {
+        "bundle": "book",
+        "enabled": true,
+        "verified": false,
+        "source_count": 28,
+        "resource_count": 19,
+        "engine": "3.10.0.420447",
+        "qualification_sha256": "f1a812fad35459d89c2a927c3d0db70f16458ed0b9cd5e9d47bda780a588f822",
+        "errors": [
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/bridge.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_render.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/liquid_viewport.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/occupancy_shader.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/render_context.py",
+          "Qualified implementation changed: behavior_pack/modern_projection/projection/world_projection.py"
+        ]
+      }
+    ]
+  },
+  "follow_up": "Revalidate legacy portal, spawner and book on final integrated source and preserve prior qualification manifests. Fingerprint failures do not alone establish a visual regression.",
+  "limits": {
+    "release_qualified": false,
+    "new_gpu_run": false,
+    "new_manual_issues_closed": 0,
+    "pushed": false,
+    "raw_evidence_bulk_committed": false,
+    "shelf_frame_native_portal_candidates_enabled": false
+  },
+  "backup_directory": ".runtime/commit-recovery-20261020-195145/"
+}

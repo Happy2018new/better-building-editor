@@ -1,0 +1,2244 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "issue": "OB-09",
+  "status": "original_report_not_reproduced_pending_weekend_confirmation",
+  "business_code_changes": 0,
+  "issues_closed": 0,
+  "native_world_dimension_reference": false,
+  "raw_actor_oracle_accepted": false,
+  "batches": [
+    {
+      "batch": "default",
+      "report": ".runtime/round-20261019/pressure-product-default-v3.json",
+      "report_sha256": "9364ffda5430aec213109d71496ded7caaa0c01a768ffbd5eaeaf3f4ebe21259",
+      "recipe": {
+        "materials": [
+          "minecraft:stone_pressure_plate",
+          "minecraft:wooden_pressure_plate",
+          "minecraft:light_weighted_pressure_plate",
+          "minecraft:heavy_weighted_pressure_plate"
+        ],
+        "signals": [
+          0,
+          1,
+          15
+        ],
+        "zoom": 2.5,
+        "size": [
+          7,
+          2,
+          1
+        ],
+        "focus": [
+          3,
+          1,
+          0
+        ],
+        "positions": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            4,
+            1,
+            0
+          ],
+          [
+            6,
+            1,
+            0
+          ]
+        ],
+        "support": "minecraft:quartz_block"
+      },
+      "source_sha256": "aef3ed662b1c6ead8786c6c9106fdaf6867c53f641db3e4dfa175775e557c9a2",
+      "runtime": "1.21.130.0",
+      "palette_source": "NEMC 3.9.0.401155",
+      "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+      "strict_combine_successes": 24,
+      "cleanup": {
+        "owned_projection_actors": 0,
+        "projection_active": false,
+        "player_foot": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "preparing": false,
+        "workspace": false,
+        "visual_marker_absent": true,
+        "blueprint_marker_absent": true,
+        "entity": null,
+        "marker_absent": true
+      },
+      "cleanup_report": ".runtime/round-20261019/pressure-cleanup-default-v3.json",
+      "cleanup_sha256": "4b71f19051c83eb68d715cbb2a0bbd548759e33fcd45e903840f2d69d60eba46",
+      "cases": [
+        {
+          "signal": 0,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 0",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:stone_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:wooden_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:light_weighted_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:heavy_weighted_pressure_plate",
+                  0
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-default-v3_pressure_0_editor_closeup_native.png",
+              "sha256": "3f0f3d38e001671b53b9a0e0218afd5ed583bdd7d75f93cfa6ff2c7fb22e6e23",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:22:50.788851+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-default-v3_pressure_0_world_closeup_native.png",
+              "sha256": "6decea841dc9cfa95b08746ff12f2b1430671e404dfc18ea73aaf34e78172156",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:22:55.935739+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  21569,
+                  9281
+                ],
+                "material": [
+                  "minecraft:light_weighted_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  22081,
+                  9793
+                ],
+                "material": [
+                  "minecraft:heavy_weighted_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  20545,
+                  8257
+                ],
+                "material": [
+                  "minecraft:stone_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  17473,
+                  17985,
+                  16449,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  16961
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  8769,
+                  21057
+                ],
+                "material": [
+                  "minecraft:wooden_pressure_plate",
+                  0
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  21569
+                ],
+                "material": [
+                  "minecraft:light_weighted_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  17473
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "signal": 1,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 1",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:stone_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:wooden_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:light_weighted_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:heavy_weighted_pressure_plate",
+                  1
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-default-v3_pressure_1_editor_closeup_native.png",
+              "sha256": "325ce65be2cefbfa67f3ea5ebe4b2ac4a6c81cb8fadd624f5d96ae70090a35dc",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:23:05.440451+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-default-v3_pressure_1_world_closeup_native.png",
+              "sha256": "83fe1d553bc7bd6c27646b9dfcad4e781de0296f2624d19912e8e016b2516293",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:23:09.793358+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  17473,
+                  16449,
+                  17985,
+                  16961
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  9281,
+                  21569
+                ],
+                "material": [
+                  "minecraft:light_weighted_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  8257,
+                  20545
+                ],
+                "material": [
+                  "minecraft:stone_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  9793,
+                  22081
+                ],
+                "material": [
+                  "minecraft:heavy_weighted_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  8769,
+                  21057
+                ],
+                "material": [
+                  "minecraft:wooden_pressure_plate",
+                  1
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  4161
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  8257
+                ],
+                "material": [
+                  "minecraft:stone_pressure_plate",
+                  1
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "signal": 15,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 15",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:stone_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:wooden_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:light_weighted_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:heavy_weighted_pressure_plate",
+                  15
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-default-v3_pressure_15_editor_closeup_native.png",
+              "sha256": "6a2d5e9e12c0a0305a08b7da899b06bfd969b8ac58c294856bbed5e600d8c59c",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:23:20.210767+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-default-v3_pressure_15_world_closeup_native.png",
+              "sha256": "59bd4e4675dbe78ce7351a5379989888f4e9e70c430bdc223f8f040b94df2e21",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:23:24.849294+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  22081,
+                  9793
+                ],
+                "material": [
+                  "minecraft:heavy_weighted_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  21569,
+                  9281
+                ],
+                "material": [
+                  "minecraft:light_weighted_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  17985,
+                  17473,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  16961,
+                  16449
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  8257,
+                  20545
+                ],
+                "material": [
+                  "minecraft:stone_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  8769,
+                  21057
+                ],
+                "material": [
+                  "minecraft:wooden_pressure_plate",
+                  15
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  22081
+                ],
+                "material": [
+                  "minecraft:heavy_weighted_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  17985
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      "contact_sheet": {
+        "path": ".runtime/round-20261019/pressure-product-default-v3-contact.png",
+        "sha256": "870079e7559330d5eee4feaf1fda105542831070af25a1619cbf473837c90fb8",
+        "purpose": "Navigation only; original resolution screenshots are the review evidence."
+      }
+    },
+    {
+      "batch": "wood-a",
+      "report": ".runtime/round-20261019/pressure-product-wood-a-v3.json",
+      "report_sha256": "bc4fa96702caf88a9494186cd69e3f1a13f344c7dd0b8e081747e937befc271f",
+      "recipe": {
+        "materials": [
+          "minecraft:acacia_pressure_plate",
+          "minecraft:bamboo_pressure_plate",
+          "minecraft:birch_pressure_plate",
+          "minecraft:cherry_pressure_plate"
+        ],
+        "signals": [
+          0,
+          1,
+          15
+        ],
+        "zoom": 2.5,
+        "size": [
+          7,
+          2,
+          1
+        ],
+        "focus": [
+          3,
+          1,
+          0
+        ],
+        "positions": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            4,
+            1,
+            0
+          ],
+          [
+            6,
+            1,
+            0
+          ]
+        ],
+        "support": "minecraft:quartz_block"
+      },
+      "source_sha256": "aef3ed662b1c6ead8786c6c9106fdaf6867c53f641db3e4dfa175775e557c9a2",
+      "runtime": "1.21.130.0",
+      "palette_source": "NEMC 3.9.0.401155",
+      "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+      "strict_combine_successes": 24,
+      "cleanup": {
+        "owned_projection_actors": 0,
+        "projection_active": false,
+        "player_foot": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "preparing": false,
+        "workspace": false,
+        "visual_marker_absent": true,
+        "blueprint_marker_absent": true,
+        "entity": null,
+        "marker_absent": true
+      },
+      "cleanup_report": ".runtime/round-20261019/pressure-cleanup-wood-a-v3.json",
+      "cleanup_sha256": "4b71f19051c83eb68d715cbb2a0bbd548759e33fcd45e903840f2d69d60eba46",
+      "cases": [
+        {
+          "signal": 0,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 0",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:acacia_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:bamboo_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:birch_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:cherry_pressure_plate",
+                  0
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-wood-a-v3_pressure_0_editor_closeup_native.png",
+              "sha256": "a32ce9cf458f4b98d4474b3e5b854256a78400a60143b6599a87440fbb7f33c2",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:26:40.697307+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-wood-a-v3_pressure_0_world_closeup_native.png",
+              "sha256": "030383c74b6f7696a44014f3bd624054df42cc1e0913bac7494ea2bd51baf177",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:26:45.204186+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  21057,
+                  8769
+                ],
+                "material": [
+                  "minecraft:bamboo_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  21569,
+                  9281
+                ],
+                "material": [
+                  "minecraft:birch_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  16961,
+                  17473,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  17985,
+                  16449
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  9793,
+                  22081
+                ],
+                "material": [
+                  "minecraft:cherry_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  8257,
+                  20545
+                ],
+                "material": [
+                  "minecraft:acacia_pressure_plate",
+                  0
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  21057
+                ],
+                "material": [
+                  "minecraft:bamboo_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  16961
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "signal": 1,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 1",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:acacia_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:bamboo_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:birch_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:cherry_pressure_plate",
+                  1
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-wood-a-v3_pressure_1_editor_closeup_native.png",
+              "sha256": "6425bc01c6dc6a6882bad59af1352df60f61d5da911af4ff96be01797b70f5f5",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:26:54.197137+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-wood-a-v3_pressure_1_world_closeup_native.png",
+              "sha256": "49bde337064df7179334432fea9a049e5bd553929dd8c37b68a03ef4f6ffaf8c",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:26:58.032925+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  20545,
+                  8257
+                ],
+                "material": [
+                  "minecraft:acacia_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  22081,
+                  9793
+                ],
+                "material": [
+                  "minecraft:cherry_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  16449,
+                  17985,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  17473,
+                  16961
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  9281,
+                  21569
+                ],
+                "material": [
+                  "minecraft:birch_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  8769,
+                  21057
+                ],
+                "material": [
+                  "minecraft:bamboo_pressure_plate",
+                  1
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  20545
+                ],
+                "material": [
+                  "minecraft:acacia_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  16449
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "signal": 15,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 15",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:acacia_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:bamboo_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:birch_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:cherry_pressure_plate",
+                  15
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-wood-a-v3_pressure_15_editor_closeup_native.png",
+              "sha256": "0150a84f3054da0c6f9bf22a381b06d61ed7c123bf5341ff3c9e57f7d6d4f5a3",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:27:07.155757+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-wood-a-v3_pressure_15_world_closeup_native.png",
+              "sha256": "62b5a003283515e7189e3fd297bbf2a60876ca16b960ae0d2db38444fcb465a2",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:27:11.410542+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  9793,
+                  22081
+                ],
+                "material": [
+                  "minecraft:cherry_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  21057,
+                  8769
+                ],
+                "material": [
+                  "minecraft:bamboo_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  20545,
+                  8257
+                ],
+                "material": [
+                  "minecraft:acacia_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  16449,
+                  16961,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  17985,
+                  17473
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  9281,
+                  21569
+                ],
+                "material": [
+                  "minecraft:birch_pressure_plate",
+                  15
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  16449
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  20545
+                ],
+                "material": [
+                  "minecraft:acacia_pressure_plate",
+                  15
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      "contact_sheet": {
+        "path": ".runtime/round-20261019/pressure-product-wood-a-v3-contact.png",
+        "sha256": "b5cbf2940cd61a2987569563bcf74e8d90c2c0bd2b3412f67188c40a3be7b962",
+        "purpose": "Navigation only; original resolution screenshots are the review evidence."
+      }
+    },
+    {
+      "batch": "wood-b",
+      "report": ".runtime/round-20261019/pressure-product-wood-b-v3.json",
+      "report_sha256": "71eef041d2071a2927566b2bec4cec72fb12c2c82d4409656f1e512631f4a4fb",
+      "recipe": {
+        "materials": [
+          "minecraft:crimson_pressure_plate",
+          "minecraft:dark_oak_pressure_plate",
+          "minecraft:jungle_pressure_plate",
+          "minecraft:mangrove_pressure_plate"
+        ],
+        "signals": [
+          0,
+          1,
+          15
+        ],
+        "zoom": 2.5,
+        "size": [
+          7,
+          2,
+          1
+        ],
+        "focus": [
+          3,
+          1,
+          0
+        ],
+        "positions": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            4,
+            1,
+            0
+          ],
+          [
+            6,
+            1,
+            0
+          ]
+        ],
+        "support": "minecraft:quartz_block"
+      },
+      "source_sha256": "aef3ed662b1c6ead8786c6c9106fdaf6867c53f641db3e4dfa175775e557c9a2",
+      "runtime": "1.21.130.0",
+      "palette_source": "NEMC 3.9.0.401155",
+      "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+      "strict_combine_successes": 24,
+      "cleanup": {
+        "owned_projection_actors": 0,
+        "projection_active": false,
+        "player_foot": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "preparing": false,
+        "workspace": false,
+        "visual_marker_absent": true,
+        "blueprint_marker_absent": true,
+        "entity": null,
+        "marker_absent": true
+      },
+      "cleanup_report": ".runtime/round-20261019/pressure-cleanup-wood-b-v3.json",
+      "cleanup_sha256": "4b71f19051c83eb68d715cbb2a0bbd548759e33fcd45e903840f2d69d60eba46",
+      "cases": [
+        {
+          "signal": 0,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 0",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:crimson_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:dark_oak_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:jungle_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:mangrove_pressure_plate",
+                  0
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-wood-b-v3_pressure_0_editor_closeup_native.png",
+              "sha256": "71bff85420ecb61ebb4e58fc1d7039fb50d037e6e1c8da4385816f78b9cec29b",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:39:04.250635+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-wood-b-v3_pressure_0_world_closeup_native.png",
+              "sha256": "79d4bafe55e8989a6f9dde6cf9a15b19aa110c5d51715fb514d6b068c1c6c48b",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:39:08.413661+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  20545,
+                  8257
+                ],
+                "material": [
+                  "minecraft:crimson_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  21569,
+                  9281
+                ],
+                "material": [
+                  "minecraft:jungle_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  16449,
+                  17473,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  16961,
+                  17985
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  8769,
+                  21057
+                ],
+                "material": [
+                  "minecraft:dark_oak_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  9793,
+                  22081
+                ],
+                "material": [
+                  "minecraft:mangrove_pressure_plate",
+                  0
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  20545
+                ],
+                "material": [
+                  "minecraft:crimson_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  16449
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "signal": 1,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 1",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:crimson_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:dark_oak_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:jungle_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:mangrove_pressure_plate",
+                  1
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-wood-b-v3_pressure_1_editor_closeup_native.png",
+              "sha256": "da1621417c9ba8316c88dfa941d94a52b008025a3fecc49b8c3a7a8a53721b1f",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:39:18.512801+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-wood-b-v3_pressure_1_world_closeup_native.png",
+              "sha256": "c3b54cd2d5556cff05b58c10dfd35660a9ddecda1c945f9830e45f650b4e35a2",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:39:22.397318+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  22081,
+                  9793
+                ],
+                "material": [
+                  "minecraft:mangrove_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  17985,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  16449,
+                  17473,
+                  16961
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  8257,
+                  20545
+                ],
+                "material": [
+                  "minecraft:crimson_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  9281,
+                  21569
+                ],
+                "material": [
+                  "minecraft:jungle_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  8769,
+                  21057
+                ],
+                "material": [
+                  "minecraft:dark_oak_pressure_plate",
+                  1
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  22081
+                ],
+                "material": [
+                  "minecraft:mangrove_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  17985
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "signal": 15,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 15",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:crimson_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:dark_oak_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:jungle_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:mangrove_pressure_plate",
+                  15
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-wood-b-v3_pressure_15_editor_closeup_native.png",
+              "sha256": "a5f1e1ffe68482aed694f174b3df2077445e20d5ac4cd85aacc0c39c03a145c2",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:39:32.138213+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-wood-b-v3_pressure_15_world_closeup_native.png",
+              "sha256": "3824e0c7100b8f73c48c374f8f918c8a016ad3da0ff53cee5630d158e792a67b",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:39:36.127598+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  21569,
+                  9281
+                ],
+                "material": [
+                  "minecraft:jungle_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  20545,
+                  8257
+                ],
+                "material": [
+                  "minecraft:crimson_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  17473,
+                  16449,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  17985,
+                  16961
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  9793,
+                  22081
+                ],
+                "material": [
+                  "minecraft:mangrove_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  8769,
+                  21057
+                ],
+                "material": [
+                  "minecraft:dark_oak_pressure_plate",
+                  15
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  21569
+                ],
+                "material": [
+                  "minecraft:jungle_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  17473
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      "contact_sheet": {
+        "path": ".runtime/round-20261019/pressure-product-wood-b-v3-contact.png",
+        "sha256": "5e7599a41c66ad16d39187a65e55e42036f382fded66d2c50a244ad08b8a3f4e",
+        "purpose": "Navigation only; original resolution screenshots are the review evidence."
+      }
+    },
+    {
+      "batch": "remaining",
+      "report": ".runtime/round-20261019/pressure-product-remaining-v3.json",
+      "report_sha256": "feef4c4d27385fb72d8620d25b210c87df39668eadb1a979301a2b7e995444d0",
+      "recipe": {
+        "materials": [
+          "minecraft:pale_oak_pressure_plate",
+          "minecraft:polished_blackstone_pressure_plate",
+          "minecraft:spruce_pressure_plate",
+          "minecraft:warped_pressure_plate"
+        ],
+        "signals": [
+          0,
+          1,
+          15
+        ],
+        "zoom": 2.5,
+        "size": [
+          7,
+          2,
+          1
+        ],
+        "focus": [
+          3,
+          1,
+          0
+        ],
+        "positions": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            4,
+            1,
+            0
+          ],
+          [
+            6,
+            1,
+            0
+          ]
+        ],
+        "support": "minecraft:quartz_block"
+      },
+      "source_sha256": "aef3ed662b1c6ead8786c6c9106fdaf6867c53f641db3e4dfa175775e557c9a2",
+      "runtime": "1.21.130.0",
+      "palette_source": "NEMC 3.9.0.401155",
+      "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+      "strict_combine_successes": 24,
+      "cleanup": {
+        "owned_projection_actors": 0,
+        "projection_active": false,
+        "player_foot": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "preparing": false,
+        "workspace": false,
+        "visual_marker_absent": true,
+        "blueprint_marker_absent": true,
+        "entity": null,
+        "marker_absent": true
+      },
+      "cleanup_report": ".runtime/round-20261019/pressure-cleanup-remaining-v3.json",
+      "cleanup_sha256": "4b71f19051c83eb68d715cbb2a0bbd548759e33fcd45e903840f2d69d60eba46",
+      "cases": [
+        {
+          "signal": 0,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 0",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:pale_oak_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:polished_blackstone_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:spruce_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 0
+                },
+                "material": [
+                  "minecraft:warped_pressure_plate",
+                  0
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-remaining-v3_pressure_0_editor_closeup_native.png",
+              "sha256": "e041d0869b2e8246613837352ecec6dbd867a282f762a55ac83c6c46d76bfba4",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:46:03.327020+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-remaining-v3_pressure_0_world_closeup_native.png",
+              "sha256": "0f7e442a9cff01982b9de1861e2129c1faa4ad5104ff05794050f70f1e5a6d37",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:46:07.209306+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  21057,
+                  8769
+                ],
+                "material": [
+                  "minecraft:polished_blackstone_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  21569,
+                  9281
+                ],
+                "material": [
+                  "minecraft:spruce_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  16961,
+                  17473,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  16449,
+                  17985
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  8257,
+                  20545
+                ],
+                "material": [
+                  "minecraft:pale_oak_pressure_plate",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  9793,
+                  22081
+                ],
+                "material": [
+                  "minecraft:warped_pressure_plate",
+                  0
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  16961
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  21057
+                ],
+                "material": [
+                  "minecraft:polished_blackstone_pressure_plate",
+                  0
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "signal": 1,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 1",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:pale_oak_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:polished_blackstone_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:spruce_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 1
+                },
+                "material": [
+                  "minecraft:warped_pressure_plate",
+                  1
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-remaining-v3_pressure_1_editor_closeup_native.png",
+              "sha256": "ce85ac50d03842839f053460e8de68ea5f2fb8814b8dbd6010fef700edb4d72c",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:46:17.064147+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-remaining-v3_pressure_1_world_closeup_native.png",
+              "sha256": "4c06a53a242771e5bca9722ac5ef50ddadb98a8a6b5b523fdda01705e1ec0f98",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:46:21.689993+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  21057,
+                  8769
+                ],
+                "material": [
+                  "minecraft:polished_blackstone_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  16961,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  17985,
+                  17473,
+                  16449
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  9793,
+                  22081
+                ],
+                "material": [
+                  "minecraft:warped_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  9281,
+                  21569
+                ],
+                "material": [
+                  "minecraft:spruce_pressure_plate",
+                  1
+                ]
+              },
+              {
+                "indices": [
+                  8257,
+                  20545
+                ],
+                "material": [
+                  "minecraft:pale_oak_pressure_plate",
+                  1
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  16961
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  21057
+                ],
+                "material": [
+                  "minecraft:polished_blackstone_pressure_plate",
+                  1
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "signal": 15,
+          "fixture": {
+            "blocks": 8,
+            "name": "OB-09 pressure signal 15",
+            "pressure_states": [
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:pale_oak_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:polished_blackstone_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:spruce_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "states": {
+                  "redstone_signal": 15
+                },
+                "material": [
+                  "minecraft:warped_pressure_plate",
+                  15
+                ]
+              }
+            ],
+            "size": [
+              7,
+              2,
+              1
+            ]
+          },
+          "current_source": true,
+          "all_parts_current": true,
+          "screenshots": {
+            "editor": {
+              "path": ".runtime/round-20261019/pressure-product-remaining-v3_pressure_15_editor_closeup_native.png",
+              "sha256": "1b5b08ec8e7d57e16d0e233c5535bac7e46a751c81e367291540175dc1509a2a",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:46:30.644003+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            },
+            "projection": {
+              "path": ".runtime/round-20261019/pressure-product-remaining-v3_pressure_15_world_closeup_native.png",
+              "sha256": "6091ba630026a174598288b538313aef0d833be9b4fa9beb79727c63af1ca385",
+              "size": [
+                1994,
+                1105
+              ],
+              "capture_started_at": "2026-10-19T10:46:34.917992+00:00",
+              "foreground_unchanged": true,
+              "background_only": true
+            }
+          },
+          "projection_native_evidence": "current_source_submission",
+          "submitted_materials": [
+            [
+              {
+                "indices": [
+                  8769,
+                  21057
+                ],
+                "material": [
+                  "minecraft:polished_blackstone_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  22081,
+                  9793
+                ],
+                "material": [
+                  "minecraft:warped_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  17985,
+                  4161,
+                  4673,
+                  5185,
+                  5697,
+                  16449,
+                  17473,
+                  16961
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              },
+              {
+                "indices": [
+                  8257,
+                  20545
+                ],
+                "material": [
+                  "minecraft:pale_oak_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  9281,
+                  21569
+                ],
+                "material": [
+                  "minecraft:spruce_pressure_plate",
+                  15
+                ]
+              }
+            ],
+            [
+              {
+                "indices": [
+                  22081
+                ],
+                "material": [
+                  "minecraft:warped_pressure_plate",
+                  15
+                ]
+              },
+              {
+                "indices": [
+                  17985
+                ],
+                "material": [
+                  "minecraft:quartz_block",
+                  0
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      "contact_sheet": {
+        "path": ".runtime/round-20261019/pressure-product-remaining-v3-contact.png",
+        "sha256": "0014ec8ae945072e3355314a100e1420f80bb0aee6914a115bd483e302da8b7d",
+        "purpose": "Navigation only; original resolution screenshots are the review evidence."
+      }
+    }
+  ],
+  "visual_review": {
+    "performed": true,
+    "method": "Opened all 24 original screenshots; compared plate top and side edges against fixed quartz support.",
+    "all_16_materials_visible_in_both_surfaces": true,
+    "signal_0_visibly_thicker_than_1_and_15": true,
+    "signals_1_and_15_same_visible_shape": true,
+    "whole_frame_difference_is_shape_metric": false
+  },
+  "session": {
+    "owner": "pressure-r23-v3",
+    "game_pid": 43604,
+    "game_identity": "134368787366111232",
+    "project": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\pressure-r23-v3",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d297ef2e76df4b44b36a3c5151a9e72b\\session.json"
+  },
+  "counts": {
+    "materials": 16,
+    "signals_per_material": 3,
+    "surfaces": 2,
+    "original_screenshots": 24,
+    "strict_combine_successes": 96,
+    "independent_cleanup_checks": 4
+  },
+  "error_logs_note": "All four post-run logs contain the same built-in petSysClient.py _ShowPetToast NoneType.show_toast traceback; they do not establish a clean global error log."
+}

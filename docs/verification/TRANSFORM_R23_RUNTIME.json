@@ -1,0 +1,1158 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "issues_closed": 0,
+  "manual_acceptance": false,
+  "scope": "QA readiness/fixture type parity; v5 four-fixture data transactions; v7 main-terrain T04 appearance short recheck; v8 controlled T01 missing occupancy and independent restore. No user issue closed.",
+  "empty_tile_failure": {
+    "path": ".runtime/round-20261019/transform-runtime-v3c.json",
+    "sha256": "0891206a09fcae1def2f933ba6f34f2f4a1e469f266d29c168a7134cfc8233cc",
+    "bytes": 84644,
+    "completed": false,
+    "restored": true,
+    "cleanup_errors": [],
+    "state": {
+      "current_source": true,
+      "model_revision_current": true,
+      "all_parts_current": false,
+      "dirty": 0,
+      "running": false,
+      "preview_pending": false,
+      "mounting": false,
+      "edit_active": false,
+      "io_active": false,
+      "preview_error": "",
+      "renderer_active": true,
+      "renderer_age": 0.003999948501586914,
+      "blocks": 43
+    },
+    "parts": [
+      {
+        "key": [
+          0,
+          0,
+          0
+        ],
+        "count": 43,
+        "name": "modern_projection_chunk_0_0_0_0_1",
+        "common_cells": 43,
+        "extra_cells": 0,
+        "actor_cells": 1,
+        "current_signature": true,
+        "cache_current": true,
+        "pending": false
+      },
+      {
+        "key": [
+          0,
+          0,
+          1
+        ],
+        "count": 0,
+        "name": null,
+        "common_cells": 0,
+        "extra_cells": 0,
+        "actor_cells": 0,
+        "current_signature": true,
+        "cache_current": true,
+        "pending": false
+      },
+      {
+        "key": [
+          1,
+          0,
+          0
+        ],
+        "count": 0,
+        "name": null,
+        "common_cells": 0,
+        "extra_cells": 0,
+        "actor_cells": 0,
+        "current_signature": true,
+        "cache_current": true,
+        "pending": false
+      },
+      {
+        "key": [
+          1,
+          0,
+          1
+        ],
+        "count": 0,
+        "name": null,
+        "common_cells": 0,
+        "extra_cells": 0,
+        "actor_cells": 0,
+        "current_signature": false,
+        "cache_current": true,
+        "pending": false
+      }
+    ]
+  },
+  "fixture_bytes_failure": {
+    "path": ".runtime/round-20261019/transform-runtime-v4.json",
+    "sha256": "8846c993dab6e06c5764472825b8266608137809a6dff38db759120639400a69",
+    "bytes": 858840,
+    "completed": false,
+    "restored": true,
+    "cleanup_errors": [],
+    "passed_case_stages": [
+      {
+        "fixture": "test.transforms.acceptance.t01",
+        "stages": [
+          [
+            "loaded",
+            true
+          ],
+          [
+            "rotate_y90",
+            true
+          ],
+          [
+            "undo",
+            true
+          ],
+          [
+            "redo",
+            true
+          ],
+          [
+            "undo_again",
+            true
+          ]
+        ]
+      }
+    ],
+    "fixture_input_mismatch": {
+      "stage": "T04 loaded",
+      "fields": [
+        "document"
+      ],
+      "diagnosis": "Python 2 keyword argument names are bytes; Python 3 names are text. Explicit unicode literal keys fix fixture construction. Typed comparator remains strict."
+    }
+  },
+  "runtime_data": {
+    "path": ".runtime/round-20261019/transform-runtime-v5.json",
+    "sha256": "79efd90945b9eb340b07ec910a93ab9d57e23b3f09dca4eb82c5a714ccc64ab4",
+    "bytes": 2431867,
+    "completed": true,
+    "restored": true,
+    "cleanup_errors": [],
+    "cases": [
+      {
+        "fixture": "test.transforms.acceptance.t01",
+        "data": [
+          {
+            "stage": "loaded",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "rotate_y90",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "undo",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "redo",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "undo_again",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          }
+        ],
+        "parts_after": [
+          {
+            "key": [
+              0,
+              0,
+              0
+            ],
+            "count": 43,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              0,
+              0,
+              1
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              0,
+              0
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              0,
+              1
+            ],
+            "count": 0,
+            "current_signature": false,
+            "ready": true,
+            "empty_source_current": true
+          }
+        ],
+        "captures": [
+          {
+            "label": "editor_before",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t01_before_editor_closeup_native.png",
+            "sha256": "fa9b83bb2f27b92f7fb2cb6681f853ae0da7e6ab1fec1b66530597453ae22b0c",
+            "bytes": 277989
+          },
+          {
+            "label": "editor_after",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t01_after_editor_closeup_native.png",
+            "sha256": "4ff979a3d0adbab27f6ffd9267dacdda4e1ecc1487fc20232937790cdd4c6974",
+            "bytes": 275790
+          },
+          {
+            "label": "full_projection",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t01_after_world_closeup_native.png",
+            "sha256": "8e8ee193dc74d8847bc5fa43aa5866bebcbf542e4e84623c62f6c53de05be5bf",
+            "bytes": 1287666
+          },
+          {
+            "label": "full_projection_hidden",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t01_after_world_hidden_native.png",
+            "sha256": "a648abeaa66b5ef7b52676757187c89ed7de7196047e5c7530198df338ec23bb",
+            "bytes": 1328294
+          }
+        ]
+      },
+      {
+        "fixture": "test.transforms.acceptance.t04",
+        "data": [
+          {
+            "stage": "loaded",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "mirror_x",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "undo",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "redo",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "undo_again",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          }
+        ],
+        "parts_after": [
+          {
+            "key": [
+              0,
+              0,
+              0
+            ],
+            "count": 12,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              0,
+              0,
+              1
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              0,
+              0
+            ],
+            "count": 22,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              0,
+              1
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          }
+        ],
+        "captures": [
+          {
+            "label": "editor_before",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t04_before_editor_closeup_native.png",
+            "sha256": "c62230121fd79bde545190977ab8bd07cecdd083df9d690ea5e6f8162762937f",
+            "bytes": 274900
+          },
+          {
+            "label": "editor_after",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t04_after_editor_closeup_native.png",
+            "sha256": "14d02179b1f38a2b2c1e12c5a01f0f9ccd356cb28a7d32599fd61545c7d3c02f",
+            "bytes": 260864
+          },
+          {
+            "label": "full_projection",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t04_after_world_closeup_native.png",
+            "sha256": "59603eb97c4474a0db42de6a49aa781b7fbb28328d66007f486c03f06982f73f",
+            "bytes": 1297773
+          },
+          {
+            "label": "full_projection_hidden",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t04_after_world_hidden_native.png",
+            "sha256": "ac3a3a85feab322f1628a6526b97cb321f95a92a818ffd77c0cf0bc0a6811074",
+            "bytes": 1329010
+          }
+        ]
+      },
+      {
+        "fixture": "test.transforms.acceptance.t05",
+        "data": [
+          {
+            "stage": "loaded",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "rotate_y90",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "undo",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "redo",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "undo_again",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          }
+        ],
+        "parts_after": [
+          {
+            "key": [
+              0,
+              0,
+              0
+            ],
+            "count": 50,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              0,
+              0,
+              1
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              0,
+              0
+            ],
+            "count": 42,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              0,
+              1
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          }
+        ],
+        "captures": [
+          {
+            "label": "editor_before",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t05_before_editor_closeup_native.png",
+            "sha256": "460f515cbaccdb4be667f84c428435e41f0267fb604c311774070a19ee53a5c5",
+            "bytes": 317104
+          },
+          {
+            "label": "editor_after",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t05_after_editor_closeup_native.png",
+            "sha256": "8ccb8d8e3e19ac532493d6de4d40ead6b3cfaf8dff1f688864039ca814820373",
+            "bytes": 311942
+          },
+          {
+            "label": "full_projection",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t05_after_world_closeup_native.png",
+            "sha256": "a18f3c2545516f9f103149abd680f2c6671f2a6022985eb09a39e9a66d38b12e",
+            "bytes": 1220435
+          },
+          {
+            "label": "full_projection_hidden",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t05_after_world_hidden_native.png",
+            "sha256": "514f07621fcdb7f22f096e1d0492a1308c216ce62fee91be574c390c143157b9",
+            "bytes": 1325939
+          }
+        ]
+      },
+      {
+        "fixture": "test.transforms.acceptance.t08",
+        "data": [
+          {
+            "stage": "loaded",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "rotate_y90",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "undo",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "redo",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "undo_again",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": false
+          },
+          {
+            "stage": "locked_partner_rejected",
+            "equal": true,
+            "document_semantic_equal": true,
+            "rejected": true
+          }
+        ],
+        "parts_after": [
+          {
+            "key": [
+              0,
+              0,
+              0
+            ],
+            "count": 13,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              0,
+              1,
+              0
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              0,
+              1,
+              1
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              0,
+              2,
+              0
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              0,
+              2,
+              1
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              0,
+              0
+            ],
+            "count": 8,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              0,
+              1
+            ],
+            "count": 9,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              1,
+              1
+            ],
+            "count": 1,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              2,
+              0
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          },
+          {
+            "key": [
+              1,
+              2,
+              1
+            ],
+            "count": 0,
+            "current_signature": true,
+            "ready": true,
+            "empty_source_current": false
+          }
+        ],
+        "captures": [
+          {
+            "label": "editor_before",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t08_before_editor_closeup_native.png",
+            "sha256": "9905bf4e040f4487ed0d5f3fec16326d902c4f17600e56db576bd99c0a4287d6",
+            "bytes": 259897
+          },
+          {
+            "label": "editor_after",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t08_after_editor_closeup_native.png",
+            "sha256": "5f3a07bc03d6ab8fed1092a76618f02b3fea24c4771ab4d6ed19aae578087dc7",
+            "bytes": 251402
+          },
+          {
+            "label": "full_projection",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t08_after_world_closeup_native.png",
+            "sha256": "bd723f867d22cb905b449839fb63e0b09f1a59755ef37476a091b35a05be4e0c",
+            "bytes": 1293862
+          },
+          {
+            "label": "full_projection_hidden",
+            "path": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/round-20261019/transform-runtime-v5_t08_after_world_hidden_native.png",
+            "sha256": "ad8931617e1ec1849b798a98f426e0376e389b069369d34c3fcbef3dd518915a",
+            "bytes": 1328998
+          }
+        ]
+      }
+    ]
+  },
+  "missing_failure": {
+    "path": ".runtime/round-20261019/transform-runtime-v6-missing.json",
+    "sha256": "b25ab950262442e54040ab593c5d047a86ea527828f87c30e735242089619b44",
+    "bytes": 137826,
+    "completed": false,
+    "restored": true,
+    "cleanup_errors": [],
+    "error": "AssertionError: Missing projection snapshot differs from the transformed typed document",
+    "observer_restored": true,
+    "accepted_missing_stages": 0,
+    "limitation": "Original failure did not save its raw state; source inspection and offline reproduction identify the snapshot-name contract, without claiming an exact runtime diff."
+  },
+  "source_fingerprints": [
+    {
+      "path": "tools/verify_debug_blueprints.py",
+      "sha256": "d9922aff8136fac0693c3a944d91e168c2ab1b2311e78357327b95ecd7d41f57",
+      "bytes": 22923
+    },
+    {
+      "path": "tools/verify_transform_runtime_r23.py",
+      "sha256": "edf296b0f81ad2dd715db526bc0e88a3a490ca6bf90e9b9c89ab444ad8056485",
+      "bytes": 20571
+    },
+    {
+      "path": "tools/transform_missing_r23.py",
+      "sha256": "91580ce08169e340fac6afc27ac5ffb4fe2607a0257e8ad7bf9f2bcbe94905e0",
+      "bytes": 10613
+    },
+    {
+      "path": "tools/check_blueprint_neighbor_context.py",
+      "sha256": "1dd2450430c2573b6366c86c3050e78044b076ea29d4aa23cc7b0db82b3b81f8",
+      "bytes": 11990
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/debug_transform_acceptance.py",
+      "sha256": "a97c9622898eb6d73a2729d495aafa8ec0dbad9164ec54c7ba587b5bc5736b28",
+      "bytes": 7683
+    }
+  ],
+  "validation": {
+    "empty_tile_readiness_tests": 7,
+    "camera_projection_tests": 26,
+    "transform_runtime_tool_tests": 11,
+    "product_connection_matrix_tests": 17,
+    "transform_missing_tests": 8,
+    "actual_python2_python3_fixture_states_compared": 100
+  },
+  "visual_observations": {
+    "opened_v4_original_images": 4,
+    "opened_v5_original_main_images": 12,
+    "t01": "Editor before/after and full projection are visible; this does not establish every material/state/transform.",
+    "t04": "Both editor images and full projection show supports but no chest bodies in C.",
+    "t05": "Editor images show four rail lanes and curve after rotation; full projection is partly outside the frame and is not a complete geometry gate.",
+    "t08": "Editor and full projection show supports/markers; door/chest bodies are invisible in C.",
+    "scope_limit": "C uses private culling terrain declarations. No main-material appearance acceptance follows from these images."
+  },
+  "material_candidate": {
+    "path": ".runtime/round-20261019/alpha-cull-v1-patch/patch.json",
+    "sha256": "0dada799b252fd78665aea0e3ba2f71f4e05c963d5b4098b2e9fbf2b127fae48",
+    "bytes": 1126
+  },
+  "main_terrain_t04_recheck": {
+    "path": ".runtime/round-20261019/transform-runtime-v7-t04-main.json",
+    "sha256": "aec8237757ddc7240a50edade0b08bd99bc7eb5f70f45018079a69051aa9ea30",
+    "bytes": 1490550,
+    "fixture": "test.transforms.acceptance.t04",
+    "completed": true,
+    "restored": true,
+    "cleanup_errors": [],
+    "data": [
+      {
+        "stage": "loaded",
+        "equal": true,
+        "state_sha256": "26925af121b26cd53a649d4f15e45e232264a4c0476e6cbe22943edc3399ea07",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": true,
+        "document_semantic_equal": true,
+        "undo": 0,
+        "redo": 0,
+        "message": "T04：两组双箱跨X=15/16；红/蓝台座区分两组。先旋转90°并撤销，再镜像X并撤销。",
+        "job_error": ""
+      },
+      {
+        "stage": "mirror_x",
+        "equal": true,
+        "state_sha256": "a5346b287dcb3ad99b636070d77232be306b5a122d9ab3e8774b689f836e11e8",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": false,
+        "document_semantic_equal": true,
+        "undo": 1,
+        "redo": 0,
+        "message": "沿 X 镜像，已修改 10 格",
+        "job_error": "",
+        "started": {
+          "asynchronous": false,
+          "result": 10
+        }
+      },
+      {
+        "stage": "undo",
+        "equal": true,
+        "state_sha256": "8b458a769d1f5679fa11f4000bc20175ddc09d8474784cf94cce1c350782fcac",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": false,
+        "document_semantic_equal": true,
+        "undo": 0,
+        "redo": 1,
+        "message": "已撤销：沿 X 镜像",
+        "job_error": ""
+      },
+      {
+        "stage": "redo",
+        "equal": true,
+        "state_sha256": "376153bac851adfbf5d6d841090e956b512b70af041ecc3339c50e562c07abfe",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": false,
+        "document_semantic_equal": true,
+        "undo": 1,
+        "redo": 0,
+        "message": "已重做：沿 X 镜像",
+        "job_error": ""
+      },
+      {
+        "stage": "undo_again",
+        "equal": true,
+        "state_sha256": "d151d1e001d489414fbd1b94494df8d83c0f19e494ca3613b88faebfcb2790d7",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": false,
+        "document_semantic_equal": true,
+        "undo": 0,
+        "redo": 1,
+        "message": "已撤销：沿 X 镜像",
+        "job_error": ""
+      }
+    ],
+    "screenshots": {
+      "before": {
+        "path": ".runtime/round-20261019/transform-runtime-v7-t04-main_t04_before_editor_closeup_native.png",
+        "sha256": "607ca1a6065395ce3c2ce2094e5446777b84fc6bed197192708041ffa29a986a",
+        "bytes": 269895,
+        "original_image_opened": true
+      },
+      "after": {
+        "path": ".runtime/round-20261019/transform-runtime-v7-t04-main_t04_after_editor_closeup_native.png",
+        "sha256": "e90c5ec214d6ecaafe6d9797d313096a49022bb83708768a624772be8935d6cb",
+        "bytes": 263853,
+        "original_image_opened": true
+      },
+      "full_projection": {
+        "path": ".runtime/round-20261019/transform-runtime-v7-t04-main_t04_after_world_closeup_native.png",
+        "sha256": "f0efe5bcf611d3b51fe647f3dfc8595a096bcc001636e9c8b1dfb37f6fcd33c6",
+        "bytes": 1297333,
+        "original_image_opened": true
+      },
+      "full_hidden": {
+        "path": ".runtime/round-20261019/transform-runtime-v7-t04-main_t04_after_world_hidden_native.png",
+        "sha256": "25cf8a2ccda29956943471811d533609487e02fb3066c612fa0263a3dc1dce32",
+        "bytes": 1320543,
+        "original_image_opened": true
+      }
+    },
+    "terrain_sha256": "b20079f22bb9272d036f1ca4c1c148ab2a0a9c05ad0cf894b644db93ebd5971b",
+    "visual_observation": "Both double chests visible in before/after editor and complete projection; hidden reference removes projection. v5 candidate-material appearance cannot qualify main terrain. T08 main-terrain appearance remains untested."
+  },
+  "controlled_missing_t01": {
+    "path": ".runtime/round-20261019/transform-runtime-v8-missing-t01.json",
+    "sha256": "f8d5c18cc9ed2628f7e94d15d7d33a8abebef4b025e41c0c6a4d5d783c5e29fd",
+    "bytes": 827023,
+    "completed": true,
+    "restored": true,
+    "missing_projection_checked": true,
+    "cleanup_errors": [],
+    "plan": {
+      "points": [
+        [
+          6,
+          5,
+          2
+        ]
+      ],
+      "original_points": [
+        [
+          2,
+          5,
+          2
+        ]
+      ],
+      "operation": "rotate_y90",
+      "stages": [
+        [
+          "empty",
+          []
+        ],
+        [
+          "occupied",
+          [
+            [
+              6,
+              5,
+              2
+            ]
+          ]
+        ],
+        [
+          "restored",
+          []
+        ]
+      ],
+      "native_world_occupancy": false
+    },
+    "observer_restored": true,
+    "data": [
+      {
+        "stage": "loaded",
+        "equal": true,
+        "state_sha256": "2b67382c46169efd97f5eaf87fc696fa05046cd030bff892ca89d97b0f7ee034",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": true,
+        "document_semantic_equal": true,
+        "undo": 0,
+        "redo": 0,
+        "message": "T01：已选中7×5×5范围；红绿蓝黄为底角，紫为上角。先旋转90°，撤销，再看镜像。",
+        "job_error": ""
+      },
+      {
+        "stage": "rotate_y90",
+        "equal": true,
+        "state_sha256": "1b10d54f3b5a0c59a5ea3c287218c15eda23d990daf88ef6a2fde31559c63926",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": false,
+        "document_semantic_equal": true,
+        "undo": 1,
+        "redo": 0,
+        "message": "水平旋转 90°，已修改 39 格",
+        "job_error": "",
+        "started": {
+          "asynchronous": false,
+          "result": 39
+        }
+      },
+      {
+        "stage": "undo",
+        "equal": true,
+        "state_sha256": "eb8573b15976ddb74ba19848ad859b6c842d0c77f81b77e4a662b87770bb56a7",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": false,
+        "document_semantic_equal": true,
+        "undo": 0,
+        "redo": 1,
+        "message": "已撤销：水平旋转 90°",
+        "job_error": ""
+      },
+      {
+        "stage": "redo",
+        "equal": true,
+        "state_sha256": "cf42771704374c08ccc0761cc3f1da115b0eb0f974376bc810178f73c54897ae",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": false,
+        "document_semantic_equal": true,
+        "undo": 1,
+        "redo": 0,
+        "message": "已重做：水平旋转 90°",
+        "job_error": ""
+      },
+      {
+        "stage": "undo_again",
+        "equal": true,
+        "state_sha256": "3c2c97c08dec7eb3b736a87e162b4fd2bcc4ef712b6d1a321a904b32892f723d",
+        "state_sha256_scope": "Decoded document semantics and strict editor state.",
+        "encoded_equal": false,
+        "document_semantic_equal": true,
+        "undo": 0,
+        "redo": 1,
+        "message": "已撤销：水平旋转 90°",
+        "job_error": ""
+      }
+    ],
+    "stages": [
+      {
+        "label": "empty",
+        "expected_observations": [
+          1
+        ],
+        "state": {
+          "ready": true,
+          "active": true,
+          "missing": true,
+          "building": false,
+          "preparing": false,
+          "failed": false,
+          "source_current": true,
+          "snapshot_preserved": true,
+          "document_preserved": true,
+          "observations": [
+            1
+          ],
+          "revision": 1,
+          "editor_id": 1862084597296,
+          "document_id": 1862086123416,
+          "error": null
+        },
+        "final": {
+          "ready": true,
+          "active": true,
+          "missing": true,
+          "building": false,
+          "preparing": false,
+          "failed": false,
+          "source_current": true,
+          "snapshot_preserved": true,
+          "document_preserved": true,
+          "observations": [
+            1
+          ],
+          "revision": 1,
+          "editor_id": 1862084597296,
+          "document_id": 1862086123416,
+          "error": null
+        },
+        "shown": {
+          "path": ".runtime/round-20261019/transform-runtime-v8-missing-t01_t01_missing_empty_native.png",
+          "sha256": "83c2e7e8a5854eb5e71371aeecebef66491fb892ff980393f451061524d5c281",
+          "bytes": 1285096,
+          "original_image_opened": true
+        },
+        "hidden": {
+          "path": ".runtime/round-20261019/transform-runtime-v8-missing-t01_t01_missing_empty_hidden_native.png",
+          "sha256": "37782b9c8b705054914d659cb1b8319ce362f245f6d903dc05c1664842b4080e",
+          "bytes": 1327544,
+          "original_image_opened": true
+        },
+        "document_verification": {
+          "stage": "missing:t01:empty",
+          "equal": true,
+          "state_sha256": "1b10d54f3b5a0c59a5ea3c287218c15eda23d990daf88ef6a2fde31559c63926",
+          "state_sha256_scope": "Decoded document semantics and strict editor state.",
+          "encoded_equal": false,
+          "document_semantic_equal": true,
+          "undo": 1,
+          "redo": 0,
+          "message": "完整投影已生成，关闭工作台即可查看",
+          "job_error": ""
+        },
+        "pixels_accepted": false
+      },
+      {
+        "label": "occupied",
+        "expected_observations": [
+          2
+        ],
+        "state": {
+          "ready": true,
+          "active": true,
+          "missing": true,
+          "building": false,
+          "preparing": false,
+          "failed": false,
+          "source_current": true,
+          "snapshot_preserved": true,
+          "document_preserved": true,
+          "observations": [
+            2
+          ],
+          "revision": 1,
+          "editor_id": 1862084597296,
+          "document_id": 1862086123416,
+          "error": null
+        },
+        "final": {
+          "ready": true,
+          "active": true,
+          "missing": true,
+          "building": false,
+          "preparing": false,
+          "failed": false,
+          "source_current": true,
+          "snapshot_preserved": true,
+          "document_preserved": true,
+          "observations": [
+            2
+          ],
+          "revision": 1,
+          "editor_id": 1862084597296,
+          "document_id": 1862086123416,
+          "error": null
+        },
+        "shown": {
+          "path": ".runtime/round-20261019/transform-runtime-v8-missing-t01_t01_missing_occupied_native.png",
+          "sha256": "f499825f9da7b8958fef5c5ef121f2fcb9ce7ad7ea5c2fc574e14567a9090bfe",
+          "bytes": 1285912,
+          "original_image_opened": true
+        },
+        "hidden": {
+          "path": ".runtime/round-20261019/transform-runtime-v8-missing-t01_t01_missing_occupied_hidden_native.png",
+          "sha256": "e7b6609ab981df2159f33dc2cdee240682d55929cb559ef22589338d3599bc15",
+          "bytes": 1327468,
+          "original_image_opened": true
+        },
+        "document_verification": {
+          "stage": "missing:t01:occupied",
+          "equal": true,
+          "state_sha256": "1b10d54f3b5a0c59a5ea3c287218c15eda23d990daf88ef6a2fde31559c63926",
+          "state_sha256_scope": "Decoded document semantics and strict editor state.",
+          "encoded_equal": false,
+          "document_semantic_equal": true,
+          "undo": 1,
+          "redo": 0,
+          "message": "完整投影已生成，关闭工作台即可查看",
+          "job_error": ""
+        },
+        "pixels_accepted": false
+      },
+      {
+        "label": "restored",
+        "expected_observations": [
+          1
+        ],
+        "state": {
+          "ready": true,
+          "active": true,
+          "missing": true,
+          "building": false,
+          "preparing": false,
+          "failed": false,
+          "source_current": true,
+          "snapshot_preserved": true,
+          "document_preserved": true,
+          "observations": [
+            1
+          ],
+          "revision": 1,
+          "editor_id": 1862084597296,
+          "document_id": 1862086123416,
+          "error": null
+        },
+        "final": {
+          "ready": true,
+          "active": true,
+          "missing": true,
+          "building": false,
+          "preparing": false,
+          "failed": false,
+          "source_current": true,
+          "snapshot_preserved": true,
+          "document_preserved": true,
+          "observations": [
+            1
+          ],
+          "revision": 1,
+          "editor_id": 1862084597296,
+          "document_id": 1862086123416,
+          "error": null
+        },
+        "shown": {
+          "path": ".runtime/round-20261019/transform-runtime-v8-missing-t01_t01_missing_restored_native.png",
+          "sha256": "a0743f0a917de8efc64c04c66d386d1f4e17eee1520ff9722b8c4a44fdc7bb9b",
+          "bytes": 1284047,
+          "original_image_opened": true
+        },
+        "hidden": {
+          "path": ".runtime/round-20261019/transform-runtime-v8-missing-t01_t01_missing_restored_hidden_native.png",
+          "sha256": "ae9219f93e0d7a25d7d27e70042c26976070dd414a28cd19f4a30816f09df44e",
+          "bytes": 1326809,
+          "original_image_opened": true
+        },
+        "document_verification": {
+          "stage": "missing:t01:restored",
+          "equal": true,
+          "state_sha256": "1b10d54f3b5a0c59a5ea3c287218c15eda23d990daf88ef6a2fde31559c63926",
+          "state_sha256_scope": "Decoded document semantics and strict editor state.",
+          "encoded_equal": false,
+          "document_semantic_equal": true,
+          "undo": 1,
+          "redo": 0,
+          "message": "完整投影已生成，关闭工作台即可查看",
+          "job_error": ""
+        },
+        "pixels_accepted": false
+      }
+    ],
+    "independent_restore": {
+      "path": ".runtime/round-20261019/transform-runtime-v8-restored-status.json",
+      "sha256": "0b1b8699a6997d0fe7a2a094687086dd84984cdbe8a74bb99ce4edafb768cbb1",
+      "bytes": 491,
+      "state": {
+        "projection_active": false,
+        "preparing_entity": null,
+        "busy": false,
+        "factory_type": "EngineCompFactoryClient",
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "occupancy_class": "ProjectionOccupancy",
+        "transition": false,
+        "markers": {
+          "_blueprint_qa_saved": false,
+          "_blueprint_visual_saved": false,
+          "_transform_missing_r23_occupied": false,
+          "_transform_missing_r23_saved": false,
+          "_transform_r23_saved": false
+        },
+        "entity": null
+      }
+    },
+    "visual_observation": "Purple transformed target disappears only while occupied and returns restored; all three hidden native PNGs omit projected structure.",
+    "limitations": [
+      "Controlled observer; no native-world block placement or native occupancy scan qualified.",
+      "T04/T05/T08 controlled missing pair scenarios not yet run.",
+      "Other v8 editor/complete-projection PNGs were not included in the original-image inspection claim."
+    ],
+    "issues_closed": 0
+  }
+}

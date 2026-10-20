@@ -361,3 +361,72 @@ Only the `blue_orchid h0` nine-step editor subset is accepted. Full snow
 acceptance remains open, including other plants and snow heights, positions,
 neighborhoods, and complete editor/full/missing projection integration. Native
 random plant placement offsets are outside the declared centered style.
+
+## V7 Two Native Holdouts Prepared For R22
+
+The existing v7 freeze remains unchanged for the round ending
+`2026-10-16T13:30:00+08:00`: 921 host files and the same 3,116-file cold product
+source contract. Its only new plant/height pairs are `lily_of_the_valley h4`
+and `crimson_roots h7`, each through editor/full/missing routes. The original
+two-case driver rejects crossed pairs before session access. Actual installed
+3.10 texture alpha predicts 3,260 exposed pixels out of 26,635 dry pixels for
+the lily, and zero exposed pixels out of 48,250 for the roots in the declared
+offline camera. These values select useful partial/full burial cases; they
+are not acquired native acceptance results.
+
+The current-round entry point is `.runtime/snow_v7_r22.py`, defaulting to
+offline `check`. It verifies the unchanged v7 launcher, plan, full host and
+cold product inventories, and the independent watcher sidecar in
+`.runtime/snow-r20-v7-r22-control`. The sidecar retains the current assertion
+watcher and four dependencies without modifying the old frozen host or cold
+product. Its original watcher root is explicitly rebound in memory to the
+repository so its project restriction still targets the owned cold clones.
+
+Only after Root assigns the MC/WGC window:
+
+```powershell
+python -B -X utf8 .runtime/snow_v7_r22.py start --scheduled-by-root
+python -B -X utf8 .runtime/snow_v7_r22.py ready --scheduled-by-root
+python -B -X utf8 .runtime/snow_v7_r22.py calibrate --scheduled-by-root
+python -B -X utf8 .runtime/snow_v7_r22.py lily --scheduled-by-root
+python -B -X utf8 .runtime/snow_v7_r22.py crimson --scheduled-by-root
+```
+
+The assertion watcher starts before game launch, is restricted to the exact
+`snow-r20-v7` owner, and runs until 13:30. Each phase requires two advancing,
+fresh heartbeats covering the exact session and a live exact-exit observer
+identity. All earlier read errors, recoveries and other assertions remain in
+the cumulative watcher record and block clean acquisition. The original
+exact-handle observer covers ready through both actual process exits, not the
+spawn-to-ready interval. Twelve offline checks verify the default path with
+live subprocess/identity access denied, deadline admission and watcher
+negative controls. The original nine probe restoration tests also passed.
+
+This run needs one owned game and at least 6 GiB of available system commit,
+using `(CommitLimit - CommitTotal) * PageSize`; physical availability is not
+the gate. It retains the single operational-engine limit, aggregate five-game
+limit, four reload settings false, `OPENBLAS_NUM_THREADS=1`, and no activation,
+resize, desktop input or force stop. A new same-session stone calibration
+precedes both holdouts; neither old calibration bindings nor pixel thresholds
+are changed. The matrix uses the approved Y+16 fixture, physical pixel ROI,
+blank/plant/snow/covered controls and a same-plant cutaway. These two matrix
+holdouts do not extend the nine-step lifecycle claim to either new plant.
+
+The expected complete wall time remains 12–16 minutes, with 20–25 minutes
+reserved for slow acquisition or restoration. Admission requires at least
+30 minutes before start and 15 before calibration or either holdout. Those
+reserves are not a finite hard restoration bound; the original cleanup is
+allowed to finish. After one ordinary close request, wait for both exact
+exits and for the exit observer to finish before metadata finalization:
+
+```powershell
+python -B -X utf8 .runtime/snow_v7_r22.py stop --scheduled-by-root
+python -B -X utf8 .runtime/snow_v7_r22.py finalize --scheduled-by-root
+```
+
+No v7 game was launched during this preparation. Native stone calibration,
+both holdout reports and original-image review, unchanged-source receipts,
+and exact exits remain required. Product and full-snow qualification remain
+false. Any later accepted range must name the acquired plant/height pairs,
+centered placement, routes and workflow explicitly; the `blue_orchid h0`
+single lifecycle cannot establish broader default support.

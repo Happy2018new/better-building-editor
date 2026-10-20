@@ -1,0 +1,358 @@
+{
+  "schema": 1,
+  "generated_at_utc": "2026-10-19T15:29:20.572565+00:00",
+  "host_head": "e44735c2e5269526e72e70f3ee502c072182c882",
+  "host_branch": "dev",
+  "host_is_uncommitted_worktree": true,
+  "host_staged_files": 0,
+  "pre_existing_tracked_wip_count": 25,
+  "pack_inventory": {
+    "path": ".runtime/round-20261019/final-pack-source-inventory-v1.json",
+    "bytes": 907896,
+    "sha256": "765903da826eea210b79dfcb2350322b6cacb7ef5d78a148d606c72e654096ad"
+  },
+  "all_final_pack_files_equal_tested_cold_copy": true,
+  "pack_files": 3680,
+  "pack_bytes": 118917736,
+  "final_checks": {
+    "passed": true,
+    "version_bundle_checks": 34,
+    "unittest_count": 3289,
+    "unittest_skipped": 1,
+    "unittest_seconds": 463.344,
+    "v5_failed_oracles_retained": 3
+  },
+  "selected_sources": [
+    {
+      "path": "behavior_pack/modern_projection/projection/geometry_palette.py",
+      "bytes": 16011,
+      "sha256": "9888dc7055d9566e012e60ce62a3a42ea7d336eaa93e8f0fd78e2d6349d455d2"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/render_context.py",
+      "bytes": 27474,
+      "sha256": "300bf6bab79348deeeb457665c1f08904349b694ab14e52be7cbaed488310ab0"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/debug_blueprints.py",
+      "bytes": 23283,
+      "sha256": "8b5b394c7478e62ae59b6dd2083479b0d79e4d8b10950fbbd3fcd9fd4cf8d08f"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/debug_ordinary_plant_blueprints.py",
+      "bytes": 709,
+      "sha256": "953c6c8706f77b8a042b03c020049ef590c85adae14a311dd65b0c810ddd1278"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/debug_pressure_blueprints.py",
+      "bytes": 1539,
+      "sha256": "29712b001eef38d873e4c78a21fc71b8942354893191f0c9727ae138b0b6559b"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/debug_transform_acceptance.py",
+      "bytes": 7683,
+      "sha256": "a97c9622898eb6d73a2729d495aafa8ec0dbad9164ec54c7ba587b5bc5736b28"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/ordinary_plant_data.py",
+      "bytes": 824,
+      "sha256": "735edefaab0637bc491b92009fe89c5906f8eb24a43e39dbdffdddc0d22c41bb"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/rail_render_profile.py",
+      "bytes": 1180,
+      "sha256": "2b644ba748025e3ca5e5218767e24d9222df835e8b0119cd3b10da944f3088da"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/liquid_product_owner_data.py",
+      "bytes": 200,
+      "sha256": "8af858ec4d91be22a14ee3378854fb69eae38374cd93bb759818f207c0fe1b86"
+    },
+    {
+      "path": "resource_pack/blocks.json",
+      "bytes": 118563,
+      "sha256": "14183b1396e968f187626b0691a506f6d9abdaf5eb4f340f0c96ce7151621888"
+    },
+    {
+      "path": "resource_pack/textures/terrain_texture.json",
+      "bytes": 12205,
+      "sha256": "83fea23d3f58ae487eab6787df267e723ecb8c99bd9f9a4dfdb67ff03b6d24e1"
+    },
+    {
+      "path": "resource_pack/textures/flipbook_textures.json",
+      "bytes": 23186,
+      "sha256": "e543fdd20b4d2f4496edc8cef75895df6f6d2f75a6aadb76b3aacb82c3488808"
+    },
+    {
+      "path": "resource_pack/textures/blocks/modern_projection_r23_firefly_composited.png",
+      "bytes": 807,
+      "sha256": "02724cb3a6218e044a58726fa5e953d6a407b86d91c0c13997694bfe8cb20bf0"
+    },
+    {
+      "path": "tools/generate_centered_plant_profiles.py",
+      "bytes": 11095,
+      "sha256": "71364ebca2ca59cc15d264a7faac5c94d38579cef908b8792bbc55a13c5f61d9"
+    },
+    {
+      "path": "tools/generate_firefly_bush_animation.py",
+      "bytes": 6616,
+      "sha256": "743e0749eabf028798502d49a04757d98e426cfc28e7402a527ae4312dd7fedf"
+    },
+    {
+      "path": "tools/generate_ordinary_plant_proxies.py",
+      "bytes": 6280,
+      "sha256": "a532f2e9c12e10bfeeb37e4da3b243c8c5514144cad2a063738f0b57714a4a1a"
+    },
+    {
+      "path": "tools/check_version_bundle.py",
+      "bytes": 22898,
+      "sha256": "7e6b4189045a57fad90dbc632ea80571131441dc2012ce6f669cb4d8e54da3f2"
+    },
+    {
+      "path": "tests/test_geometry_palette.py",
+      "bytes": 22224,
+      "sha256": "c27f8c9c59ba656f54f7adf91d21028554a6b3f42109e2bb33e94b69a5f279bc"
+    },
+    {
+      "path": "tests/test_ordinary_plant_proxies.py",
+      "bytes": 4270,
+      "sha256": "7fa5800f5e30708952c6c9d2e66f6691eb8df3a62dbc296f625641aac491d8e2"
+    },
+    {
+      "path": "tests/test_firefly_bush_animation.py",
+      "bytes": 5583,
+      "sha256": "e24eb8f50a6ee82398f8aee62b27bb1f0c26240dafa1bfd522a8c2d2e61267dd"
+    },
+    {
+      "path": "tests/test_centered_plant_profiles.py",
+      "bytes": 7877,
+      "sha256": "289518eac69909134e4d9351b8e9afdedbf1345c42194b5efbfaceeac6b00158"
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".runtime/round-20261019/version-bundle-v5.json",
+      "bytes": 13247,
+      "sha256": "80afd37c1699d7eef4ab525c753189e57fbd33eed149882f0db20da42ed4d6a8"
+    },
+    {
+      "path": ".runtime/round-20261019/version-bundle-v5.log",
+      "bytes": 44666,
+      "sha256": "0e1a0ff5ae5c88d9f1c933947ade43ed2fdf12f1ffd0c44e4fccd67536375b56"
+    },
+    {
+      "path": ".runtime/round-20261019/version-bundle-v6.json",
+      "bytes": 13245,
+      "sha256": "0771162d216e5f0422d8467aa9f52e16b695d99159726b6c59b044fc03ed15de"
+    },
+    {
+      "path": ".runtime/round-20261019/version-bundle-v6.log",
+      "bytes": 42384,
+      "sha256": "f4517f4e0338a965742edff2eff59831b07b118e40fd164d2f37b404fd1880f6"
+    },
+    {
+      "path": "docs/evidence/plant-proxy-r23/formal-runtime-v1.json",
+      "bytes": 64196,
+      "sha256": "2d8d838d329055e4c885c6e654aeee599cdf9cfb49be36266644c91f5ea6eb77"
+    },
+    {
+      "path": "docs/evidence/plant-proxy-r23/wet-cpu-boundary-20261019.json",
+      "bytes": 19267,
+      "sha256": "f9a4becb3ea9bef3ccb319c5055c21920a1e0929a203da833b1a81bf4055b5e3"
+    },
+    {
+      "path": "docs/evidence/plant-proxy-r23/wet-runtime-20261019.json",
+      "bytes": 77135,
+      "sha256": "65d75cfc79f1bf6ced7f8fb02d7b423f6433c13a6091a42ca55a83898049e741"
+    },
+    {
+      "path": "docs/evidence/firefly-bush-r23/cold-runtime-v1.json",
+      "bytes": 55436,
+      "sha256": "09d44e0d2f92aa904dca56b2f9e52ff51f09741237aa0be0f414e1feffd3ec86"
+    },
+    {
+      "path": "docs/evidence/pressure-fixture-r23/preflight-v1.json",
+      "bytes": 48911,
+      "sha256": "6bc1f7295613cc4e737ef6b487501c8e419af7f73afaad6e2644529f81ddda73"
+    },
+    {
+      "path": "docs/evidence/concrete-r23/strict-ab-white-product-20261019.json",
+      "bytes": 15494,
+      "sha256": "5b95512aedacc32ba55b7c8c82f31a520178b24764c2c512cd3a319cc8d7395b"
+    },
+    {
+      "path": "docs/evidence/concrete-r23/lever-owned-independent-review-20261019.json",
+      "bytes": 5346,
+      "sha256": "bfa5ae8acf8d567567939106ec2d8bc05da5e612aa5bfe67866a1f103f4c5541"
+    },
+    {
+      "path": "docs/evidence/concrete-r23/lever-owned-editor-missing-20261019.json",
+      "bytes": 20803,
+      "sha256": "0c77c30e3eab1246edf5962146a9d5035aefd574bf584f6826dae194bd400890"
+    },
+    {
+      "path": "docs/verification/TRANSFORM_R23_RUNTIME.json",
+      "bytes": 37788,
+      "sha256": "566cdb46f11b7cb2531da597cb49fe23689d3ca937bc3990bebe46cadd99f6b8"
+    },
+    {
+      "path": "docs/verification/NORMAL_INPUT_R23.json",
+      "bytes": 8333,
+      "sha256": "21239de67c0258d0e5e5b2c3b266aa8fa0178cadcf3e3319929c0dae93b91f6f"
+    },
+    {
+      "path": ".runtime/round-20261019/finished-watchers-cleanup-v1.json",
+      "bytes": 2832,
+      "sha256": "8013d0efc991ef43eb18d9dac0e2657af8c8a2353f68731ac497280ebb4f799d"
+    }
+  ],
+  "sessions": [
+    {
+      "owner": "alpha-r23-cull-v1",
+      "session": "108a65c8fb454c4c916356073442c292",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "normal-r23-input-v1",
+      "session": "328ce5b1443e48cb93c751b6ac580430",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "alpha-r23-v5",
+      "session": "591931842c234967994014f4934582dd",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "concrete-r23-owned-paths-v1",
+      "session": "5f8f7ebd70e3421a8c1c9a2324c30ced",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "alpha-r23-b-v1",
+      "session": "64dd06fb808943b8b8274342f03f0469",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "alpha-r23-proxy-v2",
+      "session": "76115cb68da842b385c1b4038b1cdcb6",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "transform-r23-v3b",
+      "session": "7ac9897f10ef4273a3f3631d37c6e8d9",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "firefly-r23-c-v1",
+      "session": "905b56151f4747d5b6c133b6cc47cd11",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "ordinary-r23",
+      "session": "9097aca2a241434d8084e0ba9932b0e7",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "ordinary-r23-v2",
+      "session": "982665a1e5044e1e9bcd84a4dec75d69",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "barrier-r23-v3",
+      "session": "a98a25a1074e4b3c9562557de19d911b",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "ordinary-wet-r23-v1",
+      "session": "bbda9ca5a3ca48feb3334a5690f5c18e",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "concrete-r23-owned-v1",
+      "session": "c84b11d2850e4153bbf6b1e087870ac2",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "alpha-r23-proxy-v1",
+      "session": "ca99bb0f25fb4734a7f039bb12e37379",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "pressure-r23-v3",
+      "session": "d297ef2e76df4b44b36a3c5151a9e72b",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "transform-r23-v3",
+      "session": "e20b95829a364d49a964d82e2c299b9b",
+      "state": "stopped",
+      "exact_processes_absent": true
+    },
+    {
+      "owner": "ordinary-final-r23-v1",
+      "session": "fe75ebc2c8ea4f8d97d6675ba145cb45",
+      "state": "stopped",
+      "exact_processes_absent": true
+    }
+  ],
+  "libraries": [
+    {
+      "name": "nemc-block-states",
+      "branch": "main",
+      "head": "58534dc5956848b4e6e5bcba97ad7112e2802388",
+      "worktree_clean": true,
+      "host_dependency_switched": false
+    },
+    {
+      "name": "nemc-block-renderer",
+      "branch": "main",
+      "head": "a96b335a034571516f8bf257cfb3d24d1252f11b",
+      "worktree_clean": true,
+      "host_dependency_switched": false
+    }
+  ],
+  "private_candidate_not_integrated": "lever-owned-v1",
+  "water_route_correction": {
+    "native_water_previously_rejected": true,
+    "custom_water_renderer_required": true,
+    "native_lava_already_accepted": true,
+    "last_wet_runtime_is_legacy_route_diagnostic_only": true,
+    "custom_water_renderer_was_not_tested_by_that_run": true
+  },
+  "candidate_limitations": [
+    "waterlogged lever aux5 GPU qualification",
+    "redstone wire neighborhood connectivity",
+    "normal editor does not use render_context",
+    "real occupancy bank publication and recovery"
+  ],
+  "new_user_manual_acceptance_records": 0,
+  "manual_baseline": {
+    "default_names_passed": 892,
+    "dynamic_names_passed": 34,
+    "dynamic_states_passed": 387,
+    "deduplicated_records": 1245
+  },
+  "qualification_limits": [
+    "fixed centered plant visibility is not native-size or snow qualification",
+    "wet coral also defaults to ordinary proxies; metadata is not a runtime wet gate",
+    "firefly independent particles and remaining display routes stay open",
+    "normal-input probe failed, zero captures, restoration unverified",
+    "several normal-stop attempts ended with engine 0xC0000409",
+    "monitor registry permission errors retained in original status files"
+  ]
+}
