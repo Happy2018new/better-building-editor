@@ -86,7 +86,8 @@ def _binary_record(path, expected):
 
 
 def _host_sources():
-    paths = [Path(__file__), Path(_session.__file__), Path(_window.__file__)]
+    paths = [Path(__file__), Path(__file__).with_name('capture_native_burst_deferred.py'),
+             Path(_session.__file__), Path(_window.__file__)]
     paths += [ROOT / 'tools/native_wgc' / name for name in
               ('burst_main.cpp', 'burst_window_capture.cpp', 'burst_window_capture.h',
                'CMakeLists.txt', 'main.cpp', 'window_capture.cpp', 'window_capture.h')]
@@ -313,6 +314,11 @@ def _validate_timestamp_wait(record, binding, window, baseline, request, previou
 
 
 def _validate_native(report, binding, window, stdout):
+    candidate = _json_document(stdout)
+    if isinstance(candidate, dict) and 'encoding_policy' in candidate:
+        _equal(candidate['encoding_policy'], 'deferred_after_capture_v1', 'Native encoding policy')
+        from capture_native_burst_deferred import validate_native_deferred
+        return validate_native_deferred(report, binding, window, stdout)
     directory = Path(report['output_directory'])
     _require(not _linked(directory) and directory.is_dir() and directory.resolve() == directory,
              'Native output directory is missing or linked')
