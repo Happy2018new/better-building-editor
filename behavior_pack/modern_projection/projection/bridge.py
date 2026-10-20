@@ -430,12 +430,17 @@ class ClientBridge(object):
                                            visible_layer=context_visible_layer)
         else:
             from .geometry_palette import prepare_palette
+            from .kelp_render import palette_parts
             biome = getattr(document, 'biome', None)
             if biome is None:
                 biome = self.session.editor.document.biome
             # One empty Y cell separates source top vertices from overlay
             # bottom vertices so the shader never classifies both alike.
-            data = prepare_palette(document.palette_data(visible), overlay_base=document.size[1]+1,
+            source = document.palette_data(visible)
+            complete = document if hasattr(document, 'blocks') else getattr(document, 'source_document', None)
+            kelp_parts = palette_parts(source, complete, getattr(document, 'source_origin', (0, 0, 0)))
+            data = prepare_palette(source, overlay_base=document.size[1]+1,
+                                   kelp_parts=kelp_parts,
                                    render_origin=render_origin,
                                    item_profile=getattr(self.session, 'item_profile', None),
                                    native_render_profile=preview_profile,

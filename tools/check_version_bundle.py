@@ -317,6 +317,7 @@ def commands(manifest, tests=False):
         ['tools/generate_centered_plant_profiles.py', '--check'],
         ['tools/generate_firefly_bush_animation.py', '--check'],
         ['tools/generate_ordinary_plant_proxies.py', '--check'],
+        ['tools/generate_kelp_proxies.py', '--check'],
         ['tools/generate_bed_proxies.py', '--check'],
         ['tools/generate_scaffold_support.py', '--check'],
         ['tools/generate_biome_water.py', '--source',

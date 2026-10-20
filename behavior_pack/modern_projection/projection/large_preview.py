@@ -30,6 +30,8 @@ class SurfacePalette(object):
         self.actor = {}
         self.count = 0
         self.layer_count = 0
+        self.source_document = None
+        self.source_origin = (0, 0, 0)
 
     def add(self, pos, value):
         x, y, z = pos
@@ -72,6 +74,7 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None, regio
     palette_origin = scan_lo if local else origin
     out = output if output is not None else SurfacePalette(
         tuple(scan_hi[i]-scan_lo[i] for i in range(3)) if local else size)
+    out.source_document, out.source_origin = document, palette_origin
     store = document.blocks
     opaque = [is_opaque(value) for value in store.palette]
     ys = set(y for y in range(origin[1], end[1]) if y not in hidden and (layer is None or y == layer))

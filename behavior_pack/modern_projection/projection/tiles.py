@@ -8,6 +8,7 @@ from .preview_regions import regions
 from .large_preview import SurfacePalette
 from .native_render_profile import profile_identity
 from .liquid_render_ownership import identity as liquid_identity
+from .kelp_render import palette_parts as kelp_palette_parts
 try:
     text_type = unicode
 except NameError:
@@ -313,7 +314,8 @@ class TiledPreview(object):
                 getattr(getattr(self.session, 'cauldron_profile', None), 'identity', None),
                 getattr(getattr(self.session, 'spawner_profile', None), 'identity', None),
                 getattr(getattr(self.session, 'portal_profile', None), 'identity', None),
-                liquid_identity(getattr(self.session, 'liquid_profile', None)))
+                liquid_identity(getattr(self.session, 'liquid_profile', None)),
+                tuple(sorted(kelp_palette_parts(palette.palette_data(), self.session.editor.document, origin).items())))
         part = self.parts.get(key)
         if part is not None and data == part['data']:
             part['signature'] = self.session.preview_signature()

@@ -16,6 +16,7 @@ from .native_appearance import FRAME_NAMES
 from .spawner_marker_data import MARKERS as SPAWNER_MARKERS
 from .shelf_body import INTERNAL_BLOCKS as SHELF_BLOCKS, prepare_shelves
 from .barrier_render import PROXIES as BARRIER_PROXIES
+from .kelp_render import PROXIES as KELP_PROXIES, prepare_layer as prepare_kelp_layer
 from .plant_position import (plant_render, position_sensitive,
                              render_origin as validate_render_origin)
 
@@ -69,6 +70,7 @@ INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROX
                                  list(SPAWNER_MARKERS.values()) +
                                  list(SHELF_BLOCKS) +
                                  list(BARRIER_PROXIES.values()) +
+                                 list(KELP_PROXIES.values()) +
                                  ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
 
 
@@ -190,33 +192,35 @@ def _append_frame_items(common, actors, logical, overlay_base, item_profile=None
     return (logical[0], logical[1], overlay_base + logical[2])
 
 
+def _prepare_layer(source, key):
+    entries, records = {}, {}
+    supplied = source.get('states' if key == 'common' else 'extraStates', {})
+    supplied = dict((canonical(value), dict(record))
+                    for value, record in supplied.items())
+    for original, positions in source.get(key, {}).items():
+        value = canonical(original)
+        entries.setdefault(value, []).extend(positions)
+        record = supplied.get(canonical(original))
+        record = states(value) if record is None else record
+        if record is not None:
+            records[value] = record
+    for positions in entries.values():
+        positions.sort()
+    return entries, records
+
+
+
 def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE,
                     inferred_bed_colors=None, render_origin=(0, 0, 0), item_profile=None,
                     native_render_profile=None, cauldron_profile=None, biome='plains', liquid_profile=None,
-                    spawner_profile=None, portal_profile=None):
+                    spawner_profile=None, portal_profile=None, kelp_parts=None):
     """Copy and canonicalize both native layers and actor payloads."""
     validate_plant_source()
     render_origin = validate_render_origin(render_origin)
     data = dict(source)
 
-    def prepare_layer(key):
-        entries, records = {}, {}
-        supplied = source.get('states' if key == 'common' else 'extraStates', {})
-        supplied = dict((canonical(value), dict(record))
-                        for value, record in supplied.items())
-        for original, positions in source.get(key, {}).items():
-            value = canonical(original)
-            entries.setdefault(value, []).extend(positions)
-            record = supplied.get(canonical(original))
-            record = states(value) if record is None else record
-            if record is not None:
-                records[value] = record
-        for positions in entries.values():
-            positions.sort()
-        return entries, records
-
-    common, common_states = prepare_layer('common')
-    extra, extra_states = prepare_layer('extra')
+    common, common_states = _prepare_layer(source, 'common')
+    extra, extra_states = _prepare_layer(source, 'extra')
     normalize_palette_layers(common, common_states, extra, extra_states)
     from .liquid_render_ownership import owned_names, suppress
     liquid_names = owned_names(liquid_profile)
@@ -251,6 +255,8 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
                                                    inferred_chest_parts, inferred_bed_colors,
                                                    native_render_profile)
     common, common_states, shelf_actors = prepare_shelves(common, common_states)
+    common, common_states = prepare_kelp_layer(common, common_states, kelp_parts)
+    extra, extra_states = prepare_kelp_layer(extra, extra_states, kelp_parts)
     common, common_states = _proxy_foreground(common, common_states, source.get('volume'),
                                              render_origin, overlay_base)
     for entries in (common, extra):

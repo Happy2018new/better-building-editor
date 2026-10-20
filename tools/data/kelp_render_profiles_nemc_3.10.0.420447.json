@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "registry_version": "NEMC 3.9.0.401155",
+  "registry_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "resource_version": "NEMC 3.10.0.420447",
+  "template_path": "resource_pack/models/netease_block/preview_fern.json",
+  "template_sha256": "f460cb21dee29470140e1e759eeae75afcd9406f5982806cabea9e4d47d70f96",
+  "style": "fixed_centered_double_sided_native_atlas",
+  "native_mesh_authority": false,
+  "native_cycle_qualified": false,
+  "snow_qualified": false,
+  "parts": {
+    "stem": {
+      "identifier": "modern_projection:ordinary_kelp_stem",
+      "atlas_tile": "kelp_a",
+      "terrain_entry": {
+        "textures": "textures/blocks/kelp_a"
+      },
+      "flipbook": {
+        "atlas_tile": "kelp_a",
+        "flipbook_texture": "textures/blocks/kelp_a",
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "ticks_per_frame": 4
+      },
+      "texture_path": "textures/blocks/kelp_a.tga",
+      "texture_sha256": "59ef16d4e834a0fcbd092f7d8a389a5fc318e1eba7fa9164b076a71dc2982de5",
+      "texture_size": [
+        16,
+        320
+      ]
+    },
+    "top": {
+      "identifier": "modern_projection:ordinary_kelp_top",
+      "atlas_tile": "kelp_top",
+      "terrain_entry": {
+        "textures": "textures/blocks/kelp_top"
+      },
+      "flipbook": {
+        "atlas_tile": "kelp_top",
+        "flipbook_texture": "textures/blocks/kelp_top",
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "ticks_per_frame": 4
+      },
+      "texture_path": "textures/blocks/kelp_top.tga",
+      "texture_sha256": "ac3cb0ca3a275221e46c0f4e23c3e456db05e2dcba8290d406bd923ebfebeabb",
+      "texture_size": [
+        16,
+        320
+      ]
+    }
+  }
+}

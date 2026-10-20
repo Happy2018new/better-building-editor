@@ -15,6 +15,8 @@ from .native_render_profile import coordinate_mode, profile_identity
 from .static_table import context_cell, independent_body
 from .lectern_body import independent_body as independent_lectern_body
 from .rail_render_profile import independent_body as independent_rail_body
+from .kelp_render import (has_kelp, document_part as kelp_document_part,
+                          complete_source_parts as kelp_complete_source_parts)
 
 NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
@@ -188,7 +190,8 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
         data.update(common={}, extra={}, actor={}, states={}, extraStates={})
         return data
     logical_volume = source['volume']
-    prepared = prepare_palette(source, render_origin=render_origin, item_profile=item_profile)
+    prepared = prepare_palette(source, render_origin=render_origin, item_profile=item_profile,
+                               kelp_parts=kelp_complete_source_parts(source))
     cells, overlays = _cells(prepared, logical_volume)
     volume = (CONTEXT_STRIDE * (max(pos[2] for pos in positions) + 1),
               CONTEXT_STRIDE * (max(pos[0] for pos in positions) + 1),
@@ -253,7 +256,9 @@ class ContextPaletteBuilder(object):
         self.cache, self.data = {}, None
         self.chest_identities = frozenset(identity for identity, value in enumerate(document.blocks.palette)
                                           if foreground(value)[0] in CHEST_PROXIES)
-        self.position_identities = self.chest_identities | frozenset(
+        self.kelp_identities = frozenset(identity for identity, value in enumerate(document.blocks.palette)
+                                         if has_kelp(value))
+        self.position_identities = self.chest_identities | self.kelp_identities | frozenset(
             identity for identity, value in enumerate(document.blocks.palette)
             if foreground(value)[0] == 'minecraft:bed' or
             position_sensitive(foreground(value), background(value)))
@@ -305,8 +310,10 @@ class ContextPaletteBuilder(object):
         part = document_chest_part(self.document, (x, y, z), front)
         color = document_bed_color(self.document, (x, y, z), front) if front[0] == 'minecraft:bed' else None
         plant_position = ((x, y, z) if position_sensitive(front, back) else None)
-        cache_key = (identity if part is None and color is None and plant_position is None else
-                     (identity, part, color, plant_position))
+        kelp_part = (kelp_document_part(self.document, (x, y, z), value)
+                     if identity in self.kelp_identities else None)
+        cache_key = (identity if part is None and color is None and plant_position is None and kelp_part is None else
+                     (identity, part, color, plant_position, kelp_part))
         if cache_key in self.cache:
             result = self.cache[cache_key]
             rendered_cells[render_index] = result
@@ -325,7 +332,8 @@ class ContextPaletteBuilder(object):
                                    native_render_profile=self.native_render_profile,
                                    cauldron_profile=self.cauldron_profile, biome=self.document.biome,
                                    liquid_profile=self.liquid_profile, spawner_profile=self.spawner_profile,
-                                   portal_profile=self.portal_profile)
+                                   portal_profile=self.portal_profile,
+                                   kelp_parts={0: kelp_part} if kelp_part is not None else None)
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result
