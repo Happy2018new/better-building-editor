@@ -19,7 +19,7 @@ SINGLE_LIMIT = 16 * 1024 * 1024
 FRAME_LIMIT = 64
 
 
-def validate_native_deferred(report, binding, window, stdout):
+def validate_native_deferred(report, binding, window, stdout, *, expected_mode='persistent_burst', extra_artifacts=()):
     directory = Path(report['output_directory'])
     _require(not _linked(directory) and directory.is_dir() and directory.resolve() == directory,
              'Native output directory is missing or linked')
@@ -31,7 +31,7 @@ def validate_native_deferred(report, binding, window, stdout):
     _equal(_json_document(stdout), native, 'Native stdout/manifest')
     allow_foreground = binding.get('user_foreground_allowed') is True
     for key, value in (('schema', 4 if allow_foreground else 3), ('backend', 'Windows.Graphics.Capture'),
-                       ('mode', 'persistent_burst'), ('clock', 'compositor_system_relative_qpc_100ns'),
+                       ('mode', expected_mode), ('clock', 'compositor_system_relative_qpc_100ns'),
                        ('background_only', not allow_foreground), ('activation_fallback', False),
                        ('native_resolution', True), ('pixel_acceptance', False),
                        ('source_frame_loss_known', False), ('owned_hwnd', window['hwnd']),
@@ -83,7 +83,7 @@ def validate_native_deferred(report, binding, window, stdout):
     records = native.get('frames')
     _require(isinstance(records, list) and len(records) <= report['request']['max_frames'] * 4 + 64,
              'Native frame attempts are unbounded or invalid')
-    expected_files = {'manifest.json'}
+    expected_files = {'manifest.json'} | {Path(row['path']).name for row in extra_artifacts}
     accepted = []
     gaps = []
     waits = []
