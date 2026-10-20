@@ -52,3 +52,23 @@ def populate_peonies(fixture):
         for position, upper in halves:
             fixture.put(position, material('peony', {'upper_block_bit': upper}))
     return fixture.finish()
+
+
+KELP_METADATA = ('test.blocks.kelp_visibility', 'registry', '海带 · 茎顶／孤立／跨区块',
+                 (16, 18, 8), 'minecraft:kelp')
+# Left to right: same-age column, isolated age25 head, same-age Y15/Y16 column.
+KELP_CASES = (
+    ('same_age_pair', (3, 1, 3), (((3, 2, 3), 0), ((3, 3, 3), 0))),
+    ('isolated_head', (8, 1, 3), (((8, 2, 3), 25),)),
+    ('cross_chunk_pair', (12, 14, 3), (((12, 15, 3), 0), ((12, 16, 3), 0))),
+)
+
+
+def populate_kelp(fixture):
+    from .debug_blueprints import material
+    support = material('stone')
+    for unused_case, support_pos, chain in KELP_CASES:
+        fixture.put(support_pos, support)
+        for position, age in chain:
+            fixture.put(position, material('kelp', {'kelp_age': age}))
+    return fixture.finish()
