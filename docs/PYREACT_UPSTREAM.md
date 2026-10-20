@@ -66,3 +66,11 @@ python -X utf8 tools/run_live_check.py --session $instance.session_file --owner 
 ## 滚动控件兼容补丁（2026-09-22 修正）
 
 `ScrollViewPrimitive._get_scroll_view` 优先从模板根创建 SDK 包装对象，并用非空 `GetScrollViewContentPath()` 验证后缓存。SDK 内部自己拼接 touch/mouse 子路径；阶段 51 改为对内部 `scroll_view` 转换后，路径重复，造成读回零和写入无效。不能恢复该错误优化。百分比 setter 传入限制在 0–100 的整数；缓存依附当前控件，重挂载失效，没有新增对外 props。实机验证需检查内容真实位置，不能仅检查 asScrollView 返回非空。
+
+## 实例清单原子替换补丁（2026-10-21）
+
+牡丹入口冷启动时，MCDK 与游戏已创建，但保存进程绑定的 `os.replace(..., session.json)` 返回 `WinError 5`，造成启动器抛错而清单尚未记下新 PID。该失败轮次保留；先用生成配置、父进程和创建时间核对两个进程，再恢复仅供清理的清单、普通关闭并确认退出，未将半启动状态标为 ready。
+
+本地 `_session.write_json` 现在只重试同一个已完整写入的 UUID 临时文件的原子替换。仅 Windows `PermissionError.winerror` 为 5、32、33 时允许最多 5 次尝试，间隔为 0.05、0.1、0.2、0.4 秒，共 0.75 秒；每次可重试失败均记录 warning。不会重放调用方或再次创建进程。其他权限错误立即抛出，最终仍失败时保留旧清单与包含新绑定的完整临时文件，供明确身份后的恢复使用。
+
+`tests/test_mcdk_session_atomic_write.py` 的 4 项回归通过：同一完整写入的临时共享失败、达到上限后保留恢复信息、无关权限错误不重试，以及真实 Windows `CreateFileW` 读者未开放 `FILE_SHARE_DELETE`、解除占用后替换成功。真实共享测试证明这种 OS 条件能触发并解除失败；未证明原启动时的占用者身份。原始冻结 host 不追改，后续冷启动使用独立 retry-host 版本并另记 helper SHA。本补丁只属于宿主实例工具，不更改游戏业务或 Pyreact 运行时。

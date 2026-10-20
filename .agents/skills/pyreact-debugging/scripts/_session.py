@@ -4,6 +4,7 @@ import contextlib
 import ctypes
 import hashlib
 import json
+import logging
 import os
 from pathlib import Path
 import tempfile
@@ -21,7 +22,21 @@ def write_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + "." + uuid.uuid4().hex + ".tmp")
     temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-    os.replace(temporary, path)
+    # A reader without FILE_SHARE_DELETE can briefly prevent replacement on
+    # Windows. Retry this same completed write, never the caller's process spawn.
+    delays = (.05, .1, .2, .4)
+    for attempt in range(len(delays) + 1):
+        try:
+            os.replace(temporary, path)
+        except PermissionError as error:
+            if getattr(error, 'winerror', None) not in (5, 32, 33) or attempt == len(delays):
+                raise
+            logging.getLogger(__name__).warning(
+                'Atomic JSON replacement temporarily blocked (attempt %d/5, winerror=%s): %s',
+                attempt + 1, error.winerror, path)
+            time.sleep(delays[attempt])
+        else:
+            return
 
 
 @contextlib.contextmanager
