@@ -102,7 +102,7 @@ the host before launch. The previously missing exact exit observer is included
 and imported in the offline closure check (114 host modules, zero runtime
 operations). Both family qualification rows remain false.
 
-All 24 original gateway images have now been opened for visual review, including
+All 24 original gateway images from v13 have now been opened for visual review, including
 the four editor poses, both front/oblique three-frame sequences, all missing
 states, opacity states and rotated full/missing views. The finite surfaces remain
 visible at the tested poses; actual occupancy removes them and restoration
@@ -123,3 +123,46 @@ exit remain unchanged. Native UI equivalence,
 distant fog, beams, particles, and teleportation remain outside any proposed
 finite-world-surface qualification. A default cold smoke run is still required
 after any supported route is admitted.
+
+## R25 independent review of the completed v14 run
+
+On 2026-10-21 the root agent independently rehashed all **78** v14 originals
+against both their capture report and the unchanged analyzer output: zero
+mismatches. The run contains the portal's 24-view matrix and the gateway's
+54 matched-span reference images, rather than another complete gateway UI and
+lifecycle matrix. Completed, restored, source-unchanged and empty cleanup-error
+fields were checked in the original report. This is a review of the historical
+3,697-file source contract, not a new cold run on the integrated R25 source.
+
+The root viewed both [portal overview pages](evidence/portal-v14-r25-review-v1/portal-page-1.jpg)
+([second page](evidence/portal-v14-r25-review-v1/portal-page-2.jpg)) and all 54 gateway
+face crops ([front](evidence/portal-v14-r25-review-v1/gateway-front.jpg),
+[oblique](evidence/portal-v14-r25-review-v1/gateway-oblique.jpg)). Gateway crops
+retain every projected finite-face corner plus a fixed 15-pixel border; original
+PNGs remain unchanged. These JPEG sheets are display aids only and are not used
+for image metrics. The [index](evidence/portal-v14-r25-review-v1/evidence-index.json)
+binds all original hashes, source contract, report, analyzer and review sheets.
+
+The portal surface is visible in the tested editor poses, occupied missing
+cells remove it, and restoration returns it. Opacity zero hides the complete
+projected fixture; opacity one restores it. Candidate/native mean luminance,
+cyan coverage and nonblack coverage ratios are 0.936957 / 0.974461 / 0.967888
+front and 0.956991 / 0.945605 / 0.975107 oblique. These absolute metrics use
+different normal-TIME phases and remain diagnostic.
+
+For the gateway, actual native A / candidate / native B spans are
+31.8358404 / 31.781286 / 32.0115998 seconds front and
+32.0722025 / 32.138889 / 31.9631112 seconds oblique. Both pass the predeclared
+sampling comparability rule. Candidate mean luminance is 12.69346 front,
+within pooled native observed extrema 11.21525–15.77905, and 13.16860 oblique,
+within 12.01080–17.15562; cyan and nonblack means are also within the respective
+observed extrema. The interpretation remains exactly
+`consistent_with_measured_native_phase_variation_only`. Observed extrema
+are not an equivalence interval, and individual frames are not required to
+fall within them. All native magenta particles remain in the statistics.
+
+No direction or speed equivalence, actual UI matrix binding, current integrated
+cold qualification, distant fog, beams, particles or teleportation is closed by
+this review. Both native-world family gates and the native UI gate remain
+false. New manual closures: **0**. The legacy default's compatibility flag is
+unchanged and still does not close the user's reopened appearance report.
