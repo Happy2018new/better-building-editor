@@ -384,6 +384,77 @@
           "states": {}
         }
       ]
+    },
+    "peony": {
+      "native_definition": {
+        "textures": {
+          "up": "peony_top",
+          "down": "peony_bottom",
+          "side": "sunflower_additional"
+        },
+        "carried_textures": "peony_carried",
+        "sound": "grass"
+      },
+      "native_states": [
+        {
+          "material": [
+            "minecraft:peony",
+            0
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "material": [
+            "minecraft:peony",
+            1
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ],
+      "halves": [
+        {
+          "half": "bottom",
+          "native_texture_key": "peony_bottom",
+          "native_atlas_record": {
+            "textures": "textures/blocks/double_plant_paeonia_bottom"
+          },
+          "native_texture_path": "textures/blocks/double_plant_paeonia_bottom.png",
+          "native_texture_sha256": "23abd8d79927b76859236f3d30842581da849fe43d46cc963958fd8cef3c60f3",
+          "size": [
+            16,
+            16
+          ],
+          "alpha_bounds": [
+            1,
+            0,
+            14,
+            16
+          ]
+        },
+        {
+          "half": "top",
+          "native_texture_key": "peony_top",
+          "native_atlas_record": {
+            "textures": "textures/blocks/double_plant_paeonia_top"
+          },
+          "native_texture_path": "textures/blocks/double_plant_paeonia_top.png",
+          "native_texture_sha256": "f92054f8e1402c3344c9faebd2725de89c6603a26e8ec05f3401479800d6c5b7",
+          "size": [
+            16,
+            16
+          ],
+          "alpha_bounds": [
+            1,
+            4,
+            14,
+            16
+          ]
+        }
+      ]
     }
   },
   "cold_candidate_manifest_sha256": "40e7a1e72ebb0497716daf4a4cf0f22112b2b5c3e7616a58f2fc01142ad139c0"

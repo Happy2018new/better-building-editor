@@ -14,7 +14,7 @@ class OrdinaryPlantProxyTests(unittest.TestCase):
     def setUp(self):
         self.profile = json.loads(generator.PROFILE.read_bytes())
 
-    def test_twelve_legal_states_share_eleven_render_only_meshes(self):
+    def test_fourteen_legal_states_share_thirteen_render_only_meshes(self):
         files = generator.outputs(self.profile)
         namespace = {}
         exec(files[generator.TABLE], namespace)
@@ -24,11 +24,13 @@ class OrdinaryPlantProxyTests(unittest.TestCase):
                   'dead_horn_coral', 'dead_tube_coral'}
         expected = {('minecraft:' + name, 0) for name in corals}
         expected.update({('minecraft:acacia_sapling', 0), ('minecraft:acacia_sapling', 1)})
+        expected.update({('minecraft:peony', 0), ('minecraft:peony', 1)})
         self.assertEqual(expected, set(mappings))
         self.assertEqual(mappings[('minecraft:acacia_sapling', 0)], mappings[('minecraft:acacia_sapling', 1)])
+        self.assertNotEqual(mappings[('minecraft:peony', 0)], mappings[('minecraft:peony', 1)])
         self.assertFalse(namespace['SNOW_QUALIFIED'])
         self.assertFalse(namespace['NATIVE_MESH_AUTHORITY'])
-        self.assertEqual(25, len(files))
+        self.assertEqual(29, len(files))
         for identifier in set(mappings.values()):
             stem = identifier.split(':')[1]
             definition = files[ROOT / ('behavior_pack/netease_blocks/' + stem + '.json')]['minecraft:block']

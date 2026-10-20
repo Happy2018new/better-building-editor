@@ -20,13 +20,23 @@ STYLE = {'name': 'fixed_centered_snapshot', 'height': 1, 'cell_span': [0.1, 0.9]
 CORALS = frozenset(prefix + family + '_coral'
                    for prefix in ('', 'dead_')
                    for family in ('brain', 'bubble', 'fire', 'horn', 'tube'))
-NAMES = CORALS | frozenset(('acacia_sapling',))
+NAMES = CORALS | frozenset(('acacia_sapling', 'peony'))
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection import block_registry as registry
 
 
 def digest(raw):
     return hashlib.sha256(raw).hexdigest()
+
+
+def variants(name, row):
+    """Each tall native cell selects its own full-height texture and model."""
+    if name != 'peony':
+        return ((name, row, row['native_states']),)
+    if [half.get('half') for half in row.get('halves', ())] != ['bottom', 'top']:
+        raise ValueError('Ordinary peony half coverage changed')
+    return tuple((name + '_' + half['half'], half, [row['native_states'][index]])
+                 for index, half in enumerate(row['halves']))
 
 
 def validate(profile, textures=TEXTURES):
@@ -40,25 +50,32 @@ def validate(profile, textures=TEXTURES):
             profile['template']['sha256'] != digest(TEMPLATE.read_bytes())):
         raise ValueError('Ordinary plant cross template changed')
     for name, row in profile['plants'].items():
-        expected = [{'age_bit': False}, {'age_bit': True}] if name == 'acacia_sapling' else [{}]
+        expected = ([{'age_bit': False}, {'age_bit': True}] if name == 'acacia_sapling' else
+                    [{'upper_block_bit': False}, {'upper_block_bit': True}] if name == 'peony' else [{}])
         if [entry['states'] for entry in row['native_states']] != expected:
             raise ValueError('Ordinary plant legal state coverage changed: ' + name)
         for entry in row['native_states']:
             value = registry.from_states('minecraft:' + name, entry['states'])
             if value is None or list(value) != entry['material'] or registry.states(value) != entry['states']:
                 raise ValueError('Ordinary plant state identity differs: ' + name)
-        key = row['native_texture_key']
-        texture = row['native_texture_path'].rsplit('.', 1)[0]
-        if (row['native_definition']['textures'] != key or
-                row['native_atlas_record']['textures'] != texture or row['size'] != [16, 16]):
-            raise ValueError('Ordinary plant native texture binding differs: ' + name)
-        path = textures / (name + '.png')
-        if digest(path.read_bytes()) != row['native_texture_sha256']:
-            raise ValueError('Ordinary plant texture source changed: ' + name)
-        with Image.open(path) as image:
-            bounds = image.convert('RGBA').getchannel('A').getbbox()
-            if list(image.size) != row['size'] or list(bounds or ()) != row['alpha_bounds']:
-                raise ValueError('Ordinary plant alpha extent differs: ' + name)
+        if name == 'peony' and row['native_definition']['textures'] != {
+                'up': 'peony_top', 'down': 'peony_bottom', 'side': 'sunflower_additional'}:
+            raise ValueError('Ordinary peony native texture slots changed')
+        for stem, texture_row, unused_states in variants(name, row):
+            key = texture_row['native_texture_key']
+            texture = texture_row['native_texture_path'].rsplit('.', 1)[0]
+            native_key = ('peony_' + texture_row['half'] if name == 'peony'
+                          else row['native_definition']['textures'])
+            if (native_key != key or texture_row['native_atlas_record']['textures'] != texture or
+                    texture_row['size'] != [16, 16]):
+                raise ValueError('Ordinary plant native texture binding differs: ' + stem)
+            path = textures / (stem + '.png')
+            if digest(path.read_bytes()) != texture_row['native_texture_sha256']:
+                raise ValueError('Ordinary plant texture source changed: ' + stem)
+            with Image.open(path) as image:
+                bounds = image.convert('RGBA').getchannel('A').getbbox()
+                if list(image.size) != texture_row['size'] or list(bounds or ()) != texture_row['alpha_bounds']:
+                    raise ValueError('Ordinary plant alpha extent differs: ' + stem)
 
 
 def outputs(profile):
@@ -70,16 +87,17 @@ def outputs(profile):
     template = {'template': json.loads(TEMPLATE.read_bytes())}
     result, mappings = {}, {}
     for name, row in sorted(profile['plants'].items()):
-        stem = 'ordinary_' + name
-        identifier = 'modern_projection:' + stem
-        key = 'modern_projection_' + stem
-        result[ROOT / ('behavior_pack/netease_blocks/' + stem + '.json')] = behavior(identifier, 'alpha')
-        result[ROOT / ('resource_pack/models/netease_block/' + stem + '.json')] = centered_cross_model(
-            template, identifier, key)
-        blocks[identifier] = {'netease_model': identifier, 'sound': row['native_definition'].get('sound', 'grass')}
-        atlas['texture_data'][key] = {'textures': row['native_texture_path'].rsplit('.', 1)[0]}
-        for entry in row['native_states']:
-            mappings[tuple(entry['material'])] = identifier
+        for variant, texture_row, native_states in variants(name, row):
+            stem = 'ordinary_' + variant
+            identifier = 'modern_projection:' + stem
+            key = 'modern_projection_' + stem
+            result[ROOT / ('behavior_pack/netease_blocks/' + stem + '.json')] = behavior(identifier, 'alpha')
+            result[ROOT / ('resource_pack/models/netease_block/' + stem + '.json')] = centered_cross_model(
+                template, identifier, key)
+            blocks[identifier] = {'netease_model': identifier, 'sound': row['native_definition'].get('sound', 'grass')}
+            atlas['texture_data'][key] = {'textures': texture_row['native_texture_path'].rsplit('.', 1)[0]}
+            for entry in native_states:
+                mappings[tuple(entry['material'])] = identifier
     lines = ['# Generated by tools/generate_ordinary_plant_proxies.py; do not edit.',
              'from __future__ import unicode_literals', 'SCHEMA_VERSION = 1',
              'SOURCE_VERSION = ' + repr(profile['registry_version']),

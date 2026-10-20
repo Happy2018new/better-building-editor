@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "manual_issues_closed": 0,
+  "formal_identifiers": true,
+  "reliable_original_frames": 28,
+  "groups": 12,
+  "loaded_air_no_liquid_gates": 19,
+  "current_bank_submission_checks": 12,
+  "limits": "ROI bounds overlap. Visibility signals alone do not accept native shape, size, random offset, brightness, snow/water, other directions or combinations. Manual closure remains zero.",
+  "main_overlay_applied": true,
+  "main_overlay_files": 14,
+  "native_parity": false,
+  "root_contact_actually_reviewed": true,
+  "source_contract_sha256": "5ef0d8cdf9faed6b6a61def9b21dfd9e9ddd99ddf59507ccfba923df19486235",
+  "raw_analysis_sha256": "9a3238de3632b4f28eb6413cb7af5e6d32c8ecf8c9ed19c381bc97b42270405d",
+  "shutdown": {
+    "ordinary_stop_returncode": 1,
+    "force_used": false,
+    "game_exit_code": "0xC0000409",
+    "mcdk_exit_code": 0,
+    "registry_final_state": "stopped"
+  },
+  "reports": [
+    {
+      "sha256": "f67e38976a88c841d007d3ae23904b6c391d8d3de1a45e158872c3eeadec7d4b",
+      "groups": 3,
+      "restored": true,
+      "source_contract_sha256": "5ef0d8cdf9faed6b6a61def9b21dfd9e9ddd99ddf59507ccfba923df19486235",
+      "minimum_commit_headroom_bytes": 12269703168,
+      "handles": {
+        "game": [
+          832,
+          833
+        ],
+        "mcdk": [
+          234,
+          234
+        ]
+      }
+    },
+    {
+      "sha256": "c6b3238997382501a13ef9af55b67384bd2fca6fbd6b24a3eb036ec20827ba5f",
+      "groups": 3,
+      "restored": true,
+      "source_contract_sha256": "5ef0d8cdf9faed6b6a61def9b21dfd9e9ddd99ddf59507ccfba923df19486235",
+      "minimum_commit_headroom_bytes": 11564675072,
+      "handles": {
+        "game": [
+          836,
+          838
+        ],
+        "mcdk": [
+          234,
+          234
+        ]
+      }
+    },
+    {
+      "sha256": "a2acf2cefb0650fbadf9ec9b5d11fade88944dca9f02baa59ebfe9eba953e1f1",
+      "groups": 6,
+      "restored": true,
+      "source_contract_sha256": "5ef0d8cdf9faed6b6a61def9b21dfd9e9ddd99ddf59507ccfba923df19486235",
+      "minimum_commit_headroom_bytes": 9378512896,
+      "handles": {
+        "game": [
+          830,
+          840
+        ],
+        "mcdk": [
+          234,
+          234
+        ]
+      }
+    }
+  ],
+  "views": [
+    {
+      "view": "editor yaw 0",
+      "candidate_pixels": [
+        11947,
+        6727
+      ],
+      "stone_pixels": [
+        16531,
+        17515
+      ],
+      "candidate_original_sha256": "e3476b222e38fd93cdf6899dba7d07562eaf7fc5c8b028dc963e500d7425442f",
+      "air_repeat_noise_pixels": [
+        0,
+        0
+      ],
+      "half_roi_overlap": true
+    },
+    {
+      "view": "editor yaw 180",
+      "candidate_pixels": [
+        11948,
+        6740
+      ],
+      "stone_pixels": [
+        16430,
+        17628
+      ],
+      "candidate_original_sha256": "276728167cfb286d8060dc69fd12a63811335ba99060d632c2c59142e4331b24",
+      "air_repeat_noise_pixels": [
+        0,
+        0
+      ],
+      "half_roi_overlap": true
+    },
+    {
+      "view": "north full",
+      "candidate_pixels": [
+        23435,
+        13596
+      ],
+      "stone_pixels": [
+        34594,
+        37520
+      ],
+      "candidate_original_sha256": "1d3d6775c5470768f9bacab94b84cd2190024e1d28664c71e83f1a4cc31ef8f8",
+      "air_repeat_noise_pixels": [
+        0,
+        0
+      ],
+      "half_roi_overlap": true
+    },
+    {
+      "view": "north missing",
+      "candidate_pixels": [
+        23435,
+        13596
+      ],
+      "stone_pixels": [
+        34601,
+        37520
+      ],
+      "candidate_original_sha256": "8e01ac6600ff0a0b4f18d311b6cc00776d5d46bafb43919be4aaa39771693922",
+      "air_repeat_noise_pixels": [
+        0,
+        0
+      ],
+      "half_roi_overlap": true
+    }
+  ],
+  "contact_sha256": "ac2de6b91588b6637e7833e7a80aca1bcdf8f636d354385f2b2c5d7567da28df"
+}

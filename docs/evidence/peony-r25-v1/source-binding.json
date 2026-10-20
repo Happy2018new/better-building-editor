@@ -1,0 +1,104 @@
+{
+  "source_base_commit": "83a551cf819a41f5b55302e6f1f45f4da8858498",
+  "files": [
+    {
+      "path": "tools/generate_ordinary_plant_proxies.py",
+      "base_sha256": "8dee5ea8077a3edbb9e9bf4ae17f963d1be8194c13b5a8b086ae9ea02ada873e",
+      "candidate_sha256": "4ab6d39d1d23348a1d54e691f439bc40edbd5c46b1474b17f35da3fddbe9a9e2",
+      "bytes": 7788,
+      "binary": false
+    },
+    {
+      "path": "tools/data/ordinary_plant_profiles_nemc_3.10.0.420447.json",
+      "base_sha256": "e659bcec8729967a5f20d30a56cb47f592805c86f840e7a2f40309650816efff",
+      "candidate_sha256": "ca48437425162e45a7d9a6e1de46835543c697ee6f734c0c0e13a20b55d4dce3",
+      "bytes": 11930,
+      "binary": false
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/ordinary_plant_data.py",
+      "base_sha256": "07f524502675946367413ae6db33e02ca770040061d16c6b89e98c8d6ff5c13f",
+      "candidate_sha256": "6f43c33594f39baeeb8acc8de198d608f88623dfe6d09a48cd2bd05235751a45",
+      "bytes": 1621,
+      "binary": false
+    },
+    {
+      "path": "resource_pack/blocks.json",
+      "base_sha256": "6619163cdc3524f0962f525dfc7675a9c072343ca71dbdf323e6867f084bc499",
+      "candidate_sha256": "e6a505452ad590f80e89f2bef785a60d0cc94c5fdd90e43d8dcce78081d4b6ec",
+      "bytes": 119991,
+      "binary": false
+    },
+    {
+      "path": "resource_pack/textures/terrain_texture.json",
+      "base_sha256": "410aab9c8e04feab23deff101cef8738a063a28a95385454d3eef93e65a709e3",
+      "candidate_sha256": "b3dee398b29bfc3abad23f454819295c18a42b1534fc21547ce681cffe03896b",
+      "bytes": 13382,
+      "binary": false
+    },
+    {
+      "path": "tests/test_ordinary_plant_proxies.py",
+      "base_sha256": "6038f964d83fd0276808a45cab0ea66cb118c49a3fbe85e95d19e3c6c610e72f",
+      "candidate_sha256": "bdcc66a3b7b645fefccc0645e0a9d9f1bf169db90775920f606c3ed8146ac990",
+      "bytes": 5642,
+      "binary": false
+    },
+    {
+      "path": "tests/test_peony_plant_proxies.py",
+      "base_sha256": null,
+      "candidate_sha256": "4f0b9053f5a3cd2553c7cfd185c404d59aed56aa2e52a271e361f6b6a2c8f559",
+      "bytes": 3866,
+      "binary": false
+    },
+    {
+      "path": "tests/test_peony_palette_runtime.py",
+      "base_sha256": null,
+      "candidate_sha256": "ec5544323b6ed9a3fbcce8c780ff3ec79409ae47f26bd32d731e7e1cbc117814",
+      "bytes": 5596,
+      "binary": false
+    },
+    {
+      "path": "tools/data/ordinary_plant_profiles_nemc_3.10.0.420447/peony_bottom.png",
+      "base_sha256": null,
+      "candidate_sha256": "23abd8d79927b76859236f3d30842581da849fe43d46cc963958fd8cef3c60f3",
+      "bytes": 311,
+      "binary": true
+    },
+    {
+      "path": "behavior_pack/netease_blocks/ordinary_peony_bottom.json",
+      "base_sha256": null,
+      "candidate_sha256": "c6b139e6307fa97fa87dd3872ecbb00e63ae60e7e9d59d28284483d5a23d72c7",
+      "bytes": 414,
+      "binary": false
+    },
+    {
+      "path": "resource_pack/models/netease_block/ordinary_peony_bottom.json",
+      "base_sha256": null,
+      "candidate_sha256": "2cf535e207234383acc957af7266f042e0b7318674cf993edf6b32074e723b68",
+      "bytes": 2261,
+      "binary": false
+    },
+    {
+      "path": "tools/data/ordinary_plant_profiles_nemc_3.10.0.420447/peony_top.png",
+      "base_sha256": null,
+      "candidate_sha256": "f92054f8e1402c3344c9faebd2725de89c6603a26e8ec05f3401479800d6c5b7",
+      "bytes": 272,
+      "binary": true
+    },
+    {
+      "path": "behavior_pack/netease_blocks/ordinary_peony_top.json",
+      "base_sha256": null,
+      "candidate_sha256": "963ed4aee9eabf05ebe95c0101762a50f12c00265fd1c10ed4b293b5a71b0fe0",
+      "bytes": 411,
+      "binary": false
+    },
+    {
+      "path": "resource_pack/models/netease_block/ordinary_peony_top.json",
+      "base_sha256": null,
+      "candidate_sha256": "8eb1a01fda290b703ffc609280e15e3ae5c57f8c647baefc18d267fba0125cb9",
+      "bytes": 2252,
+      "binary": false
+    }
+  ],
+  "scope": "fixed-centered directional-visibility fallback; native parity and manual acceptance remain open"
+}

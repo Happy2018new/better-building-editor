@@ -4,7 +4,7 @@ SCHEMA_VERSION = 1
 SOURCE_VERSION = 'NEMC 3.9.0.401155'
 RESOURCE_VERSION = 'NEMC 3.10.0.420447'
 PALETTE_SHA256 = '6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01'
-PROFILE_SHA256 = 'f7e02dd6f7d56fc98e1e747c54e4efe81bf6bec7db94b49c5f458ef8a66fe9b9'
+PROFILE_SHA256 = '0fde9fb957d7e013206ec4b6dd48cf2c0bcafd31c96f5698161a159681241d20'
 STYLE = 'fixed_centered_snapshot'
 NATIVE_MESH_AUTHORITY = False
 SNOW_QUALIFIED = False
@@ -20,5 +20,7 @@ ORDINARY_PLANT_PROXIES = {
     ('minecraft:dead_tube_coral', 0): 'modern_projection:ordinary_dead_tube_coral',
     ('minecraft:fire_coral', 0): 'modern_projection:ordinary_fire_coral',
     ('minecraft:horn_coral', 0): 'modern_projection:ordinary_horn_coral',
+    ('minecraft:peony', 0): 'modern_projection:ordinary_peony_bottom',
+    ('minecraft:peony', 1): 'modern_projection:ordinary_peony_top',
     ('minecraft:tube_coral', 0): 'modern_projection:ordinary_tube_coral',
 }
