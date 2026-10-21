@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection import block_registry as registry
 from projection.block_groups import actor_pair_position, group_partner
 from projection.cell import AIR, actor_data, background, foreground
-from projection.debug_blueprints import material
+from projection.debug_blueprints import build as build_source, material
 from projection.debug_transform_acceptance import CASES, METADATA, PREFIX, build, prepare
 from projection.geometry_palette import prepare_palette
 from projection.jobs import EditJob
@@ -75,7 +75,11 @@ class TransformAcceptanceTests(unittest.TestCase):
                     for layer in (foreground(cell), background(cell)):
                         self.assertEqual(layer, registry.canonical(layer))
                 prepared = prepare_palette(source.palette_data())
-                self.assertEqual((source.size[2], source.size[0], source.size[1]), prepared['volume'])
+                # T07's covered plants use the existing separate snow overlay band;
+                # the logical document remains ten cells high.
+                expected_volume = ((32, 32, 266) if identity == PREFIX + 't07' else
+                                   (source.size[2], source.size[0], source.size[1]))
+                self.assertEqual(expected_volume, prepared['volume'])
                 self.assertEqual(before, source.blocks)
                 restored = Document.from_data(json.loads(json.dumps(source.to_data())))
                 self.assertEqual(source.blocks, restored.blocks)
@@ -323,6 +327,93 @@ class TransformAcceptanceTests(unittest.TestCase):
         for pos, shape in (((3, 2, 23), 6), ((9, 2, 23), 7),
                            ((3, 2, 26), 9), ((9, 2, 26), 8)):
             self.assertEqual(shape, registry.states(foreground(document.get(pos)))['rail_direction'])
+
+    def test_t07_reuses_complete_dry_wet_snow_and_tagged_sign_cells(self):
+        document = build(PREFIX + 't07')
+        self.assertEqual(19, len(document.blocks))
+        sources = {identity: build_source(identity) for identity in
+                   ('test.layers.water', 'test.layers.snow', 'test.entities.signs')}
+        examples = (
+            ('test.layers.water', (18, 1, 3), (4, 2, 4), 'oak_stairs', 'air'),
+            ('test.layers.water', (18, 1, 6), (8, 2, 4), 'oak_stairs', 'water'),
+            ('test.layers.water', (3, 1, 9), (12, 2, 4), 'air', 'water'),
+            ('test.layers.snow', (18, 1, 9), (4, 2, 10), 'snow_layer', 'poppy'),
+            ('test.layers.snow', (18, 1, 16), (8, 2, 10), 'snow_layer', 'poppy'),
+            ('test.layers.snow', (18, 1, 3), (12, 2, 10), 'poppy', 'air'),
+            ('test.entities.signs', (5, 1, 7), (4, 2, 16), 'standing_sign', 'air'),
+            ('test.entities.signs', (3, 1, 7), (10, 2, 16), 'standing_sign', 'water'),
+        )
+        for identity, pos, target, front, back in examples:
+            source, actual = sources[identity].get(pos), document.get(target)
+            self.assertIn(pos, sources[identity].blocks)
+            self.assertEqual('minecraft:' + front, foreground(actual)[0])
+            self.assertEqual('minecraft:' + back, background(actual)[0])
+            self.assertEqual(foreground(source), foreground(actual))
+            self.assertEqual(background(source), background(actual))
+            self.assertEqual(material('dirt' if front in ('snow_layer', 'poppy') else 'stone'),
+                             foreground(document.get((target[0], 1, target[2]))))
+            if front == 'standing_sign':
+                expected = copy.deepcopy(entity(source))
+                for axis, coordinate in zip('xyz', target):
+                    expected[axis] = {'__type__': 3, '__value__': coordinate}
+                self.assertEqual(expected, entity(actual))
+                root = entity(actual)
+                self.assertEqual({'__type__': 8, '__value__': 'Front\nNative'}, root['FrontText']['Text'])
+                self.assertEqual({'__type__': 8, '__value__': 'Back\nNative'}, root['BackText']['Text'])
+                self.assertEqual({'__type__': 3, '__value__': -16711936}, root['FrontText']['SignTextColor'])
+                self.assertEqual({'__type__': 3, '__value__': 2147418112}, root['BackText']['SignTextColor'])
+            else:
+                self.assertIsNone(actor_data(actual))
+        for pos in ((4, 2, 4), (8, 2, 4)):
+            self.assertEqual({'weirdo_direction': 0, 'upside_down_bit': False},
+                             registry.states(foreground(document.get(pos))))
+        for pos, height in (((4, 2, 10), 0), ((8, 2, 10), 5)):
+            self.assertEqual({'height': height, 'covered_bit': True},
+                             registry.states(foreground(document.get(pos))))
+        for pos in ((8, 2, 4), (12, 2, 4), (10, 2, 16)):
+            self.assertEqual({'liquid_depth': 0}, registry.states(background(document.get(pos))))
+
+    def test_t07_six_operations_keep_layer_order_directions_and_all_nonspatial_sign_tags(self):
+        identity = PREFIX + 't07'
+        # Literal yaw tables for a default east stair and a south-facing sign.
+        stairs = dict(zip(OPERATIONS, (2, 1, 3, 1, 0, 0)))
+        signs = dict(zip(OPERATIONS, (4, 8, 12, 0, 0, 8)))
+        points = ((4, 2, 4), (8, 2, 4), (12, 2, 4), (4, 2, 10),
+                  (8, 2, 10), (12, 2, 10), (4, 2, 16), (10, 2, 16))
+        lo, hi = CASES[identity]['selection']
+        for operation in OPERATIONS:
+            with self.subTest(operation=operation):
+                editor = editor_for(identity)
+                before = copy.deepcopy(dict(editor.document.blocks.items()))
+                editor.run(operation)
+                reopened = Document.from_data(json.loads(json.dumps(editor.document.to_data())))
+                self.assertEqual(editor.document.blocks, reopened.blocks)
+                self.assertEqual(before[(24, 1, 24)], reopened.get((24, 1, 24)))
+                for pos in points:
+                    source = before[pos]
+                    target = target_point(pos, lo, hi, operation)
+                    actual = reopened.get(target)
+                    self.assertEqual(background(source), background(actual))
+                    name = foreground(source)[0]
+                    if name == 'minecraft:oak_stairs':
+                        self.assertEqual({'weirdo_direction': stairs[operation],
+                                          'upside_down_bit': operation == 'mirror_y'},
+                                         registry.states(foreground(actual)))
+                    elif name == 'minecraft:standing_sign':
+                        self.assertEqual({'ground_sign_direction': signs[operation]},
+                                         registry.states(foreground(actual)))
+                        expected = copy.deepcopy(entity(source))
+                        for axis, coordinate in zip('xyz', target):
+                            expected[axis] = {'__type__': 3, '__value__': coordinate}
+                        self.assertEqual(expected, entity(actual))
+                        self.assertEqual(actor_data(source)['render'], actor_data(actual)['render'])
+                    else:
+                        self.assertEqual(foreground(source), foreground(actual))
+                transformed = dict(editor.document.blocks.items())
+                self.assertTrue(editor.undo())
+                self.assertEqual(before, dict(editor.document.blocks.items()))
+                self.assertTrue(editor.redo())
+                self.assertEqual(transformed, dict(editor.document.blocks.items()))
 
     def test_t08_half_door_selection_closes_partner_before_transform(self):
         editor = editor_for(PREFIX + 't08')

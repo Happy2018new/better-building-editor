@@ -19,6 +19,8 @@ METADATA = (
      (32, 8, 32), 'minecraft:rail'),
     (PREFIX + 't06', 'transforms', 'T06 · 楼梯转角与跨格连接',
      (32, 10, 32), 'minecraft:oak_fence'),
+    (PREFIX + 't07', 'transforms', 'T07 · 水雪双层与告示牌文字',
+     (32, 10, 32), 'minecraft:standing_sign'),
     (PREFIX + 't08', 'transforms', 'T08 · 跨16格、多格与原子撤销',
      (32, 36, 32), 'minecraft:wooden_door'),
 )
@@ -89,6 +91,22 @@ CASES = {
         'message': 'T08：门跨Y=15/16、双箱跨X=15/16。先旋转并撤销/重做；锁定16层后的变换应整体拒绝。',
         'actions': ('rotate_y90', 'undo', 'redo', 'undo', 'lock_y16',
                     'rotate_y90_rejected', 'unlock_y16'),
+    },
+    PREFIX + 't07': {
+        'selection': ((2, 1, 2), (14, 5, 18)), 'focus': (8, 2, 10),
+        'subjects': (
+            ('dry_stairs', 'test.layers.water', (18, 1, 3), (4, 2, 4)),
+            ('wet_stairs', 'test.layers.water', (18, 1, 6), (8, 2, 4)),
+            ('background_water', 'test.layers.water', (3, 1, 9), (12, 2, 4)),
+            ('snow_h0', 'test.layers.snow', (18, 1, 9), (4, 2, 10)),
+            ('snow_h5', 'test.layers.snow', (18, 1, 16), (8, 2, 10)),
+            ('dry_poppy', 'test.layers.snow', (18, 1, 3), (12, 2, 10)),
+            ('dry_sign', 'test.entities.signs', (5, 1, 7), (4, 2, 16)),
+            ('wet_sign', 'test.entities.signs', (3, 1, 7), (10, 2, 16)),
+        ),
+        'outside_marker': (24, 1, 24),
+        'message': 'T07：前排干/含水楼梯和仅背景水，中排薄雪/厚雪/干罂粟，后排干/含水双面告示牌。旋转或镜像后检查两层、朝向与文字，再撤销；区外紫标不应移动。',
+        'actions': ('rotate_y90', 'undo', 'mirror_x', 'undo', 'mirror_z', 'undo'),
     },
 }
 VISUAL_CASES = dict((identity, dict(row, schema=SCHEMA_VERSION, fixture=identity,
@@ -273,11 +291,33 @@ def _boundary(fixture, row):
     fixture.put((18, 18, 14), material('lime_concrete'))
 
 
+def _layers(fixture, row):
+    from .debug_blueprints import build as build_source, material
+    from .cell import actor_data, background, foreground, make_cell
+    from .nbt_spatial import rebase
+    # Read the established samples verbatim; only tagged root positions move.
+    sources = dict((identity, build_source(identity)) for identity in
+                   ('test.layers.water', 'test.layers.snow', 'test.entities.signs'))
+    for unused, identity, source, target in row['subjects']:
+        document = sources[identity]
+        if source not in document.blocks:
+            raise ValueError('Missing source cell for layered transform fixture')
+        value = document.get(source)
+        delta = tuple(target[axis] - source[axis] for axis in range(3))
+        fixture.document.blocks[target] = make_cell(
+            foreground(value), background(value), rebase(actor_data(value), delta))
+        fixture.put((target[0], target[1] - 1, target[2]), material(
+            'dirt' if identity == 'test.layers.snow' else 'stone'))
+    for pos, name in (((2, 1, 2), 'red_concrete'), ((14, 5, 18), 'blue_concrete'),
+                      (row['outside_marker'], 'magenta_concrete')):
+        fixture.put(pos, material(name))
+
+
 def populate(fixture, identity):
     row = CASES[identity]
     builders = {'t01': _asymmetric, 't02': _directions, 't03': _parts,
                 't03_half': _parts, 't04': _chests, 't05': _rails,
-                't06': _connections, 't08': _boundary}
+                't06': _connections, 't07': _layers, 't08': _boundary}
     builders[identity[len(PREFIX):]](fixture, row)
     return fixture.finish(reconnect=identity == PREFIX + 't06')
 
