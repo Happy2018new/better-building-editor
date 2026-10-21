@@ -1,0 +1,824 @@
+{
+  "owner": "r27-transform-runtime-v1",
+  "source_commit": "7015c9c470f5cbb1144b2565a8eb740ac8f3e7e0",
+  "source_manifest_sha256": "4f284dad0cf1d1cd5357f4bcd78a395427a98e9375c920d7fdb0305404a0c4a6",
+  "source_unchanged": true,
+  "manual_issues_closed": 0,
+  "manual_acceptance": false,
+  "candidate_profile_assignment": false,
+  "world_write_performed": false,
+  "native_world_occupancy": false,
+  "actual_public_card_callbacks": true,
+  "run_outcomes": {
+    "check": {
+      "completed": false,
+      "restored": true,
+      "source_unchanged": true,
+      "error": "MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: 世界坐标超出范围\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 419, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 469, in _RUN_CLIENT_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 21, in <module>\\n  File \\\"modern_projection.projection.bridge\\\", line 822, in project\\n  File \\\"modern_projection.projection.world\\\", line 12, in coordinate\\nValueError: 世界坐标超出范围\\n\", \"type\": \"text\"}]}",
+      "representatives_completed": []
+    },
+    "check-v2": {
+      "completed": false,
+      "restored": true,
+      "source_unchanged": true,
+      "error": "MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: \\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 419, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 469, in _RUN_CLIENT_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 46, in <module>\\nAssertionError\\n\", \"type\": \"text\"}]}",
+      "representatives_completed": [
+        "test.transforms.acceptance.t03"
+      ]
+    },
+    "check-v3": {
+      "completed": false,
+      "restored": true,
+      "source_unchanged": true,
+      "error": "TimeoutError: pose settled t03_half_after: {'blocks': 30, 'expected_editor_id': 2360464517720, 'renderer_age': 0.006999969482421875, 'document_actor_cells': 8, 'expected_document_id': 2360464515984, 'document_background_cells': 0, 'running': False, 'native_calls': [{'nonce': 1, 'states': 6, 'actor_cells': 0, 'name': 'modern_projection_chunk_0_0_0_0_0', 'frame_materials': [], 'seconds': 0.0, 'fixture': 'test.transforms.acceptance.t03_half', 'common_cells': 19, 'extra_states': 0, 'extra_cells': 0, 'volume': [16, 16, 10], 'submitted_materials': [{'indices': [676], 'material': ['minecraft:wooden_door', 23]}, {'indices': [746], 'material': ['modern_projection:preview_bed_red_2_foot', 0]}, {'indices': [666], 'material': ['modern_projection:preview_bed_red_1_foot', 0]}, {'indices': [290], 'material': ['minecraft:red_concrete', 0]}, {'indices': [324, 330, 331, 394, 410, 420, 489, 490], 'material': ['minecraft:stone', 0]}, {'indices': [587], 'material': ['modern_projection:preview_bed_red_0_head', 0]}, {'indices': [745], 'material': ['modern_projection:preview_bed_red_2_head', 0]}, {'indices': [836], 'material': ['minecraft:wooden_door', 10]}, {'indices': [650], 'material': ['modern_projection:preview_bed_red_1_head', 0]}, {'indices': [586], 'material': ['modern_projection:preview_bed_red_0_foot', 0]}, {'indices': [932], 'material': ['minecraft:wooden_door', 31]}, {'indices': [580], 'material': ['minecraft:wooden_door', 2]}], 'common_materials': 12, 'mode': 0, 'actor_names': [], 'editor_id': 2360464517720, 'extra_materials': 0, 'document_id': 2360464515984, 'result': 'modern_projection_chunk_0_0_0_0_0'}, {'nonce': 1, 'states': 3, 'actor_cells': 0, 'name': 'modern_projection_chunk_0_0_0_1_0', 'frame_materials': [], 'seconds': 0.0, 'fixture': 'test.transforms.acceptance.t03_half', 'common_cells': 6, 'extra_states': 0, 'extra_cells': 0, 'volume': [16, 16, 10], 'submitted_materials': [{'indices': [577], 'material': ['modern_projection:preview_tall_grass_bottom', 0]}, {'indices': [321, 417], 'material': ['minecraft:grass_block', 0]}, {'indices': [673], 'material': ['minecraft:sunflower', 0]}, {'indices': [929], 'material': ['minecraft:sunflower', 1]}, {'indices': [833], 'material': ['modern_projection:preview_tall_grass_top', 0]}], 'common_materials': 5, 'mode': 0, 'actor_names': [], 'editor_id': 2360464517720, 'extra_materials': 0, 'document_id': 2360464515984, 'result': 'modern_projection_chunk_0_0_0_1_0'}, {'nonce': 1, 'states': 1, 'actor_cells': 0, 'name': 'modern_projection_chunk_0_1_0_0_0', 'frame_materials': [], 'seconds': 0.0, 'fixture': 'test.transforms.acceptance.t03_half', 'common_cells': 4, 'extra_states': 0, 'extra_cells': 0, 'volume': [16, 16, 10], 'submitted_materials': [{'indices': [314, 330], 'material': ['minecraft:stone', 0]}, {'indices': [570], 'material': ['modern_projection:preview_bed_red_3_foot', 0]}, {'indices': [586], 'material': ['modern_projection:preview_bed_red_3_head', 0]}], 'common_materials': 3, 'mode': 0, 'actor_names': [], 'editor_id': 2360464517720, 'extra_materials': 0, 'document_id': 2360464515984, 'result': 'modern_projection_chunk_0_1_0_0_0'}, {'nonce': 1, 'states': 1, 'actor_cells': 0, 'name': 'modern_projection_chunk_0_1_0_1_0', 'frame_materials': [], 'seconds': 0.0, 'fixture': 'test.transforms.acceptance.t03_half', 'common_cells': 1, 'extra_states': 0, 'extra_cells': 0, 'volume': [16, 16, 10], 'submitted_materials': [{'indices': [1351], 'material': ['minecraft:blue_concrete', 0]}], 'common_materials': 1, 'mode': 0, 'actor_names': [], 'editor_id': 2360464517720, 'extra_materials': 0, 'document_id': 2360464515984, 'result': 'modern_projection_chunk_0_1_0_1_0'}, {'nonce': 1, 'states': 6, 'actor_cells': 0, 'name': 'modern_projection_chunk_0_0_0_0_1', 'frame_materials': [], 'seconds': 0.0, 'fixture': 'test.transforms.acceptance.t03_half', 'common_cells': 19, 'extra_states': 0, 'extra_cells': 0, 'volume': [16, 16, 10], 'submitted_materials': [{'indices': [676], 'material': ['minecraft:wooden_door', 23]}, {'indices': [836], 'material': ['minecraft:wooden_door', 26]}, {'indices': [666], 'material': ['modern_projection:preview_bed_red_1_foot', 0]}, {'indices': [290], 'material': ['minecraft:red_concrete', 0]}, {'indices': [324, 330, 331, 394, 410, 420, 489, 490], 'material': ['minecraft:stone', 0]}, {'indices': [580], 'material': ['minecraft:wooden_door', 18]}, {'indices': [746], 'material': ['modern_projection:preview_bed_red_2_foot', 0]}, {'indices': [586], 'material': ['modern_projection:preview_bed_red_0_foot', 0]}, {'indices': [650], 'material': ['modern_projection:preview_bed_red_1_head', 0]}, {'indices': [745], 'material': ['modern_projection:preview_bed_red_2_head', 0]}, {'indices': [932], 'material': ['minecraft:wooden_door', 31]}, {'indices': [587], 'material': ['modern_projection:preview_bed_red_0_head', 0]}], 'common_materials': 12, 'mode': 0, 'actor_names': [], 'editor_id': 2360464517720, 'extra_materials': 0, 'document_id': 2360464515984, 'result': 'modern_projection_chunk_0_0_0_0_1'}], 'document_render_actor_cells': 0, 'preview_pending': False, 'edit_active': False, 'current_source': True, 'editor_id': 2360464517720, 'document_id': 2360464515984, 'size': [32, 10, 32], 'io_active': False, 'name': 'T03 · 只框门上半的伙伴边界', 'liquid': {'controls_pending': False, 'enabled': True, 'owned': True, 'groups': 0, 'error': '', 'plan_ready': True}, 'model_revision_current': True, 'mounting': False, 'tile_builds': 26, 'all_parts_current': False, 'model_name': 'modern_projection_chunk_0_0_0_0_1', 'world_actors': 0, 'parts': [{'render_layout': [[16, 10, 16], [16, 16, 10]], 'actor_cells': 6, 'current_signature': True, 'cache_current': True, 'key': [0, 0, 0], 'ready': True, 'size': [16, 10, 16], 'count': 19, 'name': 'modern_projection_chunk_0_0_0_0_1', 'empty_source_current': False, 'common_cells': 19, 'extra_cells': 0, 'signature': [2360464517720, 1, [], False, -1, False, 140700713586712, [3, '3.10.0.420447', ['minecraft:chest', 'minecraft:copper_chest', 'minecraft:ender_chest', 'minecraft:standing_banner', 'minecraft:wall_banner'], ['minecraft:flower_pot'], ['minecraft:flower_pot', 'minecraft:standing_banner', 'minecraft:wall_banner'], [1, '3.10.0.420447', 450.0, 0.64, '3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2', '518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873', '4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb', True]], [1, '3.10.0.420447', '33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8', 'b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806', 'e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c', '2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e', 'ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d'], ['minecraft:flowing_water', 'minecraft:water'], [1, '3.10.0.420447', 'f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9', '893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8'], [1, '3.10.0.420447', 'native_artwork_layered_starfield_v1', 128]], 'pending': False}, {'render_layout': [[16, 10, 16], [16, 16, 10]], 'actor_cells': 0, 'current_signature': False, 'cache_current': True, 'key': [0, 0, 1], 'ready': False, 'size': [16, 10, 16], 'count': 6, 'name': 'modern_projection_chunk_0_0_0_1_0', 'empty_source_current': False, 'common_cells': 6, 'extra_cells': 0, 'signature': [2360464517720, 0, [], False, -1, False, 140700713586712, [3, '3.10.0.420447', ['minecraft:chest', 'minecraft:copper_chest', 'minecraft:ender_chest', 'minecraft:standing_banner', 'minecraft:wall_banner'], ['minecraft:flower_pot'], ['minecraft:flower_pot', 'minecraft:standing_banner', 'minecraft:wall_banner'], [1, '3.10.0.420447', 450.0, 0.64, '3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2', '518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873', '4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb', True]], [1, '3.10.0.420447', '33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8', 'b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806', 'e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c', '2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e', 'ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d'], ['minecraft:flowing_water', 'minecraft:water'], [1, '3.10.0.420447', 'f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9', '893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8'], [1, '3.10.0.420447', 'native_artwork_layered_starfield_v1', 128]], 'pending': False}, {'render_layout': [[16, 10, 16], [16, 16, 10]], 'actor_cells': 2, 'current_signature': False, 'cache_current': True, 'key': [1, 0, 0], 'ready': False, 'size': [16, 10, 16], 'count': 4, 'name': 'modern_projection_chunk_0_1_0_0_0', 'empty_source_current': False, 'common_cells': 4, 'extra_cells': 0, 'signature': [2360464517720, 0, [], False, -1, False, 140700713586712, [3, '3.10.0.420447', ['minecraft:chest', 'minecraft:copper_chest', 'minecraft:ender_chest', 'minecraft:standing_banner', 'minecraft:wall_banner'], ['minecraft:flower_pot'], ['minecraft:flower_pot', 'minecraft:standing_banner', 'minecraft:wall_banner'], [1, '3.10.0.420447', 450.0, 0.64, '3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2', '518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873', '4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb', True]], [1, '3.10.0.420447', '33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8', 'b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806', 'e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c', '2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e', 'ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d'], ['minecraft:flowing_water', 'minecraft:water'], [1, '3.10.0.420447', 'f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9', '893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8'], [1, '3.10.0.420447', 'native_artwork_layered_starfield_v1', 128]], 'pending': False}, {'render_layout': [[16, 10, 16], [16, 16, 10]], 'actor_cells': 0, 'current_signature': False, 'cache_current': True, 'key': [1, 0, 1], 'ready': False, 'size': [16, 10, 16], 'count': 1, 'name': 'modern_projection_chunk_0_1_0_1_0', 'empty_source_current': False, 'common_cells': 1, 'extra_cells': 0, 'signature': [2360464517720, 0, [], False, -1, False, 140700713586712, [3, '3.10.0.420447', ['minecraft:chest', 'minecraft:copper_chest', 'minecraft:ender_chest', 'minecraft:standing_banner', 'minecraft:wall_banner'], ['minecraft:flower_pot'], ['minecraft:flower_pot', 'minecraft:standing_banner', 'minecraft:wall_banner'], [1, '3.10.0.420447', 450.0, 0.64, '3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2', '518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873', '4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb', True]], [1, '3.10.0.420447', '33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8', 'b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806', 'e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c', '2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e', 'ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d'], ['minecraft:flowing_water', 'minecraft:water'], [1, '3.10.0.420447', 'f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9', '893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8'], [1, '3.10.0.420447', 'native_artwork_layered_starfield_v1', 128]], 'pending': False}], 'dirty': 0, 'all_parts_ready': False, 'renderer_active': True, 'preview_error': '', 'expected_metadata': {'blocks': 30, 'name': 'T03 · 只框门上半的伙伴边界', 'size': [32, 10, 32]}, 'page': 'workspace', 'metadata': {'blocks': 30, 'name': 'T03 · 只框门上半的伙伴边界', 'size': [32, 10, 32]}}",
+      "representatives_completed": []
+    },
+    "check-v4": {
+      "completed": true,
+      "restored": true,
+      "source_unchanged": true,
+      "error": null,
+      "representatives_completed": [
+        "test.transforms.acceptance.t06"
+      ]
+    },
+    "button-pair": {
+      "completed": false,
+      "restored": true,
+      "source_unchanged": true,
+      "error": "AssertionError: Editor preview failed: {'blocks': 60, 'expected_editor_id': 2360632727704, 'renderer_age': 0.037999868392944336, 'document_actor_cells': 0, 'expected_document_id': 2360632728432, 'document_background_cells': 0, 'running': False, 'native_calls': [], 'document_render_actor_cells': 0, 'preview_pending': False, 'edit_active': False, 'current_source': True, 'editor_id': 2360632727704, 'document_id': 2360632728432, 'size': [32, 10, 32], 'io_active': False, 'name': 'T02 · 楼梯、半砖与附着方向', 'liquid': {'controls_pending': False, 'enabled': True, 'owned': True, 'groups': 0, 'error': '', 'plan_ready': True}, 'model_revision_current': False, 'mounting': False, 'tile_builds': 32, 'all_parts_current': True, 'model_name': None, 'world_actors': 0, 'parts': [], 'dirty': 3, 'all_parts_ready': True, 'renderer_active': True, 'preview_error': \"'module' object has no attribute 'sha256'\", 'expected_metadata': {'blocks': 60, 'name': 'T02 · 楼梯、半砖与附着方向', 'size': [32, 10, 32]}, 'page': 'workspace', 'metadata': {'blocks': 60, 'name': 'T02 · 楼梯、半砖与附着方向', 'size': [32, 10, 32]}}",
+      "representatives_completed": []
+    }
+  },
+  "t02_actual_full_single_full": {
+    "completed": true,
+    "document_modified": false,
+    "button_survives_actual_native_submission": true,
+    "A2_reuses_A_model": true,
+    "stages": [
+      {
+        "label": "A_full",
+        "button": {
+          "part": [
+            0,
+            0,
+            1
+          ],
+          "name": "modern_projection_chunk_0_0_0_1_0",
+          "local": [
+            3,
+            3,
+            11
+          ],
+          "native_volume": [
+            16,
+            16,
+            10
+          ],
+          "native_index": 827,
+          "material": [
+            "minecraft:stone_button",
+            0
+          ],
+          "native_result": "modern_projection_chunk_0_0_0_1_0"
+        },
+        "support": {
+          "part": [
+            0,
+            0,
+            1
+          ],
+          "name": "modern_projection_chunk_0_0_0_1_0",
+          "local": [
+            3,
+            4,
+            11
+          ],
+          "native_volume": [
+            16,
+            16,
+            10
+          ],
+          "native_index": 1083,
+          "material": [
+            "minecraft:stone",
+            0
+          ],
+          "native_result": "modern_projection_chunk_0_0_0_1_0"
+        },
+        "new_native_record_count": 5
+      },
+      {
+        "label": "B_single_y3",
+        "button": {
+          "part": [
+            0,
+            0,
+            1
+          ],
+          "name": "modern_projection_chunk_0_0_0_1_1",
+          "local": [
+            3,
+            3,
+            11
+          ],
+          "native_volume": [
+            16,
+            16,
+            10
+          ],
+          "native_index": 827,
+          "material": [
+            "minecraft:stone_button",
+            0
+          ],
+          "native_result": "modern_projection_chunk_0_0_0_1_1"
+        },
+        "support": {
+          "part": [
+            0,
+            0,
+            1
+          ],
+          "name": "modern_projection_chunk_0_0_0_1_1",
+          "local": [
+            3,
+            4,
+            11
+          ],
+          "native_volume": [
+            16,
+            16,
+            10
+          ],
+          "native_index": 1083,
+          "material": null,
+          "native_result": "modern_projection_chunk_0_0_0_1_1"
+        },
+        "new_native_record_count": 3
+      },
+      {
+        "label": "A2_full",
+        "button": {
+          "part": [
+            0,
+            0,
+            1
+          ],
+          "name": "modern_projection_chunk_0_0_0_1_0",
+          "local": [
+            3,
+            3,
+            11
+          ],
+          "native_volume": [
+            16,
+            16,
+            10
+          ],
+          "native_index": 827,
+          "material": [
+            "minecraft:stone_button",
+            0
+          ],
+          "native_result": "modern_projection_chunk_0_0_0_1_0"
+        },
+        "support": {
+          "part": [
+            0,
+            0,
+            1
+          ],
+          "name": "modern_projection_chunk_0_0_0_1_0",
+          "local": [
+            3,
+            4,
+            11
+          ],
+          "native_volume": [
+            16,
+            16,
+            10
+          ],
+          "native_index": 1083,
+          "material": [
+            "minecraft:stone",
+            0
+          ],
+          "native_result": "modern_projection_chunk_0_0_0_1_0"
+        },
+        "new_native_record_count": 0
+      }
+    ],
+    "full_visibility_resolved": false
+  },
+  "t03": {
+    "identity": "test.transforms.acceptance.t03",
+    "operation": "rotate_y90",
+    "completed": true,
+    "typed_initial": {
+      "stage": "t03 public baseline",
+      "equal": true,
+      "state_sha256": "9ad1e8e118f2986f96ca2f14dbfc0a94f39aeda39550e05d21747b0c2260f5ca",
+      "state_sha256_scope": "Decoded document semantics and strict editor state.",
+      "encoded_equal": true,
+      "document_semantic_equal": true,
+      "undo": 0,
+      "redo": 0,
+      "message": "T03：前排两种铰链门，中排四向床，后排高草/向日葵。整组旋转或镜像后撤销；只框上半门请载入T03伙伴边界例。",
+      "job_error": ""
+    },
+    "typed_transform": {
+      "stage": "rotate_y90",
+      "equal": true,
+      "state_sha256": "442419311ca9e22f4d8fad0e7b6a7c161ac4fba6058e9187b24901adc68bb8dc",
+      "state_sha256_scope": "Decoded document semantics and strict editor state.",
+      "encoded_equal": false,
+      "document_semantic_equal": true,
+      "undo": 1,
+      "redo": 0,
+      "message": "水平旋转 90°，已修改 58 格",
+      "job_error": "",
+      "started": {
+        "asynchronous": false,
+        "result": 58
+      }
+    },
+    "typed_undo": {
+      "stage": "t03:undo",
+      "equal": true,
+      "state_sha256": "f00ca59ec23866dce7894f493bba1863d92ded514508017d25580eb606969cb7",
+      "state_sha256_scope": "Decoded document semantics and strict editor state.",
+      "encoded_equal": false,
+      "document_semantic_equal": true,
+      "undo": 0,
+      "redo": 1,
+      "message": "已撤销：水平旋转 90°",
+      "job_error": ""
+    },
+    "points": [
+      [
+        21,
+        2,
+        4
+      ],
+      [
+        21,
+        3,
+        4
+      ]
+    ],
+    "editor_before_and_after_captured": true,
+    "full_native_evidence": "current_source_submission",
+    "full_native_calls": 4,
+    "missing_completed": true,
+    "observer_restored": true,
+    "stages": [
+      {
+        "label": "empty",
+        "observations": [
+          1,
+          1
+        ],
+        "commits": 0,
+        "typed_equal": true,
+        "player_stable": true,
+        "snapshot_preserved": true,
+        "document_preserved": true,
+        "source": {
+          "owner_current": true,
+          "parts": [
+            [
+              "modern_projection_buffer_0_0_c_0_0_0",
+              [
+                0,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_0_0_16",
+              [
+                0,
+                0,
+                16
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_16_0_0",
+              [
+                16,
+                0,
+                0
+              ],
+              true
+            ]
+          ],
+          "origin_current": true,
+          "snapshot_current": true,
+          "work_current": true,
+          "serial": 4,
+          "model": "modern_projection_buffer_0_0",
+          "cache_current": true
+        },
+        "pixels_accepted": false
+      },
+      {
+        "label": "single_half",
+        "observations": [
+          2,
+          1
+        ],
+        "commits": 1,
+        "typed_equal": true,
+        "player_stable": true,
+        "snapshot_preserved": true,
+        "document_preserved": true,
+        "source": {
+          "owner_current": true,
+          "parts": [
+            [
+              "modern_projection_buffer_0_1_c_0_0_0",
+              [
+                0,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_1_c_0_0_16",
+              [
+                0,
+                0,
+                16
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_1_c_16_0_0",
+              [
+                16,
+                0,
+                0
+              ],
+              true
+            ]
+          ],
+          "origin_current": true,
+          "snapshot_current": true,
+          "work_current": true,
+          "serial": 4,
+          "model": "modern_projection_buffer_0_1",
+          "cache_current": true
+        },
+        "pixels_accepted": false
+      },
+      {
+        "label": "occupied",
+        "observations": [
+          2,
+          2
+        ],
+        "commits": 2,
+        "typed_equal": true,
+        "player_stable": true,
+        "snapshot_preserved": true,
+        "document_preserved": true,
+        "source": {
+          "owner_current": true,
+          "parts": [
+            [
+              "modern_projection_buffer_0_0_c_0_0_0",
+              [
+                0,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_0_0_16",
+              [
+                0,
+                0,
+                16
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_16_0_0",
+              [
+                16,
+                0,
+                0
+              ],
+              true
+            ]
+          ],
+          "origin_current": true,
+          "snapshot_current": true,
+          "work_current": true,
+          "serial": 4,
+          "model": "modern_projection_buffer_0_0",
+          "cache_current": true
+        },
+        "pixels_accepted": false
+      },
+      {
+        "label": "restored",
+        "observations": [
+          1,
+          1
+        ],
+        "commits": 3,
+        "typed_equal": true,
+        "player_stable": true,
+        "snapshot_preserved": true,
+        "document_preserved": true,
+        "source": {
+          "owner_current": true,
+          "parts": [
+            [
+              "modern_projection_buffer_0_1_c_0_0_0",
+              [
+                0,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_1_c_0_0_16",
+              [
+                0,
+                0,
+                16
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_1_c_16_0_0",
+              [
+                16,
+                0,
+                0
+              ],
+              true
+            ]
+          ],
+          "origin_current": true,
+          "snapshot_current": true,
+          "work_current": true,
+          "serial": 4,
+          "model": "modern_projection_buffer_0_1",
+          "cache_current": true
+        },
+        "pixels_accepted": false
+      }
+    ],
+    "manual_acceptance": false
+  },
+  "t06": {
+    "identity": "test.transforms.acceptance.t06",
+    "operation": "rotate_y90",
+    "completed": true,
+    "typed_initial": {
+      "stage": "t06 public baseline",
+      "equal": true,
+      "state_sha256": "3a3128b4072327e3687179df8867f63e16ea5a668b12d485a60d6196008971b4",
+      "state_sha256_scope": "Decoded document semantics and strict editor state.",
+      "encoded_equal": true,
+      "document_semantic_equal": true,
+      "undo": 0,
+      "redo": 0,
+      "message": "T06：前两排为正倒楼梯外角/内角，后方为栅栏门、墙、玻璃板、铁栏杆；连接跨X或Z=15/16。整体旋转或镜像，检查接缝，再撤销。",
+      "job_error": ""
+    },
+    "typed_transform": {
+      "stage": "rotate_y90",
+      "equal": true,
+      "state_sha256": "52643c118f6b78bdf63c6ec9344fc52ecd57d8b8089700a18779e551713d86eb",
+      "state_sha256_scope": "Decoded document semantics and strict editor state.",
+      "encoded_equal": false,
+      "document_semantic_equal": true,
+      "undo": 1,
+      "redo": 0,
+      "message": "水平旋转 90°，已修改 93 格",
+      "job_error": "",
+      "started": {
+        "asynchronous": false,
+        "result": 93
+      }
+    },
+    "typed_undo": {
+      "stage": "t06:undo",
+      "equal": true,
+      "state_sha256": "650da400178f86f55275f295c993468ab28c2eb960def5200a1eb62eb9ec6743",
+      "state_sha256_scope": "Decoded document semantics and strict editor state.",
+      "encoded_equal": false,
+      "document_semantic_equal": true,
+      "undo": 0,
+      "redo": 1,
+      "message": "已撤销：水平旋转 90°",
+      "job_error": ""
+    },
+    "points": [
+      [
+        7,
+        2,
+        15
+      ]
+    ],
+    "editor_before_and_after_captured": true,
+    "full_native_evidence": "current_source_submission",
+    "full_native_calls": 5,
+    "missing_completed": true,
+    "observer_restored": true,
+    "stages": [
+      {
+        "label": "empty",
+        "observations": [
+          1
+        ],
+        "commits": 0,
+        "typed_equal": true,
+        "player_stable": true,
+        "snapshot_preserved": true,
+        "document_preserved": true,
+        "source": {
+          "owner_current": true,
+          "parts": [
+            [
+              "modern_projection_buffer_0_0_c_0_0_0",
+              [
+                0,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_0_0_16",
+              [
+                0,
+                0,
+                16
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_16_0_0",
+              [
+                16,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_16_0_16",
+              [
+                16,
+                0,
+                16
+              ],
+              true
+            ]
+          ],
+          "origin_current": true,
+          "snapshot_current": true,
+          "work_current": true,
+          "serial": 11,
+          "model": "modern_projection_buffer_0_0",
+          "cache_current": true
+        },
+        "pixels_accepted": false
+      },
+      {
+        "label": "occupied",
+        "observations": [
+          2
+        ],
+        "commits": 1,
+        "typed_equal": true,
+        "player_stable": true,
+        "snapshot_preserved": true,
+        "document_preserved": true,
+        "source": {
+          "owner_current": true,
+          "parts": [
+            [
+              "modern_projection_buffer_0_1_c_0_0_0",
+              [
+                0,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_1_c_0_0_16",
+              [
+                0,
+                0,
+                16
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_1_c_16_0_0",
+              [
+                16,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_1_c_16_0_16",
+              [
+                16,
+                0,
+                16
+              ],
+              true
+            ]
+          ],
+          "origin_current": true,
+          "snapshot_current": true,
+          "work_current": true,
+          "serial": 11,
+          "model": "modern_projection_buffer_0_1",
+          "cache_current": true
+        },
+        "pixels_accepted": false
+      },
+      {
+        "label": "restored",
+        "observations": [
+          1
+        ],
+        "commits": 2,
+        "typed_equal": true,
+        "player_stable": true,
+        "snapshot_preserved": true,
+        "document_preserved": true,
+        "source": {
+          "owner_current": true,
+          "parts": [
+            [
+              "modern_projection_buffer_0_0_c_0_0_0",
+              [
+                0,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_0_0_16",
+              [
+                0,
+                0,
+                16
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_16_0_0",
+              [
+                16,
+                0,
+                0
+              ],
+              true
+            ],
+            [
+              "modern_projection_buffer_0_0_c_16_0_16",
+              [
+                16,
+                0,
+                16
+              ],
+              true
+            ]
+          ],
+          "origin_current": true,
+          "snapshot_current": true,
+          "work_current": true,
+          "serial": 11,
+          "model": "modern_projection_buffer_0_0",
+          "cache_current": true
+        },
+        "pixels_accepted": false
+      }
+    ],
+    "manual_acceptance": false
+  },
+  "t03_half": {
+    "typed_transform_equal": true,
+    "runtime_after_precheck_blocked": true,
+    "full_or_missing_completed": false,
+    "prior_nonce_relaxation_does_not_qualify_native_cache_reuse": true,
+    "requires": "Bind prior immutable model, full prepared/serialized palette and current source/cache/signature before qualifying reuse."
+  },
+  "two_cell_button": {
+    "completed": false,
+    "erase_executed": false,
+    "captured_ab_a_images": 0,
+    "error": "AssertionError: Editor preview failed: {'blocks': 60, 'expected_editor_id': 2360632727704, 'renderer_age': 0.037999868392944336, 'document_actor_cells': 0, 'expected_document_id': 2360632728432, 'document_background_cells': 0, 'running': False, 'native_calls': [], 'document_render_actor_cells': 0, 'preview_pending': False, 'edit_active': False, 'current_source': True, 'editor_id': 2360632727704, 'document_id': 2360632728432, 'size': [32, 10, 32], 'io_active': False, 'name': 'T02 · 楼梯、半砖与附着方向', 'liquid': {'controls_pending': False, 'enabled': True, 'owned': True, 'groups': 0, 'error': '', 'plan_ready': True}, 'model_revision_current': False, 'mounting': False, 'tile_builds': 32, 'all_parts_current': True, 'model_name': None, 'world_actors': 0, 'parts': [], 'dirty': 3, 'all_parts_ready': True, 'renderer_active': True, 'preview_error': \"'module' object has no attribute 'sha256'\", 'expected_metadata': {'blocks': 60, 'name': 'T02 · 楼梯、半砖与附着方向', 'size': [32, 10, 32]}, 'page': 'workspace', 'metadata': {'blocks': 60, 'name': 'T02 · 楼梯、半砖与附着方向', 'size': [32, 10, 32]}}",
+    "restored": true
+  },
+  "independent_restore": {
+    "before": {
+      "completed": true,
+      "changed_keys": null,
+      "source_unchanged": true,
+      "camera_rotation_delta": null
+    },
+    "after1": {
+      "completed": true,
+      "changed_keys": [],
+      "source_unchanged": true,
+      "camera_rotation_delta": [
+        0.0,
+        0.0,
+        -1.3660377589985728e-05
+      ]
+    },
+    "after2": {
+      "completed": true,
+      "changed_keys": [],
+      "source_unchanged": true,
+      "camera_rotation_delta": [
+        0.0,
+        0.0,
+        -1.3660377589985728e-05
+      ]
+    },
+    "after3": {
+      "completed": true,
+      "changed_keys": [],
+      "source_unchanged": true,
+      "camera_rotation_delta": [
+        0.0,
+        0.0,
+        -1.3660377589985728e-05
+      ]
+    }
+  },
+  "lifecycle": {
+    "ordinary_stop_and_finalize_completed": true,
+    "registry_state": "stopped",
+    "actual_exit_codes": {
+      "game": 3221226505,
+      "mcdk": 0
+    },
+    "game_exit_code_hex": "0xC0000409",
+    "normal_shutdown_qualified": false,
+    "force_executed": false,
+    "watcher_retired": true,
+    "known_assertions": [],
+    "other_assertions": []
+  },
+  "visual_review": {
+    "opened_raw_images": [
+      "check/t02_A_full.png",
+      "check/t02_B_single_y3.png",
+      "check/t02_A2_full.png",
+      "check-v2/t03_before.png",
+      "check-v2/t03_after.png",
+      "check-v2/t03_world_closeup.png",
+      "check-v2/t03_missing_empty.png",
+      "check-v2/t03_missing_single_half.png",
+      "check-v2/t03_missing_occupied.png",
+      "check-v2/t03_missing_restored.png",
+      "check-v4/t06_before.png",
+      "check-v4/t06_after.png",
+      "check-v4/t06_world_closeup.png",
+      "check-v4/t06_missing_empty.png",
+      "check-v4/t06_missing_occupied.png",
+      "check-v4/t06_missing_restored.png",
+      "check-v3/t03_half_before.png"
+    ],
+    "manual_acceptance": false,
+    "manual_issues_closed": 0,
+    "t02": "Full and A2 show the support face with button obscured. Single Y3 shows button thickness. Actual submitted aux0 remains intact. Mesh/depth/scene cause unresolved.",
+    "t03": "Representative editor/full and controlled missing images opened. Both target door halves vanish under occupied and return together; support and other door remain. Some overview objects clipped; no full visual matrix claimed.",
+    "t06": "Representative editor/full and controlled missing images opened. Center pane vanishes under occupied and returns; neighboring panes/bars/wall/gate persist. Some stairs clipped; no complete stair appearance matrix claimed.",
+    "t03_half": "Only before editor image exists for v3. After transform precheck blocked; no after/full/missing qualification.",
+    "two_cell_button": "Initial public T02 load failed before erase. No two-cell A/B/A screenshots; experiment not performed.",
+    "reopened_after_context_resume": [
+      "check-v2/t03_missing_occupied.png",
+      "check-v2/t03_missing_restored.png",
+      "check-v4/t06_missing_occupied.png",
+      "check-v4/t06_missing_restored.png"
+    ]
+  },
+  "raw_evidence_retained": true,
+  "credential_redaction": "Local raw retained. Marked derived archives redact credentials; raw, archive and decoded SHA values recorded separately.",
+  "image_derivatives": "JPEG previews are lossy. Exact original PNGs remain local with original SHA values."
+}

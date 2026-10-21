@@ -1,0 +1,471 @@
+{
+  "created_at": "2026-10-21T16:32:44.815626+00:00",
+  "scope": "Offline T07 data and transactions only",
+  "manual_issues_closed": 0,
+  "editor_or_projection_runtime_executed": false,
+  "snow_or_water_render_qualification_changed": false,
+  "fixture": "test.transforms.acceptance.t07",
+  "document_size": [
+    32,
+    10,
+    32
+  ],
+  "cells": 19,
+  "selection": [
+    [
+      2,
+      1,
+      2
+    ],
+    [
+      14,
+      5,
+      18
+    ]
+  ],
+  "source_samples": [
+    {
+      "label": "dry_stairs",
+      "source_fixture": "test.layers.water",
+      "source": [
+        18,
+        1,
+        3
+      ],
+      "target": [
+        4,
+        2,
+        4
+      ],
+      "foreground": [
+        "minecraft:oak_stairs",
+        0
+      ],
+      "background": [
+        "minecraft:air",
+        0
+      ],
+      "foreground_states": {
+        "upside_down_bit": false,
+        "weirdo_direction": 0
+      },
+      "background_states": {},
+      "tagged_root": null
+    },
+    {
+      "label": "wet_stairs",
+      "source_fixture": "test.layers.water",
+      "source": [
+        18,
+        1,
+        6
+      ],
+      "target": [
+        8,
+        2,
+        4
+      ],
+      "foreground": [
+        "minecraft:oak_stairs",
+        0
+      ],
+      "background": [
+        "minecraft:water",
+        0
+      ],
+      "foreground_states": {
+        "upside_down_bit": false,
+        "weirdo_direction": 0
+      },
+      "background_states": {
+        "liquid_depth": 0
+      },
+      "tagged_root": null
+    },
+    {
+      "label": "background_water",
+      "source_fixture": "test.layers.water",
+      "source": [
+        3,
+        1,
+        9
+      ],
+      "target": [
+        12,
+        2,
+        4
+      ],
+      "foreground": [
+        "minecraft:air",
+        0
+      ],
+      "background": [
+        "minecraft:water",
+        0
+      ],
+      "foreground_states": {},
+      "background_states": {
+        "liquid_depth": 0
+      },
+      "tagged_root": null
+    },
+    {
+      "label": "snow_h0",
+      "source_fixture": "test.layers.snow",
+      "source": [
+        18,
+        1,
+        9
+      ],
+      "target": [
+        4,
+        2,
+        10
+      ],
+      "foreground": [
+        "minecraft:snow_layer",
+        8
+      ],
+      "background": [
+        "minecraft:poppy",
+        0
+      ],
+      "foreground_states": {
+        "covered_bit": true,
+        "height": 0
+      },
+      "background_states": {},
+      "tagged_root": null
+    },
+    {
+      "label": "snow_h5",
+      "source_fixture": "test.layers.snow",
+      "source": [
+        18,
+        1,
+        16
+      ],
+      "target": [
+        8,
+        2,
+        10
+      ],
+      "foreground": [
+        "minecraft:snow_layer",
+        13
+      ],
+      "background": [
+        "minecraft:poppy",
+        0
+      ],
+      "foreground_states": {
+        "covered_bit": true,
+        "height": 5
+      },
+      "background_states": {},
+      "tagged_root": null
+    },
+    {
+      "label": "dry_poppy",
+      "source_fixture": "test.layers.snow",
+      "source": [
+        18,
+        1,
+        3
+      ],
+      "target": [
+        12,
+        2,
+        10
+      ],
+      "foreground": [
+        "minecraft:poppy",
+        0
+      ],
+      "background": [
+        "minecraft:air",
+        0
+      ],
+      "foreground_states": {},
+      "background_states": {},
+      "tagged_root": null
+    },
+    {
+      "label": "dry_sign",
+      "source_fixture": "test.entities.signs",
+      "source": [
+        5,
+        1,
+        7
+      ],
+      "target": [
+        4,
+        2,
+        16
+      ],
+      "foreground": [
+        "minecraft:standing_sign",
+        0
+      ],
+      "background": [
+        "minecraft:air",
+        0
+      ],
+      "foreground_states": {
+        "ground_sign_direction": 0
+      },
+      "background_states": {},
+      "tagged_root": {
+        "BackText": {
+          "FilteredText": {
+            "__type__": 8,
+            "__value__": ""
+          },
+          "HideGlowOutline": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IgnoreLighting": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "PersistFormatting": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "SignTextColor": {
+            "__type__": 3,
+            "__value__": 2147418112
+          },
+          "Text": {
+            "__type__": 8,
+            "__value__": "Back\nNative"
+          },
+          "TextOwner": {
+            "__type__": 8,
+            "__value__": ""
+          }
+        },
+        "FrontText": {
+          "FilteredText": {
+            "__type__": 8,
+            "__value__": ""
+          },
+          "HideGlowOutline": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IgnoreLighting": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "PersistFormatting": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "SignTextColor": {
+            "__type__": 3,
+            "__value__": -16711936
+          },
+          "Text": {
+            "__type__": 8,
+            "__value__": "Front\nNative"
+          },
+          "TextOwner": {
+            "__type__": 8,
+            "__value__": ""
+          }
+        },
+        "IsWaxed": {
+          "__type__": 1,
+          "__value__": 0
+        },
+        "id": {
+          "__type__": 8,
+          "__value__": "Sign"
+        },
+        "isMovable": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "x": {
+          "__type__": 3,
+          "__value__": 4
+        },
+        "y": {
+          "__type__": 3,
+          "__value__": 2
+        },
+        "z": {
+          "__type__": 3,
+          "__value__": 16
+        }
+      }
+    },
+    {
+      "label": "wet_sign",
+      "source_fixture": "test.entities.signs",
+      "source": [
+        3,
+        1,
+        7
+      ],
+      "target": [
+        10,
+        2,
+        16
+      ],
+      "foreground": [
+        "minecraft:standing_sign",
+        0
+      ],
+      "background": [
+        "minecraft:water",
+        0
+      ],
+      "foreground_states": {
+        "ground_sign_direction": 0
+      },
+      "background_states": {
+        "liquid_depth": 0
+      },
+      "tagged_root": {
+        "BackText": {
+          "FilteredText": {
+            "__type__": 8,
+            "__value__": ""
+          },
+          "HideGlowOutline": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IgnoreLighting": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "PersistFormatting": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "SignTextColor": {
+            "__type__": 3,
+            "__value__": 2147418112
+          },
+          "Text": {
+            "__type__": 8,
+            "__value__": "Back\nNative"
+          },
+          "TextOwner": {
+            "__type__": 8,
+            "__value__": ""
+          }
+        },
+        "FrontText": {
+          "FilteredText": {
+            "__type__": 8,
+            "__value__": ""
+          },
+          "HideGlowOutline": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IgnoreLighting": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "PersistFormatting": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "SignTextColor": {
+            "__type__": 3,
+            "__value__": -16711936
+          },
+          "Text": {
+            "__type__": 8,
+            "__value__": "Front\nNative"
+          },
+          "TextOwner": {
+            "__type__": 8,
+            "__value__": ""
+          }
+        },
+        "IsWaxed": {
+          "__type__": 1,
+          "__value__": 0
+        },
+        "id": {
+          "__type__": 8,
+          "__value__": "Sign"
+        },
+        "isMovable": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "x": {
+          "__type__": 3,
+          "__value__": 10
+        },
+        "y": {
+          "__type__": 3,
+          "__value__": 2
+        },
+        "z": {
+          "__type__": 3,
+          "__value__": 16
+        }
+      }
+    }
+  ],
+  "registry_version": "NEMC 3.9.0.401155",
+  "registry_fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "head_at_finalization": "8150eab2eabc2a25bd8d1fc22d3aed70ff20edee",
+  "worktree_source_sha256": {
+    "behavior_pack/modern_projection/projection/debug_transform_acceptance.py": "24b157f239531a338cb27077a5728f5bbaa51e494765511b8568476e502e6a16",
+    "tests/test_transform_acceptance.py": "39b44db99e73192f1a77dede683d2691bcf0e8c3e266c3b9ca577ee897816c51",
+    "behavior_pack/modern_projection/projection/debug_blueprints.py": "6d8eec8c323d0e3ead00514d1833adc0dff99d25f4a5de2dca59578caca39964",
+    "behavior_pack/modern_projection/projection/debug_snow_blueprints.py": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de",
+    "behavior_pack/modern_projection/projection/debug_sign_blueprints.py": "c01324f53add969f71333590c175d439fb8e5593f9ef3c46b898f6d099db0b46",
+    "behavior_pack/modern_projection/projection/native_sign_data.py": "f1c0e6c65fde69f687d79688eb5204eedf353a1de0ba17fb4392c5be0672b785",
+    "behavior_pack/modern_projection/projection/cell.py": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+    "behavior_pack/modern_projection/projection/model.py": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2",
+    "behavior_pack/modern_projection/projection/storage.py": "ae82f1c80715ff35a905081889ef4e155e9d3d59f29ff6f2ccc6d83a4961354e",
+    "behavior_pack/modern_projection/projection/state_transform.py": "ee20291ac3a7efb30405e4769d519c55a2951291074cb1fd6cd21aa475e820c2",
+    "behavior_pack/modern_projection/projection/block_groups.py": "25d82ed827b798cd319cab006f3df331dc3ca47a6f1b56cd15e1d30e3a70e747",
+    "behavior_pack/modern_projection/projection/nbt_spatial.py": "aac80300547ce5e99c332e8e43a83df320fca89493ef543f41c113d402f3a3fe",
+    "behavior_pack/modern_projection/projection/visible_actor.py": "06a45742aa05787c19a63757d69785a124a2241a3eb93e2637f9234d6b4880e7",
+    "behavior_pack/modern_projection/projection/block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a"
+  },
+  "source_binding_scope": "Two changed files and data dependencies observed at finalization; worktree has not been committed or used for a cold MC run.",
+  "focused_tests_passed": 19,
+  "mcp_review_files_scanned": 1,
+  "mcp_review_findings": 0,
+  "true_python2_compile_passed": true,
+  "dual_host_json_equal": true,
+  "dual_host_raw_bytes_equal": false,
+  "dual_host_raw_sha256": {
+    "py2.json": "918c8f7ad96d966f8b980e387f28fdd41aa7e10d8f017c7f4005f10768ceaff0",
+    "py3.json": "4cd0d64c9be4137b2cef2263d372a03dfc97e219bd073314b2fd6433671ad5f3"
+  },
+  "earlier_diagnostics": [
+    {
+      "stage": "first focused test run",
+      "returncode": 1,
+      "test": "test_candidates_are_independent_legal_native_documents_with_palette_preflight",
+      "error_excerpt": "AssertionError: Tuples differ: (32, 32, 10) != (32, 32, 266)",
+      "resolution": "Existing covered-plant overlay band extends render volume by 256. T07 now explicitly expects (32,32,266), logical document unchanged. No renderer edit."
+    },
+    {
+      "stage": "first Python2 compile command",
+      "returncode": 1,
+      "error_excerpt": "SyntaxError: encoding declaration in Unicode string",
+      "resolution": "Compile original UTF8 source bytes; succeeded, no source edit needed."
+    },
+    {
+      "stage": "review scope selection",
+      "result": "Several initial invocations scanned zero files; these are not qualified reviews.",
+      "resolution": "Final scope modern_projection/projection/debug_transform_acceptance scanned one file, no findings."
+    }
+  ],
+  "original_r27_cold_source_and_evidence_unchanged": true
+}
