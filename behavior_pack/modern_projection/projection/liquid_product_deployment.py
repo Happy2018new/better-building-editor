@@ -1,11 +1,20 @@
 """Select explicitly accepted water visuals without claiming native parity."""
 from . import liquid_product_qualification_data as qualification
 from .liquid_render_target_data import TARGET_ENGINE_VERSION
+from .storage import integer_types
 
 REQUIRED_GATES = frozenset(('editor', 'projection_full', 'projection_missing', 'transparency',
                             'geometry', 'animation', 'biome', 'lifecycle', 'side_uv',
                             'visibility', 'neighbors', 'occupancy', 'budgets', 'default_path',
                             'transparent_overlap', 'public_gallery'))
+
+
+def ui_offset_for_gui(size, gui):
+    """Place only the explicit product-water candidate at the native GUI anchor."""
+    if (isinstance(gui, bool) or not isinstance(gui, integer_types + (float,))
+            or not 1. <= gui < float('inf') or gui != round(gui)):
+        raise ValueError('Product water needs a positive integer native GUI scale')
+    return 0., min(size) / float(gui)
 
 
 def candidate_profile(frozen=False):
@@ -16,7 +25,9 @@ def candidate_profile(frozen=False):
     selected = dict(resources.PRODUCT_RESOURCES)
     if frozen:
         selected['models'] = resources.FROZEN_PRODUCT_MODELS
-    return ProductLiquidProfile(selected, ui_pose, ui_offset)
+    profile = ProductLiquidProfile(selected, ui_pose, ui_offset)
+    profile.ui_offset_for_gui = ui_offset_for_gui
+    return profile
 
 
 def production_profile(engine_version=None):

@@ -498,7 +498,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             def liquid_view(origin):
                 view = group_view(origin, camera, session.scene_origin, session.scene_size,
                                   (native_width, native_height), cell_unit)
-                offset = liquid_profile.ui_offset(view.size)
+                gui_offset = getattr(liquid_profile, 'ui_offset_for_gui', None)
+                offset = (gui_offset(view.size, Theme.native_gui_scale) if gui_offset is not None
+                          else liquid_profile.ui_offset(view.size))
                 return view._replace(position=tuple(view.position[axis] + offset[axis] for axis in range(2)))
             def liquid_pose(view):
                 return liquid_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)

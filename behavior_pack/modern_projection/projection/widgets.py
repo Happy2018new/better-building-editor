@@ -27,6 +27,7 @@ class Theme(object):
     scale = 1.
     motion = True
     input_font_scale = 1.
+    native_gui_scale = None
     listeners = set()
     bg = Color(0xF1F4F8FF)
     white = Color(0xFFFFFFFF)
@@ -47,6 +48,8 @@ class Theme(object):
         # GetScreenSize truncates the logical width; their raw ratio therefore
         # is not a fractional GUI scale (e.g. a 1600px window at 3x).
         gui = max(1., round(float(game.GetScreenViewInfo()[0]) / game.GetScreenSize()[0]))
+        # Refresh the native GUI cache even when the font/theme is unchanged.
+        cls.native_gui_scale = gui
         # Keep the original bitmap glyphs at whole screen magnifications. A
         # fixed .5 becomes too small when the engine changes GUI scale to 2.
         font = max(3., round(scale * 1.7 * gui)) / gui
