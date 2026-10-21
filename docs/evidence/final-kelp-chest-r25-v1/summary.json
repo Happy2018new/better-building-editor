@@ -1,0 +1,78 @@
+{
+  "source_commit": "7c7c32f05fbc6d4eb0e7e9895f060f1f39b8860c",
+  "source_manifest_sha256": "7872491a970fd54d3331f2bdaf89dd04f87224ec184d612123749e74e82a65fa",
+  "source_unchanged": true,
+  "manual_issues_closed": 0,
+  "manual_acceptance": false,
+  "candidate_profile_assignment": false,
+  "world_write_performed": false,
+  "kelp": {
+    "completed": true,
+    "restored": true,
+    "source_unchanged": true,
+    "public_card_callbacks": true,
+    "native_mouse_clicked": false,
+    "formal_material_names": [
+      "minecraft:stone",
+      "modern_projection:ordinary_kelp_stem",
+      "modern_projection:ordinary_kelp_top"
+    ],
+    "agent_visual_observation": "Editor low/isolated and cross16 plants, plus both matching missing projection views, are visible and show stem/top continuity. This is bounded agent evidence for the public fixture, not human closure.",
+    "first_fail_preserved": "kelp/report.json",
+    "v2_host_error_preserved": "kelp-resume-v2/report.json",
+    "v3_blank_closeups_preserved": "kelp-resume-v3/report.json",
+    "host_corrections": [
+      "Exclude only verified empty non-region-owner PreviewTile slots; all active owners remain strict.",
+      "Use exactly data[0:3] for palette counts.",
+      "Focus the mounted camera through camera_focus_request before zoom."
+    ]
+  },
+  "t04": {
+    "completed": true,
+    "restored": true,
+    "source_unchanged": true,
+    "native_world_occupancy": false,
+    "runtime_context_patch": false,
+    "stages": [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "agent_visual_observation": "Mirror before/after, full projection and four observed missing stages are visually consistent. Occupied red support is clean, single-half removes only the occupied half, blue pair remains, and restored returns both pairs without flat chest wood on supports.",
+    "input_normalization_note": "Original preflight saw current-host LF versus archive CRLF rail bytes. v2 binds exact frozen manifest bytes, retaining raw comparisons and CRLF-to-LF equality without changing frozen inputs.",
+    "independent_restore_audits": [
+      "t04-restore-v2-after1.json",
+      "t04-restore-v2-after2.json"
+    ],
+    "initial_audit_fail_preserved": "t04-restore-after1.json",
+    "restore_metric_note": "previewWall changes when restored preview rebuild finishes; all other performance fields, document/editor/session identity, restored settings, profiles and native camera remain strict."
+  },
+  "lifecycle": {
+    "owner": "r25-final-kelp-chest-v1",
+    "game_pid": 62820,
+    "game_creation_identity": "134370206332889401",
+    "ordinary_stop_and_registry_finalize": true,
+    "registry_state": "stopped",
+    "actual_exit_codes": {
+      "game": 3221226505,
+      "mcdk": 0
+    },
+    "game_exit_hex": "0xC0000409",
+    "normal_shutdown_qualified": false,
+    "force_executed": false,
+    "assert_watcher_retired": true
+  }
+}

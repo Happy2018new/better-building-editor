@@ -1,0 +1,161 @@
+{
+  "schema": 1,
+  "manual_issues_closed": 0,
+  "source_commit": "103633d06813488f2c3da563ddc0969366596f6d",
+  "source_manifest_sha256": "99c4bdcb389b81d542f0b170dff815ede2efe37b5036f1f3046b8f4cb182e8a5",
+  "runtime_files": 3707,
+  "method_injection_only": true,
+  "cold_source_qualified": false,
+  "native_world_occupancy": false,
+  "all_three_typed_snapshots_equal": true,
+  "all_twelve_source_bindings_current": true,
+  "reports": [
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/a-before-v1.json",
+      "sha256": "bad6f4c16d7bb72c7926829a71eca561420db0a41fdc7391801546442a81a316",
+      "bytes": 7009596
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/b-v1.json",
+      "sha256": "ff75dfdbddb686551ce18be53376ef10afe80c9ad015ac7041ded1043e937530",
+      "bytes": 7009387
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/a-return-v1.json",
+      "sha256": "6133e60d0a797498113ac4dfd43cabc9e7347e0832447f7a546ddff97f951f41",
+      "bytes": 7009638
+    }
+  ],
+  "reviewed_original_images": [
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/a-before-v1_t04_missing_single_half_native.png",
+      "sha256": "384e944d6cc2ae3fc720f20804d37ed0f35a2c23d5b58ac4e9880bc596dc7357",
+      "bytes": 825361,
+      "phase": "a-before-v1",
+      "stage": "single_half",
+      "visual": "wood_plane_residue_present"
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/b-v1_t04_missing_single_half_native.png",
+      "sha256": "846be9fdd87c3af729c8b29c24073a7734c27eef229d2d77b7ab2f1b773ed9b4",
+      "bytes": 817111,
+      "phase": "b-v1",
+      "stage": "single_half",
+      "visual": "red_support_exposed_no_wood_plane"
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/a-return-v1_t04_missing_single_half_native.png",
+      "sha256": "3eb337e6e27d4e512f6b5a4b5ae232eb6f7d04d90fd739588c8cba7fce355e6e",
+      "bytes": 825406,
+      "phase": "a-return-v1",
+      "stage": "single_half",
+      "visual": "wood_plane_residue_present"
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/a-before-v1_t04_missing_occupied_native.png",
+      "sha256": "29b76513189441781823623e4a5d1fe0e753c41c8d083defc47af138494d9d96",
+      "bytes": 821815,
+      "phase": "a-before-v1",
+      "stage": "occupied",
+      "visual": "wood_plane_residue_present"
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/b-v1_t04_missing_occupied_native.png",
+      "sha256": "abf5810f79605c6257e13f0aad3782e31abb0d6ba070bad1d298cb793b98b798",
+      "bytes": 809962,
+      "phase": "b-v1",
+      "stage": "occupied",
+      "visual": "red_support_exposed_no_wood_plane"
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/a-return-v1_t04_missing_occupied_native.png",
+      "sha256": "b6217fc40ff7d91f63af4c4558b083edbb80b90ef22ed748a3badbf39a1a14ab",
+      "bytes": 821827,
+      "phase": "a-return-v1",
+      "stage": "occupied",
+      "visual": "wood_plane_residue_present"
+    }
+  ],
+  "methods": [
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/a-before-v1.methods.json",
+      "sha256": "c0c554a0642b7bbaf18218dce5fa1da4c7bb37b2c6ff846a791dcd3a7abc5cc1",
+      "bytes": 3670
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/b-v1.methods.json",
+      "sha256": "52486f26a8ffac6dc813baa872b4b1a7f64543bb31b3bf2ce158cd0dd25032cd",
+      "bytes": 3953
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/a-return-v1.methods.json",
+      "sha256": "a97a02f4d466682991fc7db3f946c852f3d695385b5f3262ba8c65a4b86599da",
+      "bytes": 3670
+    }
+  ],
+  "cpu": [
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/cpu-report.json",
+      "sha256": "4414c6b4db7051ec65bfc87613ee14774d132e7e39c60342d1d252ae030eeb3b",
+      "bytes": 9509
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/promotable-baseline-v1.json",
+      "sha256": "a25801e164cea822b26ae8a19c13ed3cebf01c85f96438dbb9fe31edbedde45c",
+      "bytes": 454
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/promotable-candidate-v1.json",
+      "sha256": "c21891ac5f194a031ae70fcfbfaff8b44d6ec8a1a7022249ae1b30a6c707acfe",
+      "bytes": 196
+    }
+  ],
+  "source_and_test": [
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/source-manifest.json",
+      "sha256": "a829d9df6ecddd29695b6e5567aecff8815a1978830d8aefe8fe44515234e239",
+      "bytes": 704
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/candidate.diff",
+      "sha256": "2b567bf2c9f9fd6179619cb26cc770a26bf714cd9c1cd7cbc523f41d75ce43f1",
+      "bytes": 2453
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/method-payload.py",
+      "sha256": "4802d0047fe7b7d4ac1b0b264b0aaae841266bd262121116b3cf9b64f0def8de",
+      "bytes": 2047
+    },
+    {
+      "path": ".runtime/round-20261021/chest-context-ownership-v1/test_chest_context_ownership.py",
+      "sha256": "81082ba4fae0c4ed8c4027a5fb8d5aa4514de7db4d8700c8c591e9fe59d9376a",
+      "bytes": 9459
+    }
+  ],
+  "restoration": {
+    "path": ".runtime/round-20261021/chest-context-ownership-v1/independent-restore-v1.json",
+    "sha256": "9253c4a960f2ecd22ed868facef0bc5e07eda2919df8165819494db96bf72728",
+    "bytes": 3750
+  },
+  "ordinary_stop": {
+    "path": ".runtime/round-20261021/chest-context-ownership-v1/ordinary-stop-v1.json",
+    "sha256": "f21b3364fe9bc9c23d63f13bd31b4d01e26f6e2afb2912d436539062149116e0",
+    "bytes": 151054
+  },
+  "game_exit_hex": "0xC0000409",
+  "mcdk_exit_hex": "0x00000000",
+  "ordinary_stop_returncode": 1,
+  "finalize_returncode": 0,
+  "force_executed": false,
+  "navigation_crop": [
+    800,
+    510,
+    1140,
+    730
+  ],
+  "navigation_image": {
+    "path": ".runtime/round-20261021/chest-context-ownership-v1/doc-evidence/controls.jpg",
+    "sha256": "b954f552de8c3e634925be2184cf23e25d78db3f4452cd260593f8a77099876d",
+    "bytes": 132251
+  }
+}

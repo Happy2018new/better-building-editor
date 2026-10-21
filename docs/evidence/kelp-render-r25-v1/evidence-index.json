@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "manual_issues_closed": 0,
+  "original_index": {
+    "path": ".runtime/round-20261021/kelp-production-live-v1/evidence-index.json",
+    "sha256": "b7e0dc8e853737f38dd65c3b87630a4e97ed49d689fc099059650fa3996e2185",
+    "bytes": 4398
+  },
+  "summary": {
+    "path": ".runtime/round-20261021/kelp-production-live-v1/summary.json",
+    "sha256": "0e20cde5d202458f9a662f37029bc331cc0c022b9a66e56205e14a9a73399f7c",
+    "bytes": 23764
+  },
+  "source_base_commit": "3eeaadb5684d8470d5f438d7f3772384a6962752",
+  "source_manifest_sha256": "ccadb5e1f8ee0c517ec4876dedb378642286443471a248e6fe16320f9064df92",
+  "source_archive_sha256": "b293b7bb2f0100814c00ee9665a437ed1c458215687a476736a176e2a64b464c",
+  "reviewed_original_images": [
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/prepare/editor_north.png",
+      "sha256": "1e07d3d7b5442444beb38ef0b722771c5aac037ae54706ecb8a69f4892404b61",
+      "bytes": 228197,
+      "expected": "Editor north: same-age pair stem/head, isolated age25 head",
+      "human_acceptance": false
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/prepare/editor_south.png",
+      "sha256": "ba08302ffb100b6749162691b74a53cb984aa110530a6fafec6ccc539821285b",
+      "bytes": 227879,
+      "expected": "Editor opposite orbit: pair and isolated head remain visible",
+      "human_acceptance": false
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/world/world_north.png",
+      "sha256": "abddd6de246c93361e464f5fccca8181e17215122fb19694233fcf90e44dfc9d",
+      "bytes": 828309,
+      "expected": "Full world projection: native-source pair, isolated head and stone",
+      "human_acceptance": false
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/missing/missing_north.png",
+      "sha256": "b2b12db9f476ae45cec422d7ad341f44327e8201992944f7afe975a93f6c88e9",
+      "bytes": 827304,
+      "expected": "Missing projection: all four source cells absent in the real world",
+      "human_acceptance": false
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/occupy-upper/occupy_upper.png",
+      "sha256": "756e7f0522c6a932ebc2bc7d46ce6ff2b1c6f5a3423b5c91641d10ba80f969e2",
+      "bytes": 826307,
+      "expected": "Upper cell occupied: source lower kelp remains stem",
+      "human_acceptance": false
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/occupy-lower/occupy_lower.png",
+      "sha256": "92c00b993d2ea9fa9e6077f25d81ed477d976c39b78961de40e900d558fa09d3",
+      "bytes": 825840,
+      "expected": "Both pair cells occupied: isolated head and control remain",
+      "human_acceptance": false
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/clear/missing_restored.png",
+      "sha256": "e1a629fb53c2a5fa8293b89a0950b239dd1debd61ae805b05fd29b2570d762ed",
+      "bytes": 831720,
+      "expected": "Real occupancy cleared: pair and isolated head reappear",
+      "human_acceptance": false
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/cross16/editor_cross16.png",
+      "sha256": "da6c72a9383a139ebf20c8664fc3c98eba1117c6a9ba751e35f98ad7b54dd642",
+      "bytes": 227718,
+      "expected": "Editor Y15/Y16 pair before source edit",
+      "human_acceptance": false
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/cross-remove-recovery-v1/editor_cross16_upper_removed.png",
+      "sha256": "0723e7cdb846d603a44e1a81c8fc93c431be492a02483647dbc77f2ff5ee108a",
+      "bytes": 227935,
+      "expected": "Upper source removed once: lower switches to head",
+      "human_acceptance": false
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/cross-undo/editor_cross16_undo.png",
+      "sha256": "806424d103bb455d5c81de100b556974bf163028ffd55a5b11268625cf09a7b2",
+      "bytes": 229313,
+      "expected": "Native editor undo: original stem/head pair restored",
+      "human_acceptance": false
+    }
+  ],
+  "reports": [
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/assert-watch-snapshot.json",
+      "sha256": "efc26b3d3a26de9513071a32922ccf58e8599c3dd5d2f6f426ffda0dd61be1bf",
+      "bytes": 366
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/clear/report.json",
+      "sha256": "bbcb25f6d7e032ac96a744f0c65ceb23ed1127fc58bc3253abdc34472dae0e52",
+      "bytes": 174227
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/cross-recovery-derivation.json",
+      "sha256": "4662e3389b6b9d779a4a44ebc7db9c0e7b15a8f64a217092e41cfd0078cd7d6c",
+      "bytes": 721
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/cross-remove-recovery-v1/report.json",
+      "sha256": "1d80a50ffef9d9af915570b25106c66d00045fac771e29a7a7929b889ef461fd",
+      "bytes": 199926
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/cross-remove/read-only-inspection.json",
+      "sha256": "ae7ca7d45c651e0109bf69c48d7e00e4f4a32623f4f954c75f45941368c3a174",
+      "bytes": 6765
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/cross-remove/report.json",
+      "sha256": "4f460006fc6529e54700b08c1012171be269f2b2b2a5070c145cf23958a026b4",
+      "bytes": 7354
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/cross-undo/report.json",
+      "sha256": "205d9fe6ed927c6bf0cf351f211595a4fbcb7c19d96d506410ce1b5bcb966478",
+      "bytes": 192403
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/cross16/report.json",
+      "sha256": "1ba55dca5436c4ec56a06f7920916608dbd234916850f78a9f5fb9c1fddc39a9",
+      "bytes": 251528
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/freeze-summary.json",
+      "sha256": "bf1f3d82de82b18f1ebd0f7137ad358141f290d04d4402952b6375e67ca12351",
+      "bytes": 270
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/launch/exact-exit.json",
+      "sha256": "a2487b7d6a13ac937c9f856348721f140de76f635491f8b8f6e4c3c78403d4b1",
+      "bytes": 998
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/launch/report.json",
+      "sha256": "8b359821a6b44364aaad7ad31165d81a09fc0de9f5306c53c7668b57bb3fe328",
+      "bytes": 11059
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/missing/report.json",
+      "sha256": "f8ca1cd67f24093a68bad22918603daec2e52823e850f3129626005cb302abd9",
+      "bytes": 153512
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/occupy-lower/report.json",
+      "sha256": "4944b49dac3b1c4e76f9559005651aaa321c6810234cc22a58ffa4a80d9c955d",
+      "bytes": 187384
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/occupy-upper/report.json",
+      "sha256": "9e6a41482500d9918369b67f36c0ee4fcb7df43ace5e9ba04ba7b85c8968e201",
+      "bytes": 171286
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/prepare/report.json",
+      "sha256": "2cc3106ebd2d02aeb0d03972cba9305c636967442176533ccfa615e778f2e227",
+      "bytes": 236446
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/restore/report.json",
+      "sha256": "1931b4397d5e236af61eb47109f32736e14bde65dc24e81aabf745dd7e9fbb91",
+      "bytes": 66033
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/source-manifest.json",
+      "sha256": "ccadb5e1f8ee0c517ec4876dedb378642286443471a248e6fe16320f9064df92",
+      "bytes": 643428
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/stop/report.json",
+      "sha256": "0d9bb49189de3698c28503e019ff903768c8aae048a55cfc4ac5bb66b1643dd6",
+      "bytes": 215013
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/summary.json",
+      "sha256": "0e20cde5d202458f9a662f37029bc331cc0c022b9a66e56205e14a9a73399f7c",
+      "bytes": 23764
+    },
+    {
+      "path": ".runtime/round-20261021/kelp-production-live-v1/world/report.json",
+      "sha256": "934c1a7403c7733face52da0e0f22a832567617b3d15d8f17ca42528e779d922",
+      "bytes": 106072
+    }
+  ],
+  "contacts": [
+    {
+      "path": "docs/evidence/kelp-render-r25-v1/kelp-1.jpg",
+      "sha256": "781983c4106730e0e77885cd8364385f1869b8d7ccfdf039310763d3842e4c4a",
+      "bytes": 126696
+    },
+    {
+      "path": "docs/evidence/kelp-render-r25-v1/kelp-2.jpg",
+      "sha256": "aab4c76eef164546de5c774de5b72b268747649641f3155d9e28712e9ae24697",
+      "bytes": 138012
+    }
+  ],
+  "original_cross_remove_serialization_gate_passed": false,
+  "recovery_semantic_gate_passed": true,
+  "recovery_edit_replayed": false,
+  "native_camera_exact": false,
+  "semantic_camera_pose_restored": true,
+  "shutdown": {
+    "actual_exit_codes": {
+      "game": 3221226505,
+      "mcdk": 0
+    },
+    "completed": true,
+    "force_executed": false,
+    "game_exit_hex": "0xC0000409",
+    "normal_shutdown_qualified": false,
+    "registry_state": "stopped"
+  },
+  "native_tessellator_mesh_qualified": false,
+  "native_random_animation_phase_qualified": false,
+  "full_twenty_frame_animation_cycle_qualified": false,
+  "final_common_source_qualification_transferred": false,
+  "limitations": [
+    "Original cross-remove byte equality failed after the successful edit: preview elided the sole empty Y1 chunk. Original report retained.",
+    "Recovery verified all 180 cells and unchanged serialized metadata, decoding the sole elided chunk as two zero bytes; deletion was not replayed.",
+    "Camera restored semantically with disclosed native roll float residual; exact camera equality did not pass.",
+    "Ordinary stop was used without force, but the game exited 0xC0000409; normal shutdown qualification did not pass.",
+    "This run captured static WGC images. Earlier atlas animation feasibility is separate and does not qualify a full native 20-frame cycle.",
+    "Automated developer diagnosis does not close human acceptance issues."
+  ]
+}

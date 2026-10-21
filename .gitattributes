@@ -404,3 +404,11 @@ docs/evidence/coral-r24-v1/** -text -diff whitespace=cr-at-eol
 behavior_pack/netease_blocks/preview_barrier_marker.json text eol=lf
 resource_pack/models/netease_block/preview_barrier_marker.json text eol=lf
 tools/data/barrier_registration_r23.json text eol=lf
+
+# R25 compact verification retains original report, source and receipt bytes.
+docs/evidence/chest-context-r25-v1/** -text whitespace=cr-at-eol
+docs/evidence/final-kelp-chest-r25-v1/** -text whitespace=cr-at-eol
+docs/evidence/kelp-render-r25-v1/** -text whitespace=cr-at-eol
+docs/evidence/transform-directions-r25-v1/** -text whitespace=cr-at-eol
+docs/evidence/transform-missing-r25-v1/** -text whitespace=cr-at-eol
+docs/evidence/water-lifetime-r25-v1/** -text whitespace=cr-at-eol
