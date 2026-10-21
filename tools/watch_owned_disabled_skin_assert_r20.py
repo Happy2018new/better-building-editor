@@ -1,7 +1,5 @@
 """Record and recover one specific engine assertion in selected owned instances."""
 import argparse
-import ctypes
-from ctypes import wintypes
 from datetime import datetime
 import hashlib
 import json
@@ -11,7 +9,7 @@ import sys
 import time
 
 from check_native_dialogs import assertion_dialogs
-from dismiss_owned_disabled_skin_assert import known_disabled_skin_assertion
+from dismiss_owned_disabled_skin_assert import known_disabled_skin_assertion, post_owned_ignore
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
@@ -40,24 +38,16 @@ def recover(session, row, receipt_path):
     receipt = {'schema_version': 1, 'owner': session['owner'], 'session_id': session['id'],
                'game_pid': session['game_pid'], 'game_identity': session['game_identity'],
                'observed_at': datetime.now().astimezone().isoformat(), 'dialog': row,
-               'action': 'WM_COMMAND IDIGNORE', 'agent_activation': False, 'dismissed': False}
+               'action': 'BM_CLICK verified IDIGNORE', 'agent_activation': False, 'dismissed': False}
 
     def save():
         receipt_path.write_text(json.dumps(receipt, ensure_ascii=True, indent=2) + '\n', encoding='ascii')
 
     save()
-    user = ctypes.WinDLL('user32', use_last_error=True)
-    user.GetWindowThreadProcessId.argtypes = [wintypes.HWND, ctypes.POINTER(wintypes.DWORD)]
-    user.GetWindowThreadProcessId.restype = wintypes.DWORD
-    user.PostMessageW.argtypes = [wintypes.HWND, wintypes.UINT, wintypes.WPARAM, wintypes.LPARAM]
-    user.PostMessageW.restype = wintypes.BOOL
-    owner = wintypes.DWORD()
-    if (not user.GetWindowThreadProcessId(row['hwnd'], ctypes.byref(owner)) or
-            owner.value != session['game_pid'] or
-            process_identity(owner.value) != session['game_identity']):
-        raise RuntimeError('Dialog or process identity changed before recovery')
-    if not user.PostMessageW(row['hwnd'], 0x0111, 7, 0):
-        raise ctypes.WinError(ctypes.get_last_error())
+    def before_post(target):
+        receipt['verified_target'] = target
+        save()
+    post_owned_ignore(session, row, before_post)
     deadline = time.monotonic() + 5.
     while time.monotonic() < deadline:
         remaining = [item for item in assertion_dialogs()
