@@ -86,3 +86,6 @@ Combined 对 support-only 的 **261** 个变化像素位于全图 bbox `[627,366
 可重建[失败及冻结接口差异小包](../evidence/button-shift-failure-r27-v2/index.json)含109条记录、107归档成员、8原存储文件、1,456,160B，最大240000B；root独立重建全部原件／内容／分片SHA，并复核4项实际corpus的8个嵌套／普通文本负控。补充宽递归scanner检查全部107成员、JSON／Base64／转义文本及本地凭据相等值，0发现、5项等价对照通过。首次窄包的host_run_token是uuid生成的证据nonce，宽扫描仍按统一token规则拒绝；新v2将其作为标准脱敏派生，原件和旧v1保持原字节，未对scanner设例外。两次根审AST allowlist漏列仅有根工具转述，明确为派生记录，没有伪造原stdout或独立receipt。
 
 下轮接口／单位／scissor交接随包保存：先从真实冻结Theme字段及configure写入建立census，再按冻结Game的GetScreenSize／GetScreenViewInfo原值公式取得GUI，控制必须由冻结接口派生并保留无cache旧版本及实际tuple形状，不能给fake补字段使其通过。仍无Y+4像素位移、bounds或depth结论，不关闭T02或新增人工问题。
+
+
+07:40最终补证：专属watcher在07:40:00.804874按冻结计划自行退出，原retained handle实测exit0，creation identity一致、句柄关闭；root另独立确认同身份不存活、原件bytes与递归扫描通过。[独立退出supplement](../evidence/button-watcher-exit-r27-v1/index.json)不改旧包。observer session退出0，没有发送终止信号，按钮子任务已无所属进程。

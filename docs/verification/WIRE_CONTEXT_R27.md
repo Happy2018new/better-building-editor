@@ -103,3 +103,6 @@ root独立重构[固定水纹完整精简包](../evidence/wire-fixed-water-r27-v
 root独立审窄diff，再以真正桌面Python2.7执行原观察器源码，fake native产生15次调用和5份snapshot，覆盖成功／false／原异常identity、可见性隐藏、成功删除后的handle复用与两代资源。Python3 host实际读取这批JSON；18项正负控制通过，包括空dry有效但不可冒充wet，原v1对非空格式仍拒绝，原864次游戏调用只读相关一致，以及sequence／内部值／handle／资源／uniform／可见性／缺call／错误编码／伪造成功返回或异常的拒绝。没有把fake native说成游戏实测。
 
 root独立实跑报告SHA与原报告同27b02571aa0c2d1429c84e325bc22c2f5a645cd3b5680a2776d46552bcde313c。已独审[离线v2准备包](../evidence/wire-mapping-offline-r27-v2/manifest.json)：116对象、117原存储文件、114精确来源、2派生，全部小于300000B，递归凭据扫描0、5项scanner对照通过；root实跑Py2来源及18控制回执另附。下一轮仍须新冻结／来源绑定及fresh实机门，不能以离线通过回填旧结果，人工关闭0。
+
+
+07:45最终补证：固定water owner专属watcher在07:45:03.113566自行退出，retained handle实测exit0；game／MCDK／watcher最终身份全null，passive observer退出0，无signal／force／restart或冻结配置变化。root独立重构[退出与CRC32补包](../evidence/wire-watcher-exit-r27-v1/manifest.json)的11对象／12原文件、9实际来源、2派生及递归扫描0；另实跑flat／wet全部12阶段、72分块、72记录重建，输出SHA与原回执逐字相同。原game0xC0000409、wet restored=false及未晋升结论不变。

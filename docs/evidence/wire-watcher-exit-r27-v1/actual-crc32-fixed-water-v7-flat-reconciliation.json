@@ -1,0 +1,160 @@
+{
+  "schema": "wire-r27-fixed-water-v7-actual-crc32-full-byte-reconciliation",
+  "passed": true,
+  "report_sha256": "0fb729faf7078d8b2305885d0493307cbfc549b66e6b48ff8444c2e2f681462c",
+  "fixture": "flat-interior",
+  "original_frozen_host_verdict": {
+    "completed": true,
+    "restored": true,
+    "cleanup_errors": []
+  },
+  "original_report_rewritten": false,
+  "actual_game_crc32_preflight": {
+    "crc32": "cbf43926",
+    "input": "123456789",
+    "engine": "3.10.0.420447",
+    "game_SHA256_required": false,
+    "schema": "wire-game-crc32-known-answer-v1"
+  },
+  "actual_RPC_chunk_count": 72,
+  "actual_native_records": 72,
+  "phases": [
+    {
+      "phase": 1,
+      "key": "wire-r27.flat-interior:opaque:top:base",
+      "original_bytes": 1222532,
+      "game_crc32": "c2ff32ae",
+      "host_original_json_sha256": "68b5462f2a0688f2ac5d5ee4165e1ad7b1913b2694b2666c5878aa629555db3c",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 2,
+      "key": "wire-r27.flat-interior:opaque:top:repeat",
+      "original_bytes": 1222558,
+      "game_crc32": "cd780d13",
+      "host_original_json_sha256": "e72d054eaf4f05d148170cdaa29dc0ae92f94264e776049a3e9bc5184b269a8d",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 3,
+      "key": "wire-r27.flat-interior:opaque:top:candidate",
+      "original_bytes": 2197868,
+      "game_crc32": "fa04ddc7",
+      "host_original_json_sha256": "8a4b9dbc1d8268de881fc9f599ec9c9ebde38af00c0a8129c922af1e92708457",
+      "chunks": 9,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 4,
+      "key": "wire-r27.flat-interior:opaque:top:restored",
+      "original_bytes": 1222591,
+      "game_crc32": "515b01a0",
+      "host_original_json_sha256": "2f94c76a338334ec619190371a464b1b3008671be5d68a222cb94aeb042baf87",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 5,
+      "key": "wire-r27.flat-interior:opaque:grazing:base",
+      "original_bytes": 1222567,
+      "game_crc32": "c1f4f0e7",
+      "host_original_json_sha256": "10113aa793942f537038b26984f3440216c1cbc3ca106e5828791ef11be38e59",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 6,
+      "key": "wire-r27.flat-interior:opaque:grazing:repeat",
+      "original_bytes": 1222593,
+      "game_crc32": "07accb69",
+      "host_original_json_sha256": "9afc1010660cae15eb8b85a1c26318f31bd93f989b575be68d73ce3921293b14",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 7,
+      "key": "wire-r27.flat-interior:opaque:grazing:candidate",
+      "original_bytes": 2203247,
+      "game_crc32": "a5e4da9f",
+      "host_original_json_sha256": "11e2207a7b7f5488b3eeed2b6c18ce1528b0e49cde805db837133cb0bea6003e",
+      "chunks": 9,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 8,
+      "key": "wire-r27.flat-interior:opaque:grazing:restored",
+      "original_bytes": 1222619,
+      "game_crc32": "00582c97",
+      "host_original_json_sha256": "70f1fe19e9a7c31d611b9731935c718b82e54608a2ab1457815ac6fcbabdc176",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 9,
+      "key": "wire-r27.flat-interior:default:top:base",
+      "original_bytes": 1222546,
+      "game_crc32": "67adf0ff",
+      "host_original_json_sha256": "86c093235dccf37b1bae23a61827951bc23622001a1ca40f26adeac51d07dbde",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 10,
+      "key": "wire-r27.flat-interior:default:top:repeat",
+      "original_bytes": 1222578,
+      "game_crc32": "d980f808",
+      "host_original_json_sha256": "3b2652ae60118ef05d013f89c0fbbcdb84a6a25d31f178cdd8b1fc1d04ec00de",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 11,
+      "key": "wire-r27.flat-interior:default:top:candidate",
+      "original_bytes": 2197888,
+      "game_crc32": "656c67d2",
+      "host_original_json_sha256": "dfa3be5e8bd86f5a36299b621645c2aca64960765da6f8a10be61a7fba6696df",
+      "chunks": 9,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 12,
+      "key": "wire-r27.flat-interior:default:top:restored",
+      "original_bytes": 1222604,
+      "game_crc32": "7a60c36d",
+      "host_original_json_sha256": "f89c6e7cd1fbd6417995c2bea11d2a5f39e251865b8aadc51dd20e62abc9d7ed",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    }
+  ],
+  "runtime_calls": 0,
+  "MC_started": false,
+  "GPU_qualified": false,
+  "manual_closures": 0,
+  "SHA256_origin": "host-derived after complete actual game CRC32 chunk reconstruction"
+}
