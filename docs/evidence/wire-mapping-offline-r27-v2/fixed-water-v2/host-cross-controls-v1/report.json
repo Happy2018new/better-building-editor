@@ -1,0 +1,110 @@
+{
+  "schema": "wire-r27-offline-v2-real-Py2-observer-to-Py3-host-nonempty-controls",
+  "passed": true,
+  "controls": [
+    {
+      "calls": 15,
+      "group_snapshots": 4,
+      "resource_count": 2,
+      "name": "nonempty_exact_observer_Py2_JSON_to_Py3_host_positive_with_false_exception_hidden_and_handle_reuse",
+      "passed": true
+    },
+    {
+      "name": "empty_actual_Py2_observer_dry_export_is_valid_without_wet_claim",
+      "passed": true
+    },
+    {
+      "name": "empty_actual_Py2_export_cannot_qualify_wet_scope",
+      "passed": true
+    },
+    {
+      "name": "frozen_v1_still_rejects_real_Py2_nonempty_export_without_being_patched",
+      "passed": true
+    },
+    {
+      "actual_game_receipt_calls": 864,
+      "checked_group_snapshots": 288,
+      "name": "preserved_actual_v7_864_calls_48_snapshots_288_groups_correlate_readonly_without_verdict_change",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "native_sequence_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "stored_acknowledgement_sequence_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "stored_uniform_value_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "KeyError",
+      "name": "active_model_handle_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "active_resource_name_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "active_group_uniform_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "active_visibility_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "actual_native_uniform_argument_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "incorrect_single_layer_stored_value_encoding_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "opaque_stored_uniform_encoding_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "missing_native_call_export_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "false_native_return_forged_into_success_rejected",
+      "passed": true
+    },
+    {
+      "rejection_type": "AssertionError",
+      "name": "native_exception_forged_into_success_rejected",
+      "passed": true
+    }
+  ],
+  "control_count": 18,
+  "exact_frozen_observer_sha256": "3b823cac05cc2b39abfa6d52aa5e670642d484ba901c8eb5e411948481c7bdaf",
+  "original_frozen_v1_mapping_sha256": "622ec526c72106cb784fd78cd04af5683c5a428b677ad0206c02b8a776bc509d",
+  "v2_candidate_sha256": "cfaa484a90cf9f0814d9b56db4bf293b94d116d25db4e43955377e19f7dc37a9",
+  "Py2_export_manifest_sha256": "f40162349e209b1fd544c86df3098ae0b1b077d432868fba6bab17de213c39fc",
+  "fake_native_components_in_Py2_controls": true,
+  "actual_v7_evidence_read_only": true,
+  "MC_started": false,
+  "runtime_calls": 0,
+  "original_wet_report_restored": false,
+  "original_reports_or_freeze_modified": false,
+  "production_changed": false,
+  "candidate_promoted": false,
+  "manual_closures": 0
+}

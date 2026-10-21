@@ -1,0 +1,382 @@
+{
+  "total": 15, 
+  "after": 0, 
+  "through": 15, 
+  "calls": [
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "first-owned-generation", 
+      "result": "reused-native-handle", 
+      "sequence": 1, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "modern_projection_liquid_product_still_water_grey_world", 
+          0
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "CreateFreeModel"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "first-owned-generation", 
+      "result": true, 
+      "sequence": 2, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          1, 
+          {
+            "tuple": [
+              1.0, 
+              0.25, 
+              0.5, 
+              0.75
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "first-owned-generation", 
+      "result": true, 
+      "sequence": 3, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          2, 
+          {
+            "tuple": [
+              2.0, 
+              0.25, 
+              0.5, 
+              0.75
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "first-owned-generation", 
+      "result": true, 
+      "sequence": 4, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          3, 
+          {
+            "tuple": [
+              3.0, 
+              0.25, 
+              0.5, 
+              0.75
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "first-owned-generation", 
+      "result": true, 
+      "sequence": 5, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          4, 
+          {
+            "tuple": [
+              4.0, 
+              0.25, 
+              0.5, 
+              0.75
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "first-owned-generation", 
+      "result": false, 
+      "sequence": 6, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          2, 
+          {
+            "tuple": [
+              999.0, 
+              999.0, 
+              999.0, 
+              999.0
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "first-owned-generation", 
+      "exception": {
+        "message": "original-native-control-error", 
+        "type": "RuntimeError"
+      }, 
+      "sequence": 7, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": false, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          3, 
+          {
+            "tuple": [
+              999.0, 
+              999.0, 
+              999.0, 
+              999.0
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "first-owned-generation", 
+      "result": true, 
+      "sequence": 8, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          4, 
+          {
+            "tuple": [
+              4.0, 
+              0.25, 
+              0.5, 
+              0.0
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "first-owned-generation", 
+      "result": true, 
+      "sequence": 9, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle"
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "RemoveFreeModel"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "second-owned-generation-reused-handle", 
+      "result": "reused-native-handle", 
+      "sequence": 10, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "modern_projection_liquid_product_flowing_water_grey_world", 
+          0
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "CreateFreeModel"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "second-owned-generation-reused-handle", 
+      "result": true, 
+      "sequence": 11, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          1, 
+          {
+            "tuple": [
+              8.0, 
+              0.25, 
+              0.5, 
+              0.75
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "second-owned-generation-reused-handle", 
+      "result": true, 
+      "sequence": 12, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          2, 
+          {
+            "tuple": [
+              9.0, 
+              0.25, 
+              0.5, 
+              0.75
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "second-owned-generation-reused-handle", 
+      "result": true, 
+      "sequence": 13, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          3, 
+          {
+            "tuple": [
+              10.0, 
+              0.25, 
+              0.5, 
+              0.75
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "second-owned-generation-reused-handle", 
+      "result": true, 
+      "sequence": 14, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle", 
+          4, 
+          {
+            "tuple": [
+              11.0, 
+              0.25, 
+              0.5, 
+              0.75
+            ]
+          }
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "SetExtraUniformValue"
+    }, 
+    {
+      "native_called": true, 
+      "component_id": 65713488, 
+      "phase_key": "second-owned-generation-reused-handle", 
+      "result": true, 
+      "sequence": 15, 
+      "kwargs": {
+        "dict": []
+      }, 
+      "completed": true, 
+      "args": {
+        "tuple": [
+          "reused-native-handle"
+        ]
+      }, 
+      "renderer_id": 1, 
+      "method": "RemoveFreeModel"
+    }
+  ], 
+  "schema": "wire-r27-water-native-calls-v1"
+}

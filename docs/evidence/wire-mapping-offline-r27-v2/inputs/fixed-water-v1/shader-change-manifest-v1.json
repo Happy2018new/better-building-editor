@@ -1,0 +1,40 @@
+{
+  "schema": "private-fixed-water-clock-expression-delta-v1",
+  "shaders": [
+    {
+      "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment",
+      "original_sha256": "22bcca55255079fc29196e8851633d38b3234940d94b68fab09e5f3979cdce32",
+      "fixed_sha256": "8ee90995be6b097aef07a80c6a43ea241271edf0c95d76b15541090e26a69e8f",
+      "original_bytes": 1360,
+      "fixed_bytes": 1312,
+      "changed_expressions_only": [
+        "clock=0.0",
+        "blend=0.0"
+      ]
+    },
+    {
+      "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment",
+      "original_sha256": "a65c244ce66342b8291746b43585859bd768e829edf97334b55d755cd686e72f",
+      "fixed_sha256": "757c67cc104426c5f1008c66a13a4889ab5b554c1bc127b9e82cc35a90fb900b",
+      "original_bytes": 1364,
+      "fixed_bytes": 1316,
+      "changed_expressions_only": [
+        "clock=0.0",
+        "blend=0.0"
+      ]
+    },
+    {
+      "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top.fragment",
+      "original_sha256": "4b3d2cbf0759560c78785a89bbdaeac385fd22959b1977b2d86e253703035873",
+      "fixed_sha256": "c30e0d596eff9da0ae4cb5f660c36199cdfc02050ef0cf687be1aaccff8bc9df",
+      "original_bytes": 1335,
+      "fixed_bytes": 1287,
+      "changed_expressions_only": [
+        "clock=0.0",
+        "blend=0.0"
+      ]
+    }
+  ],
+  "production_modified": false,
+  "MC_started": false
+}

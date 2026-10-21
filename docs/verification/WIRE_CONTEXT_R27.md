@@ -94,3 +94,12 @@ freeze SHA 为 `2cbdb2c4a90f0155530e3a733e5ddfbf55dbfc7b2ec02d2fafd3d01db68264df
 root独立重跑只读解码分析，864调用、288组快照及7488内部值均与原结论相同，输出SHA与原8bf462a6…完全一致。root实际打开湿场景两个不透明视角和默认视角各base／candidate共六张原PNG；只核对所述线形及外观，不把动物／时钟等场景差异当作fixture逐像素相等。
 
 root独立重构[固定水纹完整精简包](../evidence/wire-fixed-water-r27-v7-small/manifest.json)：277对象、311原存储文件、271精确来源、6派生、12张原PNG均无损；1794个ZIP成员及嵌套文本凭据扫描发现0，5项scanner等价对照通过。正式原报告仍为restored=false，不回写、不授生产候选资格。根审回执和原图审阅另附于同目录，最终watcher自退将另增supplement，原manifest保持不变。
+
+
+## 07:28：独立v2解码候选及真实Py2非空格式控制
+
+冻结v1、原游戏调用和restored=false报告保持。新host v2只在外层解包后，校验每个成功uniform项的sequence／value结构并解内部tuple一层，另使用独立schema和相对manifest路径；未接入trial，不运行新MC、不授发行或生产候选资格。
+
+root独立审窄diff，再以真正桌面Python2.7执行原观察器源码，fake native产生15次调用和5份snapshot，覆盖成功／false／原异常identity、可见性隐藏、成功删除后的handle复用与两代资源。Python3 host实际读取这批JSON；18项正负控制通过，包括空dry有效但不可冒充wet，原v1对非空格式仍拒绝，原864次游戏调用只读相关一致，以及sequence／内部值／handle／资源／uniform／可见性／缺call／错误编码／伪造成功返回或异常的拒绝。没有把fake native说成游戏实测。
+
+root独立实跑报告SHA与原报告同27b02571aa0c2d1429c84e325bc22c2f5a645cd3b5680a2776d46552bcde313c。已独审[离线v2准备包](../evidence/wire-mapping-offline-r27-v2/manifest.json)：116对象、117原存储文件、114精确来源、2派生，全部小于300000B，递归凭据扫描0、5项scanner对照通过；root实跑Py2来源及18控制回执另附。下一轮仍须新冻结／来源绑定及fresh实机门，不能以离线通过回填旧结果，人工关闭0。

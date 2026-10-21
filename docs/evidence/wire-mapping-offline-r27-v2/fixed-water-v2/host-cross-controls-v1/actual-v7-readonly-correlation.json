@@ -1,0 +1,515 @@
+{
+  "schema": "wire-r27-offline-water-call-frozen-resource-mapping-v2",
+  "passed": true,
+  "fixture": "negative-wet-wire",
+  "native_call_count": 864,
+  "resource_mappings": [
+    {
+      "resource_name": "modern_projection_liquid_product_flowing_water_grey_world",
+      "actual_CreateFreeModel_sequences": [
+        1,
+        19,
+        37,
+        73,
+        91,
+        109,
+        145,
+        163,
+        181,
+        217,
+        235,
+        253,
+        289,
+        307,
+        325,
+        361,
+        379,
+        397,
+        433,
+        451,
+        469,
+        505,
+        523,
+        541,
+        577,
+        595,
+        613,
+        649,
+        667,
+        685,
+        721,
+        739,
+        757,
+        793,
+        811,
+        829
+      ],
+      "model_entry": {
+        "animation": {},
+        "dy_load": true,
+        "material": "modern_projection_liquid_product_flowing_water_grey_world",
+        "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+        "skeleton": "modern_projection/liquid/skeleton.json",
+        "texture": {
+          "tex0": "modern_projection/liquid/flowing_water_grey"
+        }
+      },
+      "material_entry_name": "modern_projection_liquid_product_flowing_water_grey_world:entity_for_skeleton_alpha",
+      "material_entry": {
+        "+samplerStates": [
+          {
+            "samplerIndex": 0,
+            "textureFilter": "Point"
+          }
+        ],
+        "+states": [
+          "Blending",
+          "DisableDepthWrite",
+          "InvertCulling"
+        ],
+        "blendDst": "OneMinusSrcAlpha",
+        "blendSrc": "SourceAlpha",
+        "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment",
+        "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+      },
+      "models_source": {
+        "path": "resource_pack/models/netease_models.json",
+        "bytes": 727897,
+        "sha256": "2d81afdf0fadc52606bd9c4a2b88f7f79e82a351002ea8949189d8fc3d82d4a1"
+      },
+      "materials_source": {
+        "path": "resource_pack/materials/entity.material",
+        "bytes": 37396,
+        "sha256": "07519f7c3ec60eaf048bdf5d681d12bbf7bd84743aeca74f5e8ba27f00571f4f"
+      },
+      "fragment_source": {
+        "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment",
+        "bytes": 1316,
+        "sha256": "757c67cc104426c5f1008c66a13a4889ab5b554c1bc127b9e82cc35a90fb900b"
+      },
+      "vertex_source": {
+        "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_geometry_world.vertex",
+        "bytes": 2560,
+        "sha256": "ca969afd8072b1560fa519119d1af48c7a2329c0dadfa1257d98d88d17d3923f"
+      },
+      "mesh_source": {
+        "path": "resource_pack/models/modern_projection/liquid/flowing_water_grey_mesh.json",
+        "bytes": 40003,
+        "sha256": "31dd928fd955da704cf9880b6aedcfee760bcc4173edd505f5a4697fcb797210"
+      },
+      "skeleton_source": {
+        "path": "resource_pack/models/modern_projection/liquid/skeleton.json",
+        "bytes": 915,
+        "sha256": "2ee4a750956632219fb9bec5c7dc0abaf521bcafd3f0e25c02bf331b7d2656db"
+      },
+      "texture_sources": [
+        {
+          "path": "resource_pack/textures/models/modern_projection/liquid/flowing_water_grey.png",
+          "bytes": 10311,
+          "sha256": "f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246"
+        }
+      ]
+    },
+    {
+      "resource_name": "modern_projection_liquid_product_still_water_grey_world",
+      "actual_CreateFreeModel_sequences": [
+        10,
+        28,
+        46,
+        82,
+        100,
+        118,
+        154,
+        172,
+        190,
+        226,
+        244,
+        262,
+        298,
+        316,
+        334,
+        370,
+        388,
+        406,
+        442,
+        460,
+        478,
+        514,
+        532,
+        550,
+        586,
+        604,
+        622,
+        658,
+        676,
+        694,
+        730,
+        748,
+        766,
+        802,
+        820,
+        838
+      ],
+      "model_entry": {
+        "animation": {},
+        "dy_load": true,
+        "material": "modern_projection_liquid_product_still_water_grey_world",
+        "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+        "skeleton": "modern_projection/liquid/skeleton.json",
+        "texture": {
+          "tex0": "modern_projection/liquid/still_water_grey"
+        }
+      },
+      "material_entry_name": "modern_projection_liquid_product_still_water_grey_world:entity_for_skeleton_alpha",
+      "material_entry": {
+        "+samplerStates": [
+          {
+            "samplerIndex": 0,
+            "textureFilter": "Point"
+          }
+        ],
+        "+states": [
+          "Blending",
+          "DisableDepthWrite",
+          "InvertCulling"
+        ],
+        "blendDst": "OneMinusSrcAlpha",
+        "blendSrc": "SourceAlpha",
+        "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment",
+        "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+      },
+      "models_source": {
+        "path": "resource_pack/models/netease_models.json",
+        "bytes": 727897,
+        "sha256": "2d81afdf0fadc52606bd9c4a2b88f7f79e82a351002ea8949189d8fc3d82d4a1"
+      },
+      "materials_source": {
+        "path": "resource_pack/materials/entity.material",
+        "bytes": 37396,
+        "sha256": "07519f7c3ec60eaf048bdf5d681d12bbf7bd84743aeca74f5e8ba27f00571f4f"
+      },
+      "fragment_source": {
+        "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment",
+        "bytes": 1312,
+        "sha256": "8ee90995be6b097aef07a80c6a43ea241271edf0c95d76b15541090e26a69e8f"
+      },
+      "vertex_source": {
+        "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_geometry_world.vertex",
+        "bytes": 2560,
+        "sha256": "ca969afd8072b1560fa519119d1af48c7a2329c0dadfa1257d98d88d17d3923f"
+      },
+      "mesh_source": {
+        "path": "resource_pack/models/modern_projection/liquid/still_water_grey_mesh.json",
+        "bytes": 40001,
+        "sha256": "fc1d11b68d0a5068970442fae3888db4240a0e8c66023cd15071dd897e5ad15e"
+      },
+      "skeleton_source": {
+        "path": "resource_pack/models/modern_projection/liquid/skeleton.json",
+        "bytes": 915,
+        "sha256": "2ee4a750956632219fb9bec5c7dc0abaf521bcafd3f0e25c02bf331b7d2656db"
+      },
+      "texture_sources": [
+        {
+          "path": "resource_pack/textures/models/modern_projection/liquid/still_water_grey.png",
+          "bytes": 6165,
+          "sha256": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3"
+        }
+      ]
+    }
+  ],
+  "checked_group_snapshots": 288,
+  "snapshot_rows": [
+    {
+      "path": "snapshot-001.json",
+      "label": "opaque_top_base_shown:before",
+      "native_call_count": 60,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-002.json",
+      "label": "opaque_top_base_shown:after",
+      "native_call_count": 60,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-003.json",
+      "label": "opaque_top_base_hidden:before",
+      "native_call_count": 60,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-004.json",
+      "label": "opaque_top_base_hidden:after",
+      "native_call_count": 60,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-005.json",
+      "label": "opaque_top_repeat_shown:before",
+      "native_call_count": 132,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-006.json",
+      "label": "opaque_top_repeat_shown:after",
+      "native_call_count": 132,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-007.json",
+      "label": "opaque_top_repeat_hidden:before",
+      "native_call_count": 132,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-008.json",
+      "label": "opaque_top_repeat_hidden:after",
+      "native_call_count": 132,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-009.json",
+      "label": "opaque_top_candidate_shown:before",
+      "native_call_count": 204,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-010.json",
+      "label": "opaque_top_candidate_shown:after",
+      "native_call_count": 204,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-011.json",
+      "label": "opaque_top_candidate_hidden:before",
+      "native_call_count": 204,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-012.json",
+      "label": "opaque_top_candidate_hidden:after",
+      "native_call_count": 204,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-013.json",
+      "label": "opaque_top_restored_shown:before",
+      "native_call_count": 276,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-014.json",
+      "label": "opaque_top_restored_shown:after",
+      "native_call_count": 276,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-015.json",
+      "label": "opaque_top_restored_hidden:before",
+      "native_call_count": 276,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-016.json",
+      "label": "opaque_top_restored_hidden:after",
+      "native_call_count": 276,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-017.json",
+      "label": "opaque_grazing_base_shown:before",
+      "native_call_count": 348,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-018.json",
+      "label": "opaque_grazing_base_shown:after",
+      "native_call_count": 348,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-019.json",
+      "label": "opaque_grazing_base_hidden:before",
+      "native_call_count": 348,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-020.json",
+      "label": "opaque_grazing_base_hidden:after",
+      "native_call_count": 348,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-021.json",
+      "label": "opaque_grazing_repeat_shown:before",
+      "native_call_count": 420,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-022.json",
+      "label": "opaque_grazing_repeat_shown:after",
+      "native_call_count": 420,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-023.json",
+      "label": "opaque_grazing_repeat_hidden:before",
+      "native_call_count": 420,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-024.json",
+      "label": "opaque_grazing_repeat_hidden:after",
+      "native_call_count": 420,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-025.json",
+      "label": "opaque_grazing_candidate_shown:before",
+      "native_call_count": 492,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-026.json",
+      "label": "opaque_grazing_candidate_shown:after",
+      "native_call_count": 492,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-027.json",
+      "label": "opaque_grazing_candidate_hidden:before",
+      "native_call_count": 492,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-028.json",
+      "label": "opaque_grazing_candidate_hidden:after",
+      "native_call_count": 492,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-029.json",
+      "label": "opaque_grazing_restored_shown:before",
+      "native_call_count": 564,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-030.json",
+      "label": "opaque_grazing_restored_shown:after",
+      "native_call_count": 564,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-031.json",
+      "label": "opaque_grazing_restored_hidden:before",
+      "native_call_count": 564,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-032.json",
+      "label": "opaque_grazing_restored_hidden:after",
+      "native_call_count": 564,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-033.json",
+      "label": "default_top_base_shown:before",
+      "native_call_count": 636,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-034.json",
+      "label": "default_top_base_shown:after",
+      "native_call_count": 636,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-035.json",
+      "label": "default_top_base_hidden:before",
+      "native_call_count": 636,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-036.json",
+      "label": "default_top_base_hidden:after",
+      "native_call_count": 636,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-037.json",
+      "label": "default_top_repeat_shown:before",
+      "native_call_count": 708,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-038.json",
+      "label": "default_top_repeat_shown:after",
+      "native_call_count": 708,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-039.json",
+      "label": "default_top_repeat_hidden:before",
+      "native_call_count": 708,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-040.json",
+      "label": "default_top_repeat_hidden:after",
+      "native_call_count": 708,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-041.json",
+      "label": "default_top_candidate_shown:before",
+      "native_call_count": 780,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-042.json",
+      "label": "default_top_candidate_shown:after",
+      "native_call_count": 780,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-043.json",
+      "label": "default_top_candidate_hidden:before",
+      "native_call_count": 780,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-044.json",
+      "label": "default_top_candidate_hidden:after",
+      "native_call_count": 780,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-045.json",
+      "label": "default_top_restored_shown:before",
+      "native_call_count": 852,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-046.json",
+      "label": "default_top_restored_shown:after",
+      "native_call_count": 852,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-047.json",
+      "label": "default_top_restored_hidden:before",
+      "native_call_count": 852,
+      "checked_groups": 6
+    },
+    {
+      "path": "snapshot-048.json",
+      "label": "default_top_restored_hidden:after",
+      "native_call_count": 852,
+      "checked_groups": 6
+    }
+  ],
+  "independent_native_readback": false,
+  "shader_clock_readback": false,
+  "shader_clock_basis": "Exact frozen fragment bytes resolved from actual FreeModel resource names",
+  "uniform_basis": "Actual successful native setter acknowledgements, correlated to active group intentions"
+}
