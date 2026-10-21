@@ -58,7 +58,7 @@
 | T06 | `test.transforms.acceptance.t06` | 人工未检查；公开卡与代表预检已准备 | R27的7015c9c4冷源已补旋转／撤销、编辑器／full及中心pane受控missing；48格typed数据保持。概览裁掉部分楼梯，正倒内外角全部像素和镜像矩阵仍待，不能以注册卡代替外观通过。见[代表记录](../verification/TRANSFORM_REPRESENTATIVES_R27.md) |
 | T07 | `test.transforms.acceptance.t07` | 人工未检查；数据与入口代表已补，水外观仍阻塞 | 87327491冷源已实际完成公开确认、Y轴90°旋转／撤销、完整两层及typed文字oracle、编辑器／full和四阶段受控missing。编辑器原图水面明显悬空，水外观及当前默认资格继续开放；不把数据通过当成整卡外观就绪。见[双层卡记录](../verification/TRANSFORM_REPRESENTATIVES_R27.md) |
 | T08 | `test.transforms.acceptance.t08` | 人工未检查 | v5 旋转／历史、锁定伙伴整笔拒绝数据通过。10-21 正式冷源补齐异步旋转、默认主材质完整投影、跨 Y=15/16 门的四阶段受控 missing（整门→上半→全消失无底条→恢复）及实际 SDK 分页 save_reload，独立恢复通过。旧私有材质失败保留；真实占用扫描、全部门状态与跨客户端重启持久性待验 |
-| R01 | 待冻结人工候选 | 人工未检查；新来源bootstrap与编辑器窄图已补 | v3／v4／v5原失败保留。v6原41源bootstrap单次成功、原函数精确恢复；G湿干2图、五例F-editor原14行／30图及恢复通过。仅候选编辑器证据；UV／alpha／style、正式A、全F／B／R、最终owner／默认／D仍开，不能据此交付正式默认资格。见[水新源记录](../verification/WATER_FINAL_SOURCE_R25.md) |
+| R01 | 待冻结人工候选 | 人工未检查；R27当前冷源三路径15格采样与流向通过 | 旧失败保留；GUI倍率锚点产品修复已提交。当前同一冷会话完成编辑器／完整／缺失投影×四向及下落15格、30静图及630有效burst PNG，原时间门通过。旧编辑器ROI五格失败保留，依实际GUI反解的新host独立重放15/15流向通过、倒序负控全拒绝；不授独立速度／亮度、完整F／B／R／G、当前源码资格或最终默认D。T07整卡悬空历史尚需当前候选专门复验，不能直接关闭。见[水采样记录](../verification/WATER_CAPTURE_R27.md) |
 | R02 | 待准备 | 未检查 | 预检有效后纳入 |
 | R03 | 待准备 | 未检查 | 预检有效后纳入 |
 | R04 | 待准备 | 未检查 | 预检有效后纳入 |
