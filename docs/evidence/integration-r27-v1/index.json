@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "passed": true,
+  "scope": "CPU offline current-worktree regression only; no new user/manual acceptance and no GPU qualification",
+  "tests_run": 3462,
+  "skipped": 1,
+  "sources_hashed": 6304,
+  "source_bytes_hashed": 259272145,
+  "source_inventory_unchanged": true,
+  "clean_HEAD_only": false,
+  "head_before": "71d155beaff81cf9ea44224a750e827f3c5fd046",
+  "head_after": "a41a5428025adf537cfb9a73e92a5ba4bbb3902f",
+  "head_changed_during_run": true,
+  "unittest_reported_seconds": 998.695,
+  "entries": [
+    {
+      "original_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\integration-v1\\run_integration.py",
+      "original_bytes": 3658,
+      "original_sha256": "ffe3fd02419a766f03f93dd52c95e2cccf32dca343d32c9a155ddb63b08aaa28",
+      "decoded_sha256": "ffe3fd02419a766f03f93dd52c95e2cccf32dca343d32c9a155ddb63b08aaa28",
+      "original_bytes_reconstructable": true,
+      "redactions": 0,
+      "encoding": "gzip",
+      "parts": [
+        {
+          "path": "run_integration.py.gz.part000",
+          "bytes": 1530,
+          "sha256": "b5a21abfb20f77a9ffe4fcbe5deb10502cabb5ffd17b65c51cea4b8ffaeb9f38"
+        }
+      ]
+    },
+    {
+      "original_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\integration-v1\\source-before.json",
+      "original_bytes": 1207636,
+      "original_sha256": "dd22f9b7d022046073b5061c6a4c44e8059da5d3909a09cd57e17f13ebb3cf02",
+      "decoded_sha256": "dd22f9b7d022046073b5061c6a4c44e8059da5d3909a09cd57e17f13ebb3cf02",
+      "original_bytes_reconstructable": true,
+      "redactions": 0,
+      "encoding": "gzip",
+      "parts": [
+        {
+          "path": "source-before.json.gz.part000",
+          "bytes": 240000,
+          "sha256": "3edcc7a0b2c2a3d77369f7d0ae7cda04dbd1a92298054d3b43c3667eeb46c348"
+        },
+        {
+          "path": "source-before.json.gz.part001",
+          "bytes": 56178,
+          "sha256": "91390c45369b4dabd53a1dec974ee29105e719bc163c812663982831f240a74f"
+        }
+      ]
+    },
+    {
+      "original_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\integration-v1\\source-after.json",
+      "original_bytes": 1207636,
+      "original_sha256": "1db2a50b4718da1d39612db08e6f5a780390afd30364a07f541c36258a0280e1",
+      "decoded_sha256": "1db2a50b4718da1d39612db08e6f5a780390afd30364a07f541c36258a0280e1",
+      "original_bytes_reconstructable": true,
+      "redactions": 0,
+      "encoding": "gzip",
+      "parts": [
+        {
+          "path": "source-after.json.gz.part000",
+          "bytes": 240000,
+          "sha256": "9e94c5f337bfd4a761923812615bb9fdb68f43eb5cf81ebaabc14c5b592d44b5"
+        },
+        {
+          "path": "source-after.json.gz.part001",
+          "bytes": 56179,
+          "sha256": "0cd1efc232c7e3b8b5c40e268526a22746d448e8b96da8897820d0ee794bc145"
+        }
+      ]
+    },
+    {
+      "original_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\integration-v1\\unittest-discover.log",
+      "original_bytes": 28221,
+      "original_sha256": "8cc5e7849ef396766df3674432a1c7303203ee1c1b660328e3174de49205f818",
+      "decoded_sha256": "8cc5e7849ef396766df3674432a1c7303203ee1c1b660328e3174de49205f818",
+      "original_bytes_reconstructable": true,
+      "redactions": 0,
+      "encoding": "gzip",
+      "parts": [
+        {
+          "path": "unittest-discover.log.gz.part000",
+          "bytes": 3238,
+          "sha256": "15e8615bc00e8c43bbf38c495ab71c50f48731cdb71f9cfecc0cc9c6d7746b5b"
+        }
+      ]
+    },
+    {
+      "original_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\integration-v1\\unittest-summary.json",
+      "original_bytes": 1125,
+      "original_sha256": "599d1d748ae952c89d4b21b33db98c657f60fb98f63933ddd0ee05a84083fc3c",
+      "decoded_sha256": "599d1d748ae952c89d4b21b33db98c657f60fb98f63933ddd0ee05a84083fc3c",
+      "original_bytes_reconstructable": true,
+      "redactions": 0,
+      "encoding": "gzip",
+      "parts": [
+        {
+          "path": "unittest-summary.json.gz.part000",
+          "bytes": 635,
+          "sha256": "6e79bae087a1257364c19d06c12e4c46e2054f14c789357aec9d1af5c812164c"
+        }
+      ]
+    }
+  ],
+  "credential_findings": 0,
+  "manual_closures": 0,
+  "GPU_qualification": false
+}
