@@ -15,7 +15,7 @@
 | 公开卡／诊断 | 新取得的数据与入口证据 | 仍开放的外观范围 |
 | --- | --- | --- |
 | OB10 `test.blocks.concrete_neighbors` | 经真实 registry 分类、实际载入和确认按钮回调载入 66 格；完整 typed Document 对同源 builder 一致。保存编辑器和原生完整投影；受控 missing 对 `(4,1,8)` 混凝土支撑和 `(4,2,8)` 拉杆执行空／单格占用／两格占用／恢复空四阶段，各有 shown／hidden 原 PNG | 固定整体视角可见模型，但不是颜色匹配局部对照；不能关闭所有上方附着／红石邻居引起的颜色变化 |
-| OB07 `test.blocks.dripleaf_states` | 经相同真实公开入口载入 104 格；编辑器、完整投影分别保留叶头 `(3,2,3)` 与孤立茎 `(3,2,23)` 视角；两格受控 missing 四阶段均有叶头／茎的 shown／hidden 原 PNG。前后完整 typed Document 不变 | 编辑器 zoom2 仍是全场概览，各格像素不足以判局部几何；world 代表可见也不等于全部44组、茎叶关系或各方向通过。后续 zoom12 四视角仅处于独立准备阶段，本节不把它列完成 |
+| OB07 `test.blocks.dripleaf_states` | 经相同真实公开入口载入 104 格；编辑器、完整投影分别保留叶头 `(3,2,3)` 与孤立茎 `(3,2,23)` 视角；两格受控 missing 四阶段均有叶头／茎的 shown／hidden 原 PNG。前后完整 typed Document 不变 | 原编辑器 zoom2 为全场概览，各格像素不足以判局部几何；随后独立四张zoom12近景已补，主代理已读，两目标在yaw35／215均可见，见[近景补证](DRIPLEAF_CLOSEUP_R27.md)。不扩展为全部44组、茎叶关系或全部方向通过 |
 | T02 两格相机诊断 | 从真实 60 格卡普通 erase 58 格，保持同一 Document／editor／尺寸，保留按钮 `(3,3,27)` 与 Y4 支撑 `(3,4,27)`；pitch −80→0→+80→−80，每角 full／singleY3／full 共12阶段。每阶段实际 native Serialize 均有 stone_button aux0；full 另有 stone aux0 支撑，single 无支撑。每角保存完整实际相机、原生 Scene 尺寸、actual UI front／poses、完整 native 序列化、原 PNG 及生产 OrbitCamera.ray 的明确重建结果。最后 undo 回全部60格 | 代表原图中 full 仅有明显支撑面，single 可辨小按钮；改变 pitch 后 full 可见性仍未解决。继续开放，未确认缓存、原生合并剔面、遮挡、aux 朝向或空间关系中的具体原因。重建 ray 不是原生渲染方向的直接观测 |
 
 这12个 T02 阶段的完整 typed 语义均相同，原导出编码在**本次**也恰好相同；此前准备阶段 `chunks` 编码变化而 typed 语义相同的失败与诊断仍保留，不将本次结果推广为所有保存编码或原生 wire 字节一致。
