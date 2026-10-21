@@ -1,0 +1,165 @@
+{
+  "python": "2.7.13 (v2.7.13:a06454b1afa1, Dec 17 2016, 20:53:40) [MSC v.1500 64 bit (AMD64)]", 
+  "real_resize_sdk_execution": false, 
+  "MC_started": false, 
+  "real_Scene_native_render": false, 
+  "formal_A_accepted": false, 
+  "controls": [
+    {
+      "name": "Theme GUI refresh before same-font early-return: 4.0", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Theme GUI refresh before same-font early-return: 3.0", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Theme GUI refresh before same-font early-return: 2.0", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Same-font refresh preserves listener tuple semantics", 
+      "passed": true, 
+      "detail": {
+        "notifications": 1, 
+        "sdk_calls": {
+          "GetScreenViewInfo": 3, 
+          "GetScreenSize": 3
+        }
+      }
+    }, 
+    {
+      "name": "Exactly one existing pair of GUI SDK reads per configure", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Offset exact integer GUI 2 size (400.0, 300.0)", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Offset exact integer GUI 3.0 size (400.0, 300.0)", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Offset exact integer GUI 4 size (400.0, 300.0)", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Offset exact integer GUI 2 size (220.0, 480.0)", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Offset exact integer GUI 3.0 size (220.0, 480.0)", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Offset exact integer GUI 4 size (220.0, 480.0)", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Offset exact integer GUI 2 size (171.74, 379.24)", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Offset exact integer GUI 3.0 size (171.74, 379.24)", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Offset exact integer GUI 4 size (171.74, 379.24)", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Unknown/noninteger/nonfinite GUI fails closed without quarter fallback", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Both explicit Product profiles own new callback; legacy callback preserved", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Production false gate still refuses selection", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Actual water Scene branch uses cached GUI 4.0", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Actual water Scene branch uses cached GUI 3.0", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Actual water Scene branch uses cached GUI 2.0", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Hundreds of water group reads add no FFI calls", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Actual water Scene branch retains legacy profile callback", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Other profile AST unchanged: item_view", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Other profile AST unchanged: cauldron_view", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Other profile AST unchanged: portal_view", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Other profile AST unchanged: book_view", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Real resize event coalesces pending notifications", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Physical-only resize renders and refreshes same-font GUI cache", 
+      "passed": true, 
+      "detail": null
+    }, 
+    {
+      "name": "Real final .25 settle renders new logical size and refreshes GUI cache", 
+      "passed": true, 
+      "detail": null
+    }
+  ], 
+  "candidate_manifest_sha256": "8de117fe7d495e62d68fd38239b8c6260df051a08007e9e85301eca0a2453d5c", 
+  "passed": true, 
+  "scope": "Actual Python2 candidate AST/module execution with explicitly fake SDK, constructor and UI render boundaries", 
+  "production_admission_performed": false, 
+  "schema": 1
+}

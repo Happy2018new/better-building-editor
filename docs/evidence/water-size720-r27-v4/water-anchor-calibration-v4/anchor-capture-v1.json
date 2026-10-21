@@ -1,0 +1,350 @@
+{
+  "schema": 1,
+  "owner": "water-r27-anchor-calibration-v2",
+  "source_contract_sha256": "334717aae34a1980dcb8c30a0fe50e596bbd4d027889a8315d5d9a67cb01c402",
+  "source_manifest_sha256": "3226cd8e8790e0a571e97fa5aa0e3b3761528532c227904d30a24fc9b66fed07",
+  "plan_sha256": "1afd1e9989097c8df157cd508ebaa5bf60d176b29240fb4b15e7c0ec105d7a0c",
+  "host_sha256": "550212a9aba8b3845f25c0fac65a47b0b30b48b95e7caadd4451e3436b7d79d3",
+  "started_at_utc": "2026-10-21T18:34:59.723177+00:00",
+  "completed": false,
+  "restored": true,
+  "source_unchanged": true,
+  "rows": [
+    {
+      "label": "gui4_wide_front_empty",
+      "config": {
+        "position": [
+          1,
+          1,
+          1
+        ],
+        "pose": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          59.879999999999995,
+          52.63,
+          379.24,
+          171.74
+        ],
+        "unit_fraction": 0.18,
+        "mode": "empty",
+        "model": "modern_projection_r27_anchor_15",
+        "offset_factor": 0.0
+      },
+      "preflight": {
+        "stage": "gui4_wide_front_empty_before_configure",
+        "checked_at": 1792607700.4110494,
+        "processes": {
+          "game": {
+            "pid": 54452,
+            "identity": "134370811979662105",
+            "handles": 875,
+            "previous_handles": 875,
+            "growth": 0
+          },
+          "mcdk": {
+            "pid": 68864,
+            "identity": "134370811977621740",
+            "handles": 234,
+            "previous_handles": 234,
+            "growth": 0
+          }
+        },
+        "available_commit_bytes": 13000564736
+      }
+    }
+  ],
+  "window_rows": [
+    {
+      "label": "gui4",
+      "requested": {
+        "label": "gui4",
+        "physical_client": [
+          1994,
+          1105
+        ],
+        "expected_integer_gui": 4
+      },
+      "requested_client": [
+        1994,
+        1105
+      ],
+      "activation_requested": false,
+      "window_identity": {
+        "hwnd": 15798690,
+        "pid": 54452,
+        "creation_identity": "134370811979662105"
+      },
+      "logical_before": {
+        "thread": {
+          "context": 36881,
+          "awareness": 1,
+          "per_monitor_v2": false
+        },
+        "window_context": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_dpi": 144,
+        "client_size": [
+          1280,
+          720
+        ],
+        "client_screen_origin": [
+          640,
+          457
+        ],
+        "window_rect": [
+          629,
+          412,
+          1931,
+          1188
+        ],
+        "dwm_physical_bounds": [
+          638,
+          412,
+          1922,
+          1179
+        ]
+      },
+      "foreground_before": {
+        "hwnd": 8192878,
+        "pid": 25180,
+        "identity": "134369620506537925"
+      },
+      "resize_flags": 566,
+      "mutations": [
+        {
+          "attempt": 1,
+          "requested_outer": [
+            2016,
+            1161
+          ],
+          "physical_readback": {
+            "thread": {
+              "context": 34,
+              "awareness": 2,
+              "per_monitor_v2": true
+            },
+            "window_context": {
+              "context": 34,
+              "awareness": 2,
+              "per_monitor_v2": true
+            },
+            "window_dpi": 144,
+            "client_size": [
+              1994,
+              1105
+            ],
+            "client_screen_origin": [
+              640,
+              457
+            ],
+            "window_rect": [
+              629,
+              412,
+              2645,
+              1573
+            ],
+            "dwm_physical_bounds": [
+              638,
+              412,
+              2636,
+              1564
+            ]
+          }
+        }
+      ],
+      "physical_before": {
+        "thread": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_context": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_dpi": 144,
+        "client_size": [
+          1280,
+          720
+        ],
+        "client_screen_origin": [
+          640,
+          457
+        ],
+        "window_rect": [
+          629,
+          412,
+          1931,
+          1188
+        ],
+        "dwm_physical_bounds": [
+          638,
+          412,
+          1922,
+          1179
+        ]
+      },
+      "existing_border_helper_outer_size": [
+        2016,
+        1161
+      ],
+      "physical_after": {
+        "thread": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_context": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_dpi": 144,
+        "client_size": [
+          1994,
+          1105
+        ],
+        "client_screen_origin": [
+          640,
+          457
+        ],
+        "window_rect": [
+          629,
+          412,
+          2645,
+          1573
+        ],
+        "dwm_physical_bounds": [
+          638,
+          412,
+          2636,
+          1564
+        ]
+      },
+      "logical_after": {
+        "thread": {
+          "context": 36881,
+          "awareness": 1,
+          "per_monitor_v2": false
+        },
+        "window_context": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_dpi": 144,
+        "client_size": [
+          1994,
+          1105
+        ],
+        "client_screen_origin": [
+          640,
+          457
+        ],
+        "window_rect": [
+          629,
+          412,
+          2645,
+          1573
+        ],
+        "dwm_physical_bounds": [
+          638,
+          412,
+          2636,
+          1564
+        ]
+      },
+      "foreground_after": {
+        "hwnd": 8192878,
+        "pid": 25180,
+        "identity": "134369620506537925"
+      },
+      "completed": true,
+      "opened": {
+        "gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "style": "raw Style, without widgets.S/Theme.scale",
+        "opened": true,
+        "logical": [
+          499.0,
+          277.0
+        ]
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "label": "finally",
+      "clean_return": true,
+      "state": {
+        "restored": true
+      }
+    }
+  ],
+  "cleanup_errors": [],
+  "restore_unknown": false,
+  "resource_samples": [
+    {
+      "stage": "gui4_before_resize",
+      "checked_at": 1792607699.9299657,
+      "processes": {
+        "game": {
+          "pid": 54452,
+          "identity": "134370811979662105",
+          "handles": 875,
+          "previous_handles": null,
+          "growth": null
+        },
+        "mcdk": {
+          "pid": 68864,
+          "identity": "134370811977621740",
+          "handles": 234,
+          "previous_handles": null,
+          "growth": null
+        }
+      },
+      "available_commit_bytes": 13103071232
+    },
+    {
+      "stage": "gui4_wide_front_empty_before_configure",
+      "checked_at": 1792607700.4110494,
+      "processes": {
+        "game": {
+          "pid": 54452,
+          "identity": "134370811979662105",
+          "handles": 875,
+          "previous_handles": 875,
+          "growth": 0
+        },
+        "mcdk": {
+          "pid": 68864,
+          "identity": "134370811977621740",
+          "handles": 234,
+          "previous_handles": 234,
+          "growth": 0
+        }
+      },
+      "available_commit_bytes": 13000564736
+    }
+  ],
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "error": {
+    "type": "MCDKError",
+    "message": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed: Invalid liquid tint channel\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 419, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 469, in _RUN_CLIENT_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 23, in <module>\\n  File \\\"modern_projection.projection.liquid_transport\\\", line 123, in pack_group\\n  File \\\"modern_projection.projection.liquid_transport\\\", line 64, in appearance_uniform\\n  File \\\"modern_projection.projection.liquid_transport\\\", line 64, in <genexpr>\\n  File \\\"modern_projection.projection.liquid_transport\\\", line 24, in _integer\\nValueError: Invalid liquid tint channel\\n\", \"type\": \"text\"}]}"
+  },
+  "ended_at_utc": "2026-10-21T18:35:08.463545+00:00"
+}

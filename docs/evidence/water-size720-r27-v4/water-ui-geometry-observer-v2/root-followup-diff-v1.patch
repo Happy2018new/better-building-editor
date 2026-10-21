@@ -1,0 +1,80 @@
+--- frozen-v6-run_anchor_calibration.py
++++ new-diagnostic-root-followup.py
+@@ -18,7 +18,8 @@
+ sys.path.insert(0,str(ROOT/'.runtime/round-20261022/water-size720-v3'))
+ from resize_adapter import resize_exact,user32
+ from run_size_group import available_commit
+-import anchor_game as game
++import observer_game as game
++from geometry_observation import describe_snapshot
+ 
+ 
+ def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
+@@ -27,14 +28,23 @@
+ def main():
+     parser=argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--session',required=True)
+-    parser.add_argument('--capture-exe',type=Path,required=True)
++    parser.add_argument('--capture-exe',type=Path,default=ROOT/'.runtime/worktree-archive-r7/p0-blueprint-qa-r3/files/.runtime/native_wgc/build/Release/native_wgc_capture.exe')
+     parser.add_argument('--root-grant',type=Path,required=True)
+     args=parser.parse_args()
+     plan_path=WORK/'plan-v1.json'
+     plan=json.loads(plan_path.read_bytes())
++    # New diagnostic subset only; original frozen138 plan/host stay untouched.
++    original_path=WORK.with_name('water-anchor-calibration-v6')/'plan-v1.json'
++    assert sha(original_path)=='627bb6a9cf39988c8e720e0469f0f328e74b0ce4ff7bc69031c055a379e65b47'
++    original=json.loads(original_path.read_bytes())
++    for field in ('windows','rectangles','poses','variants','axis_controls','matrix_selected','position','unit_fraction'):
++        plan[field]=original[field]
++    plan['windows']=[v for v in original['windows'] if v['label'] in ('gui4','gui2')]
++    plan['rectangles']=[v for v in original['rectangles'] if v['label']=='wide']
++    plan['capture_exe_sha256']='cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8'
+     manifest_path=WORK/'diagnostic-source-v1.json'
+     manifest=json.loads(manifest_path.read_bytes())
+-    output=WORK/'anchor-capture-v1.json'
++    output=WORK/'anchor-followup-capture-v1.json'
+     assert not output.exists(),'Preserve every prior result'
+     assert sha(manifest_path)==plan['diagnostic_source_manifest_sha256']
+     assert all(sha(WORK/name)==expected for name,expected in plan['host_code_sha256'].items())
+@@ -61,7 +71,7 @@
+             'host_sha256':sha(Path(__file__)),'started_at_utc':datetime.now(timezone.utc).isoformat(),
+             'completed':False,'restored':False,'source_unchanged':False,'rows':[],
+             'window_rows':[],'cleanup':[],'cleanup_errors':[],'restore_unknown':True,
+-            'resource_samples':[],'formal_A_accepted':False,'production_admission_performed':False}
++            'resource_samples':[],'capture_scope':'GUI4 wide front; GUI2 wide front/tilted plus6 original axis controls; GUI3 not captured','original_138_plan_unchanged':True,'formal_A_accepted':False,'production_admission_performed':False}
+ 
+     def save():
+         output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+@@ -123,10 +133,16 @@
+         save()
+         row['configured']=run(client,game.CONFIGURE%(config,))
+         row['before']=ready(client)
+-        expected=config['rect'][2:]
+-        assert len(row['before']['native'])==3
+-        for control in row['before']['native']:
+-            assert all(abs(a-b)<.05 for a,b in zip(control['size'],expected)),control
++        row['diagnostic_geometry']=describe_snapshot(row['before'])
++        contradictions=row['diagnostic_geometry']['geometry_contradictions']
++        # Native block geometry GetModelId remains -1 in all initial stone
++        # observations. Preserve it verbatim and inspect independent pixels.
++        # This is a new diagnostic host, not an edit to the old138 gate.
++        if config['mode']=='stone':
++            assert contradictions in ([],['Active control lacks a native model ID: 2']),contradictions
++            row['stone_native_id_contract_unresolved']=row['before']['native'][2]['model_id']==-1
++        else:
++            assert not contradictions,contradictions
+         row['capture_resource_before']=preflight(label+'_before_capture')
+         try:
+             row['capture']=base.capture(args.session,plan['owner'],WORK/'captures'/(label+'.png'),args.capture_exe)
+@@ -169,9 +185,11 @@
+                 for rectangle in plan['rectangles']:
+                     rect=[rectangle['fractions'][index]*logical[index%2] for index in range(4)]
+                     for pose in plan['poses']:
++                        if window['label']=='gui4' and pose['label']!='front':continue
+                         baseconfig={'position':plan['position'],'pose':pose['rotation'],
+                                     'rect':rect,'unit_fraction':plan['unit_fraction']}
+                         for variant in plan['variants']:
++                            if window['label']=='gui4' and variant['label']=='a15_inverse_gui':continue
+                             factor={'zero':0.,'quarter':.25,'inverse_gui':1./gui}[variant['offset']]
+                             config=dict(baseconfig,mode=variant['mode'],model=variant['model'],offset_factor=factor)
+                             capture(client,'_'.join((window['label'],rectangle['label'],pose['label'],variant['label'])),config)

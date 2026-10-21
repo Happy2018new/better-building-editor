@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "saved_at_utc": "2026-10-21 18:06:51 UTC",
+  "source": "MCP minecraft_docs official API and vanilla shader headers",
+  "diagnostic_only": true,
+  "qualification": false,
+  "limits": [
+    "The listed headers have no documented viewport-size uniform in the retrieved text; this does not prove none exists elsewhere.",
+    "RenderSkeletonModel and RenderBlockGeometryModel retrieved parameter lists expose scale, rotation and rotation axis, without a listed UI anchor translation; this does not prove no other API or shader solution exists."
+  ],
+  "anchorUniformDoc0": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "[PATH MATCH] GameAssets/resource_packs/vanilla/shaders/glsl/uniformShaderConstants.h"
+        },
+        {
+          "type": "text",
+          "text": "// __multiversion__\r\n// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.\r\n\r\n\r\n#include \"fragmentVersionCentroidUV.h\"\r\n#include \"uniformEntityConstants.h\"\r\n\r\n\r\n#include \"uniformShaderConstants.h\"\r\n#include \"util.h\"\r\n\r\nuniform vec4 HIDE_COLOR;\r\nvoid main()..."
+        },
+        {
+          "type": "text",
+          "text": "// __multiversion__\r\n// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.\r\n\r\n#include \"fragmentVersionSimple.h\"\r\n\r\n#include \"uniformShaderConstants.h\"\r\n\r\nvoid main()\r\n{\r\n\tgl_FragColor = vec4(1, 1, 1, 1);\r\n}"
+        },
+        {
+          "type": "text",
+          "text": "// __multiversion__\r\n// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.\r\n\r\n#include \"fragmentVersionSimple.h\"\r\n\r\n#include \"uniformShaderConstants.h\"\r\n\r\nvarying vec4 color;\r\n\r\nvoid main()\r\n{\r\n\tgl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);\r\n}\r\n"
+        },
+        {
+          "type": "text",
+          "text": "// __multiversion__\r\n// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.\r\n\r\n#include \"fragmentVersionCentroid.h\"\r\n#include \"uniformShaderConstants.h\"\r\n#include \"util.h\"\r\n\r\nLAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;\r\n\r\nvarying vec4 color;\r\nvarying vec..."
+        },
+        {
+          "type": "text",
+          "text": "// __multiversion__\r\n// This signals the loading code to prepend either #version 100 or #version 300 es as apropriate.\r\n\r\n\r\n#include \"fragmentVersionCentroidUV.h\"\r\n#include \"uniformEntityConstants.h\"\r\n#include \"uniformPerFrameConstants.h\"\r\n#include \"uniformShaderConstants.h\"\r\n#include \"util.h\"\r\n\r\nLA..."
+        }
+      ],
+      "isError": false
+    }
+  },
+  "anchorUniformDoc1": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "## RenderSkeletonModel\n\n客户端\n\nmethod in mod.client.ui.controls.neteasePaperDollUIControl.NeteasePaperDollUIControl\n\n- 描述\n\n  渲染骨骼模型（不依赖实体）\n\n- 参数\n\n| 参数名 | 数据类型 | 说明 |\n| --- | --- | --- |\n| params | dict | 渲染参数，详细说明请见备注 |\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| bool | 是否成功 |\n\n- 备注\n\n  - RenderSkeletonModel参数params说明：\n    params参数解释如下：\n\n| 参数 | 类型 | 解释 |\n| --- | --- | --- |\n| skeleton_model_name | str | 骨骼模型名称 |\n| animation | str | 骨骼动作名称，默认为idle |\n| animation_looped | bool | 骨骼动作是否循环播放，默认True |\n| scale | float | 渲染缩放比例，默认为1.0 |\n| render_depth | int | 渲染深度，对于玩家默认-50，普通生物-15，该参数可解决UI遮挡剔除问题 |\n| init_rot_y | float | 初始Y方向的朝向 |\n| init_rot_x | float | 初始x方向的朝向 |\n| init_rot_z | float | 初始z方向的朝向 |\n| molang_dict | dict | molang表达式字典，其中key为str，value为float |\n| rotation_axis | tuple | 选择旋转环绕的轴，如(0,1,0)依次代表x、y、z轴，此为绕y轴旋转，该属性只在netease_paper_doll_renderer控件的rotation属性为“freedom_gesture”时起效 |\n| light_direction | tuple | 可选参数。控制骨骼模型在纸娃娃中显示时的光照方向，x控制光照的左右方向，y控制光照的上下方向，z控制光照的前后方向，取值为-1,0,1。不填写该参数时模型默认从底部打光。该属性仅对没有自定义材质的骨骼模型生效。如果该骨骼模型定义了自定义材质，则无效。如需要对使用自定义材质的骨骼模型控制其光照方向，可以参考官方骨骼模型vertex shader中getLightColor使用到HIDE_COLOR的这部分代码。该参数对部分安卓低端设备，极低端设备无效。 |\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\npath = '/demoPanel/paper_doll'\nparam = {\n    \"skeleton_model_name\": \"ty_yuanshenghuli_0_0\",\n    \"animation\": \"idle_stand\",\n    \"scale\": 0.5,\n    \"render_depth\": -50,\n    \"init_rot_y\": 60,\n    \"rotation_axis\":(0,1,1),\n    \"molang_dict\": {\"variable.liedownamount\": 1},\n    # 控制光照方向为从模型的正右边往左边打光，以及从模型的正前方往后打光\n    \"light_direction\": ( 1.0, 0.0, 1.0 )\n}\ndoll = uiNode.GetBaseUIControl(path).asNeteasePaperDoll()\ndoll.RenderSkeletonModel(param)\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "anchorNativeDoc0": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "#ifndef _UNIFORM_PER_FRAME_CONSTANTS_H\n#define _UNIFORM_PER_FRAME_CONSTANTS_H\n\n#include \"uniformMacro.h\"\n\n#ifdef MCPE_PLATFORM_NX\nlayout(binding = 2) uniform PerFrameConstants {\n#endif\n// BEGIN_UNIFORM_BLOCK(PerFrameConstants) - unfortunately this macro does not work on old Amazon platforms so using above 3 lines instead\nUNIFORM vec3 VIEW_POS;\n#ifdef MCPE_NETEASE\n// TIME will loop from [0, 210]\n// make sure your shader handles the case when it transitions from 210 to 0\n#endif\nUNIFORM float TIME;\n#ifdef MCPE_NETEASE\nUNIFORM vec4 BLEND_COLOR;\nUNIFORM vec4 USER_FOR_COLOR_NEAR;\nUNIFORM vec4 USER_FOR_COLOR_FAR;\n\nUNIFORM vec4 LIGHT_NUM_STRENGTH;\nUNIFORM vec4 LIGHT_POS_RANGE_0;\nUNIFORM vec4 LIGHT_COLOR_ATTEN_0;\nUNIFORM vec4 LIGHT_DIR_TYPE_0;\nUNIFORM vec4 LIGHT_FALLOFF_COS_0;\n\nUNIFORM vec4 LIGHT_POS_RANGE_1;\nUNIFORM vec4 LIGHT_COLOR_ATTEN_1;\nUNIFORM vec4 LIGHT_DIR_TYPE_1;\nUNIFORM vec4 LIGHT_FALLOFF_COS_1;\n\nUNIFORM vec4 LIGHT_POS_RANGE_2;\nUNIFORM vec4 LIGHT_COLOR_ATTEN_2;\nUNIFORM vec4 LIGHT_DIR_TYPE_2;\nUNIFORM vec4 LIGHT_FALLOFF_COS_2;\n\nUNIFORM vec4 PLANAR_SHADOW_PARAMS1;\nUNIFORM vec4 PLANAR_SHADOW_PARAMS2;\nUNIFORM vec4 PLANAR_SHADOW_PARAMS3;\nUNIFORM vec4 PLANAR_SHADOW_PARAMS4;\n#endif\nUNIFORM vec4 FOG_COLOR;\nUNIFORM vec2 FOG_CONTROL;\nUNIFORM float RENDER_DISTANCE;\nUNIFORM float FAR_CHUNKS_DISTANCE;\nUNIFORM float OCCLUSION_HEIGHT_OFFSET;\nEND_UNIFORM_BLOCK\n\n#endif\n"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "anchorNativeDoc1": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "#ifndef _UNIFORM_WORLD_CONSTANTS_H\n#define _UNIFORM_WORLD_CONSTANTS_H\n\n#include \"uniformMacro.h\"\n\n#ifdef MCPE_PLATFORM_NX\nlayout(binding = 1) uniform WorldConstants {\n#endif\n// BEGIN_UNIFORM_BLOCK(WorldConstants) - unfortunately this macro does not work on old Amazon platforms so using above 3 lines instead\nUNIFORM MAT4 WORLDVIEWPROJ;\nUNIFORM MAT4 WORLD;\nUNIFORM MAT4 WORLDVIEW;\nUNIFORM MAT4 PROJ;\n#ifdef MCPE_NETEASE\nUNIFORM MAT4 VIEWPROJ;\n#endif\nEND_UNIFORM_BLOCK\n\n#endif\n"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "anchorNativeDoc2": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "## RenderBlockGeometryModel\n\n客户端\n\nmethod in mod.client.ui.controls.neteasePaperDollUIControl.NeteasePaperDollUIControl\n\n- 描述\n\n  渲染网格体模型\n\n- 参数\n\n| 参数名 | 数据类型 | 说明 |\n| --- | --- | --- |\n| params | dict | 渲染参数，详细说明请见备注 |\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| bool | 是否成功 |\n\n- 备注\n\n  - 网格体模型使用CombineBlockPaletteToGeometry生成\n  - 每次进入游戏需要重新调用本接口渲染网格体模型，可使用SerializeBlockPalette和DeserializeBlockPalette实现调色板保存并重载调色板，重新生成网格体模型进行渲染。\n  - RenderBlockGeometryModel参数params说明：\n    params参数解释如下：\n\n| 参数 | 类型 | 解释 |\n| --- | --- | --- |\n| block_geometry_model_name | str | 网格体模型名称, 可用CombineBlockPaletteToGeometry返回值 |\n| scale | float | 渲染缩放比例，默认为1.0 |\n| init_rot_y | float | 初始Y方向的朝向 |\n| init_rot_x | float | 初始x方向的朝向 |\n| init_rot_z | float | 初始z方向的朝向 |\n| molang_dict | dict | molang表达式字典，其中key为str，value为float |\n| rotation_axis | tuple | 选择旋转环绕的轴，如(0,1,0)依次代表x、y、z轴，此为绕y轴旋转，该属性只在netease_paper_doll_renderer控件的rotation属性为“freedom_gesture”时起效 |\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\npath = '/demoPanel/paper_doll'\nparam = {\n    \"block_geometry_model_name\": \"my_geometry_model\",\n    \"scale\": 0.5,\n    \"init_rot_y\": 60,\n    \"rotation_axis\":(0,1,1),\n    \"molang_dict\": {\"variable.liedownamount\": 1}\n}\ndoll = uiNode.GetBaseUIControl(path).asNeteasePaperDoll()\ndoll.RenderBlockGeometryModel(param)\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    }
+  }
+}

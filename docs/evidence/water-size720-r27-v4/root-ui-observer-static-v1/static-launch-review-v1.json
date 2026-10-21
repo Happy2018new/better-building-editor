@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "checked_at": 1792611712.3998299,
+  "passed": true,
+  "MC_started": false,
+  "Popen_dispatched": false,
+  "RPC_dispatched": false,
+  "watcher_started": false,
+  "observed_active_MC_count": 0,
+  "actual_launcher_prefix_nodes_executed": 70,
+  "stop_before_boundary": {
+    "first_line": 171,
+    "source": "(out / 'stdout.json').open('wb')"
+  },
+  "explicit_mock_inputs": [
+    "fresh watcher status dictionary",
+    "launch report output directory"
+  ],
+  "core_exact_original_sha256": "088ae57b8ea713b7881a01b94b4289cb7b04f7e17f791d17fc2bf2be2b49fa26",
+  "source_files_checked": 4484,
+  "actual_bootstrap_pure_preconditions_passed": true,
+  "actual_dispatch_bytes_match": true,
+  "lifecycle_imports": [
+    {
+      "file": "run_geometry_group.py",
+      "sha256": "424c9e7f9d9ba7b211d645ca9db176896eca27bdeb3c09091472d7f4e6de316d",
+      "imported": true
+    },
+    {
+      "file": "run_geometry_observation.py",
+      "sha256": "dacda5561242e304104e65748db787591500d9aac88044cf0562da3425678de8",
+      "imported": true
+    },
+    {
+      "file": "watch_handles.py",
+      "sha256": "9e852555e215de8b446bb8784554a43853317385e64843568d955be9f565b564",
+      "imported": true
+    },
+    {
+      "file": "retire_bootstrap_marker.py",
+      "sha256": "689a8d9c2b4d77230633f775cfdafaeb5f1ed3d7f196fdfb4b54f370718fb99c",
+      "imported": true
+    },
+    {
+      "file": "retire_helpers.py",
+      "sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0",
+      "imported": true
+    },
+    {
+      "file": "start_assert_watch.py",
+      "sha256": "29ee29fb55be84a37532cd7196b08526463a0ca50a3f815142bfcc8bc119f486",
+      "imported": true
+    }
+  ],
+  "host_binding_sha256": "2dd59591831606d995fb72953d14c4f28d3e84dcbe1397b18c81a48564b784d5",
+  "geometry_synthetic_controls_sha256": "26cfeaac69949ddc37552ca6f3904fcb2466a066df922651e2e15e9aa2be6267",
+  "test_host_sha256": "cc4cb48b7d9a73c07bdcfc5b0bb95395d8735c53a736571fbe0366f9db0d11b3",
+  "actual_launch_host_sha256": "ed77f9d565ff34ea0b4cf15b06a4939ab4b06dec6701c981ddf11bee8e78b41e",
+  "runtime_readiness_dependency_assets": {
+    ".agents/skills/pyreact-debugging/scripts/_session.py": "6960a3e5e6fdc8ccfac828aa3ebb0cab4a748d2d85488eeceb91fa77b0c899e6",
+    ".agents/skills/pyreact-debugging/scripts/_window.py": "9fdb52e92aeb9930d8faffb81ab2023aaec68383b71b6fab9172643270e0826e",
+    ".agents/skills/pyreact-debugging/scripts/instances.py": "bd8fbeba3145cef771c0abd1859ca9f02520855b1db75e9ef76c7cee232ebfaa",
+    ".agents/skills/pyreact-debugging/scripts/mcdk.py": "347e01d51324924a84a05cf08c342b46d6e1fab589d446705eadde2cd8a587d3",
+    ".agents/skills/pyreact-debugging/scripts/setup_mcdk.py": "1e46a69c633368f967d87a04733681d4fe1b2e6f3cc2f4fc832194497021fbdf",
+    ".agents/skills/pyreact-debugging/scripts/resize_window.py": "849a62a13496fe4b67da654d662b59f6bbc5cbe25b5b36a384ee1fe556ac215a",
+    ".runtime/round-20261022/water-anchor-watcher-v5/watch_owned_disabled_skin_assert_r27_v5.py": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+    ".runtime/round-20261022/water-anchor-watcher-v5/windows_manifest_reader.py": "2ae4d46fc4fc63249b1b10d8cc6e7028009f4fa1941ea64f88452871a89eb28d"
+  },
+  "limitations": [
+    "No live SDK/client/server readiness state is claimed.",
+    "Original instances.py readiness implementation and its dependencies are SHA-bound; importing it does not execute MC readiness.",
+    "The static watcher fixture proves expected field/hash consistency, not real watcher freshness."
+  ],
+  "formal_A_accepted": false,
+  "manual_closures_added": 0
+}

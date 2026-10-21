@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "declared_at": 1792605974.1654837,
+  "analysis_host_sha256": "c72af0d9dd768e1933a01fc6944d8b9396f63d5ce67aee0d56edd82c0b745755",
+  "pixels_observed_in_current_attempt": false,
+  "formal_A_accepted": false,
+  "fixed_negative_controls": [
+    "shown_equals_hidden",
+    "physical_y_minus20",
+    "physical_y_plus20",
+    "wrong_axis_y_z",
+    "wrong_axis_x_sign",
+    "wrong_axis_y_sign",
+    "wrong_GUI_half_when_translation_nonzero",
+    "wrong_GUI_double_when_translation_nonzero",
+    "wrong_offset_sign_when_translation_nonzero"
+  ],
+  "thresholds": {
+    "neutral_rgb": [
+      64,
+      64,
+      64
+    ],
+    "neutral_tolerance": 5,
+    "contribution_greater_than": 20,
+    "metric_neighbourhood_pixels": 2
+  },
+  "no_fit_or_search": true,
+  "symmetric_controls_may_coincide": true
+}

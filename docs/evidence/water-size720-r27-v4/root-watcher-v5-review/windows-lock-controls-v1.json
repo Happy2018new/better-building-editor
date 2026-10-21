@@ -1,0 +1,343 @@
+{
+  "schema": 1,
+  "checked_at": 1792606678.6986496,
+  "candidate_sha256": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+  "test_host_sha256": "b274c689462e341f3a87f39ccd588addd5eecda5a55aa1a24944be4a15a9596d",
+  "passed": true,
+  "controls": [
+    {
+      "name": "normal_valid_schema_owner_actual_creation_identity",
+      "passed": true
+    },
+    {
+      "name": "native_loader_matches_original_load_session_eight_input_controls",
+      "passed": true,
+      "comparisons": [
+        {
+          "case": "valid",
+          "equal": true,
+          "error_type": null
+        },
+        {
+          "case": "valid_live",
+          "equal": true,
+          "error_type": "RuntimeError"
+        },
+        {
+          "case": "schema_mismatch",
+          "equal": true,
+          "error_type": "ValueError"
+        },
+        {
+          "case": "path_mismatch",
+          "equal": true,
+          "error_type": "ValueError"
+        },
+        {
+          "case": "owner_mismatch",
+          "equal": true,
+          "error_type": "ValueError"
+        },
+        {
+          "case": "not_ready_live",
+          "equal": true,
+          "error_type": "RuntimeError"
+        },
+        {
+          "case": "wrong_identity_live",
+          "equal": true,
+          "error_type": "RuntimeError"
+        },
+        {
+          "case": "ready_live",
+          "equal": true,
+          "error_type": null
+        }
+      ]
+    },
+    {
+      "name": "real_native_missing_file_winerror2_not_retried",
+      "passed": true
+    },
+    {
+      "name": "real_CreateFile_share0_temporary_first_read",
+      "passed": true,
+      "events": [
+        {
+          "label": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\root-watcher-v5-review\\windows-lock-fixture-v1\\registry\\fixture-session\\session.json",
+          "recovered": true,
+          "exhausted": false,
+          "failures": [
+            {
+              "attempt": 1,
+              "winerror": 32,
+              "errno": 13,
+              "elapsed_seconds": 0.0005168000352568924
+            },
+            {
+              "attempt": 2,
+              "winerror": 32,
+              "errno": 13,
+              "elapsed_seconds": 0.052495600015390664
+            }
+          ],
+          "successful_attempt": 3,
+          "elapsed_seconds": 0.15572050004266202
+        }
+      ]
+    },
+    {
+      "name": "real_CreateFile_share0_temporary_second_read_whole_double_read_retried",
+      "passed": true,
+      "loader_calls": 2,
+      "events": [
+        {
+          "label": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\root-watcher-v5-review\\windows-lock-fixture-v1\\registry\\fixture-session\\session.json",
+          "recovered": true,
+          "exhausted": false,
+          "failures": [
+            {
+              "attempt": 1,
+              "winerror": 32,
+              "errno": 13,
+              "elapsed_seconds": 0.0019111000001430511
+            },
+            {
+              "attempt": 2,
+              "winerror": 32,
+              "errno": 13,
+              "elapsed_seconds": 0.0534285000176169
+            }
+          ],
+          "successful_attempt": 3,
+          "elapsed_seconds": 0.15664950001519173
+        }
+      ]
+    },
+    {
+      "name": "real_CreateFile_share0_persistent_exhausts_five_attempts",
+      "passed": true,
+      "error": {
+        "type": "PermissionError",
+        "winerror": 32,
+        "errno": 13
+      },
+      "elapsed_seconds": 0.7555450999643654,
+      "events": [
+        {
+          "label": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\root-watcher-v5-review\\windows-lock-fixture-v1\\registry\\fixture-session\\session.json",
+          "recovered": false,
+          "exhausted": true,
+          "failures": [
+            {
+              "attempt": 1,
+              "winerror": 32,
+              "errno": 13,
+              "elapsed_seconds": 0.00042400002712383866
+            },
+            {
+              "attempt": 2,
+              "winerror": 32,
+              "errno": 13,
+              "elapsed_seconds": 0.05139969999436289
+            },
+            {
+              "attempt": 3,
+              "winerror": 32,
+              "errno": 13,
+              "elapsed_seconds": 0.15278960001887754
+            },
+            {
+              "attempt": 4,
+              "winerror": 32,
+              "errno": 13,
+              "elapsed_seconds": 0.35410620004404336
+            },
+            {
+              "attempt": 5,
+              "winerror": 32,
+              "errno": 13,
+              "elapsed_seconds": 0.7555021000443958
+            }
+          ],
+          "elapsed_seconds": 0.7555061000166461
+        }
+      ]
+    },
+    {
+      "name": "malformed_JSON_not_retried_or_accepted",
+      "passed": true
+    },
+    {
+      "name": "invalid_schema_not_retried_or_accepted",
+      "passed": true
+    },
+    {
+      "name": "owner_change_between_reads_not_retried_or_accepted",
+      "passed": true
+    },
+    {
+      "name": "wrong_expected_creation_identity_rejected_against_actual_Win32_process",
+      "passed": true,
+      "PID_reuse_simulated": false
+    },
+    {
+      "name": "unassigned_owner_never_loaded_or_eligible",
+      "passed": true
+    },
+    {
+      "name": "other_winerror_not_retried",
+      "passed": true,
+      "IO": "explicit synthetic exception"
+    },
+    {
+      "name": "main_temporary_real_lock_success_without_error_latch",
+      "passed": true,
+      "status": {
+        "schema_version": 1,
+        "owners": [
+          "water-r27-lock-control-only"
+        ],
+        "until": "2026-10-21T18:18:12.764295+00:00",
+        "host_sha256": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+        "known_assert_recoveries": [],
+        "other_assertions": [],
+        "errors": [],
+        "manifest_read_events": [
+          {
+            "label": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\root-watcher-v5-review\\windows-lock-fixture-v1\\registry\\fixture-session\\session.json",
+            "recovered": true,
+            "exhausted": false,
+            "failures": [
+              {
+                "attempt": 1,
+                "winerror": 32,
+                "errno": 13,
+                "elapsed_seconds": 0.00042539997957646847
+              },
+              {
+                "attempt": 2,
+                "winerror": 32,
+                "errno": 13,
+                "elapsed_seconds": 0.05232999997679144
+              }
+            ],
+            "successful_attempt": 3,
+            "elapsed_seconds": 0.15497799997683614
+          }
+        ],
+        "checked_at": "2026-10-22T02:17:57.921867+08:00",
+        "eligible_sessions": [
+          {
+            "id": "fixture-session",
+            "owner": "water-r27-lock-control-only",
+            "game_pid": 35356
+          }
+        ]
+      },
+      "IO": "real filesystem locks, synthetic registry root and empty dialog enumeration"
+    },
+    {
+      "name": "main_persistent_real_lock_fail_closed_status_errors",
+      "passed": true,
+      "status": {
+        "schema_version": 1,
+        "owners": [
+          "water-r27-lock-control-only"
+        ],
+        "until": "2026-10-21T18:18:12.924778+00:00",
+        "host_sha256": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+        "known_assert_recoveries": [],
+        "other_assertions": [],
+        "errors": [
+          "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\root-watcher-v5-review\\windows-lock-fixture-v1\\registry\\fixture-session\\session.json: [WinError 32] \u53e6\u4e00\u4e2a\u7a0b\u5e8f\u6b63\u5728\u4f7f\u7528\u6b64\u6587\u4ef6\uff0c\u8fdb\u7a0b\u65e0\u6cd5\u8bbf\u95ee\u3002"
+        ],
+        "manifest_read_events": [
+          {
+            "label": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\root-watcher-v5-review\\windows-lock-fixture-v1\\registry\\fixture-session\\session.json",
+            "recovered": false,
+            "exhausted": true,
+            "failures": [
+              {
+                "attempt": 1,
+                "winerror": 32,
+                "errno": 13,
+                "elapsed_seconds": 0.0004287000047042966
+              },
+              {
+                "attempt": 2,
+                "winerror": 32,
+                "errno": 13,
+                "elapsed_seconds": 0.052494200004730374
+              },
+              {
+                "attempt": 3,
+                "winerror": 32,
+                "errno": 13,
+                "elapsed_seconds": 0.1538851000368595
+              },
+              {
+                "attempt": 4,
+                "winerror": 32,
+                "errno": 13,
+                "elapsed_seconds": 0.3550985000329092
+              },
+              {
+                "attempt": 5,
+                "winerror": 32,
+                "errno": 13,
+                "elapsed_seconds": 0.7560212000389583
+              }
+            ],
+            "elapsed_seconds": 0.7560238000005484
+          }
+        ],
+        "checked_at": "2026-10-22T02:17:58.682699+08:00",
+        "eligible_sessions": []
+      },
+      "IO": "real filesystem locks, synthetic registry root and empty dialog enumeration"
+    },
+    {
+      "name": "main_unknown_assertion_still_reported_no_ignore_action",
+      "passed": true,
+      "status": {
+        "schema_version": 1,
+        "owners": [
+          "water-r27-lock-control-only"
+        ],
+        "until": "2026-10-21T18:18:13.684978+00:00",
+        "host_sha256": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+        "known_assert_recoveries": [],
+        "other_assertions": [
+          {
+            "session_id": "fixture-session",
+            "dialog": {
+              "pid": 35356,
+              "hwnd": 1234
+            }
+          }
+        ],
+        "errors": [],
+        "manifest_read_events": [],
+        "checked_at": "2026-10-22T02:17:58.697769+08:00",
+        "eligible_sessions": [
+          {
+            "id": "fixture-session",
+            "owner": "water-r27-lock-control-only",
+            "game_pid": 35356
+          }
+        ]
+      },
+      "IO": "explicit synthetic unknown dialog, no OS dialog action"
+    }
+  ],
+  "MC_started": false,
+  "production_source_changed": false,
+  "qualification": false,
+  "limits": [
+    "Windows lock controls use actual CreateFileW share=0 handles on test manifests.",
+    "Main-loop controls replace registry discovery and native dialog enumeration explicitly.",
+    "Actual creation identity negative uses this test Python process; no PID reuse is claimed.",
+    "These controls do not establish real MC startup success or measure the original incident winerror."
+  ]
+}

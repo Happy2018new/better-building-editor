@@ -1,0 +1,2347 @@
+{
+  "schema": 1,
+  "created_at_utc": "2026-10-21T18:28:19.610736+00:00",
+  "capture_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-analysis-v1\\projection-math-fixture-v1\\synthetic-capture.json",
+  "capture_sha256": "6624585b9a8846cbf62b966ee5edf6fe0c998f07ef8935854400f4ed4b4b1b8f",
+  "host_sha256": "c72af0d9dd768e1933a01fc6944d8b9396f63d5ce67aee0d56edd82c0b745755",
+  "source_contract_sha256": "synthetic_math_control_no_product_source",
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "water_flow_ROI_modified": false,
+  "manual_closures_added": 0,
+  "partial": false,
+  "predeclared_neutral_rgb": [
+    64,
+    64,
+    64
+  ],
+  "neutral_tolerance": 5,
+  "contribution_greater_than": 20,
+  "matrix_candidate_sha256": "261e2fb407ceee541cf800a28dd7e56778d33b579f72159ee54620c684609f8a",
+  "rows": [
+    {
+      "label": "gui2_wide_tilted_a15_inverse_gui",
+      "analyzed": true,
+      "actual_sha256": "2496a4b3f283c2bfb5af63e4275fad8314d78304665677ef3828017dc6cb7081",
+      "neutral_vs_stone": {
+        "a_pixels": 15251,
+        "b_pixels": 15247,
+        "intersection": 13229,
+        "union": 17269,
+        "iou": 0.7660547802420522,
+        "a_recall_within_2px_of_b": 0.8807947019867549,
+        "b_recall_within_2px_of_a": 0.8808946022168296,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          225,
+          401,
+          376
+        ]
+      },
+      "neutral_vs_native_WVP": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 15251,
+        "union": 15251,
+        "iou": 1.0,
+        "a_recall_within_2px_of_b": 1.0,
+        "b_recall_within_2px_of_a": 1.0,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          245,
+          401,
+          396
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            400.0,
+            245.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            400.0,
+            245.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ]
+        ],
+        "ndc": [
+          [
+            0.0,
+            0.25,
+            1.25
+          ],
+          [
+            0.0,
+            -0.25,
+            1.25
+          ],
+          [
+            0.0,
+            0.25,
+            0.5
+          ],
+          [
+            0.0,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            300.0,
+            245.0
+          ],
+          [
+            400.0,
+            245.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            300.0,
+            395.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": null,
+        "matrix_quantization_max_error": 0.000244140625
+      },
+      "viewport": [
+        {
+          "global_position": [
+            100.0,
+            110.0
+          ]
+        }
+      ],
+      "known_GUI_hypothesis": 2
+    },
+    {
+      "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+      "analyzed": true,
+      "actual_sha256": "17b2899d18f665f5b0bea7ae19d070a0869609b1e4a22cf3278df98d1a1d9df9",
+      "neutral_vs_stone": {
+        "a_pixels": 15251,
+        "b_pixels": 15247,
+        "intersection": 130,
+        "union": 30368,
+        "iou": 0.004280821917808219,
+        "a_recall_within_2px_of_b": 0.02609664940003934,
+        "b_recall_within_2px_of_a": 0.026103495769659604,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          300,
+          225,
+          401,
+          376
+        ]
+      },
+      "neutral_vs_native_WVP": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 15251,
+        "union": 15251,
+        "iou": 1.0,
+        "a_recall_within_2px_of_b": 1.0,
+        "b_recall_within_2px_of_a": 1.0,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          200,
+          245,
+          301,
+          396
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            200.0,
+            245.0
+          ],
+          [
+            200.0,
+            395.0
+          ],
+          [
+            200.0,
+            245.0
+          ],
+          [
+            200.0,
+            395.0
+          ]
+        ],
+        "ndc": [
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            200.0,
+            245.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            200.0,
+            395.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": null,
+        "matrix_quantization_max_error": 0.000244140625
+      },
+      "viewport": [
+        {
+          "global_position": [
+            100.0,
+            110.0
+          ]
+        }
+      ],
+      "known_GUI_hypothesis": 2,
+      "neutral_vs_matching_axis_stone": {
+        "a_pixels": 15251,
+        "b_pixels": 9207,
+        "intersection": 7989,
+        "union": 16469,
+        "iou": 0.4850932054162366,
+        "a_recall_within_2px_of_b": 0.5493410268179135,
+        "b_recall_within_2px_of_a": 0.8809601390246552,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          240,
+          225,
+          301,
+          376
+        ]
+      }
+    }
+  ],
+  "no_fit_or_search": true,
+  "negative_controls": [
+    {
+      "label": "gui2_wide_tilted_a15_inverse_gui",
+      "kind": "fixed_physical_y_translation",
+      "offset": -20,
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 13231,
+        "union": 17271,
+        "iou": 0.7660818713450293,
+        "a_recall_within_2px_of_b": 0.8807947019867549,
+        "b_recall_within_2px_of_a": 0.8807947019867549,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          225,
+          401,
+          376
+        ]
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_a15_inverse_gui",
+      "kind": "fixed_physical_y_translation",
+      "offset": 20,
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 13231,
+        "union": 17271,
+        "iou": 0.7660818713450293,
+        "a_recall_within_2px_of_b": 0.8807947019867549,
+        "b_recall_within_2px_of_a": 0.8807947019867549,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          265,
+          401,
+          416
+        ]
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_a15_inverse_gui",
+      "kind": "wrong_axis_y_z",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 15251,
+        "union": 15251,
+        "iou": 1.0,
+        "a_recall_within_2px_of_b": 1.0,
+        "b_recall_within_2px_of_a": 1.0,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          245,
+          401,
+          396
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            400.0,
+            245.0
+          ],
+          [
+            400.0,
+            245.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            300.0,
+            395.0
+          ]
+        ],
+        "ndc": [
+          [
+            0.0,
+            0.25,
+            1.25
+          ],
+          [
+            0.0,
+            0.25,
+            0.5
+          ],
+          [
+            0.0,
+            -0.25,
+            1.25
+          ],
+          [
+            0.0,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            300.0,
+            245.0
+          ],
+          [
+            400.0,
+            245.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            300.0,
+            395.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_axis_y_z",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_a15_inverse_gui",
+      "kind": "wrong_axis_x_sign",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 151,
+        "union": 30351,
+        "iou": 0.004975124378109453,
+        "a_recall_within_2px_of_b": 0.0297029702970297,
+        "b_recall_within_2px_of_a": 0.0297029702970297,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          200,
+          245,
+          301,
+          396
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            200.0,
+            245.0
+          ],
+          [
+            200.0,
+            395.0
+          ],
+          [
+            200.0,
+            245.0
+          ],
+          [
+            200.0,
+            395.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ]
+        ],
+        "ndc": [
+          [
+            -0.5,
+            0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            200.0,
+            245.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            200.0,
+            395.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_axis_x_sign",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_a15_inverse_gui",
+      "kind": "wrong_axis_y_sign",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 101,
+        "union": 30401,
+        "iou": 0.0033222591362126247,
+        "a_recall_within_2px_of_b": 0.019867549668874173,
+        "b_recall_within_2px_of_a": 0.019867549668874173,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          395,
+          401,
+          546
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            400.0,
+            545.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            400.0,
+            545.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            300.0,
+            545.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            300.0,
+            545.0
+          ],
+          [
+            300.0,
+            395.0
+          ]
+        ],
+        "ndc": [
+          [
+            0.0,
+            -0.75,
+            1.25
+          ],
+          [
+            0.0,
+            -0.25,
+            1.25
+          ],
+          [
+            0.0,
+            -0.75,
+            0.5
+          ],
+          [
+            0.0,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.75,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.75,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            300.0,
+            395.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            400.0,
+            545.0
+          ],
+          [
+            300.0,
+            545.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_axis_y_sign",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_a15_inverse_gui",
+      "kind": "wrong_GUI_half",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 14241,
+        "union": 16261,
+        "iou": 0.8757763975155279,
+        "a_recall_within_2px_of_b": 0.9470198675496688,
+        "b_recall_within_2px_of_a": 0.9470198675496688,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          235,
+          401,
+          386
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            400.0,
+            235.0
+          ],
+          [
+            400.0,
+            385.0
+          ],
+          [
+            400.0,
+            235.0
+          ],
+          [
+            400.0,
+            385.0
+          ],
+          [
+            300.0,
+            235.0
+          ],
+          [
+            300.0,
+            385.0
+          ],
+          [
+            300.0,
+            235.0
+          ],
+          [
+            300.0,
+            385.0
+          ]
+        ],
+        "ndc": [
+          [
+            0.0,
+            0.25,
+            1.25
+          ],
+          [
+            0.0,
+            -0.25,
+            1.25
+          ],
+          [
+            0.0,
+            0.25,
+            0.5
+          ],
+          [
+            0.0,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            300.0,
+            235.0
+          ],
+          [
+            400.0,
+            235.0
+          ],
+          [
+            400.0,
+            385.0
+          ],
+          [
+            300.0,
+            385.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          10.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_GUI_half",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_a15_inverse_gui",
+      "kind": "wrong_GUI_double",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 13231,
+        "union": 17271,
+        "iou": 0.7660818713450293,
+        "a_recall_within_2px_of_b": 0.8807947019867549,
+        "b_recall_within_2px_of_a": 0.8807947019867549,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          265,
+          401,
+          416
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            400.0,
+            265.0
+          ],
+          [
+            400.0,
+            415.0
+          ],
+          [
+            400.0,
+            265.0
+          ],
+          [
+            400.0,
+            415.0
+          ],
+          [
+            300.0,
+            265.0
+          ],
+          [
+            300.0,
+            415.0
+          ],
+          [
+            300.0,
+            265.0
+          ],
+          [
+            300.0,
+            415.0
+          ]
+        ],
+        "ndc": [
+          [
+            0.0,
+            0.25,
+            1.25
+          ],
+          [
+            0.0,
+            -0.25,
+            1.25
+          ],
+          [
+            0.0,
+            0.25,
+            0.5
+          ],
+          [
+            0.0,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            300.0,
+            265.0
+          ],
+          [
+            400.0,
+            265.0
+          ],
+          [
+            400.0,
+            415.0
+          ],
+          [
+            300.0,
+            415.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          40.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_GUI_double",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_a15_inverse_gui",
+      "kind": "wrong_offset_sign",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 11211,
+        "union": 19291,
+        "iou": 0.581151832460733,
+        "a_recall_within_2px_of_b": 0.7483443708609272,
+        "b_recall_within_2px_of_a": 0.7483443708609272,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          205,
+          401,
+          356
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            400.0,
+            205.0
+          ],
+          [
+            400.0,
+            355.0
+          ],
+          [
+            400.0,
+            205.0
+          ],
+          [
+            400.0,
+            355.0
+          ],
+          [
+            300.0,
+            205.0
+          ],
+          [
+            300.0,
+            355.0
+          ],
+          [
+            300.0,
+            205.0
+          ],
+          [
+            300.0,
+            355.0
+          ]
+        ],
+        "ndc": [
+          [
+            0.0,
+            0.25,
+            1.25
+          ],
+          [
+            0.0,
+            -0.25,
+            1.25
+          ],
+          [
+            0.0,
+            0.25,
+            0.5
+          ],
+          [
+            0.0,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            300.0,
+            205.0
+          ],
+          [
+            400.0,
+            205.0
+          ],
+          [
+            400.0,
+            355.0
+          ],
+          [
+            300.0,
+            355.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          -0.0,
+          -20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_offset_sign",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+      "kind": "fixed_physical_y_translation",
+      "offset": -20,
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 13231,
+        "union": 17271,
+        "iou": 0.7660818713450293,
+        "a_recall_within_2px_of_b": 0.8807947019867549,
+        "b_recall_within_2px_of_a": 0.8807947019867549,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          200,
+          225,
+          301,
+          376
+        ]
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+      "kind": "fixed_physical_y_translation",
+      "offset": 20,
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 13231,
+        "union": 17271,
+        "iou": 0.7660818713450293,
+        "a_recall_within_2px_of_b": 0.8807947019867549,
+        "b_recall_within_2px_of_a": 0.8807947019867549,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          200,
+          265,
+          301,
+          416
+        ]
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+      "kind": "wrong_axis_y_z",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 15251,
+        "union": 15251,
+        "iou": 1.0,
+        "a_recall_within_2px_of_b": 1.0,
+        "b_recall_within_2px_of_a": 1.0,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          200,
+          245,
+          301,
+          396
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            200.0,
+            245.0
+          ],
+          [
+            200.0,
+            245.0
+          ],
+          [
+            200.0,
+            395.0
+          ],
+          [
+            200.0,
+            395.0
+          ]
+        ],
+        "ndc": [
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            200.0,
+            245.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            200.0,
+            395.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_axis_y_z",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+      "kind": "wrong_axis_x_sign",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 151,
+        "union": 30351,
+        "iou": 0.004975124378109453,
+        "a_recall_within_2px_of_b": 0.0297029702970297,
+        "b_recall_within_2px_of_a": 0.0297029702970297,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          300,
+          245,
+          401,
+          396
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            300.0,
+            245.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            400.0,
+            245.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            400.0,
+            245.0
+          ],
+          [
+            400.0,
+            395.0
+          ]
+        ],
+        "ndc": [
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ],
+          [
+            0.0,
+            0.25,
+            1.25
+          ],
+          [
+            0.0,
+            -0.25,
+            1.25
+          ],
+          [
+            0.0,
+            0.25,
+            0.5
+          ],
+          [
+            0.0,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            300.0,
+            245.0
+          ],
+          [
+            400.0,
+            245.0
+          ],
+          [
+            400.0,
+            395.0
+          ],
+          [
+            300.0,
+            395.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_axis_x_sign",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+      "kind": "wrong_axis_y_sign",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 101,
+        "union": 30401,
+        "iou": 0.0033222591362126247,
+        "a_recall_within_2px_of_b": 0.019867549668874173,
+        "b_recall_within_2px_of_a": 0.019867549668874173,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          200,
+          395,
+          301,
+          546
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            300.0,
+            545.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            300.0,
+            545.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            200.0,
+            545.0
+          ],
+          [
+            200.0,
+            395.0
+          ],
+          [
+            200.0,
+            545.0
+          ],
+          [
+            200.0,
+            395.0
+          ]
+        ],
+        "ndc": [
+          [
+            -0.25,
+            -0.75,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.75,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.75,
+            1.25
+          ],
+          [
+            -0.5,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            -0.75,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            200.0,
+            395.0
+          ],
+          [
+            300.0,
+            395.0
+          ],
+          [
+            300.0,
+            545.0
+          ],
+          [
+            200.0,
+            545.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_axis_y_sign",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+      "kind": "wrong_GUI_half",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 14241,
+        "union": 16261,
+        "iou": 0.8757763975155279,
+        "a_recall_within_2px_of_b": 0.9470198675496688,
+        "b_recall_within_2px_of_a": 0.9470198675496688,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          200,
+          235,
+          301,
+          386
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            300.0,
+            235.0
+          ],
+          [
+            300.0,
+            385.0
+          ],
+          [
+            300.0,
+            235.0
+          ],
+          [
+            300.0,
+            385.0
+          ],
+          [
+            200.0,
+            235.0
+          ],
+          [
+            200.0,
+            385.0
+          ],
+          [
+            200.0,
+            235.0
+          ],
+          [
+            200.0,
+            385.0
+          ]
+        ],
+        "ndc": [
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            200.0,
+            235.0
+          ],
+          [
+            300.0,
+            235.0
+          ],
+          [
+            300.0,
+            385.0
+          ],
+          [
+            200.0,
+            385.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          10.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_GUI_half",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+      "kind": "wrong_GUI_double",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 13231,
+        "union": 17271,
+        "iou": 0.7660818713450293,
+        "a_recall_within_2px_of_b": 0.8807947019867549,
+        "b_recall_within_2px_of_a": 0.8807947019867549,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          200,
+          265,
+          301,
+          416
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            300.0,
+            265.0
+          ],
+          [
+            300.0,
+            415.0
+          ],
+          [
+            300.0,
+            265.0
+          ],
+          [
+            300.0,
+            415.0
+          ],
+          [
+            200.0,
+            265.0
+          ],
+          [
+            200.0,
+            415.0
+          ],
+          [
+            200.0,
+            265.0
+          ],
+          [
+            200.0,
+            415.0
+          ]
+        ],
+        "ndc": [
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            200.0,
+            265.0
+          ],
+          [
+            300.0,
+            265.0
+          ],
+          [
+            300.0,
+            415.0
+          ],
+          [
+            200.0,
+            415.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          0.0,
+          40.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_GUI_double",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+      "kind": "wrong_offset_sign",
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 11211,
+        "union": 19291,
+        "iou": 0.581151832460733,
+        "a_recall_within_2px_of_b": 0.7483443708609272,
+        "b_recall_within_2px_of_a": 0.7483443708609272,
+        "a_bounds": [
+          200,
+          245,
+          301,
+          396
+        ],
+        "b_bounds": [
+          200,
+          205,
+          301,
+          356
+        ]
+      },
+      "native_WVP_prediction": {
+        "corners": [
+          [
+            300.0,
+            205.0
+          ],
+          [
+            300.0,
+            355.0
+          ],
+          [
+            300.0,
+            205.0
+          ],
+          [
+            300.0,
+            355.0
+          ],
+          [
+            200.0,
+            205.0
+          ],
+          [
+            200.0,
+            355.0
+          ],
+          [
+            200.0,
+            205.0
+          ],
+          [
+            200.0,
+            355.0
+          ]
+        ],
+        "ndc": [
+          [
+            -0.25,
+            0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.25,
+            0.25,
+            0.5
+          ],
+          [
+            -0.25,
+            -0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            -0.25,
+            1.25
+          ],
+          [
+            -0.5,
+            0.25,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.25,
+            0.5
+          ]
+        ],
+        "hull": [
+          [
+            200.0,
+            205.0
+          ],
+          [
+            300.0,
+            205.0
+          ],
+          [
+            300.0,
+            355.0
+          ],
+          [
+            200.0,
+            355.0
+          ]
+        ],
+        "anchor": 1.5,
+        "WVP_elements": [
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75,
+          0.0,
+          -0.25,
+          -1.0,
+          0.5,
+          1.0
+        ],
+        "WVP_column_major": true,
+        "control_translation_logical": [
+          0.0,
+          10.0
+        ],
+        "control_translation_physical_by_integer_GUI": [
+          -0.0,
+          -20.0
+        ],
+        "translation_hypothesis_requires_native_controls": true,
+        "diagnostic_variant": "wrong_offset_sign",
+        "matrix_quantization_max_error": 0.000244140625
+      }
+    },
+    {
+      "label": "gui2_wide_tilted",
+      "kind": "shown_equals_hidden",
+      "pixels": 0
+    }
+  ],
+  "negative_control_interpretation": "Fixed alternatives, declared before observing new pixels. Symmetric cells may coincide; report metrics without manufacturing pass/fail labels."
+}

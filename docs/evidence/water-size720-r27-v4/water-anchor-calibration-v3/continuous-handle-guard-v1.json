@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "owner": "water-r27-anchor-calibration-v1",
+  "maximum_handles": 250000,
+  "rapid_step_growth_limit": 10000,
+  "deadline_utc": "2026-10-21T23:45:00+00:00",
+  "samples": [
+    {
+      "at": "2026-10-21T18:05:38.972642+00:00",
+      "game": {
+        "pid": 34508,
+        "expected_identity": "134370795193948571",
+        "observed_identity": "134370795193948571",
+        "identity_verified": true,
+        "handles": 599
+      },
+      "mcdk": {
+        "pid": 46292,
+        "expected_identity": "134370795191797446",
+        "observed_identity": "134370795191797446",
+        "identity_verified": true,
+        "handles": 194
+      }
+    },
+    {
+      "at": "2026-10-21T18:05:39.979681+00:00",
+      "game": {
+        "pid": 34508,
+        "expected_identity": "134370795193948571",
+        "observed_identity": "134370795193948571",
+        "identity_verified": true,
+        "handles": 643
+      },
+      "mcdk": {
+        "pid": 46292,
+        "expected_identity": "134370795191797446",
+        "observed_identity": "134370795191797446",
+        "identity_verified": true,
+        "handles": 208
+      }
+    },
+    {
+      "at": "2026-10-21T18:05:40.986865+00:00",
+      "game": {
+        "pid": 34508,
+        "expected_identity": "134370795193948571",
+        "observed_identity": "134370795193948571",
+        "identity_verified": true,
+        "handles": 666
+      },
+      "mcdk": {
+        "pid": 46292,
+        "expected_identity": "134370795191797446",
+        "observed_identity": "134370795191797446",
+        "identity_verified": true,
+        "handles": 224
+      }
+    },
+    {
+      "at": "2026-10-21T18:05:41.994889+00:00",
+      "game": {
+        "pid": 34508,
+        "expected_identity": "134370795193948571",
+        "observed_identity": "134370795193948571",
+        "identity_verified": true,
+        "handles": 670
+      },
+      "mcdk": {
+        "pid": 46292,
+        "expected_identity": "134370795191797446",
+        "observed_identity": "134370795191797446",
+        "identity_verified": true,
+        "handles": 230
+      }
+    }
+  ],
+  "guard_breach": null,
+  "stopped": false,
+  "completed": true,
+  "modal_guard_breach": {
+    "reason": "assertion_watcher_not_healthy",
+    "status": {
+      "schema_version": 1,
+      "owners": [
+        "water-r27-anchor-calibration-v1"
+      ],
+      "until": "2026-10-21T23:45:00+00:00",
+      "host_sha256": "f93e4c5ba1b728fe0b6627ed58c8d4938b18913a6dafa96305237b84198b07df",
+      "known_assert_recoveries": [],
+      "other_assertions": [],
+      "errors": [
+        "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\fc4f754726034c1590beb686e6683532\\session.json: [Errno 13] Permission denied: 'C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\fc4f754726034c1590beb686e6683532\\\\session.json'"
+      ],
+      "checked_at": "2026-10-22T02:05:41.878957+08:00",
+      "eligible_sessions": []
+    },
+    "age_seconds": 0.119044
+  },
+  "deadline_expired": false,
+  "identity_ended": false,
+  "ordinary_stop": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[instances] Game has not closed; inspect it or explicitly use stop --force\n"
+  }
+}

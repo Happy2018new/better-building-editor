@@ -1,0 +1,223 @@
+{
+  "schema": 6,
+  "declared_at_utc": "2026-10-21T19:19:26.168355+00:00",
+  "owner": "water-r27-anchor-calibration-v4",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-anchor-diagnostic-v1",
+  "diagnostic_source_manifest_sha256": "3226cd8e8790e0a571e97fa5aa0e3b3761528532c227904d30a24fc9b66fed07",
+  "source_contract_sha256": "334717aae34a1980dcb8c30a0fe50e596bbd4d027889a8315d5d9a67cb01c402",
+  "scope": "Opaque neutral cube UI anchor and native shader matrices only; not water A or owner/default qualification",
+  "MC_started": false,
+  "production_admission_performed": false,
+  "formal_A_accepted": false,
+  "windows": [
+    {
+      "label": "gui4",
+      "physical_client": [
+        1994,
+        1105
+      ],
+      "expected_integer_gui": 4
+    },
+    {
+      "label": "gui3",
+      "physical_client": [
+        1600,
+        900
+      ],
+      "expected_integer_gui": 3
+    },
+    {
+      "label": "gui2",
+      "physical_client": [
+        1280,
+        720
+      ],
+      "expected_integer_gui": 2
+    }
+  ],
+  "rectangles": [
+    {
+      "label": "wide",
+      "fractions": [
+        0.12,
+        0.19,
+        0.76,
+        0.62
+      ]
+    },
+    {
+      "label": "tall",
+      "fractions": [
+        0.27,
+        0.1,
+        0.46,
+        0.8
+      ]
+    }
+  ],
+  "poses": [
+    {
+      "label": "front",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "tilted",
+      "rotation": [
+        25.0,
+        0.0,
+        35.0
+      ]
+    }
+  ],
+  "position": [
+    1,
+    1,
+    1
+  ],
+  "unit_fraction": 0.18,
+  "variants": [
+    {
+      "label": "empty",
+      "mode": "empty",
+      "model": "modern_projection_r27_anchor_15",
+      "offset": "zero"
+    },
+    {
+      "label": "stone",
+      "mode": "stone",
+      "model": "modern_projection_r27_anchor_15",
+      "offset": "zero"
+    },
+    {
+      "label": "a15_zero",
+      "mode": "neutral",
+      "model": "modern_projection_r27_anchor_15",
+      "offset": "zero"
+    },
+    {
+      "label": "a15_quarter",
+      "mode": "neutral",
+      "model": "modern_projection_r27_anchor_15",
+      "offset": "quarter"
+    },
+    {
+      "label": "a15_inverse_gui",
+      "mode": "neutral",
+      "model": "modern_projection_r27_anchor_15",
+      "offset": "inverse_gui"
+    },
+    {
+      "label": "a0_zero",
+      "mode": "neutral",
+      "model": "modern_projection_r27_anchor_0",
+      "offset": "zero"
+    }
+  ],
+  "axis_controls": {
+    "window": "gui2",
+    "rectangle": "wide",
+    "pose": "tilted",
+    "positions": [
+      [
+        2,
+        1,
+        1
+      ],
+      [
+        1,
+        2,
+        1
+      ],
+      [
+        1,
+        1,
+        2
+      ]
+    ],
+    "variants": [
+      "stone",
+      "a15_inverse_gui"
+    ]
+  },
+  "matrix_selected": [
+    "WORLDVIEWPROJ",
+    "WORLDVIEW",
+    "PROJ",
+    "WORLD",
+    "BONE"
+  ],
+  "matrix_quantization_max_error": 0.000244140625,
+  "shader_anchor_hypotheses": [
+    1.5,
+    0.0
+  ],
+  "logical_offset_hypotheses": [
+    "zero",
+    "min(control_size)/4",
+    "min(control_size)/integer_gui"
+  ],
+  "negative_controls": [
+    "axis signs and permutations",
+    "wrong integer GUI",
+    "constant +/-20 physical pixel translation",
+    "wrong offset sign",
+    "shown equals hidden"
+  ],
+  "measurement": {
+    "neutral_color_rgb": [
+      64,
+      64,
+      64
+    ],
+    "neutral_color_tolerance_per_channel": 5,
+    "foreground_signal_requires_shown_minus_empty_gt": 20,
+    "hull_thresholds_are_not_fitted_to_water": true,
+    "record_actual_native_control_geometry_before_and_after": true,
+    "require_three_ready_animation_frames": true,
+    "remount_after_each_resize": true,
+    "matrix_control_tiles_22_23_must_be_zero": true,
+    "no_texture_ROI_search": true,
+    "no_phase_fit": true,
+    "water_flow_ROI_unchanged": true
+  },
+  "retained_original_animation_gates": {
+    "preparation_ms": 1500,
+    "measurement_ms": 3200,
+    "max_gap_ms": 150,
+    "max_accounted_bytes": 536870912,
+    "not_exercised_by_this_static_probe": true
+  },
+  "resource_gates": {
+    "min_available_commit_bytes": 6442450944,
+    "max_handles": 250000,
+    "max_adjacent_growth": 10000
+  },
+  "estimated_exclusive_MC_minutes": 18,
+  "lifecycle": "root schedule -> exact frozen source archive/binding -> known assertion watcher -> ordinary cold start -> neutral/matrix host -> explicit UI marker cleanup -> source audit -> ordinary stop -> actual same-handle exit -> exact watcher retirement",
+  "uniform_removal_goal": "Derive UI anchoring from native WORLDVIEWPROJ/WORLDVIEW/PROJ independently of physical resolution; SDK integer GUI correction remains a hypothesis until measured.",
+  "production_no_Win32_WGC_dependency": true,
+  "host_code_sha256": {
+    "anchor_game.py": "ab59ab0e3dedfac7b460515806ecf7651820a56018f14fcbb5ca0a7b45b3ff24",
+    "run_anchor_calibration.py": "fea1904e90e8d60b87beff45bb5a8743ffc9d6c8326fe87bdd086895fa7ba027"
+  },
+  "previous_plan_sha256": "bf3db61e85549631603e7d6d7a61eed37d35f6331859d56abfbd3b65a2057d9c",
+  "capture_exe_sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+  "host_correction": "Capture module ROOT references reviewed host C++ source directory; private game source is unchanged.",
+  "failed_cleanup_policy": "Original exception retained; final readonly RPC/source audit faults captured as cleanup_errors/restore_unknown; final report saved. Group retains ordinary stop and same-handle exit.",
+  "per_capture_handle_gates": "Same retained PID+creation handle reads before configure, immediately before and after each capture; success and failure paths. Continuous exact-owner watcher samples independently at 1 second intervals.",
+  "resource_gate_scope": "game and MCDK process identities. Short-lived WGC child is owner-bound and reaped by capture wrapper, not covered by game/MCDK adjacent-handle count claims.",
+  "previous_attempt_outcome": "Prelaunch original bootstrap core byte SHA refused after accidental newline conversion; no MC or session created.",
+  "changed_condition": "Restore candidate_bootstrap.py to original exact LF bytes; all unchanged host files copied as bytes, full pre-Popen actual launch AST static gates exercised with explicit fresh watcher mock.",
+  "diagnostic_watcher": {
+    "path": ".runtime/round-20261022/water-anchor-watcher-v5/watch_owned_disabled_skin_assert_r27_v5.py",
+    "sha256": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+    "reader_path": ".runtime/round-20261022/water-anchor-watcher-v5/windows_manifest_reader.py",
+    "reader_sha256": "2ae4d46fc4fc63249b1b10d8cc6e7028009f4fa1941ea64f88452871a89eb28d"
+  },
+  "configure_py2_execution_controls_sha256": "1ff049d25452b41ad141bc9eca51bf46d2b2c21ab74bc5a647b250f37cfd7fdd",
+  "configure_py2_execution_controls_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-calibration-v5\\configure-py2-execution-controls-v1.json"
+}

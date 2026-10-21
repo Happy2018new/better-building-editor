@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "owner": "water-r27-gui-offset-v2",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-gui-offset-v1",
+  "declared_at_utc": "2026-10-21T20:23:03.369099+00:00",
+  "private_source_manifest_sha256": "f187a7f6f5dd17b2d870af27c86f72c433cffeb1f2d98cbd4fc80e07a36103ae",
+  "source_contract_sha256": "45985a50b720b72cd9dd55a68cdeb7064fffa7201c79084b1ec8953ca11d5424",
+  "scope": "Explicit candidate normal workspace Scene; SDK/native geometry/static images; no default qualification",
+  "phases": [
+    {
+      "label": "gui4",
+      "physical_client": [
+        1994,
+        1105
+      ],
+      "expected_integer_gui": 4
+    },
+    {
+      "label": "gui3",
+      "physical_client": [
+        1600,
+        900
+      ],
+      "expected_integer_gui": 3
+    },
+    {
+      "label": "gui2",
+      "physical_client": [
+        1280,
+        720
+      ],
+      "expected_integer_gui": 2
+    }
+  ],
+  "cases": [
+    {
+      "label": "source_tilted",
+      "identity": "source",
+      "pose": [
+        35.0,
+        25.0,
+        3.0
+      ]
+    },
+    {
+      "label": "flow_east_tilted",
+      "identity": "flow_east",
+      "pose": [
+        35.0,
+        25.0,
+        3.0
+      ]
+    },
+    {
+      "label": "wet_fence_front",
+      "identity": "wet_oak_fence",
+      "pose": [
+        0.0,
+        0.0,
+        3.0
+      ]
+    },
+    {
+      "label": "wet_fence_tilted",
+      "identity": "wet_oak_fence",
+      "pose": [
+        35.0,
+        25.0,
+        3.0
+      ]
+    }
+  ],
+  "controls": [
+    "wet",
+    "dry"
+  ],
+  "captures_declared": 24,
+  "same_font_control": "Actual resize + SDK + explicit Theme.configure(3,True), Workspace closed; separate from actual Scene event refresh",
+  "normal_scene_refresh": "GUI3/GUI2 resize with ordinary Workspace mounted; no manual configure while mounted",
+  "geometry_gate": "Active skeleton only: GetPosition/GetSize within .02 logical units of stored geometry; bank model ID consistency and surface visibility; hidden dimensions retained",
+  "original_failures_retained": [
+    "formal_A_incomplete",
+    "original_global_neutral_masks",
+    "GUI2_front_WVP_factor_bound"
+  ],
+  "resource_gates": {
+    "min_available_commit_bytes": 6442450944,
+    "max_handles": 250000,
+    "max_adjacent_growth": 10000
+  },
+  "capture_exe": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+    "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8"
+  },
+  "MC_started": false,
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "default_path_evidence": false,
+  "manual_closures_added": 0,
+  "host_code_sha256": {
+    "run_scene_observation.py": "16f325870f6bb71c64b21eb6b13b2e668111631efad8ee09d688e7a32cf26f4b",
+    "scene_game.py": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd",
+    "scene_policy.py": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad",
+    "scene_restore.py": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e"
+  },
+  "scene_child_timeout_seconds": 900
+}

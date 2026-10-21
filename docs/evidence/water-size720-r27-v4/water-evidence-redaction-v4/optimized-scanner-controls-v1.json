@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "positive_controls": 13,
+  "negative_controls": 3,
+  "root_scanner_original_sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e",
+  "no_local_credentials_emitted": true,
+  "rows": [
+    {
+      "control": "direct",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "dict",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "list",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "nested_json",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "base64",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "escaped_unicode",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "escaped_hex",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "sensitive_key",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "old_placeholder",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "sensitive_url",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "prefix_overlap",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "unicode",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "credential_pattern",
+      "original_detected": true,
+      "optimized_detected": true,
+      "sanitized_passed": true
+    },
+    {
+      "control": "negative_1",
+      "unchanged": true
+    },
+    {
+      "control": "negative_2",
+      "unchanged": true
+    },
+    {
+      "control": "negative_3",
+      "unchanged": true
+    }
+  ]
+}

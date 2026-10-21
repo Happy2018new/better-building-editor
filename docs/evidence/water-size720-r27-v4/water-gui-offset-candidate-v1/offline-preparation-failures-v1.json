@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "MC_started": false,
+  "candidate_product_files_changed_after_first_preparation": false,
+  "failures": [
+    {
+      "entry": "verify_candidate_py2.py, first fixture",
+      "exception": "UnicodeDecodeError",
+      "cause": "Python2 test host combined a byte-string Windows path containing non-ASCII characters with JSON unicode relative paths",
+      "correction": "Decode only the host filesystem path using sys.getfilesystemencoding()",
+      "production_candidate_modified": false
+    },
+    {
+      "entry": "verify_candidate_py2.py, second fixture",
+      "exception": "TypeError: unhashable type: 'list'",
+      "cause": "Python2 list.append bound builtin could not be inserted in the actual Theme.listeners set",
+      "correction": "Use an ordinary listener function which appends to that list",
+      "production_candidate_modified": false
+    },
+    {
+      "entry": "lifecycle draft v1, offline code read before launch",
+      "cause": "EXTRA_STATE used Theme without explicitly importing it in its own RPC",
+      "correction": "v2 host imports Theme at the beginning of the actual readback payload; actual Py2 payload control does not define Theme beforehand",
+      "MC_started": false,
+      "production_candidate_modified": false
+    },
+    {
+      "entry": "lifecycle v2, verify_static_scene_v2.py actual launcher prefix",
+      "exception": "AssertionError at launcher owner/project identity assertion before Popen",
+      "cause": "Textual owner replacement also changed a matching source project basename from water-r27-gui-offset-v1 to water-r27-gui-offset-v2; the binding correctly continued to point to v1",
+      "correction": "v3 and v4 pin launcher PROJECT from the unchanged exact source binding after owner replacement",
+      "original_identity_gate_changed": false,
+      "Popen_dispatched": false,
+      "MC_started": false,
+      "production_candidate_modified": false
+    }
+  ],
+  "final_controls": {
+    "candidate_python2_count": 29,
+    "scene_readback_geometry_restore_count": 12,
+    "unchanged_LiquidControls_geometry_cache_count": 2,
+    "actual_launcher_prefix_nodes": 70,
+    "formal_A_accepted": false,
+    "production_admission_performed": false,
+    "manual_closures_added": 0
+  }
+}

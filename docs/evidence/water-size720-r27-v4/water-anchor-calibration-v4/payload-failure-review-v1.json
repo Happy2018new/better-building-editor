@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "reviewed_at": 1792609813.9873629,
+  "input_sha256": {
+    "group-execution-v1.json": "a7e10ee9f2c0431060485902ec45adc0efce0b48655ff9ae6b03a707bd80b4f3",
+    "launch/launch.json": "69dc69c5325c774fdd5cbf8f814d69e17caf0a010945d4ede0d4ceb9be9722e9",
+    "launch/exact-exit.json": "c6b4ef36cd3d50cde4a283d3444d4cf15237b6d0151552106915628b3c16eeb9",
+    "anchor-capture-v1.json": "894450ef5daa3a7f4c2bc86a91202bfd5d5c7e40b228264520f4776fa42de6fe",
+    "independent-restore-v1.json": "4ac9eceef05642be67d6a873aa9e0711126e73d8156bf5d2907b1b5883a31754",
+    "bootstrap-marker-retired-v1.json": "85ca1ff41105b2c98390478d94ee4d8c8a5bada764778d775856824bad48783e",
+    "helper-retirement-v1.json": "13b4bc9a00501e0ef8a10f76f960d9bb17057c15f30711356ec9852f6fe9d262",
+    "continuous-handle-guard-v1.json": "87cf73b08d2072e1cc8ca894ec58d4c9355d473b9a95c554caf661d503c5a2eb",
+    "assert-watch/status.json": "631af4be423516dc831ac9f4fc335e1e7bd95cc4a8113db3483ad2b47dab005b",
+    "final-source-binding-v1.json": "c1c54c0b26861171422c2ac9f1150c162d5ee70baf8f4512c82753e54eff7a31"
+  },
+  "owner": "water-r27-anchor-calibration-v2",
+  "ready_reached": true,
+  "bootstrap_completed": true,
+  "window_GUI_readback": {
+    "gui": 4.0,
+    "screen_view_info": [
+      1994.0,
+      1106.0,
+      0.0,
+      0.0
+    ],
+    "style": "raw Style, without widgets.S/Theme.scale",
+    "opened": true,
+    "logical": [
+      499.0,
+      277.0
+    ]
+  },
+  "configured_rows_attempted": 1,
+  "successful_captures": 0,
+  "failure_kind": "Diagnostic CONFIGURE payload construction error, before the first capture.",
+  "actual_error": {
+    "type": "MCDKError",
+    "message": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed: Invalid liquid tint channel\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 419, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 469, in _RUN_CLIENT_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 23, in <module>\\n  File \\\"modern_projection.projection.liquid_transport\\\", line 123, in pack_group\\n  File \\\"modern_projection.projection.liquid_transport\\\", line 64, in appearance_uniform\\n  File \\\"modern_projection.projection.liquid_transport\\\", line 64, in <genexpr>\\n  File \\\"modern_projection.projection.liquid_transport\\\", line 24, in _integer\\nValueError: Invalid liquid tint channel\\n\", \"type\": \"text\"}]}"
+  },
+  "static_error_line": "pack_group(...,(0.,0.,0.),1.,1.)",
+  "contract": "appearance_uniform requires exactly three integer RGB bytes, and rejects float channels.",
+  "earlier_preparation_gap": "True Python2 compilation checked syntax but did not call pack_group with the diagnostic constants.",
+  "source_unchanged": true,
+  "source_and_auxiliary_files": 5875,
+  "capture_restored": true,
+  "capture_restore_unknown": false,
+  "cleanup_errors": [],
+  "independent_restore": true,
+  "bootstrap_marker_retired": true,
+  "ordinary_stop_exit_code": 0,
+  "same_handle_exit": {
+    "schema": 1,
+    "session": "40d79e4c1dff462c8dbc53eaca499b4d",
+    "owner": "water-r27-anchor-calibration-v2",
+    "opened_at": "2026-10-21T18:33:37.369044+00:00",
+    "processes": {
+      "game": {
+        "pid": 54452,
+        "identity": "134370811979662105",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-21T18:35:23.476740+00:00"
+      },
+      "mcdk": {
+        "pid": 68864,
+        "identity": "134370811977621740",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-21T18:35:23.479623+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "exact_processes_absent": {
+    "game": true,
+    "mcdk": true
+  },
+  "watcher_retired": true,
+  "assertion_errors": [],
+  "native_manifest_read_recovery_events": [],
+  "continuous_guard_samples": 105,
+  "guard_breach": null,
+  "modal_guard_breach": null,
+  "resource_stats": {
+    "game": {
+      "maximum_handles": 878,
+      "maximum_adjacent_positive_growth": 100
+    },
+    "mcdk": {
+      "maximum_handles": 235,
+      "maximum_adjacent_positive_growth": 20
+    }
+  },
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0,
+  "no_same_condition_retry_performed": true
+}

@@ -1,0 +1,53 @@
+{
+  "schema": 5,
+  "MC_started": false,
+  "owner": "water-r27-anchor-calibration-v3",
+  "source_count": 4484,
+  "auxiliary_count": 1391,
+  "source_unchanged": true,
+  "archive_reused_without_rezip": true,
+  "archive_entries_individually_reverified": 5875,
+  "archive_sha256": "7bb7bd6de2d09f91672a586952699e5ea83c6f9f3d18859fd4535b9e0f1a30de",
+  "plan_sha256": "bf3db61e85549631603e7d6d7a61eed37d35f6331859d56abfbd3b65a2057d9c",
+  "host_binding_sha256": "dbb6ba82ea1938a055a71533e97f300e6479f511357693f565832bf5d0614576",
+  "host_files": 24,
+  "external_hosts": 35,
+  "true_python2_compile": [
+    {
+      "name": "compile-OPEN.py",
+      "exit_code": 0,
+      "sha256": "881d971d8c361c437b48218c02603a4f8871c5bc9fd5346e044632227431f37a"
+    },
+    {
+      "name": "compile-CONFIGURE.py",
+      "exit_code": 0,
+      "sha256": "f1a59aeb777e0f3b5eb8cd6a165755bfe31f8d0c92af925cce728710d282107a"
+    },
+    {
+      "name": "compile-STATUS.py",
+      "exit_code": 0,
+      "sha256": "08d3964d4b515422d59fd9022dfae18d29f92d5650435b165ee8276bf715c0da"
+    },
+    {
+      "name": "compile-CLEAN.py",
+      "exit_code": 0,
+      "sha256": "0f8bc0fbe45f728e3675bb0b324f12a0cfb020ac6d12b6aee224ae9456489ab9"
+    },
+    {
+      "name": "compile-CLEAN_READY.py",
+      "exit_code": 0,
+      "sha256": "03cf90fdf4c8d96fbb017472020d1e5c91b27dbe329fce98e115c934afeb5508"
+    },
+    {
+      "name": "dispatched-bootstrap-payload.py",
+      "exit_code": 0,
+      "sha256": "62adfca3429d239b4876fcefb8ee1744aac888c50c8bb44be8d1bb4b3fdfbfd1"
+    }
+  ],
+  "actual_python2_CONFIGURE_cells": 138,
+  "configure_controls_sha256": "1ff049d25452b41ad141bc9eca51bf46d2b2c21ab74bc5a647b250f37cfd7fdd",
+  "original_failure_reproduced": true,
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0
+}

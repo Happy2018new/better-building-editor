@@ -1,0 +1,18 @@
+{
+  "restored": false,
+  "restore_unknown": true,
+  "source_unchanged": true,
+  "cleanup_errors": [
+    {
+      "step": "explicit_ui_cleanup",
+      "type": "RuntimeError",
+      "message": "injected-explicit-cleanup-failure"
+    },
+    {
+      "step": "final_readonly_restore_RPC",
+      "type": "RuntimeError",
+      "message": "injected-final-readonly-RPC-failure"
+    }
+  ],
+  "ended_at_utc": "2026-10-21T17:53:14.840841+00:00"
+}

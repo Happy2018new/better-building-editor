@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "MC_started": false,
+  "real_process_opened": false,
+  "subprocess_dispatched": false,
+  "scope": "Actual resource_sample AST, synthetic Win32 IO and process identities",
+  "host_sha256": "550212a9aba8b3845f25c0fac65a47b0b30b48b95e7caadd4451e3436b7d79d3",
+  "cases": [
+    {
+      "label": "below-both-limits",
+      "accepted": true,
+      "expected": true,
+      "all_opened_handles_closed": true,
+      "counts_saved_before_numeric_rejection": true
+    },
+    {
+      "label": "handle-limit-rejected",
+      "accepted": false,
+      "expected": false,
+      "all_opened_handles_closed": true,
+      "counts_saved_before_numeric_rejection": true
+    },
+    {
+      "label": "growth-limit-rejected",
+      "accepted": false,
+      "expected": false,
+      "all_opened_handles_closed": true,
+      "counts_saved_before_numeric_rejection": true
+    },
+    {
+      "label": "decrease-is-not-growth",
+      "accepted": true,
+      "expected": true,
+      "all_opened_handles_closed": true,
+      "counts_saved_before_numeric_rejection": true
+    },
+    {
+      "label": "commit-below-minimum-rejected",
+      "accepted": false,
+      "expected": false,
+      "all_opened_handles_closed": true,
+      "counts_saved_before_numeric_rejection": true
+    },
+    {
+      "label": "creation-identity-rejected",
+      "accepted": false,
+      "expected": false,
+      "all_opened_handles_closed": true,
+      "counts_saved_before_numeric_rejection": false
+    }
+  ]
+}

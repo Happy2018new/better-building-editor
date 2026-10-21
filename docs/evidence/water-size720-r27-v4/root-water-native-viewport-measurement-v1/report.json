@@ -1,0 +1,620 @@
+{
+  "schema": 1,
+  "scope": "A new, explicitly scoped measurement inside the predeclared native viewport.\n\nDoes not replace the original global masks, plan, thresholds, or qualification.\nThe viewport is derived from captured native SDK geometry, never image fitting.\n",
+  "source_report_sha256": "a0d848756f52e152bf7a6e0afe70b57b684533c3a3f9fb44046b9971380adbf4",
+  "selection": "Native parent rectangle, SDK-derived integer GUI; no image ROI search or transform fit",
+  "thresholds": {
+    "neutral_rgb": 64,
+    "rgb_tolerance": 5,
+    "difference_signal_gt": 20,
+    "recall_radius_px": 2
+  },
+  "rows": [
+    {
+      "stone": {
+        "label": "gui4_wide_front_stone",
+        "png_sha256": "f184d19bc799f11b9ea03418269aa61d92e6fa8ad91b958aa261cb830c8c362b",
+        "empty_sha256": "a4b79aae211803241362cb927953f13eeef2faafdae57a44400a51aa36c4bbec",
+        "declared_native_viewport_px": [
+          239,
+          210,
+          1757,
+          898
+        ],
+        "integer_gui": 4,
+        "signal_pixels": 15252,
+        "signal_bounds_px": [
+          873,
+          551,
+          997,
+          674
+        ]
+      },
+      "neutral": {
+        "label": "gui4_wide_front_a15_zero",
+        "png_sha256": "00ede2889fa9af2f1bdcd573588c5eb3f93fe7b5dd3dc1c7439b3fc49097a1a2",
+        "empty_sha256": "a4b79aae211803241362cb927953f13eeef2faafdae57a44400a51aa36c4bbec",
+        "declared_native_viewport_px": [
+          239,
+          210,
+          1757,
+          898
+        ],
+        "integer_gui": 4,
+        "signal_pixels": 15252,
+        "signal_bounds_px": [
+          873,
+          381,
+          997,
+          504
+        ]
+      },
+      "iou": 0.0,
+      "stone_to_neutral_recall_2px": 0.0,
+      "neutral_to_stone_recall_2px": 0.0
+    },
+    {
+      "stone": {
+        "label": "gui4_wide_front_stone",
+        "png_sha256": "f184d19bc799f11b9ea03418269aa61d92e6fa8ad91b958aa261cb830c8c362b",
+        "empty_sha256": "a4b79aae211803241362cb927953f13eeef2faafdae57a44400a51aa36c4bbec",
+        "declared_native_viewport_px": [
+          239,
+          210,
+          1757,
+          898
+        ],
+        "integer_gui": 4,
+        "signal_pixels": 15252,
+        "signal_bounds_px": [
+          873,
+          551,
+          997,
+          674
+        ]
+      },
+      "neutral": {
+        "label": "gui4_wide_front_a15_quarter",
+        "png_sha256": "31f0310e0905a7048a7c7f0635b8ec8e200061574b765ab7cabbecdc039034d0",
+        "empty_sha256": "a4b79aae211803241362cb927953f13eeef2faafdae57a44400a51aa36c4bbec",
+        "declared_native_viewport_px": [
+          239,
+          210,
+          1757,
+          898
+        ],
+        "integer_gui": 4,
+        "signal_pixels": 15252,
+        "signal_bounds_px": [
+          873,
+          552,
+          997,
+          675
+        ]
+      },
+      "iou": 0.9838709677419355,
+      "stone_to_neutral_recall_2px": 1.0,
+      "neutral_to_stone_recall_2px": 1.0
+    },
+    {
+      "stone": {
+        "label": "gui4_wide_front_stone",
+        "png_sha256": "f184d19bc799f11b9ea03418269aa61d92e6fa8ad91b958aa261cb830c8c362b",
+        "empty_sha256": "a4b79aae211803241362cb927953f13eeef2faafdae57a44400a51aa36c4bbec",
+        "declared_native_viewport_px": [
+          239,
+          210,
+          1757,
+          898
+        ],
+        "integer_gui": 4,
+        "signal_pixels": 15252,
+        "signal_bounds_px": [
+          873,
+          551,
+          997,
+          674
+        ]
+      },
+      "neutral": {
+        "label": "gui4_wide_front_a0_zero",
+        "png_sha256": "84d5898391a0bcd02a4e373fbc1363286a126b453cb3bffc4221a644e787e4e6",
+        "empty_sha256": "a4b79aae211803241362cb927953f13eeef2faafdae57a44400a51aa36c4bbec",
+        "declared_native_viewport_px": [
+          239,
+          210,
+          1757,
+          898
+        ],
+        "integer_gui": 4,
+        "signal_pixels": 15252,
+        "signal_bounds_px": [
+          873,
+          381,
+          997,
+          504
+        ]
+      },
+      "iou": 0.0,
+      "stone_to_neutral_recall_2px": 0.0,
+      "neutral_to_stone_recall_2px": 0.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_front_stone",
+        "png_sha256": "45ee12a89fac9ec49de1db57b12fb05bdc408fdeca8fcf5293862e6f3ebca619",
+        "empty_sha256": "e26a4b87b34c25fa05504b76bf3e2129c3e70cd6bb119777bdaf82d8a0ba603f",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 6400,
+        "signal_bounds_px": [
+          560,
+          359,
+          640,
+          439
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_front_a15_zero",
+        "png_sha256": "8cc79a15678f658a11cdf843aea4702fc65adfbc020f2c1b1073a8682fd1ee67",
+        "empty_sha256": "e26a4b87b34c25fa05504b76bf3e2129c3e70cd6bb119777bdaf82d8a0ba603f",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 6400,
+        "signal_bounds_px": [
+          560,
+          137,
+          640,
+          217
+        ]
+      },
+      "iou": 0.0,
+      "stone_to_neutral_recall_2px": 0.0,
+      "neutral_to_stone_recall_2px": 0.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_front_stone",
+        "png_sha256": "45ee12a89fac9ec49de1db57b12fb05bdc408fdeca8fcf5293862e6f3ebca619",
+        "empty_sha256": "e26a4b87b34c25fa05504b76bf3e2129c3e70cd6bb119777bdaf82d8a0ba603f",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 6400,
+        "signal_bounds_px": [
+          560,
+          359,
+          640,
+          439
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_front_a15_quarter",
+        "png_sha256": "3289afed06f7cf655b8f231ffbac8072df10aa0b455a6f1c20a6005dbada0d61",
+        "empty_sha256": "e26a4b87b34c25fa05504b76bf3e2129c3e70cd6bb119777bdaf82d8a0ba603f",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 6480,
+        "signal_bounds_px": [
+          560,
+          248,
+          640,
+          329
+        ]
+      },
+      "iou": 0.0,
+      "stone_to_neutral_recall_2px": 0.0,
+      "neutral_to_stone_recall_2px": 0.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_front_stone",
+        "png_sha256": "45ee12a89fac9ec49de1db57b12fb05bdc408fdeca8fcf5293862e6f3ebca619",
+        "empty_sha256": "e26a4b87b34c25fa05504b76bf3e2129c3e70cd6bb119777bdaf82d8a0ba603f",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 6400,
+        "signal_bounds_px": [
+          560,
+          359,
+          640,
+          439
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_front_a15_inverse_gui",
+        "png_sha256": "bbb268baeaa5b9f96cdc632f01375a020df8e5122e96a4108f58c1c65e17daf4",
+        "empty_sha256": "e26a4b87b34c25fa05504b76bf3e2129c3e70cd6bb119777bdaf82d8a0ba603f",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 6400,
+        "signal_bounds_px": [
+          560,
+          360,
+          640,
+          440
+        ]
+      },
+      "iou": 0.9753086419753086,
+      "stone_to_neutral_recall_2px": 1.0,
+      "neutral_to_stone_recall_2px": 1.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_front_stone",
+        "png_sha256": "45ee12a89fac9ec49de1db57b12fb05bdc408fdeca8fcf5293862e6f3ebca619",
+        "empty_sha256": "e26a4b87b34c25fa05504b76bf3e2129c3e70cd6bb119777bdaf82d8a0ba603f",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 6400,
+        "signal_bounds_px": [
+          560,
+          359,
+          640,
+          439
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_front_a0_zero",
+        "png_sha256": "9f859ae82dc510fe7fd670e088071043ad687f734e283c89acdf936736d8b84e",
+        "empty_sha256": "e26a4b87b34c25fa05504b76bf3e2129c3e70cd6bb119777bdaf82d8a0ba603f",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 6400,
+        "signal_bounds_px": [
+          560,
+          137,
+          640,
+          217
+        ]
+      },
+      "iou": 0.0,
+      "stone_to_neutral_recall_2px": 0.0,
+      "neutral_to_stone_recall_2px": 0.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_tilted_stone",
+        "png_sha256": "f484a7e7c9835f1f496a026bd6d8449677378339eb34d1fb181c67bb4f8fe5be",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10885,
+        "signal_bounds_px": [
+          574,
+          312,
+          686,
+          432
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_tilted_a15_zero",
+        "png_sha256": "3383a29f5218ccb57a367f588022cc71b390a8b124db40c739a0591f252459b6",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 6961,
+        "signal_bounds_px": [
+          574,
+          136,
+          686,
+          209
+        ]
+      },
+      "iou": 0.0,
+      "stone_to_neutral_recall_2px": 0.0,
+      "neutral_to_stone_recall_2px": 0.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_tilted_stone",
+        "png_sha256": "f484a7e7c9835f1f496a026bd6d8449677378339eb34d1fb181c67bb4f8fe5be",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10885,
+        "signal_bounds_px": [
+          574,
+          312,
+          686,
+          432
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_tilted_a15_quarter",
+        "png_sha256": "1dfaa8fc03c5b599ec04f53e7925ce7449d794145c94625d474e9054f35f5e74",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10884,
+        "signal_bounds_px": [
+          574,
+          201,
+          686,
+          321
+        ]
+      },
+      "iou": 0.004012544968176368,
+      "stone_to_neutral_recall_2px": 0.015525953146531924,
+      "neutral_to_stone_recall_2px": 0.015435501653803748
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_tilted_stone",
+        "png_sha256": "f484a7e7c9835f1f496a026bd6d8449677378339eb34d1fb181c67bb4f8fe5be",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10885,
+        "signal_bounds_px": [
+          574,
+          312,
+          686,
+          432
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_tilted_a15_inverse_gui",
+        "png_sha256": "c698208f1c47b5ddf9f3984447e0b92d7a5454cad92da7621e108fa258acc293",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10885,
+        "signal_bounds_px": [
+          574,
+          313,
+          686,
+          433
+        ]
+      },
+      "iou": 0.9796308084022916,
+      "stone_to_neutral_recall_2px": 1.0,
+      "neutral_to_stone_recall_2px": 1.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_tilted_stone",
+        "png_sha256": "f484a7e7c9835f1f496a026bd6d8449677378339eb34d1fb181c67bb4f8fe5be",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10885,
+        "signal_bounds_px": [
+          574,
+          312,
+          686,
+          432
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_tilted_a0_zero",
+        "png_sha256": "1f8932962eef624c37a149f2d9cf7833492256eae7a416fff543f2bc57791e27",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10826,
+        "signal_bounds_px": [
+          505,
+          136,
+          617,
+          251
+        ]
+      },
+      "iou": 0.0,
+      "stone_to_neutral_recall_2px": 0.0,
+      "neutral_to_stone_recall_2px": 0.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_tilted_axis0_stone",
+        "png_sha256": "8bb9caecb7a675c75d0e90f9c4cf6c20da49ee8d6f34bf48d65fe7bfe586aa22",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10885,
+        "signal_bounds_px": [
+          640,
+          331,
+          752,
+          451
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_tilted_axis0_a15_inverse_gui",
+        "png_sha256": "ddca4615f26ab3615951c8fa9f089219bb13dab34f288529acbe3a2887f12261",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10885,
+        "signal_bounds_px": [
+          640,
+          332,
+          752,
+          452
+        ]
+      },
+      "iou": 0.9796308084022916,
+      "stone_to_neutral_recall_2px": 1.0,
+      "neutral_to_stone_recall_2px": 1.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_tilted_axis1_stone",
+        "png_sha256": "6e58c3341b12495a261ae2b4163469e479011f73b194dc6cceae4b15f617eae0",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10885,
+        "signal_bounds_px": [
+          574,
+          239,
+          686,
+          359
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_tilted_axis1_a15_inverse_gui",
+        "png_sha256": "335913a31d6d841c6a502047a546bfcd88d8bd1ca02feba2dbb8904d83ea75f7",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10885,
+        "signal_bounds_px": [
+          574,
+          240,
+          686,
+          360
+        ]
+      },
+      "iou": 0.9796308084022916,
+      "stone_to_neutral_recall_2px": 1.0,
+      "neutral_to_stone_recall_2px": 1.0
+    },
+    {
+      "stone": {
+        "label": "gui2_wide_tilted_axis2_stone",
+        "png_sha256": "33a7fdbe78ef47174155c6e2bb3dbfe0881100c8bf2b3ad632c407b7af32baa0",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10884,
+        "signal_bounds_px": [
+          528,
+          340,
+          640,
+          460
+        ]
+      },
+      "neutral": {
+        "label": "gui2_wide_tilted_axis2_a15_inverse_gui",
+        "png_sha256": "cfaeb5033fa7bee9cdcfe28dc2a56148304db9e21666ce97c18ee0e130e12c18",
+        "empty_sha256": "3c5abdf6c9d94a34d9080d972891efc511d9bbfc05bc2cb1ef32f66bd07949ee",
+        "declared_native_viewport_px": [
+          153,
+          136,
+          1127,
+          584
+        ],
+        "integer_gui": 2,
+        "signal_pixels": 10884,
+        "signal_bounds_px": [
+          528,
+          341,
+          640,
+          461
+        ]
+      },
+      "iou": 0.9796289559839941,
+      "stone_to_neutral_recall_2px": 1.0,
+      "neutral_to_stone_recall_2px": 1.0
+    }
+  ],
+  "original_global_analysis_unchanged": true,
+  "formal_A_accepted": false,
+  "product_admission": false,
+  "manual_closures_added": 0
+}

@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "provider": "mcp__mcdk_assistant__minecraft_docs",
+  "queries": [
+    {
+      "command": "api GetScreenViewInfo",
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "content": [
+            {
+              "type": "text",
+              "text": "## GetScreenViewInfo\n\n客户端\n\nmethod in mod.client.component.gameCompClient.GameComponentClient\n\n- 描述\n\n  获取游戏视角信息。首先获得当前分辨率下UI放大倍数，计算方式可参考《我的世界》界面适配方法。则当前游戏视角的宽度的计算方式为：若当前分辨率的宽度能被该放大倍数整除，则等于当前分辨率，若不能，则等于当前分辨率加放大倍数再减去当前分辨率对放大倍数求余的结果，当前游戏视角的高度计算方法类似。例：以分辨率为1792，828的手机计算，画布是分辨率的3倍，所以x = 1792 + 3 - 1 = 1794；y = 828，该接口返回的结果为(1794.0, 828.0, 0.0, 0.0)\n\n- 参数\n\n  无\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| `tuple(float,float,float,float)` | 依次为宽、高、x偏移、y偏移 |\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\ncomp = clientApi.GetEngineCompFactory().CreateGame(levelId)\nwidth, height, offsetX, offsetY= comp.GetScreenViewInfo()\n\n```\n\n"
+            }
+          ],
+          "isError": false
+        }
+      }
+    },
+    {
+      "command": "api GetScreenSize",
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "content": [
+            {
+              "type": "text",
+              "text": "## GetScreenSize\n\n客户端\n\nmethod in mod.client.component.gameCompClient.GameComponentClient\n\n- 描述\n\n  获取游戏分辨率\n\n- 参数\n\n  无\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| `tuple(float,float)` | 宽高（像素） |\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\ncomp = clientApi.GetEngineCompFactory().CreateGame(levelId)\nwidth, height = comp.GetScreenSize()\n\n```\n\n"
+            }
+          ],
+          "isError": false
+        }
+      }
+    }
+  ],
+  "interpretation": "GetScreenViewInfo rounds the physical canvas to an integer GUI-scale multiple and returns width,height,offsetX,offsetY. GetScreenSize documentation describes resolution but existing game observations show logical dimensions. The integer scale is rounded using the established Theme.configure SDK ratio; native calibration remains necessary.",
+  "MC_started": false,
+  "production_dependency_on_Win32_or_WGC": false
+}

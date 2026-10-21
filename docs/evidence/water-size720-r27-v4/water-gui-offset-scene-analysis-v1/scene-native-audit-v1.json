@@ -1,0 +1,1076 @@
+{
+  "schema": 1,
+  "created_at_utc": "2026-10-21T20:46:12.626179+00:00",
+  "scope": "Post-run native SDK geometry/cache and capture-byte accounting; no fitted pixel or temporal gate",
+  "input_sha256": {
+    "scene-observation-v1.json": "449eb70c214458d5c4195aaf655b5d02dd09d0679f9d820f3260c23cb8a77c86",
+    "group-execution-v1.json": "7996812a483c0e5d119382c5c594ae27786df3abf25ee4c8265a8e07b3a756bb",
+    "independent-restore-v1.json": "85280c9d00875f6b6f4992c492de7c5a4b60efae6ac231018799d145dfd2d980",
+    "continuous-handle-guard-v1.json": "9d3c7469cd47808a1bac8324a55d668c9546d7aa6397bad8821033c16a76f35d",
+    "helper-retirement-v1.json": "50a80e991c73800009e48c111e14a5acfebc23a5b9093f4efcb598a57b1211e1",
+    "private-source-v1.json": "f187a7f6f5dd17b2d870af27c86f72c433cffeb1f2d98cbd4fc80e07a36103ae",
+    "launch/exact-exit.json": "d5cd40d23bfb0d2eebe7711bd7cb790a1ae2c82ba2fc7a99182452e1258e1c03"
+  },
+  "source_contract_sha256": "45985a50b720b72cd9dd55a68cdeb7064fffa7201c79084b1ec8953ca11d5424",
+  "source_entries_verified": 5875,
+  "source_unchanged": true,
+  "source_is_complete_transitive_closure": false,
+  "rows": [
+    {
+      "label": "gui4_source_tilted_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "cached_gui": 4.0,
+        "font": 0.75,
+        "theme_scale": 0.4328125
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui4_source_tilted_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        2,
+        2,
+        2
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "cached_gui": 4.0,
+        "font": 0.75,
+        "theme_scale": 0.4328125
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui4_flow_east_tilted_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "cached_gui": 4.0,
+        "font": 0.75,
+        "theme_scale": 0.4328125
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui4_flow_east_tilted_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        4,
+        4,
+        4
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "cached_gui": 4.0,
+        "font": 0.75,
+        "theme_scale": 0.4328125
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui4_wet_fence_front_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "cached_gui": 4.0,
+        "font": 0.75,
+        "theme_scale": 0.4328125
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui4_wet_fence_front_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        2,
+        2,
+        2
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "cached_gui": 4.0,
+        "font": 0.75,
+        "theme_scale": 0.4328125
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui4_wet_fence_tilted_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "cached_gui": 4.0,
+        "font": 0.75,
+        "theme_scale": 0.4328125
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui4_wet_fence_tilted_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        2,
+        2,
+        2
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "cached_gui": 4.0,
+        "font": 0.75,
+        "theme_scale": 0.4328125
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui3_source_tilted_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 3.0,
+        "screen_view_info": [
+          1600.0,
+          900.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          533.0,
+          300.0
+        ],
+        "cached_gui": 3.0,
+        "font": 1.0,
+        "theme_scale": 0.46875
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui3_source_tilted_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        2,
+        2,
+        2
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 3.0,
+        "screen_view_info": [
+          1600.0,
+          900.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          533.0,
+          300.0
+        ],
+        "cached_gui": 3.0,
+        "font": 1.0,
+        "theme_scale": 0.46875
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui3_flow_east_tilted_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 3.0,
+        "screen_view_info": [
+          1600.0,
+          900.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          533.0,
+          300.0
+        ],
+        "cached_gui": 3.0,
+        "font": 1.0,
+        "theme_scale": 0.46875
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui3_flow_east_tilted_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        4,
+        4,
+        4
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 3.0,
+        "screen_view_info": [
+          1600.0,
+          900.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          533.0,
+          300.0
+        ],
+        "cached_gui": 3.0,
+        "font": 1.0,
+        "theme_scale": 0.46875
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui3_wet_fence_front_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 3.0,
+        "screen_view_info": [
+          1600.0,
+          900.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          533.0,
+          300.0
+        ],
+        "cached_gui": 3.0,
+        "font": 1.0,
+        "theme_scale": 0.46875
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui3_wet_fence_front_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        2,
+        2,
+        2
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 3.0,
+        "screen_view_info": [
+          1600.0,
+          900.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          533.0,
+          300.0
+        ],
+        "cached_gui": 3.0,
+        "font": 1.0,
+        "theme_scale": 0.46875
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui3_wet_fence_tilted_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 3.0,
+        "screen_view_info": [
+          1600.0,
+          900.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          533.0,
+          300.0
+        ],
+        "cached_gui": 3.0,
+        "font": 1.0,
+        "theme_scale": 0.46875
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui3_wet_fence_tilted_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        2,
+        2,
+        2
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 3.0,
+        "screen_view_info": [
+          1600.0,
+          900.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          533.0,
+          300.0
+        ],
+        "cached_gui": 3.0,
+        "font": 1.0,
+        "theme_scale": 0.46875
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui2_source_tilted_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 2.0,
+        "screen_view_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          641.0,
+          360.0
+        ],
+        "cached_gui": 2.0,
+        "font": 1.5,
+        "theme_scale": 0.5625
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui2_source_tilted_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        2,
+        2,
+        2
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 2.0,
+        "screen_view_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          641.0,
+          360.0
+        ],
+        "cached_gui": 2.0,
+        "font": 1.5,
+        "theme_scale": 0.5625
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui2_flow_east_tilted_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 2.0,
+        "screen_view_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          641.0,
+          360.0
+        ],
+        "cached_gui": 2.0,
+        "font": 1.5,
+        "theme_scale": 0.5625
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui2_flow_east_tilted_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        4,
+        4,
+        4
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 2.0,
+        "screen_view_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          641.0,
+          360.0
+        ],
+        "cached_gui": 2.0,
+        "font": 1.5,
+        "theme_scale": 0.5625
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui2_wet_fence_front_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 2.0,
+        "screen_view_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          641.0,
+          360.0
+        ],
+        "cached_gui": 2.0,
+        "font": 1.5,
+        "theme_scale": 0.5625
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui2_wet_fence_front_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        2,
+        2,
+        2
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 2.0,
+        "screen_view_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          641.0,
+          360.0
+        ],
+        "cached_gui": 2.0,
+        "font": 1.5,
+        "theme_scale": 0.5625
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui2_wet_fence_tilted_dry",
+      "control": "dry",
+      "native_samples": 3,
+      "visible_banks_each": [
+        0,
+        0,
+        0
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 2.0,
+        "screen_view_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          641.0,
+          360.0
+        ],
+        "cached_gui": 2.0,
+        "font": 1.5,
+        "theme_scale": 0.5625
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui2_wet_fence_tilted_wet",
+      "control": "wet",
+      "native_samples": 3,
+      "visible_banks_each": [
+        2,
+        2,
+        2
+      ],
+      "gui_cache": {
+        "sdk_integer_gui": 2.0,
+        "screen_view_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          641.0,
+          360.0
+        ],
+        "cached_gui": 2.0,
+        "font": 1.5,
+        "theme_scale": 0.5625
+      },
+      "native_complete": true,
+      "capture_layout_unchanged": true
+    }
+  ],
+  "same_font_real_SDK": [
+    {
+      "label": "gui4",
+      "native": {
+        "sdk_integer_gui": 4.0,
+        "screen_view_info": [
+          1994.0,
+          1106.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "cached_gui": 4.0,
+        "font": 5.0,
+        "theme_scale": 3.0
+      },
+      "explicit_configure_while_workspace_closed": true
+    },
+    {
+      "label": "gui3",
+      "native": {
+        "sdk_integer_gui": 3.0,
+        "screen_view_info": [
+          1600.0,
+          900.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          533.0,
+          300.0
+        ],
+        "cached_gui": 3.0,
+        "font": 5.0,
+        "theme_scale": 3.0
+      },
+      "explicit_configure_while_workspace_closed": true
+    },
+    {
+      "label": "gui2",
+      "native": {
+        "sdk_integer_gui": 2.0,
+        "screen_view_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "logical": [
+          641.0,
+          360.0
+        ],
+        "cached_gui": 2.0,
+        "font": 5.0,
+        "theme_scale": 3.0
+      },
+      "explicit_configure_while_workspace_closed": true
+    }
+  ],
+  "same_document_resize": [
+    {
+      "label": "gui3",
+      "same": {
+        "document_id": true,
+        "source_cells": true,
+        "group_keys": true
+      },
+      "request_values_unchanged": false,
+      "same_request_required": false,
+      "capture_layout_unchanged": true
+    },
+    {
+      "label": "gui2",
+      "same": {
+        "document_id": true,
+        "source_cells": true,
+        "group_keys": true
+      },
+      "request_values_unchanged": true,
+      "same_request_required": false,
+      "capture_layout_unchanged": true
+    }
+  ],
+  "captures": [
+    {
+      "label": "gui4_source_tilted_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui4_source_tilted_dry.png",
+      "sha256": "80e253b54bf3cb40eccd4e278e7dd7c578856abb013c80c7f5b9a526bc689763",
+      "size": [
+        1994,
+        1105
+      ]
+    },
+    {
+      "label": "gui4_source_tilted_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui4_source_tilted_wet.png",
+      "sha256": "93710ca98e9feccd476f53e1801e272062f8bbf77d29bc4684e11fd582bb859a",
+      "size": [
+        1994,
+        1105
+      ]
+    },
+    {
+      "label": "gui4_flow_east_tilted_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui4_flow_east_tilted_dry.png",
+      "sha256": "4ff164d94ac170999a68b877f38a02e6239b78eae46ac8ca285319535d9d6431",
+      "size": [
+        1994,
+        1105
+      ]
+    },
+    {
+      "label": "gui4_flow_east_tilted_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui4_flow_east_tilted_wet.png",
+      "sha256": "361556ead885ee9f8270c36033ad2592a8207bccb82b557ca45c037bb6ee9ff3",
+      "size": [
+        1994,
+        1105
+      ]
+    },
+    {
+      "label": "gui4_wet_fence_front_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui4_wet_fence_front_dry.png",
+      "sha256": "1225319a5a637ecb75ff7e43a7af7cef103dc27e343a593d87cd60d260aca62a",
+      "size": [
+        1994,
+        1105
+      ]
+    },
+    {
+      "label": "gui4_wet_fence_front_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui4_wet_fence_front_wet.png",
+      "sha256": "d3cafa9b1653c2ee7321dcc3655b777c9efa66c1ab6ef18b913d04377ffbcc9a",
+      "size": [
+        1994,
+        1105
+      ]
+    },
+    {
+      "label": "gui4_wet_fence_tilted_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui4_wet_fence_tilted_dry.png",
+      "sha256": "c9122b4641ef2dc0812d8786f45acea092d9616cf0cc614bbd9ef49294ea8bda",
+      "size": [
+        1994,
+        1105
+      ]
+    },
+    {
+      "label": "gui4_wet_fence_tilted_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui4_wet_fence_tilted_wet.png",
+      "sha256": "8941b2ee3bcb6cef0ca5dbc700bbf2ff65d3607472ecc5908a6685b6b844418d",
+      "size": [
+        1994,
+        1105
+      ]
+    },
+    {
+      "label": "gui3_source_tilted_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui3_source_tilted_dry.png",
+      "sha256": "e1eed7a5506a9dd4a6c8bb55af89746da1e3b9fb1061e30dc47c7032ffa71cbe",
+      "size": [
+        1600,
+        900
+      ]
+    },
+    {
+      "label": "gui3_source_tilted_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui3_source_tilted_wet.png",
+      "sha256": "289464ad3f661bc2ea1959baec6a2cfe816388218ad25212ec1f2e24b7da6132",
+      "size": [
+        1600,
+        900
+      ]
+    },
+    {
+      "label": "gui3_flow_east_tilted_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui3_flow_east_tilted_dry.png",
+      "sha256": "3d1cde4e8dde0a5529f6c158c5af453691320b7e76577050f3917f9459d034bf",
+      "size": [
+        1600,
+        900
+      ]
+    },
+    {
+      "label": "gui3_flow_east_tilted_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui3_flow_east_tilted_wet.png",
+      "sha256": "057cdfadf22789dc38010d198630df71078ddba5ac9e856ba8ab3c7d982facc2",
+      "size": [
+        1600,
+        900
+      ]
+    },
+    {
+      "label": "gui3_wet_fence_front_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui3_wet_fence_front_dry.png",
+      "sha256": "12e5e78fb35f1583c68fba3f60a095c682291c375653e88450255d6258d4654c",
+      "size": [
+        1600,
+        900
+      ]
+    },
+    {
+      "label": "gui3_wet_fence_front_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui3_wet_fence_front_wet.png",
+      "sha256": "37c3f8cdb27e22fb7b0468a31a93d782e0e01fc5293b5fce0095f5d62e266784",
+      "size": [
+        1600,
+        900
+      ]
+    },
+    {
+      "label": "gui3_wet_fence_tilted_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui3_wet_fence_tilted_dry.png",
+      "sha256": "4f83afe6f9e6e355142c9fd27d1a5afe53521b449b36daf95f36055024056077",
+      "size": [
+        1600,
+        900
+      ]
+    },
+    {
+      "label": "gui3_wet_fence_tilted_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui3_wet_fence_tilted_wet.png",
+      "sha256": "c13c35c4112f0c521759e4098c404432fca75809ed6304cc442bdb7a6005c9a0",
+      "size": [
+        1600,
+        900
+      ]
+    },
+    {
+      "label": "gui3_same_document_resize",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui3_same_document_resize.png",
+      "sha256": "d73cec97bad76374d4283cff50044469828551d6aca083b8023859a16234ffac",
+      "size": [
+        1600,
+        900
+      ]
+    },
+    {
+      "label": "gui2_source_tilted_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui2_source_tilted_dry.png",
+      "sha256": "e9f4fa640ea8a4ea4dc3b565e60b26192c35b78daea6f9a936d058d8f4942a48",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "gui2_source_tilted_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui2_source_tilted_wet.png",
+      "sha256": "07650e9616f58a336ebf580b5abcfcd43c44e6fc101ca3093492d409b68e1dd6",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "gui2_flow_east_tilted_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui2_flow_east_tilted_dry.png",
+      "sha256": "acfe1ac4c6676ad99146bbed53f1dc5de57a91648f1b205c29d22f4150bf9cc9",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "gui2_flow_east_tilted_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui2_flow_east_tilted_wet.png",
+      "sha256": "492f62b5af7f399a9c196d525bb3a664cc4c222bfe0c66e80b389da41fd5a76d",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "gui2_wet_fence_front_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui2_wet_fence_front_dry.png",
+      "sha256": "b67dfb3ebb3acab0faefae28295aa4d28407eaf24f78d6b6b80145ead3cb6ada",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "gui2_wet_fence_front_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui2_wet_fence_front_wet.png",
+      "sha256": "80ba7cb7e8149f05527257bbeb87fb8e08ae3122756b982d1a8d1386990c0abe",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "gui2_wet_fence_tilted_dry",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui2_wet_fence_tilted_dry.png",
+      "sha256": "3c4f9fcbac02d243df5a1ac864a3ea3761698072b2403585494abb24c8a42f29",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "gui2_wet_fence_tilted_wet",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui2_wet_fence_tilted_wet.png",
+      "sha256": "0a5af16e8ead7bd4c22b5ba7f7df9d2ef47fc256198d0513ac6149faef2399d0",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "label": "gui2_same_document_resize",
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-gui-offset-lifecycle-v4\\captures\\gui2_same_document_resize.png",
+      "sha256": "6298820a0168e632280ded190c69139099c79557b62ff26425d4123d5912d869",
+      "size": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "captures_verified": 26,
+  "native_samples_verified": 72,
+  "scene_resource_samples": 88,
+  "scene_minimum_available_commit_bytes": 12202954752,
+  "scene_maximum_handles": {
+    "game": 876,
+    "mcdk": 234
+  },
+  "scene_maximum_adjacent_growth": {
+    "game": 3,
+    "mcdk": 0
+  },
+  "continuous_guard_samples": 228,
+  "continuous_guard_breach": null,
+  "continuous_modal_guard_breach": null,
+  "restored": true,
+  "exact_identities_absent": {
+    "game": true,
+    "mcdk": true
+  },
+  "same_handle_exit": {
+    "schema": 1,
+    "session": "f39dd72c02f44f59bec6c4b180e2d821",
+    "owner": "water-r27-gui-scene-v4",
+    "opened_at": "2026-10-21T20:36:05.925229+00:00",
+    "processes": {
+      "game": {
+        "pid": 11388,
+        "identity": "134370885479401069",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-21T20:39:58.087601+00:00"
+      },
+      "mcdk": {
+        "pid": 38808,
+        "identity": "134370885477639980",
+        "executable": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-21T20:39:58.089527+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "helper_retirement": {
+    "schema": 1,
+    "pid": 32484,
+    "identity": "134370885380827927",
+    "game_and_mcdk_identities_absent": true,
+    "host_sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0",
+    "exact_helper_terminated": true
+  },
+  "elapsed_seconds": 260.5547819137573,
+  "formal_A_accepted": false,
+  "default_path_evidence": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0,
+  "original_reports_modified": false
+}

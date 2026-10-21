@@ -1,0 +1,13 @@
+{
+  "schema": 2,
+  "owner": "water-r27-ui-geometry-v2",
+  "plan_sha256": "1045326cad31196f4bed32d453dd3e0f0e55456291871036387e5c6c0ba2e0c9",
+  "begin": 1792612206.8753023,
+  "until": 1792613586.8753023,
+  "hold": {
+    "enabled": true,
+    "max_seconds": 600,
+    "followup_timeout_seconds": 180
+  },
+  "root_review": "Static 70-node execution, unchanged observer/12-state collector and independent 12-control replay passed. Initial observation only; fixed followup requires separate script SHA review. No production mutation."
+}

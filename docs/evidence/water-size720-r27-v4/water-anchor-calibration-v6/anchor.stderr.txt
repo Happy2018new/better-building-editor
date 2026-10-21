@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-anchor-calibration-v6\run_anchor_calibration.py", line 222, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-anchor-calibration-v6\run_anchor_calibration.py", line 177, in main
+    capture(client,'_'.join((window['label'],rectangle['label'],pose['label'],variant['label'])),config)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-anchor-calibration-v6\run_anchor_calibration.py", line 129, in capture
+    assert all(abs(a-b)<.05 for a,b in zip(control['size'],expected)),control
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'position': [59.880001068115234, 52.630001068115234], 'model_id': -1, 'global_position': [59.880001068115234, 52.630001068115234], 'size': [0.0, 0.0]}

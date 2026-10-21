@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "source_files": 4484,
+  "auxiliary_files": 1391,
+  "archive_files": 5875,
+  "archive_sha256": "7bb7bd6de2d09f91672a586952699e5ea83c6f9f3d18859fd4535b9e0f1a30de",
+  "host_files": 23,
+  "external_host_files": 35,
+  "parsed_scripts": 20,
+  "MC_started": false,
+  "plan_sha256": "1afd1e9989097c8df157cd508ebaa5bf60d176b29240fb4b15e7c0ec105d7a0c",
+  "binding_sha256": "5672c7573e0171204ed4487dfbf91e5338913bbe84fd692489e6622815678183",
+  "root_source_review": "neutral source, GUI hypotheses, renderer readiness, failure cleanup and sampled resource guards reviewed",
+  "limitations": [
+    "static diagnostic only",
+    "source is an independent diagnostic fork, not final HEAD qualification",
+    "guards sample process counts; they do not certify every intermediate count",
+    "future images need native review and negative controls"
+  ],
+  "manual_closures_added": 0
+}

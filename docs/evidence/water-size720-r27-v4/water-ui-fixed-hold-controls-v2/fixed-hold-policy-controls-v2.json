@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "passed": true,
+  "controls": [
+    {
+      "name": "valid_bounded_grant",
+      "passed": true,
+      "expected_accept": true
+    },
+    {
+      "name": "hold_over_max",
+      "passed": true,
+      "expected_accept": false
+    },
+    {
+      "name": "timeout_over_max",
+      "passed": true,
+      "expected_accept": false
+    },
+    {
+      "name": "bool_not_seconds",
+      "passed": true,
+      "expected_accept": false
+    },
+    {
+      "name": "valid_fixed_sha_authorization",
+      "passed": true,
+      "expected_accept": true
+    },
+    {
+      "name": "wrong_sha_rejected",
+      "passed": true,
+      "expected_accept": false
+    },
+    {
+      "name": "wrong_session_rejected",
+      "passed": true,
+      "expected_accept": false
+    },
+    {
+      "name": "cleanup_reserve_required",
+      "passed": true,
+      "expected_accept": false
+    },
+    {
+      "name": "exact_release",
+      "passed": true,
+      "expected_accept": true
+    },
+    {
+      "name": "wrong_release_session",
+      "passed": true,
+      "expected_accept": false
+    }
+  ],
+  "checked_at": 1792612183.4917867,
+  "policy_sha256": "03726665c07bc5cd3dc714ca29d801cb8f67df47248c621c63afc998d8987ce7",
+  "MC_started": false,
+  "script_dispatched": false,
+  "runtime_cleanup_claimed": false,
+  "withdrawn_proposal": "The earlier multi-job policy and its16 controls were not frozen or launched; this report covers only final fixed-entry policy."
+}

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "passed": true,
+  "tests_run": 6,
+  "failures": 0,
+  "errors": 0,
+  "scope": "Proposed actual unittest module with explicit test globals ROOT/source-deployment overrides; shared LiquidControls and renderer fixtures imported unchanged",
+  "unittest_output": "test_candidate_offsets_follow_integer_gui_and_reject_unknown_scale (_gui_merge_tests.ProductWaterGuiTests.test_candidate_offsets_follow_integer_gui_and_reject_unknown_scale) ... ok\ntest_dynamic_and_frozen_candidates_preserve_legacy_callback (_gui_merge_tests.ProductWaterGuiTests.test_dynamic_and_frozen_candidates_preserve_legacy_callback) ... ok\ntest_explicit_candidate_cannot_grant_a_mismatched_production_contract (_gui_merge_tests.ProductWaterGuiTests.test_explicit_candidate_cannot_grant_a_mismatched_production_contract) ... ok\ntest_same_font_resize_refreshes_gui_without_extra_listener_notifications (_gui_merge_tests.ProductWaterGuiTests.test_same_font_resize_refreshes_gui_without_extra_listener_notifications) ... ok\ntest_same_ready_request_still_moves_native_geometry_without_resubmitting (_gui_merge_tests.ProductWaterGuiTests.test_same_ready_request_still_moves_native_geometry_without_resubmitting) ... ok\ntest_water_scene_reads_cached_gui_and_keeps_legacy_profiles (_gui_merge_tests.ProductWaterGuiTests.test_water_scene_reads_cached_gui_and_keeps_legacy_profiles) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.060s\n\nOK\n",
+  "shared_source_before_and_after_sha256": {
+    "widgets.py": "23b5e306840b660ad89af45268cbfbf322a465f42d1b5d06fb6152b0b6520dbe",
+    "liquid_product_deployment.py": "50ea7fa56d084300601c25f83b2f5b9c1009e2f01fc0f4df403c866318dc43f5",
+    "scene.py": "60e6362ec4cf445b33e09b1693feb76d5a6e6242428143cb50fe2fd7f8af8eda",
+    "liquid_product_owner_data.py": "5259bd983e90c5cb5de6fe6e25fbfb527b5d6c8ee3adba9f220b772b9ab50187",
+    "liquid_product_qualification_data.py": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14"
+  },
+  "candidate_sha256": {
+    "widgets.py": "519f68770391f3e959d2afc277225c44b24c86c727e1f90a743a0e3491a6b66d",
+    "liquid_product_deployment.py": "5fa49e83b67841f008cf32fc9cbdff48dfd4335227d444e3e414b49af0caefd1",
+    "scene.py": "5f150ea6b5c8b06cac44b2f076b70dccc143e6a65e5c1aeea4ce714984ba0d97"
+  },
+  "test_sha256": "b55a2831336b02dd217e848203f95975c8c04e7672c4b011a50bdd64da1ad226",
+  "proposal_patch_sha256": "f6527713f843b8c24bcbe087d4168bce03fb1c173f1ed1aa18ca4157e4f2f2a9",
+  "MC_started": false,
+  "shared_source_written": false,
+  "production_admission_performed": false,
+  "formal_A_accepted": false
+}

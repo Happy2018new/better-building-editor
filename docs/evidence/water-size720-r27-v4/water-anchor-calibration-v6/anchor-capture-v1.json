@@ -1,0 +1,510 @@
+{
+  "schema": 1,
+  "owner": "water-r27-anchor-calibration-v4",
+  "source_contract_sha256": "334717aae34a1980dcb8c30a0fe50e596bbd4d027889a8315d5d9a67cb01c402",
+  "source_manifest_sha256": "3226cd8e8790e0a571e97fa5aa0e3b3761528532c227904d30a24fc9b66fed07",
+  "plan_sha256": "627bb6a9cf39988c8e720e0469f0f328e74b0ce4ff7bc69031c055a379e65b47",
+  "host_sha256": "fea1904e90e8d60b87beff45bb5a8743ffc9d6c8326fe87bdd086895fa7ba027",
+  "started_at_utc": "2026-10-21T19:25:44.279820+00:00",
+  "completed": false,
+  "restored": true,
+  "source_unchanged": true,
+  "rows": [
+    {
+      "label": "gui4_wide_front_empty",
+      "config": {
+        "position": [
+          1,
+          1,
+          1
+        ],
+        "pose": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          59.879999999999995,
+          52.63,
+          379.24,
+          171.74
+        ],
+        "unit_fraction": 0.18,
+        "mode": "empty",
+        "model": "modern_projection_r27_anchor_15",
+        "offset_factor": 0.0
+      },
+      "preflight": {
+        "stage": "gui4_wide_front_empty_before_configure",
+        "checked_at": 1792610744.9168239,
+        "processes": {
+          "game": {
+            "pid": 67056,
+            "identity": "134370842343959985",
+            "handles": 874,
+            "previous_handles": 874,
+            "growth": 0
+          },
+          "mcdk": {
+            "pid": 70320,
+            "identity": "134370842342055547",
+            "handles": 234,
+            "previous_handles": 234,
+            "growth": 0
+          }
+        },
+        "available_commit_bytes": 12938981376
+      },
+      "configured": {
+        "configured": {
+          "pose": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "unit_fraction": 0.18,
+          "mode": "empty",
+          "offset_factor": 0.0,
+          "position": [
+            1,
+            1,
+            1
+          ],
+          "model": "modern_projection_r27_anchor_15",
+          "rect": [
+            59.879999999999995,
+            52.63,
+            379.24,
+            171.74
+          ]
+        },
+        "stone_request": null,
+        "skeleton_pose": [
+          0.18,
+          -90.0,
+          0.0,
+          0.0
+        ],
+        "unit": 30.9132,
+        "payload": [
+          [
+            4053.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            65535.0,
+            65535.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            39686.0,
+            1.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "before": {
+        "frames": 235,
+        "screen_view_info": [
+          1996.0,
+          1108.0,
+          0.0,
+          0.0
+        ],
+        "renderer": {
+          "native_ids": [
+            -1,
+            -1
+          ],
+          "ids": [
+            null,
+            null
+          ],
+          "visible": [
+            false,
+            false
+          ],
+          "closed": false,
+          "error": null,
+          "front": 0,
+          "pending": false
+        },
+        "ready": true,
+        "native": [
+          {
+            "position": [
+              59.880001068115234,
+              52.630001068115234
+            ],
+            "model_id": -1,
+            "global_position": [
+              59.880001068115234,
+              52.630001068115234
+            ],
+            "size": [
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "position": [
+              59.880001068115234,
+              52.630001068115234
+            ],
+            "model_id": -1,
+            "global_position": [
+              59.880001068115234,
+              52.630001068115234
+            ],
+            "size": [
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "position": [
+              59.880001068115234,
+              52.630001068115234
+            ],
+            "model_id": -1,
+            "global_position": [
+              59.880001068115234,
+              52.630001068115234
+            ],
+            "size": [
+              0.0,
+              0.0
+            ]
+          }
+        ],
+        "config": {
+          "pose": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "unit_fraction": 0.18,
+          "mode": "empty",
+          "offset_factor": 0.0,
+          "position": [
+            1,
+            1,
+            1
+          ],
+          "model": "modern_projection_r27_anchor_15",
+          "rect": [
+            59.879999999999995,
+            52.63,
+            379.24,
+            171.74
+          ]
+        },
+        "logical": [
+          499.0,
+          277.0
+        ],
+        "stable_frames": 129
+      }
+    }
+  ],
+  "window_rows": [
+    {
+      "label": "gui4",
+      "requested": {
+        "label": "gui4",
+        "physical_client": [
+          1994,
+          1105
+        ],
+        "expected_integer_gui": 4
+      },
+      "requested_client": [
+        1994,
+        1105
+      ],
+      "activation_requested": false,
+      "window_identity": {
+        "hwnd": 38080602,
+        "pid": 67056,
+        "creation_identity": "134370842343959985"
+      },
+      "logical_before": {
+        "thread": {
+          "context": 36881,
+          "awareness": 1,
+          "per_monitor_v2": false
+        },
+        "window_context": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_dpi": 144,
+        "client_size": [
+          1920,
+          1071
+        ],
+        "client_screen_origin": [
+          320,
+          281
+        ],
+        "window_rect": [
+          309,
+          236,
+          2251,
+          1363
+        ],
+        "dwm_physical_bounds": [
+          318,
+          236,
+          2242,
+          1354
+        ]
+      },
+      "foreground_before": {
+        "hwnd": 8192878,
+        "pid": 25180,
+        "identity": "134369620506537925"
+      },
+      "resize_flags": 566,
+      "mutations": [
+        {
+          "attempt": 1,
+          "requested_outer": [
+            2016,
+            1161
+          ],
+          "physical_readback": {
+            "thread": {
+              "context": 34,
+              "awareness": 2,
+              "per_monitor_v2": true
+            },
+            "window_context": {
+              "context": 34,
+              "awareness": 2,
+              "per_monitor_v2": true
+            },
+            "window_dpi": 144,
+            "client_size": [
+              1994,
+              1105
+            ],
+            "client_screen_origin": [
+              320,
+              281
+            ],
+            "window_rect": [
+              309,
+              236,
+              2325,
+              1397
+            ],
+            "dwm_physical_bounds": [
+              318,
+              236,
+              2316,
+              1388
+            ]
+          }
+        }
+      ],
+      "physical_before": {
+        "thread": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_context": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_dpi": 144,
+        "client_size": [
+          1920,
+          1071
+        ],
+        "client_screen_origin": [
+          320,
+          281
+        ],
+        "window_rect": [
+          309,
+          236,
+          2251,
+          1363
+        ],
+        "dwm_physical_bounds": [
+          318,
+          236,
+          2242,
+          1354
+        ]
+      },
+      "existing_border_helper_outer_size": [
+        2016,
+        1161
+      ],
+      "physical_after": {
+        "thread": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_context": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_dpi": 144,
+        "client_size": [
+          1994,
+          1105
+        ],
+        "client_screen_origin": [
+          320,
+          281
+        ],
+        "window_rect": [
+          309,
+          236,
+          2325,
+          1397
+        ],
+        "dwm_physical_bounds": [
+          318,
+          236,
+          2316,
+          1388
+        ]
+      },
+      "logical_after": {
+        "thread": {
+          "context": 36881,
+          "awareness": 1,
+          "per_monitor_v2": false
+        },
+        "window_context": {
+          "context": 34,
+          "awareness": 2,
+          "per_monitor_v2": true
+        },
+        "window_dpi": 144,
+        "client_size": [
+          1994,
+          1105
+        ],
+        "client_screen_origin": [
+          320,
+          281
+        ],
+        "window_rect": [
+          309,
+          236,
+          2325,
+          1397
+        ],
+        "dwm_physical_bounds": [
+          318,
+          236,
+          2316,
+          1388
+        ]
+      },
+      "foreground_after": {
+        "hwnd": 8192878,
+        "pid": 25180,
+        "identity": "134369620506537925"
+      },
+      "completed": true,
+      "opened": {
+        "gui": 4.0,
+        "screen_view_info": [
+          1996.0,
+          1108.0,
+          0.0,
+          0.0
+        ],
+        "style": "raw Style, without widgets.S/Theme.scale",
+        "opened": true,
+        "logical": [
+          499.0,
+          277.0
+        ]
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "label": "finally",
+      "clean_return": true,
+      "state": {
+        "restored": true
+      }
+    }
+  ],
+  "cleanup_errors": [],
+  "restore_unknown": false,
+  "resource_samples": [
+    {
+      "stage": "gui4_before_resize",
+      "checked_at": 1792610744.4199927,
+      "processes": {
+        "game": {
+          "pid": 67056,
+          "identity": "134370842343959985",
+          "handles": 874,
+          "previous_handles": null,
+          "growth": null
+        },
+        "mcdk": {
+          "pid": 70320,
+          "identity": "134370842342055547",
+          "handles": 234,
+          "previous_handles": null,
+          "growth": null
+        }
+      },
+      "available_commit_bytes": 13053296640
+    },
+    {
+      "stage": "gui4_wide_front_empty_before_configure",
+      "checked_at": 1792610744.9168239,
+      "processes": {
+        "game": {
+          "pid": 67056,
+          "identity": "134370842343959985",
+          "handles": 874,
+          "previous_handles": 874,
+          "growth": 0
+        },
+        "mcdk": {
+          "pid": 70320,
+          "identity": "134370842342055547",
+          "handles": 234,
+          "previous_handles": 234,
+          "growth": 0
+        }
+      },
+      "available_commit_bytes": 12938981376
+    }
+  ],
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "error": {
+    "type": "AssertionError",
+    "message": "{'position': [59.880001068115234, 52.630001068115234], 'model_id': -1, 'global_position': [59.880001068115234, 52.630001068115234], 'size': [0.0, 0.0]}"
+  },
+  "ended_at_utc": "2026-10-21T19:25:51.801325+00:00"
+}

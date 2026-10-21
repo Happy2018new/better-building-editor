@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-anchor-calibration-v5\launch_r25.py", line 253, in <module>
+    main()
+    ~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-anchor-calibration-v5\launch_r25.py", line 66, in main
+    assert hashlib.sha256((WORK / 'candidate_bootstrap.py').read_bytes()).hexdigest() == binding['bootstrap_sha256']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

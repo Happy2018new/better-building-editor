@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-anchor-calibration-v3\launch_r25.py", line 241, in <module>
+    main()
+    ~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-anchor-calibration-v3\launch_r25.py", line 230, in main
+    raise subprocess.CalledProcessError(process.returncode, command)
+subprocess.CalledProcessError: Command '['D:\\Program\\Python\\python.exe', '-X', 'utf8', 'D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py', 'start', '--project', 'D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-anchor-diagnostic-v1', '--owner', 'water-r27-anchor-calibration-v1', '--name', 'water-r27-anchor-calibration-v1', '--preset', 'ui', '--wait', '180', '--mcdk', 'D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe', '--noactivate-dll', 'D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\docs\\evidence\\background-focus-r13-v1\\inputs\\native_focus_guard.dll', '--noactivate-sha256', '04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93', '--noactivate-mcdk-sha256', 'b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9']' returned non-zero exit status 1.

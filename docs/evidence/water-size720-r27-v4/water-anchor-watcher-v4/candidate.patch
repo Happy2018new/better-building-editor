@@ -1,0 +1,79 @@
+--- shared/r20-original
++++ private/r27-v4-candidate
+@@ -8,10 +8,11 @@
+ import sys
+ import time
+ 
++ROOT = Path(__file__).resolve().parents[3]
++sys.path.insert(0, str(ROOT / 'tools'))
+ from check_native_dialogs import assertion_dialogs
+ from dismiss_owned_disabled_skin_assert import known_disabled_skin_assertion, post_owned_ignore
+ 
+-ROOT = Path(__file__).resolve().parents[1]
+ sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
+ from _session import load_session, process_identity, registry_dir
+ 
+@@ -19,6 +20,44 @@
+ def assigned(owner, owners):
+     return isinstance(owner, str) and any(owner == item or
+         item.endswith('*') and len(item) > 1 and owner.startswith(item[:-1]) for item in owners)
++
++
++MANIFEST_READ_DELAYS=(.05,.1,.2,.4)
++MANIFEST_RETRY_WINERRORS=(5,32,33)
++
++
++def read_assigned_session(manifest, owners, read_events, loader=load_session):
++    """Retry a complete double read only for bounded Windows sharing errors.
++
++    Every successful attempt still uses the original load_session schema/path/
++    owner validation. Eligibility and exact creation identity checks follow in
++    the caller. No prior snapshot or process identity is reused after an error.
++    """
++    failures=[]
++    started=time.monotonic()
++    for attempt in range(len(MANIFEST_READ_DELAYS)+1):
++        try:
++            first=json.loads(manifest.read_bytes())
++            data=loader(str(manifest),first['owner']) if assigned(first.get('owner'),owners) else None
++        except PermissionError as error:
++            winerror=getattr(error,'winerror',None)
++            if winerror not in MANIFEST_RETRY_WINERRORS:
++                raise
++            failures.append({'attempt':attempt+1,'winerror':winerror,'errno':error.errno,
++                             'elapsed_seconds':time.monotonic()-started})
++            if attempt==len(MANIFEST_READ_DELAYS):
++                read_events.append({'manifest':str(manifest),'recovered':False,'exhausted':True,
++                    'failures':failures,'elapsed_seconds':time.monotonic()-started})
++                raise
++            time.sleep(MANIFEST_READ_DELAYS[attempt])
++            continue
++        if failures:
++            read_events.append({'manifest':str(manifest),'recovered':True,'exhausted':False,
++                'failures':failures,'successful_attempt':attempt+1,
++                'owner_after_recovery':None if data is None else data['owner'],
++                'elapsed_seconds':time.monotonic()-started})
++        return data
++    raise AssertionError('Unreachable bounded read state')
+ 
+ 
+ def eligible(session, owners, project_root, identity_reader=process_identity):
+@@ -86,15 +125,14 @@
+     recovered_sessions = set()
+     status = {'schema_version': 1, 'owners': args.owner, 'until': args.until.isoformat(),
+               'host_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+-              'known_assert_recoveries': [], 'other_assertions': [], 'errors': []}
++              'known_assert_recoveries': [], 'other_assertions': [], 'errors': [], 'manifest_read_events': []}
+     while datetime.now().astimezone() < args.until:
+         sessions = {}
+         for manifest in registry_dir().glob('*/session.json'):
+             try:
+-                data = json.loads(manifest.read_bytes())
+-                if not assigned(data.get('owner'), args.owner):
++                data = read_assigned_session(manifest, args.owner, status['manifest_read_events'])
++                if data is None:
+                     continue
+-                data = load_session(str(manifest), data['owner'])
+                 if eligible(data, args.owner, project_root):
+                     sessions[data['game_pid']] = data
+             except (OSError, ValueError, KeyError, TypeError) as error:

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "owners": [
+    "water-r27-lock-control-only"
+  ],
+  "until": "2026-10-21T18:15:36.176871+00:00",
+  "host_sha256": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+  "known_assert_recoveries": [],
+  "other_assertions": [],
+  "errors": [
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-watcher-v5\\windows-lock-fixture-v1\\registry\\fixture-session\\session.json: [WinError 32] \u53e6\u4e00\u4e2a\u7a0b\u5e8f\u6b63\u5728\u4f7f\u7528\u6b64\u6587\u4ef6\uff0c\u8fdb\u7a0b\u65e0\u6cd5\u8bbf\u95ee\u3002"
+  ],
+  "manifest_read_events": [
+    {
+      "label": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-watcher-v5\\windows-lock-fixture-v1\\registry\\fixture-session\\session.json",
+      "recovered": false,
+      "exhausted": true,
+      "failures": [
+        {
+          "attempt": 1,
+          "winerror": 32,
+          "errno": 13,
+          "elapsed_seconds": 0.0008441000245511532
+        },
+        {
+          "attempt": 2,
+          "winerror": 32,
+          "errno": 13,
+          "elapsed_seconds": 0.05288720002863556
+        },
+        {
+          "attempt": 3,
+          "winerror": 32,
+          "errno": 13,
+          "elapsed_seconds": 0.15411100001074374
+        },
+        {
+          "attempt": 4,
+          "winerror": 32,
+          "errno": 13,
+          "elapsed_seconds": 0.35509969998383895
+        },
+        {
+          "attempt": 5,
+          "winerror": 32,
+          "errno": 13,
+          "elapsed_seconds": 0.7564105000346899
+        }
+      ],
+      "elapsed_seconds": 0.7564130999962799
+    }
+  ],
+  "checked_at": "2026-10-22T02:15:21.937746+08:00",
+  "eligible_sessions": []
+}

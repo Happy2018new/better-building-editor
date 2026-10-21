@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "checked_at": 1792607309.8661683,
+  "analysis_sha256": "c72af0d9dd768e1933a01fc6944d8b9396f63d5ce67aee0d56edd82c0b745755",
+  "test_host_sha256": "5ae63233675ee754b33eee4db448fda3f097c3a7e675acd4d8f72453e32694b0",
+  "passed": true,
+  "controls": [
+    {
+      "name": "hand_orthographic_scale_translation_and_gui_delta",
+      "passed": true,
+      "expected_bounds": [
+        300,
+        245,
+        401,
+        396
+      ],
+      "observed_bounds": [
+        300,
+        245,
+        401,
+        396
+      ]
+    },
+    {
+      "name": "fixed_negative_wrong_GUI_half",
+      "passed": true,
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 14241,
+        "union": 16261,
+        "iou": 0.8757763975155279,
+        "a_recall_within_2px_of_b": 0.9470198675496688,
+        "b_recall_within_2px_of_a": 0.9470198675496688,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          235,
+          401,
+          386
+        ]
+      }
+    },
+    {
+      "name": "fixed_negative_wrong_GUI_double",
+      "passed": true,
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 13231,
+        "union": 17271,
+        "iou": 0.7660818713450293,
+        "a_recall_within_2px_of_b": 0.8807947019867549,
+        "b_recall_within_2px_of_a": 0.8807947019867549,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          265,
+          401,
+          416
+        ]
+      }
+    },
+    {
+      "name": "fixed_negative_wrong_offset_sign",
+      "passed": true,
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 11211,
+        "union": 19291,
+        "iou": 0.581151832460733,
+        "a_recall_within_2px_of_b": 0.7483443708609272,
+        "b_recall_within_2px_of_a": 0.7483443708609272,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          205,
+          401,
+          356
+        ]
+      }
+    },
+    {
+      "name": "fixed_negative_wrong_axis_x_sign",
+      "passed": true,
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 151,
+        "union": 30351,
+        "iou": 0.004975124378109453,
+        "a_recall_within_2px_of_b": 0.0297029702970297,
+        "b_recall_within_2px_of_a": 0.0297029702970297,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          200,
+          245,
+          301,
+          396
+        ]
+      }
+    },
+    {
+      "name": "fixed_negative_wrong_axis_y_sign",
+      "passed": true,
+      "metrics": {
+        "a_pixels": 15251,
+        "b_pixels": 15251,
+        "intersection": 101,
+        "union": 30401,
+        "iou": 0.0033222591362126247,
+        "a_recall_within_2px_of_b": 0.019867549668874173,
+        "b_recall_within_2px_of_a": 0.019867549668874173,
+        "a_bounds": [
+          300,
+          245,
+          401,
+          396
+        ],
+        "b_bounds": [
+          300,
+          395,
+          401,
+          546
+        ]
+      }
+    },
+    {
+      "name": "axis_permutation_symmetric_base_retained_shifted_axis_rejects",
+      "passed": true
+    },
+    {
+      "name": "hand_perspective_w_division_all_eight_corners",
+      "passed": true,
+      "maximum_error": 0.0
+    },
+    {
+      "name": "zero_clip_w_rejected",
+      "passed": true
+    },
+    {
+      "name": "actual_analysis_main_synthetic_label_axis_reference_join",
+      "passed": true,
+      "analysis_sha256": "01b9b10c9e342486b24c25ffba9e321b07aa24b4db157f5e99b4df56b0585e30",
+      "no_MC": true
+    }
+  ],
+  "MC_started": false,
+  "native_pixels_observed": false,
+  "formal_A_accepted": false,
+  "manual_closures_added": 0,
+  "limits": "Synthetic known matrices and PNGs validate arithmetic and label joining only."
+}

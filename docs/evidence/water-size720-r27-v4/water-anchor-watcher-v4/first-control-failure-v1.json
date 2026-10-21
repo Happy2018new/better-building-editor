@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "candidate_sha256": "12360728a72da3dc265c31cbe3feb9dc7d3690fd8b7702a36511e6182646312e",
+  "test_host": "test_watcher_read_v4.py",
+  "failed_control": "real_CreateFile_share0_temporary_first_read",
+  "exception_type": "PermissionError",
+  "errno": 13,
+  "winerror": null,
+  "observation": "On this installed Python runtime pathlib.read_bytes/io.open did not preserve the Windows error code in its PermissionError. The bounded helper correctly did not treat all errno 13 values as known sharing errors, so the test failed before recovery.",
+  "MC_started": false,
+  "candidate_accepted": false,
+  "original_files_retained": true
+}

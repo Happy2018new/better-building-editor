@@ -1,0 +1,143 @@
+--- observer-v2/launch_r25.py
++++ gui-offset-v1/launch_r25.py
+@@ -13,8 +13,8 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r27-ui-geometry-v2'
+-PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-anchor-diagnostic-v1')
++OWNER = 'water-r27-gui-offset-v1'
++PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-gui-offset-v1')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+ from _session import process_identity, registry_dir
+--- observer-v2/run_geometry_group.py
++++ gui-offset-v1/run_scene_group.py
+@@ -29,8 +29,7 @@
+     binding=json.loads((WORK/'final-source-binding-v1.json').read_bytes())
+     grant=json.loads(args.root_grant.read_bytes())
+     assert grant['owner']==binding['owner'] and grant['plan_sha256']==sha(WORK/'plan-v1.json')
+-    from hold_policy import validate_hold
+-    validate_hold(grant,binding['owner'],sha(WORK/'plan-v1.json'),time.time())
++    assert grant['schema']==1
+     assert grant['begin']<=time.time()<grant['until']-300
+     assert datetime.now(timezone.utc)<datetime.fromisoformat('2026-10-21T23:30:00+00:00')
+     output=WORK/'group-execution-v1.json'
+@@ -61,31 +60,15 @@
+         os.environ.update(MCDEV_SESSION_FILE=launch['session_file'],MCDEV_OWNER=binding['owner'],MCDEV_ALLOW_USER_FOREGROUND='0')
+         sys.path.insert(0,str(Path(binding['project'])/'tools'))
+         import probe_liquid_pose_channel as base
+-        import observer_game as game
++        import verify_debug_blueprints as blueprints
++        from scene_restore import restore_scene
+         check={'schema':1,'owner':binding['owner'],'restored':False,'restore_unknown':True,'checked_at':time.time()}
+         try:
+-            with base.Client(timeout=15) as client:
+-                check['before']=base.run(client,'''from modern_projection.pyreact import navigator
+-_result=json.dumps({'anchor_marker':hasattr(sys,'_r27_water_anchor_ui'),'navigator_transitioning':navigator.is_transitioning,
+- 'navigator_top':None if navigator.top is None else navigator.top.key})
+-''')
+-                if check['before']['anchor_marker']:
+-                    check['explicit_clean_return']=base.run(client,game.CLEAN)
+-                deadline=time.monotonic()+10
+-                while True:
+-                    check['after']=base.run(client,game.CLEAN_READY)
+-                    if check['after']['restored']:break
+-                    if time.monotonic()>deadline:raise RuntimeError('Independent UI cleanup deadline')
+-                    time.sleep(.1)
+-                check['actors']=base.run(client,'''system=api.GetSystem('ModernProjection','ModernProjectionClientSystem')
+-s=system.session;b=system.bridge
+-_result=json.dumps({'busy':s.busy,'edit_job':s.edit_job is not None,'io_job':s.io_job is not None,
+- 'projection_active':s.projection_active,'world_actors':len(b.projection_entities)+int(bool(b.entity)),
+- 'preparing_entity':bool(b.preparing_entity)})
+-''')
++            with base.Client(timeout=20) as client:
++                check['scene']=restore_scene(client,base.run,blueprints)
+             check['source_unchanged']=all(sha(Path(binding['project'])/name)==expected for name,expected in
+                                         dict(binding['source_sha256'],**binding['auxiliary_sha256']).items())
+-            check['restored']=check['after']['restored'] and not any(check['actors'].values()) and check['source_unchanged']
++            check['restored']=check['scene']['restored'] and check['source_unchanged']
+             check['restore_unknown']=False
+         except Exception as error:
+             check['error']={'type':type(error).__name__,'message':str(error)}
+@@ -94,68 +77,7 @@
+             with (WORK/('independent-restore-v1.json' if label=='final' else 'independent-restore-'+label+'.json')).open('x',encoding='utf-8') as stream:json.dump(check,stream,indent=2)
+         assert check['restored'],check
+ 
+-    def bounded_root_hold():
+-        from hold_policy import validate_hold, validate_authorization, validate_release
+-        policy=validate_hold(grant,binding['owner'],sha(WORK/'plan-v1.json'),time.time())
+-        independent_restore('hold-entry')
+-        started=time.time()
+-        until=min(started+policy['max_seconds'],grant['until']-120.)
+-        assert until>started
+-        session=json.loads(Path(launch['session_file']).read_bytes())
+-        ready={'schema':1,'owner':binding['owner'],'plan_sha256':grant['plan_sha256'],
+-            'session_id':session['id'],'session_file':launch['session_file'],
+-            'source_contract_sha256':binding['source_contract_sha256'],
+-            'initial_observation_sha256':sha(WORK/'geometry-observation-v1.json'),
+-            'initial_independent_restore_sha256':sha(WORK/'independent-restore-hold-entry.json'),
+-            'started_at':started,'hold_until':until,'fixed_followup_script':str(WORK/'root-followup.py'),
+-            'authorization_file':str(WORK/'root-followup-authorization-v1.json'),
+-            'release_file':str(WORK/'root-hold-release-v1.json'),
+-            'followup_timeout_seconds':policy['followup_timeout_seconds'],
+-            'restored_before_ready':True,'source_unchanged':True,
+-            'formal_A_accepted':False,'production_admission_performed':False}
+-        with (WORK/'hold-ready-v1.json').open('x',encoding='utf8') as stream:json.dump(ready,stream,indent=2)
+-        row['hold']={'ready':ready,'followup':None,'resource_samples':[],'ended_reason':None}
+-        save()
+-        followup_done=False;last_resource=0.
+-        while True:
+-            now=time.time()
+-            if now>=until:
+-                row['hold']['ended_reason']='bounded_hold_deadline'
+-                break
+-            release=WORK/'root-hold-release-v1.json'
+-            if release.exists():
+-                value=json.loads(release.read_bytes())
+-                validate_release(value,binding['owner'],grant['plan_sha256'],session['id'])
+-                row['hold']['release']={'sha256':sha(release),'request':value}
+-                row['hold']['ended_reason']='root_release'
+-                break
+-            if now-last_resource>=5.:
+-                sample={'at':now,'available_commit_bytes':available_commit(),
+-                    'identities_verified':{kind:process_identity(launch[kind+'_pid'])==launch[kind+'_identity']
+-                        for kind in ('game','mcdk')}}
+-                row['hold']['resource_samples'].append(sample);save()
+-                assert sample['available_commit_bytes']>=6*1024**3
+-                assert all(sample['identities_verified'].values())
+-                last_resource=now
+-            authorization=WORK/'root-followup-authorization-v1.json'
+-            if not followup_done and authorization.exists():
+-                request=json.loads(authorization.read_bytes())
+-                script=WORK/'root-followup.py'
+-                validate_authorization(request,binding['owner'],grant['plan_sha256'],session['id'],
+-                    sha(script),now,until,policy['followup_timeout_seconds'])
+-                independent_restore('before-followup')
+-                row['hold']['followup']={'authorization_sha256':sha(authorization),
+-                    'authorization':request,'script_sha256':sha(script),'started_at':time.time()}
+-                save()
+-                command('root-followup','root-followup.py',
+-                    ('--session',launch['session_file'],'--root-grant',str(args.root_grant.resolve(strict=True))),
+-                    timeout=policy['followup_timeout_seconds'])
+-                independent_restore('after-followup')
+-                row['hold']['followup'].update(completed=True,ended_at=time.time(),restored=True)
+-                save();followup_done=True
+-            else:
+-                time.sleep(.25)
+-        row['hold']['ended_at']=time.time();save()
++    
+ 
+     save()
+     try:
+@@ -163,9 +85,8 @@
+         command('launch','launch_r25.py')
+         launch=json.loads((WORK/'launch/launch.json').read_bytes())
+         command('bootstrap','run_candidate_bootstrap.py')
+-        command('geometry','run_geometry_observation.py',('--session',launch['session_file'],
++        command('scene','run_scene_observation.py',('--session',launch['session_file'],
+                 '--root-grant',str(args.root_grant.resolve(strict=True))))
+-        bounded_root_hold()
+         row['completed']=True
+     except BaseException as error:
+         row['error']={'type':type(error).__name__,'message':str(error),'traceback':traceback.format_exc()}

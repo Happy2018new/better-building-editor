@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "reviewed_at": 1792606161.1923683,
+  "input_sha256": {
+    "group-execution-v1.json": "55befb36b2c77733ae2c47f9b9e568a704697a9ea0e78489278c8c6c4138e9de",
+    "launch/launch.json": "21cb6ef16ac9a3df8836d1d0264b91827a227a8710195296a028a2dbacf761c5",
+    "launch/exact-exit.json": "bf9ee168cb4613dca558d4b48250eed40158ddfd2c170f145ddc62607dc59dfe",
+    "continuous-handle-guard-v1.json": "58381592ab7be8666ce47d672d05a949ca6e42e107d941609f0a879156327971",
+    "helper-retirement-v1.json": "0e3d6486327d63876fab4be7a5cf2a8c9654aa7ef52ff68abf9f55f5c06b7e93",
+    "assert-watch/status.json": "9dc9836382bfaee92755f91798f923d17b2509c96018f6145886b44a4d65b84b",
+    "root-window-preflight-v1.json": "4b6028fc4a0a9d89f32166693042185680112a6a075e1dd1ffa1f00304c56a40",
+    "root-grant-v1.json": "0c5adad5fb694b27733e8ca585b28c56d71e9ec88ef8ba9000e8ec267855d123",
+    "plan-v1.json": "7ed261548726f4b8e00dbeff77a75e14da2e0842b459b15630a069814b003dcd",
+    "prelaunch-host-binding-v1.json": "7b1ca0f232ad058611a126c29209196829f6675ca21c59548482e02edd05386e",
+    "final-source-binding-v1.json": "a1b975cb04e8560625372c0d1fe3efdbcf6f0d325ffab5890c40f6a4a99dae38"
+  },
+  "owner": "water-r27-anchor-calibration-v1",
+  "attempt_count": 1,
+  "completed": false,
+  "ready_reached": false,
+  "bootstrap_started": false,
+  "diagnostic_UI_started": false,
+  "capture_report_exists": false,
+  "observed_failure_chain": [
+    "Assertion watcher recorded a PermissionError while reading the owned starting session.json.",
+    "Fourth continuous resource sample observed assertion_watcher_not_healthy and initiated an ordinary owner-bound stop.",
+    "Guard stop command returned 1: game had not closed within its wait. No force stop was used by this host.",
+    "Same-handle observer later recorded game exit 0xC0000409 and MCDK exit 0.",
+    "Starter then rejected the ended game creation identity; group final ordinary stop returned 0 and retired its watcher."
+  ],
+  "failure_attribution_limits": [
+    "The watcher did not record winerror for the read failure; a Windows sharing/replacement race is a static hypothesis, not measured OS proof.",
+    "Do not describe the game exit as spontaneous or normal. An ordinary stop request preceded it.",
+    "No new neutral, matrix, water pixel, animation or product rendering result exists for this attempt.",
+    "Resource observations are sampled and do not establish unobserved instantaneous maxima."
+  ],
+  "guard_breach": null,
+  "modal_guard_breach": {
+    "reason": "assertion_watcher_not_healthy",
+    "status": {
+      "schema_version": 1,
+      "owners": [
+        "water-r27-anchor-calibration-v1"
+      ],
+      "until": "2026-10-21T23:45:00+00:00",
+      "host_sha256": "f93e4c5ba1b728fe0b6627ed58c8d4938b18913a6dafa96305237b84198b07df",
+      "known_assert_recoveries": [],
+      "other_assertions": [],
+      "errors": [
+        "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\fc4f754726034c1590beb686e6683532\\session.json: [Errno 13] Permission denied: 'C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\fc4f754726034c1590beb686e6683532\\\\session.json'"
+      ],
+      "checked_at": "2026-10-22T02:05:41.878957+08:00",
+      "eligible_sessions": []
+    },
+    "age_seconds": 0.119044
+  },
+  "guard_stop": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[instances] Game has not closed; inspect it or explicitly use stop --force\n"
+  },
+  "final_ordinary_stop_exit_code": 0,
+  "same_handle_exit": {
+    "schema": 1,
+    "session": "fc4f754726034c1590beb686e6683532",
+    "owner": "water-r27-anchor-calibration-v1",
+    "opened_at": "2026-10-21T18:05:38.934722+00:00",
+    "processes": {
+      "game": {
+        "pid": 34508,
+        "identity": "134370795193948571",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-21T18:06:16.980427+00:00"
+      },
+      "mcdk": {
+        "pid": 46292,
+        "identity": "134370795191797446",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-21T18:06:16.982073+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "exact_post_cleanup": {
+    "game": {
+      "pid": 34508,
+      "expected_identity": "134370795193948571",
+      "process_identity_now": null,
+      "open_succeeded": true,
+      "open_winerror": null,
+      "exit_code": 3221226505,
+      "still_active": false
+    },
+    "mcdk": {
+      "pid": 46292,
+      "expected_identity": "134370795191797446",
+      "process_identity_now": null,
+      "open_succeeded": true,
+      "open_winerror": null,
+      "exit_code": 0,
+      "still_active": false
+    }
+  },
+  "helper_retirement": {
+    "schema": 1,
+    "pid": 64828,
+    "identity": "134370795079239532",
+    "game_and_mcdk_identities_absent": true,
+    "host_sha256": "e34f5464159ffa44f21ab2d45cc0e33873179b6a91260e09d6160028b8e0dfc6",
+    "exact_helper_terminated": true
+  },
+  "resource_stats": {
+    "launch": {
+      "game": {
+        "observed_count": 38,
+        "maximum_handles": 669,
+        "maximum_adjacent_positive_growth": 42
+      },
+      "mcdk": {
+        "observed_count": 57,
+        "maximum_handles": 230,
+        "maximum_adjacent_positive_growth": 150
+      }
+    },
+    "continuous_guard": {
+      "game": {
+        "observed_count": 4,
+        "maximum_handles": 670,
+        "maximum_adjacent_positive_growth": 44
+      },
+      "mcdk": {
+        "observed_count": 4,
+        "maximum_handles": 230,
+        "maximum_adjacent_positive_growth": 16
+      }
+    }
+  },
+  "source_and_auxiliary_count": 5875,
+  "source_changed_paths": [],
+  "source_unchanged": true,
+  "independent_UI_restore_applicable": false,
+  "bootstrap_marker_retirement_applicable": false,
+  "no_same_condition_retry_performed": true,
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0
+}

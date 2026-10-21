@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "passed": true,
+  "MC_started": false,
+  "controls": [
+    {
+      "name": "Actual Py2 EXTRA_STATE resolves its own Theme import and retains hidden zero-size",
+      "passed": true
+    },
+    {
+      "name": "Native gate rejects wrong cache",
+      "passed": true
+    },
+    {
+      "name": "Native gate rejects wrong native position",
+      "passed": true
+    },
+    {
+      "name": "Native gate rejects wrong native size",
+      "passed": true
+    },
+    {
+      "name": "Native gate rejects wrong skeleton identity",
+      "passed": true
+    },
+    {
+      "name": "Native gate rejects hidden surface",
+      "passed": true
+    },
+    {
+      "name": "Native gate rejects unready publication",
+      "passed": true
+    },
+    {
+      "name": "Native gate rejects nonfinite position",
+      "passed": true
+    },
+    {
+      "name": "Wet empty rejects and dry empty accepts",
+      "passed": true
+    },
+    {
+      "name": "Dry visible water rejects",
+      "passed": true
+    },
+    {
+      "name": "Actual restore helper closes UI before blueprint factory/own state restoration",
+      "passed": true
+    },
+    {
+      "name": "Actual restore helper propagates restore failure without claiming restored",
+      "passed": true
+    }
+  ],
+  "scope": "Real readback payload executed in Python2; actual geometry policy/restore helper with explicit SDK/UI/IO fakes",
+  "host_sha256": {
+    "scene_game.py": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd",
+    "scene_policy.py": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad",
+    "scene_restore.py": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e"
+  },
+  "formal_A_accepted": false,
+  "default_path_evidence": false
+}

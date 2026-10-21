@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "owner": "water-r27-anchor-calibration-v3",
+  "completed": false,
+  "started_at": 1792610217.3096457,
+  "steps": [
+    {
+      "label": "assert-watch-start",
+      "started_at": 1792610217.3103619,
+      "command": [
+        "D:\\Program\\Python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-calibration-v5\\start_assert_watch.py"
+      ],
+      "available_commit_bytes": 15914917888,
+      "exit_code": 0,
+      "elapsed_seconds": 1.07053804397583
+    },
+    {
+      "label": "launch",
+      "started_at": 1792610218.3817093,
+      "command": [
+        "D:\\Program\\Python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-calibration-v5\\launch_r25.py"
+      ],
+      "available_commit_bytes": 15894118400,
+      "exit_code": 1,
+      "elapsed_seconds": 0.18815279006958008
+    }
+  ],
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0,
+  "host_sha256": "58ae4e66dae307ebd199e9c7471ab32bd6bf7c198cad12f12335e294e59b6a2b",
+  "plan_sha256": "bf3db61e85549631603e7d6d7a61eed37d35f6331859d56abfbd3b65a2057d9c",
+  "error": {
+    "type": "CalledProcessError",
+    "message": "Command '['D:\\\\Program\\\\Python\\\\python.exe', '-B', '-X', 'utf8', 'D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\round-20261022\\\\water-anchor-calibration-v5\\\\launch_r25.py']' returned non-zero exit status 1.",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-calibration-v5\\run_anchor_group.py\", line 99, in main\n    command('launch','launch_r25.py')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-calibration-v5\\run_anchor_group.py\", line 57, in command\n    result.check_returncode()\n    ~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"D:\\Program\\Python\\Lib\\subprocess.py\", line 508, in check_returncode\n    raise CalledProcessError(self.returncode, self.args, self.stdout,\n                             self.stderr)\nsubprocess.CalledProcessError: Command '['D:\\\\Program\\\\Python\\\\python.exe', '-B', '-X', 'utf8', 'D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\round-20261022\\\\water-anchor-calibration-v5\\\\launch_r25.py']' returned non-zero exit status 1.\n"
+  },
+  "elapsed_seconds": 1.2670249938964844
+}

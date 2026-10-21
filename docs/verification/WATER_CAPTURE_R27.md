@@ -172,3 +172,118 @@ v6只恢复原core精确LF字节，分配新owner`water-r27-anchor-calibration-v
 `verify_static_launch_v6.py --output-root <独立目录>`执行实际launcher的70个AST节点，停在Popen前，仅mock鲜活watcher status字典并重定向launch报告目录，不创建watcher／session／MC、不发RPC。实际source／aux、archive、core、qualification、config、exe、guard、registry owner、0活MC／6GiB门全通过，实际bootstrap checked_sources和dispatch bytes通过，group／calibration／guard／cleanup依赖实际import成功。子代理报告`water-anchor-calibration-v6-static-review-v1/static-launch-review-v1.json` SHA`b48777d5b4530bcf0442fff98f372a672098490d3f591529d46969fb6f69d325`；root又在独立目录无覆盖复跑通过。静态控制不声称真实watcher或游戏client／server ready，原instances.py readiness及依赖只由external SHA绑定。
 
 root新授40分钟窗口后，v6于03:23前后开始唯一新owner组；启动前实际活MC0、可用commit15,736,979,456B，23／35host、5875source／aux和core SHA再核true。原138项静态计划／原资源门不变，后续实机结果另记，原动画A与用户人工关闭0不变。
+
+
+## 03:23—03:26：v6隐藏原生控件尺寸为0，原宿主错误尺寸门拒绝
+
+v6 session为`5aeb9ffda83a49128f23b3f4e18f3f23`，game `67056 / 134370842343959985`、MCDK `70320 / 134370842342055547`；冷启103.403s及原bootstrap 13.658s通过。首项`gui4_wide_front_empty`的逻辑ready为true、stable_frames129，renderer两槽都隐藏、native model ID均为−1。三个hidden PaperDoll的实际`GetSize`全部为`[0,0]`，位置为约`[59.88,52.63]`；宿主却要求空场景内所有hidden控件都等于声明rect `[379.24,171.74]`，因此在第一张捕获前断言失败，成功图片0。这里是宿主把hidden语义当可见尺寸合同的准备错误；没有原生中性模型像素或矩阵结果，不能推出water shader的成败。
+
+原始失败、原138计划及原尺寸断言均保留。原report restored/source_unchanged true、restore_unknown false、cleanup_errors空；独立恢复true、显式bootstrap marker_retired true，普通owner stop0，watcher按精确身份回收。group保存same-handle退出snapshot时MCDK尚live，该早snapshot不回写；独立observer稍后于03:26:07.835完成，game退出码`0xC0000409`、MCDK0，二者创建身份最终均消失。continuous guard114样本，无句柄或modal breach。最终只读复核`water-anchor-calibration-v6/hidden-geometry-failure-review-v1.json` SHA `3adc5f810b36698672f7c04099ddde26153be69afc53ef262d60e0a45636d6e5`逐项核过5875源辅助SHA及真实晚到observer。
+
+## 最小真实UI几何观测准备，不再盲跑138项
+
+root要求先确认原生hidden/visible尺寸、active bank、parent geometry及ready语义。新的`water-ui-geometry-observer-v1`明确增加持续可见Panel wrapper，作为独立诊断结构变化，不据它的parent合同成功给原生产控件授通过。原生`GetVisible`分别记录parent与三个Doll，hidden尺寸如实保留0；active控件单独对照声明rect、父位置加显式offset、native model ID及renderer bank ID。逻辑ready、原生几何观测完成与产品资格分别记录。
+
+新owner `water-r27-ui-geometry-v1`，plan SHA `fce561cb6070a499acbd89bdf76b99a71775b1399eb52c7258deb0f9ed6f847f`、host binding SHA `2dd59591831606d995fb72953d14c4f28d3e84dcbe1397b18c81a48564b784d5`。计划GUI4/3/2各在同一次挂载中执行`empty_before → stone → neutral15 → empty_after`，从首次post-config RPC保存raw，逻辑ready后继续6次样本，保留两bank及空→可见→隐藏时序；阶段间显式CLEAN/CLEAN_READY、独立marker/navigator/actor恢复后才resize/remount。这个初始host只观察SDK几何，不截图、不decode矩阵，不触动原138像素计划。资源门、精确身份及ordinary stop保留；增加尚未创建session但已启动helper的精确回收分支，仍须实际回执证明执行。
+
+12项synthetic几何控制通过，报告`geometry-synthetic-controls-v1.json` SHA `26cfeaac69949ddc37552ca6f3904fcb2466a066df922651e2e15e9aa2be6267`；5份游戏payload真实Python2语法通过。`verify_static_observer_v1.py`在Popen前执行实际70个launcher AST节点、源辅助/archive/core与实际bootstrap派发bytes，lifecycle实际imports及绑定SHA通过，仅mock freshwatcher字典和输出目录；报告`water-ui-geometry-observer-static-v1/static-launch-review-v1.json` SHA `ffde280719e1eb4cedf675b137b52385a51c9c86d0c60ed8f0dfec27cefe342b`。原bootstrap core继续精确LF SHA `088ae57b8ea713b7881a01b94b4289cb7b04f7e17f791d17fc2bf2be2b49fa26`，复用同一诊断源及119MB archive，没有重新打包。此处尚未启动新MC，等待root独审与统一实例窗口。
+
+截至上述准备，本专项本轮新增人工关闭仍0；正式动画A、最终owner/默认路径及GUI锚点修复均未关闭。
+
+
+## 03:50—03:59：v2真实UI几何、38张独立原生对照及精确释放
+
+root独审实际70个launcher AST节点、共用reader及固定单次followup hold策略后，v2以新owner `water-r27-ui-geometry-v2` 启动唯一session。原bootstrap core精确LF字节不变，源仍为独立diagnostic的4484项与1391辅助。plan SHA `1045326cad31196f4bed32d453dd3e0f0e55456291871036387e5c6c0ba2e0c9`，host binding SHA `4aff1e8f737720ccc630ed6675e502c624e0baff25e4cce4753d7e8cee0bf698`。固定hold只允许root原子授权的精确SHA脚本 `root-followup.py` 执行一次，最长600秒；没有通用job queue或任意路径执行。
+
+实际game `68020 / 134370858444454299`，MCDK `36612 / 134370858442452820`。冷启103.6927秒、bootstrap11.8236秒，初始12状态49.2356秒。GUI4/3/2分别一次挂载执行 `empty_before → stone → neutral15 → empty_after`；逻辑ready后各保留6样本、0.2秒间隔，阶段间独立恢复再resize/remount。可见Panel wrapper持续存在且SDK尺寸/全局位置符合声明；该结构变化仍只属于诊断UI，不授原生产控件资格。所有hidden Doll实测size0；可见stone确有正常像素但 `GetModelId=-1`，原helper三组矛盾原样保留，不能把skeleton的model-ID语义移植为block_geometry门。neutral可见bank的native与renderer ID一致。
+
+SDK logical/ScreenView实测GUI4为 `[499,277]/[1995,1107,0,0]`、GUI3为 `[533,300]/[1600,900,0,0]`、GUI2为 `[641,360]/[1281,720,0,0]`。ScreenView是公开SDK取整后的视角，不冒称原始物理客户区。几何观测原report SHA `3de2320403074ba5de6b65f55715a39dcfa8ba024949838c02078395ef301a2e`。
+
+同session内root授权固定followup（SHA `bde1df192369df5152a8f4f0808f1478bb622f456190f9ea518782f608c792af`），实际完成38/38张：GUI4 wide/front；GUI2 wide/front、tilted及原六轴单变量控制；empty、独立stone、anchor15 zero/quarter/inverseGUI、anchor0 zero及五类native矩阵。GUI3仅有上述SDK几何，尚无像素。原138项plan和宿主断言不改，新host只在独立诊断子集中单列已知stone -1语义；不得回授原门通过。capture report SHA `a0d848756f52e152bf7a6e0afe70b57b684533c3a3f9fb44046b9971380adbf4`，原PNG全部留存。
+
+固定全图分析器未修改，原RGB64±5、相对empty贡献>20、双向2px度量及97负控照旧。GUI2 front quarter IoU0，inverseGUI IoU0.972449；tilted quarter0.004002、inverseGUI0.973958；对应三轴inverseGUI约0.954707—0.974222。原全图neutral mask明确混入屏幕顶部debug灰文字，bounds因此过大；原分数和负控仍保留，不借新scope覆盖或改阈值。原分析report SHA `c95d800d9bae63b49a01ba107447690dcfb731504a7c35d816547d49b0d1f7b1`。
+
+root另外在采集前已声明、且SDK实际确认的 `viewport_parent` 全矩形内做派生测量，矩形按SDK几何换算，未按图片搜索ROI、未平移/缩放拟合；沿用同一RGB64±5、贡献>20及2px。该新scope中GUI4 quarter IoU0.98387、GUI2 front inverseGUI0.97531、tilted inverseGUI0.97963，三轴约0.97963，双向2px recall全部1；主体y约差1px。GUI2 quarter front仍相差约111px/IoU0，tilted仍约111px/IoU0.004。它支持GUI偏移候选，不能代替原全图结果、GUI3像素、产品Scene或正式A。派生report SHA `47a14f5c39375ef89a675ea201cebc9eacead45f8abf1863d99fa718e87ce449`。
+
+独立矩阵因子分析继续按原signed24各项±1/4096的误差界检查 `WVP≈PROJ·WV`：GUI4 front最大ratio0.406805、GUI2 tilted0.792074；**GUI2 front为1.190508，原样失败**，不放宽量化界、不声称已证实机制。native geometry跨五矩阵一致。`+1.5 entityY` 在front屏幕位移为0、tilted约 `(+68.90625,-41.66016)px`，因此保留旋转pivot，不能当成GUI偏移删掉。因子report SHA `3b4048dc6eb16f6d9593f4a15e32c9da75f3763758d1596a7ace82dfa1ad6494`。
+
+group共524.8296秒，root核图与独立after-followup恢复后原子release。最终restored/source_unchanged为true、cleanup_errors空、bootstrap marker显式retired；continuous guard484样本，无句柄/modal breach。普通owner stop返回0；same-handle observer随后实测game于03:59:17.861退出 `0xC0000409`，MCDK于03:59:17.865退出0，精确创建身份均消失；不把game退出码写成引擎正常退出。watcher `66748 / 134370858335265484` 已精确回收，水MC窗口完整释放给变换专项。
+
+## 自定义水GUI偏移窄候选准备
+
+仅在 `.runtime/round-20261022/water-gui-offset-candidate-v1/candidate/` 准备三份私有文件：`widgets.py`把原configure已经计算的整数gui存为 `Theme.native_gui_scale`，赋值在字体/主题early-return之前；`liquid_product_deployment.py`只给显式Product水profile添加 `ui_offset_for_gui(size,gui)=(0,min(size)/gui)`，unknown/非正整数/非有限值拒绝；`scene.py`仅水分支使用可选接口，legacy profile仍用原callback。其他item/cauldron/portal/book分支AST不变；不新增tick/group内SDK读取，不改shader、pivot、生成owner或qualification数据。共享生产源和原冻结snapshot未改。
+
+真实Python2执行29控通过，覆盖GUI4/3/2同字体5.0时仍刷新cache、取整SDK比例、invalid GUI、Product dynamic/frozen实例绑定、300组真实Scene水闭包访问无额外FFI、legacy fallback、四个其他profile AST同值，以及原resize闭包 `.05/.25` 调度下物理尺寸单独变化和最终逻辑变化均调用configure。SDK/构造器/UI render是显式fake边界，不冒称真实窗口resize或水原生像素验收。第一次fixture因文件系统路径混用unicode失败，第二次因Python2的list.append不可hash失败；仅纠正fixture，三份候选bytes未改，原fixture留存。最终controls report SHA `e723c64db56edb5c22c5e4804817fbad12c8644232b5659fc7c16aa915a72926`。
+
+候选随后仍需root独审、独立新source合同及三GUI正常workspace/Scene实机；原生产构造因资格与owner不符继续拒绝，显式bootstrap不能授默认入口资格。正式A、最终owner、默认路径、GUI3像素和产品GUI修复均未关闭；本水专项新增用户人工关闭0。
+
+
+## 04:12—04:29：独立GUI候选源与正常Scene三GUI入口冻结
+
+root已独审三文件接口方向，仅批准私有候选。新的枚举源位于 `.runtime/projects/water-r27-gui-offset-v1`，source仍4484项、aux1391项，只改已声明的widgets、Product deployment与Scene三个文件；source合同 `45985a50b720b72cd9dd55a68cdeb7064fffa7201c79084b1ec8953ca11d5424`，manifest SHA `f187a7f6f5dd17b2d870af27c86f72c433cffeb1f2d98cbd4fc80e07a36103ae`。新archive119616132B，逐5875项bytes验证；旧源、诊断资源、原owner/qualification与共享生产文件均未回写。这个枚举源仍不是完整传递闭包，不授最终合流资格。
+
+初始未启动host v1离线复核发现，native readback的单次RPC需要显式import Theme，不能依赖上一RPC全局；另加固定scene child900秒预算。v2随后执行实际launcher前置，在Popen前被原PROJECT身份断言拒绝：泛文本owner替换误碰了同名源目录basename。原v1/v2文件与失败输出保留，均没有创建watcher/session/MC。v3在owner替换后从精确source binding独立固定PROJECT，原70个launcher AST节点、actual bootstrap源/dispatch、core精确LF bytes、完整source/archive与生命周期imports通过。v3也未启动。
+
+最终v4将每GUI控制顺序改为dry→wet，使窗口调整时可见水保留；GUI3和GUI2真实resize后，在任何下一次LOAD前保存同document ID、原source cells、原group keys的事件刷新与像素。ready_request是否相同如实记录，因为GUI改变控件size也可能改变pose，不能把不同请求冒称同一请求。原v3准备不覆盖。最终owner `water-r27-gui-scene-v4`，plan SHA `e6a3ef408d971e79a7fb37948ad4b7470a568d83e969d28648b07b54f89487c2`，host binding SHA `03fa2951e2e2a0736daf02a9b3605ff8c346ad73b303070f3f64048e134991fb`；v4静态70节点报告 SHA `936b4c7851cf9f08a869d5d24b10e47aae580882ffd1e43ce9e9746306b853bb`。此时仍无新MC。
+
+三GUI固定计划为GUI4 `[1994,1105]`、GUI3 `[1600,900]`、GUI2 `[1280,720]`，actual GUI由SDK取整读回。每GUI的source tilted、flow_east tilted、含水fence front/tilted各保留dry/wet，24图；另有两张原文档可见水resize接缝，共26静态图。正常路径为原 `source_document → Session._loaded → owner.open_workspace → Scene`，不用诊断Panel wrapper；显式bootstrap仍不授默认生产入口。另一个独立subcontrol在Workspace关闭时真实resize，显式 `Theme.configure(3,True)` 验samefont缓存；它与正常Workspace挂载时的事件刷新观察分列。
+
+12项新host控制在实际Python2执行原EXTRA_STATE payload，显式fake SDK/模型/UI，验证它自行解析Theme import和hidden size0；固定geometry政策拒绝错GUI、位置、尺寸、ID、surface隐藏、未ready和非有限值。实际restore helper控制证明先关Workspace，再原blueprint恢复factory/editor，最后恢复grid/Theme及profile/factory身份；合成restore IO失败仍传播而不声称恢复。report SHA `8055535eb53b6db19e9d93c7c4ace9a086a7016142116efe0a576dd97f7dec7e`。
+
+另在真实Python2直接执行**未改的LiquidControls类**，对已经ready且相同request验证geometry先SetPosition/SetSize、后ready_request早退；不重新提交模型，稳定geometry第二次也不重复setter。两个控制通过，report SHA `36e068bc45cfd1fe7002d278b2e716508b4facf7182c84f3974d530b65e8e2df`，native setters和renderer是显式fake，不能替代真实Scene。三文件scope review实际扫描files>0；Product deployment无finding，Scene与widgets只保留原有大函数/多参数风格告警；没有新增事件监听、跨端或逐group SDK调用。
+
+最终组复用已审ordinary stop与精确身份/helper回收链，固定Scene child900秒；场景恢复先close等待导航结束，再原blueprint RESTORE，再自有grid/Theme/profile/factory检查与独立只读actors/source。总预计12—15分钟、保留20分钟窗口。root尚未授启动窗口时不启动；正式A、最终owner/default gate与用户人工关闭数仍无变化。
+
+
+## 04:35—04:40：正常Scene三GUI候选的26图与真实resize接缝
+
+root独立重放实际70个launcher AST节点与12项host控制后，发出精确plan授权，窗口25分钟含恢复，未延长或改写冻结source/plan/host。启动前有效MC为0，可用commit超过15.5GB；唯一owner为 `water-r27-gui-scene-v4`，game `11388 / 134370885479401069`、MCDK `38808 / 134370885477639980`。group总260.5548秒，launch96.7224秒、bootstrap10.8530秒、Scene136.0921秒；六个步骤均exit0。
+
+真实resize且Workspace关闭时的同字体子控分别在GUI4/3/2显式调用 `Theme.configure(3.,True)`，font均为5.0，cached GUI依次为4/3/2，证明字体相同的early-return路径仍刷新cache。该子控与正常Workspace挂载时由实际屏幕事件刷新分列。正常Scene的SDK logical依次为 `[499,277]`、`[533,300]`、`[641,360]`，ScreenView依次为 `[1994,1106,0,0]`、`[1600,900,0,0]`、`[1281,720,0,0]`；不将SDK取整视角冒称物理客户区。三档正常font分别为0.75/1.0/1.5。
+
+每档source tilted、flow_east tilted、含水fence front/tilted均完成dry→wet，共24张原生全分辨率PNG；另外两张为GUI4→3与GUI3→2时原文档仍挂载、下一LOAD之前的可见水接缝。两次均保留document ID、source cells和group keys，capture前后布局不变。GUI4→3的ready_request值有变，GUI3→2则未变；报告不把二者都冒称同请求。24行各保存3次原生SDK读回，共72次：visible active skeleton位置/尺寸与stored geometry误差在原0.02 logical门内，active native ID与renderer ID一致，surface可见；hidden bank原值仍保留，不推断其应具有正尺寸。
+
+本代理实际打开三档source、flow与含水fence正/斜湿图，以及两张resize接缝；水面/侧面与石块支撑和栅栏位置接合，GUI2没有旧约111px整组上飘。root另独立打开三档front wet及GUI2斜fence/flow/接缝，观察一致。这是静态原生可见证据，**没有由静图授动画A、用户人工验收或默认冷启资格**。原动画nontrace的593.9861ms source时间缺口、GUI2 front矩阵因子ratio1.190508及原全图debug mask污染均继续保留；没有移动flow ROI、phase fit或改阈值。
+
+post-run只读审计 `water-gui-offset-scene-analysis-v1/scene-native-audit-v1.json`，SHA `d97cc5e2f1a4853ec23405962c52ff0a3564ed5044a06334dad33daba6f1ea5a`，重新逐SHA核过26张PNG与冻结source/aux全部5875项，原source/host/plan未回写。Scene共88个资源样本，最小可用commit12,202,954,752B，最大句柄game876/MCDK234，相邻最大正增长3/0；独立continuous guard228样本，最大game879/MCDK235，无句柄/modal breach。两条采样流分别记账，不保证采样间不存在短时峰值。
+
+Scene finally依次关闭Workspace、执行原blueprint恢复、自有Theme/grid/profile/factory恢复，独立后读确认navigator/marker/jobs均清、world actors0、source unchanged。bootstrap marker显式retired；ordinary owner stop返回0，same-handle observer实际记录game于04:39:58.087退出 `0xC0000409`，MCDK于04:39:58.089退出0，精确身份均消失。不能将game退出码写成引擎正常退出，也不能单凭此归因于水。watcher `32484 / 134370885380827927` 已按精确创建身份回收，窗口已完整释放，无第二实例启动。
+
+随后冻结第三份精简补充包 [v3索引](../evidence/water-size720-r27-v3/index.json)，SHA `410c9b5f71853e02ec0c23b67f38ed02168aa013c8ee03066ca87daa31ca265f`：721项、10个索引页、总18,906,873B、单件最大240,000B。覆盖v3—v6历史失败边界与reader修复、12状态/38图诊断、原全图与独立parent scope、三文件私有候选/真实Python2控制、实际root静态与host独审、v4正常Scene26图/恢复/精确退出。source archive和完整bursts不入包；大PNG只生成全分辨率有损JPEG预览，原PNG保留runtime供像素门，索引逐项标注不可还原。输出secret值0，raw及旧v1/v2索引保持原SHA。该包本身仍待root独审。
+
+截至此处，本水专项新增用户人工关闭仍0，`formal_A_accepted`、`default_path_evidence`、`production_admission_performed`均为false。三文件只在私有源；root已要求下一步提出小范围生产diff与项目风格的同字体/legacy/geometry测试，不直接改共享生产文件，不重算或手改owner/qualification合同，不把显式bootstrap复制为默认资格。
+
+
+## 05:16—05:30：v3独审纠正、窄生产修正与下一A离线准备
+
+追加纠正前一节的“输出secret值0、待root独审”：root随后拒绝v3归档。首个session条目仍保留非标准 `[REDACTED_SESSION_TOKEN]` 占位符，而独审只接受 `[REDACTED]`；loopback `mcp_url` 也应按归档政策脱敏。只读比较确认token值本身已被替换，所涉URL没有认证参数，不能把这次拒绝写成实际认证token泄露；同样不能把v3继续写成已通过。原raw与v1/v2/v3包均保留，不回写历史bytes，新分发包必须另行生成与独审。
+
+原离线v4 preflight对每个JSON string重复排序/编码972份registry的已知credential集合，运行超过10分钟仍无包目录。只在核对本专项PID70128、创建时间和命令路径后停止该离线进程，原脚本与失败记录保留；未启动MC、未改原raw。优化副本预编译完整credential前缀trie，对同样的JSON/base64/escape解码视图进行exact检测；root原scanner的敏感成员与pattern递归检查不改。13个正例和3个负例与原scanner逐例一致，包含重叠前缀、嵌套JSON/base64、Unicode与hex转义、标准/旧占位符及mcp_url；脱敏后均通过，负例保持bytes。控制报告SHA `f04e355de1bad0c35c814b1c8ddc01298dba68a05f318caefdf63f9491c19246`。新包仍须root独审，控制通过不等于分发包通过。
+
+GUI修正改为保留原CRLF的v2三文件提案，patch SHA `f6527713f843b8c24bcbe087d4168bce03fb1c173f1ed1aa18ca4157e4f2f2a9`；规范化LF后的候选bytes与26图实际测试源一致，三生产文件bare LF为0。项目风格overlay6项通过，报告SHA `5eda7b7e04008c3e990ea907296c0c68aed06f23697f27f11a0b2f04ae225053`，覆盖同字体GUI缓存、invalid GUI拒绝、legacy profile、水Scene闭包无新增FFI、实际LiquidControls同request更新geometry，以及不授mismatched production合同。root已备份并应用三文件与测试，随后报告目标回归72项、ownership6项及Python2三文件compile通过；提交由root管理。本代理不再次apply，不重算或复制owner/qualification。
+
+下一正式A的离线准备位于 `.runtime/round-20261022/water-next-A-workflow-v1/`。当前shared来源inventory v2为source4482项、aux1391项，manifest SHA `7bdfd5e2322fd9b800a343408f9fa40a5bfcf61eb9c345b8a44d4dee7a747485`，source合同 `027f11186bb5e50b4d9a0dc80a5ba4d06342104e1be4c2cc6de51a9f206bcf1a`。实际probe枚举与digest一致、读取前后source/aux/owner/qualification未变，但它不是完整传递闭包，也不是下一组的最终冻结来源。HEAD或shared后续变化必须另生成新manifest；不覆盖本份。sibling renderer `ca10356`只作metadata参考，主仓尚未切runtime依赖。
+
+时间链reader五项synthetic控制通过。原nontrace37attempt/36valid、固定3200ms、首尾17.7829/30.7163ms；native `capture_valid=true`、`temporal_complete=false`、`ok=false`。最大source gap为28→29的593.9861ms，同pair worker before gap82.4377ms；最大worker未观察间隔在27→28，为538.3221ms，同pair source gap仅42.421ms。两最大值不在同pair，缺失readback仍为null；没有empty-poll、callback arrival、Close或COM release实测事件，不能归因game/DWM/WGC/driver。原trace不能替nontrace授A。
+
+`NEXT_A_WORKFLOW.md`要求root合流后另冻source/host/plan与唯一owner、保留原1500ms准备/3200ms测量/150ms source-gap/512MiB/6GiB及句柄门，先解决来源与时间链可观测性，再独审新15cell计划；不原条件盲重跑，不拿静态26图授动画/默认入口资格。当前水无MC，新增用户人工关闭仍0。
+
+
+## 05:30—05:36：新分发包完成与普通入口单cell重新绑定
+
+新v4分发包 [索引](../evidence/water-size720-r27-v4/index.json) SHA `1cb4a95ef9a57ed659471ec243d34e0dc848ba40ad4f1700d146ef8a3c458deb`，742项、19,321,405B、单件最大240,000B。逐原始raw重做标准 `[REDACTED]` 敏感字段脱敏，涵盖mcp_url、递归JSON/base64/转义与1855个已知credential值的exact检测；优化版preflight完成，包含v2窄提案、13正3负控制及下一A离线说明。原v3和raw未改；包仍待root独审，不把自检findings0写成最终审查通过。
+
+同时纠正下一A流程旧文的一个前提：当前shared的owner与qualification implementation常量都为 `ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872`，resource/rules/style也相符。运行期只比较生成常量，不读当前源码SHA，所以源码漂移不会自动阻止普通入口；独立source checker/发行核验拒绝与运行期入口必须分列。旧private则使用不同owner `d0f37c33f8e054a0e906f44361edc43f49957b26b4af7853da9f2c0ca49bf20f`，其“空Session＋拒绝后explicit bootstrap”host不能照搬。root与本代理分别只读核出这一事实；不重算owner，不将旧qualification移植为新源通过。
+
+source4484→4482的净差是去掉五个旧诊断shader `modern_projection_r27_anchor_0.vertex`、`_15.vertex`、`_matrix.fragment`、`_matrix.vertex`、`_neutral.fragment`，增加shared的 `debug_concrete_blueprints.py`、`debug_dripleaf_blueprints.py`、`tools/check_liquid_product_owner_contract.py`。不是简单减少两个路径。当前owner合同/owner_data相较旧private的不同已有在先；qualification逐字节相同，本代理没有改这三份当前shared数据。
+
+新独立源位于 `.runtime/projects/water-r27-merged-flow-editor-v1`，4482 source＋1391aux共5873项，从当前shared逐bytes复制，前后shared与private/source/archive逐SHA一致。source合同仍 `027f11186bb5e50b4d9a0dc80a5ba4d06342104e1be4c2cc6de51a9f206bcf1a`；新archive119,618,244B，SHA `d9f196ca951a9f2d83f254b5e4d694868f714096715d376309845141c4c8c4e5`。该显式枚举仍不是传递闭包。
+
+新host目录 `.runtime/round-20261022/water-merged-flow-editor-v1`，plan SHA `39d8f1194e25d463bf0cdcc6c2de93e4a34f1aad88d4d6b3687cdf72b4b46543`，host binding SHA `f579019e1639cd249812dc61989bdbfa2d61b24acda30a565e4308c735f2f085`。不调用旧bootstrap，只读观察普通UiInitFinished实际Session/profile类型、callback身份、规则、引擎和module文件位置，probe使用 `--production-default` 不赋候选profile。固定flow_east/editor/wet，原pose35/25/4.6、客户区1280×720预期GUI2；每次capture/burst前按原0.02logical门核active geometry/ID/surface。原1500/3200/150ms、512MiB、6GiB和句柄门不变；finally增加profile/timing恢复后独立marker检查，ordinary stop与精确进程退出分列。
+
+启动前只执行实际launcher前59个AST语句，到Popen前停止；两个明确fixture是watch状态和输出目录。全部5873项、原owner/qualification和hostSHA核过，实际cold payload在真实Python2 compile，且AST拒绝初始化/profile属性写入；实际lifecycle模块仅import、不调用main。静审report SHA `422f8284c37c17289ceb9cda9e9a533d79451b28e7994cb637d90aecd1218644`。此时无新MC，没有SDK/原生像素结果；待root独审并在books传输后授精确quiet窗口。单cell通过也不授完整15cell A、world A或最终资格，用户人工关闭仍0。
+
+
+## 05:42 根代理独立核对新分发包
+
+根代理从 v4 索引逐项重建742个逻辑条目，独立核对774个存储文件与全部原raw SHA/长度，723个条目可逐字节还原，3个为明确标识的有损视觉参考，22处脱敏记录。递归JSON/base64/转义敏感检查与已知credential精确检测均为0发现；原独立scanner保留解码与敏感成员检查，仅用经8项等价对照的trie替代重复substring循环。报告位于 `.runtime/round-20261022/root-water-package-v4-review/report.json`。本次只授予v4证据分发资格，拒绝的v3、原raw和旧失败保持原bytes；不授正式15cell A、默认来源D或用户人工关闭。

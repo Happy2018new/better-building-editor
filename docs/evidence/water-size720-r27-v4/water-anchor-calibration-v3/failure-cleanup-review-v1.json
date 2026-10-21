@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "MC_started": false,
+  "RPC_dispatched": false,
+  "subprocess_dispatched": false,
+  "source": "Actual parsed finally blocks; fault stubs only replace IO/RPC/process operations",
+  "host_sha256": "550212a9aba8b3845f25c0fac65a47b0b30b48b95e7caadd4451e3436b7d79d3",
+  "group_sha256": "88152a0708eec33198111bb91d4fcf945ef0c5a704c717473a913bf478ff960a",
+  "host_cases": [
+    {
+      "label": "primary-rpc-cleanup-fault",
+      "original_error_preserved": true,
+      "final_report_saved": true,
+      "restore_unknown": true,
+      "cleanup_errors": [
+        {
+          "step": "explicit_ui_cleanup",
+          "type": "RuntimeError",
+          "message": "injected-explicit-cleanup-failure"
+        },
+        {
+          "step": "final_readonly_restore_RPC",
+          "type": "RuntimeError",
+          "message": "injected-final-readonly-RPC-failure"
+        }
+      ]
+    },
+    {
+      "label": "rpc-fault-only",
+      "original_error_preserved": false,
+      "final_report_saved": true,
+      "restore_unknown": true,
+      "cleanup_errors": [
+        {
+          "step": "final_readonly_restore_RPC",
+          "type": "RuntimeError",
+          "message": "injected-final-readonly-RPC-failure"
+        }
+      ]
+    },
+    {
+      "label": "primary-source-audit-fault",
+      "original_error_preserved": true,
+      "final_report_saved": true,
+      "restore_unknown": false,
+      "cleanup_errors": [
+        {
+          "step": "final_source_audit",
+          "type": "OSError",
+          "message": "injected-source-audit-failure"
+        }
+      ]
+    },
+    {
+      "label": "all-clean",
+      "original_error_preserved": false,
+      "final_report_saved": true,
+      "restore_unknown": false,
+      "cleanup_errors": []
+    },
+    {
+      "label": "known-not-restored",
+      "original_error_preserved": false,
+      "final_report_saved": true,
+      "restore_unknown": false,
+      "cleanup_errors": []
+    }
+  ],
+  "group_stop_timeout_primary_preserved": true,
+  "group_final_report_saved": true,
+  "manual_closures_added": 0
+}

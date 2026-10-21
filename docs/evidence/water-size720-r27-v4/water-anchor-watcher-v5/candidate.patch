@@ -1,0 +1,73 @@
+--- shared/r20-original
++++ private/r27-v5-candidate
+@@ -8,10 +8,14 @@
+ import sys
+ import time
+ 
++ROOT = Path(__file__).resolve().parents[3]
++sys.path.insert(0, str(ROOT / 'tools'))
++sys.path.insert(0, str(Path(__file__).resolve().parent))
++from windows_manifest_reader import native_read_json, bounded_manifest_read
+ from check_native_dialogs import assertion_dialogs
+ from dismiss_owned_disabled_skin_assert import known_disabled_skin_assertion, post_owned_ignore
++import os
+ 
+-ROOT = Path(__file__).resolve().parents[1]
+ sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
+ from _session import load_session, process_identity, registry_dir
+ 
+@@ -19,6 +23,35 @@
+ def assigned(owner, owners):
+     return isinstance(owner, str) and any(owner == item or
+         item.endswith('*') and len(item) > 1 and owner.startswith(item[:-1]) for item in owners)
++
++
++def native_load_session(path=None, owner=None, live=False):
++    path = path or os.environ.get("MCDEV_SESSION_FILE")
++    if not path:
++        return None
++    path = Path(path).resolve(strict=True)
++    data = native_read_json(path)
++    if data.get("schema") != 1 or Path(data.get("session_file", "")).resolve() != path:
++        raise ValueError("Invalid instance manifest")
++    owner = owner or os.environ.get("MCDEV_OWNER")
++    if not owner or owner != data.get("owner"):
++        raise ValueError("Instance owner mismatch; pass the assigned --owner")
++    if live:
++        if data.get("state") != "ready":
++            raise RuntimeError("Instance is not ready: " + str(data.get("state")))
++        for prefix in ("mcdk", "game"):
++            if (not data.get(prefix + "_identity") or
++                    process_identity(data[prefix + "_pid"]) != data[prefix + "_identity"]):
++                raise RuntimeError("Stale instance: " + prefix + " process exited or changed")
++    return data
++
++
++def read_assigned_session(manifest, owners, read_events, loader=native_load_session):
++    def read_once():
++        first=native_read_json(manifest)
++        if not assigned(first.get('owner'),owners):return None
++        return loader(str(manifest),first['owner'])
++    return bounded_manifest_read(read_once,read_events,str(manifest))
+ 
+ 
+ def eligible(session, owners, project_root, identity_reader=process_identity):
+@@ -86,15 +119,14 @@
+     recovered_sessions = set()
+     status = {'schema_version': 1, 'owners': args.owner, 'until': args.until.isoformat(),
+               'host_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+-              'known_assert_recoveries': [], 'other_assertions': [], 'errors': []}
++              'known_assert_recoveries': [], 'other_assertions': [], 'errors': [], 'manifest_read_events': []}
+     while datetime.now().astimezone() < args.until:
+         sessions = {}
+         for manifest in registry_dir().glob('*/session.json'):
+             try:
+-                data = json.loads(manifest.read_bytes())
+-                if not assigned(data.get('owner'), args.owner):
++                data = read_assigned_session(manifest, args.owner, status['manifest_read_events'])
++                if data is None:
+                     continue
+-                data = load_session(str(manifest), data['owner'])
+                 if eligible(data, args.owner, project_root):
+                     sessions[data['game_pid']] = data
+             except (OSError, ValueError, KeyError, TypeError) as error:

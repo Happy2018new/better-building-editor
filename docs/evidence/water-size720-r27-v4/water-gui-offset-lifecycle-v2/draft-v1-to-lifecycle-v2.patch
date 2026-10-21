@@ -1,0 +1,47 @@
+--- draft-v1/launch_r25.py
++++ lifecycle-v2/launch_r25.py
+@@ -13,8 +13,8 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r27-gui-offset-v1'
+-PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-gui-offset-v1')
++OWNER = 'water-r27-gui-offset-v2'
++PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-gui-offset-v2')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+ from _session import process_identity, registry_dir
+--- draft-v1/run_scene_group.py
++++ lifecycle-v2/run_scene_group.py
+@@ -86,7 +86,7 @@
+         launch=json.loads((WORK/'launch/launch.json').read_bytes())
+         command('bootstrap','run_candidate_bootstrap.py')
+         command('scene','run_scene_observation.py',('--session',launch['session_file'],
+-                '--root-grant',str(args.root_grant.resolve(strict=True))))
++                '--root-grant',str(args.root_grant.resolve(strict=True))),timeout=900)
+         row['completed']=True
+     except BaseException as error:
+         row['error']={'type':type(error).__name__,'message':str(error),'traceback':traceback.format_exc()}
+--- draft-v1/scene_game.py
++++ lifecycle-v2/scene_game.py
+@@ -34,7 +34,8 @@
+ _result=True
+ '''
+ 
+-EXTRA_STATE = '''row=json.loads(_result)
++EXTRA_STATE = '''from modern_projection.projection.widgets import Theme
++row=json.loads(_result)
+ game=b.factory.CreateGame(b.level)
+ logical=tuple(game.GetScreenSize());physical=tuple(game.GetScreenViewInfo())
+ row['gui_cache']={'logical':logical,'screen_view_info':physical,
+--- draft-v1/dispatched-bootstrap-payload.py
++++ lifecycle-v2/dispatched-bootstrap-payload.py
+@@ -112,7 +112,7 @@
+ from modern_projection.projection import liquid_product_qualification_data as qualification
+ from modern_projection.projection import liquid_product_owner_data as owners
+ system=api.GetSystem('ModernProjection','ModernProjectionClientSystem')
+-marker='_water_r27_gui_offset_bootstrap_v1'
++marker='_water_r27_gui_offset_bootstrap_v2'
+ if hasattr(sys,marker):
+     raise RuntimeError('Private bootstrap marker already exists; never replay')
+ bootstrap_receipt={'adapter_stage':'before_default_check','bootstrap_call_count':0,
