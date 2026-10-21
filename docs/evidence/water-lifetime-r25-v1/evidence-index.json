@@ -1,0 +1,431 @@
+{
+  "schema": 1,
+  "diagnostic_only": true,
+  "manual_issues_closed": 0,
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "root_independent_numeric_review_passed": true,
+  "summary": {
+    "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-handoff-summary-v1.json",
+    "sha256": "23e22767956e0a02fa58e7e75602cb042c1c991e747c0472f0381240add3173b",
+    "bytes": 11161
+  },
+  "original_index": {
+    "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-evidence-index-v1.json",
+    "sha256": "9c35204fa9ecb1390828b9516801d3697bad4d0427ede6757c1fdf39c312f261",
+    "bytes": 20432
+  },
+  "root_review_script": {
+    "path": ".runtime/round-20261021/trace-lifetime-v2/root_review_v1.py",
+    "sha256": "905dace533e12ee6a4d26ed0bcaa454c4e69c33e68209560e55b56201cf64d3a",
+    "bytes": 3584
+  },
+  "source_contract_sha256": "d59671e2053883186342865abd64ab5b46181f1344da33c4aeddf22d2865cbfd",
+  "source_archive_sha256": "c4abf27884e4bdee4e51129ffcff0da4301ad2e8d59f1cc94f2cccb4e1e61042",
+  "temporal": {
+    "capture_valid": true,
+    "temporal_complete": true,
+    "start_gap_ms": 9.3517,
+    "maximum_gap_ms": 115.6335,
+    "tail_gap_ms": 25.5625,
+    "unchanged_limit_ms": 150,
+    "valid_frames": 40,
+    "attempted_frames": 42,
+    "rejected": [
+      {
+        "sequence": 1,
+        "error": "frame_not_after_request",
+        "frame_qpc_100ns": 2561832333746,
+        "observed_qpc_100ns": 2561832570798
+      },
+      {
+        "sequence": 42,
+        "error": "frame_timestamp_in_future",
+        "frame_qpc_100ns": 2561864852010,
+        "observed_qpc_100ns": 2561864851531
+      }
+    ],
+    "maximum_gap_sequence_pair": [
+      26,
+      27
+    ]
+  },
+  "lifecycle": {
+    "schema": 1,
+    "diagnostic_only": true,
+    "formal_A_accepted": false,
+    "lifecycle_structurally_complete": true,
+    "every_frame_closed_successfully_without_exception": true,
+    "errors": [],
+    "close_failure_count": 0,
+    "raw_unclosed_drain_releases": [],
+    "maximum_close_duration_ms": 0.4785
+  },
+  "resources": {
+    "continuous_guard_samples": 0,
+    "continuous_guard_completed": true,
+    "continuous_guard_empty_is_not_coverage": true,
+    "OS_samples": 125,
+    "OS_target_interval_ms": 250,
+    "OS_maximum_sample_gap_ms": 251.4134,
+    "minimum_available_commit_GiB": 12.76080322265625,
+    "processes": {
+      "game": {
+        "all_identity_verified": true,
+        "minimum_handles": 838,
+        "maximum_handles": 844,
+        "maximum_observed_handle_step_growth": 4,
+        "maximum_private_bytes": 2855571456
+      },
+      "mcdk": {
+        "all_identity_verified": true,
+        "minimum_handles": 234,
+        "maximum_handles": 235,
+        "maximum_observed_handle_step_growth": 1,
+        "maximum_private_bytes": 5017600
+      }
+    }
+  },
+  "exact_exit": {
+    "schema": 1,
+    "session": "054f20c1ffc043ee873fe429fc2907ba",
+    "owner": "water-r25-lifetime-isolated-v2",
+    "opened_at": "2026-10-21T01:35:11.045559+00:00",
+    "processes": {
+      "game": {
+        "pid": 34732,
+        "identity": "134370200902492046",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-21T01:39:40.199808+00:00"
+      },
+      "mcdk": {
+        "pid": 57392,
+        "identity": "134370200899509479",
+        "executable": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-21T01:39:40.214476+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "limitations": [
+    "This v2 run did not reproduce the old 636.6348ms start gap and cannot explain it retrospectively.",
+    "The diagnostic binary changes timing and does not qualify formal A or transfer old F/B/R/G/default-path evidence.",
+    "Arrival and source timestamps are both QPC but are different observations; overlap alone is not causal attribution.",
+    "Game exited with 0xC0000409 after ordinary stop; restore success does not erase abnormal exit.",
+    "continuous-handle-guard samples is empty; independent 250ms OS samples describe their own measured interval only."
+  ],
+  "original_files": [
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/manifest.json",
+      "sha256": "9be48c82dbca8032502ce11293e3b25007970aac7556f08682c82047b0552579",
+      "bytes": 518862
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/lifetime-analysis-v1.json",
+      "sha256": "107646d4f204ab416ad0cee357ac70fccfedf1334da77edd4b9d0e2cd9d46934",
+      "bytes": 88358
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-handoff-summary-v1.json",
+      "sha256": "23e22767956e0a02fa58e7e75602cb042c1c991e747c0472f0381240add3173b",
+      "bytes": 11161
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/group-execution-v1.json",
+      "sha256": "9ccbcb0b49ef4d10dd8690609da11eac4d0a47f789e90f5d3da0b89dca0f53c8",
+      "bytes": 58148
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/independent-restore-v1.json",
+      "sha256": "a60d67692cefa9473ee3caa23d76fdbadf24863e13f3303a270a33242753137b",
+      "bytes": 366
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/launch/exact-exit.json",
+      "sha256": "c17fcbc15ac8c0a7a44881c8bb7d1d6a0790e46deef9a76493ad3949b4b23513",
+      "bytes": 1006
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/continuous-handle-guard-v1.json",
+      "sha256": "1bdbd49555c496d0f20ef451a938011ae8babb6da77ecb51c42078ec67cbc8a4",
+      "bytes": 218
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/os-resource-window-counters-v1.json",
+      "sha256": "943e8dc03a58e7f3d80fbb85051bad7d71490ac8d002be67120e944d81899889",
+      "bytes": 961931
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/product-v2-camera-native-v1.json",
+      "sha256": "86e69f8db981b95b961a13911a0860f54ffa69babbfdfd720da128a5eea13179",
+      "bytes": 77535
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2.json",
+      "sha256": "56ed0d78f75bb97c3907c973a8aaab560aa5d2ed48d84cf5d09df0a2a95f609c",
+      "bytes": 3292254
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/prelaunch-binding-v2.json",
+      "sha256": "e67be18fbf5816893c7aef5caa2df879249e3ced00518d76be168f3c18157c31",
+      "bytes": 2882
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/analyze_lifetime_trace.py",
+      "sha256": "3ba2a3603fe2325c965bb2674aaba62d600b51272d2672fb86cd804162a48d0d",
+      "bytes": 7252
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/native-build/Release/native_wgc_burst_startup_capture.exe",
+      "sha256": "37f9522a8fd56c1a136f8915e60cb98c014fe34ca6fd2a33dfed2e1eae3eb1b9",
+      "bytes": 360448
+    },
+    {
+      "path": ".runtime/round-20261021/water-final-r25-v1/run_a_lifetime_isolated_v2.py",
+      "sha256": "75b8e588cc61116bfc8773fcbdd372d27dc3c55109fd2d54ba8d55ff438997a0",
+      "bytes": 8666
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000002.png",
+      "sha256": "affa81f02cab7df601a2e811883ecd6b6fdcfa612f8832a41b9d82cfebb2be35",
+      "bytes": 276032
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000003.png",
+      "sha256": "ca4caff7d0faccfb37aea57ff75b7048247c39ebdd4cf0a42b3580d43b4a5ade",
+      "bytes": 276169
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000004.png",
+      "sha256": "ef243ea2b26da5d36801c69bfbbb17545afaace43b120caedbe8b97cf3d69540",
+      "bytes": 276545
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000005.png",
+      "sha256": "537afa54c30f8d70e1ecb8601897710f24ea7c93de317677a53f0f95362909ad",
+      "bytes": 276442
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000006.png",
+      "sha256": "31b99c0b641b8a289d5a0ce4d695a3b354a78958cc560fc3da8270afb930bf1c",
+      "bytes": 276357
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000007.png",
+      "sha256": "79fe6c5d49a517793fc2cec37293fa5cb1d62ec52c024424f0f7febb271d07a5",
+      "bytes": 274454
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000008.png",
+      "sha256": "29da42b2809d259fff68298fe475d3eed62d22539f168e572767aeaaef368bfa",
+      "bytes": 275903
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000009.png",
+      "sha256": "6809b9377fdc81793e7057061e50afe668cd4d999b36a42dbe06d17896fca65b",
+      "bytes": 276151
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000010.png",
+      "sha256": "2c6819cefdd8c2946d9946ed70d0e3d9e1ded042342140c8740cfec16100fca1",
+      "bytes": 276580
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000011.png",
+      "sha256": "43adf938ba2210b3f9782c509b705d07fae723e0f341c88b34ec690aae9d6fcd",
+      "bytes": 276672
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000012.png",
+      "sha256": "c3f111797a593137a7556969d63f42249740e5becea7299b1f1f76ff443a06a1",
+      "bytes": 275099
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000013.png",
+      "sha256": "b51c10037b93e33d15b3689fbd10d882fe7fc12c8df4b7f4f94666d5e6ea4fe1",
+      "bytes": 275667
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000014.png",
+      "sha256": "3af3a1c27281bf7126ff02ba92c893b653f63810a76cae4e83282607f309c9ba",
+      "bytes": 272516
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000015.png",
+      "sha256": "88c4d059105731ab5a10130f10d626d3fedad11272d0b229ed3e8c1ca797f84a",
+      "bytes": 275699
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000016.png",
+      "sha256": "282fb49a53c3f13c7e6db071a2376afc1567d236936eb35841908e9d5f6439b8",
+      "bytes": 275738
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000017.png",
+      "sha256": "f5906b5e0c066f64f60b17ffeee339d8fa10324aa293d66ff754965de2a27dbc",
+      "bytes": 275241
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000018.png",
+      "sha256": "42f56da2da078b696186c551582d6e2ebd7be36afa8b512c8abf6c7e578657f6",
+      "bytes": 275651
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000019.png",
+      "sha256": "6c23bdf7353909607035d4d26ebaca7015dad82840a771b74418a72b0ed1bdd7",
+      "bytes": 274838
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000020.png",
+      "sha256": "591ef533abd763976c9f2c7de3ba5320316f08451186787f3c6cc2ae6d804701",
+      "bytes": 275916
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000021.png",
+      "sha256": "b59c18430700111571e6ff5bf6ea31a9d818f604bb029babe646420bcdb1819e",
+      "bytes": 276430
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000022.png",
+      "sha256": "9a0e530a1014cd46bb72e7d1000699bcd2ee380ab58abafb4ad21a0b8fcaa4a0",
+      "bytes": 275906
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000023.png",
+      "sha256": "e624532f7ca54ef3a51faa5fdd4f84dad4090f9b29f8576ae554251cbd20f5d9",
+      "bytes": 275027
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000024.png",
+      "sha256": "63aeb131bae92228ba22ee488f65d81beb99cdd672385fdfdb407be2fd4e9177",
+      "bytes": 276466
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000025.png",
+      "sha256": "f70065907a6cc5778c0b6dfb4cd2654c063944a235c1a6a2fb27816f714cba46",
+      "bytes": 277040
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000026.png",
+      "sha256": "e0d27f151bfab1ccff3aa7541dfa56ac3d5d95e6d96418052739479c7f2f5711",
+      "bytes": 276061
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000027.png",
+      "sha256": "586cb9d0f1194ef7f7fe219cd05ecf4604cf27bc66181925e33275891290548a",
+      "bytes": 275591
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000028.png",
+      "sha256": "c8315505208b215d696cc2568eabe5d303b074b5231b0f22796d56a054522b8c",
+      "bytes": 275562
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000029.png",
+      "sha256": "f725a8d05ebfc0d8901f81d8d0fa0e15fe40d6cc27f1c0d24d7323a221c2c852",
+      "bytes": 275410
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000030.png",
+      "sha256": "5b6de4056aa494f5efa096a333e7980a46b83c572945b9c29bf2e5b39fb5fcbd",
+      "bytes": 273047
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000031.png",
+      "sha256": "2bb7c7f741ab530efa02fae56643faa8d23efa7c64606f1d1814f84bc90cc5ce",
+      "bytes": 276358
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000032.png",
+      "sha256": "6ebc3e5ec69829641bbe3d9b22637a93cf760db10bc2f638a079ecee4fb819b1",
+      "bytes": 275774
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000033.png",
+      "sha256": "45ed7511abce8368917a22697ef372937e4f7ce0e8c9363a67889c10dfbb0c19",
+      "bytes": 275751
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000034.png",
+      "sha256": "6cb7d1d53f02acbedc0b8283dd28dcb93a06768ecacfc48a45fa0fb327ee1735",
+      "bytes": 275769
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000035.png",
+      "sha256": "810b40a9c80b7a81c7a04f6369620ce764dad8c754da50e16dcdfc43872cf289",
+      "bytes": 272936
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000036.png",
+      "sha256": "b6ff316c0ef7c34742ebd4009060ff2645fc4572dc00a7ff8d572616064f8249",
+      "bytes": 275797
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000037.png",
+      "sha256": "b69dbaacf72ce37bc6a9a6f8ff1ac07a4493962e8420c3442c4e32e22e816d93",
+      "bytes": 275779
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000038.png",
+      "sha256": "61df309878ed836ef723f03745e2c65471b282f3dfa66f7c8bd66a4b638053c1",
+      "bytes": 276119
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000039.png",
+      "sha256": "fc1044d6560806e52cac35966f0aa31fec849767a14db6999e00e9cb0a2fc95c",
+      "bytes": 272685
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000040.png",
+      "sha256": "446c76c52315da646459a67cf596af1f193c371e37d215bae4468a08e392855c",
+      "bytes": 276128
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet_burst/frame_000041.png",
+      "sha256": "d702b991ef53a7c88eafd7b87523e81686b3f891b43f2e7a645912f06029ae87",
+      "bytes": 276191
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/product-v2-camera-native-v1_front_shown.png",
+      "sha256": "4866cc9fc947c896c3f6e159ede7c982e7effc25899afbd03ec1c9736f78588e",
+      "bytes": 230869
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/product-v2-camera-native-v1_front_hidden.png",
+      "sha256": "a14089a8773f0810aeed411105dc362df400ee6311c5fb713700de39c53fa783",
+      "bytes": 229862
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/product-v2-camera-native-v1_right_shown.png",
+      "sha256": "8c9b38ee95075f15e7c91250782b58999602f9d7b7eea32838dba225f56c0adb",
+      "bytes": 232647
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/product-v2-camera-native-v1_right_hidden.png",
+      "sha256": "95d9c8f128b0362360d6dcfdec65e15839302620c5d7d2faab6c90517bc63df0",
+      "bytes": 231496
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/product-v2-camera-native-v1_tilted_shown.png",
+      "sha256": "9e0d2dd97ea380b5bb00d701836999a446015f1d5a4eb05532d2321b680a31d5",
+      "bytes": 836691
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/product-v2-camera-native-v1_tilted_hidden.png",
+      "sha256": "a1da6f8c01d6d4fecba2bfc2bc3fbdb3686adef6dd942eddde2e7843b1939dae",
+      "bytes": 839240
+    },
+    {
+      "path": ".runtime/round-20261021/trace-lifetime-v2/experiment-isolated-v1/diagnostic-east-editor-v2_editor_flow_east_wet.png",
+      "sha256": "02f219395d88a4f2739de69843422509bb0206eab18369237b6928c26ddffcae",
+      "bytes": 275608
+    }
+  ]
+}

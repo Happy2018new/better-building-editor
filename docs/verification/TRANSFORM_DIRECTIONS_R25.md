@@ -10,4 +10,14 @@
 
 真实Python2.7和Python3另执行公开注册、保存载回、60格及六操作历史往返，JSON结果逐项相等。首次Python2宿主因unicode工作路径与 `os.getcwd()` 组合失败，错误及空 `py2.json` 保留；仅临时host改用 `os.getcwdu()` 后保存 `py2-recovery.json`，没有修改生产代码以绕过错误。原记录位于 `.runtime/round-20261021/t02-directions-v1/`；[离线小包](../evidence/transform-directions-r25-v1/index.json)保留宿主及两份完全相同的结果。
 
-当前实机冷入口、编辑器／完整投影代表图尚待补证；本页不把离线可达标为人工包已就绪。现有 `tools/verify_transform_runtime_r23.py` CLI仍仅允许T01／T04／T05／T08，未声称该CLI已支持T02。独立冷宿主如完成，应另附精确来源、原图、恢复与退出结果，不能借用其他变换卡的资格。
+## 13:10 正常冷源实机补证
+
+另起正常 `git archive` 来源 `900100aa402f7442b1f1cf6cf1554f1f3d76fd14`，3708个runtime文件、780个host文件，manifest SHA256为 `031217265ecae395c239b7032a279b361671d2ee65af5f1d03789773d484ee26`。未赋候选profile、未选择书诊断alias，实际执行公开卡／确认回调载入60格及28个方向样本；未投递Windows鼠标输入，也未写世界。
+
+`mirror_y → undo → redo → undo → rotate_y90 → undo → redo → undo` 八阶段的数据和typed语义均与冻结来源的独立host oracle相符，最终回到原fixture。编码字节比较单独记录为false，没有把等价序列化误报为字节一致。root实际打开初始编辑器、Y镜像后编辑器／完整投影、90°旋转后编辑器／完整投影共5张原PNG：总览有画，楼梯／半砖上下关系及附着布局与变换一致；部分梯子仅见边缘，按钮太小或遮挡，**28样本逐面外观、X／Z镜像实机与missing仍未验**。该结果只补齐代表editor／full冷图，不标为三路径人工包就绪。
+
+冷host两项离线预检错误原样保留：初版将四角标也计入方向样本，得到32而非28；另一版误把undo／redo作为 `Editor.run` 名称。两者均在launch前拦下，另立wrapper使用明确五族计数及真实 `Editor.undo/redo`／`Session.action`，原冻结host未改。wrapper同时复用已核实的严格活动owner检查，只排除确实无owner的空备用PreviewTile。
+
+两次独立恢复审计通过、源码hash不变。原生相机roll均残差约 `-1.3660377589985728e-05°`，在 `0.0001°` 语义容差内，**exact=false**。game `63648 / 134370328107798494` 最后退出 `0xC0000409`，MCDK退出0，registry为stopped，watcher精确回收，无force；不能记为正常引擎退出。
+
+[冷源证据包](../evidence/t02-normal-cold-r25-v1/index.json)包含5张小JPEG、26份原bytes记录及1份明确脱敏的stop派生件；原PNG与原回执保留在本地 `.runtime/round-20261021/t02-normal-cold-v1/`。index保留原raw SHA，并另列派生解码SHA与脱敏字段，不把二者混称原件。[独立三包复核](../evidence/r25-final-packs-review.json)确认原件／归档hash及token脱敏边界。现有 `tools/verify_transform_runtime_r23.py` CLI仍只允许T01／T04／T05／T08，本次使用独立冻结host，没有声称该CLI已支持T02。新增用户人工关闭数仍为0。

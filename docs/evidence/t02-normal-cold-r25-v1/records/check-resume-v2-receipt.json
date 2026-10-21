@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-10-21T05:09:11.799140+00:00",
+  "source_commit": "900100aa402f7442b1f1cf6cf1554f1f3d76fd14",
+  "original_driver_sha256": "a27e8490fed945e74756abe5b9d5b12c49fb2820677ce9eec523d6acc1e127df",
+  "resume_driver_sha256": "c19e61ca73711401fa2472d40c64db8ff90780c1e5bd1b22668694b3f8d9f017",
+  "first_preflight_failure": {
+    "before_mc_launch": true,
+    "observed_nonstone": 32,
+    "explanation": "28 direction samples plus four colored markers; nonstone count is not the direction count."
+  },
+  "expected_direction_samples": {
+    "oak_stairs": 8,
+    "oak_slab": 2,
+    "trapdoor": 8,
+    "ladder": 4,
+    "stone_button": 6
+  },
+  "frozen_original_unchanged": true,
+  "production_changes": false,
+  "history_api_correction": "Undo/redo use Editor.undo/redo and Session.action, as the existing frozen transform acceptance driver does; these are not named Editor.run tools.",
+  "preview_control_correction": "Reuse already verified strict active-owner coverage and verified empty non-owner classification from kelp v4; all active owners still require current cache/signature/native success.",
+  "controls_payload_sha256": "71ed0577d0964308440b48d1ba3ff1523f80c585adc2bb03649737e2a2ae6ab7",
+  "source_unchanged_after": true
+}

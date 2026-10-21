@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "owner": "water-r25-final41-editor-v1",
+  "label": "final41-editor",
+  "source_contract_sha256": "a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194",
+  "production_admission_performed": false,
+  "default_path_evidence": false,
+  "started_at": 1792549794.788822,
+  "steps": [
+    {
+      "name": "launch",
+      "started_at": 1792549794.7914894,
+      "arguments": [
+        "D:\\Program\\Python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\launch_r25.py"
+      ],
+      "memory_preflight": {
+        "available_commit_bytes": 16251682816,
+        "minimum_available_commit_bytes": 6442450944
+      },
+      "exit_code": 1,
+      "elapsed_seconds": 8767.564968585968
+    }
+  ],
+  "completed": false,
+  "host_sha256": "fecdaefbc0d916e3a42deb6a18a68ca09237ab113645bf5b65860f3aebc44c45",
+  "error": {
+    "type": "CalledProcessError",
+    "message": "Command '['D:\\\\Program\\\\Python\\\\python.exe', '-B', '-X', 'utf8', 'D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\round-20261021\\\\water-final41-r25-v2\\\\launch_r25.py']' returned non-zero exit status 1.",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\run_editor_group.py\", line 100, in main\n    command('launch', 'launch_r25.py')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\run_editor_group.py\", line 65, in command\n    result.check_returncode()\n    ~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"D:\\Program\\Python\\Lib\\subprocess.py\", line 508, in check_returncode\n    raise CalledProcessError(self.returncode, self.args, self.stdout,\n                             self.stderr)\nsubprocess.CalledProcessError: Command '['D:\\\\Program\\\\Python\\\\python.exe', '-B', '-X', 'utf8', 'D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\round-20261021\\\\water-final41-r25-v2\\\\launch_r25.py']' returned non-zero exit status 1.\n"
+  },
+  "ordinary_stop": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[instances] Game has not closed; inspect it or explicitly use stop --force\n"
+  },
+  "stop_identity_inputs": {
+    "game": {
+      "pid": null,
+      "identity": null,
+      "complete": false
+    },
+    "mcdk": {
+      "pid": null,
+      "identity": null,
+      "complete": false
+    }
+  },
+  "exact_identities_absent_after_stop": {},
+  "elapsed_seconds": 8779.08967590332
+}

@@ -1,0 +1,94 @@
+{
+  "at": "2026-10-21T05:02:58.731788+00:00",
+  "owner": "r25-t02-normal-v1",
+  "source_commit": "900100aa402f7442b1f1cf6cf1554f1f3d76fd14",
+  "source_unchanged": true,
+  "active_mc": [],
+  "memory": {
+    "committed_bytes": 28346826752,
+    "limit_bytes": 46100955136,
+    "headroom_bytes": 17754128384
+  },
+  "source_manifest_sha256": "031217265ecae395c239b7032a279b361671d2ee65af5f1d03789773d484ee26",
+  "fixture_cells": 60,
+  "direction_samples": 28,
+  "material_counts": {
+    "minecraft:red_concrete": 1,
+    "minecraft:stone": 28,
+    "minecraft:oak_stairs": 8,
+    "minecraft:oak_slab": 2,
+    "minecraft:trapdoor": 8,
+    "minecraft:blue_concrete": 1,
+    "minecraft:ladder": 4,
+    "minecraft:stone_button": 6,
+    "minecraft:lime_concrete": 1,
+    "minecraft:magenta_concrete": 1
+  },
+  "offline_operation_states": [
+    {
+      "operation": "mirror_y",
+      "blocks": 60,
+      "undo": 1,
+      "redo": 0
+    },
+    {
+      "operation": "undo",
+      "blocks": 60,
+      "undo": 0,
+      "redo": 1
+    },
+    {
+      "operation": "redo",
+      "blocks": 60,
+      "undo": 1,
+      "redo": 0
+    },
+    {
+      "operation": "undo",
+      "blocks": 60,
+      "undo": 0,
+      "redo": 1
+    },
+    {
+      "operation": "rotate_y90",
+      "blocks": 60,
+      "undo": 1,
+      "redo": 0
+    },
+    {
+      "operation": "undo",
+      "blocks": 60,
+      "undo": 0,
+      "redo": 1
+    },
+    {
+      "operation": "redo",
+      "blocks": 60,
+      "undo": 1,
+      "redo": 0
+    },
+    {
+      "operation": "undo",
+      "blocks": 60,
+      "undo": 0,
+      "redo": 1
+    }
+  ],
+  "offline_operations_restored": true,
+  "candidate_profile_assignment": false,
+  "mc_started": false,
+  "ast_valid": true,
+  "preserved_initial_preflight_failure": {
+    "count_used": "nonstone",
+    "observed": 32,
+    "expected": 28,
+    "reason": "4 colored markers included",
+    "mc_started": false
+  },
+  "preserved_second_preflight_failure": {
+    "api": "Editor.run(undo)",
+    "error": "unknown tool",
+    "correction": "Editor.undo/redo plus Session.action as existing acceptance host",
+    "mc_started": false
+  }
+}

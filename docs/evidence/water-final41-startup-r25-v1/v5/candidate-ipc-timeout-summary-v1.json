@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-21T05:19:49.688907+00:00",
+  "owner": "water-r25-final41-editor-v5",
+  "session": "bd116ce74ace42aca00c8e9274037d8e",
+  "cold_launch_ready_passed": true,
+  "cold_launch_seconds": 116.01130509376526,
+  "read_only_state_samples": [
+    {
+      "at_utc": "2026-10-21T05:14:25.683916+00:00",
+      "state": {
+        "ui_init_bridge_observed": false,
+        "system_exists": true,
+        "hud_exists": false,
+        "session_exists": false,
+        "bridge_exists": false
+      }
+    },
+    {
+      "at_utc": "2026-10-21T05:14:27.206258+00:00",
+      "state": {
+        "ui_init_bridge_observed": false,
+        "system_exists": true,
+        "hud_exists": false,
+        "session_exists": false,
+        "bridge_exists": false
+      }
+    },
+    {
+      "at_utc": "2026-10-21T05:14:28.710662+00:00",
+      "state": {
+        "ui_init_bridge_observed": true,
+        "system_exists": true,
+        "hud_exists": false,
+        "session_exists": false,
+        "bridge_exists": true
+      }
+    }
+  ],
+  "core_execution_dispatched_once": true,
+  "candidate_bootstrap_completed": false,
+  "runtime_outcome_unknown_after_ipc_timeout": true,
+  "host_error": {
+    "type": "MCDKError",
+    "message": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed: IPC JSON request timed out\", \"type\": \"text\"}]}",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\run_candidate_bootstrap.py\", line 98, in main\n    value = return_value(client.call('execute_code', {\n                         ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n        'code': code, 'is_client': True, 'direct_return': True}))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py\", line 218, in call\n    raise MCDKError(json.dumps(result, ensure_ascii=False))\nmcdk.MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: IPC JSON request timed out\", \"type\": \"text\"}]}\n"
+  },
+  "normal_gate_refusal_observed": false,
+  "no_default_path_evidence": true,
+  "G_started": false,
+  "F_editor_started": false,
+  "restore_check_passed": false,
+  "restore_failure_category": "protected window guard refused after exact owned native disabled-skin assertion modal appeared",
+  "native_assertion": "The disabled skin popup has been displayed but the level data has no disabled cosmetics; DisabledSkinScreenController::onEntered @47",
+  "native_assertion_cause_vs_bootstrap": "unproven; do not attribute to water source or gate",
+  "close_sequence": [
+    "ordinary instances stop1 and wait45s left identities live",
+    "WM_CLOSE exact owned assert dialog no effect",
+    "verified parent/button/pid/creation identity; BM_CLICK Ignore solely to finish ordinary close",
+    "ordinary instances stop0; exact identities exited and registry stopped"
+  ],
+  "continuous_guard": {
+    "samples": 347,
+    "first_at": "2026-10-21T05:12:48.881766+00:00",
+    "last_at": "2026-10-21T05:18:36.541664+00:00",
+    "maximum_handles": {
+      "game": 81183,
+      "mcdk": 235
+    },
+    "maximum_observed_step": {
+      "game": 1995,
+      "mcdk": 10
+    },
+    "breach": null,
+    "completed": true,
+    "deadline_expired": false,
+    "identity_ended": true,
+    "minimum_configured_commit_bytes": 6442450944,
+    "memory_coverage": "pre-command only, not continuous"
+  },
+  "source_files_identical": 4479,
+  "auxiliary_files_identical": 1391,
+  "qualification_sha256": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14",
+  "source_contract_sha256": "a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194",
+  "owner_contract_sha256": "d0f37c33f8e054a0e906f44361edc43f49957b26b4af7853da9f2c0ca49bf20f",
+  "registry_state": "stopped",
+  "exact_identities_absent": {
+    "game": true,
+    "mcdk": true
+  },
+  "same_handle_exit_observer": {
+    "schema": 1,
+    "session": "bd116ce74ace42aca00c8e9274037d8e",
+    "owner": "water-r25-final41-editor-v5",
+    "opened_at": "2026-10-21T05:12:48.940029+00:00",
+    "processes": {
+      "game": {
+        "pid": 41056,
+        "identity": "134370331574994851",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-21T05:18:37.116534+00:00"
+      },
+      "mcdk": {
+        "pid": 65652,
+        "identity": "134370331572303699",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-21T05:18:37.117531+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "no_force_used": true,
+  "no_focus_activation_used": true,
+  "no_core_replay": true,
+  "no_hibernation_used": true,
+  "production_admission_performed": false,
+  "manual_closures_added": 0,
+  "remaining": [
+    "Live default production gate error and original function restoration were not observable after IPC timeout.",
+    "G/F-editor were never entered; no fresh visible product evidence.",
+    "Private41-source contract is a reviewed minimal scope, not a complete dependency closure.",
+    "FormalA/F-world/B/R/D unchanged."
+  ]
+}

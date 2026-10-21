@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-21T04:57:49.607737+00:00",
+  "owner": "water-r25-final41-editor-v1",
+  "session": "410aba7efb1947b7a9ef154b7aed636c",
+  "attempt_count": 1,
+  "completed": false,
+  "failure_stage": "cold_launch_before_ready",
+  "failure": "Readiness deadline reached before initialize",
+  "default_constructor_refusal_observed_live": false,
+  "candidate_bootstrap_dispatched": false,
+  "G_started": false,
+  "F_editor_started": false,
+  "continuous_post_ready_watcher_started": false,
+  "launch_handle_samples": 150,
+  "launch_first_sample_at": "2026-10-21T02:30:22.104310+00:00",
+  "launch_last_sample_at": "2026-10-21T04:56:00.320797+00:00",
+  "launch_max_handles": {
+    "game": 677,
+    "mcdk": 231
+  },
+  "source_unchanged": true,
+  "source_file_count": 4479,
+  "auxiliary_unchanged": true,
+  "auxiliary_file_count": 1391,
+  "qualification_sha256": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14",
+  "owner_contract_sha256": "d0f37c33f8e054a0e906f44361edc43f49957b26b4af7853da9f2c0ca49bf20f",
+  "source_contract_sha256": "a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194",
+  "production_admission_performed": false,
+  "default_path_evidence": false,
+  "manual_closures_added": 0,
+  "group_elapsed_wall_seconds": 8779.08967590332,
+  "timing_anomaly": "Tool activity last observed near10:32 Beijing and next recovery at12:56; cause unverified. Original180s startup readiness bound failed; no new launches after recovery.",
+  "hard_deadline_enforced": false,
+  "hard_deadline_limitation": "Post-ready watcher never started because launch never became ready; external pause/resume left ordinary stop after11:10. Do not claim deadline coverage.",
+  "group_stop_exit_code": 1,
+  "registry_finalize_exit_code": 0,
+  "registry_state": "stopped",
+  "exact_process_identities_absent": {
+    "game": true,
+    "mcdk": true
+  },
+  "same_handle_exit_observer": {
+    "schema": 1,
+    "session": "410aba7efb1947b7a9ef154b7aed636c",
+    "owner": "water-r25-final41-editor-v1",
+    "opened_at": "2026-10-21T02:31:19.685671+00:00",
+    "processes": {
+      "game": {
+        "pid": 41644,
+        "identity": "134370234325172297",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-21T04:56:29.323317+00:00"
+      },
+      "mcdk": {
+        "pid": 9896,
+        "identity": "134370234318734806",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-21T04:56:30.325038+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "no_force_used": true,
+  "no_hibernation_used": true,
+  "remaining": [
+    "Investigate cold-launch player/client unavailability independently; current logs do not prove owner gate caused it.",
+    "Normal live production refusal and bootstrap remain unverified.",
+    "G/F-editor remain unexecuted.",
+    "Formal A/F-world/B/R/D remain unqualified."
+  ]
+}

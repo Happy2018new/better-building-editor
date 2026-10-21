@@ -1,0 +1,120 @@
+{
+  "source_commit": "900100aa402f7442b1f1cf6cf1554f1f3d76fd14",
+  "owner": "r25-t02-normal-v1",
+  "source_manifest_sha256": "031217265ecae395c239b7032a279b361671d2ee65af5f1d03789773d484ee26",
+  "source_unchanged": true,
+  "completed": true,
+  "restored": true,
+  "manual_issues_closed": 0,
+  "manual_acceptance": false,
+  "world_write_performed": false,
+  "candidate_profile_assignment": false,
+  "actual_public_card_callbacks": true,
+  "native_mouse_clicked": false,
+  "fixture_cells": 60,
+  "direction_samples": 28,
+  "fixture_material_counts": {
+    "minecraft:red_concrete": 1,
+    "minecraft:stone": 28,
+    "minecraft:oak_stairs": 8,
+    "minecraft:oak_slab": 2,
+    "minecraft:trapdoor": 8,
+    "minecraft:blue_concrete": 1,
+    "minecraft:ladder": 4,
+    "minecraft:stone_button": 6,
+    "minecraft:lime_concrete": 1,
+    "minecraft:magenta_concrete": 1
+  },
+  "operations": [
+    {
+      "operation": "mirror_y",
+      "data_equal": true,
+      "semantic_equal": true,
+      "encoded_equal": false
+    },
+    {
+      "operation": "undo",
+      "data_equal": true,
+      "semantic_equal": true,
+      "encoded_equal": false
+    },
+    {
+      "operation": "redo",
+      "data_equal": true,
+      "semantic_equal": true,
+      "encoded_equal": false
+    },
+    {
+      "operation": "undo",
+      "data_equal": true,
+      "semantic_equal": true,
+      "encoded_equal": false
+    },
+    {
+      "operation": "rotate_y90",
+      "data_equal": true,
+      "semantic_equal": true,
+      "encoded_equal": false
+    },
+    {
+      "operation": "undo",
+      "data_equal": true,
+      "semantic_equal": true,
+      "encoded_equal": false
+    },
+    {
+      "operation": "redo",
+      "data_equal": true,
+      "semantic_equal": true,
+      "encoded_equal": false
+    },
+    {
+      "operation": "undo",
+      "data_equal": true,
+      "semantic_equal": true,
+      "encoded_equal": false
+    }
+  ],
+  "independent_restore_audit_count": 2,
+  "native_camera_exact_in_both_audits": false,
+  "restore_camera_rotation_deltas": [
+    [
+      0.0,
+      0.0,
+      -1.3660377589985728e-05
+    ],
+    [
+      0.0,
+      0.0,
+      -1.3660377589985728e-05
+    ]
+  ],
+  "semantic_camera_restored_in_both_audits": true,
+  "camera_restore_tolerance_degrees": 0.0001,
+  "camera_restore_note": "Semantic rotation restoration is within 0.0001 degrees; exact floating point equality is reported separately and is not assumed.",
+  "agent_visual_observation": "Initial and transformed editor overviews plus mirror-Y and rotate-Y90 full projections all contain the expected scene. Stairs/slabs and attachment layout move consistently with the transform. Some ladders face edge-on and buttons are too small or occluded for complete per-face pixel acceptance in these overview cameras.",
+  "remaining_visual_scope": "All 28 samples need user inspection or targeted face closeups for complete visual acceptance; mirror-X/mirror-Z and missing were not tested in this bounded cold session.",
+  "missing_checked": false,
+  "preflight_failures_preserved": [
+    "Counting all non-stone cells included four colored markers (32 versus 28).",
+    "Undo/redo are Editor methods via Session.action, not named Editor.run tools."
+  ],
+  "runtime_host_corrections_only": [
+    "Explicit five-family sample census",
+    "Undo/redo through existing action API",
+    "Strict active-owner coverage with verified empty non-owner PreviewTile classification"
+  ],
+  "lifecycle": {
+    "game_pid": 63648,
+    "game_identity": "134370328107798494",
+    "ordinary_stop_and_finalize_completed": true,
+    "registry_state": "stopped",
+    "actual_exit_codes": {
+      "game": 3221226505,
+      "mcdk": 0
+    },
+    "normal_shutdown_qualified": false,
+    "force_executed": false,
+    "watcher_retired": true
+  }
+}

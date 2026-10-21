@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "owner": "water-r25-final41-editor-v5",
+  "session_binding": {
+    "id": "bd116ce74ace42aca00c8e9274037d8e",
+    "owner": "water-r25-final41-editor-v5",
+    "game_pid": 41056,
+    "game_identity": "134370331574994851",
+    "mcdk_pid": 65652,
+    "mcdk_identity": "134370331572303699"
+  },
+  "source_contract_sha256": "a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194",
+  "host_sha256": "239f5856d10251ec73baf409b777eda0490084f10e7001b15778050febd779bd",
+  "bootstrap_sha256": "088ae57b8ea713b7881a01b94b4289cb7b04f7e17f791d17fc2bf2be2b49fa26",
+  "started_at_utc": "2026-10-21T05:14:25.179236+00:00",
+  "production_admission_performed": false,
+  "default_path_evidence": false,
+  "execution_dispatched": true,
+  "completed": false,
+  "read_only_state_samples": [
+    {
+      "at_utc": "2026-10-21T05:14:25.683916+00:00",
+      "state": {
+        "ui_init_bridge_observed": false,
+        "system_exists": true,
+        "hud_exists": false,
+        "session_exists": false,
+        "bridge_exists": false
+      }
+    },
+    {
+      "at_utc": "2026-10-21T05:14:27.206258+00:00",
+      "state": {
+        "ui_init_bridge_observed": false,
+        "system_exists": true,
+        "hud_exists": false,
+        "session_exists": false,
+        "bridge_exists": false
+      }
+    },
+    {
+      "at_utc": "2026-10-21T05:14:28.710662+00:00",
+      "state": {
+        "ui_init_bridge_observed": true,
+        "system_exists": true,
+        "hud_exists": false,
+        "session_exists": false,
+        "bridge_exists": true
+      }
+    }
+  ],
+  "host_error": {
+    "type": "MCDKError",
+    "message": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed: IPC JSON request timed out\", \"type\": \"text\"}]}",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\run_candidate_bootstrap.py\", line 98, in main\n    value = return_value(client.call('execute_code', {\n                         ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n        'code': code, 'is_client': True, 'direct_return': True}))\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py\", line 218, in call\n    raise MCDKError(json.dumps(result, ensure_ascii=False))\nmcdk.MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: IPC JSON request timed out\", \"type\": \"text\"}]}\n"
+  },
+  "source_unchanged": true,
+  "finished_at_utc": "2026-10-21T05:14:39.861500+00:00"
+}

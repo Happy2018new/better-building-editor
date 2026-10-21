@@ -1,0 +1,85 @@
+--- v4/launch_r25.py
++++ v5/launch_r25.py
+@@ -13,7 +13,7 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r25-final41-editor-v4'
++OWNER = 'water-r25-final41-editor-v5'
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+@@ -50,7 +50,7 @@
+     binding = json.loads(binding_path.read_bytes())
+     assert binding['owner'] == OWNER and Path(binding['project']).resolve() == PROJECT.resolve()
+     assert guard_policy.remaining_seconds(binding['guard_deadline_utc']) > 300, 'No time for cold launch and restore'
+-    host_binding = json.loads((WORK / 'prelaunch-host-binding-v4.json').read_bytes())
++    host_binding = json.loads((WORK / 'prelaunch-host-binding-v5.json').read_bytes())
+     assert hashlib.sha256(binding_path.read_bytes()).hexdigest() == host_binding['source_binding_sha256']
+     for name, expected in host_binding['host_sha256'].items():
+         assert hashlib.sha256((WORK / name).read_bytes()).hexdigest() == expected, name
+--- v4/run_candidate_bootstrap.py
++++ v5/run_candidate_bootstrap.py
+@@ -5,6 +5,8 @@
+ import os
+ from pathlib import Path
+ import sys
++import time
++import traceback
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+@@ -71,12 +73,31 @@
+        binding['owner_contract_sha256'], binding['old_qualification_implementation_sha256'])
+     try:
+         with Client(timeout=35) as client:
++            state_deadline = time.monotonic() + 20.
++            receipt['read_only_state_samples'] = []
++            while True:
++                state_value = return_value(client.call('execute_code', {
++                    'code': "import json\nimport mod.client.extraClientApi as api\ns=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\n_result=json.dumps({'system_exists':s is not None,'bridge_exists':s is not None and s.bridge is not None,'session_exists':s is not None and s.session is not None,'hud_exists':s is not None and s.hud is not None,'ui_init_bridge_observed':s is not None and s.bridge is not None})",
++                    'is_client': True, 'direct_return': True}))
++                state = json.loads(state_value) if isinstance(state_value, str) else state_value
++                receipt['read_only_state_samples'].append({'at_utc': datetime.now(timezone.utc).isoformat(), 'state': state})
++                output.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
++                if not state['system_exists'] or state['session_exists']:
++                    raise RuntimeError('Unexpected client system/session state before one-shot bootstrap')
++                if state['bridge_exists']:
++                    break
++                if time.monotonic() >= state_deadline:
++                    raise RuntimeError('No bridge observed within20s; UiInitFinished not observed; no initialization forced')
++                time.sleep(min(1., max(0., state_deadline - time.monotonic())))
+             receipt['execution_dispatched'] = True
+             value = return_value(client.call('execute_code', {
+                 'code': code, 'is_client': True, 'direct_return': True}))
+             runtime = json.loads(value) if isinstance(value, str) else value
+             receipt['runtime'] = runtime
+             receipt['completed'] = bool(runtime.get('completed'))
++    except Exception as error:
++        receipt['host_error'] = {'type': type(error).__name__, 'message': str(error), 'traceback': traceback.format_exc()}
++        raise
+     finally:
+         receipt['source_unchanged'] = checked_sources(binding) == before
+         receipt['finished_at_utc'] = datetime.now(timezone.utc).isoformat()
+--- v4/run_product_v2_f_editor.py
++++ v5/run_product_v2_f_editor.py
+@@ -13,7 +13,7 @@
+ WORK = Path(__file__).resolve().parent
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
+ SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+-OWNER = 'water-r25-final41-editor-v4'
++OWNER = 'water-r25-final41-editor-v5'
+ OUT = WORK / 'product-v2-f-editor-v1.json'
+ HANDLES = WORK / 'product-v2-f-editor-v1-handles.json'
+ RECEIPT = WORK / 'product-v2-f-editor-v1-host.json'
+--- v4/run_product_v2_stages.py
++++ v5/run_product_v2_stages.py
+@@ -13,7 +13,7 @@
+ WORK = Path(__file__).resolve().parent
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
+ SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+-OWNER = 'water-r25-final41-editor-v4'
++OWNER = 'water-r25-final41-editor-v5'
+ STAGE = sys.argv[1] if len(sys.argv) == 2 else None
+ if STAGE not in ('A', 'B', 'R', 'G'):
+     raise ValueError('Pass one stage: A, B, R, or G')

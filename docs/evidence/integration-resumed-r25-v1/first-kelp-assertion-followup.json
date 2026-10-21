@@ -1,0 +1,125 @@
+{
+  "after": {
+    "captured_at": "2026-10-21T10:01:32.114827+08:00",
+    "focus_files": {
+      "behavior_pack/modern_projection/projection/cell.py": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+      "behavior_pack/modern_projection/projection/debug_blueprints.py": "6d8eec8c323d0e3ead00514d1833adc0dff99d25f4a5de2dca59578caca39964",
+      "behavior_pack/modern_projection/projection/debug_botanical_blueprints.py": "eca8df4c98d451849e8110ccfe7894ed842029f79404d31468683418c777be38",
+      "behavior_pack/modern_projection/projection/geometry_palette.py": "e723057a0d873e754e5b52f62c49967cd642ff32c268f9f93ca5b58eb7d74a3e",
+      "behavior_pack/modern_projection/projection/kelp_render.py": "208b766cc7bdadf42d6dba30d818704643ca935497f78eed3b2ecf1b39114999",
+      "behavior_pack/modern_projection/projection/large_preview.py": "d9f4c6e28fd55a1e7936d4270a0b18985341f04d6ce6a75a2c890581e02fc39a",
+      "behavior_pack/modern_projection/projection/model.py": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2",
+      "behavior_pack/modern_projection/projection/render_context.py": "6989fda17181eda67afd5ea45f13d9a0498e606eea2c731502d638b9f0fcf84c",
+      "behavior_pack/modern_projection/projection/water_interactions.py": "80b0987ef0bc6151549226f31c993d1e3ccf60b604da59afd06ed748f2ab1360",
+      "tests/test_botanical_neighbor_snapshots.py": "58b9b1182a5aceeb7b5e288a40ad439e4e14275ccc6bbb4aede2e8e23b6ba9a6",
+      "tests/test_complete_cells.py": "09fb74568e84818f0c6e3e8e23f34f73b60b9ceb915d8d5a766121ee0a011bf1",
+      "tests/test_context_batches.py": "564002a4661962af33346c2c945e0004cdc176b692a383f40ae3e49fc9f4a293",
+      "tests/test_kelp_blueprints.py": "57b12dc4a18e3e3c47108541804a1b7a594a88f8f6a59bd21fed89799642b1e6",
+      "tests/test_kelp_render.py": "dc83f612c2823f4a56b573ffcb69a4554affaf459d9f6cb0dc9eb470e280c2a5",
+      "tests/test_kelp_resources.py": "f98a0a66184eb40d8a6ed0cd485d834aa2d10c79f5547c6b0df99da8a1aecb85",
+      "tests/test_render_context.py": "48fcc66d749b279dd4984d5e6ad725406f95c4b03bc7e27e6f6b11a34938c8d7",
+      "tests/test_water_interactions.py": "2ba0f369ff02609550a73e20bbe09cc45466bbbcf04cbb16d4f4269cc7b916a8",
+      "tests/test_water_native_projection.py": "db68a5c50f4d8aebd974c555a366a61b1272ca407bf75940bfaea8e6b13d3510"
+    },
+    "head": "7c7c32f05fbc6d4eb0e7e9895f060f1f39b8860c",
+    "tracked_status": [
+      " M behavior_pack/modern_projection/projection/debug_transform_acceptance.py",
+      " M docs/CONVERSATION_HANDOFF.md",
+      " M docs/DEVELOPMENT_PLAN.md",
+      " M docs/IMPLEMENTATION_GAPS.md",
+      " M docs/REPOSITORY_SPLIT_AND_MIGRATION.md",
+      " M docs/acceptance/2026-10-24-r23-candidates.md",
+      " M docs/acceptance/2026-10-24-transforms.md",
+      " M tests/test_botanical_neighbor_snapshots.py",
+      " M tests/test_transform_acceptance.py"
+    ]
+  },
+  "before": {
+    "captured_at": "2026-10-21T10:00:22.447336+08:00",
+    "focus_files": {
+      "behavior_pack/modern_projection/projection/cell.py": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+      "behavior_pack/modern_projection/projection/debug_blueprints.py": "6d8eec8c323d0e3ead00514d1833adc0dff99d25f4a5de2dca59578caca39964",
+      "behavior_pack/modern_projection/projection/debug_botanical_blueprints.py": "eca8df4c98d451849e8110ccfe7894ed842029f79404d31468683418c777be38",
+      "behavior_pack/modern_projection/projection/geometry_palette.py": "e723057a0d873e754e5b52f62c49967cd642ff32c268f9f93ca5b58eb7d74a3e",
+      "behavior_pack/modern_projection/projection/kelp_render.py": "208b766cc7bdadf42d6dba30d818704643ca935497f78eed3b2ecf1b39114999",
+      "behavior_pack/modern_projection/projection/large_preview.py": "d9f4c6e28fd55a1e7936d4270a0b18985341f04d6ce6a75a2c890581e02fc39a",
+      "behavior_pack/modern_projection/projection/model.py": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2",
+      "behavior_pack/modern_projection/projection/render_context.py": "6989fda17181eda67afd5ea45f13d9a0498e606eea2c731502d638b9f0fcf84c",
+      "behavior_pack/modern_projection/projection/water_interactions.py": "80b0987ef0bc6151549226f31c993d1e3ccf60b604da59afd06ed748f2ab1360",
+      "tests/test_botanical_neighbor_snapshots.py": "58b9b1182a5aceeb7b5e288a40ad439e4e14275ccc6bbb4aede2e8e23b6ba9a6",
+      "tests/test_complete_cells.py": "09fb74568e84818f0c6e3e8e23f34f73b60b9ceb915d8d5a766121ee0a011bf1",
+      "tests/test_context_batches.py": "564002a4661962af33346c2c945e0004cdc176b692a383f40ae3e49fc9f4a293",
+      "tests/test_kelp_blueprints.py": "57b12dc4a18e3e3c47108541804a1b7a594a88f8f6a59bd21fed89799642b1e6",
+      "tests/test_kelp_render.py": "dc83f612c2823f4a56b573ffcb69a4554affaf459d9f6cb0dc9eb470e280c2a5",
+      "tests/test_kelp_resources.py": "f98a0a66184eb40d8a6ed0cd485d834aa2d10c79f5547c6b0df99da8a1aecb85",
+      "tests/test_render_context.py": "48fcc66d749b279dd4984d5e6ad725406f95c4b03bc7e27e6f6b11a34938c8d7",
+      "tests/test_water_interactions.py": "2ba0f369ff02609550a73e20bbe09cc45466bbbcf04cbb16d4f4269cc7b916a8",
+      "tests/test_water_native_projection.py": "db68a5c50f4d8aebd974c555a366a61b1272ca407bf75940bfaea8e6b13d3510"
+    },
+    "head": "7c7c32f05fbc6d4eb0e7e9895f060f1f39b8860c",
+    "tracked_status": [
+      " M behavior_pack/modern_projection/projection/debug_transform_acceptance.py",
+      " M docs/CONVERSATION_HANDOFF.md",
+      " M docs/DEVELOPMENT_PLAN.md",
+      " M docs/IMPLEMENTATION_GAPS.md",
+      " M docs/acceptance/2026-10-24-r23-candidates.md",
+      " M docs/acceptance/2026-10-24-transforms.md",
+      " M tests/test_botanical_neighbor_snapshots.py",
+      " M tests/test_transform_acceptance.py"
+    ]
+  },
+  "focus_source_changes_during_run": [],
+  "original_full_regression": "unittest-summary.json: 3429 tests, errors=1, skipped=1; retained as failed, not replaced by this targeted follow-up",
+  "passed": true,
+  "qualification": "One test expectation changed only. No production change by integration agent; root owns unrelated T02 fixture work. No new full-suite or GPU/manual acceptance claim.",
+  "steps": [
+    {
+      "command": [
+        "D:/Program/Python/python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "-v",
+        "test_botanical_neighbor_snapshots",
+        "test_kelp_render",
+        "test_kelp_blueprints",
+        "test_kelp_resources",
+        "test_render_context",
+        "test_context_batches",
+        "test_water_interactions",
+        "test_water_native_projection",
+        "test_complete_cells"
+      ],
+      "cwd": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+      "ended_at": "2026-10-21T10:01:31.071605+08:00",
+      "exit_code": 0,
+      "log": "kelp-assertion-focused-py3.log",
+      "name": "kelp-assertion-focused-py3",
+      "pythonpath": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tests",
+      "seconds_wall": 67.433,
+      "started_at": "2026-10-21T10:00:23.638919+08:00",
+      "tests_run": 99
+    },
+    {
+      "command": [
+        "D:/Program/Python27/python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_kelp_render"
+      ],
+      "cwd": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+      "ended_at": "2026-10-21T10:01:32.114707+08:00",
+      "exit_code": 0,
+      "log": "kelp-assertion-focused-py2.log",
+      "name": "kelp-assertion-focused-py2",
+      "pythonpath": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tests",
+      "seconds_wall": 1.043,
+      "started_at": "2026-10-21T10:01:31.071751+08:00",
+      "tests_run": 13
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+diff --git a/tests/test_botanical_neighbor_snapshots.py b/tests/test_botanical_neighbor_snapshots.py
+index e3be58bb..0c6b66f1 100644
+--- a/tests/test_botanical_neighbor_snapshots.py
++++ b/tests/test_botanical_neighbor_snapshots.py
+@@ -12,6 +12,7 @@ from projection import block_registry as registry
+ from projection.cell import AIR, background, foreground
+ from projection.debug_blueprints import build, entries, material
+ from projection.debug_botanical_blueprints import VISUAL_CASE, source_document
++from projection.kelp_render import PROXIES as KELP_PROXIES
+ from projection.model import Editor, close_group_selection
+ from projection.render_context import prepare_document_context
+ from projection.render_layout import context_position
+@@ -73,7 +74,20 @@ class BotanicalNeighborSnapshotTests(unittest.TestCase):
+                 z_size, x_size, y_size = result['volume']
+                 index = (encoded[1] * x_size + encoded[0]) * z_size + encoded[2]
+                 original = source.get(occupied)
+-                self.assertIn(index, result['common'][foreground(original)])
++                if row['id'] == 'kelp_wet_chain':
++                    # Hidden endpoints retain their source roles around the selected middle.
++                    upper = (keep[0], keep[1] + 1, keep[2])
++                    for position, part in ((occupied, 'stem'), (keep, 'stem'), (upper, 'top')):
++                        self.assertEqual(material('kelp'), foreground(source.get(position)))
++                        self.assertEqual(material('water'), background(source.get(position)))
++                        offset = tuple(position[i] - keep[i] for i in range(3))
++                        point = context_position(keep, offset)
++                        slot = (point[1] * x_size + point[0]) * z_size + point[2]
++                        self.assertIn(slot, result['common'][(KELP_PROXIES[part], 0)])
++                        self.assertIn(slot, result['extra'][material('water')])
++                    self.assertNotIn(material('kelp'), result['common'])
++                else:
++                    self.assertIn(index, result['common'][foreground(original)])
+                 if background(original) != AIR:
+                     self.assertIn(index, result['extra'][background(original)])
+                 self.assertEqual(saved, source.to_data())

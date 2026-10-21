@@ -1,0 +1,397 @@
+{
+  "schema": 1,
+  "created_at_utc": "2026-10-21T05:20:46.402508+00:00",
+  "purpose": "Small audited water-final41 handoff; excludes all source and burst archives",
+  "archive_decodes_to_original_raw": false,
+  "reason": "Archive includes explicitly sanitized session/stop/launch/group JSON derivatives; original raw files remain in runtime and original SHA is retained per artifact. Verbatim host files are separately identified.",
+  "manual_closures_added": 0,
+  "production_admission_performed": false,
+  "source_contract_sha256": "a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194",
+  "owner_contract_sha256": "d0f37c33f8e054a0e906f44361edc43f49957b26b4af7853da9f2c0ca49bf20f",
+  "entries": [
+    {
+      "archive_member": "v3/final41-editor-failed-launch-summary-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\final41-editor-failed-launch-summary-v1.json",
+      "original_raw_sha256": "73b55c4b23b040f85ea39b957ff355318d4a067a75dff6791331e04cb8f9c550",
+      "decoded_sanitized_sha256": "22d649da032bf969f71667dfa9b69c89d48e5c49df4fe0a716441cd2712f1248",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v3/failed-launch-evidence-index-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\failed-launch-evidence-index-v1.json",
+      "original_raw_sha256": "9d13d862048cb19ddfba514c280704b5a2bc1d3c9b88ce7d15c65d78229522b7",
+      "decoded_sanitized_sha256": "60b2c8f80b00659c44253e81d12305eb308c4676dfcbd16ea3ad7d49aa98ca89",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v3/startup-log-bound-excerpt-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\startup-log-bound-excerpt-v1.json",
+      "original_raw_sha256": "e4a89c0e7b31229c670e20d0f4571d830d23606ef9c40fc99835cd2fcfbb9034",
+      "decoded_sanitized_sha256": "302dc0ffdb732235e2721cabe3fcfb08e3023be85dfa95968b940c13d91a0cee",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v3/prelaunch-review-v3.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\prelaunch-review-v3.json",
+      "original_raw_sha256": "8167b9b685719cdb5457c61e4fb481391211065c5d2453c622a23d2a7b108308",
+      "decoded_sanitized_sha256": "1a92e3fdb1773aa3192fb7ef982e147f54e1a879a4617dd447c120bf321ce974",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v3/prelaunch-host-binding-v3.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\prelaunch-host-binding-v3.json",
+      "original_raw_sha256": "f869bdcb6427d9f401ee057f0cb3711248b8e413c78f148220a344affbb3f813",
+      "decoded_sanitized_sha256": "16d13ffeb0610ac68b200cad6f2badb0ac35b3f94db54b7bb75a9d3fa144c1d5",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v3/group-execution-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\group-execution-v1.json",
+      "original_raw_sha256": "14d4199b16c30107043b2b437ee24656bbe09e659a1f3d40c9a59b67a468de92",
+      "decoded_sanitized_sha256": "cdf2455717a9f9b7b8833ac2904389d892a65bf64ce6a6a623cbe3967c98a1ab",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v3/launch/launch.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\launch\\launch.json",
+      "original_raw_sha256": "130760e9bb57ff27309b6390e640d4666127404ef8e7ee76e00cb73883c246fc",
+      "decoded_sanitized_sha256": "274d44fd9277dd90bff3fb8a845255e2c5f954950d1cd17964482358df6f5af8",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v3/launch/exact-exit.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\launch\\exact-exit.json",
+      "original_raw_sha256": "46ae97e5c34a890cd39b43bacca93604a785d78b42ad4062189f0b5289253065",
+      "decoded_sanitized_sha256": "9492d0f452a47210b7599964c43bb1209358e9b19efa0929967d24e8f65d36cf",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v3/registry-session.sanitized.json",
+      "original_raw_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\410aba7efb1947b7a9ef154b7aed636c\\session.json",
+      "original_raw_sha256": "62e2db2d6d02d774bc933f8f3dad27d6ed7508c7570355ee620593f63cff401b",
+      "decoded_sanitized_sha256": "39f31a2492ff304afc5d4e5ad7d94e05a9bede46d37faa7eb18f4652c7ffc04e",
+      "redacted_fields": [
+        "token"
+      ],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v4/host-pre-dispatch-failure-summary-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v4\\host-pre-dispatch-failure-summary-v1.json",
+      "original_raw_sha256": "7bfb5efbe57f1ac5903625bdcf7edc17b868b4b083b0141a33eea595ccc08e13",
+      "decoded_sanitized_sha256": "97128350c3d7f32c86ab189dfa54e40d4727912b308d38dbe8afb365d4346b58",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v4/failed-host-evidence-index-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v4\\failed-host-evidence-index-v1.json",
+      "original_raw_sha256": "291760516a93be01b50fb382a019e8aceccda52776f4e31c17ae072e0b2d6bd5",
+      "decoded_sanitized_sha256": "6e2ccb6042ebb97698d185e17d3548e2c71caa72d81098c5da6f0401794f9163",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v4/prelaunch-review-v4.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v4\\prelaunch-review-v4.json",
+      "original_raw_sha256": "6cdb9fd1a19e0c48d30115bc4984c80c6b439746e601352c546f2bb81db14d53",
+      "decoded_sanitized_sha256": "be3d9f7990fb41c1fa049902a2ee8bfd6a3067714510e2eab36f7422d31be7dd",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v4/prelaunch-host-binding-v4.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v4\\prelaunch-host-binding-v4.json",
+      "original_raw_sha256": "dd2b816e5be7d5498ff340e9e40dbf4b5d5ed21c19509a1c60d4cd360de09ad6",
+      "decoded_sanitized_sha256": "ab9e50bc65cc07a13c3931dc2b03a02f4e6dda21d94ac42c6528096c9d3cb519",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v4/group-execution-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v4\\group-execution-v1.json",
+      "original_raw_sha256": "bf46fdfe1a2dd91d184da400074eeca375d7f549ac289bf1a8d3da1f59a36f53",
+      "decoded_sanitized_sha256": "41723e5b511a403156b74e7c908247124d6fb0f1ba617b98e53b1ff680ecfdc3",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v4/launch/launch.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v4\\launch\\launch.json",
+      "original_raw_sha256": "f9b14e11ad16d3368cf08a3b90d73b8f13b4bf9c273d0b6f31a8e2b26634df53",
+      "decoded_sanitized_sha256": "6749a925c627df0ea2a91157157000632034ceefca09ecc25d4ee8ced4c1efe5",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v4/launch/exact-exit.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v4\\launch\\exact-exit.json",
+      "original_raw_sha256": "749a6387087d66e7e76c36e625b2206a580ec3213cfe1c14a868439dcb7d2878",
+      "decoded_sanitized_sha256": "996fa9590256cb851ecad70ccaba83abe35df223ac3da938d5275b29c9458b56",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v4/continuous-handle-guard-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v4\\continuous-handle-guard-v1.json",
+      "original_raw_sha256": "c06c96133af4ae23e516a6e8e20ed5ea723b76a1e18055cab5f480d59a60d49f",
+      "decoded_sanitized_sha256": "37203c9d713453de613eab526cdb3d64b4cbd74dd7c3efb803d47dcbca9f3ee3",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v4/registry-session.sanitized.json",
+      "original_raw_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\dc7ebd46e7fe49aa90ebe34c9cf2f72e\\session.json",
+      "original_raw_sha256": "c5bb48b5bdbe498b3e59776d1643350c5515b93a661ac6239c47fac2c105e638",
+      "decoded_sanitized_sha256": "b9d29c0f0c6431830b483617a7d4d6bb891c084d52b73b20a11d8ebf415ba56a",
+      "redacted_fields": [
+        "token"
+      ],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/candidate-ipc-timeout-summary-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\candidate-ipc-timeout-summary-v1.json",
+      "original_raw_sha256": "6331f9f689d5965cdd5d4ae9033cc665b12eadc0d4e3786255dd2a83a8e442df",
+      "decoded_sanitized_sha256": "a3f2b9488bffd00e83d84381276aff0e57273d183812bcd03d03313b414f20b5",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/prelaunch-review-v5-r2.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\prelaunch-review-v5-r2.json",
+      "original_raw_sha256": "75dc8128d4b26ec0c57ea11d4342f2621c05cb4800d8e73b5e17efe0980420d3",
+      "decoded_sanitized_sha256": "61f330572ea0f44bbe0edcfa331df401a12ee1ea987508633def6854cfd93a33",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/prelaunch-host-binding-v5-r2.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\prelaunch-host-binding-v5-r2.json",
+      "original_raw_sha256": "4cd81f5ba6acf424d2b5ee52336d636d7f9dcacae871fcfa9d3dc69e9fbaff2f",
+      "decoded_sanitized_sha256": "af1615cb3d506f351a849ca929e0e784f44fc21fed0dfdc96856ce3caef7b672",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/pre-dispatch-offline-asserts-v5-r2.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\pre-dispatch-offline-asserts-v5-r2.json",
+      "original_raw_sha256": "d12a036fcc5e63ceaf2cf75a7ee685b55fab4c8970d0eb4aeafdadc5eee86100",
+      "decoded_sanitized_sha256": "6ce385218e17228b2de132bd602101b012e02a2f2c8ddee372edfa14f2b37700",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/candidate-bootstrap-execution-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\candidate-bootstrap-execution-v1.json",
+      "original_raw_sha256": "6c61c02c3acbfeb849ab991212ff72762b9d9b4e88c00f95eb544d6dcd4fa3a3",
+      "decoded_sanitized_sha256": "c1f82d177bffb5e06a17fe98c65afabbdd711948cda1c6623a84612fdba6404d",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/group-execution-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\group-execution-v1.json",
+      "original_raw_sha256": "67722d099fde39cd75b4f25a155e75436374e41034035451dd7511654f6f58bc",
+      "decoded_sanitized_sha256": "c05f0ba0f990173e9f26b7053ce41568e128bea70e986ee3e5fe28c8c8c7a69e",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/launch/launch.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\launch\\launch.json",
+      "original_raw_sha256": "364e004f98f9e3ba93dafa3aac0d90739f1d440d17d017656a0fe93f5600a8ca",
+      "decoded_sanitized_sha256": "db34a8695743e386582bf54f0a21d066e01dde0d483b05395092cb6bd2bb5131",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/launch/exact-exit.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\launch\\exact-exit.json",
+      "original_raw_sha256": "4771afca5661be44690919c807a85e60625324e48703edd7ea0e9c957b76bac4",
+      "decoded_sanitized_sha256": "bf8226cb9b8122daeb3c41266ac0a22e6e92430258cc520a97277069f1595f2f",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/continuous-handle-guard-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\continuous-handle-guard-v1.json",
+      "original_raw_sha256": "f21f88c9cf05a64df22c2ea91e0f85db4135a901fdfc96f8407621b2dcb70e29",
+      "decoded_sanitized_sha256": "e80b147984b47210f50773456450556db5cf9693268f9718250304c7bfa4e0ab",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/exact-owned-assert-window-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\exact-owned-assert-window-v1.json",
+      "original_raw_sha256": "8fb244cd679321815646de3efccc1cb3f72b274c3b02e88cf5250576ae25e7ab",
+      "decoded_sanitized_sha256": "2b5974f33b6b726212aaf1e800d57dd46c15f80fb3c4c3438698486c8b8ad2f6",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/exact-dialog-close-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\exact-dialog-close-v1.json",
+      "original_raw_sha256": "5c1909e8eefafd08eb922e3725d8928797841127a0f80090b58f4ac54b3c89f2",
+      "decoded_sanitized_sha256": "1f331b79c950dd9fab9fd18681635befcf8aa0092b41d81ca862a6fdb586ea09",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/exact-dialog-ignore-for-close-v1.json",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\exact-dialog-ignore-for-close-v1.json",
+      "original_raw_sha256": "17bfb1555cc44b43df68cd8e14832e23a078914c4364e37496e620cd6b35b1c5",
+      "decoded_sanitized_sha256": "755592dc211c6b0f085bb225780c1eb1f78db838c1f878d1f3b579d2b90ab057",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/registry-session.sanitized.json",
+      "original_raw_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\bd116ce74ace42aca00c8e9274037d8e\\session.json",
+      "original_raw_sha256": "d650917699c837a0d28d1fc75fd63fc93ec61ddbe77ff00206cebcfad9d46a34",
+      "decoded_sanitized_sha256": "c0cbb00c3171163595fb40c7acc81f03e5b71cd47bc8e89afb09ec7e7ada6f02",
+      "redacted_fields": [
+        "token"
+      ],
+      "decoded_equals_original_raw": false,
+      "representation": "sanitized JSON reserialization; raw retained at original path"
+    },
+    {
+      "archive_member": "v5/host/candidate_bootstrap.py",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\candidate_bootstrap.py",
+      "original_raw_sha256": "088ae57b8ea713b7881a01b94b4289cb7b04f7e17f791d17fc2bf2be2b49fa26",
+      "decoded_sanitized_sha256": "088ae57b8ea713b7881a01b94b4289cb7b04f7e17f791d17fc2bf2be2b49fa26",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/check_candidate_bootstrap.py",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\check_candidate_bootstrap.py",
+      "original_raw_sha256": "a1a29338f9fc6f56c4638fda29166e0ed4b45be3edde4500c6c596378620ebb4",
+      "decoded_sanitized_sha256": "a1a29338f9fc6f56c4638fda29166e0ed4b45be3edde4500c6c596378620ebb4",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/guard_policy.py",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\guard_policy.py",
+      "original_raw_sha256": "f0d424b39e6e7e29d591f991991dce095bec5965579d2977162b9c409e7da923",
+      "decoded_sanitized_sha256": "f0d424b39e6e7e29d591f991991dce095bec5965579d2977162b9c409e7da923",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/launch_r25.py",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\launch_r25.py",
+      "original_raw_sha256": "11a77ec3167a8f06c2afb259752bd8ae32fbf57822c97b6664677cb64ea9744f",
+      "decoded_sanitized_sha256": "11a77ec3167a8f06c2afb259752bd8ae32fbf57822c97b6664677cb64ea9744f",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/run_candidate_bootstrap.py",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\run_candidate_bootstrap.py",
+      "original_raw_sha256": "239f5856d10251ec73baf409b777eda0490084f10e7001b15778050febd779bd",
+      "decoded_sanitized_sha256": "239f5856d10251ec73baf409b777eda0490084f10e7001b15778050febd779bd",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/run_editor_group.py",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\run_editor_group.py",
+      "original_raw_sha256": "68d73e058a0e6bc4262bbb592f66df78f1e158244f53b7371f73d98bc7f085f0",
+      "decoded_sanitized_sha256": "68d73e058a0e6bc4262bbb592f66df78f1e158244f53b7371f73d98bc7f085f0",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/run_product_v2_f_editor.py",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\run_product_v2_f_editor.py",
+      "original_raw_sha256": "589d33b95baeaa44008b17bed8989a9bf9d378a51e9e6759d651efcbe2db416a",
+      "decoded_sanitized_sha256": "589d33b95baeaa44008b17bed8989a9bf9d378a51e9e6759d651efcbe2db416a",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/run_product_v2_stages.py",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\run_product_v2_stages.py",
+      "original_raw_sha256": "ba1e0434816ea24af5495998c698ec21e2532dc4cefea2e93fbe0feb81bb9d3d",
+      "decoded_sanitized_sha256": "ba1e0434816ea24af5495998c698ec21e2532dc4cefea2e93fbe0feb81bb9d3d",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/watch_handles.py",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\watch_handles.py",
+      "original_raw_sha256": "e613712913d9fc62d8bae684758b99112965f4328513b6e03d82d1909da51732",
+      "decoded_sanitized_sha256": "e613712913d9fc62d8bae684758b99112965f4328513b6e03d82d1909da51732",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/host-v4-to-v5.patch",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\host-v4-to-v5.patch",
+      "original_raw_sha256": "451af674ab8866aea9528e63ab105ccc46e009331d88b23e47a7fe5f56b6f52c",
+      "decoded_sanitized_sha256": "451af674ab8866aea9528e63ab105ccc46e009331d88b23e47a7fe5f56b6f52c",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    },
+    {
+      "archive_member": "v5/host/host-v5-to-r2.patch",
+      "original_raw_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v5\\host-v5-to-r2.patch",
+      "original_raw_sha256": "178fc162614cfddb9fdabee00e4e6be6390bbf15de1d940b414b8d3255b33edf",
+      "decoded_sanitized_sha256": "178fc162614cfddb9fdabee00e4e6be6390bbf15de1d940b414b8d3255b33edf",
+      "redacted_fields": [],
+      "decoded_equals_original_raw": true,
+      "representation": "verbatim reviewed host source; no session secrets"
+    }
+  ]
+}

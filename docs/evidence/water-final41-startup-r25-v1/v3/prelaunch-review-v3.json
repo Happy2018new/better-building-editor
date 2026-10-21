@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "head": "900100aa402f7442b1f1cf6cf1554f1f3d76fd14",
+  "private_project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2",
+  "source_contract_sha256": "a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194",
+  "owner_contract_sha256": "d0f37c33f8e054a0e906f44361edc43f49957b26b4af7853da9f2c0ca49bf20f",
+  "source_files": 4479,
+  "owner_source_count": 41,
+  "scope_is_complete_transitive_closure": false,
+  "private_changes": [
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py",
+    "tools/generate_liquid_product_owner_contract.py",
+    "tools/data/liquid_product_owner_contract_v1.json"
+  ],
+  "qualification_sha256_preserved": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14",
+  "default_constructor_expected_refusal": true,
+  "candidate_is_default_path_evidence": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0,
+  "launch_performed": false,
+  "planned_stages": [
+    "cold launch with original gate refusal",
+    "explicit host candidate bootstrap and finally function identity restoration",
+    "G original public gallery",
+    "F-editor original 19 cases / 42 wet-dry-water-only rows and original attached controls",
+    "independent source/marker/world-actor restore",
+    "ordinary exact-owner stop and same-handle exit-code retention"
+  ],
+  "offline_controls": [
+    {
+      "path": "bootstrap-offline-controls-v1.json",
+      "checks": 48,
+      "passed": true,
+      "source_sha256_at_test": "088ae57b8ea713b7881a01b94b4289cb7b04f7e17f791d17fc2bf2be2b49fa26"
+    },
+    {
+      "path": "guard-offline-controls-v1.json",
+      "checks": 10,
+      "passed": true,
+      "watcher_changed_after_pure_policy_test": "v2 removes continuous memory sampling; pure policy unchanged; syntax/static no-force/first-sample verified"
+    }
+  ],
+  "host_binding_sha256": "f869bdcb6427d9f401ee057f0cb3711248b8e413c78f148220a344affbb3f813",
+  "review_paths": [
+    "candidate_bootstrap.py",
+    "run_candidate_bootstrap.py",
+    "guard_policy.py",
+    "watch_handles.py",
+    "launch_r25.py",
+    "run_editor_group.py",
+    "host-baseline-minimal.patch",
+    "owner-scope-minimal.patch",
+    "prelaunch-host-binding-v2.json"
+  ],
+  "remaining_live_blockers": [
+    "Root independent prelaunch review and explicit start instruction.",
+    "Actual client IPC after expected constructor refusal and safe ordinary UiInitFinished reentry remain unverified.",
+    "If bootstrap refuses or throws, keep first receipt and stop normally without replay."
+  ],
+  "deadline_no_new_long_batch_utc": "2026-10-21T02:55:00+00:00",
+  "guard_stop_deadline_utc": "2026-10-21T03:10:00+00:00",
+  "review_revision": 3,
+  "changes_since_v1": [
+    "All execution hosts explicitly set MCDEV_ALLOW_USER_FOREGROUND=0.",
+    "Watcher limited to handles/deadline; original 6GiB launch/stage memory guards retained.",
+    "Partial launch cleanup tolerates missing identities and cannot finalize unknown identities."
+  ],
+  "previous_review_sha256": "efbe7ed8425076ac134a9c497e450596f682d20704047204128abf3299e7cea4",
+  "original_host_source_archive_sha256": "767ff99519d38fbcf2296cb95c52adc0e1286b4013461783131b931240f5f144",
+  "changes_since_v2": [
+    "Add 6GiB available commit preflight and receipt directly before each cold launch/bootstrap/G/F-editor command; correct prior description of stage memory coverage."
+  ],
+  "actual_resource_coverage": {
+    "continuous": [
+      "game handles",
+      "MCDK handles",
+      "exact identity",
+      "fixed guard deadline"
+    ],
+    "pre_step": [
+      "GlobalMemoryStatusEx available commit >=6GiB"
+    ],
+    "not_continuously_sampled": [
+      "available commit"
+    ]
+  }
+}

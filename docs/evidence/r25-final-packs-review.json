@@ -1,0 +1,155 @@
+{
+  "completed_at": "2026-10-21T13:26:04.031625+08:00",
+  "integration_semantics": {
+    "first_failed_evidence_preserved": true,
+    "historical_untracked_test_count": 10,
+    "historical_untracked_test_paths": [
+      "tests/test_concrete_color_r23_tools.py",
+      "tests/test_firefly_motion_r23.py",
+      "tests/test_ordinary_alpha_r23_tools.py",
+      "tests/test_shelf_native_depth_reference.py",
+      "tests/test_snow_holdout_probe_r20.py",
+      "tests/test_special_item_capabilities.py",
+      "tests/test_transform_missing_r23.py",
+      "tests/test_transform_runtime_r23_tools.py",
+      "tests/test_water_batch_native_oracles.py",
+      "tests/test_water_qualification_native_oracle.py"
+    ],
+    "old_readonly_review_snapshot": {
+      "current_common_index_sha256": "f7f351288401664de052cb3f70955f7323359341d3790c620f92fc7e1c902fd1",
+      "index_sha256": "cfc7797ba25e0fe07fd0d0ee5c7f05a8f2fa583c3a2b47a1e6a675d2df9d42c7",
+      "raw_record_sha_audit_retained": true,
+      "status": "pre-redaction snapshot only; its 28 exact raw archive statement does not describe the current 27 exact + 1 redacted derivative package"
+    },
+    "second_exit_code": 0,
+    "second_head_after": "900100aa402f7442b1f1cf6cf1554f1f3d76fd14",
+    "second_head_before": "900100aa402f7442b1f1cf6cf1554f1f3d76fd14",
+    "second_input_changes": [],
+    "second_log_reports_ok": true,
+    "second_passed": true,
+    "second_skipped": 1,
+    "second_tests_run": 3431,
+    "source_before_after_file_maps_equal": true
+  },
+  "issues": [],
+  "limits": [
+    "Read-only evidence archive integrity and token residue check; no MC, network, tests, code changes, commits or new qualification.",
+    "Known token scan derives tokens only from the indexed original raw records; structured token-like fields and common credential patterns are scanned independently. Token contents are never written or printed."
+  ],
+  "packs": {
+    "final-kelp-chest-r25-v1": {
+      "derivatives": [
+        {
+          "archive": "records/stop__report.redacted.json.gz",
+          "archive_decodes_to_original_raw": false,
+          "archive_sha256": "29f0b8720810fead74b62eaa2e780be9f1a6b0cf341862744cf6cb7daebd3510",
+          "decoded_derivative_sha256": "29a1c9dec2d438d0baed0f7d3f5627af7b50a2e8bbf7fc4200a3b56fc4062e3c",
+          "original_raw_sha256": "6acba60401ae4e397670d0409c38ebc400ddb4b7648b5b92134e8304a01daf30",
+          "redacted_fields": [
+            "binding.token",
+            "registry_final.token",
+            "matching token occurrences in serialized fields"
+          ]
+        }
+      ],
+      "exact_raw_records_checked": 27,
+      "gzip_records_checked": 5,
+      "image_count": 11,
+      "images_checked": 11,
+      "index_expected_sha256": "f7f351288401664de052cb3f70955f7323359341d3790c620f92fc7e1c902fd1",
+      "index_sha256": "f7f351288401664de052cb3f70955f7323359341d3790c620f92fc7e1c902fd1",
+      "original_raw_records_checked": 28,
+      "record_count": 28,
+      "redacted_derivatives_checked": 1,
+      "unchanged_during_review": true
+    },
+    "integration-resumed-r25-v1": {
+      "derivatives": [],
+      "exact_raw_records_checked": 15,
+      "gzip_records_checked": 4,
+      "image_count": 0,
+      "images_checked": 0,
+      "index_expected_sha256": null,
+      "index_sha256": "8f4bae57113a5974b0096daf1206e9155a8e5e959e01578fb91e3ff4fd505c4b",
+      "original_raw_records_checked": 15,
+      "record_count": 15,
+      "redacted_derivatives_checked": 0,
+      "unchanged_during_review": true
+    },
+    "t02-normal-cold-r25-v1": {
+      "derivatives": [
+        {
+          "archive": "records/stop__report.redacted.json.gz",
+          "archive_decodes_to_original_raw": false,
+          "archive_sha256": "c3b2391684e8b15d24d2c98653a87531b03c94cd9dc1780eb37fd376f2357137",
+          "decoded_derivative_sha256": "b6d1411be76f566ef6d86993b282aa51c54f5a80a026232a277b88b7003528a8",
+          "original_raw_sha256": "ac8b98f186366e665ae731b8b6dacefaa95962ecfd444014f0258e746d659db3",
+          "redacted_fields": [
+            "binding.token",
+            "registry_final.token",
+            "matching token occurrences in serialized fields"
+          ]
+        }
+      ],
+      "exact_raw_records_checked": 26,
+      "gzip_records_checked": 3,
+      "image_count": 5,
+      "images_checked": 5,
+      "index_expected_sha256": "a57689250733e967ca69c6b8bf9f9ed1a2adf25eea124162b5373a4cf8935a35",
+      "index_sha256": "a57689250733e967ca69c6b8bf9f9ed1a2adf25eea124162b5373a4cf8935a35",
+      "original_raw_records_checked": 27,
+      "record_count": 27,
+      "redacted_derivatives_checked": 1,
+      "unchanged_during_review": true
+    }
+  },
+  "passed": true,
+  "redacted_derivation_semantics": [
+    {
+      "changed_string_fields": [
+        {
+          "only_known_token_substitution": true,
+          "path": "binding.token"
+        },
+        {
+          "only_known_token_substitution": true,
+          "path": "registry_final.token"
+        }
+      ],
+      "known_token_replacements": 1,
+      "pack": "t02-normal-cold-r25-v1",
+      "passed": true,
+      "unexpected_semantic_changes": []
+    },
+    {
+      "changed_string_fields": [
+        {
+          "only_known_token_substitution": true,
+          "path": "binding.token"
+        },
+        {
+          "only_known_token_substitution": true,
+          "path": "registry_final.token"
+        }
+      ],
+      "known_token_replacements": 1,
+      "pack": "final-kelp-chest-r25-v1",
+      "passed": true,
+      "unexpected_semantic_changes": []
+    }
+  ],
+  "schema_version": 1,
+  "scope": [
+    "docs\\evidence\\integration-resumed-r25-v1",
+    "docs\\evidence\\t02-normal-cold-r25-v1",
+    "docs\\evidence\\final-kelp-chest-r25-v1"
+  ],
+  "started_at": "2026-10-21T13:25:34.932923+08:00",
+  "token_residue_scan": {
+    "common_credential_pattern_hits": [],
+    "known_original_token_value_count": 2,
+    "known_token_hits": [],
+    "structured_unredacted_token_field_hits": [],
+    "token_contents_output": false
+  }
+}

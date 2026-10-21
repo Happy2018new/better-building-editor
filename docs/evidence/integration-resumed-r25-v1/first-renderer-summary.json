@@ -1,0 +1,128 @@
+{
+  "changed_boundary_sources": [
+    "behavior_pack/modern_projection/projection/geometry_palette.py",
+    "behavior_pack/modern_projection/projection/render_context.py"
+  ],
+  "ended_at": "2026-10-21T09:44:53.685032+08:00",
+  "host_head_at_refresh": "7c7c32f05fbc6d4eb0e7e9895f060f1f39b8860c",
+  "layout_modules_unchanged": true,
+  "ownership_unchanged": true,
+  "parity_report": "docs/verification/2026-10-21-layout-parity-r25-resumed.json",
+  "qualification": "CPU layout and provenance only; host dependency unchanged; no GPU/user qualification; no push",
+  "renderer_manifest_sha256": "d6676ce85b965c8c99a6ab2f2c2b651f16201c46c4d4246aa9266533def87929",
+  "renderer_previous_commit": "75029ca6e2d8e732d0fc355aeff5ff32837c60e4",
+  "resource_contract_unchanged": true,
+  "source_commit_after": "7c7c32f05fbc6d4eb0e7e9895f060f1f39b8860c",
+  "source_commit_before": "15cdb08446f813e6f41b9a987b622f2db70e0201",
+  "source_worktree_changes_after": [],
+  "started_at": "2026-10-21T09:44:51.746500+08:00",
+  "states_binding_unchanged": true,
+  "states_commit": "58534dc5956848b4e6e5bcba97ad7112e2802388",
+  "states_manifest_sha256": "36a7a2ad36dfdaa948474daf086a5716a2fbd0fc6c46dc810c5e30e6f04626ae",
+  "states_worktree_status": "",
+  "steps": [
+    {
+      "command": [
+        "D:/Program/Python/python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "tools/sync_from_bbe.py",
+        "--source",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+        "--states",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\nemc-block-states"
+      ],
+      "cwd": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\nemc-block-renderer",
+      "ended_at": "2026-10-21T09:44:52.223665+08:00",
+      "exit_code": 0,
+      "log": "renderer-sync.log",
+      "name": "renderer-sync",
+      "seconds_wall": 0.477,
+      "started_at": "2026-10-21T09:44:51.746569+08:00"
+    },
+    {
+      "command": [
+        "D:/Program/Python/python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "tools/sync_from_bbe.py",
+        "--source",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+        "--states",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\nemc-block-states",
+        "--check"
+      ],
+      "cwd": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\nemc-block-renderer",
+      "ended_at": "2026-10-21T09:44:52.663346+08:00",
+      "exit_code": 0,
+      "log": "renderer-sync-check.log",
+      "name": "renderer-sync-check",
+      "seconds_wall": 0.438,
+      "started_at": "2026-10-21T09:44:52.225317+08:00"
+    },
+    {
+      "command": [
+        "D:/Program/Python/python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "tools/verify_against_bbe.py",
+        "--source",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+        "--states",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\nemc-block-states",
+        "--output",
+        "docs/verification/2026-10-21-layout-parity-r25-resumed.json"
+      ],
+      "cwd": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\nemc-block-renderer",
+      "ended_at": "2026-10-21T09:44:53.008539+08:00",
+      "exit_code": 0,
+      "log": "renderer-parity.log",
+      "name": "renderer-parity",
+      "seconds_wall": 0.344,
+      "started_at": "2026-10-21T09:44:52.664163+08:00"
+    },
+    {
+      "command": [
+        "D:/Program/Python/python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\nemc-block-renderer",
+      "ended_at": "2026-10-21T09:44:53.260496+08:00",
+      "exit_code": 0,
+      "log": "renderer-py3-tests.log",
+      "name": "renderer-py3-tests",
+      "seconds_wall": 0.251,
+      "started_at": "2026-10-21T09:44:53.009604+08:00"
+    },
+    {
+      "command": [
+        "D:/Program/Python27/python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\nemc-block-renderer",
+      "ended_at": "2026-10-21T09:44:53.683824+08:00",
+      "exit_code": 0,
+      "log": "renderer-py2-tests.log",
+      "name": "renderer-py2-tests",
+      "seconds_wall": 0.422,
+      "started_at": "2026-10-21T09:44:53.261371+08:00"
+    }
+  ]
+}

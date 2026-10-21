@@ -1,0 +1,21 @@
+--- v5/run_candidate_bootstrap.py
++++ v5-r2/run_candidate_bootstrap.py
+@@ -76,6 +76,10 @@
+             state_deadline = time.monotonic() + 20.
+             receipt['read_only_state_samples'] = []
+             while True:
++                remaining = state_deadline - time.monotonic()
++                if remaining <= 0:
++                    raise RuntimeError('No bridge observed within20s; no initialization forced')
++                client.timeout = min(3., remaining)
+                 state_value = return_value(client.call('execute_code', {
+                     'code': "import json\nimport mod.client.extraClientApi as api\ns=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\n_result=json.dumps({'system_exists':s is not None,'bridge_exists':s is not None and s.bridge is not None,'session_exists':s is not None and s.session is not None,'hud_exists':s is not None and s.hud is not None,'ui_init_bridge_observed':s is not None and s.bridge is not None})",
+                     'is_client': True, 'direct_return': True}))
+@@ -89,6 +93,7 @@
+                 if time.monotonic() >= state_deadline:
+                     raise RuntimeError('No bridge observed within20s; UiInitFinished not observed; no initialization forced')
+                 time.sleep(min(1., max(0., state_deadline - time.monotonic())))
++            client.timeout = 35
+             receipt['execution_dispatched'] = True
+             value = return_value(client.call('execute_code', {
+                 'code': code, 'is_client': True, 'direct_return': True}))

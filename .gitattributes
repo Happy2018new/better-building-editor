@@ -412,3 +412,12 @@ docs/evidence/kelp-render-r25-v1/** -text whitespace=cr-at-eol
 docs/evidence/transform-directions-r25-v1/** -text whitespace=cr-at-eol
 docs/evidence/transform-missing-r25-v1/** -text whitespace=cr-at-eol
 docs/evidence/water-lifetime-r25-v1/** -text whitespace=cr-at-eol
+docs/evidence/integration-resumed-r25-v1/** -text whitespace=cr-at-eol
+docs/evidence/t02-normal-cold-r25-v1/** -text whitespace=cr-at-eol
+docs/evidence/water-final41-startup-r25-v1/** -text whitespace=cr-at-eol
+docs/evidence/r25-final-packs-review.json -text whitespace=cr-at-eol
+# Frozen evidence keeps original terminal blank lines and patch context bytes.
+docs/evidence/t02-normal-cold-r25-v1/records/lifecycle_helpers.py whitespace=cr-at-eol,-blank-at-eof
+docs/evidence/t02-normal-cold-r25-v1/records/payloads.py whitespace=cr-at-eol,-blank-at-eof
+docs/evidence/t02-normal-cold-r25-v1/records/public_entry_host.py whitespace=cr-at-eol,-blank-at-eof
+docs/evidence/water-final41-startup-r25-v1/v5/host/host-v4-to-v5.patch whitespace=cr-at-eol,-blank-at-eol
