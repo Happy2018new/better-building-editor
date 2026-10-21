@@ -20,4 +20,6 @@
 
 新增六项回归覆盖相同字体时 GUI 缓存刷新、比例输入边界、dynamic／frozen profile、真实水闭包的缓存读取与 legacy 回退、相同 ready request 下原生几何刷新，以及显式候选不能改变生产资格。连同 viewport、deployment、Product profile和公开卡 owner 合同共72项通过；第一次额外 ownership 模块因历史 sibling `test_tiles` 导入方式加载失败，测试 runner 加入 tests 目录后该模块6项通过，总计78项。故障注入测试预期会输出原生发布／恢复异常栈，不将这些预期栈记作测试失败。三份生产文件另经真实Python 2.7编译，按范围 review 没有新增端侧、监听或动态执行问题，既有大函数／多参数提示保留。
 
-`liquid_product_owner_data.py` 与 qualification 原字节未改。旧 owner 的来源失配继续阻止默认准入，不能仅凭更新哈希把旧资格转给新实现。正式动画A仍有原593.9861ms source时间缺口，当前新源资格、完整公开场景及最终默认冷启D仍需分别完成。本次新增用户人工关闭0。
+`liquid_product_owner_data.py` 与 qualification 原字节未改。05:28复核纠正：此前把发行前来源核验和程序运行期校验混为一谈，称“旧 owner 的来源失配阻止默认准入”，这个描述不准确。运行期只比较两份生成常量，当前双方均为`ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872`，普通`production_profile`实际可以构造Product profile；它没有读取本地源文件验证。只读来源检查器则明确失败，列出bridge、geometry_palette、Product deployment、render_context、scene、tiles六份内容漂移；其中有早于本窄修的差异，不能全记为本次修改。
+
+普通入口可以启动与新源已取得正式外观资格是不同事实。后续测试应记录真正普通冷启的Session，不再使用旧私有源“因owner mismatch先拒绝且Session为空”的bootstrap前提。旧来源／资格哈希保留，不通过手改哈希把历史资格转给新实现，发行仍需新源验收。正式动画A仍有原593.9861ms source时间缺口，当前新源资格、完整公开场景及最终默认冷启D仍需分别完成。本次新增用户人工关闭0。
