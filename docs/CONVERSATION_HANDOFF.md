@@ -1,5 +1,29 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-21 恢复窗口：当前结果与13:50截止
+
+用户确认中断由其原因引起，并要求重新排期补足两小时。按09:25—10:32约67分钟，排除10:32—12:56约144分钟中断，12:57后补约53分钟，**本窗口截止13:50，不休眠**。13:20后不启长实验，13:35后只做恢复、关闭核对及提交；旧R24／R25休眠任务保持停用。下方08:00／11:25均为历史截止。
+
+主仓dev已有 `374136c6` 海带含水邻域测试修正、`900100aa` T02公开卡、`9524d532` 海带／箱冷源精简证据，`adafea2f` 旋转提示修正，以及 `6433a18c` 恢复整合／T02／水失败精简证据，`567707ac`追加原日志默认拒绝与配置对照。主生产／测试全量绑定900100aa，**3431项、跳过1项、整体OK**，6297输入hash不变；其中10个历史未跟踪测试不能说成干净HEAD回归。10:17—12:57墙钟包含中断，不计有效工时。原3429项唯一海带旧断言ERROR仍保留；提示修改之后仅做真Py2／Py3静态数据比较及MCP单文件review，没有宣称重跑全量。[整合记录](verification/INTEGRATION_RESUMED_R25.md)保存两批来源及限制。
+
+海带／箱共同冷源7c7c32f0，manifest `7872491a970fd54d3331f2bdaf89dd04f87224ec184d612123749e74e82a65fa`：root独看海带v4四图、T04七图，公开茎／顶、孤立及跨Y15/16柱可见，受控单半／双半消隐后红支撑无箱纹、蓝组保持并恢复。无context补丁、无候选profile；源不变、双独立恢复通过。原失败及空近景保留。game退出0xC0000409／MCDK0，不是正常引擎退出资格。[共同包](evidence/final-kelp-chest-r25-v1/index.json)为27份精确原记录＋1份脱敏stop派生件／11图，已在9524提交。
+
+T02在独立正常冷源900100aa／manifest `031217265ecae395c239b7032a279b361671d2ee65af5f1d03789773d484ee26` 实际卡载入60格／28方向样本；mirror_y及rotate_y90各撤销／重做八步均与冻结oracle数据／typed语义相符。root已读初始、镜像和旋转editor／full共5原图；按钮过小／遮挡、部分梯子仅见边缘，逐面、X／Z及missing未验，不称三路径ready。两次独立恢复中相机语义容差通过，roll约-1.366e-05°、exact=false；原host两项离线预检失败保留。game0xC0000409／MCDK0，registry stopped、watcher精确退出，无force。[T02记录](verification/TRANSFORM_DIRECTIONS_R25.md)及周末表已更新。
+
+水lifetime诊断仍只说明本次163 frame取得／Close／释放完整，不能解释旧636.6348ms缺口或替代A。新私有41源合同 `a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194`／owner `d0f37c33f8e054a0e906f44361edc43f49957b26b4af7853da9f2c0ca49bf20f` 的v3跨中断未ready；v4因文本复制改变core换行，在RPC前被断言拦下；v5修正字节后bootstrap只派发一次但IPC超时，伴精确所属原生DisabledSkinScreenController断言。不能归因水代码；13:37后审原eventBus日志已确认bootstrap前默认构造拒绝，候选是否完成及函数恢复仍未验证；G／F-editor均未开始。旧资格未改、4479源／1391辅助hash不变，正式A／最终owner／D继续开。v5 runtime恢复被保护拒绝、未验证；仅为普通关闭精确忽略所属弹窗，未重放。三个game均0xC0000409、MCDK0，registry stopped，最后13:18:37退出，无force。三实例启动配置归一化后相同，未发现水专属皮肤项；忽略后有HUD创建日志，不代表超时RPC未执行或恢复通过。[新源记录](verification/WATER_FINAL_SOURCE_R25.md)绑定42项脱敏派生材料，原raw留runtime。
+
+renderer本地main `4e4f0b2d1d4b0faf0e3ca0caf53e323bc817e531` 绑定7c7c共享源，新66,249布局调用及Py2／Py3各7项通过；states仍干净 `58534dc5956848b4e6e5bcba97ad7112e2802388`，主程序未切库依赖。最多3活跃子代理／5实际MC、6GiB可用commit／250k句柄门保持。最终证据按原raw／脱敏派生分别hash、gzip大清单并保护Git字节；没有大source或burst archive入仓。新增用户人工关闭**0**，无新账单，不按测试数扣预算；不push、不合并main。13:42只读复核57个R25注册会话均stopped、所有受管活跃game／MCDK为0、本轮watcher为0，两个旧休眠任务Disabled；一个早已退出但残留ready的peony注册已先备份再普通finalize，未结束任何活进程。见[现场收尾读回](evidence/r25-resume-closeout.json)。
+
+## 2026-10-21 09:25 中断后恢复（历史检查点）
+
+用户报告06:00后中断，重新授权两小时；11:00不足时可顺延。按本次09:25恢复，**当前截止11:25，不休眠**。10:55后不启长实验，11:10收尾。旧 `Codex-BBE-R25-Hibernate-20261021` 已停用，旧R24任务也停用，不新建休眠任务；下方08:00休眠为历史授权，不能继续执行。
+
+主仓 `dev` HEAD `7c7c32f05fbc6d4eb0e7e9895f060f1f39b8860c`：海带完整原Document上邻格决定茎／头并进入tile/cache，`a76cd73a`；静态箱邻域归属修复，`5b5209dc`；公开海带卡 `test.blocks.kelp_visibility`，`7c7c32f0`。root已独审海带10张关键原图和箱6张A／B／A原图。海带真Py2 13项、Py3 18项及generator通过；整合context／门／箱／海带69项、fixture组合41项通过。旧海带删除后空chunk规范化字节门失败及相机极小roll残差、异常退出均保留；本次最终共同冷源尚未执行。
+
+重新接续3子代理：`kelp_chest_resume`负责已冻结7c7c32f0源的公共卡及T04冷检；`water_resume`负责一次已审lifetime v2；`integration_resume`负责全量与renderer正常同步。恢复初查实际活跃MC为0，CIM中历史Minecraft条目不能当活进程。lifetime诊断先有约7分钟quiet，其后才能启动其余重活。原始失败、冻结hash和旧资格不覆盖，主仓不push／不合并main。
+
+水旧trace隔离lift64 camera通过，起始636.6348ms仍超150ms；缺口内helper持续有界轮询但FrameArrived断供，不能定位游戏／DWM／WGC／驱动。lifetime v2只补原位置Close和成员释放数字事件，7个行为等价场景、9个破坏负控及28静态项已过、root审小diff，未改时长／阈值／缓冲。正式水owner仍旧39源，最小41源方案只读准备；不通过改hash搬旧F／B／R／G，正常生成会使当前资格不匹配，不能静默回退原生水或以诊断candidate冒称D。书自然缺画继续开放。新增人工关闭0，无新账单，不虚报额度。
+
 ## 2026-10-21 04:50 R25 检查点（开发继续）
 
 仍于 **08:00 截止并休眠，07:45 收尾，07:30 后不启长实验**。休眠任务已再次读回为启用、WakeToRun、08:00+08 执行 `shutdown.exe /h`。本地 `dev` 在下方五个修复／夹具提交后，新增 `a19d4860` Windows manifest 替换重试、`7d9878e3` 变换冷源与 SDK 存取、`15cdb084` 芍药公共入口冷检、`b9b314ee` 固定启动原生采样协议、`3eeaadb5` 末地历史原生参考独立审阅。未 push 或合并 main。早前工作区全量 **3,358 项、跳过 1 项、整体 OK**；新增采集协议随后独立 84 项通过，不称为第二次全量或 clean HEAD 验证。

@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-10-21T13:42:02.892393+08:00",
+  "read_only_final_check": true,
+  "r25_sessions_checked": 57,
+  "r25_states_all_stopped": true,
+  "all_managed_live_game_mcdk_sessions": 0,
+  "active_round20261021_or_owned_assert_watcher_hosts": 0,
+  "previous_hibernate_tasks": [
+    {
+      "TaskName": "Codex-BBE-R24-Hibernate-20261020",
+      "State": "Disabled"
+    },
+    {
+      "TaskName": "Codex-BBE-R25-Hibernate-20261021",
+      "State": "Disabled"
+    }
+  ],
+  "hibernation_executed": false,
+  "force_termination_executed": false,
+  "old_stale_registry_finalization": {
+    "raw_summary_path": ".runtime/round-20261021/final-registry-finalize-v1/summary.json",
+    "raw_summary_sha256": "1ddb8a927a784418895e6d96b867a8957e1d8463ac02817e77dea1eaea16db69",
+    "result": [
+      {
+        "owner": "peony-r25-editor-v1",
+        "session": "a5531313da394e238c72c7cbf9aea659",
+        "exit_code": 0,
+        "state_before": "ready",
+        "state_after": "stopped",
+        "both_process_identities_absent_before_and_after": true,
+        "force": false,
+        "registry_before_raw_sha256": "2aaf7b5e5ab848e8a10c7051f8fea54d2da2b14519b2e767c90f8688614d2819"
+      }
+    ]
+  },
+  "manual_closures_added": 0,
+  "counting": "09:25-10:32 approx67min plus12:57-13:50 approx53min; excludes interruption10:32-12:56. This is the agreed window, not process wall time or billed usage."
+}
