@@ -1,0 +1,1172 @@
+{
+  "checked_at": "2026-10-21T14:55:32.338186+08:00",
+  "read_only_final_check": true,
+  "registry_sessions_checked": 949,
+  "round_sessions_checked": 59,
+  "round_states_all_stopped": true,
+  "all_managed_live_game_mcdk_sessions": 0,
+  "active_managed_sessions": [],
+  "active_round_or_owned_watcher_hosts": [],
+  "previous_hibernate_tasks": [
+    {
+      "TaskName": "Codex-BBE-R24-Hibernate-20261020",
+      "State": "Disabled"
+    },
+    {
+      "TaskName": "Codex-BBE-R25-Hibernate-20261021",
+      "State": "Disabled"
+    }
+  ],
+  "libraries": {
+    "nemc-block-renderer": {
+      "head": "4e4f0b2d1d4b0faf0e3ca0caf53e323bc817e531",
+      "worktree_porcelain": []
+    },
+    "nemc-block-states": {
+      "head": "58534dc5956848b4e6e5bcba97ad7112e2802388",
+      "worktree_porcelain": []
+    }
+  },
+  "manifest_read_errors": [],
+  "hibernation_executed": false,
+  "game_force_termination_executed": false,
+  "manual_closures_added": 0,
+  "engine_exits_this_hour": {
+    "water": "0xC0000409",
+    "t02": "0xC0000409",
+    "mcdk_both": 0,
+    "normal_engine_shutdown_qualification": false
+  },
+  "counting": "Authorized continuation 14:07-15:07 Asia/Shanghai. No billing usage inferred; prior interruptions excluded.",
+  "scope": "All registry identities plus live Python round/watcher/observer hosts; historical process names alone do not imply liveness.",
+  "live_pid_reuse_records_excluded": 40,
+  "round_identity_records": [
+    {
+      "id": "00a09c6eaa77451f84982abe02c79b1e",
+      "owner": "water-r25-final41-editor-v6",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 58428,
+          "expected_identity": "134370376700352670",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 52940,
+          "expected_identity": "134370376697861783",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "02fec594bc1e46479bb0aa208fc2ea23",
+      "owner": "water-r25-final-b-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 58100,
+          "expected_identity": "134369942944691303",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 22604,
+          "expected_identity": "134369942941688885",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "054f20c1ffc043ee873fe429fc2907ba",
+      "owner": "water-r25-lifetime-isolated-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 34732,
+          "expected_identity": "134370200902492046",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 57392,
+          "expected_identity": "134370200899509479",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "09a36f98113946eab64281ef301258aa",
+      "owner": "shelf-r22-r25-v3",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 58144,
+          "expected_identity": "134369888733206064",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 54164,
+          "expected_identity": "134369888730916466",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "15bbbcc4c527415cbd352fac0edfe4ea",
+      "owner": "water-r25-final-fmissing-v3",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 47584,
+          "expected_identity": "134369913837587609",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 59052,
+          "expected_identity": "134369913834575815",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "1ab4ab0e6d5146999bcba10503273563",
+      "owner": "peony-r25-editor-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 45876,
+          "expected_identity": "134369853905390387",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 59764,
+          "expected_identity": "134369853902389275",
+          "current_live_identity": "134370364868363994",
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "1d157ac83ad542309175d10956d24961",
+      "owner": "shelf-r22-r25-layout-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 47360,
+          "expected_identity": "134369945183703069",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 53392,
+          "expected_identity": "134369945181169906",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "249436d3121f4dc8a0d8083f120a4053",
+      "owner": "coral-r25-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 25748,
+          "expected_identity": "134369854093091567",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 34736,
+          "expected_identity": "134369854090641419",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "25fe4b6c1d3b41a08620885e8ce709e9",
+      "owner": "water-r25-a-startup-v2-single-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 60076,
+          "expected_identity": "134370020000072209",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 35896,
+          "expected_identity": "134370019998050116",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "2831265dd3d7450a8f4bd98d9f7c489f",
+      "owner": "peony-r25-book-body-depth-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 5336,
+          "expected_identity": "134370025792079679",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 32624,
+          "expected_identity": "134370025789271859",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "3051ab29117d46cd96db85835e5fdf90",
+      "owner": "water-r25-final-ab-v3",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 50392,
+          "expected_identity": "134369930588620317",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 42440,
+          "expected_identity": "134369930584806889",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "3606ce00343b42268f9c6f229bec6b7b",
+      "owner": "coral-r25-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 43352,
+          "expected_identity": "134369843341733256",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 56360,
+          "expected_identity": "134369843339432037",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "392d094c98f04fa59edb64f231e3f89b",
+      "owner": "portal-ui-alias-r25-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 55068,
+          "expected_identity": "134369924949802120",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 44424,
+          "expected_identity": "134369924946713159",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "3997b9b86d754b918cddc24ddd7c36b0",
+      "owner": "water-r25-a-prep-diag-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 40380,
+          "expected_identity": "134369985322982715",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 5512,
+          "expected_identity": "134369985321064666",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "410aba7efb1947b7a9ef154b7aed636c",
+      "owner": "water-r25-final41-editor-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 41644,
+          "expected_identity": "134370234325172297",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 9896,
+          "expected_identity": "134370234318734806",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "45e1d95a31a84690bf04d675f0257479",
+      "owner": "peony-r25-formal-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 32428,
+          "expected_identity": "134369934754631969",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 23936,
+          "expected_identity": "134369934752165746",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "4cb88de4c1a34748946bf4717dc54a6a",
+      "owner": "water-r25-final-r-v3",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 35152,
+          "expected_identity": "134369950378582530",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 42660,
+          "expected_identity": "134369950375611562",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "52cf0d5751c94151ad69ebf75318d3b6",
+      "owner": "water-r25-a-startup-trace-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 20280,
+          "expected_identity": "134370030671972567",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 56692,
+          "expected_identity": "134370030668633680",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "5567b968bc85454c8b20cce0bec0ca0e",
+      "owner": "shelf-r22-r25-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 56964,
+          "expected_identity": "134369842726643741",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 16680,
+          "expected_identity": "134369842724468465",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "55866ccb125947528e31f70fa91b3d2a",
+      "owner": "kelp-native-atlas-r25-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 58552,
+          "expected_identity": "134369997079460564",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 12440,
+          "expected_identity": "134369997077167439",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "63dedca647084f9899db208fa845ea22",
+      "owner": "transform-r25-main-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 60968,
+          "expected_identity": "134369845010134425",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 60980,
+          "expected_identity": "134369845007154395",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "6c5f23f6935545c98a1aa8003a970757",
+      "owner": "peony-r25-formal-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 60372,
+          "expected_identity": "134369931287937003",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 52120,
+          "expected_identity": "134369931283246107",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "700f2102b2104c19ac519faf7eec0466",
+      "owner": "book-default-r25-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 44272,
+          "expected_identity": "134369956017245881",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 28488,
+          "expected_identity": "134369956014675236",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "73fabb889ed9487b92e4125175b048f9",
+      "owner": "shelf-r22-r25-baseline-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 53000,
+          "expected_identity": "134369930350185938",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 17348,
+          "expected_identity": "134369930347576506",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "76f5e1932758442d8a57c5252ea798e5",
+      "owner": "portal-ui-depth-r25-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 15296,
+          "expected_identity": "134369913708437707",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 58568,
+          "expected_identity": "134369913705534689",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "79a6a4e8eb524ce09b427aeb43631864",
+      "owner": "water-r25-final-ffull-v3",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 51240,
+          "expected_identity": "134369906509303860",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 51460,
+          "expected_identity": "134369906506550353",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "79ee7168510b4fbfabfcd863923dd10d",
+      "owner": "peony-r25-entry-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 41656,
+          "expected_identity": "134369980532296653",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 54616,
+          "expected_identity": "134369980522006495",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "84c65b907a83416e97b60c2cc150ad1a",
+      "owner": "shelf-r22-r25-ui-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 25664,
+          "expected_identity": "134369915643712379",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 29728,
+          "expected_identity": "134369915641374483",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "8529405073c246c29c7cf996e3222f72",
+      "owner": "peony-r25-native-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 45960,
+          "expected_identity": "134369895506020221",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 35708,
+          "expected_identity": "134369895503970975",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "892032311f8343c59cbe3ca0860613de",
+      "owner": "water-r25-default-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 55376,
+          "expected_identity": "134369876502067607",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 23956,
+          "expected_identity": "134369876499447980",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "9250c00bf8214a42a0eb0c4949e57008",
+      "owner": "water-r25-a-startup-trace-isolated-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 54752,
+          "expected_identity": "134370046408503118",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 44932,
+          "expected_identity": "134370046405434080",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "925e304125d743119d1e7803a9326ab6",
+      "owner": "water-r25-a-startup-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 20684,
+          "expected_identity": "134369997036932467",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 42784,
+          "expected_identity": "134369997034865073",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "9b037b16f34d4dc4a15c0bbba7d4d04b",
+      "owner": "water-r25-final-feditor-v4",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 38272,
+          "expected_identity": "134369917025767391",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 37260,
+          "expected_identity": "134369917022997004",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "a5531313da394e238c72c7cbf9aea659",
+      "owner": "peony-r25-editor-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 60896,
+          "expected_identity": "134369845277467721",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 55004,
+          "expected_identity": "134369845272814860",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "ac69eecc03ec4e6894a5ed44bb625c31",
+      "owner": "peony-r25-entry-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 39612,
+          "expected_identity": "134369987884425061",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 54284,
+          "expected_identity": "134369987882185931",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "ad0f575e24394bd79f8cb15c60d83374",
+      "owner": "water-r25-final-feditor-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 30752,
+          "expected_identity": "134369896614239098",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 7328,
+          "expected_identity": "134369896611065247",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "b02d567d10b146928f1be19686f12a1f",
+      "owner": "water-r25-final-feditor-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 4796,
+          "expected_identity": "134369898755970772",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 50032,
+          "expected_identity": "134369898753340661",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "b0beea7c81c64736b6d94aeb6ac47498",
+      "owner": "water-r25-final-b-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 51468,
+          "expected_identity": "134369963865519219",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 59384,
+          "expected_identity": "134369963863249587",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "b1b5ad6ef57c4176a025dcbaf5db00de",
+      "owner": "shelf-r22-r25-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 34220,
+          "expected_identity": "134369864898254857",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 34920,
+          "expected_identity": "134369864895716060",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "b59f00dccfae49b6ae68f1f6c3887cfe",
+      "owner": "water-r25-a-startup-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 20888,
+          "expected_identity": "134370011286687715",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 2352,
+          "expected_identity": "134370011284033107",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "bd116ce74ace42aca00c8e9274037d8e",
+      "owner": "water-r25-final41-editor-v5",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 41056,
+          "expected_identity": "134370331574994851",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 65652,
+          "expected_identity": "134370331572303699",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "c620de82f7184324aba550065ec1733c",
+      "owner": "peony-r25-world-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 29008,
+          "expected_identity": "134369872882820376",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 29592,
+          "expected_identity": "134369872880120477",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "c87791193e4044bea9cdab8b2fdc2c30",
+      "owner": "water-r25-final-feditor-v3",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 57436,
+          "expected_identity": "134369900480015913",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 54588,
+          "expected_identity": "134369900477446824",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "cb8d53da635b41478314158dbcf2e043",
+      "owner": "water-r25-final-door-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 45148,
+          "expected_identity": "134369958902647493",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 41492,
+          "expected_identity": "134369958882586522",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "ce1972d95e794d8eabda601383ecd45b",
+      "owner": "water-r25-final-a-v4",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 40824,
+          "expected_identity": "134369937980028760",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 40396,
+          "expected_identity": "134369937977136627",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "d5b01f32a3a944ddbb60fe27bfa03c98",
+      "owner": "kelp-production-r25-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 23348,
+          "expected_identity": "134370034120281802",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 18720,
+          "expected_identity": "134370034116818281",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "d647757f69774877b165f7bdbe6f9344",
+      "owner": "water-r25-a-timing-diag-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 53232,
+          "expected_identity": "134369976380289274",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 22296,
+          "expected_identity": "134369976377545667",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "d8396af3556e489a8e36f7ec47dea7f8",
+      "owner": "water-r25-final-door-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 29100,
+          "expected_identity": "134369955040520507",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 35920,
+          "expected_identity": "134369955038330544",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "d8fe0ca46a4d4eee81e69be70063f262",
+      "owner": "r25-final-kelp-chest-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 62820,
+          "expected_identity": "134370206332889401",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 55240,
+          "expected_identity": "134370206329651251",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "dc7ebd46e7fe49aa90ebe34c9cf2f72e",
+      "owner": "water-r25-final41-editor-v4",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 59832,
+          "expected_identity": "134370326718313303",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 18856,
+          "expected_identity": "134370326715972446",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "e172814a875d4d8694cec50c096cd677",
+      "owner": "portal-default-r25-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 22748,
+          "expected_identity": "134369903197122478",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 46436,
+          "expected_identity": "134369903193988437",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "e1a3d8d8cea949ff8753571cab5f375a",
+      "owner": "r25-t02-normal-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 63648,
+          "expected_identity": "134370328107798494",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 38492,
+          "expected_identity": "134370328105644879",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "e43c4c93b3404377957dad0398a4f96e",
+      "owner": "r26-t02-face-missing-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 35012,
+          "expected_identity": "134370373915982420",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 55108,
+          "expected_identity": "134370373911906373",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "e6f9af63f2274551a5f4f18f4ebbaa66",
+      "owner": "peony-r25-world-v2",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 31060,
+          "expected_identity": "134369884967769599",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 47664,
+          "expected_identity": "134369884965504141",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "eb31a36bbd6b4732a60751881525b566",
+      "owner": "shelf-r22-r25-native-state-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 52264,
+          "expected_identity": "134369960335021668",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 59824,
+          "expected_identity": "134369960332290595",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "ebdb90de24444e9fbd939a823fcebd00",
+      "owner": "water-r25-final-r-v4",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 37732,
+          "expected_identity": "134370005962382554",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 53632,
+          "expected_identity": "134370005958504901",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "ed91770e6e234f228934dd339e7bc9eb",
+      "owner": "peony-r25-book-diag-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 52820,
+          "expected_identity": "134370007794476406",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 59784,
+          "expected_identity": "134370007791135547",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "f287f2117d7a41c18f81171e834cde91",
+      "owner": "water-r25-final-fmissing-v4",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 14104,
+          "expected_identity": "134369922842344776",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 56528,
+          "expected_identity": "134369922839575885",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    },
+    {
+      "id": "fbd00a12d9a448619ad47d3e51560491",
+      "owner": "portal-pure83-r25-v1",
+      "state": "stopped",
+      "processes": {
+        "game": {
+          "pid": 45188,
+          "expected_identity": "134369942069791985",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        },
+        "mcdk": {
+          "pid": 52344,
+          "expected_identity": "134369942067514468",
+          "current_live_identity": null,
+          "same_owned_identity_alive": false
+        }
+      }
+    }
+  ],
+  "root_probe_correction": {
+    "original_failed_probe": ".runtime/round-20261021/root-r26-closeout-v1.json",
+    "original_failed_probe_sha256": "450616de6caff0a6ae0e541c0c226dd323e8e2f109e673bcb489b45dabe8dae9",
+    "error": "Initial root aggregation counted any current process at an old PID as active despite recorded creation identity mismatch. V2 requires exact expected creation identity; no process was stopped by either read-only probe.",
+    "initial_false_positive_count": 38
+  }
+}

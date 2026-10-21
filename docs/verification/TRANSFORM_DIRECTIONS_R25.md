@@ -46,3 +46,7 @@
 主流程前后有独立只读audit；主流程及追加诊断各有两次恢复audit，诊断后再用独立host对原baseline检查两次，严格字段均无变更、非波动performance字段相同、源码hash不变。原生相机roll残差约 `-1.3660377589985728e-05°`，在0.0001°语义容差内，exact仍为false。资源门持续要求available commit至少6GiB、handles低于250000且单步增长低于10000；本主流程最低余量约9.20GiB。watcher每次RPC前需5秒内新鲜、精确owner／host SHA匹配、无其他assert或错误，清理路径保留恢复能力。
 
 game `35012 / 134370373915982420` 已普通stop并finalize至registry stopped，实际退出 `0xC0000409`；MCDK退出0，**normal_shutdown=false**。watcher `23620 / 134370373686133134` 随后精确回收，无force、无第二次launch。[新小包](../evidence/t02-face-missing-r26-v1/index.json)包含41张JPEG及原PNG SHA、113份gzip记录，单件最大215025字节；112份解码为原bytes，1份stop是明确脱敏派生件，原raw／归档／解码SHA及不等价标志分开列出。4份完整UI tree的原件仍留本地。新增用户人工关闭数保持0；四梯子近景及两项受控missing补证不能关闭其余按钮贴面或完整变换验收。
+
+## 14:59 离线CPU链补查
+
+不重启MC，按c531冷源逐字节核对7个相关生产文件，分别对全建筑full／Y3 single及目标所在Z16局部chunk重复`build_preview → prepare_palette`。四份实际结果均保留button_0为`stone_button aux0`、`facing_direction=0`、未按下；full保留Y4支撑，single按现有层过滤排除Y4支撑，Document不变。此结果只排除该离线CPU路径把按钮删除或转成其他朝向，不能代替运行时palette抓取、原生网格／深度／遮挡根因判断或六面验收。见[离线trace小包](../evidence/button0-cpu-palette-r26-v1/index.json)。下一允许窗口先保持同原生材质和按钮／支撑，单独比较送入引擎的数据及网格／深度控制，不先改公共渲染器。

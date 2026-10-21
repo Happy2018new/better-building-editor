@@ -1,5 +1,32 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-21 15:00 收尾核对（15:07截止保持）
+
+证据与专项文档已提交`c7e72213`；304个证据文件逐字节等于Git暂存件，最大240000字节，旧约119MB archive未入仓。独审[交接索引](evidence/r26-independent-review-v1/index.json)和root读图记录已入仓。
+
+14:55精确检查949个注册会话，本轮59个全部stopped，符合PID及创建身份的game／MCDK为0，本轮watcher／observer为0，旧两休眠任务Disabled；renderer与states工作区均干净，未切生产依赖。root首版只读汇总错误地把历史PID复用也计活跃，已另版修正为精确creation identity匹配，原失败及hash保留；两次探测都未结束进程。见[收尾回执](evidence/r26-closeout.json)。
+
+14:59另完成[按钮CPU追踪](evidence/button0-cpu-palette-r26-v1/index.json)：7生产文件与T02的c531来源字节一致，full／single及两个局部chunk模式都保留原button_0状态；仅single排除Y4支撑。Document不变。这只缩小CPU过滤疑点，完整场景的原生几何／深度／遮挡仍待，不授live GPU或人工通过。截止前只整理收尾，不再开MC；15:07停止，不休眠，不push、不合main。
+
+## 2026-10-21 14:48 本小时结果（当前检查点，继续至15:07）
+
+本小时已提交宿主忽略动作修复 `39bac5bb`：真实IDIGNORE为5，旧代码错误地发送编号7。两入口共用严格的进程创建身份、唯一所属断言及可见按钮验证，回执落盘后再核对并点击指定按钮；9项定点测试和独审通过。两个新实例均未出现该断言，因此不声称修后watcher的实机恢复或原生根因已通过。见[工具记录](verification/DISABLED_SKIN_RECOVERY_R26.md)。
+
+水v6保留原41源合同及bootstrap core，单次构造成功、finally到达、原函数精确identity恢复，独立marker清理完成。G取得湿／干2图；F-editor覆盖source、flow_east、wet_oak_fence、neighbor_stone、transparent_overlap五例，原报告14行／30图。host的13是切换次数，口径分开保留。来源与恢复通过；原生shape／UV／alpha／style接受仍false，正式A、全19例F、F-world／B／R、最终owner／默认／D继续开放，不搬用旧资格。见[水记录](verification/WATER_FINAL_SOURCE_R25.md)及[新证据](evidence/water-final41-editor-r26-v1/index.json)。
+
+T02在c531正常冷源补四梯子／六按钮10张外法线近景，并对Y镜像按钮、90°旋转梯子各取得full及受控missing `[1]→[2]→[1]` 和撤销恢复。root已实读两代表8图；朝下button_0另有single模式两斜视原图，确认模型及厚度存在，完整模式仍不清，遮挡与贴面正确性继续留查。不是六面按钮全通过，也未覆盖真实世界占用、X／Z或28样本全矩阵。见[T02记录](verification/TRANSFORM_DIRECTIONS_R25.md)和[周末表](acceptance/2026-10-24-transforms.md)。
+
+两份新小包逐项hash、分片、脱敏已由integration独审通过；原PNG、原失败和完整raw留本地，入仓JPEG仅用于外观复核，不做精确像素测量。两个game均先普通stop，same-handle退出均为0xC0000409，MCDK为0；registry stopped不等于正常引擎退出，无强制关闭game。最终全局身份／watcher／旧休眠任务复核另附收尾回执。新增用户人工关闭0；未拉账单、不按测试数扣110小时或推算额度。dev本地小批提交，不push、不合main，结束不休眠。
+
+## 2026-10-21 14:07 追加一小时（最新授权）
+
+用户再次报告数分钟中断，明确要求继续工作一小时。按14:07实际恢复，**当前截止15:07，不休眠**，覆盖下方13:50及更早截止；14:55后不启动长实验，14:57开始恢复／关闭与提交。中断不计为实际开发或用量。最多3活跃子代理、5实际MC、6GiB可用commit／250k句柄／相邻+10k守门保持；不push、不合并main。
+
+接续主仓dev `c531b2f4802577e160b26105c6d73cd8322ff89f`。最终6297源与900100aa全量后快照比较，唯一变化是catalog两条旋转提示；157份新证据与Git提交字节一致、最大295953字节。无新全量或新实机资格。前段57个R25会话均stopped、watcher0、旧休眠Disabled的收尾读回保留，续轮新owner另记。
+
+本小时先修已定位的宿主自动恢复错误：旧脚本将IDIGNORE写成7，真实所属原生断言忽略按钮ID5。root负责共享严格按钮验证和负控；water负责单次新owner的starting watcher、原core分阶段receipt与G／F-editor小范围接续；T02负责新正常冷源按钮／梯子可见面近景与受控missing代表；integration只读审核。不改变原失败、冷源、产品门或旧qualification，也不把未知modal自动忽略。原生皮肤断言因果仍未知。
+
+
 ## 2026-10-21 恢复窗口：当前结果与13:50截止
 
 用户确认中断由其原因引起，并要求重新排期补足两小时。按09:25—10:32约67分钟，排除10:32—12:56约144分钟中断，12:57后补约53分钟，**本窗口截止13:50，不休眠**。13:20后不启长实验，13:35后只做恢复、关闭核对及提交；旧R24／R25休眠任务保持停用。下方08:00／11:25均为历史截止。
