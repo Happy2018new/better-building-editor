@@ -1,0 +1,2231 @@
+{
+  "schema": 1,
+  "candidate_version": 2,
+  "issue": "OB-10",
+  "source_commit": "7015c9c470f5cbb1144b2565a8eb740ac8f3e7e0",
+  "scope": "Matched independent cold owners, dry floor lever aux5 on white/light-gray concrete, full projection.",
+  "manual_closures_added": 0,
+  "production_changed_by_this_package": false,
+  "editor_qualified": false,
+  "missing_qualified": false,
+  "raw_pngs_retained_in_runtime": true,
+  "records": [
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/manifest-v2.json",
+      "raw_sha256": "4b67c7df3431439b1a9779f976313d3cd127ef18666ca9bb88a45c87d20c02a3",
+      "raw_bytes": 675,
+      "decoded_sha256": "4b67c7df3431439b1a9779f976313d3cd127ef18666ca9bb88a45c87d20c02a3",
+      "decoded_bytes": 675,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "35cb39d1b583dfc0f4edf79491a1d39e6d9665014a53047fae29a254193c599b",
+      "gzip_bytes": 423,
+      "ordered_parts": [
+        {
+          "path": "records/0000-000.gzpart",
+          "sha256": "35cb39d1b583dfc0f4edf79491a1d39e6d9665014a53047fae29a254193c599b",
+          "bytes": 423
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/project-manifest-v2.json",
+      "raw_sha256": "43d923387a2485b94ef2387b2cf25ad357f0c633ee313d9f62d2af403052e486",
+      "raw_bytes": 788893,
+      "decoded_sha256": "43d923387a2485b94ef2387b2cf25ad357f0c633ee313d9f62d2af403052e486",
+      "decoded_bytes": 788893,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "9e57c4519393965d80e371837bf0cebd21b2a63f0d7eed3abe1e325fe5cd41e6",
+      "gzip_bytes": 185616,
+      "ordered_parts": [
+        {
+          "path": "records/0001-000.gzpart",
+          "sha256": "9e57c4519393965d80e371837bf0cebd21b2a63f0d7eed3abe1e325fe5cd41e6",
+          "bytes": 185616
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/offline-report.json",
+      "raw_sha256": "d75e744ac0031517fc7a073a2ba951ce061468445129fe8d65508b8d370bab55",
+      "raw_bytes": 22153,
+      "decoded_sha256": "d75e744ac0031517fc7a073a2ba951ce061468445129fe8d65508b8d370bab55",
+      "decoded_bytes": 22153,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "888af7f15f34faa39ea5d98e20110518de518af1494bdd58ae9735b472e0cabf",
+      "gzip_bytes": 873,
+      "ordered_parts": [
+        {
+          "path": "records/0002-000.gzpart",
+          "sha256": "888af7f15f34faa39ea5d98e20110518de518af1494bdd58ae9735b472e0cabf",
+          "bytes": 873
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base.py",
+      "raw_sha256": "6989fda17181eda67afd5ea45f13d9a0498e606eea2c731502d638b9f0fcf84c",
+      "raw_bytes": 29135,
+      "decoded_sha256": "6989fda17181eda67afd5ea45f13d9a0498e606eea2c731502d638b9f0fcf84c",
+      "decoded_bytes": 29135,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "47e091f94eafa60e6af568f2ad4dd16ef043c87e1dbacf225741ed5c8e817017",
+      "gzip_bytes": 6682,
+      "ordered_parts": [
+        {
+          "path": "records/0003-000.gzpart",
+          "sha256": "47e091f94eafa60e6af568f2ad4dd16ef043c87e1dbacf225741ed5c8e817017",
+          "bytes": 6682
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/source-v2/behavior_pack/modern_projection/projection/render_context.py",
+      "raw_sha256": "5452d30b3d7b0e3b484aeb07e185019e0109abeb54a459c61ed55cea81c8e4c4",
+      "raw_bytes": 30612,
+      "decoded_sha256": "5452d30b3d7b0e3b484aeb07e185019e0109abeb54a459c61ed55cea81c8e4c4",
+      "decoded_bytes": 30612,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "e4e5212e809a109152776bc687b5df5c2410feec12d08eae6dc84db593615b74",
+      "gzip_bytes": 7142,
+      "ordered_parts": [
+        {
+          "path": "records/0004-000.gzpart",
+          "sha256": "e4e5212e809a109152776bc687b5df5c2410feec12d08eae6dc84db593615b74",
+          "bytes": 7142
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/prepare_candidate_v2.py",
+      "raw_sha256": "7709cc49c8ae20c06c5d50f40b85c512727658a32acf32fda536066b759fdeb6",
+      "raw_bytes": 4243,
+      "decoded_sha256": "7709cc49c8ae20c06c5d50f40b85c512727658a32acf32fda536066b759fdeb6",
+      "decoded_bytes": 4243,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "5ea93850360ce0a4c4dc077d8df9baf00ecfa85d01242adfae5e61e24a01fbfb",
+      "gzip_bytes": 1569,
+      "ordered_parts": [
+        {
+          "path": "records/0005-000.gzpart",
+          "sha256": "5ea93850360ce0a4c4dc077d8df9baf00ecfa85d01242adfae5e61e24a01fbfb",
+          "bytes": 1569
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/recheck_v2.py",
+      "raw_sha256": "7a038206c828af3d24dcd43c6d2649e70a72ad5ed7ce4b839729d60197e3e766",
+      "raw_bytes": 1051,
+      "decoded_sha256": "7a038206c828af3d24dcd43c6d2649e70a72ad5ed7ce4b839729d60197e3e766",
+      "decoded_bytes": 1051,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "d6eb758f96a52a9039c83d8fdf03f76c743bb6a48d42a57ba3eb81e7b8580267",
+      "gzip_bytes": 537,
+      "ordered_parts": [
+        {
+          "path": "records/0006-000.gzpart",
+          "sha256": "d6eb758f96a52a9039c83d8fdf03f76c743bb6a48d42a57ba3eb81e7b8580267",
+          "bytes": 537
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/offline_probe.py",
+      "raw_sha256": "b728465bd4076deb3d6e6595b5947bf9283aecbfbbac9f8cd33b04b61a00082f",
+      "raw_bytes": 6175,
+      "decoded_sha256": "b728465bd4076deb3d6e6595b5947bf9283aecbfbbac9f8cd33b04b61a00082f",
+      "decoded_bytes": 6175,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "756f2412796d787ae78afc7b838046898a3ee913bd69ab6c80f882da96316f83",
+      "gzip_bytes": 2119,
+      "ordered_parts": [
+        {
+          "path": "records/0007-000.gzpart",
+          "sha256": "756f2412796d787ae78afc7b838046898a3ee913bd69ab6c80f882da96316f83",
+          "bytes": 2119
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/analyze_matched.py",
+      "raw_sha256": "96eb7cbfa24b1a19a6bff3d9e0fd6931ef79702e196ba00da868e19e60c87207",
+      "raw_bytes": 6213,
+      "decoded_sha256": "96eb7cbfa24b1a19a6bff3d9e0fd6931ef79702e196ba00da868e19e60c87207",
+      "decoded_bytes": 6213,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "088a013872b962bf07920f7281b24af581b11f84feebc9e3e134c269435cd7db",
+      "gzip_bytes": 2136,
+      "ordered_parts": [
+        {
+          "path": "records/0008-000.gzpart",
+          "sha256": "088a013872b962bf07920f7281b24af581b11f84feebc9e3e134c269435cd7db",
+          "bytes": 2136
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit.py",
+      "raw_sha256": "49a78ff75791d86c01982ae076973c6f6e7b621456f730672436e8cfb30cd7df",
+      "raw_bytes": 5855,
+      "decoded_sha256": "49a78ff75791d86c01982ae076973c6f6e7b621456f730672436e8cfb30cd7df",
+      "decoded_bytes": 5855,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "78acf120f9e165a3c61501f63dc71a77fe8c6772931a6eab8de19bc108fff97f",
+      "gzip_bytes": 2205,
+      "ordered_parts": [
+        {
+          "path": "records/0009-000.gzpart",
+          "sha256": "78acf120f9e165a3c61501f63dc71a77fe8c6772931a6eab8de19bc108fff97f",
+          "bytes": 2205
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/lifecycle.py",
+      "raw_sha256": "63f62518d30e8ee0df1dcefb077c8230dfb0ac4ad03cde0043aecd2a208a10e7",
+      "raw_bytes": 11338,
+      "decoded_sha256": "63f62518d30e8ee0df1dcefb077c8230dfb0ac4ad03cde0043aecd2a208a10e7",
+      "decoded_bytes": 11338,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "425dfc3a10dc0d822ca08a6006c1f0e26d4ed57dbc19ac2d96e19634fbaa8ce2",
+      "gzip_bytes": 3795,
+      "ordered_parts": [
+        {
+          "path": "records/0010-000.gzpart",
+          "sha256": "425dfc3a10dc0d822ca08a6006c1f0e26d4ed57dbc19ac2d96e19634fbaa8ce2",
+          "bytes": 3795
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/run_diagnostic.py",
+      "raw_sha256": "93a3e195cc1da24f0edb1afe8fd3434cac84c3f33f5b3a63c592e62e0e2724f6",
+      "raw_bytes": 6664,
+      "decoded_sha256": "93a3e195cc1da24f0edb1afe8fd3434cac84c3f33f5b3a63c592e62e0e2724f6",
+      "decoded_bytes": 6664,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "70622d7cac3ed1e70cfbeb52582f2dc19a1fb8bf6af925b0357d1590f6285ffc",
+      "gzip_bytes": 2424,
+      "ordered_parts": [
+        {
+          "path": "records/0011-000.gzpart",
+          "sha256": "70622d7cac3ed1e70cfbeb52582f2dc19a1fb8bf6af925b0357d1590f6285ffc",
+          "bytes": 2424
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/run_diagnostic-v1-missing-default.py",
+      "raw_sha256": "623ce4505d6591bc9dc60f191e5f0e5524b34e7357679847598a79b76f52df27",
+      "raw_bytes": 6209,
+      "decoded_sha256": "623ce4505d6591bc9dc60f191e5f0e5524b34e7357679847598a79b76f52df27",
+      "decoded_bytes": 6209,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "df8f52b26a73e4c5ae659b25b3c6982c257226f7d0d26e66b2429d3d0e5b3535",
+      "gzip_bytes": 2236,
+      "ordered_parts": [
+        {
+          "path": "records/0012-000.gzpart",
+          "sha256": "df8f52b26a73e4c5ae659b25b3c6982c257226f7d0d26e66b2429d3d0e5b3535",
+          "bytes": 2236
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/retire_watcher.py",
+      "raw_sha256": "0e8726445cd8200c2a17c0e878258bd6b315e50d551f47e3c2f58358c7419764",
+      "raw_bytes": 1820,
+      "decoded_sha256": "0e8726445cd8200c2a17c0e878258bd6b315e50d551f47e3c2f58358c7419764",
+      "decoded_bytes": 1820,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "b957a8a9b6f844d71cc5857486b3f9d028e873ed6e43c9aef9a52ffd81a4dd1c",
+      "gzip_bytes": 906,
+      "ordered_parts": [
+        {
+          "path": "records/0013-000.gzpart",
+          "sha256": "b957a8a9b6f844d71cc5857486b3f9d028e873ed6e43c9aef9a52ffd81a4dd1c",
+          "bytes": 906
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/matched-analysis-v1/report.json",
+      "raw_sha256": "f669156e85696918610017bd3452b8bcbd63386aa046f544fb781fed409b8611",
+      "raw_bytes": 36747,
+      "decoded_sha256": "f669156e85696918610017bd3452b8bcbd63386aa046f544fb781fed409b8611",
+      "decoded_bytes": 36747,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "4e8dd47e16d4df458365bfbff026ff5697ad23c506439c4136f192bc2feb1d8a",
+      "gzip_bytes": 1550,
+      "ordered_parts": [
+        {
+          "path": "records/0014-000.gzpart",
+          "sha256": "4e8dd47e16d4df458365bfbff026ff5697ad23c506439c4136f192bc2feb1d8a",
+          "bytes": 1550
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report.json",
+      "raw_sha256": "7697603c9d9305699911f11fec9565f991a2364d020c7413a45acca2873dad7e",
+      "raw_bytes": 312976,
+      "decoded_sha256": "7697603c9d9305699911f11fec9565f991a2364d020c7413a45acca2873dad7e",
+      "decoded_bytes": 312976,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "d498c67c3ecc208e063e35432f620f166ead4c1172aaaa911912516dcd4548ec",
+      "gzip_bytes": 20207,
+      "ordered_parts": [
+        {
+          "path": "records/0015-000.gzpart",
+          "sha256": "d498c67c3ecc208e063e35432f620f166ead4c1172aaaa911912516dcd4548ec",
+          "bytes": 20207
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/host-inputs.json",
+      "raw_sha256": "81c1c7ecea49185ddb270276153a1d039074e277c87526e08d664722f56345db",
+      "raw_bytes": 19560,
+      "decoded_sha256": "81c1c7ecea49185ddb270276153a1d039074e277c87526e08d664722f56345db",
+      "decoded_bytes": 19560,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "7e5b468540cfe29f91744dd7e02894cbbd4ea88677807b9a24edb022cc2ab137",
+      "gzip_bytes": 4245,
+      "ordered_parts": [
+        {
+          "path": "records/0016-000.gzpart",
+          "sha256": "7e5b468540cfe29f91744dd7e02894cbbd4ea88677807b9a24edb022cc2ab137",
+          "bytes": 4245
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_default_above_hidden_native.capture.json",
+      "raw_sha256": "e61d8049b4b281d1f7df5174715b75c7b4325c492fc1cea7117c822084a941b5",
+      "raw_bytes": 2902,
+      "decoded_sha256": "e61d8049b4b281d1f7df5174715b75c7b4325c492fc1cea7117c822084a941b5",
+      "decoded_bytes": 2902,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "d537f859d53d9ade98482470b2906b0435cffbd84cf04655e899e83088045c3b",
+      "gzip_bytes": 1414,
+      "ordered_parts": [
+        {
+          "path": "records/0017-000.gzpart",
+          "sha256": "d537f859d53d9ade98482470b2906b0435cffbd84cf04655e899e83088045c3b",
+          "bytes": 1414
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_default_above_shown_native.capture.json",
+      "raw_sha256": "bb145a39c2e451397bf416e01274608859eb5b2bbb57692943f5a095ad1bce25",
+      "raw_bytes": 2902,
+      "decoded_sha256": "bb145a39c2e451397bf416e01274608859eb5b2bbb57692943f5a095ad1bce25",
+      "decoded_bytes": 2902,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "e62d9bc014cf053ee2763cc32ba0f24db6b3413b37dd90cfa43c5c34d53ade29",
+      "gzip_bytes": 1412,
+      "ordered_parts": [
+        {
+          "path": "records/0018-000.gzpart",
+          "sha256": "e62d9bc014cf053ee2763cc32ba0f24db6b3413b37dd90cfa43c5c34d53ade29",
+          "bytes": 1412
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_default_empty_hidden_native.capture.json",
+      "raw_sha256": "48338df76895f4e4bc63ccc4bed9b927d931c61ea04976b7e2cc87af58e1b4d3",
+      "raw_bytes": 2902,
+      "decoded_sha256": "48338df76895f4e4bc63ccc4bed9b927d931c61ea04976b7e2cc87af58e1b4d3",
+      "decoded_bytes": 2902,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "a652783a6d4c14f668493ec93e81b5d5412c5ee28eb7f9589096f69c56d59f4b",
+      "gzip_bytes": 1416,
+      "ordered_parts": [
+        {
+          "path": "records/0019-000.gzpart",
+          "sha256": "a652783a6d4c14f668493ec93e81b5d5412c5ee28eb7f9589096f69c56d59f4b",
+          "bytes": 1416
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_default_empty_repeat_hidden_native.capture.json",
+      "raw_sha256": "330224a8ee784d3cc2c6d03f6879badf56852cee319141c599f700c0088f3e7b",
+      "raw_bytes": 2910,
+      "decoded_sha256": "330224a8ee784d3cc2c6d03f6879badf56852cee319141c599f700c0088f3e7b",
+      "decoded_bytes": 2910,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "8b18c06dd091ae2df0c764402f16c99d3901515f565ad1cb3b3e64eb96164a61",
+      "gzip_bytes": 1419,
+      "ordered_parts": [
+        {
+          "path": "records/0020-000.gzpart",
+          "sha256": "8b18c06dd091ae2df0c764402f16c99d3901515f565ad1cb3b3e64eb96164a61",
+          "bytes": 1419
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_default_empty_repeat_shown_native.capture.json",
+      "raw_sha256": "7a51d459f167a67da244bf87769839aae48f2d36f144a1918289b42209cf8899",
+      "raw_bytes": 2909,
+      "decoded_sha256": "7a51d459f167a67da244bf87769839aae48f2d36f144a1918289b42209cf8899",
+      "decoded_bytes": 2909,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "e10a3c6e4f6123fdeba997e36782dae5cd8b1f68a283d1f4f002e8139a5279ca",
+      "gzip_bytes": 1421,
+      "ordered_parts": [
+        {
+          "path": "records/0021-000.gzpart",
+          "sha256": "e10a3c6e4f6123fdeba997e36782dae5cd8b1f68a283d1f4f002e8139a5279ca",
+          "bytes": 1421
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_default_empty_shown_native.capture.json",
+      "raw_sha256": "692234260c585624405a3c0fdfe155c2ac02e5904cad475e5332fffcdc9e2210",
+      "raw_bytes": 2901,
+      "decoded_sha256": "692234260c585624405a3c0fdfe155c2ac02e5904cad475e5332fffcdc9e2210",
+      "decoded_bytes": 2901,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "8c2a1969a54ef8362e3b65f60675f3bb3cd109f46b20e445d4968c56bf601eb3",
+      "gzip_bytes": 1415,
+      "ordered_parts": [
+        {
+          "path": "records/0022-000.gzpart",
+          "sha256": "8c2a1969a54ef8362e3b65f60675f3bb3cd109f46b20e445d4968c56bf601eb3",
+          "bytes": 1415
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_default_restored_hidden_native.capture.json",
+      "raw_sha256": "e7dc8c8b0e750724c123c7db2a270d7a5d0705ba9c68f2f94e1571d8bbf3a517",
+      "raw_bytes": 2905,
+      "decoded_sha256": "e7dc8c8b0e750724c123c7db2a270d7a5d0705ba9c68f2f94e1571d8bbf3a517",
+      "decoded_bytes": 2905,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "5833e8a973b42f12844ecc505bc14312e2cb16aca6218ddd5f206207543d9d93",
+      "gzip_bytes": 1416,
+      "ordered_parts": [
+        {
+          "path": "records/0023-000.gzpart",
+          "sha256": "5833e8a973b42f12844ecc505bc14312e2cb16aca6218ddd5f206207543d9d93",
+          "bytes": 1416
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_default_restored_shown_native.capture.json",
+      "raw_sha256": "731ebad4778105d172f70e9f8ec5e9231c2ead886aea40e8e61b7da2e4d91807",
+      "raw_bytes": 2905,
+      "decoded_sha256": "731ebad4778105d172f70e9f8ec5e9231c2ead886aea40e8e61b7da2e4d91807",
+      "decoded_bytes": 2905,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "290438a9109541d55830a007f29d1a04b52f11277bc4f1321e09379559068b8b",
+      "gzip_bytes": 1417,
+      "ordered_parts": [
+        {
+          "path": "records/0024-000.gzpart",
+          "sha256": "290438a9109541d55830a007f29d1a04b52f11277bc4f1321e09379559068b8b",
+          "bytes": 1417
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_opaque_above_hidden_native.capture.json",
+      "raw_sha256": "79a373f5b08a9fc13d4473bc9dedfae40b5cdcd0302a40d08abce41f7f946e1c",
+      "raw_bytes": 2902,
+      "decoded_sha256": "79a373f5b08a9fc13d4473bc9dedfae40b5cdcd0302a40d08abce41f7f946e1c",
+      "decoded_bytes": 2902,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "34135dceb387c8eec48ce845277eab1f0627f97c35cd76d4f901d2477475b826",
+      "gzip_bytes": 1414,
+      "ordered_parts": [
+        {
+          "path": "records/0025-000.gzpart",
+          "sha256": "34135dceb387c8eec48ce845277eab1f0627f97c35cd76d4f901d2477475b826",
+          "bytes": 1414
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_opaque_above_shown_native.capture.json",
+      "raw_sha256": "2e6b4752d28faa79e1ab7022017094073c4603da447cd7f7fd8210c5321a20c8",
+      "raw_bytes": 2899,
+      "decoded_sha256": "2e6b4752d28faa79e1ab7022017094073c4603da447cd7f7fd8210c5321a20c8",
+      "decoded_bytes": 2899,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "77353b72f5ddc48cadc6da5f96333a72cf0d9fe86c43ce58cf99f38e8699dac5",
+      "gzip_bytes": 1412,
+      "ordered_parts": [
+        {
+          "path": "records/0026-000.gzpart",
+          "sha256": "77353b72f5ddc48cadc6da5f96333a72cf0d9fe86c43ce58cf99f38e8699dac5",
+          "bytes": 1412
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_opaque_empty_hidden_native.capture.json",
+      "raw_sha256": "74d2c1f2bb3cdc8683159bf8f6bf366d94443679fb215caed93d912dc801a222",
+      "raw_bytes": 2902,
+      "decoded_sha256": "74d2c1f2bb3cdc8683159bf8f6bf366d94443679fb215caed93d912dc801a222",
+      "decoded_bytes": 2902,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "b72135bb1951c1f5197bd5c2df95233055008448d630b75cf6433c45ccacae31",
+      "gzip_bytes": 1416,
+      "ordered_parts": [
+        {
+          "path": "records/0027-000.gzpart",
+          "sha256": "b72135bb1951c1f5197bd5c2df95233055008448d630b75cf6433c45ccacae31",
+          "bytes": 1416
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_opaque_empty_repeat_hidden_native.capture.json",
+      "raw_sha256": "6d45765b9a1f32b491688e686059d3faec3ddf9bf806a37145a9e099177c275e",
+      "raw_bytes": 2910,
+      "decoded_sha256": "6d45765b9a1f32b491688e686059d3faec3ddf9bf806a37145a9e099177c275e",
+      "decoded_bytes": 2910,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "74455b8c7369b7910f391600f0ff8ac96bbfcc471612e689593c2a4a317c8fa7",
+      "gzip_bytes": 1419,
+      "ordered_parts": [
+        {
+          "path": "records/0028-000.gzpart",
+          "sha256": "74455b8c7369b7910f391600f0ff8ac96bbfcc471612e689593c2a4a317c8fa7",
+          "bytes": 1419
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_opaque_empty_repeat_shown_native.capture.json",
+      "raw_sha256": "c0aaf3696354b7c615e9c0b736a7eda66c11ea21425a5d7946f553a4f618701d",
+      "raw_bytes": 2907,
+      "decoded_sha256": "c0aaf3696354b7c615e9c0b736a7eda66c11ea21425a5d7946f553a4f618701d",
+      "decoded_bytes": 2907,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "22a4778cf91b019cfe4bfee4d8b09c53f0127455987eea2ab5a49c6bbf7b029c",
+      "gzip_bytes": 1417,
+      "ordered_parts": [
+        {
+          "path": "records/0029-000.gzpart",
+          "sha256": "22a4778cf91b019cfe4bfee4d8b09c53f0127455987eea2ab5a49c6bbf7b029c",
+          "bytes": 1417
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_opaque_empty_shown_native.capture.json",
+      "raw_sha256": "9e50c365456288f548f495ff4196efb9a95f9f1397923c4ca0e8fc96acbdc593",
+      "raw_bytes": 2899,
+      "decoded_sha256": "9e50c365456288f548f495ff4196efb9a95f9f1397923c4ca0e8fc96acbdc593",
+      "decoded_bytes": 2899,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "87954ade2d96aca89fa7c3354a26c4925a49002f390667580879c8e093637a72",
+      "gzip_bytes": 1415,
+      "ordered_parts": [
+        {
+          "path": "records/0030-000.gzpart",
+          "sha256": "87954ade2d96aca89fa7c3354a26c4925a49002f390667580879c8e093637a72",
+          "bytes": 1415
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_opaque_restored_hidden_native.capture.json",
+      "raw_sha256": "554ee3bad0c4fab7704e19c65de5d6500d735e557880b493a5f6a9e85accffe7",
+      "raw_bytes": 2906,
+      "decoded_sha256": "554ee3bad0c4fab7704e19c65de5d6500d735e557880b493a5f6a9e85accffe7",
+      "decoded_bytes": 2906,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "fdb9e33a94135cb1fd0506e35b56256ae0e5603cf3e8756c0c1488b1645c6dcc",
+      "gzip_bytes": 1415,
+      "ordered_parts": [
+        {
+          "path": "records/0031-000.gzpart",
+          "sha256": "fdb9e33a94135cb1fd0506e35b56256ae0e5603cf3e8756c0c1488b1645c6dcc",
+          "bytes": 1415
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-white-product-v1/report_white_concrete_opaque_restored_shown_native.capture.json",
+      "raw_sha256": "e34d896fef917d7c82d6da7fbf94ac2182b199cd17b7eeec4f5086ef14e22d97",
+      "raw_bytes": 2904,
+      "decoded_sha256": "e34d896fef917d7c82d6da7fbf94ac2182b199cd17b7eeec4f5086ef14e22d97",
+      "decoded_bytes": 2904,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "ac14f5f9942d07dd0069367abbc0af4240dffab71f7c07a050411cdeff636ab6",
+      "gzip_bytes": 1414,
+      "ordered_parts": [
+        {
+          "path": "records/0032-000.gzpart",
+          "sha256": "ac14f5f9942d07dd0069367abbc0af4240dffab71f7c07a050411cdeff636ab6",
+          "bytes": 1414
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report.json",
+      "raw_sha256": "b59af515225c9111234b9abc4f14ac2e932287d54d027b7d613a0717931672ea",
+      "raw_bytes": 314183,
+      "decoded_sha256": "b59af515225c9111234b9abc4f14ac2e932287d54d027b7d613a0717931672ea",
+      "decoded_bytes": 314183,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "fdf4d735e2d4d325e5478cba1974cf9829f3ce1ea085244dfdcf145fecb12389",
+      "gzip_bytes": 20200,
+      "ordered_parts": [
+        {
+          "path": "records/0033-000.gzpart",
+          "sha256": "fdf4d735e2d4d325e5478cba1974cf9829f3ce1ea085244dfdcf145fecb12389",
+          "bytes": 20200
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/host-inputs.json",
+      "raw_sha256": "81c1c7ecea49185ddb270276153a1d039074e277c87526e08d664722f56345db",
+      "raw_bytes": 19560,
+      "decoded_sha256": "81c1c7ecea49185ddb270276153a1d039074e277c87526e08d664722f56345db",
+      "decoded_bytes": 19560,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "7e5b468540cfe29f91744dd7e02894cbbd4ea88677807b9a24edb022cc2ab137",
+      "gzip_bytes": 4245,
+      "ordered_parts": [
+        {
+          "path": "records/0034-000.gzpart",
+          "sha256": "7e5b468540cfe29f91744dd7e02894cbbd4ea88677807b9a24edb022cc2ab137",
+          "bytes": 4245
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_default_above_hidden_native.capture.json",
+      "raw_sha256": "f176d23169e01c0b657911fd694ae7092af2a11d2c27eff1da0c7de77befe970",
+      "raw_bytes": 2908,
+      "decoded_sha256": "f176d23169e01c0b657911fd694ae7092af2a11d2c27eff1da0c7de77befe970",
+      "decoded_bytes": 2908,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "54f3d26f66480fb144c63ac1cced810a7ebb5b74628b8470ce3c901339284070",
+      "gzip_bytes": 1421,
+      "ordered_parts": [
+        {
+          "path": "records/0035-000.gzpart",
+          "sha256": "54f3d26f66480fb144c63ac1cced810a7ebb5b74628b8470ce3c901339284070",
+          "bytes": 1421
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_default_above_shown_native.capture.json",
+      "raw_sha256": "36f0107b881eb0b35ed6844aa7d7e6e1c005c3db775d962dc8d8d46cccd55b7c",
+      "raw_bytes": 2906,
+      "decoded_sha256": "36f0107b881eb0b35ed6844aa7d7e6e1c005c3db775d962dc8d8d46cccd55b7c",
+      "decoded_bytes": 2906,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "bea3f470b6b998faa7ea0354d34671f17bfdf72d32cb16827f6b8b110c4e37b8",
+      "gzip_bytes": 1421,
+      "ordered_parts": [
+        {
+          "path": "records/0036-000.gzpart",
+          "sha256": "bea3f470b6b998faa7ea0354d34671f17bfdf72d32cb16827f6b8b110c4e37b8",
+          "bytes": 1421
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_default_empty_hidden_native.capture.json",
+      "raw_sha256": "8c129bbde575ff02ca17236cd6d331365da858e521484f2ee117faabefb47bd4",
+      "raw_bytes": 2907,
+      "decoded_sha256": "8c129bbde575ff02ca17236cd6d331365da858e521484f2ee117faabefb47bd4",
+      "decoded_bytes": 2907,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "b0b2c192b36ed6c3e0e6c7a5c13ebd8cf25573635e13331881add2d986936e78",
+      "gzip_bytes": 1422,
+      "ordered_parts": [
+        {
+          "path": "records/0037-000.gzpart",
+          "sha256": "b0b2c192b36ed6c3e0e6c7a5c13ebd8cf25573635e13331881add2d986936e78",
+          "bytes": 1422
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_default_empty_repeat_hidden_native.capture.json",
+      "raw_sha256": "2175c3a33f60c90c14ca8eb98c0bf09ad97f8a2b99370f42c37eaf0c689dee9a",
+      "raw_bytes": 2913,
+      "decoded_sha256": "2175c3a33f60c90c14ca8eb98c0bf09ad97f8a2b99370f42c37eaf0c689dee9a",
+      "decoded_bytes": 2913,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "99e1185c9a03ac6f364f15a3b7b7d01360bf41f5cffe16227389fdc06cea8783",
+      "gzip_bytes": 1420,
+      "ordered_parts": [
+        {
+          "path": "records/0038-000.gzpart",
+          "sha256": "99e1185c9a03ac6f364f15a3b7b7d01360bf41f5cffe16227389fdc06cea8783",
+          "bytes": 1420
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_default_empty_repeat_shown_native.capture.json",
+      "raw_sha256": "8c815c5dda972c8728683eb6098ec68a6721433b4aa95adc9888f29a6a688be7",
+      "raw_bytes": 2914,
+      "decoded_sha256": "8c815c5dda972c8728683eb6098ec68a6721433b4aa95adc9888f29a6a688be7",
+      "decoded_bytes": 2914,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "ae8eb5123b8f1a19b072058e6655a26d7e0805264cb783e3e8c421f5fa229fab",
+      "gzip_bytes": 1425,
+      "ordered_parts": [
+        {
+          "path": "records/0039-000.gzpart",
+          "sha256": "ae8eb5123b8f1a19b072058e6655a26d7e0805264cb783e3e8c421f5fa229fab",
+          "bytes": 1425
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_default_empty_shown_native.capture.json",
+      "raw_sha256": "46f7168725daafaef665abaf9881e4adbe7a432a299042112e1cc5b79f2efc01",
+      "raw_bytes": 2908,
+      "decoded_sha256": "46f7168725daafaef665abaf9881e4adbe7a432a299042112e1cc5b79f2efc01",
+      "decoded_bytes": 2908,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "a8271ebb3c9822ee0301dc6c695863f1625043a2b5e09ce23ee1750ffe75c8b5",
+      "gzip_bytes": 1422,
+      "ordered_parts": [
+        {
+          "path": "records/0040-000.gzpart",
+          "sha256": "a8271ebb3c9822ee0301dc6c695863f1625043a2b5e09ce23ee1750ffe75c8b5",
+          "bytes": 1422
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_default_restored_hidden_native.capture.json",
+      "raw_sha256": "cff15775e6a462452cd107ecdf3224cd9ebdfc113546737de3a99bad82b08f27",
+      "raw_bytes": 2912,
+      "decoded_sha256": "cff15775e6a462452cd107ecdf3224cd9ebdfc113546737de3a99bad82b08f27",
+      "decoded_bytes": 2912,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "4899b2e3d99c8b1c946710b93eb4993b6708b243226cfe8bfca223ef07554edb",
+      "gzip_bytes": 1422,
+      "ordered_parts": [
+        {
+          "path": "records/0041-000.gzpart",
+          "sha256": "4899b2e3d99c8b1c946710b93eb4993b6708b243226cfe8bfca223ef07554edb",
+          "bytes": 1422
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_default_restored_shown_native.capture.json",
+      "raw_sha256": "adc836860fbc41f5633373016439f97f80d5f625bf7a33a79ad9824e2ba8b922",
+      "raw_bytes": 2910,
+      "decoded_sha256": "adc836860fbc41f5633373016439f97f80d5f625bf7a33a79ad9824e2ba8b922",
+      "decoded_bytes": 2910,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "ec711a79c44dcb56b059446382232d610f924e479e1e44cd7dc4a58e903339b4",
+      "gzip_bytes": 1425,
+      "ordered_parts": [
+        {
+          "path": "records/0042-000.gzpart",
+          "sha256": "ec711a79c44dcb56b059446382232d610f924e479e1e44cd7dc4a58e903339b4",
+          "bytes": 1425
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_opaque_above_hidden_native.capture.json",
+      "raw_sha256": "df3333adfe708d99c3d168db46126e79e9795878e2a856006d43cc8aeb2f39d9",
+      "raw_bytes": 2909,
+      "decoded_sha256": "df3333adfe708d99c3d168db46126e79e9795878e2a856006d43cc8aeb2f39d9",
+      "decoded_bytes": 2909,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "7c7f0c60e0929f6dac786bc7f52ea5eba7b6459fdce27708e6cc9c9041bfa870",
+      "gzip_bytes": 1420,
+      "ordered_parts": [
+        {
+          "path": "records/0043-000.gzpart",
+          "sha256": "7c7f0c60e0929f6dac786bc7f52ea5eba7b6459fdce27708e6cc9c9041bfa870",
+          "bytes": 1420
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_opaque_above_shown_native.capture.json",
+      "raw_sha256": "6f55eeb617c65b7e3686822f03b5f20f0cf77ab935cfedf6252873f3b16eda0d",
+      "raw_bytes": 2906,
+      "decoded_sha256": "6f55eeb617c65b7e3686822f03b5f20f0cf77ab935cfedf6252873f3b16eda0d",
+      "decoded_bytes": 2906,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "84bb4896db4e4277274a492eecaea0a5940db0a5e8e6825f6897d794049d9e05",
+      "gzip_bytes": 1417,
+      "ordered_parts": [
+        {
+          "path": "records/0044-000.gzpart",
+          "sha256": "84bb4896db4e4277274a492eecaea0a5940db0a5e8e6825f6897d794049d9e05",
+          "bytes": 1417
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_opaque_empty_hidden_native.capture.json",
+      "raw_sha256": "f449cdbbe7dbd3812bd7ce7947dd6c5cad7de92bde9474bad68bf359521b0c80",
+      "raw_bytes": 2908,
+      "decoded_sha256": "f449cdbbe7dbd3812bd7ce7947dd6c5cad7de92bde9474bad68bf359521b0c80",
+      "decoded_bytes": 2908,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "db60702a74c5c55acb9d518463951c9f7251e6d72c3f2daeb2bbe5af5e10ec80",
+      "gzip_bytes": 1418,
+      "ordered_parts": [
+        {
+          "path": "records/0045-000.gzpart",
+          "sha256": "db60702a74c5c55acb9d518463951c9f7251e6d72c3f2daeb2bbe5af5e10ec80",
+          "bytes": 1418
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_opaque_empty_repeat_hidden_native.capture.json",
+      "raw_sha256": "4a079f813325386ef63cbfa19d555e1d623b2e0ef60210a77297ac57c48f0ce4",
+      "raw_bytes": 2915,
+      "decoded_sha256": "4a079f813325386ef63cbfa19d555e1d623b2e0ef60210a77297ac57c48f0ce4",
+      "decoded_bytes": 2915,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "a0ef1af60de06b1d2e0039c218b5f70509a578b1f1cacd4788726dab53889361",
+      "gzip_bytes": 1429,
+      "ordered_parts": [
+        {
+          "path": "records/0046-000.gzpart",
+          "sha256": "a0ef1af60de06b1d2e0039c218b5f70509a578b1f1cacd4788726dab53889361",
+          "bytes": 1429
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_opaque_empty_repeat_shown_native.capture.json",
+      "raw_sha256": "4e341a64a629779e9e48f958a3b0b2318fe35229126d7c76b8ac5f747a832a20",
+      "raw_bytes": 2914,
+      "decoded_sha256": "4e341a64a629779e9e48f958a3b0b2318fe35229126d7c76b8ac5f747a832a20",
+      "decoded_bytes": 2914,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "93d5e1f1dc3376bb3ee2daf5702334f21672aaa88acc002b68f0f7606b191470",
+      "gzip_bytes": 1425,
+      "ordered_parts": [
+        {
+          "path": "records/0047-000.gzpart",
+          "sha256": "93d5e1f1dc3376bb3ee2daf5702334f21672aaa88acc002b68f0f7606b191470",
+          "bytes": 1425
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_opaque_empty_shown_native.capture.json",
+      "raw_sha256": "c75312badeb1b1c5a637d610203423003400f57cac5f5852fc42a619ca4fbafb",
+      "raw_bytes": 2907,
+      "decoded_sha256": "c75312badeb1b1c5a637d610203423003400f57cac5f5852fc42a619ca4fbafb",
+      "decoded_bytes": 2907,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "d9670411ead27fc63eaf645ef743f61332bb9dc04afdfee5adaf58f661d71830",
+      "gzip_bytes": 1420,
+      "ordered_parts": [
+        {
+          "path": "records/0048-000.gzpart",
+          "sha256": "d9670411ead27fc63eaf645ef743f61332bb9dc04afdfee5adaf58f661d71830",
+          "bytes": 1420
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_opaque_restored_hidden_native.capture.json",
+      "raw_sha256": "606e4f3d8772d0ead13587d7a5d8d9fcc9e3fd10f6c3ed4c31839b25f610333c",
+      "raw_bytes": 2909,
+      "decoded_sha256": "606e4f3d8772d0ead13587d7a5d8d9fcc9e3fd10f6c3ed4c31839b25f610333c",
+      "decoded_bytes": 2909,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "99b045d4fbb3d01844b6e6116af116a336e6b4db91ed6e90faa27f4b4d47c85d",
+      "gzip_bytes": 1418,
+      "ordered_parts": [
+        {
+          "path": "records/0049-000.gzpart",
+          "sha256": "99b045d4fbb3d01844b6e6116af116a336e6b4db91ed6e90faa27f4b4d47c85d",
+          "bytes": 1418
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/base-silver-product-v1/report_light_gray_concrete_opaque_restored_shown_native.capture.json",
+      "raw_sha256": "1893fc8ef57e5d94b64b80eb6dc73ac21ea9437cd45003195a56d9d2f7194871",
+      "raw_bytes": 2910,
+      "decoded_sha256": "1893fc8ef57e5d94b64b80eb6dc73ac21ea9437cd45003195a56d9d2f7194871",
+      "decoded_bytes": 2910,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "417f288a76e8a6fb896488c66a051f81afc17d2ab8bd23806065fb0bb417555d",
+      "gzip_bytes": 1421,
+      "ordered_parts": [
+        {
+          "path": "records/0050-000.gzpart",
+          "sha256": "417f288a76e8a6fb896488c66a051f81afc17d2ab8bd23806065fb0bb417555d",
+          "bytes": 1421
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report.json",
+      "raw_sha256": "cd91dc260bf3216e5bb54d6fca0586c149f74712aa3c707eef1b1aa127c8b831",
+      "raw_bytes": 312743,
+      "decoded_sha256": "cd91dc260bf3216e5bb54d6fca0586c149f74712aa3c707eef1b1aa127c8b831",
+      "decoded_bytes": 312743,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "6d732a920bde6c4253d16a57a0f608c8f1ec3bebb4ebec6dc60160ff99a89c2e",
+      "gzip_bytes": 20140,
+      "ordered_parts": [
+        {
+          "path": "records/0051-000.gzpart",
+          "sha256": "6d732a920bde6c4253d16a57a0f608c8f1ec3bebb4ebec6dc60160ff99a89c2e",
+          "bytes": 20140
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/host-inputs.json",
+      "raw_sha256": "66d207ca809fd853822bd18178e7c35ab3ce113637e6cfc9d2fc02636f5e3773",
+      "raw_bytes": 19565,
+      "decoded_sha256": "66d207ca809fd853822bd18178e7c35ab3ce113637e6cfc9d2fc02636f5e3773",
+      "decoded_bytes": 19565,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "f59b586a592c9946597c63e73fcd0e4125a1e8fda33f5aa098b63a8832f6729c",
+      "gzip_bytes": 4248,
+      "ordered_parts": [
+        {
+          "path": "records/0052-000.gzpart",
+          "sha256": "f59b586a592c9946597c63e73fcd0e4125a1e8fda33f5aa098b63a8832f6729c",
+          "bytes": 4248
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_default_above_hidden_native.capture.json",
+      "raw_sha256": "9a6f800db73aaeb944eae98d50d7e102876ad879add3e5bee8cffea8cc29aec7",
+      "raw_bytes": 2913,
+      "decoded_sha256": "9a6f800db73aaeb944eae98d50d7e102876ad879add3e5bee8cffea8cc29aec7",
+      "decoded_bytes": 2913,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "d5768239ea4d6e82d8216ab7340fff6b833bbb298b547f0fcdd2e43bef2c8ebf",
+      "gzip_bytes": 1419,
+      "ordered_parts": [
+        {
+          "path": "records/0053-000.gzpart",
+          "sha256": "d5768239ea4d6e82d8216ab7340fff6b833bbb298b547f0fcdd2e43bef2c8ebf",
+          "bytes": 1419
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_default_above_shown_native.capture.json",
+      "raw_sha256": "b98fdc76699d88722102d7413dd6821becf94d9d81368488a54bd942edb9fd8b",
+      "raw_bytes": 2913,
+      "decoded_sha256": "b98fdc76699d88722102d7413dd6821becf94d9d81368488a54bd942edb9fd8b",
+      "decoded_bytes": 2913,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "2f54f6ac24bf930e9ed67ca75c6ed714ff8c991c79dc8483f48dfe1f24f0b68e",
+      "gzip_bytes": 1421,
+      "ordered_parts": [
+        {
+          "path": "records/0054-000.gzpart",
+          "sha256": "2f54f6ac24bf930e9ed67ca75c6ed714ff8c991c79dc8483f48dfe1f24f0b68e",
+          "bytes": 1421
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_default_empty_hidden_native.capture.json",
+      "raw_sha256": "b2bd8d961efcd379bedaa8ecb9bbeab7a95306c0160c9b7c625c9ff15d25af0b",
+      "raw_bytes": 2912,
+      "decoded_sha256": "b2bd8d961efcd379bedaa8ecb9bbeab7a95306c0160c9b7c625c9ff15d25af0b",
+      "decoded_bytes": 2912,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "aad45724ef2695d95b0cd55309fc153ceaf19a264a870f185f243915d9f36a6c",
+      "gzip_bytes": 1421,
+      "ordered_parts": [
+        {
+          "path": "records/0055-000.gzpart",
+          "sha256": "aad45724ef2695d95b0cd55309fc153ceaf19a264a870f185f243915d9f36a6c",
+          "bytes": 1421
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_default_empty_repeat_hidden_native.capture.json",
+      "raw_sha256": "766bdcacddfa0fb762ce1348d2b7ef04c795e831eb7df2abc914a3a39644d203",
+      "raw_bytes": 2921,
+      "decoded_sha256": "766bdcacddfa0fb762ce1348d2b7ef04c795e831eb7df2abc914a3a39644d203",
+      "decoded_bytes": 2921,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "44a2cbf0c1d80e04a734f5436a11ab27b8785e5d53dfc7005e38f2cce7174a8a",
+      "gzip_bytes": 1426,
+      "ordered_parts": [
+        {
+          "path": "records/0056-000.gzpart",
+          "sha256": "44a2cbf0c1d80e04a734f5436a11ab27b8785e5d53dfc7005e38f2cce7174a8a",
+          "bytes": 1426
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_default_empty_repeat_shown_native.capture.json",
+      "raw_sha256": "d801d7866c221088d850e836b1f13758f5c57886b949fef0c52b75a09a0eaefb",
+      "raw_bytes": 2919,
+      "decoded_sha256": "d801d7866c221088d850e836b1f13758f5c57886b949fef0c52b75a09a0eaefb",
+      "decoded_bytes": 2919,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "e471d44165cd9f6feade516badc7ad27e599855752cbd0533bb0c1371ccb7462",
+      "gzip_bytes": 1427,
+      "ordered_parts": [
+        {
+          "path": "records/0057-000.gzpart",
+          "sha256": "e471d44165cd9f6feade516badc7ad27e599855752cbd0533bb0c1371ccb7462",
+          "bytes": 1427
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_default_empty_shown_native.capture.json",
+      "raw_sha256": "7e1561ee2c0f5287a2d2778dc10ea380eadc89b2ef3fe3a6789400a5d2dea862",
+      "raw_bytes": 2912,
+      "decoded_sha256": "7e1561ee2c0f5287a2d2778dc10ea380eadc89b2ef3fe3a6789400a5d2dea862",
+      "decoded_bytes": 2912,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "dc956e39d37c5912582712af1571e48b06c589a7b145630389b0acf8ca678e30",
+      "gzip_bytes": 1420,
+      "ordered_parts": [
+        {
+          "path": "records/0058-000.gzpart",
+          "sha256": "dc956e39d37c5912582712af1571e48b06c589a7b145630389b0acf8ca678e30",
+          "bytes": 1420
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_default_restored_hidden_native.capture.json",
+      "raw_sha256": "c2f6f23d2aa9baee1abd2477f60416550cd7f65e5177ec69cbcc5314796bfaff",
+      "raw_bytes": 2917,
+      "decoded_sha256": "c2f6f23d2aa9baee1abd2477f60416550cd7f65e5177ec69cbcc5314796bfaff",
+      "decoded_bytes": 2917,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "55210ea6f4fc27e2e6e5dccce50db884d65f548805bf0834b23afed7557b547c",
+      "gzip_bytes": 1422,
+      "ordered_parts": [
+        {
+          "path": "records/0059-000.gzpart",
+          "sha256": "55210ea6f4fc27e2e6e5dccce50db884d65f548805bf0834b23afed7557b547c",
+          "bytes": 1422
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_default_restored_shown_native.capture.json",
+      "raw_sha256": "b0858eccc320bc97764b564edc74e1b322428529d895ae68dea4514eac674fd1",
+      "raw_bytes": 2916,
+      "decoded_sha256": "b0858eccc320bc97764b564edc74e1b322428529d895ae68dea4514eac674fd1",
+      "decoded_bytes": 2916,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "ca8b09399dc7edb34de4ea7472d7526c2d2c4a39f3a7407fdb56f5e66e14a1cc",
+      "gzip_bytes": 1421,
+      "ordered_parts": [
+        {
+          "path": "records/0060-000.gzpart",
+          "sha256": "ca8b09399dc7edb34de4ea7472d7526c2d2c4a39f3a7407fdb56f5e66e14a1cc",
+          "bytes": 1421
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_opaque_above_hidden_native.capture.json",
+      "raw_sha256": "c95c88805c3631fc890316719648a62fb639219930e6a2ff89bb333460255e2a",
+      "raw_bytes": 2912,
+      "decoded_sha256": "c95c88805c3631fc890316719648a62fb639219930e6a2ff89bb333460255e2a",
+      "decoded_bytes": 2912,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "72bcd2c050cb064383acd35e98e5f25d426f68d51dcb780cc55ed011cb44c829",
+      "gzip_bytes": 1420,
+      "ordered_parts": [
+        {
+          "path": "records/0061-000.gzpart",
+          "sha256": "72bcd2c050cb064383acd35e98e5f25d426f68d51dcb780cc55ed011cb44c829",
+          "bytes": 1420
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_opaque_above_shown_native.capture.json",
+      "raw_sha256": "0f5df56170c84ce88d2b84e094a1e336eb8d98bc6bf4be1d46d49f10e7c76733",
+      "raw_bytes": 2911,
+      "decoded_sha256": "0f5df56170c84ce88d2b84e094a1e336eb8d98bc6bf4be1d46d49f10e7c76733",
+      "decoded_bytes": 2911,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "f77d4fe193d8232e8f576dbe104525115245aac9dc11683159cb51904d16e5ff",
+      "gzip_bytes": 1419,
+      "ordered_parts": [
+        {
+          "path": "records/0062-000.gzpart",
+          "sha256": "f77d4fe193d8232e8f576dbe104525115245aac9dc11683159cb51904d16e5ff",
+          "bytes": 1419
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_opaque_empty_hidden_native.capture.json",
+      "raw_sha256": "fc233aaa2e79354359c8d3faa460a4d043370e65ddd3b6a140fed927ef6857af",
+      "raw_bytes": 2909,
+      "decoded_sha256": "fc233aaa2e79354359c8d3faa460a4d043370e65ddd3b6a140fed927ef6857af",
+      "decoded_bytes": 2909,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "648e71709d4db448f5eba4155e91c1297a02f4d538ed4c07b8a309e5c7bcd86f",
+      "gzip_bytes": 1417,
+      "ordered_parts": [
+        {
+          "path": "records/0063-000.gzpart",
+          "sha256": "648e71709d4db448f5eba4155e91c1297a02f4d538ed4c07b8a309e5c7bcd86f",
+          "bytes": 1417
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_opaque_empty_repeat_hidden_native.capture.json",
+      "raw_sha256": "219f28a062d9b7c9d4fb1aa8bbc7393caf8efbe639e1727831940dd5f0738235",
+      "raw_bytes": 2920,
+      "decoded_sha256": "219f28a062d9b7c9d4fb1aa8bbc7393caf8efbe639e1727831940dd5f0738235",
+      "decoded_bytes": 2920,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "a2341e8717aeeac79035f37699011ca0384b76cac46bc7b8ba0f795197570517",
+      "gzip_bytes": 1427,
+      "ordered_parts": [
+        {
+          "path": "records/0064-000.gzpart",
+          "sha256": "a2341e8717aeeac79035f37699011ca0384b76cac46bc7b8ba0f795197570517",
+          "bytes": 1427
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_opaque_empty_repeat_shown_native.capture.json",
+      "raw_sha256": "f8e9a24b9668130edc5c8214f80f7210f73df20b3af85eba5608f16c6bd5464e",
+      "raw_bytes": 2919,
+      "decoded_sha256": "f8e9a24b9668130edc5c8214f80f7210f73df20b3af85eba5608f16c6bd5464e",
+      "decoded_bytes": 2919,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "91d8e7ffde1429fefefadf772a87db16173bd5542d994a7cb3cbb16be38bc865",
+      "gzip_bytes": 1426,
+      "ordered_parts": [
+        {
+          "path": "records/0065-000.gzpart",
+          "sha256": "91d8e7ffde1429fefefadf772a87db16173bd5542d994a7cb3cbb16be38bc865",
+          "bytes": 1426
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_opaque_empty_shown_native.capture.json",
+      "raw_sha256": "06ba8de289f195b3afa94b7c741a6dfbc43aed86ab9247f2d41e26f42a9518db",
+      "raw_bytes": 2910,
+      "decoded_sha256": "06ba8de289f195b3afa94b7c741a6dfbc43aed86ab9247f2d41e26f42a9518db",
+      "decoded_bytes": 2910,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "4e19920b1738dc7563b889d02ee1613a1ac67777f15cb367cb835e6920aba246",
+      "gzip_bytes": 1419,
+      "ordered_parts": [
+        {
+          "path": "records/0066-000.gzpart",
+          "sha256": "4e19920b1738dc7563b889d02ee1613a1ac67777f15cb367cb835e6920aba246",
+          "bytes": 1419
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_opaque_restored_hidden_native.capture.json",
+      "raw_sha256": "61edb4f0fc4d2d6ae431f63fa9b1b62914bdad597af9001b4f36166d5e04e224",
+      "raw_bytes": 2915,
+      "decoded_sha256": "61edb4f0fc4d2d6ae431f63fa9b1b62914bdad597af9001b4f36166d5e04e224",
+      "decoded_bytes": 2915,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "6f4df6467fa7101867da7241948c10d606776a2ba039924f0833b8c2a72fdd20",
+      "gzip_bytes": 1420,
+      "ordered_parts": [
+        {
+          "path": "records/0067-000.gzpart",
+          "sha256": "6f4df6467fa7101867da7241948c10d606776a2ba039924f0833b8c2a72fdd20",
+          "bytes": 1420
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v3/report_white_concrete_opaque_restored_shown_native.capture.json",
+      "raw_sha256": "ce5e2df5aec25ebf613177014bc9fb56b97c3f24f7d552452fd155228f07711a",
+      "raw_bytes": 2913,
+      "decoded_sha256": "ce5e2df5aec25ebf613177014bc9fb56b97c3f24f7d552452fd155228f07711a",
+      "decoded_bytes": 2913,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "e1e6c36e1771f0d812093bf77ac5f4e2980190d42e3d1e00677a6361fdeecda9",
+      "gzip_bytes": 1415,
+      "ordered_parts": [
+        {
+          "path": "records/0068-000.gzpart",
+          "sha256": "e1e6c36e1771f0d812093bf77ac5f4e2980190d42e3d1e00677a6361fdeecda9",
+          "bytes": 1415
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report.json",
+      "raw_sha256": "1de590b5ea38f19bc6af8090cf652a166c2911d9d1724efa2fef365674ec50a8",
+      "raw_bytes": 313963,
+      "decoded_sha256": "1de590b5ea38f19bc6af8090cf652a166c2911d9d1724efa2fef365674ec50a8",
+      "decoded_bytes": 313963,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "80bc7608bd2ae6213087be08d5476786b3247485ac19d63c8ed86654af7591db",
+      "gzip_bytes": 20093,
+      "ordered_parts": [
+        {
+          "path": "records/0069-000.gzpart",
+          "sha256": "80bc7608bd2ae6213087be08d5476786b3247485ac19d63c8ed86654af7591db",
+          "bytes": 20093
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/host-inputs.json",
+      "raw_sha256": "66d207ca809fd853822bd18178e7c35ab3ce113637e6cfc9d2fc02636f5e3773",
+      "raw_bytes": 19565,
+      "decoded_sha256": "66d207ca809fd853822bd18178e7c35ab3ce113637e6cfc9d2fc02636f5e3773",
+      "decoded_bytes": 19565,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "f59b586a592c9946597c63e73fcd0e4125a1e8fda33f5aa098b63a8832f6729c",
+      "gzip_bytes": 4248,
+      "ordered_parts": [
+        {
+          "path": "records/0070-000.gzpart",
+          "sha256": "f59b586a592c9946597c63e73fcd0e4125a1e8fda33f5aa098b63a8832f6729c",
+          "bytes": 4248
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_default_above_hidden_native.capture.json",
+      "raw_sha256": "b03229c3cf4500db4856755cd470bbf7d01c5c0f286855accb659f6f8dbc9c2c",
+      "raw_bytes": 2920,
+      "decoded_sha256": "b03229c3cf4500db4856755cd470bbf7d01c5c0f286855accb659f6f8dbc9c2c",
+      "decoded_bytes": 2920,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "f58c75bb834f72e5e0a4ff3c62b5387b1deb75cdc9e2de6d217b0a036a7dcf2e",
+      "gzip_bytes": 1426,
+      "ordered_parts": [
+        {
+          "path": "records/0071-000.gzpart",
+          "sha256": "f58c75bb834f72e5e0a4ff3c62b5387b1deb75cdc9e2de6d217b0a036a7dcf2e",
+          "bytes": 1426
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_default_above_shown_native.capture.json",
+      "raw_sha256": "79a50568b9416dd2ba478813ec90cc3c373f2ada10031fdd604687f4cbf1697b",
+      "raw_bytes": 2919,
+      "decoded_sha256": "79a50568b9416dd2ba478813ec90cc3c373f2ada10031fdd604687f4cbf1697b",
+      "decoded_bytes": 2919,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "7cc8fbde31e9b23b285a0160a9ec56f34fed41c0bf81a611f5f73a93d407cede",
+      "gzip_bytes": 1426,
+      "ordered_parts": [
+        {
+          "path": "records/0072-000.gzpart",
+          "sha256": "7cc8fbde31e9b23b285a0160a9ec56f34fed41c0bf81a611f5f73a93d407cede",
+          "bytes": 1426
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_default_empty_hidden_native.capture.json",
+      "raw_sha256": "f4fc4095c2cd847943e19c0cbe2348bcc5145b0b94f4e0945f12887a91802b3e",
+      "raw_bytes": 2920,
+      "decoded_sha256": "f4fc4095c2cd847943e19c0cbe2348bcc5145b0b94f4e0945f12887a91802b3e",
+      "decoded_bytes": 2920,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "6c11511527bc123ee3d5be8189f5f9bb17eab2c80702adb1a79c3da9c27f7f54",
+      "gzip_bytes": 1427,
+      "ordered_parts": [
+        {
+          "path": "records/0073-000.gzpart",
+          "sha256": "6c11511527bc123ee3d5be8189f5f9bb17eab2c80702adb1a79c3da9c27f7f54",
+          "bytes": 1427
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_default_empty_repeat_hidden_native.capture.json",
+      "raw_sha256": "105a4885c671f7844088204fa99dccb46c3426ad43b90693a242c4c2e1c293d7",
+      "raw_bytes": 2927,
+      "decoded_sha256": "105a4885c671f7844088204fa99dccb46c3426ad43b90693a242c4c2e1c293d7",
+      "decoded_bytes": 2927,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "91a1de6113ba6f614869bcc611a7aa7e0e8bd24b118c17845663f4f4bee1c71e",
+      "gzip_bytes": 1434,
+      "ordered_parts": [
+        {
+          "path": "records/0074-000.gzpart",
+          "sha256": "91a1de6113ba6f614869bcc611a7aa7e0e8bd24b118c17845663f4f4bee1c71e",
+          "bytes": 1434
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_default_empty_repeat_shown_native.capture.json",
+      "raw_sha256": "ab06a2591e26d293a1212c27f93b7e497bc2e7f4037c3b3fbd6dda2f76065461",
+      "raw_bytes": 2926,
+      "decoded_sha256": "ab06a2591e26d293a1212c27f93b7e497bc2e7f4037c3b3fbd6dda2f76065461",
+      "decoded_bytes": 2926,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "60a45194fcf2afd323d27746928dcfd214c5605227680f951676c60092d45c1f",
+      "gzip_bytes": 1431,
+      "ordered_parts": [
+        {
+          "path": "records/0075-000.gzpart",
+          "sha256": "60a45194fcf2afd323d27746928dcfd214c5605227680f951676c60092d45c1f",
+          "bytes": 1431
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_default_empty_shown_native.capture.json",
+      "raw_sha256": "210badd93ed5a9f50771c2f2f9ae16ed8c797d9207e178fcd069d3f01c2b3ad2",
+      "raw_bytes": 2918,
+      "decoded_sha256": "210badd93ed5a9f50771c2f2f9ae16ed8c797d9207e178fcd069d3f01c2b3ad2",
+      "decoded_bytes": 2918,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "8356b26ca119f9d5b3ad6219a08539d4e5fef9997d75041ad8b237d1ac19e8b5",
+      "gzip_bytes": 1426,
+      "ordered_parts": [
+        {
+          "path": "records/0076-000.gzpart",
+          "sha256": "8356b26ca119f9d5b3ad6219a08539d4e5fef9997d75041ad8b237d1ac19e8b5",
+          "bytes": 1426
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_default_restored_hidden_native.capture.json",
+      "raw_sha256": "79f5b6f0f9fdfaac6fe31fccb3037bddd8f63dbc56f39271e5d675a0fa06a9e8",
+      "raw_bytes": 2922,
+      "decoded_sha256": "79f5b6f0f9fdfaac6fe31fccb3037bddd8f63dbc56f39271e5d675a0fa06a9e8",
+      "decoded_bytes": 2922,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "d5e3934b030c066479537ada304e77e10f2b53270a1bd0429ec1a81f7124d9e2",
+      "gzip_bytes": 1426,
+      "ordered_parts": [
+        {
+          "path": "records/0077-000.gzpart",
+          "sha256": "d5e3934b030c066479537ada304e77e10f2b53270a1bd0429ec1a81f7124d9e2",
+          "bytes": 1426
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_default_restored_shown_native.capture.json",
+      "raw_sha256": "f19cf158a28b81848688a07a87406679613d1f2288f913b4299864429ce398cd",
+      "raw_bytes": 2922,
+      "decoded_sha256": "f19cf158a28b81848688a07a87406679613d1f2288f913b4299864429ce398cd",
+      "decoded_bytes": 2922,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "ffae4c94ebefd8e2dc6646dc7f8e5c5c1b39f5d07e8361f918f1da2ccafa9c70",
+      "gzip_bytes": 1426,
+      "ordered_parts": [
+        {
+          "path": "records/0078-000.gzpart",
+          "sha256": "ffae4c94ebefd8e2dc6646dc7f8e5c5c1b39f5d07e8361f918f1da2ccafa9c70",
+          "bytes": 1426
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_opaque_above_hidden_native.capture.json",
+      "raw_sha256": "5b40b8d8ddf9934a7c223f4f99ad3420d5fa79dafc780c55eb2bcef63629dc2c",
+      "raw_bytes": 2918,
+      "decoded_sha256": "5b40b8d8ddf9934a7c223f4f99ad3420d5fa79dafc780c55eb2bcef63629dc2c",
+      "decoded_bytes": 2918,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "6c72b9f7d13f7f4496b3b75b1848f5816ffc8f47c79738f15a38d10733b739e8",
+      "gzip_bytes": 1426,
+      "ordered_parts": [
+        {
+          "path": "records/0079-000.gzpart",
+          "sha256": "6c72b9f7d13f7f4496b3b75b1848f5816ffc8f47c79738f15a38d10733b739e8",
+          "bytes": 1426
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_opaque_above_shown_native.capture.json",
+      "raw_sha256": "970ddee877efec5168cad7e9d165b1a09814f5eae61a2f540e15dd1172b29e17",
+      "raw_bytes": 2917,
+      "decoded_sha256": "970ddee877efec5168cad7e9d165b1a09814f5eae61a2f540e15dd1172b29e17",
+      "decoded_bytes": 2917,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "5f2bd76988da03e9ebd2b783d33d7a9cee72d3f456a2c4392c2e84cd23c7f163",
+      "gzip_bytes": 1424,
+      "ordered_parts": [
+        {
+          "path": "records/0080-000.gzpart",
+          "sha256": "5f2bd76988da03e9ebd2b783d33d7a9cee72d3f456a2c4392c2e84cd23c7f163",
+          "bytes": 1424
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_opaque_empty_hidden_native.capture.json",
+      "raw_sha256": "842030c4c646ed8902fc52d809859a7610c892f6845f0aeddbf113de5e0cead5",
+      "raw_bytes": 2919,
+      "decoded_sha256": "842030c4c646ed8902fc52d809859a7610c892f6845f0aeddbf113de5e0cead5",
+      "decoded_bytes": 2919,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "66b3158b3fc04ac039f6ca1936bdc27aaeb074b738c8088c71eb0cc0880eefa4",
+      "gzip_bytes": 1425,
+      "ordered_parts": [
+        {
+          "path": "records/0081-000.gzpart",
+          "sha256": "66b3158b3fc04ac039f6ca1936bdc27aaeb074b738c8088c71eb0cc0880eefa4",
+          "bytes": 1425
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_opaque_empty_repeat_hidden_native.capture.json",
+      "raw_sha256": "6974556cf87bc7c3eb7dd58bc95785944c2f048ef6086eee97ea6fd83262c209",
+      "raw_bytes": 2926,
+      "decoded_sha256": "6974556cf87bc7c3eb7dd58bc95785944c2f048ef6086eee97ea6fd83262c209",
+      "decoded_bytes": 2926,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "18803e2d322baa3d00eb519445389d216f98ade10a249f6bbd5e04d78c289ad9",
+      "gzip_bytes": 1431,
+      "ordered_parts": [
+        {
+          "path": "records/0082-000.gzpart",
+          "sha256": "18803e2d322baa3d00eb519445389d216f98ade10a249f6bbd5e04d78c289ad9",
+          "bytes": 1431
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_opaque_empty_repeat_shown_native.capture.json",
+      "raw_sha256": "9ff3bc64a563cf813ca7f7d2c06439108e2305bb136d87342a40328ad2df0dc4",
+      "raw_bytes": 2924,
+      "decoded_sha256": "9ff3bc64a563cf813ca7f7d2c06439108e2305bb136d87342a40328ad2df0dc4",
+      "decoded_bytes": 2924,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "b0fecab6cc545c7e78bdfec8a9e8455dd87ae056c765b30db1390a1ab2312d4b",
+      "gzip_bytes": 1431,
+      "ordered_parts": [
+        {
+          "path": "records/0083-000.gzpart",
+          "sha256": "b0fecab6cc545c7e78bdfec8a9e8455dd87ae056c765b30db1390a1ab2312d4b",
+          "bytes": 1431
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_opaque_empty_shown_native.capture.json",
+      "raw_sha256": "3c5b90d5fe8583083a9ba3186c2735dc600f5c9b21b7266f0fc104bed9cd9e7d",
+      "raw_bytes": 2918,
+      "decoded_sha256": "3c5b90d5fe8583083a9ba3186c2735dc600f5c9b21b7266f0fc104bed9cd9e7d",
+      "decoded_bytes": 2918,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "030931b2b77feaf415b212148855148dae98c1259669541f9ce1caf0f049d30d",
+      "gzip_bytes": 1423,
+      "ordered_parts": [
+        {
+          "path": "records/0084-000.gzpart",
+          "sha256": "030931b2b77feaf415b212148855148dae98c1259669541f9ce1caf0f049d30d",
+          "bytes": 1423
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_opaque_restored_hidden_native.capture.json",
+      "raw_sha256": "e22e24fd0bbbf29177af9f38133f56cb772dad1827a35625c97fd7240b800e44",
+      "raw_bytes": 2921,
+      "decoded_sha256": "e22e24fd0bbbf29177af9f38133f56cb772dad1827a35625c97fd7240b800e44",
+      "decoded_bytes": 2921,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "2e8bd6068450b938fa8a1f4bda6bd84c5360bc9db8b70861fa0c3072ce0200f2",
+      "gzip_bytes": 1426,
+      "ordered_parts": [
+        {
+          "path": "records/0085-000.gzpart",
+          "sha256": "2e8bd6068450b938fa8a1f4bda6bd84c5360bc9db8b70861fa0c3072ce0200f2",
+          "bytes": 1426
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-silver-product-v3/report_light_gray_concrete_opaque_restored_shown_native.capture.json",
+      "raw_sha256": "b47492f965d6062f73f5fbdc78515735745e3866dc1b5a87887b82ec854de192",
+      "raw_bytes": 2920,
+      "decoded_sha256": "b47492f965d6062f73f5fbdc78515735745e3866dc1b5a87887b82ec854de192",
+      "decoded_bytes": 2920,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "cc68ec63c92c804e7c979f61d80e31c7588a21a100cf0e552fefee94fc7dfc3e",
+      "gzip_bytes": 1425,
+      "ordered_parts": [
+        {
+          "path": "records/0086-000.gzpart",
+          "sha256": "cc68ec63c92c804e7c979f61d80e31c7588a21a100cf0e552fefee94fc7dfc3e",
+          "bytes": 1425
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/launch-base-v1/exact-exit.json",
+      "raw_sha256": "9eef092a4a9fd8f92c500cad515538367c214abaa80287b802d30860bd996623",
+      "raw_bytes": 1004,
+      "decoded_sha256": "9eef092a4a9fd8f92c500cad515538367c214abaa80287b802d30860bd996623",
+      "decoded_bytes": 1004,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "131946b591bfc99c92747160202df275a78b46d1c914c9fe9de4f2884cca8f95",
+      "gzip_bytes": 502,
+      "ordered_parts": [
+        {
+          "path": "records/0087-000.gzpart",
+          "sha256": "131946b591bfc99c92747160202df275a78b46d1c914c9fe9de4f2884cca8f95",
+          "bytes": 502
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/launch-base-v1/stop.json",
+      "raw_sha256": "cd2639bbc6b980f790df0d14d21b60a8a7fad30b8602cfc28912eda400ca3ab2",
+      "raw_bytes": 1450,
+      "decoded_sha256": "cd2639bbc6b980f790df0d14d21b60a8a7fad30b8602cfc28912eda400ca3ab2",
+      "decoded_bytes": 1450,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "7fca5d008e8dc56772cde62950c8894096e070c08791005d65cb361f490e676f",
+      "gzip_bytes": 464,
+      "ordered_parts": [
+        {
+          "path": "records/0088-000.gzpart",
+          "sha256": "7fca5d008e8dc56772cde62950c8894096e070c08791005d65cb361f490e676f",
+          "bytes": 464
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/launch-base-v1/watcher-start.json",
+      "raw_sha256": "5caafc6cdd90c5e8e78d95b5fa1efa1d02864313ff6c542802cdcc62920a9678",
+      "raw_bytes": 273,
+      "decoded_sha256": "5caafc6cdd90c5e8e78d95b5fa1efa1d02864313ff6c542802cdcc62920a9678",
+      "decoded_bytes": 273,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "9bdfd8eaf7457995cfca925381959dc4f0aae8cb04fbf23f04f163fb4d4c746d",
+      "gzip_bytes": 228,
+      "ordered_parts": [
+        {
+          "path": "records/0089-000.gzpart",
+          "sha256": "9bdfd8eaf7457995cfca925381959dc4f0aae8cb04fbf23f04f163fb4d4c746d",
+          "bytes": 228
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/launch-base-v1/watcher-retired.json",
+      "raw_sha256": "7a1cc4821a8cb251dae1f05d8cbfa8b0a6b4692ad97b9723c89109bb18e7d8eb",
+      "raw_bytes": 270,
+      "decoded_sha256": "7a1cc4821a8cb251dae1f05d8cbfa8b0a6b4692ad97b9723c89109bb18e7d8eb",
+      "decoded_bytes": 270,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "4a5fb9088806cbf96c53911d210c6aaa1e5fe8fc2098e98a0b448ff797ed8803",
+      "gzip_bytes": 194,
+      "ordered_parts": [
+        {
+          "path": "records/0090-000.gzpart",
+          "sha256": "4a5fb9088806cbf96c53911d210c6aaa1e5fe8fc2098e98a0b448ff797ed8803",
+          "bytes": 194
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/launch-candidate-v2/exact-exit.json",
+      "raw_sha256": "ccfaf50ad2fb51e23f81a6aaae8d031d18ea942b12a65b292b67744d0bb5c3d8",
+      "raw_bytes": 1009,
+      "decoded_sha256": "ccfaf50ad2fb51e23f81a6aaae8d031d18ea942b12a65b292b67744d0bb5c3d8",
+      "decoded_bytes": 1009,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "702d560479158e03f3ed3477d1e167548dd1b117bc6ebe3a31d1fd3133f44857",
+      "gzip_bytes": 506,
+      "ordered_parts": [
+        {
+          "path": "records/0091-000.gzpart",
+          "sha256": "702d560479158e03f3ed3477d1e167548dd1b117bc6ebe3a31d1fd3133f44857",
+          "bytes": 506
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/launch-candidate-v2/stop.json",
+      "raw_sha256": "142627fa4d46565b09c8a072ff901aaf3415988a023a45ab7f08adf6a1977519",
+      "raw_bytes": 1450,
+      "decoded_sha256": "142627fa4d46565b09c8a072ff901aaf3415988a023a45ab7f08adf6a1977519",
+      "decoded_bytes": 1450,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "619010e60309ddabb977c12538301fa95b496b0c5ccd068e0cb019ff0612decf",
+      "gzip_bytes": 464,
+      "ordered_parts": [
+        {
+          "path": "records/0092-000.gzpart",
+          "sha256": "619010e60309ddabb977c12538301fa95b496b0c5ccd068e0cb019ff0612decf",
+          "bytes": 464
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/launch-candidate-v2/watcher-start.json",
+      "raw_sha256": "e893ec3494479293eb5a6ccd6e71a75582dc612945de5df2087e2784841671f7",
+      "raw_bytes": 277,
+      "decoded_sha256": "e893ec3494479293eb5a6ccd6e71a75582dc612945de5df2087e2784841671f7",
+      "decoded_bytes": 277,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "a9e5d1efc5c54752ae07e17ae4f00c93543cdb554a5902dd642093779310061c",
+      "gzip_bytes": 230,
+      "ordered_parts": [
+        {
+          "path": "records/0093-000.gzpart",
+          "sha256": "a9e5d1efc5c54752ae07e17ae4f00c93543cdb554a5902dd642093779310061c",
+          "bytes": 230
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/launch-candidate-v2/watcher-retired.json",
+      "raw_sha256": "74788c1ec7ba3f34ada9e95ff5166065634b378ca2d16a7c8ad605424939f67a",
+      "raw_bytes": 274,
+      "decoded_sha256": "74788c1ec7ba3f34ada9e95ff5166065634b378ca2d16a7c8ad605424939f67a",
+      "decoded_bytes": 274,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "506782de839fd0530f13316dc97f1bc2088dd3107670d598e6527710e7fd94e5",
+      "gzip_bytes": 194,
+      "ordered_parts": [
+        {
+          "path": "records/0094-000.gzpart",
+          "sha256": "506782de839fd0530f13316dc97f1bc2088dd3107670d598e6527710e7fd94e5",
+          "bytes": 194
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-after-silver-v1/binding.json",
+      "raw_sha256": "130e62d41d5d7277cc022333f0987830980466fd17a118b2aa874958a6347033",
+      "raw_bytes": 494,
+      "decoded_sha256": "130e62d41d5d7277cc022333f0987830980466fd17a118b2aa874958a6347033",
+      "decoded_bytes": 494,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "1d9040383d70de2cdb23e4ce748210bba365dca69bd9235b5be73e1a87765d22",
+      "gzip_bytes": 337,
+      "ordered_parts": [
+        {
+          "path": "records/0095-000.gzpart",
+          "sha256": "1d9040383d70de2cdb23e4ce748210bba365dca69bd9235b5be73e1a87765d22",
+          "bytes": 337
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-after-silver-v1/payload.py",
+      "raw_sha256": "5d1ba65febb17514ca4c33cd3f4630a342b6f84aabde93f448d0c93bcb1d1f99",
+      "raw_bytes": 2071,
+      "decoded_sha256": "5d1ba65febb17514ca4c33cd3f4630a342b6f84aabde93f448d0c93bcb1d1f99",
+      "decoded_bytes": 2071,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "a868e2413e8012f19fbf259cc96f427c3284320c5620aacb739c2f73a2d5a649",
+      "gzip_bytes": 837,
+      "ordered_parts": [
+        {
+          "path": "records/0096-000.gzpart",
+          "sha256": "a868e2413e8012f19fbf259cc96f427c3284320c5620aacb739c2f73a2d5a649",
+          "bytes": 837
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-after-silver-v1/result.json",
+      "raw_sha256": "5b2db8ac8578218d61d797db9eb31a402f02f7e6936d8ca3d95ff6d65c470c78",
+      "raw_bytes": 327,
+      "decoded_sha256": "5b2db8ac8578218d61d797db9eb31a402f02f7e6936d8ca3d95ff6d65c470c78",
+      "decoded_bytes": 327,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "81a845c1016c8324d46373b34e4713a7a628362f5730c3ad7c3551880e95d2f0",
+      "gzip_bytes": 194,
+      "ordered_parts": [
+        {
+          "path": "records/0097-000.gzpart",
+          "sha256": "81a845c1016c8324d46373b34e4713a7a628362f5730c3ad7c3551880e95d2f0",
+          "bytes": 194
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-after-white-v1/binding.json",
+      "raw_sha256": "130e62d41d5d7277cc022333f0987830980466fd17a118b2aa874958a6347033",
+      "raw_bytes": 494,
+      "decoded_sha256": "130e62d41d5d7277cc022333f0987830980466fd17a118b2aa874958a6347033",
+      "decoded_bytes": 494,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "1d9040383d70de2cdb23e4ce748210bba365dca69bd9235b5be73e1a87765d22",
+      "gzip_bytes": 337,
+      "ordered_parts": [
+        {
+          "path": "records/0098-000.gzpart",
+          "sha256": "1d9040383d70de2cdb23e4ce748210bba365dca69bd9235b5be73e1a87765d22",
+          "bytes": 337
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-after-white-v1/payload.py",
+      "raw_sha256": "5d1ba65febb17514ca4c33cd3f4630a342b6f84aabde93f448d0c93bcb1d1f99",
+      "raw_bytes": 2071,
+      "decoded_sha256": "5d1ba65febb17514ca4c33cd3f4630a342b6f84aabde93f448d0c93bcb1d1f99",
+      "decoded_bytes": 2071,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "a868e2413e8012f19fbf259cc96f427c3284320c5620aacb739c2f73a2d5a649",
+      "gzip_bytes": 837,
+      "ordered_parts": [
+        {
+          "path": "records/0099-000.gzpart",
+          "sha256": "a868e2413e8012f19fbf259cc96f427c3284320c5620aacb739c2f73a2d5a649",
+          "bytes": 837
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-after-white-v1/result.json",
+      "raw_sha256": "5b2db8ac8578218d61d797db9eb31a402f02f7e6936d8ca3d95ff6d65c470c78",
+      "raw_bytes": 327,
+      "decoded_sha256": "5b2db8ac8578218d61d797db9eb31a402f02f7e6936d8ca3d95ff6d65c470c78",
+      "decoded_bytes": 327,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "81a845c1016c8324d46373b34e4713a7a628362f5730c3ad7c3551880e95d2f0",
+      "gzip_bytes": 194,
+      "ordered_parts": [
+        {
+          "path": "records/0100-000.gzpart",
+          "sha256": "81a845c1016c8324d46373b34e4713a7a628362f5730c3ad7c3551880e95d2f0",
+          "bytes": 194
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-before-v1/binding.json",
+      "raw_sha256": "5ac67fabf71fbfddfa1fde6b0a342a20fdfc813da1169f3b1c8b1ec710cd2962",
+      "raw_bytes": 494,
+      "decoded_sha256": "5ac67fabf71fbfddfa1fde6b0a342a20fdfc813da1169f3b1c8b1ec710cd2962",
+      "decoded_bytes": 494,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "652acba2095544388232424484a2aad2edf17127d4575a98bc6c822883cd9cba",
+      "gzip_bytes": 339,
+      "ordered_parts": [
+        {
+          "path": "records/0101-000.gzpart",
+          "sha256": "652acba2095544388232424484a2aad2edf17127d4575a98bc6c822883cd9cba",
+          "bytes": 339
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-before-v1/payload.py",
+      "raw_sha256": "2c38b4fc11ae1235e247bafd90a8f739ca0656383f92e6da02749febf69e8670",
+      "raw_bytes": 1786,
+      "decoded_sha256": "2c38b4fc11ae1235e247bafd90a8f739ca0656383f92e6da02749febf69e8670",
+      "decoded_bytes": 1786,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "2f3914475fce6f50e90984842f21af2a2bcda9b33822ef41a9dc99a9b6706656",
+      "gzip_bytes": 781,
+      "ordered_parts": [
+        {
+          "path": "records/0102-000.gzpart",
+          "sha256": "2f3914475fce6f50e90984842f21af2a2bcda9b33822ef41a9dc99a9b6706656",
+          "bytes": 781
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-before-v1/result.json",
+      "raw_sha256": "f481ec117b2826903be552e3613c1a10e33c580e62f464336f491f211170a4f4",
+      "raw_bytes": 134,
+      "decoded_sha256": "f481ec117b2826903be552e3613c1a10e33c580e62f464336f491f211170a4f4",
+      "decoded_bytes": 134,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "711f6487b32688eea32d10ca762c454e2ac1fc72b5935abcc2bd8ccfeff1178f",
+      "gzip_bytes": 106,
+      "ordered_parts": [
+        {
+          "path": "records/0103-000.gzpart",
+          "sha256": "711f6487b32688eea32d10ca762c454e2ac1fc72b5935abcc2bd8ccfeff1178f",
+          "bytes": 106
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-retire-v1/binding.json",
+      "raw_sha256": "f6cab9514dc94cf130be0dab9d837f49da1deff78f1fdb53802d0a03b8b0021b",
+      "raw_bytes": 495,
+      "decoded_sha256": "f6cab9514dc94cf130be0dab9d837f49da1deff78f1fdb53802d0a03b8b0021b",
+      "decoded_bytes": 495,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "fc549c62b83780c6621d365692e7d55bc3553494f232c593a437cd54fadc7d05",
+      "gzip_bytes": 337,
+      "ordered_parts": [
+        {
+          "path": "records/0104-000.gzpart",
+          "sha256": "fc549c62b83780c6621d365692e7d55bc3553494f232c593a437cd54fadc7d05",
+          "bytes": 337
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-retire-v1/payload.py",
+      "raw_sha256": "8d8e7bc19ad1f26ea80e97c351d7d165ae7ff7c16520e35e9ecf2a67f47b8851",
+      "raw_bytes": 2253,
+      "decoded_sha256": "8d8e7bc19ad1f26ea80e97c351d7d165ae7ff7c16520e35e9ecf2a67f47b8851",
+      "decoded_bytes": 2253,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "2a6c652e50b4515511ba26b4c331e8ef015aa55b4f3e8642c3d29fda9effb1ed",
+      "gzip_bytes": 886,
+      "ordered_parts": [
+        {
+          "path": "records/0105-000.gzpart",
+          "sha256": "2a6c652e50b4515511ba26b4c331e8ef015aa55b4f3e8642c3d29fda9effb1ed",
+          "bytes": 886
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-base-retire-v1/result.json",
+      "raw_sha256": "51430cc13599baaddc15b696dd727a35cc724af5fb0aace66c357644d3b888be",
+      "raw_bytes": 107,
+      "decoded_sha256": "51430cc13599baaddc15b696dd727a35cc724af5fb0aace66c357644d3b888be",
+      "decoded_bytes": 107,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "bd0749f3831fd6be08e5375f684804660459e879602c59048f3b8d8b8770d99d",
+      "gzip_bytes": 93,
+      "ordered_parts": [
+        {
+          "path": "records/0106-000.gzpart",
+          "sha256": "bd0749f3831fd6be08e5375f684804660459e879602c59048f3b8d8b8770d99d",
+          "bytes": 93
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-after-silver-v2/binding.json",
+      "raw_sha256": "2c69509f92b636a74275e34be6382b694b61334393c191670866b4e70017594f",
+      "raw_bytes": 504,
+      "decoded_sha256": "2c69509f92b636a74275e34be6382b694b61334393c191670866b4e70017594f",
+      "decoded_bytes": 504,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "7d72d2665b1ad3fc81f60187c07cc538f3a5546a367ec7c88d0d1ee8551cedcd",
+      "gzip_bytes": 342,
+      "ordered_parts": [
+        {
+          "path": "records/0107-000.gzpart",
+          "sha256": "7d72d2665b1ad3fc81f60187c07cc538f3a5546a367ec7c88d0d1ee8551cedcd",
+          "bytes": 342
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-after-silver-v2/payload.py",
+      "raw_sha256": "5d1ba65febb17514ca4c33cd3f4630a342b6f84aabde93f448d0c93bcb1d1f99",
+      "raw_bytes": 2071,
+      "decoded_sha256": "5d1ba65febb17514ca4c33cd3f4630a342b6f84aabde93f448d0c93bcb1d1f99",
+      "decoded_bytes": 2071,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "a868e2413e8012f19fbf259cc96f427c3284320c5620aacb739c2f73a2d5a649",
+      "gzip_bytes": 837,
+      "ordered_parts": [
+        {
+          "path": "records/0108-000.gzpart",
+          "sha256": "a868e2413e8012f19fbf259cc96f427c3284320c5620aacb739c2f73a2d5a649",
+          "bytes": 837
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-after-silver-v2/result.json",
+      "raw_sha256": "cfb80695a82b8b5e040b2c213a5b78e3081bdc1b4e91b9bc852cbc28a046b9eb",
+      "raw_bytes": 327,
+      "decoded_sha256": "cfb80695a82b8b5e040b2c213a5b78e3081bdc1b4e91b9bc852cbc28a046b9eb",
+      "decoded_bytes": 327,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "d2b60c9387054ecbb05cfce6beff96ded7708f360f4c07fa694f387335721dee",
+      "gzip_bytes": 199,
+      "ordered_parts": [
+        {
+          "path": "records/0109-000.gzpart",
+          "sha256": "d2b60c9387054ecbb05cfce6beff96ded7708f360f4c07fa694f387335721dee",
+          "bytes": 199
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-after-v2/binding.json",
+      "raw_sha256": "2c69509f92b636a74275e34be6382b694b61334393c191670866b4e70017594f",
+      "raw_bytes": 504,
+      "decoded_sha256": "2c69509f92b636a74275e34be6382b694b61334393c191670866b4e70017594f",
+      "decoded_bytes": 504,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "7d72d2665b1ad3fc81f60187c07cc538f3a5546a367ec7c88d0d1ee8551cedcd",
+      "gzip_bytes": 342,
+      "ordered_parts": [
+        {
+          "path": "records/0110-000.gzpart",
+          "sha256": "7d72d2665b1ad3fc81f60187c07cc538f3a5546a367ec7c88d0d1ee8551cedcd",
+          "bytes": 342
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-after-v2/payload.py",
+      "raw_sha256": "5d1ba65febb17514ca4c33cd3f4630a342b6f84aabde93f448d0c93bcb1d1f99",
+      "raw_bytes": 2071,
+      "decoded_sha256": "5d1ba65febb17514ca4c33cd3f4630a342b6f84aabde93f448d0c93bcb1d1f99",
+      "decoded_bytes": 2071,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "a868e2413e8012f19fbf259cc96f427c3284320c5620aacb739c2f73a2d5a649",
+      "gzip_bytes": 837,
+      "ordered_parts": [
+        {
+          "path": "records/0111-000.gzpart",
+          "sha256": "a868e2413e8012f19fbf259cc96f427c3284320c5620aacb739c2f73a2d5a649",
+          "bytes": 837
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-after-v2/result.json",
+      "raw_sha256": "cfb80695a82b8b5e040b2c213a5b78e3081bdc1b4e91b9bc852cbc28a046b9eb",
+      "raw_bytes": 327,
+      "decoded_sha256": "cfb80695a82b8b5e040b2c213a5b78e3081bdc1b4e91b9bc852cbc28a046b9eb",
+      "decoded_bytes": 327,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "d2b60c9387054ecbb05cfce6beff96ded7708f360f4c07fa694f387335721dee",
+      "gzip_bytes": 199,
+      "ordered_parts": [
+        {
+          "path": "records/0112-000.gzpart",
+          "sha256": "d2b60c9387054ecbb05cfce6beff96ded7708f360f4c07fa694f387335721dee",
+          "bytes": 199
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-before-v2/binding.json",
+      "raw_sha256": "0c621618b3edf543eb66b0eca3a7c67365b9e91832845116425a66dcd0e9371a",
+      "raw_bytes": 504,
+      "decoded_sha256": "0c621618b3edf543eb66b0eca3a7c67365b9e91832845116425a66dcd0e9371a",
+      "decoded_bytes": 504,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "c05b5ffadd631c3117ec25d38e4ead99374d8179a1e00004d9f233d1af9b8e17",
+      "gzip_bytes": 344,
+      "ordered_parts": [
+        {
+          "path": "records/0113-000.gzpart",
+          "sha256": "c05b5ffadd631c3117ec25d38e4ead99374d8179a1e00004d9f233d1af9b8e17",
+          "bytes": 344
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-before-v2/payload.py",
+      "raw_sha256": "2c38b4fc11ae1235e247bafd90a8f739ca0656383f92e6da02749febf69e8670",
+      "raw_bytes": 1786,
+      "decoded_sha256": "2c38b4fc11ae1235e247bafd90a8f739ca0656383f92e6da02749febf69e8670",
+      "decoded_bytes": 1786,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "2f3914475fce6f50e90984842f21af2a2bcda9b33822ef41a9dc99a9b6706656",
+      "gzip_bytes": 781,
+      "ordered_parts": [
+        {
+          "path": "records/0114-000.gzpart",
+          "sha256": "2f3914475fce6f50e90984842f21af2a2bcda9b33822ef41a9dc99a9b6706656",
+          "bytes": 781
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-before-v2/result.json",
+      "raw_sha256": "b379f535ebdea380e9108816d0bd109ac39096d160df1db9be8f1b3d845f9a03",
+      "raw_bytes": 134,
+      "decoded_sha256": "b379f535ebdea380e9108816d0bd109ac39096d160df1db9be8f1b3d845f9a03",
+      "decoded_bytes": 134,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "732df3aab3141e7133644aa3f88363d877578b6a46cb948e63a7ec333d6cbb9b",
+      "gzip_bytes": 113,
+      "ordered_parts": [
+        {
+          "path": "records/0115-000.gzpart",
+          "sha256": "732df3aab3141e7133644aa3f88363d877578b6a46cb948e63a7ec333d6cbb9b",
+          "bytes": 113
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-retire-v2/binding.json",
+      "raw_sha256": "30c77c712ada9a285af1907273e6f588fcd1f9482eac2e81d4750fa534f39b46",
+      "raw_bytes": 505,
+      "decoded_sha256": "30c77c712ada9a285af1907273e6f588fcd1f9482eac2e81d4750fa534f39b46",
+      "decoded_bytes": 505,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "3e6eb63ba45e738a2a7a4755679ac3b96acba6e1f6a9d37108245ca31a216a71",
+      "gzip_bytes": 342,
+      "ordered_parts": [
+        {
+          "path": "records/0116-000.gzpart",
+          "sha256": "3e6eb63ba45e738a2a7a4755679ac3b96acba6e1f6a9d37108245ca31a216a71",
+          "bytes": 342
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-retire-v2/payload.py",
+      "raw_sha256": "8d8e7bc19ad1f26ea80e97c351d7d165ae7ff7c16520e35e9ecf2a67f47b8851",
+      "raw_bytes": 2253,
+      "decoded_sha256": "8d8e7bc19ad1f26ea80e97c351d7d165ae7ff7c16520e35e9ecf2a67f47b8851",
+      "decoded_bytes": 2253,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "2a6c652e50b4515511ba26b4c331e8ef015aa55b4f3e8642c3d29fda9effb1ed",
+      "gzip_bytes": 886,
+      "ordered_parts": [
+        {
+          "path": "records/0117-000.gzpart",
+          "sha256": "2a6c652e50b4515511ba26b4c331e8ef015aa55b4f3e8642c3d29fda9effb1ed",
+          "bytes": 886
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/audit-candidate-retire-v2/result.json",
+      "raw_sha256": "51430cc13599baaddc15b696dd727a35cc724af5fb0aace66c357644d3b888be",
+      "raw_bytes": 107,
+      "decoded_sha256": "51430cc13599baaddc15b696dd727a35cc724af5fb0aace66c357644d3b888be",
+      "decoded_bytes": 107,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "bd0749f3831fd6be08e5375f684804660459e879602c59048f3b8d8b8770d99d",
+      "gzip_bytes": 93,
+      "ordered_parts": [
+        {
+          "path": "records/0118-000.gzpart",
+          "sha256": "bd0749f3831fd6be08e5375f684804660459e879602c59048f3b8d8b8770d99d",
+          "bytes": 93
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v2/gate.json",
+      "raw_sha256": "1f16bd4cefc386c1e3ec06fefe2363a47174332963c08ab8931d263dfd0f1221",
+      "raw_bytes": 680,
+      "decoded_sha256": "1f16bd4cefc386c1e3ec06fefe2363a47174332963c08ab8931d263dfd0f1221",
+      "decoded_bytes": 680,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "64d1de2ff052377015909c2accc5e757a6aac77e88e8c8f8731bed6e046a577f",
+      "gzip_bytes": 378,
+      "ordered_parts": [
+        {
+          "path": "records/0119-000.gzpart",
+          "sha256": "64d1de2ff052377015909c2accc5e757a6aac77e88e8c8f8731bed6e046a577f",
+          "bytes": 378
+        }
+      ]
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/candidate-white-product-v2/host-inputs.json",
+      "raw_sha256": "ecdb7eff3561f30b2bde3dba643b5065598571c3e3b9a0e1a121b4b6a838a608",
+      "raw_bytes": 19249,
+      "decoded_sha256": "ecdb7eff3561f30b2bde3dba643b5065598571c3e3b9a0e1a121b4b6a838a608",
+      "decoded_bytes": 19249,
+      "archive_decodes_to_original_raw": true,
+      "credential_redacted_derived_archive": false,
+      "gzip_sha256": "0864306eab29db2761c24549d0d7b5c0bab091d1bf8a52cbce58e6006896eb53",
+      "gzip_bytes": 4121,
+      "ordered_parts": [
+        {
+          "path": "records/0120-000.gzpart",
+          "sha256": "0864306eab29db2761c24549d0d7b5c0bab091d1bf8a52cbce58e6006896eb53",
+          "bytes": 4121
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/matched-analysis-v1/light_gray_concrete-default.png",
+      "path": "light_gray_concrete-default.png",
+      "bytes": 207675,
+      "sha256": "54b8bdad248642781715cc8bdc09a70e5d905d343b87ea9ba0ae0069c53054d6",
+      "lossless_crop_montage": true,
+      "root_direct_visual_review_performed": true,
+      "human_acceptance": false
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/matched-analysis-v1/light_gray_concrete-opaque.png",
+      "path": "light_gray_concrete-opaque.png",
+      "bytes": 84284,
+      "sha256": "3323669ffb692fbd7f4cba76c95f2c8926af3e7a6958825bfd80321b3ab64031",
+      "lossless_crop_montage": true,
+      "root_direct_visual_review_performed": true,
+      "human_acceptance": false
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/matched-analysis-v1/white_concrete-default.png",
+      "path": "white_concrete-default.png",
+      "bytes": 211248,
+      "sha256": "4154164157e8cd3162b96bf73b213d4ce3d8354c4633d77c95e7f4743b521277",
+      "lossless_crop_montage": true,
+      "root_direct_visual_review_performed": true,
+      "human_acceptance": false
+    },
+    {
+      "raw": ".runtime/round-20261022/concrete-support-v1/matched-analysis-v1/white_concrete-opaque.png",
+      "path": "white_concrete-opaque.png",
+      "bytes": 86784,
+      "sha256": "6eb8ccadc818587d8d22bf69b5b85829dc5fd4995e830011968e3b2bc9425fae",
+      "lossless_crop_montage": true,
+      "root_direct_visual_review_performed": true,
+      "human_acceptance": false
+    }
+  ],
+  "summary_sha256": "596471dd4528ac1a18b2f66c19cfe5d3cb7420158755c15ee9a14fdaf0b29cc3"
+}

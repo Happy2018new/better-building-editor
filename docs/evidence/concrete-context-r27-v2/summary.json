@@ -1,0 +1,28 @@
+{
+  "candidate_version": 2,
+  "candidate_path_suffix_v3_is_host_attempt_not_product_version": true,
+  "states_checked": 32,
+  "raw_pngs_checked": 64,
+  "source_manifest_runtime_files_per_owner": 3709,
+  "matched_runtime_only_difference": "behavior_pack/modern_projection/projection/render_context.py",
+  "base_sha256": "6989fda17181eda67afd5ea45f13d9a0498e606eea2c731502d638b9f0fcf84c",
+  "candidate_sha256": "5452d30b3d7b0e3b484aeb07e185019e0109abeb54a459c61ed55cea81c8e4c4",
+  "candidate_all_three_fixed_roi_pixels_unchanged_from_each_empty": true,
+  "base_default_above_both_target_roi_all_pixels_changed_reference_zero": true,
+  "all_other_base_stage_roi_pixels_unchanged": true,
+  "cross_variant_empty_repeat_restored_and_all_opaque_roi_identical": true,
+  "root_direct_visual_review": "Four lossless montage images: lever visible; default bright square only in base; opaque views agree.",
+  "limitation": "Historical concrete aux aliases underfixed in v2; v3 must obtain its own runtime evidence. Full projection only; other colors/top blocks, editor, missing and wet GPU remain unqualified.",
+  "ordinary_stop_game_exit_codes": [
+    "0xC0000409",
+    "0xC0000409"
+  ],
+  "ordinary_stop_mcdk_exit_codes": [
+    0,
+    0
+  ],
+  "watchers_retired_after_exact_identity_check": true,
+  "normal_engine_exit_claimed": false,
+  "manual_closures_added": 0,
+  "production_changed_by_this_package": false
+}
