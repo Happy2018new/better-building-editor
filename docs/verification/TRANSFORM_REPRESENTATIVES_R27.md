@@ -74,3 +74,25 @@ T07 为 32×10×32、19 格：8 个主体、8 个支撑、两个选区角标及�
 新增两项业务检查在源格逐对照外，使用独立坐标矩阵和明确方向表检查六种操作。楼梯初始朝东，六操作的新 direction 分别为 `2,1,3,1,0,0`，仅镜像 Y 改变倒置；告示牌初始 rotation 0，对应 `4,8,12,0,0,8`。同时检查前后层完整材料、雪高度、typed 根坐标和全部非空间 NBT 不变，保存载回以及撤销／重做相符。定点共 **19 项通过**，真正 Python2 编译通过，MCP review 最终定点扫描 1 文件／无发现。通用 palette 检查原先假定渲染体积等于逻辑体积，首轮遇 T07 的既有雪植物 overlay 而失败；现为 T07 明确断言实际渲染体积 `(32,32,266)`，逻辑尺寸仍为 `(32,10,32)`，没有修改 renderer。
 
 真正 Python2.7／Python3 宿主对 T07 各六种操作通过 typed 保存载回、逆操作、可用撤销／重做；两端 JSON 与文档摘要一致，raw 输出 SHA 不同，**不称字节一致**。另包 [`docs/evidence/transform-t07-offline-r27-v1/`](../evidence/transform-t07-offline-r27-v1/) 保留源码快照与 SHA、实际源格／完整 tagged 根、两宿主结果、最终测试及 review，以及首轮诊断的明确节选和修正原因。10 份压缩记录、总 39,356 字节、最大单文件 12,432 字节；不覆盖前述冷源或小包。
+
+## 后续严格链路：半门、双层卡和两格按钮
+
+本节更新前述未完成状态，但保留此前失败及来源边界。新实机使用精确集成提交 `87327491cea2d7d83e2728907a35d35d76642d16`，单独 owner `r27-transform-lineage-v4`，manifest SHA256 `deb63c578c671cbb11329eb513d3ddadc235f49c8b2c64ae55915508408a4138`。产品归档 SHA256 `47407eb4103da862009594a1d1223b4ae76bc850cacd94b960665b3430bd0768`，3709 个 runtime／781 个 host 文件均逐项检查；四项热重载关闭，无候选 profile 赋值。新人工关闭仍为 **0**。
+
+原严格 host v2 的首次实机，在 T03_half 公共卡首帧遇到 Python2 profile identity 的 bytes 经宿主 JSON 规范化报错；原 typed wire 正确保留了 bytes，不能把该失败解释为产品渲染失败。失败 raw、报告、恢复及异常退出原件均保留。新严格 host v3 仅在 `Session.preview_signature()` 的明确传输边界允许 typed tuple 对应 JSON array、严格 UTF-8 bytes/text 对应 JSON text；完整源、NBT、native palette 仍按原始 typed wire 字节比较。不同内容、非法编码、容器替换、bool/int/float 混同等 18 项边界控制及原 27 项链路控制全部通过，主代理独跑复核；没有修改原始 false signature。
+
+生命周期 v3 只完成准备，未启动 MC。另建生命周期 v4 使用主代理审过的私人 watcher／Win32 manifest reader，单独 SHA 绑定，生产 tools 不变。读锁只对实际 Windows 5／32／33 做有界整次重读；没有把仅 errno13 的所有 PermissionError 当作可重试。两个私人 host 的锁／schema／owner／identity 控制由主代理另行独跑；实机此次 watcher 无错误／断言／恢复／读重试事件。启动器写端曾出现一次 atomic replacement WinError5 重试，保留原 stderr。
+
+| 代表 | 新取得的严格数据／模型来源结果 | 仍待解决的实图问题 |
+| --- | --- | --- |
+| T03_half，镜像 X | 只请求门上半后实际伙伴闭合为两格；公开卡和确认回调、typed mirror／undo、完整投影和四阶段受控 missing 均完成。变换后一个 owner 为当前新提交，三个未变 owner 保留原始 `signature_current=false`，但完整创建、source／face halo／prepared native／实际 Deserialize／Serialize／cache 及实际 UI front 链相符 | 主代理打开原图，孤立上下代表可见，但下缘床部分裁挡。不能据此关闭全部门床植物的全部外观或矩阵 |
+| T07，Y 轴 90° | 公共卡和确认回调、typed rotate／undo、完整投影及四阶段受控 missing 完成。楼梯、仅背景水、薄／厚雪植物、干／含水告示牌完整两层与 tagged 根坐标及非空间 NBT 均对照 oracle；区外标记不动。变换后一个未变 owner 的原始 false signature 保留，并通过完整来源链 | 主代理打开 `t07_after.png`，编辑器水面明显悬空，水位置／外观继续开放，交水专项处理；本节不授予水渲染新资格 |
+| T02，两格 full／Y3 single／full | 从公开 60 格卡用普通 erase 暂去 58 格，保留同一 Document／editor、逻辑尺寸、相机 Pose／Pivot／Pan，按钮 `(3,3,27)` 与 Y4 支撑 `(3,4,27)` 不变；三阶段实际原生 Serialize 均有 stone_button aux0，支撑为 stone aux0／无／stone aux0。A 创建 serial60，B61，A2 精确复用 A 的 serial60 和完整原生数据；随后 undo 回同一 Document 的全部60格 | 主代理打开 A／B／A2 原PNG，full／A2 只有可辨石头大面，按钮不可辨；single 显示小按钮。full 可见性继续开放。遮挡、原生合并剔面、aux 朝向或空间关系均只是待证假设，未默认归因缓存 |
+
+T07 使用实际 session 的 liquid profile 交给原渲染路径，没有赋候选值。冻结生产源码会选择 `ProductLiquidProfile`，运行 signature 的 ownership 为 `minecraft:flowing_water`／`minecraft:water`；本轮未单独导出 live class name，故把 Product 类型描述限定为冻结源的选择证据。完整 typed 两层／NBT 通过不意味着水表面像素通过。13 个运行阶段存在材料索引插入顺序／压缩块不同，解码后的文档语义和编辑器状态相符；不称 raw 文档字节一致。
+
+共取得30份完整原始 lineage raw和30份独立 certificate。实际 parent surfaces、front index／name、child doll、tracked visibility、poses、depth-hidden／suspended 均观察。可见 front须符合完整提交；屏外／深度隐藏 owner仅标为 `source_proven_offscreen_or_depth_hidden`，无像素／可见性资格。受控 missing 临时替换本 owner 读取，不写世界，不能充当真实世界占用扫描或物理鼠标命中验收。
+
+两次内部恢复与独立 before／after1 审计通过，after1 `changed_keys=[]`，原 session／Document／factory／geometry覆盖／profile对象／工具／相机和标记恢复，guard源及所有绑定 host不变。运行最高 game handles857，最少可用 commit11,213,438,976字节。02:31 提前释放实例。普通 owned stop记录游戏实际 **`0xC0000409`**、MCDK0，仍不算正常引擎退出；未强杀游戏。仅回收核验 PID／creation identity 相符的 watcher，exit0。
+
+小包 `docs/evidence/transform-lineage-r27-v4-v2-small/` 的 `index.json` SHA256为 `fcc780bc91f10a36fa21923ed76eb739efe71f587954da84d8e67eeb5ae6e515`：106逻辑记录／40文件，8,600,146字节，最大单件240,000字节。JSON／源码放入 gzip tar 的有序分片，索引分别记录原件、脱敏衍生内容、容器和分片SHA；v1小包发现stdout内嵌JSON仍有敏感字段后，原包完整移入runtime历史，未进入提交；此v2对对象、列表、字符串内嵌JSON及普通文本中的凭据／JSON转义变体递归脱敏。7张重点原PNG按原始字节分片保存，43张原PNG全部有本地路径／SHA索引，其余36张明确只留本地原件。原UI完整树仅本地保留。独立解包核对106条内容／99归档成员、原件SHA、内嵌JSON敏感字段及凭据文本均通过；同一独立验证器会拒绝v1原包的2个泄漏JSON记录。结构证书不代替打开原图，新增人工关闭保持0。
