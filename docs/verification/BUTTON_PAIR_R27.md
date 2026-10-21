@@ -59,13 +59,13 @@ Combined 对 support-only 的 **261** 个变化像素位于全图 bbox `[627,366
 
 随后普通 owned stop，通过同一进程句柄记录 game PID `55892`、creation identity `134370953162411880` 的实际退出码 **3221226505／`0xC0000409`**；MCDK PID `17328`、identity `134370953160040440` 退出 0。Registry finalize 和精确 watcher 回收完成，独立身份核验两进程均 `same_identity_live=false`、`resources_released=True`，`game_force_executed=False`。因此恢复／资源释放通过，**`normal_shutdown_qualified=False`**，不把普通 stop 返回成功等同正常引擎退出。
 
-## 下一单变量方案：尚未实现或执行
+## 07:05下一单变量方案（其后尝试见文末）
 
 下一允许窗口可保持原 native volume `(16,16,10)`，只把 support-only 占用沿逻辑 **Y+4** 平移，原 button 模型不变。原索引公式为 `index=y*16*16+x*16+z`：support 从 `1083`／local `(3,4,11)`／Document `(3,4,27)` 改为 `2107`／local `(3,8,11)`／Document `(3,8,27)`；button 仍为 `827`／local `(3,3,11)`。高度 8 在 native height 10 内。仅生成新的私有几何名，不覆盖既有模型，不改变生产 Document，也不为派生输入签发生产来源资格。
 
 固定 shader／material、状态与 flags、相机／pan／pivot、Doll／surface／tint／pose、native volume 及提交顺序，只改这一格的索引。按现有 Camera.basis／projection，yaw35、pitch−80 的预期 affine 位移为 `dx=0`、`dy=−4*cos(−80°)*cell_unit≈−0.6945927107*cell_unit`，camera-toward 差约 `−3.939231012`。选择 Y 轴是为了降低水平四格平移越出 scissor 的风险；这是源码逻辑预期，不是已测 native GPU／像素位移。
 
-实测前必须把原 cell unit、UI global layout、有效 DPI／客户区、capture metadata 与 scissor 绑定，不能直接由 zoom12 或 native scale4.31325 推算像素。最少比较同 slot 的原 support-only、Y+4 support-only、恢复原 support-only 三阶段并独立审计。不移动／位移不符时先排除裁切、比例和状态差异；匹配位移只会削弱 occupied-bounds 居中解释，并不证明 depth 正负或修复原贴面。本轮没有新启动该实验。
+实测前必须把原 cell unit、UI global layout、有效 DPI／客户区、capture metadata 与 scissor 绑定，不能直接由 zoom12 或 native scale4.31325 推算像素。最少比较同 slot 的原 support-only、Y+4 support-only、恢复原 support-only 三阶段并独立审计。不移动／位移不符时先排除裁切、比例和状态差异；匹配位移只会削弱 occupied-bounds 居中解释，并不证明 depth 正负或修复原贴面。此处为方案提出时的状态；其后一次新尝试在校准构造阶段停止，见文末。
 
 ## 可重建的小证据包
 
@@ -75,3 +75,14 @@ Combined 对 support-only 的 **261** 个变化像素位于全图 bbox `[627,366
 | [最终十阶段](../evidence/button-pair-runtime-r27-v1/index.json) | `17721cbd1fcdeeefc218aad8825d9bcbdd7ff82b5205da7171d36874e25fa174` | 83 条逻辑记录、71 个归档成员、18 文件、2,587,218 字节，最大 240,000 字节；12 张无损原 PNG 含十阶段与 baseline／restored，附独立像素复算及未执行方案 |
 
 原件与脱敏派生件分开列 SHA，PNG 按原字节分片；最终包只引用历史包指纹，不重复打入历史 payload。两个包均已独立重建核对原件／内容／容器／分片哈希，并以真实凭据集合检查递归对象、嵌套 JSON 字符串及普通文本转义变体；嵌套与普通文本两个负控均被拒绝。安全打包和结构完整性不赋予像素验收资格，原 raw／未入包的完整 UI tree 继续留本地。本次不调整剩余产品工作量，也不增加人工关闭数。
+
+
+## 07:16—07:21：Y+4单次尝试在校准构造前停止
+
+同一冻结2ab5a29a产品并未增加Theme.native_gui_scale，新增私有探针却读取当前工作区才有的字段，constructor中的read_calibration抛出AttributeError。实际0原生几何创建、0诊断阶段、0 Y+4阶段PNG；公开卡／基线／恢复截图不计作该实验。假Theme控制人工提供了新属性，未覆盖真实冻结API差异；GetScreenViewInfo假桩形状也与实际四元tuple不符。根审控制存在覆盖缺口，不能以此前离线通过认定实际校准有效。
+
+未修改冻结脚本或产品、未放宽条件、没有重试。局部finally及global finally执行；60格原Document恢复，两次内部审计与after1／after2独立审计均通过，changed_keys为空、相机exact=true且旋转差0、来源未变。普通exact-owner stop后，game实际退出0xC0000409、MCDK0，同创建身份存活均false，无force；normal_shutdown资格仍false。watcher依原07:40自退计划等待，最终receipt另补。
+
+可重建[失败及冻结接口差异小包](../evidence/button-shift-failure-r27-v2/index.json)含109条记录、107归档成员、8原存储文件、1,456,160B，最大240000B；root独立重建全部原件／内容／分片SHA，并复核4项实际corpus的8个嵌套／普通文本负控。补充宽递归scanner检查全部107成员、JSON／Base64／转义文本及本地凭据相等值，0发现、5项等价对照通过。首次窄包的host_run_token是uuid生成的证据nonce，宽扫描仍按统一token规则拒绝；新v2将其作为标准脱敏派生，原件和旧v1保持原字节，未对scanner设例外。两次根审AST allowlist漏列仅有根工具转述，明确为派生记录，没有伪造原stdout或独立receipt。
+
+下轮接口／单位／scissor交接随包保存：先从真实冻结Theme字段及configure写入建立census，再按冻结Game的GetScreenSize／GetScreenViewInfo原值公式取得GUI，控制必须由冻结接口派生并保留无cache旧版本及实际tuple形状，不能给fake补字段使其通过。仍无Y+4像素位移、bounds或depth结论，不关闭T02或新增人工问题。

@@ -63,6 +63,6 @@
 | R03 | 待准备 | 未检查 | 预检有效后纳入 |
 | R04 | 待准备 | 未检查 | 预检有效后纳入 |
 
-10-22补充：T02另在精确`2ab5a29a`冻结冷源，从真实60格公开卡正常erase 58格，保留同一Document／editor／尺寸和按钮`(3,3,27)`、Y4支撑`(3,4,27)`，执行pitch −80→0→+80→−80，每角full／singleY3／full共12阶段。完整原生Serialize每阶段都有stone_button aux0，full另有支撑；原图full主要只见支撑，single可辨小按钮，完整场景按钮轮廓不明显。完整typed语义不变并undo回60格，独立恢复和冻结来源检查通过。见[普通卡与按钮观察](../verification/ORDINARY_PUBLIC_R27.md)。后续同冻结源的[三模型十阶段诊断](../verification/BUTTON_PAIR_R27.md)及独立原PNG复算确认261个非零变化像素，四组双Doll固定ROI完全一致；因此不能称按钮完全未绘制，也不能仅凭Combine剔面解释主观轮廓不足。未读回native vertices／WORLDVIEW，低对比原生参照、depth／bounds归因仍开；Y+4单变量只形成下一轮方案，未执行。两次历史失败、精确恢复及异常退出均保留，已有人工状态和关闭数不变。
+10-22补充：T02另在精确`2ab5a29a`冻结冷源，从真实60格公开卡正常erase 58格，保留同一Document／editor／尺寸和按钮`(3,3,27)`、Y4支撑`(3,4,27)`，执行pitch −80→0→+80→−80，每角full／singleY3／full共12阶段。完整原生Serialize每阶段都有stone_button aux0，full另有支撑；原图full主要只见支撑，single可辨小按钮，完整场景按钮轮廓不明显。完整typed语义不变并undo回60格，独立恢复和冻结来源检查通过。见[普通卡与按钮观察](../verification/ORDINARY_PUBLIC_R27.md)。后续同冻结源的[三模型十阶段诊断](../verification/BUTTON_PAIR_R27.md)及独立原PNG复算确认261个非零变化像素，四组双Doll固定ROI完全一致；因此不能称按钮完全未绘制，也不能仅凭Combine剔面解释主观轮廓不足。未读回native vertices／WORLDVIEW，低对比原生参照、depth／bounds归因仍开；其后Y+4单次尝试在校准constructor读取冻结旧Theme缺失字段时停止，0模型创建／0阶段／无位移像素证据，已独立恢复并关闭，不重试。两次历史失败、精确恢复及异常退出均保留，已有人工状态和关闭数不变。
 
 用户反馈可直接写“编号＋编辑器／完整投影／缺失投影＋哪里不对”。接收后由开发侧将缺陷及证据关联到统一待办，安排下一允许窗口修复。本清单不预先宣称任何项已关闭；下周最终验收保留原结果，并追加新候选来源和复验记录。

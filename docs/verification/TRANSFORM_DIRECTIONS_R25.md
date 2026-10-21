@@ -54,3 +54,6 @@ game `35012 / 134370373915982420` 已普通stop并finalize至registry stopped，
 ## 10-22：三模型十阶段原生绘制诊断
 
 后续在精确 `2ab5a29a` 冻结源保持原 Document／体积、按钮／支撑索引、材质、相机和两 Doll，比较 combined、button-only、support-only 及四种双 Doll 的 slot／提交顺序，实际完成三模型、十阶段。**Combined 对 support-only 的固定 ROI 有261个变化像素，bbox与button-only暗像素范围一致；四组双Doll的ROI RGB原字节相同。** 原图轮廓主观不明显不等同完全未绘制；低对比及pitch −80原生参照仍开放，Combine／depth／bounds均未归因关闭。两个历史失败、独立PNG复算、最终相机精确恢复及游戏 `0xC0000409` 异常退出、未执行的Y+4单变量方案，见[完整诊断](BUTTON_PAIR_R27.md)。本次没有产品改动或新增人工关闭，不回写此前相机exact=false或较早失败记录。
+
+
+10-22 07:21增量：Y+4最小单次诊断在旧冻结Theme缺少新缓存字段时constructor失败，0模型创建／0阶段／0位移PNG；两次独立审计恢复且相机exact、来源不变，ordinary stop后game仍0xC0000409／MCDK0，不重试。失败不是产品bounds／depth证据，T02保持开放；[冻结版本差异与后续控制](BUTTON_PAIR_R27.md)已独审保存，人工关闭0。
