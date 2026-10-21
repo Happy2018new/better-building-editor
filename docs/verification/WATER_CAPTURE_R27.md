@@ -287,3 +287,19 @@ source4484→4482的净差是去掉五个旧诊断shader `modern_projection_r27_
 ## 05:42 根代理独立核对新分发包
 
 根代理从 v4 索引逐项重建742个逻辑条目，独立核对774个存储文件与全部原raw SHA/长度，723个条目可逐字节还原，3个为明确标识的有损视觉参考，22处脱敏记录。递归JSON/base64/转义敏感检查与已知credential精确检测均为0发现；原独立scanner保留解码与敏感成员检查，仅用经8项等价对照的trie替代重复substring循环。报告位于 `.runtime/round-20261022/root-water-package-v4-review/report.json`。本次只授予v4证据分发资格，拒绝的v3、原raw和旧失败保持原bytes；不授正式15cell A、默认来源D或用户人工关闭。
+
+
+## 05:39—05:42：当前shared来源单格普通入口与原采样协议通过
+
+上述新owner在root精确grant下执行一次，未调用bootstrap、未赋候选profile，普通UiInitFinished创建的实际Session/profile通过只读观察。唯一单格为flow_east/editor/wet；原pose35/25/4.6、物理客户区1280×720、SDK整数GUI2、原0.02logical几何门不变。两张static及burst前共3次SDK真实读回，各有4个可见bank；active位置/尺寸、surface、native与renderer ID门通过，static前后Scene布局不变。root实际打开两张原static和burst首末图，水与stone对齐且纹理变化可见。这只覆盖本单格，不授其余14格、world或完整A。
+
+原生manifest保留44次attempt、42张有效PNG及2次reject：第1次frame_not_after_request、第44次frame_timestamp_in_future，有效帧为2—43；invalid记录及null PNG没有删除。原fixed-startup-v2 nontrace完整测量3200ms，首/尾gap为15.8597/20.5999ms，最大source gap为25→26的78.7975ms，最大worker未观察区间为6→7的76.6862ms，两者不是同一pair，不能归因具体机制。原150ms超限数0；1500ms preparation、512MiB cap不变，raw/accounted peak分别154,828,800/221,937,664B。native与wrapper的capture_valid、temporal_complete、ok均true。manifest SHA为e7b0535d3820b6dad711195fa82fe4c5f2e63ad74e17434d53e5917894a6fee5；只读完整QPC链分析在water-merged-flow-editor-analysis-v1/source-worker-chain-v1.json，SHA ef0ca958f9e1f14d9280ac842e3a177aafdfb44722d016e10c8869cee67cc034。root独立复核这组精确cadence，不以该结果覆盖旧593.9861ms/source或538.3221ms/worker失败。
+
+唯一group耗时173.11243s，cold launch105.32319s、普通初始化只读观察8.71787s/9次、resize0.56908s、A host41.05979s；全部六步骤exit0、group completed true。产品report completed/restored/source_unchanged true，cleanup_errors空。独立恢复确认navigator、blueprint/profile/timing markers清，busy/jobs/projection均false、world actors0，并在结束后逐SHA核过5873项源及辅助全部未变。continuous guard142样本、game/MCDK最大875/235句柄，guard与modal breach均null，group阶段最小available commit为12,499,091,456B。
+
+普通stop exit0，game精确身份64844/134370923585769950与MCDK14824/134370923583848155均已消失，helper按精确创建身份回收。group早读的same_handle_exit仍是MCDK尚live的partial，原group不回写；独立launch/exact-exit.json随后completed true，game于05:42:01.136780以0xC0000409退出、MCDK于05:42:02.140968以0退出。不能把game称引擎正常退出或据此归因水。当前水MC已释放。
+
+结果原件保留在.runtime/round-20261022/water-merged-flow-editor-v1；此前已提交的v4分发包、原索引和raw不改。本单格通过原采样协议不代表当前shared来源资格已通过：完整15cell A及原方向/速度/亮度分析、world A、source release、默认最终准入继续开放，用户人工关闭仍0。
+
+
+06:05根代理已独立重建[本次单格精简证据](../evidence/water-merged-flow-editor-r27-v1/index.json)：40逻辑条目／44存储文件，37份可精确还原原件、3份脱敏派生共7处替换，4张PNG均为原字节，0有损。全部原始与派生SHA、长度、300000B上限及递归凭据检测通过，8项scanner等价对照通过，发现0；独审报告随包保留。全burst图及119MBarchive不重复入仓，本包不替代完整15格A或当前来源发行资格。
