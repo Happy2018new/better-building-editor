@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "owner": "books-r27-editor-v1",
+  "source_commit": "a62257da0635d638947533d07ff34db147b757d1",
+  "source_manifest_sha256": "029ef5705882133ab61f4946262670d4d9de9b8e59bed8632315b1fe03ded1c9",
+  "baseline_runtime_files": 3708,
+  "runtime_files": 3712,
+  "overlay_paths": [
+    "behavior_pack/loot_tables/modern_projection/r21_signed_book.json",
+    "resource_pack/materials/entity.material",
+    "resource_pack/models/netease_models.json",
+    "resource_pack/shaders/glsl/peony_r25_book_fragment_diag.fragment",
+    "resource_pack/shaders/glsl/peony_r25_book_raw_z_enchanting_table.vertex",
+    "resource_pack/shaders/glsl/peony_r25_book_raw_z_lectern.vertex"
+  ],
+  "formal_qualification_changed": false,
+  "production_modified": false,
+  "manual_issues_closed": 0,
+  "runs": {
+    "lectern": {
+      "completed": true,
+      "restored": true,
+      "source_unchanged": true,
+      "cleanup_errors": [],
+      "elapsed_seconds": 101.49292839999544,
+      "error": null,
+      "captures": [
+        "native_empty",
+        "native_authored",
+        "full",
+        "missing",
+        "occupied",
+        "unoccupied",
+        "hidden",
+        "shown",
+        "scene_full",
+        "scene_hidden",
+        "scene_shown",
+        "neighbors_full"
+      ],
+      "independent_restoration": {
+        "actor_count": 0,
+        "fields_equal": true,
+        "document_id": 1433830015608,
+        "workspace": false,
+        "factory_class": "EngineCompFactoryClient",
+        "editor_id": 1434046528256,
+        "profile_same_object": true,
+        "restored": true,
+        "preview_ready": true
+      },
+      "control_skipped": "Default editor book already visible; no native setter or alias switch.",
+      "private_body_setters": 0,
+      "private_alias_switches": 0
+    },
+    "enchanting": {
+      "completed": false,
+      "restored": true,
+      "source_unchanged": true,
+      "cleanup_errors": [],
+      "elapsed_seconds": 30.43605880002724,
+      "error": "RuntimeError: system_commit_budget",
+      "captures": [
+        "native",
+        "full",
+        "missing"
+      ],
+      "independent_restoration": {
+        "actor_count": 0,
+        "fields_equal": true,
+        "document_id": 1433830015608,
+        "workspace": false,
+        "factory_class": "EngineCompFactoryClient",
+        "editor_id": 1434046528256,
+        "profile_same_object": true,
+        "restored": true,
+        "preview_ready": true
+      },
+      "control_skipped": null,
+      "private_body_setters": 0,
+      "private_alias_switches": 0,
+      "last_resource_boundary": {
+        "label": "occupied",
+        "handles": {
+          "pid": 16332,
+          "identity": "134370711089566981",
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+          "handle_count": 836,
+          "status": "live"
+        },
+        "memory": {
+          "observed_at": "2026-10-21T15:50:48.120938+00:00",
+          "commit_total_bytes": 39833313280,
+          "commit_limit_bytes": 46100955136,
+          "commit_available_bytes": 6267641856,
+          "physical_available_bytes": 135462912
+        }
+      }
+    }
+  },
+  "exit": {
+    "schema": 1,
+    "session": "36f71797e7b9453980080754141cc388",
+    "owner": "books-r27-editor-v1",
+    "opened_at": "2026-10-21T15:45:25.635546+00:00",
+    "processes": {
+      "game": {
+        "pid": 16332,
+        "identity": "134370711089566981",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-21T15:51:54.863412+00:00"
+      },
+      "mcdk": {
+        "pid": 21388,
+        "identity": "134370711087457406",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-21T15:51:55.872255+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "watcher": {
+    "host_sha256": "f93e4c5ba1b728fe0b6627ed58c8d4938b18913a6dafa96305237b84198b07df",
+    "owners": [
+      "books-r27-editor-v1"
+    ],
+    "known_assert_recoveries": [],
+    "other_assertions": [],
+    "errors": []
+  },
+  "watcher_retired": true,
+  "stop": {
+    "ordinary_returncode": 0,
+    "force_executed": false,
+    "final_registry_state": "stopped",
+    "independent_final_active_identity": {
+      "game": null,
+      "mcdk": null
+    }
+  },
+  "interpretation": "Default lectern editor book was naturally visible. Predeclared controls were skipped; old natural-negative evidence remains unresolved. Enchanting stopped before editor under the 6 GiB available-commit guard.",
+  "normal_engine_exit_qualified": false
+}
