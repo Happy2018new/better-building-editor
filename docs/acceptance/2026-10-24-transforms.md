@@ -51,7 +51,7 @@
 | 编号 | 入口／位置 | 结果（通过／失败／未检查／阻塞） | 异常路径、截图与备注 |
 | --- | --- | --- | --- |
 | T01 | `test.transforms.acceptance.t01` | 人工未检查 | v5、v8 数据旋转／撤销／重做往返通过；v8 主材质受控 missing 的 empty→occupied→restored 观察值为 1→2→1，紫色目标格隐藏并恢复，六张 missing shown/hidden 原图已读，独立恢复读回通过。真实世界占用、save_reload 与其他操作外观仍待查 |
-| T02 | `test.transforms.acceptance.t02` | 人工未检查；两代表三路径窄补，按钮完整场景仍待 | 60格／28方向样本；原八步数据结果保留。c531正常冷源另拍四梯子／六按钮10近景，Y镜像按钮与90°旋转梯子各full／受控missing消隐恢复、undo通过。root已读两代表8图；button_0的单层两斜视有模型和厚度，完整场景仍不清；离线full／single及局部chunk均保留按钮状态，仅single过滤Y4支撑，不判六面按钮通过。真实占用、全部28样本／X／Z待；相机语义恢复通过但exact=false。见[T02记录](../verification/TRANSFORM_DIRECTIONS_R25.md) |
+| T02 | `test.transforms.acceptance.t02` | 人工未检查；两代表三路径窄补及原生双模型诊断已补，按钮贴面仍待 | 60格／28方向样本、原八步数据、四梯子／六按钮近景和两代表受控missing结果保留。R27在2ab5a29a冷源追加3模型／10阶段：combined对support-only有261个变化像素，与button-only footprint对应；四组双Doll固定ROI原字节相同，按钮轮廓主观不明显，不能记为完全未绘制。原生低对比／俯仰、Combine／depth／居中归因仍开，不判六面按钮或全部28样本通过；真实占用、X／Z仍待。最终诊断两次内部与独立恢复相机exact=true、来源不变，游戏退出0xC0000409，正常退出资格为false；此前exact=false历史保留。见[方向记录](../verification/TRANSFORM_DIRECTIONS_R25.md)、[十阶段诊断](../verification/BUTTON_PAIR_R27.md) |
 | T03 | `test.transforms.acceptance.t03`；边界补充`test.transforms.acceptance.t03_half` | 人工未检查；公开卡及代表预检已准备 | 整组旋转的7015c9c4结果保留。后续87327491冷源补齐半门镜像的公开确认、typed变换／撤销、编辑器／full与四阶段受控missing；严格来源链证明未变模型的复用，原false signature保留。部分床被界面裁挡，四向床、双格植物全部外观／全部矩阵仍未关闭。见[代表记录](../verification/TRANSFORM_REPRESENTATIVES_R27.md) |
 | T04 | `test.transforms.acceptance.t04` | 人工未检查；箱纹窄修复共同冷验通过 | 原支撑箱纹失败保留。修复先有A／B／A支持，后在7c7c32f0共同冷源无context补丁复查：镜像前后编辑器、完整投影及单半／双半受控missing与恢复共7张原图已独立读取，红支撑干净、蓝对照保持、双箱恢复，来源不变、独立恢复通过。见[箱归属记录](../verification/CHEST_CONTEXT_R25.md)。先前实际SDK内联save_reload仍绑定原来源；真实占用及跨客户端重启持久性待验 |
 | T05 | `test.transforms.acceptance.t05` | 人工未检查 | 10-21默认材质冷源代表旋转／typed状态通过，编辑器和完整投影四排坡道及闭环均入画；普通坡轨近景接头可见，受控单格／双格missing消隐恢复符合预期。全部轨态、连接和纹理像素仍分别记录，save_reload与最终共同源尚待 |
@@ -63,6 +63,6 @@
 | R03 | 待准备 | 未检查 | 预检有效后纳入 |
 | R04 | 待准备 | 未检查 | 预检有效后纳入 |
 
-10-22补充：T02另在精确`2ab5a29a`冻结冷源，从真实60格公开卡正常erase 58格，保留同一Document／editor／尺寸和按钮`(3,3,27)`、Y4支撑`(3,4,27)`，执行pitch −80→0→+80→−80，每角full／singleY3／full共12阶段。完整原生Serialize每阶段都有stone_button aux0，full另有支撑；原图full主要只见支撑，single可辨小按钮，尚未解释完整场景缺画。完整typed语义不变并undo回60格，独立恢复和冻结来源检查通过。该结果不证明原生mesh实际产生了按钮面，也未直接采集原生WORLDVIEW或深度，不能归因为缓存。见[普通卡与按钮观察](../verification/ORDINARY_PUBLIC_R27.md)。已有人工状态不变。
+10-22补充：T02另在精确`2ab5a29a`冻结冷源，从真实60格公开卡正常erase 58格，保留同一Document／editor／尺寸和按钮`(3,3,27)`、Y4支撑`(3,4,27)`，执行pitch −80→0→+80→−80，每角full／singleY3／full共12阶段。完整原生Serialize每阶段都有stone_button aux0，full另有支撑；原图full主要只见支撑，single可辨小按钮，完整场景按钮轮廓不明显。完整typed语义不变并undo回60格，独立恢复和冻结来源检查通过。见[普通卡与按钮观察](../verification/ORDINARY_PUBLIC_R27.md)。后续同冻结源的[三模型十阶段诊断](../verification/BUTTON_PAIR_R27.md)及独立原PNG复算确认261个非零变化像素，四组双Doll固定ROI完全一致；因此不能称按钮完全未绘制，也不能仅凭Combine剔面解释主观轮廓不足。未读回native vertices／WORLDVIEW，低对比原生参照、depth／bounds归因仍开；Y+4单变量只形成下一轮方案，未执行。两次历史失败、精确恢复及异常退出均保留，已有人工状态和关闭数不变。
 
 用户反馈可直接写“编号＋编辑器／完整投影／缺失投影＋哪里不对”。接收后由开发侧将缺陷及证据关联到统一待办，安排下一允许窗口修复。本清单不预先宣称任何项已关闭；下周最终验收保留原结果，并追加新候选来源和复验记录。

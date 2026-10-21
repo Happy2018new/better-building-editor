@@ -50,3 +50,7 @@ game `35012 / 134370373915982420` 已普通stop并finalize至registry stopped，
 ## 14:59 离线CPU链补查
 
 不重启MC，按c531冷源逐字节核对7个相关生产文件，分别对全建筑full／Y3 single及目标所在Z16局部chunk重复`build_preview → prepare_palette`。四份实际结果均保留button_0为`stone_button aux0`、`facing_direction=0`、未按下；full保留Y4支撑，single按现有层过滤排除Y4支撑，Document不变。此结果只排除该离线CPU路径把按钮删除或转成其他朝向，不能代替运行时palette抓取、原生网格／深度／遮挡根因判断或六面验收。见[离线trace小包](../evidence/button0-cpu-palette-r26-v1/index.json)。下一允许窗口先保持同原生材质和按钮／支撑，单独比较送入引擎的数据及网格／深度控制，不先改公共渲染器。
+
+## 10-22：三模型十阶段原生绘制诊断
+
+后续在精确 `2ab5a29a` 冻结源保持原 Document／体积、按钮／支撑索引、材质、相机和两 Doll，比较 combined、button-only、support-only 及四种双 Doll 的 slot／提交顺序，实际完成三模型、十阶段。**Combined 对 support-only 的固定 ROI 有261个变化像素，bbox与button-only暗像素范围一致；四组双Doll的ROI RGB原字节相同。** 原图轮廓主观不明显不等同完全未绘制；低对比及pitch −80原生参照仍开放，Combine／depth／bounds均未归因关闭。两个历史失败、独立PNG复算、最终相机精确恢复及游戏 `0xC0000409` 异常退出、未执行的Y+4单变量方案，见[完整诊断](BUTTON_PAIR_R27.md)。本次没有产品改动或新增人工关闭，不回写此前相机exact=false或较早失败记录。
