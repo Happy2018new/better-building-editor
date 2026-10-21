@@ -107,8 +107,68 @@ nontrace有效样本的最大poll前守门至readback为15.3026ms，trace为4.15
 
 截至上述准备，本专项新增用户人工关闭仍为0；正式A、最终owner、默认冷启路径继续开放。原212-entry精简包未覆盖随后新增的formal失败／gap复核／anchor材料，后续另建补充包，不覆盖旧索引。
 
+01:50前后完成独立补充包 `docs/evidence/water-size720-r27-v2/index.json`，SHA `5e589aa1fc32c5049a074abdea5763eb1f71111b5a347507503a6fc332270db8`，281条／四份索引页，单件最大240000B，总5950703B。其scope覆盖formal失败、旧错误gap报告与最新v3、camera v1拒绝及actual v2独审、原失败ROI和anchor v1／v2准备；不含未来实机或随后v3 host修正。原raw及212条旧包未改，脱敏输出secret值0，待父代理独审。
+
+父代理独审前要求补强失败收尾；冻结v1／v2均保留，最终host单独位于 `water-anchor-calibration-v3`，owner仍是尚未启动的 `water-r27-anchor-calibration-v1`。v3 plan SHA `7ed261548726f4b8e00dbeff77a75e14da2e0842b459b15630a069814b003dcd`，host binding SHA `7b1ca0f232ad058611a126c29209196829f6675ca21c59548482e02edd05386e`。最后只读恢复RPC或source audit失败会记入`cleanup_errors`／`restore_unknown`，仍保存最终report，不覆盖原始采集异常；group普通stop超时也保存异常、观察精确进程身份与已有same-handle退出回执。直接执行实际AST finally的五个host故障控与一个group stop超时控通过；六个实际AST资源边界控也通过，均是明确的synthetic IO，没有MC／RPC／子进程。第一次离线fixture遗漏wrapper局部`launch`初始化而失败，原脚本／输出保留；随后仅修fixture，实际host未因该测试错误改写。
+
+v3的截图前后句柄门由两个实际执行层承担，`resource-coverage-v1.json`（SHA `cc5bba287499600e271e2ec6a808eac28b90b3773946154c6a0a2dea288f9e71`）包含冻结SHA及一基函数原文：`run_anchor_calibration.py`的`resource_sample`在同一保留句柄上核对game／MCDK创建身份并读取count，配置前、紧邻截图前、截图成功后或失败路径的尝试性后检都执行，数值先记账再要求句柄<250000、相邻正增长<10000、可用commit≥6GiB；独立`watch_handles.py`仍在取得精确game／MCDK身份后启动，每秒检查相同固定句柄门、unknown modal及deadline，触门普通owner stop。两条样本流分别保留，不合并冒称全时连续观察；间隔内极短峰值未被证明。static WGC wrapper负责所属身份、新鲜帧、PNG及窗口守门，本身不执行game／MCDK的句柄增长门。短命WGC child受所属子进程回收约束，不冒称共享game／MCDK的增长检查。此处仍只是准备的执行合同；实际覆盖要由随后运行回执确认。
+
 ## 主代理归档复核
 
 root 已独立核验[初包](../evidence/water-size720-r27-v1/index.json)212项与[补充包](../evidence/water-size720-r27-v2/index.json)281项：原raw SHA、所有压缩分片／解压SHA、4个原始session凭据的实际脱敏、PNG原样与JPEG有损标记、索引页及单件尺寸均通过，最大单件240,000B；两个包分别5,753,556B及5,950,703B。JPEG只作预览，不用于像素门。独立回执位于`.runtime/round-20261022/root-water-package-review/report.json`。root实际打开旧GUI4、新GUI2锚点叠图和原flow ROI图，确认图中存在明显的产品水面错位，仍需中性几何校准来检验公式，不能直接修改ROI追逐纹理。
 
 这两个包冻结的是上述历史尝试与anchor v1／v2准备；后续host修订和实机运行必须另包，不回写这些索引。正式采集失败和所有原门保持，新增人工关闭0。
+
+## 02:05—02:06：neutral／matrix首次冷启被watcher健康门停止
+
+root 独审v3 host后授予一次40分钟独占窗口。实际group于02:05:07启动，owner仍为`water-r27-anchor-calibration-v1`。启动前全局历史Minecraft条目均不可`OpenProcess`，正式launch也确认有效实例0；可用commit约15.9GB，高于原6GiB门。实际session为`fc4f754726034c1590beb686e6683532`，game`34508 / 134370795193948571`、MCDK`46292 / 134370795191797446`。
+
+此次没有到ready：r20 assertion watcher在读取所属starting `session.json`时记录`PermissionError(errno=13)`，并永久保存在`status.errors`。continuous guard第4个样本于02:05:41.995读到`assertion_watcher_not_healthy`，按原fail-closed门发出普通owner stop。该次stop等待结束时游戏尚未退出，返回1；随后same-handle observer在02:06:16.98记录game`0xC0000409`、MCDK0，starter因原game创建身份结束而拒绝绑定。group最终普通stop0、精确身份消失true、watcher按创建身份回收true。不能将此写成自然崩溃或正常引擎退出，也不能归因于中性材质／matrix shader。
+
+原v3 host、grant、stdout／stderr及失败回执全部保留，没有原条件重试。只读复核`water-anchor-calibration-v3/startup-failure-review-v1.json` SHA`820bcfc00f82a2e84cb1912498e8c45f6599afcb468958fef5831314c6803650`确认5875项源与辅助逐SHA未变；bootstrap、诊断UI、所有138张计划样本都未执行。因此UI恢复与bootstrap marker显式retire在该次不适用，不能借没有marker称已实测恢复路径。launch采样game最大669句柄／相邻正增长42、MCDK230／150；独立continuous 4样本最大game670／44、MCDK230／16，句柄门本身未breach。两条采样流分别记账，不据此保证间隔内全部瞬时峰值。
+
+静态代码可见r20直接读manifest，再由`load_session`二次读取；任一次`OSError`都会永久进入watcher错误列表。writer的原`_session.write_json`已有对Win32 5／32／33替换锁的有限重试，reader没有。但原watcher只记录errno13，没有WinError；“Windows文件共享／替换瞬态竞争”仍是机制假设，不冒称原事故已测得32或某个锁的持有者。
+
+## 私有manifest reader候选与真实Windows锁控制
+
+root要求先保留失败，再准备私人host修复。v4草稿仅对`PermissionError.winerror`的5／32／33有限重读整次双读。在真实`CreateFileW(share=0)`临时锁控制中，本机Python的`pathlib.read_bytes`／`io.open`只抛errno13、丢失`.winerror`，因此草稿没有把此错误当已知Win32共享错误，首次控制失败。原v4文件、fixture及`first-control-failure-v1.json`保留；没有把全部errno13都纳入重试。
+
+经root允许，私有v5改用保留句柄的`CreateFileW`／`ReadFile`读取，实际失败立即保留`GetLastError`，读句柄允许共享read／write／delete以支持原writer原子替换。通用`bounded_manifest_read(callback, events, label)`只对实测Win32 5／32／33重做完整callback，等待0.05／0.1／0.2／0.4s，共0.75s；耗尽记录后仍raise，由原健康门停止。恢复事件单独记账，成功后不用旧snapshot，原schema、resolved path、owner、可选ready、process creation identity及eligible root／state检查完整保留。私有`native_load_session`只规范化函数名和read IO后的AST与原`load_session`一致；没有全局修改`Path`，共享生产源与旧r20 host未改。
+
+候选位于`water-anchor-watcher-v5`：watcher SHA`804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565`，共用reader SHA`2ae4d46fc4fc63249b1b10d8cc6e7028009f4fa1941ea64f88452871a89eb28d`。15项离线控制通过，报告`windows-lock-controls-v1.json` SHA`132503ab70cceb7b7491cb9f3492bc966bcec4986140bcf4096b6865e583c6a9`：包括真实Windows首读与次读临时锁恢复、持续锁五次耗尽，main临时恢复不永久记录错误／持续锁仍fail closed，8组输入与原`load_session`同值，畸形JSON／schema、owner变化、实际Win32创建身份不符、missing WinError2与非retry1314拒绝，以及未知dialog仍报告且不Ignore。main控制明确替换registry根和dialog枚举，身份控使用本测试Python实际创建身份，未模拟或声称PID复用；没有启动MC。候选仍待root独审和以后新owner实机，不授native校准、动画A或产品资格。
+
+离线中性像素分析器也在观察新像素前冻结了固定RGB64±5、贡献>20、双向2px度量及shown=hidden／固定±20px／错误GUI／轴符号排列／错误offset符号对照；对称单元可能重合，只保留指标而不捏造拒绝。该轮没有像素输入可分析，原flow ROI不动、原失败不改。本专项新增用户人工关闭仍0，正式A、最终owner与默认路径继续开放。
+
+root随后在独立输出目录重放原冻结15控，并独核loader AST同值，批准共用上述精确v5 watcher与reader，回执位于`root-watcher-v5-review/root-review.json`。该批准只覆盖host修复，不覆盖MC启动或产品渲染。变换专项也绑定同一reader原件，未复制另一套实现。
+
+新的中性诊断lifecycle独立位于`water-anchor-calibration-v4`，新owner`water-r27-anchor-calibration-v2`；plan SHA`1afd1e9989097c8df157cd508ebaa5bf60d176b29240fb4b15e7c0ec105d7a0c`，host binding SHA`5672c7573e0171204ed4487dfbf91e5338913bbe84fd692489e6622815678183`。23个host／35个external绑定，六份游戏payload真实Python2编译通过；4484源／1391辅助逐SHA核对，复用同一个已审archive，并逐bytes复核5875条，无重新zip。新host只改变生命周期owner／私有marker、共用watcher与所属manifest读取；原138张像素计划、原资源门、普通关闭和失败收尾保留。launch所属manifest若耗尽有限读取，保存事件后raise；watch_handles初始snapshot也复用同一reader。原v3失败及v4草稿控制失败不改，尚未启动该新owner，待root独审和统一窗口。
+
+## 02:33—02:35：v4冷启通过，首个配置因诊断参数类型失败
+
+上述v4随后获root逐项独审及独占窗口。启动前实际有效MC为0、可用commit`16,086,441,984B`，23host／35external及5875源辅助SHA再核通过。session`40d79e4c1dff462c8dbc53eaca499b4d`，game`54452 / 134370811979662105`、MCDK`68864 / 134370811977621740`；冷启98.170s到ready，单次原bootstrap10.492s通过。v5 watcher实机健康，errors、unknown assertions与manifest重读事件均为空；本次没有实际遇锁恢复，不据此声称锁恢复已在MC内触发。
+
+物理客户区读回1994×1105，实际SDK logical499×277、ScreenView1994×1106，整数GUI4读回通过。第一项`gui4_wide_front_empty`在CONFIGURE构造`pack_group`时立即失败：本子代理把RGB字节写成浮点`(0.,0.,0.)`，原`appearance_uniform`严格要求整数0—255，抛`Invalid liquid tint channel`。此前Python2编译只证明语法，不会调用这项值合同；这是诊断payload准备错误，不能归因水产品、native矩阵或neutral材质，也没有生成任何捕获。
+
+完整失败原件保留，未原条件重试。原report restored／source_unchanged为true、restore_unknown为false、cleanup_errors为空，独立UI／actor恢复true；显式bootstrap `marker_retired=true`。普通stop0，same-handle实测game`0xC0000409`、MCDK0、精确身份消失true，assert watcher按创建身份回收。continuous guard105样本，game最大878句柄／相邻正增长100、MCDK235／20，句柄与modal breach均null。只读复核`water-anchor-calibration-v4/payload-failure-review-v1.json` SHA`9f32a978746ec6c851917d2b6c10220dd1780c10a368337f597b70c6cb513874`逐项核过源与收尾，成功捕获数0。
+
+## v5最小payload纠错与真实Python2值合同控制
+
+新的独立lifecycle放在`water-anchor-calibration-v5`，新owner`water-r27-anchor-calibration-v3`；游戏payload唯一变化为`(0.,0.,0.)→(0,0,0)`，不放宽原严格整数门、不改产品源。plan SHA`bf3db61e85549631603e7d6d7a61eed37d35f6331859d56abfbd3b65a2057d9c`，host binding SHA`dbb6ba82ea1938a055a71533e97f300e6479f511357693f565832bf5d0614576`；24host／35external，原诊断archive复用并再次5875条逐bytes复核。
+
+`verify_configure_payload_py2.py`在实际Python2.7中执行全部138项**原CONFIGURE文本**，加载原冻结`Document`、`pack_group`、`validate_uniforms`模块，仅将SDK.GetSystem、bridge.geometry和UI setter作为明确fake边界。138项uniform及group值合同通过；还执行原v4首项CONFIGURE，精确复现原`ValueError: Invalid liquid tint channel`。报告`configure-py2-execution-controls-v1.json` SHA`1ff049d25452b41ad141bc9eca51bf46d2b2c21ab74bc5a647b250f37cfd7fdd`。这不是MC原生渲染或UI运行验收，候选待root独审及新窗口，原两次失败不覆盖。
+
+在新像素到来前另完成10项投影算术控制，`projection-math-controls-v1.json` SHA`2cdc486f24fb1a0834f4229037cc131763eaf873ceb40968af73a049548b82d2`：独立手算正交bbox、透视clip/w八角、固定错误GUI／offset符号／轴符号、zero-w拒绝及实际分析main对synthetic PNG与axis引用。完整立方体的y／z置换在对称base重合被如实保留，轴位移单元才区分。另预声明`analyze_matrix_factors_v1.py`最终SHA`ad0f0e2d398b59f83efa0f46a928208eb362de3ef1553b476cc4ffa24db2edef`，直接检查`WVP≈PROJ·WORLDVIEW`，误差界从各元素独立signed24量化±1／4096推导；4项数学控通过，固定错误乘法顺序／位移拒绝。该工具还报告`+1.5` entity-y投影位移以拆分旋转pivot，跨五矩阵只比较position／global_position／size，model ID单列；没有拟合或新像素结论。
+
+截至该准备，本专项新增人工关闭仍0；正式A、最终owner及默认路径继续开放。新的v3精简证据包将另存失败链、reader修复及以后真正执行的中性结果，原两个索引不回写。
+
+## v5预启动字节拒绝与v6完整静态前置
+
+root独立重放138项Python2值合同及原错误复现后批准新窗口，最终回执在`root-anchor-v5-review-v5/root-review.json`。v5 group启动后1.267s即在创建MC进程前被原core字节校验拒绝：clone默认文本写入将`candidate_bootstrap.py`原LF转成CRLF，实SHA为`4c3a888e843cee19be6e12dbdb08ab835fa67e744b039a0a9766b088a3b21c61`，与原core`088ae57b8ea713b7881a01b94b4289cb7b04f7e17f791d17fc2bf2be2b49fa26`不符。不能因语义相同改写原字节门。
+
+没有MC、MCDK或session，只有先启动的assert watcher；已按精确PID8772／创建身份134370838176214514回收，身份消失true，保留`prelaunch-helper-retirement-v1.json`及`prelaunch-failure-review-v1.json`。group原finally不覆盖“尚无launch/session但watcher已启动”的分支，这次回收是单独执行，不能称group自动完成。原v5失败不改，root撤回窗口，未原条件重试。
+
+v6只恢复原core精确LF字节，分配新owner`water-r27-anchor-calibration-v4`／marker；其余不变文件bytes复制，诊断源／archive复用。plan SHA`627bb6a9cf39988c8e720e0469f0f328e74b0ce4ff7bc69031c055a379e65b47`、binding SHA`16e6f59dfe5c7d055fa90bebd4de6a94ec6e07375dbe9e7031073d445e4cb11e`，23host／35external。
+
+`verify_static_launch_v6.py --output-root <独立目录>`执行实际launcher的70个AST节点，停在Popen前，仅mock鲜活watcher status字典并重定向launch报告目录，不创建watcher／session／MC、不发RPC。实际source／aux、archive、core、qualification、config、exe、guard、registry owner、0活MC／6GiB门全通过，实际bootstrap checked_sources和dispatch bytes通过，group／calibration／guard／cleanup依赖实际import成功。子代理报告`water-anchor-calibration-v6-static-review-v1/static-launch-review-v1.json` SHA`b48777d5b4530bcf0442fff98f372a672098490d3f591529d46969fb6f69d325`；root又在独立目录无覆盖复跑通过。静态控制不声称真实watcher或游戏client／server ready，原instances.py readiness及依赖只由external SHA绑定。
+
+root新授40分钟窗口后，v6于03:23前后开始唯一新owner组；启动前实际活MC0、可用commit15,736,979,456B，23／35host、5875source／aux和core SHA再核true。原138项静态计划／原资源门不变，后续实机结果另记，原动画A与用户人工关闭0不变。
