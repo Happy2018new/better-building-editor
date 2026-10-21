@@ -1,0 +1,49 @@
+{
+  "artifact_differences": [
+    {
+      "actual_sha256": "ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872",
+      "expected_sha256": "95420c7626a1e53935a5c85f4f8485bd2b188bcf4a36f858ee796c799133ca88",
+      "path": "tools/data/liquid_product_owner_contract_v1.json",
+      "status": "changed"
+    },
+    {
+      "actual_sha256": "5259bd983e90c5cb5de6fe6e25fbfb527b5d6c8ee3adba9f220b772b9ab50187",
+      "expected_sha256": "b4d230ae3d2a94bbd6eba034994f5fb3fd9025fa8171d0fea2196cfe18254757",
+      "path": "behavior_pack/modern_projection/projection/liquid_product_owner_data.py",
+      "status": "changed"
+    }
+  ],
+  "checked": true,
+  "contract_sha256": "95420c7626a1e53935a5c85f4f8485bd2b188bcf4a36f858ee796c799133ca88",
+  "errors": [],
+  "generator_difference": null,
+  "passed": false,
+  "scope": "Explicit SOURCES and generator only; not a transitive dependency closure or a runtime/GPU qualification. Unlisted helper changes are not detected.",
+  "source_differences": [
+    {
+      "actual_sha256": "ec7e6c0caa076013b5d34d17e2ae8029a9c5a8c87d05686a6666553c8b847832",
+      "expected_sha256": "0d50d81d850de113946f83d200438774ec1e5e5de8d8ea00625e2335605a4581",
+      "path": "behavior_pack/modern_projection/projection/bridge.py",
+      "status": "changed"
+    },
+    {
+      "actual_sha256": "6ebd17800e1041dd4a09acf533f3d94a3c39eab40c5799963f17bd41648f1f56",
+      "expected_sha256": "474def8bb8cf522a2a8d6d81a5d4cfc6c6cbf54dda7f9c12e8e3bc4a351a271a",
+      "path": "behavior_pack/modern_projection/projection/geometry_palette.py",
+      "status": "changed"
+    },
+    {
+      "actual_sha256": "58031fd93bce4d0dabeca5a9034b1a914000173e1830b3bd32d28e863b532292",
+      "expected_sha256": "226ebb6dcd8327751cc158baa606047f223258b54e9e8ed42b2ce2e2379d6511",
+      "path": "behavior_pack/modern_projection/projection/render_context.py",
+      "status": "changed"
+    },
+    {
+      "actual_sha256": "c263717bc3fe4422e7953cb341322e2c0254f4fceb6000362a3710b167494e1e",
+      "expected_sha256": "0420c403113417989e990f60ea6f4c47cd2c08bc07ea990dfbe45fa09f117ce1",
+      "path": "behavior_pack/modern_projection/projection/tiles.py",
+      "status": "changed"
+    }
+  ],
+  "sources": 39
+}

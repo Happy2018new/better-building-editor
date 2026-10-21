@@ -267,7 +267,7 @@ class VersionBundleTests(unittest.TestCase):
         self.assertIn(['tools/generate_liquid_materials.py', '--check'], [row[3:] for row in commands])
         self.assertIn(['tools/generate_bed_proxies.py', '--check'], [row[3:] for row in commands])
         self.assertIn(['tools/generate_flat_item_proxies.py', '--check'], [row[3:] for row in commands])
-        for generator in ('generate_liquid_product_shapes', 'generate_liquid_product_owner_contract',
+        for generator in ('generate_liquid_product_shapes', 'check_liquid_product_owner_contract',
                           'generate_item_sprite_resources', 'generate_centered_plant_profiles'):
             self.assertIn(['tools/' + generator + '.py', '--check'], [row[3:] for row in commands])
         self.assertEqual(commands[-1][3:], ['-m', 'unittest', 'discover', '-s', 'tests', '-q'])

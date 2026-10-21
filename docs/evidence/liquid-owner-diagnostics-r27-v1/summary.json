@@ -1,0 +1,104 @@
+{
+  "schema": "water-owner-diagnostics-r27-v1",
+  "baseline_commit": "8150eab2eabc2a25bd8d1fc22d3aed70ff20edee",
+  "old_check_exit_code": 1,
+  "new_check_exit_code": 1,
+  "same_four_source_changes": [
+    {
+      "actual_sha256": "ec7e6c0caa076013b5d34d17e2ae8029a9c5a8c87d05686a6666553c8b847832",
+      "expected_sha256": "0d50d81d850de113946f83d200438774ec1e5e5de8d8ea00625e2335605a4581",
+      "path": "behavior_pack/modern_projection/projection/bridge.py",
+      "status": "changed"
+    },
+    {
+      "actual_sha256": "6ebd17800e1041dd4a09acf533f3d94a3c39eab40c5799963f17bd41648f1f56",
+      "expected_sha256": "474def8bb8cf522a2a8d6d81a5d4cfc6c6cbf54dda7f9c12e8e3bc4a351a271a",
+      "path": "behavior_pack/modern_projection/projection/geometry_palette.py",
+      "status": "changed"
+    },
+    {
+      "actual_sha256": "58031fd93bce4d0dabeca5a9034b1a914000173e1830b3bd32d28e863b532292",
+      "expected_sha256": "226ebb6dcd8327751cc158baa606047f223258b54e9e8ed42b2ce2e2379d6511",
+      "path": "behavior_pack/modern_projection/projection/render_context.py",
+      "status": "changed"
+    },
+    {
+      "actual_sha256": "c263717bc3fe4422e7953cb341322e2c0254f4fceb6000362a3710b167494e1e",
+      "expected_sha256": "0420c403113417989e990f60ea6f4c47cd2c08bc07ea990dfbe45fa09f117ce1",
+      "path": "behavior_pack/modern_projection/projection/tiles.py",
+      "status": "changed"
+    }
+  ],
+  "generator_difference": null,
+  "generator_sources_unchanged": true,
+  "generated_contract_and_runtime_bytes_before_after_equal": true,
+  "generator_write_mode_executed": false,
+  "production_source_or_qualification_changed": false,
+  "protected_files": [
+    {
+      "path": "tools/generate_liquid_product_owner_contract.py",
+      "bytes": 2811,
+      "before_sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85",
+      "after_sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85",
+      "byte_identical": true
+    },
+    {
+      "path": "tools/data/liquid_product_owner_contract_v1.json",
+      "bytes": 5580,
+      "before_sha256": "ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872",
+      "after_sha256": "ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872",
+      "byte_identical": true
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/liquid_product_owner_data.py",
+      "bytes": 200,
+      "before_sha256": "5259bd983e90c5cb5de6fe6e25fbfb527b5d6c8ee3adba9f220b772b9ab50187",
+      "after_sha256": "5259bd983e90c5cb5de6fe6e25fbfb527b5d6c8ee3adba9f220b772b9ab50187",
+      "byte_identical": true
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py",
+      "bytes": 1007,
+      "before_sha256": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14",
+      "after_sha256": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14",
+      "byte_identical": true
+    }
+  ],
+  "changed_tool_and_test_sha256": {
+    "tools/check_liquid_product_owner_contract.py": "703c6841e8802d2cb0d6cefaf12756ef1c4270347fb0028a5211a2b0aebafa87",
+    "tools/check_version_bundle.py": "4490820787afc94cbfd6d419fc7e09eb8b5a2a0b628ccbbe58eaa2eb49e7085a",
+    "tests/test_liquid_product_owner_check.py": "bc74a910bd65d6c73f1b7087130cb5c20280444ed10757319877d06e1e8ff913",
+    "tests/test_version_bundle.py": "fa591e7506c18700d2c5afb17f4fd4949cb6e3957c1a0db48f8b58bc2bf61d27"
+  },
+  "tests": [
+    {
+      "command": "python -B -X utf8 -m unittest discover -s tests -p test_liquid_product_owner_check.py -v",
+      "tests": 8,
+      "exit_code": 0,
+      "scope": "Real old contract; temporary source tree; added/removed/changed SHA diagnostics; missing/invalid input; generator self fingerprint; unbound-helper scope; CLI 0/1; no writes."
+    },
+    {
+      "command": "python -B -X utf8 -m unittest discover -s tests -p test_version_bundle.py -q",
+      "tests": 16,
+      "exit_code": 0
+    }
+  ],
+  "fixed_during_validation": "Resolve diagnostic paths before relative_to: Windows temporary directories may use HAPPY2~1 while generator.ROOT resolves Happy2018new. The original failing temporary-tree cases now pass.",
+  "nonclosure_fact": "Explicit SOURCES and generator only; not a transitive dependency closure or a runtime/GPU qualification. Unlisted helper changes are not detected.",
+  "four_behavior_changes": [
+    "bridge: SDK config wire-tree decoding and complete-source kelp input",
+    "geometry_palette: kelp proxy preparation in both layers; prepare_layer extraction has identical body AST and water suppression statements are unchanged",
+    "render_context: complete-source kelp/cache plus door/chest target-owned neighbor body copies",
+    "tiles: cache invalidation includes complete-source kelp parts"
+  ],
+  "out_of_scope_helpers": [
+    "native_layers.py",
+    "cell.py",
+    "transfer.py",
+    "kelp_render.py"
+  ],
+  "review_limit": "minecraft_py imports/review does not resolve the host-only tools/tests scope and returned files=0; this was not counted as a successful review. Manual source/import inspection and 24 targeted tests cover this tooling change. Parent independent review remains pending.",
+  "runtime_started": false,
+  "GPU_qualification_granted": false,
+  "manual_closures": 0
+}

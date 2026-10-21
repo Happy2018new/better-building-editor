@@ -307,7 +307,7 @@ def commands(manifest, tests=False):
         ['tools/generate_liquid_shapes.py', '--check'],
         ['tools/generate_liquid_flow_top.py', '--check'],
         ['tools/generate_liquid_product_shapes.py', '--check'],
-        ['tools/generate_liquid_product_owner_contract.py', '--check'],
+        ['tools/check_liquid_product_owner_contract.py', '--check'],
         ['tools/generate_item_sprite_resources.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
