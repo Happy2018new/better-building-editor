@@ -1,6 +1,7 @@
 """Prepare missing-only meshes while retaining view-visible native neighbors."""
 from collections import OrderedDict
 from .cell import AIR, actor_data, background, foreground
+from .block_registry import try_canonical
 from .geometry_palette import prepare_palette
 from .entity_render import CHEST_PROXIES, document_chest_part
 from .static_bed import document_bed_color
@@ -99,19 +100,54 @@ def _door(material):
             material[0].endswith('_door'))
 
 
-def _hidden_neighbor(cell, target):
+_FLOOR_LEVER = ('minecraft:lever', 5)
+_CONCRETE = frozenset(('minecraft:' + color + '_concrete', 0) for color in (
+    'white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray',
+    'light_gray', 'cyan', 'purple', 'blue', 'brown', 'green', 'red', 'black'))
+
+
+def _mark_floor_support(cell, front, back):
+    # Render preparation may suppress a water layer. Qualify the complete
+    # logical cell before suppression; rendered layers cannot prove dryness.
+    if cell is None or back != AIR:
+        return
+    # Archived names are input-only. Admit only when their registry-resolved
+    # logical foreground matches the actual prepared common layer.
+    front = try_canonical(front)
+    if cell.get('common') != front:
+        return
+    if front == _FLOOR_LEVER:
+        cell['_dry_floor_lever'] = True
+    elif front in _CONCRETE:
+        cell['_dry_concrete'] = True
+
+
+def _mark_palette_floor_support(source, cells):
+    wet = frozenset(index for value, indices in source.get('extra', {}).items()
+                    if value != AIR for index in indices)
+    for front, indices in source.get('common', {}).items():
+        resolved = try_canonical(front)
+        if resolved == _FLOOR_LEVER or resolved in _CONCRETE:
+            for index in indices:
+                if index not in wet:
+                    _mark_floor_support(cells.get(index), front, AIR)
+
+
+def _hidden_neighbor(cell, target, neighbor=None):
     # Door/chest copies can leave faces on an unrelated target's clip boundary.
     # Preserve paired geometry when the target belongs to the same family.
     if target is None:
         return False
     material, target_material = cell.get('common'), target.get('common')
     return ((_door(material) and not _door(target_material)) or
-            (material in _STATIC_CHEST_BODIES and target_material not in _STATIC_CHEST_BODIES))
+            (material in _STATIC_CHEST_BODIES and target_material not in _STATIC_CHEST_BODIES) or
+            (neighbor == (0, -1, 0) and target.get('_dry_floor_lever') is True and
+             cell.get('_dry_concrete') is True))
 
 
-def _context_cell(cell, target=None):
+def _context_cell(cell, target=None, neighbor=None):
     if (independent_lectern_body(cell.get('common')) or
-            independent_rail_body(cell.get('common')) or _hidden_neighbor(cell, target)):
+            independent_rail_body(cell.get('common')) or _hidden_neighbor(cell, target, neighbor)):
         return {'extra': cell['extra']} if 'extra' in cell else {}
     return context_cell(cell)
 
@@ -153,9 +189,9 @@ class _ContextWriter(object):
         self.palette, self.cache = palette, {}
         self.native_render_profile = native_render_profile
 
-    def put(self, rendered, index, delta, target=None):
+    def put(self, rendered, index, delta, target=None, neighbor=None):
         cell = rendered[0]
-        hide_neighbor = _hidden_neighbor(cell, target)
+        hide_neighbor = _hidden_neighbor(cell, target, neighbor)
         key = (id(rendered), hide_neighbor)
         plan = self.cache.get(key)
         if plan is None:
@@ -199,6 +235,7 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
     prepared = prepare_palette(source, render_origin=render_origin, item_profile=item_profile,
                                kelp_parts=kelp_complete_source_parts(source))
     cells, overlays = _cells(prepared, logical_volume)
+    _mark_palette_floor_support(source, cells)
     volume = (CONTEXT_STRIDE * (max(pos[2] for pos in positions) + 1),
               CONTEXT_STRIDE * (max(pos[0] for pos in positions) + 1),
               CONTEXT_BASE + CONTEXT_STRIDE * (max(pos[1] for pos in positions) + 1))
@@ -217,7 +254,7 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
             cell = cells.get(_index(original, logical_volume))
             if cell is None:
                 continue
-            _put(data, _context_cell(cell, cells[target_index]), context_position(target, neighbor), original)
+            _put(data, _context_cell(cell, cells[target_index], neighbor), context_position(target, neighbor), original)
         body = cells[target_index].get('common')
         if _independent_body(body):
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
@@ -341,6 +378,7 @@ class ContextPaletteBuilder(object):
                                    portal_profile=self.portal_profile,
                                    kelp_parts={0: kelp_part} if kelp_part is not None else None)
         cells, overlays = _cells(rendered, (1, 1, 1))
+        _mark_floor_support(cells.get(0), front, back)
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result
         rendered_cells[render_index] = result
@@ -408,7 +446,7 @@ class ContextPaletteBuilder(object):
             if rendered is None or rendered[0] is None:
                 continue
             # All 27 cells move by the same delta into this target's tile.
-            _put_encoded(self.data, _context_cell(rendered[0], center[0]), center_index + index_delta, delta)
+            _put_encoded(self.data, _context_cell(rendered[0], center[0], (nx, ny, nz)), center_index + index_delta, delta)
         body = center[0].get('common') if center[0] is not None else None
         if _independent_body(body):
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
@@ -495,7 +533,7 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                 rendered = center if nx == ny == nz == 0 else self.material(x, y, z)
                 if rendered is None or rendered[0] is None:
                     continue
-                writer.put(rendered, center_index + index_delta, delta, center[0])
+                writer.put(rendered, center_index + index_delta, delta, center[0], (nx, ny, nz))
             if center[1] is not None:
                 overlay['common'].setdefault(center[1], []).append((ly * 16 + lx) * 16 + lz)
             if number % TARGETS_PER_UNIT == 0:
