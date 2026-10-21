@@ -1,0 +1,17 @@
+--- frozen/analyze_product_water.py:scene_project
++++ host-only/gui-anchor-proposal:scene_project
+@@ -1,4 +1,4 @@
+-def scene_project(points, shape, state):
++def scene_project(points, shape, state, native_gui):
+     origin = tuple(axis // 4 * 4 for axis in shape['position'])
+     groups = state['liquid_groups']
+     identities = {row['key'] for row in groups if tuple(row['origin']) == origin}
+@@ -10,7 +10,7 @@
+     slot = row['visible'].index(True)
+     position, size, pose = row['doll_positions'][slot], row['doll_sizes'][slot], row['poses'][slot]
+     unit = pose[0] * min(size)
+-    center = (position[0] + size[0] / 2., position[1] + size[1] / 2. - min(size) / 4.)
++    center = (position[0] + size[0] / 2., position[1] + size[1] / 2. - min(size) / float(native_gui))
+     camera = OrbitCamera(*state['camera_pose'])
+     right, up, unused = camera.basis()
+     result = []

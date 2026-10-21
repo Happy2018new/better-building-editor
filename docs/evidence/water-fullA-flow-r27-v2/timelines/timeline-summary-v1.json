@@ -1,0 +1,637 @@
+{
+  "schema": 1,
+  "source_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1.json",
+  "source_sha256": "b38ae6262e6b98679bd5f15f5a66179c75bbc003b320fe5e39ba9fe609dbd0ba",
+  "wrapper_sha256": "95af2a4f9bfb2eae71a214950182389fd9f607e8c23f5625e091a6370382a9b0",
+  "inspector_sha256": "b0ccead816b575bc05356b1a7dde26912c0a200c9f7505bfc09353ae29aa0779",
+  "rows": {
+    "editor_flow_east_wet": {
+      "attempts": 43,
+      "valid_frames": 41,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 25.5866,
+      "tail_source_gap_ms": 65.3372,
+      "largest_source_gap": {
+        "first_sequence": 26,
+        "second_sequence": 27,
+        "source_gap_ms": 96.9929,
+        "worker_before_gap_ms": 78.0033,
+        "worker_unobserved_after_capture_guard_ms": 73.6882,
+        "worker_unobserved_after_readback_ms": 73.6882
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 25,
+        "second_sequence": 26,
+        "source_gap_ms": 78.7813,
+        "worker_before_gap_ms": 90.8686,
+        "worker_unobserved_after_capture_guard_ms": 85.1424,
+        "worker_unobserved_after_readback_ms": 85.1424
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "efd01d0f6bb2b8dd104d41b703f5597ad8c31e26f9c17c0b6fed260c0965f709",
+      "timeline_sha256": "70f168c339bfa3bc8124deafa405312ff39d7dd98a0278d214ad992b00d4f3a4",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        },
+        {
+          "sequence": 43,
+          "capture_valid": false,
+          "error": "frame_after_planned_interval",
+          "png": null
+        }
+      ]
+    },
+    "editor_flow_south_wet": {
+      "attempts": 42,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 0.6079,
+      "tail_source_gap_ms": 29.7206,
+      "largest_source_gap": {
+        "first_sequence": 30,
+        "second_sequence": 31,
+        "source_gap_ms": 84.8481,
+        "worker_before_gap_ms": 77.773,
+        "worker_unobserved_after_capture_guard_ms": 74.9454,
+        "worker_unobserved_after_readback_ms": 74.9454
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 11,
+        "second_sequence": 12,
+        "source_gap_ms": 78.7825,
+        "worker_before_gap_ms": 79.0857,
+        "worker_unobserved_after_capture_guard_ms": 77.5295,
+        "worker_unobserved_after_readback_ms": 77.5295
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "b6842284b7b5d4c71b1cc3cfcc77b02afbdb84076e386dfcd172af727d8a2cd7",
+      "timeline_sha256": "a7ff1b4c27188764a00083cf915bc2d2ced9582e800c3630a85c300a6c89f25b",
+      "rejected_attempts": []
+    },
+    "editor_flow_west_wet": {
+      "attempts": 44,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 16.9625,
+      "tail_source_gap_ms": 55.7745,
+      "largest_source_gap": {
+        "first_sequence": 20,
+        "second_sequence": 21,
+        "source_gap_ms": 78.7951,
+        "worker_before_gap_ms": 77.6656,
+        "worker_unobserved_after_capture_guard_ms": 74.2583,
+        "worker_unobserved_after_readback_ms": 74.2583
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 36,
+        "second_sequence": 37,
+        "source_gap_ms": 78.7867,
+        "worker_before_gap_ms": 79.2226,
+        "worker_unobserved_after_capture_guard_ms": 77.1875,
+        "worker_unobserved_after_readback_ms": 77.1875
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "a2fd5e0120e3130bc6eef1e6f84981995ef1fb525c7fa0724b46291b68cee85c",
+      "timeline_sha256": "d0886c2d1956d253a364f194d03b22b77d1a626044975d8e011770177445ebd7",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        },
+        {
+          "sequence": 44,
+          "capture_valid": false,
+          "error": "frame_after_planned_interval",
+          "png": null
+        }
+      ]
+    },
+    "editor_flow_north_wet": {
+      "attempts": 44,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 23.8199,
+      "tail_source_gap_ms": 48.9182,
+      "largest_source_gap": {
+        "first_sequence": 29,
+        "second_sequence": 30,
+        "source_gap_ms": 78.7961,
+        "worker_before_gap_ms": 77.3438,
+        "worker_unobserved_after_capture_guard_ms": 74.9605,
+        "worker_unobserved_after_readback_ms": 74.9605
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 25,
+        "second_sequence": 26,
+        "source_gap_ms": 78.7849,
+        "worker_before_gap_ms": 78.7443,
+        "worker_unobserved_after_capture_guard_ms": 76.5183,
+        "worker_unobserved_after_readback_ms": 76.5183
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "cf57965021a2d083feb6a173a79d8289bf69213925fe907499a974683cd00987",
+      "timeline_sha256": "3278a38c8a75b8ccd3838ae4dcfe2806dc78b15bf5fbb679643bc5d994a55782",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        },
+        {
+          "sequence": 44,
+          "capture_valid": false,
+          "error": "frame_after_planned_interval",
+          "png": null
+        }
+      ]
+    },
+    "editor_falling_wet": {
+      "attempts": 44,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 7.4837,
+      "tail_source_gap_ms": 71.3329,
+      "largest_source_gap": {
+        "first_sequence": 11,
+        "second_sequence": 12,
+        "source_gap_ms": 78.8011,
+        "worker_before_gap_ms": 75.7438,
+        "worker_unobserved_after_capture_guard_ms": 73.655,
+        "worker_unobserved_after_readback_ms": 73.655
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 8,
+        "second_sequence": 9,
+        "source_gap_ms": 78.7831,
+        "worker_before_gap_ms": 78.2928,
+        "worker_unobserved_after_capture_guard_ms": 76.7933,
+        "worker_unobserved_after_readback_ms": 76.7933
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "8be7db34d9e7ef4f20dce182623b448caacfdb5a43f6d6aa89bf810af16776f3",
+      "timeline_sha256": "2579a97effedfe9e595aeb63e210e6c746be831c47649fc73e5881cc35d01328",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        },
+        {
+          "sequence": 44,
+          "capture_valid": false,
+          "error": "frame_after_planned_interval",
+          "png": null
+        }
+      ]
+    },
+    "full_flow_east_wet": {
+      "attempts": 43,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 17.5532,
+      "tail_source_gap_ms": 31.0096,
+      "largest_source_gap": {
+        "first_sequence": 15,
+        "second_sequence": 16,
+        "source_gap_ms": 84.8523,
+        "worker_before_gap_ms": 77.9606,
+        "worker_unobserved_after_capture_guard_ms": 73.7654,
+        "worker_unobserved_after_readback_ms": 73.7654
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 2,
+        "second_sequence": 3,
+        "source_gap_ms": 54.5399,
+        "worker_before_gap_ms": 88.2709,
+        "worker_unobserved_after_capture_guard_ms": 76.7996,
+        "worker_unobserved_after_readback_ms": 76.7996
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "9ddd69f7d0dd75604413c9814ffdeec44f46235bba3efed916ecbe2671661da7",
+      "timeline_sha256": "435a9446515a751f2df98a6ec4d8c61484f467a73438b2135b8b043039f9b54b",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        }
+      ]
+    },
+    "full_flow_south_wet": {
+      "attempts": 44,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 17.7813,
+      "tail_source_gap_ms": 36.8506,
+      "largest_source_gap": {
+        "first_sequence": 18,
+        "second_sequence": 19,
+        "source_gap_ms": 78.8418,
+        "worker_before_gap_ms": 78.5451,
+        "worker_unobserved_after_capture_guard_ms": 72.6874,
+        "worker_unobserved_after_readback_ms": 72.6874
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 2,
+        "second_sequence": 3,
+        "source_gap_ms": 54.5504,
+        "worker_before_gap_ms": 93.683,
+        "worker_unobserved_after_capture_guard_ms": 77.9645,
+        "worker_unobserved_after_readback_ms": 77.9645
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "110fdec1d7e961fd9afddb290bf7e65663a926444dfe0d1c8dbd291dea4c873c",
+      "timeline_sha256": "5f4da0510c153ba42678a663ad4641ca2fba6a17ae0404c9f7a8fb6e8fdf605f",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        },
+        {
+          "sequence": 44,
+          "capture_valid": false,
+          "error": "frame_timestamp_in_future",
+          "png": null
+        }
+      ]
+    },
+    "full_flow_west_wet": {
+      "attempts": 44,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 17.5963,
+      "tail_source_gap_ms": 37.0229,
+      "largest_source_gap": {
+        "first_sequence": 17,
+        "second_sequence": 18,
+        "source_gap_ms": 90.9233,
+        "worker_before_gap_ms": 76.4376,
+        "worker_unobserved_after_capture_guard_ms": 74.2724,
+        "worker_unobserved_after_readback_ms": 74.2724
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 16,
+        "second_sequence": 17,
+        "source_gap_ms": 78.8265,
+        "worker_before_gap_ms": 92.3295,
+        "worker_unobserved_after_capture_guard_ms": 85.0525,
+        "worker_unobserved_after_readback_ms": 85.0525
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "5fa5d095e3c609f223c30c03437d6765f56d58cbbd3a8363741f72967a13aa56",
+      "timeline_sha256": "aa20928dbe454e2b786a9ad079f51d1016e60777ee5c60eacedee245d105bee5",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        },
+        {
+          "sequence": 44,
+          "capture_valid": false,
+          "error": "frame_after_planned_interval",
+          "png": null
+        }
+      ]
+    },
+    "full_flow_north_wet": {
+      "attempts": 43,
+      "valid_frames": 43,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 1.2473,
+      "tail_source_gap_ms": 4.8663,
+      "largest_source_gap": {
+        "first_sequence": 39,
+        "second_sequence": 40,
+        "source_gap_ms": 84.8347,
+        "worker_before_gap_ms": 75.2053,
+        "worker_unobserved_after_capture_guard_ms": 72.2814,
+        "worker_unobserved_after_readback_ms": 72.2814
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 38,
+        "second_sequence": 39,
+        "source_gap_ms": 72.7225,
+        "worker_before_gap_ms": 80.2056,
+        "worker_unobserved_after_capture_guard_ms": 77.6936,
+        "worker_unobserved_after_readback_ms": 77.6936
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "02d564f692c71f4eb9d9daa1cc543d0be15e2cd5c6baed700d91e8c344e007cd",
+      "timeline_sha256": "6ee48e9649f4ee32093c2fca9eeda3acbaa1406caa4338f36b9d3140b486ac8e",
+      "rejected_attempts": []
+    },
+    "full_falling_wet": {
+      "attempts": 44,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 21.9125,
+      "tail_source_gap_ms": 14.3989,
+      "largest_source_gap": {
+        "first_sequence": 38,
+        "second_sequence": 39,
+        "source_gap_ms": 97.0468,
+        "worker_before_gap_ms": 76.618,
+        "worker_unobserved_after_capture_guard_ms": 70.9681,
+        "worker_unobserved_after_readback_ms": 70.9681
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 37,
+        "second_sequence": 38,
+        "source_gap_ms": 72.782,
+        "worker_before_gap_ms": 93.8053,
+        "worker_unobserved_after_capture_guard_ms": 84.88,
+        "worker_unobserved_after_readback_ms": 84.88
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "02753305989b76936b36ab90ffb1bb4575d6f63935a48d48cd70d5b929a8a58c",
+      "timeline_sha256": "e33e3f625a5c6ffdcd2ce103359726a42ec704c2ff47ea6a9bfe323d5a19a7f3",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        },
+        {
+          "sequence": 44,
+          "capture_valid": false,
+          "error": "frame_timestamp_in_future",
+          "png": null
+        }
+      ]
+    },
+    "missing_flow_east_wet": {
+      "attempts": 43,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 17.8058,
+      "tail_source_gap_ms": 18.6585,
+      "largest_source_gap": {
+        "first_sequence": 27,
+        "second_sequence": 28,
+        "source_gap_ms": 121.1866,
+        "worker_before_gap_ms": 79.5721,
+        "worker_unobserved_after_capture_guard_ms": 77.5868,
+        "worker_unobserved_after_readback_ms": 77.5868
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 12,
+        "second_sequence": 13,
+        "source_gap_ms": 78.7957,
+        "worker_before_gap_ms": 80.1819,
+        "worker_unobserved_after_capture_guard_ms": 78.414,
+        "worker_unobserved_after_readback_ms": 78.414
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "2e483ac2da5e326c558fd032c30db738415ce8c6e1f576130dc1ccb65dcc4c17",
+      "timeline_sha256": "d2c4f71fbbed2a705ab0f922461d729c8e53774403b304968efe64e060fcd486",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        }
+      ]
+    },
+    "missing_flow_south_wet": {
+      "attempts": 43,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 16.1949,
+      "tail_source_gap_ms": 8.0901,
+      "largest_source_gap": {
+        "first_sequence": 22,
+        "second_sequence": 23,
+        "source_gap_ms": 84.8426,
+        "worker_before_gap_ms": 85.7937,
+        "worker_unobserved_after_capture_guard_ms": 82.6935,
+        "worker_unobserved_after_readback_ms": 82.6935
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 22,
+        "second_sequence": 23,
+        "source_gap_ms": 84.8426,
+        "worker_before_gap_ms": 85.7937,
+        "worker_unobserved_after_capture_guard_ms": 82.6935,
+        "worker_unobserved_after_readback_ms": 82.6935
+      },
+      "source_and_worker_maximum_same_pair": true,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "75880e90468984d763ca6167459c7a96952d3eee22bc309e8201cdc4d5b31aa3",
+      "timeline_sha256": "90de7cc1ff880db0ba0a6e920027d841724ebf1171a3f123db05bf6bd7f52082",
+      "rejected_attempts": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "error": "frame_not_after_request",
+          "png": null
+        }
+      ]
+    },
+    "missing_flow_west_wet": {
+      "attempts": 42,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 2.6719,
+      "tail_source_gap_ms": 9.4857,
+      "largest_source_gap": {
+        "first_sequence": 37,
+        "second_sequence": 38,
+        "source_gap_ms": 96.9609,
+        "worker_before_gap_ms": 78.054,
+        "worker_unobserved_after_capture_guard_ms": 74.4714,
+        "worker_unobserved_after_readback_ms": 74.4714
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 16,
+        "second_sequence": 17,
+        "source_gap_ms": 78.8414,
+        "worker_before_gap_ms": 91.9013,
+        "worker_unobserved_after_capture_guard_ms": 83.3311,
+        "worker_unobserved_after_readback_ms": 83.3311
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "ecdaae9fe7a947a941a9ddc73576277afa4ab54232f670df6df99d94ab7b8a12",
+      "timeline_sha256": "5f52be30d009857440e5cc5140bdbb28046f4986f565ecb0fbc21d35a194db0b",
+      "rejected_attempts": []
+    },
+    "missing_flow_north_wet": {
+      "attempts": 43,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 3.1683,
+      "tail_source_gap_ms": 38.9518,
+      "largest_source_gap": {
+        "first_sequence": 40,
+        "second_sequence": 41,
+        "source_gap_ms": 90.9986,
+        "worker_before_gap_ms": 78.8909,
+        "worker_unobserved_after_capture_guard_ms": 70.4763,
+        "worker_unobserved_after_readback_ms": 70.4763
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 39,
+        "second_sequence": 40,
+        "source_gap_ms": 78.8742,
+        "worker_before_gap_ms": 92.3594,
+        "worker_unobserved_after_capture_guard_ms": 84.8726,
+        "worker_unobserved_after_readback_ms": 84.8726
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "ab1afc4bbe65c8f08743e0ec325c1cca2ecfc36b8f626e5431bf8a927afa799e",
+      "timeline_sha256": "d9de06c81a5470760e0d3b4ea6771f329b7ad231565d50ecedd6995ad1f5ae44",
+      "rejected_attempts": [
+        {
+          "sequence": 43,
+          "capture_valid": false,
+          "error": "frame_after_planned_interval",
+          "png": null
+        }
+      ]
+    },
+    "missing_falling_wet": {
+      "attempts": 43,
+      "valid_frames": 42,
+      "fixed_measurement_ms": 3200.0,
+      "manifest_capture_valid": true,
+      "manifest_temporal_complete": true,
+      "manifest_ok": true,
+      "start_source_gap_ms": 0.2258,
+      "tail_source_gap_ms": 5.9117,
+      "largest_source_gap": {
+        "first_sequence": 15,
+        "second_sequence": 16,
+        "source_gap_ms": 97.0733,
+        "worker_before_gap_ms": 77.8857,
+        "worker_unobserved_after_capture_guard_ms": 73.0,
+        "worker_unobserved_after_readback_ms": 73.0
+      },
+      "largest_worker_unobserved_interval": {
+        "first_sequence": 27,
+        "second_sequence": 28,
+        "source_gap_ms": 78.7659,
+        "worker_before_gap_ms": 91.9014,
+        "worker_unobserved_after_capture_guard_ms": 88.9449,
+        "worker_unobserved_after_readback_ms": 88.9449
+      },
+      "source_and_worker_maximum_same_pair": false,
+      "source_gap_limit_ms": 150,
+      "source_gap_exceedances": [],
+      "raw_manifest_available": true,
+      "manifest_sha256": "955fdcf7d30d58f390e66ab7363cb807f9de2399c46524a5579a02dcdacc85e0",
+      "timeline_sha256": "4a5e6ab814b89f89172fb99b43df42215890e0f7c2fc18c22fa05cd09f3718d9",
+      "rejected_attempts": [
+        {
+          "sequence": 43,
+          "capture_valid": false,
+          "error": "frame_timestamp_in_future",
+          "png": null
+        }
+      ]
+    }
+  },
+  "missing_requested_cells": [],
+  "all_15_raw_timelines_available": true,
+  "scope": "Only original recorded QPC clocks; no root cause, trimming, fitting, ROI or threshold changes",
+  "formal_A_accepted": false,
+  "world_A_accepted": false,
+  "source_release_qualification_granted": false,
+  "manual_closures_added": 0
+}

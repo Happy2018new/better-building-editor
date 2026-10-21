@@ -325,3 +325,30 @@ root要求先离线解决校准提取，新的独立candidate_extractor.py位于
 
 
 06:27根代理已独立重建[相机失败精简证据](../evidence/water-fullA-camera-failure-r27-v1/index.json)：57逻辑条目／61原存储文件、56精确原件、1处标准脱敏、0有损；原件／内容／分片SHA与300000B上限全部通过，递归凭据检测发现0，8项scanner等价对照通过。独审报告随包保存。根代理另在独立输出目录执行原控制逻辑，3组旧raw与9项负控全部通过，报告SHA同418aa0076a15767dc4fd05fa40b5d8e6dd1cfbac706a144a71370dd6d701dc7d。新相机extractor仍只是已独审的host候选，旧camera失败与0/15不改，正式水A／当前源码发行资格继续开放。
+
+
+## 06:37—07:07：当前来源15格采样完整，新host锚点重放与旧失败并列
+
+root在T02释放后独审v2窄host diff、真实59节点pre-Popen静审（root报告SHA 623c020edc3bdee0cea50d1c33645cf2151ef999f080f1676589d4b1e9699f06）和源合同后授唯一quiet窗口。新owner water-r27-merged-fullA-v2仅执行一次，复用原4482 source＋1391aux private与119,618,244B archive，未重新复制、未调用bootstrap或赋候选profile。plan SHA 60dc04ac7c1afd8f53ad40bb4390dda171b3026333c5dbef012724dfcb5e2b83，host binding c41067ae5fa7b67c2570c95aa6ffbfc5323c2bb81c11b1f7a19872a7c42d22b7。原ROI物理区域、方向门、1500/3200ms采样、150ms gap、512MiB与GUI2/1280×720不变。
+
+同一新session的stone校准只在host激活已独审的受限单像素缝extractor，每张static前后核实际Document为3³且恰一格stone/air、无actor NBT，projection current/ready且实际actor为一个、SDK三轴geometry scale为1及实际camera。12次来源读回全有效，front/right/tilted均通过原门，camera completed/passed/restored true、cleanup_errors空。camera报告SHA 17d697caac263fd770ea0dc1b94147d07a5788a4f06c748fec86f55334d042c6，执行75.316349s。旧fullA-v1的tilted失败、0/15和所有旧raw不改。
+
+普通入口launch96.708042s、cold-init只读观察6.935490s、resize0.551085s、world baseline1.030158s均exit0；本次完整editor/full/missing×east/south/west/north/falling共15格、30张static及15个burst全部落盘，A命令exit0/290.229173s，原产品report用时276.217240s，completed/restored/source_unchanged true、cleanup_errors空。group总498.559855s，SHA 2fb91fe42e6d7c12a931266a2128706f3ca3c04f0f8e9bc1ef21319106b03d86；产品报告SHA b38ae6262e6b98679bd5f15f5a66179c75bbc003b320fe5e39ba9fe609dbd0ba。
+
+root独立逐格timeline复核保留全部649次attempt、630张有效PNG及19次reject（null PNG未删除），15格native与wrapper的ok/capture_valid/temporal_complete均true，无缺格。最大source gap为missing/east的27→28，121.1866ms；最大worker未观察区间为missing/falling的27→28，88.9449ms，两者属于不同cell，不能据此归因具体机制。最大首/尾gap为25.5866/71.3329ms，150ms超限为0。完整QPC报告位于root-water-fullA-v2-timelines-v1，summary SHA 8d945c17237842c310371f32474b524d64c7f9ec5bf65358bd47106d100e96dc。
+
+第一次root strict wrapper在导入capture validator前缺少冻结_session路径，ModuleNotFoundError原样保留，无flow结果。root单独preload并核冻结_session/_window后运行未改v2 wrapper：evidence_valid true、capture_failures空，但旧analyzer中editor五格失败，world full/missing十格通过。原失败报告SHA 274a7f5fbb4a03217b564b9fc39d738081c1cf2adb22a6f3f7415b1a5642f8ef，不回写或改成成功。
+
+只读overlay定位旧scene_project仍从SDK实际global position反解min(size)/4，而当前产品ui_offset_for_gui在GUI2实际加min(size)/gui。原west ROI落stone侧面、north落下方工具条，低signal不能直接归因水渲染。新host-only候选仅将该反解改为实际SDK GUI；15次SDK与缓存精确为2、原0.02logical SDK门完整，冻结七个来源SHA及五个ready-state JSON SHA，不接受陌生状态。GUI4与旧公式逐点精确一致、GUI2与实际公式一致；9种无效GUI和1个陌生state负控全拒绝。原/新五格overlay均另存、原PNG不改，全部新绿框实际打开并覆盖声明水面/side。修正依源码和SDK读回推导，无像素拟合或改变物理采样区域、方向/相关性阈值。
+
+root审新host及窄diff后独跑新的run_analysis_anchor_v1.py（SHA e6f1dca8ab766bb43d8ced0d35cc645aeef6eb74e160504b6eb5e0ca9c96aba8），只重放本次原PNG：15/15方向检查通过、capture_failures与missing_requested_bursts均空，全部时间反转负控拒绝。新report SHA 8792412bc92c364d3bafe9177c1ee8073c0e9fc3186089951366cfdc6deeb44f；新receipt SHA d12f6bbf22c0eb8e9dd99217a061f158744fb0e2f732248e500772c925f16cb5，显式screen_ROI_coordinate_correction true、physical_ROI_and_thresholds_unchanged true、source_unchanged true。editor信号stddev为3.8254/3.8433/3.8672/3.8540/3.1227，可测pair为35/34/35/36/26，四个时间分区均有可测信号、正确可测比例均1。这里授予的是单独版本化host坐标修正下本15格的采样和方向结论；不冒用旧失败，也不自动授正式源、亮度/速度的全部产品门或默认准入。
+
+camera后与结束后的独立editor/world恢复均restored true、restore_unknown false，最终另逐文件重hash4482/4482 source与1391/1391 aux全部匹配，0 mismatch；postrun白名单SHA 0a1d0e10998b9cc0b798b9c04a624abbebf05db9768819f79f2e76f364618a9c。guard459个样本，game/MCDK最大882/235句柄，guard/modal breach均null，步骤可用commit最小12,023,480,320B。普通stop exit0，game33480/134370958476201603与MCDK60220/134370958474387458精确身份均消失，helper精确回收exit0。独立最终observer completed true，game0xC0000409、MCDK0；不能称引擎正常退出或未经证据归因水。水MC已完全释放，无新MC授权。
+
+所有原件保留在.runtime/round-20261022/water-merged-fullA-v2，原失败与新host结果分别保存。当前shared源码正式A、world A、source release、默认最终准入继续开放；用户人工关闭仍0。完整burst与119MBarchive不重复入仓，紧凑无损选图包待root独审。
+
+
+07:14本次完整采样与新锚点分析精简包已生成于.runtime/round-20261022/water-merged-fullA-v2-package-v1/index.json，SHA 52fe6a1eba572aedaa0f7dc2807286d9a76fdfbacd5a9b13aa174ce0c614ed87。252逻辑条目/292存储文件，总24,086,195B、最大240000B；235条可逐bytes重建，91处standard [REDACTED]递归派生，72张原PNG和10张明确ROI派生overlay均无损分片，0有损。完整15格native/capture manifest、19次reject、新旧分析与导入异常、两套ROI/host controls、来源后核及普通stop/独立exit分别保留；630张完整burst PNG和119MBarchive留runtime不重复入仓。独立原scanner重构脚本verify_water_fullA_v2_package_v1.py SHA 0aafecf16b94cb83e6486cfda29fc1fc9431d00855e4603bc2ea5c66eb62480a，逐part/原件/派生SHA及长度和240KB门通过，8项scanner等价对照通过、递归credential发现0。原inputs与三个旧索引保持原bytes；待根代理最终独审后分发，仍不授正式A/默认/当前源发行门，人工关闭0。
+
+
+07:18根代理独立执行原重构／递归扫描逻辑，仅AST改新输出路径：252条目、292原存储文件、235精确原件、91处标准脱敏、0有损、8项scanner等价对照全部通过，凭据发现0。已分发[无损采样与流向证据](../evidence/water-fullA-flow-r27-v2/index.json)，并另附[root独审回执](../evidence/water-fullA-flow-r27-v2/root-independent-review.json)。旧失败、新15格方向通过与正式产品门未授资格分别保留；本次未改生产源码，人工关闭0。

@@ -1,0 +1,176 @@
+--- failed-fullA-v1/launch_r25.py
++++ versioned-fullA-v2/launch_r25.py
+@@ -13,7 +13,7 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r27-merged-fullA-v1'
++OWNER = 'water-r27-merged-fullA-v2'
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-merged-flow-editor-v1')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+--- failed-fullA-v1/run_group.py
++++ versioned-fullA-v2/run_group.py
+@@ -31,7 +31,7 @@
+     assert grant['owner']==binding['owner'] and grant['plan_sha256']==sha(WORK/'plan-v1.json')
+     assert grant['schema']==1
+     assert grant['begin']<=time.time()<grant['until']-300
+-    assert datetime.now(timezone.utc)<datetime.fromisoformat('2026-10-21T23:30:00+00:00')
++    assert datetime.now(timezone.utc)<datetime.fromisoformat('2026-10-21T23:20:00+00:00'),'Insufficient time before 07:25 capture cutoff'
+     output=WORK/'group-execution-v1.json'
+     assert not output.exists()
+     row={'schema':1,'owner':binding['owner'],'completed':False,'started_at':time.time(),'steps':[],
+--- failed-fullA-v1/run_flow.py
++++ versioned-fullA-v2/run_flow.py
+@@ -1,4 +1,5 @@
+ """Frozen product probe with explicit versioned deferred host capture."""
++from datetime import datetime,timezone
+ import ctypes
+ from ctypes import wintypes
+ import hashlib
+@@ -13,7 +14,7 @@
+ WORK = Path(__file__).resolve().parent
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-merged-flow-editor-v1')
+ SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+-OWNER = 'water-r27-merged-fullA-v1'
++OWNER = 'water-r27-merged-fullA-v2'
+ STAGE = sys.argv[1] if len(sys.argv) == 2 else None
+ if STAGE != 'A':
+     raise ValueError('Pass one stage: A, B, R, or G')
+@@ -116,6 +117,7 @@
+     original_run = probe.blueprints.BlueprintCheck.run
+ 
+     def tracked_capture(session, owner, output, executable):
++        assert datetime.now(timezone.utc)<datetime.fromisoformat('2026-10-21T23:25:00+00:00'),'07:25 capture cutoff'
+         label = Path(output).stem
+         geometry_sample(label + '_before_wgc')
+         sample(label + '_before_wgc')
+@@ -143,6 +145,10 @@
+     probe.blueprints.BlueprintCheck.run = tracked_run
+     capture_exe = ROOT / '.runtime/worktree-archive-r7/p0-blueprint-qa-r3/files/.runtime/native_wgc/build/Release/native_wgc_capture.exe'
+     assert probe.fingerprint(capture_exe) == 'cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8'
++    from calibration_host import activate,validate_report
++    activation=activate()
++    receipt['versioned_calibration_host']=activation
++    receipt['new_calibration_source']=validate_report(WORK/'product-v2-camera-seam-v1.json',activation)
+     arguments = [str(tool_path), '--session', str(SESSION), '--owner', OWNER,
+                  '--capture-exe', str(capture_exe), '--output', str(OUT),
+                  '--launch-inputs', str(WORK / 'product-v2-launch-inputs.json'),
+@@ -150,7 +156,7 @@
+                  '--max-seconds', '1800', '--max-handles', '250000', '--production-default']
+     if STAGE != 'A':
+         arguments += ['--frozen']
+-    arguments += ['--camera-calibration', str(WORK / 'product-v2-camera-native-v1.json'),
++    arguments += ['--camera-calibration', str(WORK / 'product-v2-camera-seam-v1.json'),
+                   '--world-fixture-lift-y', '64', '--world-view-scale', '.5']
+     if STAGE in ('A', 'B'):
+         arguments += ['--extras']
+@@ -184,6 +190,7 @@
+         original_burst = capture_native_burst.capture
+ 
+         def tracked_burst(*args, **kwargs):
++            assert datetime.now(timezone.utc)<datetime.fromisoformat('2026-10-21T23:25:00+00:00'),'07:25 capture cutoff'
+             label = Path(args[2]).stem
+             geometry_sample(label + '_before_burst')
+             sample(label + '_before_burst')
+--- failed-fullA-v1/run_camera.py
++++ versioned-fullA-v2/run_camera.py
+@@ -1,4 +1,5 @@
+ """D cold default routes and same-session camera, never assigning a candidate."""
++from datetime import datetime,timezone
+ import ctypes
+ from ctypes import wintypes
+ import hashlib
+@@ -12,7 +13,7 @@
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-merged-flow-editor-v1')
+-OWNER = 'water-r27-merged-fullA-v1'
++OWNER = 'water-r27-merged-fullA-v2'
+ STAGE = sys.argv[1] if len(sys.argv) == 2 else None
+ if STAGE != 'camera':
+     raise ValueError('Pass camera or D')
+@@ -34,7 +35,7 @@
+     initial = probe.snapshot_sources(PROJECT)
+     inputs = json.loads((WORK / 'product-v2-launch-inputs.json').read_bytes())
+     assert initial == inputs['source_sha256']
+-    output = WORK / ('product-v2-camera-native-v1.json' if STAGE == 'camera' else 'default-r25-d.json')
++    output = WORK / ('product-v2-camera-seam-v1.json' if STAGE == 'camera' else 'default-r25-d.json')
+     handles_path = output.with_name(output.stem + '-handles.json')
+     receipt_path = output.with_name(output.stem + '-host.json')
+     assert not any(path.exists() for path in (output, handles_path, receipt_path))
+@@ -82,12 +83,27 @@
+             raise RuntimeError('Fixed D handle guard reached at ' + label)
+         return row
+ 
++    from calibration_host import activate,fixture_valid,SINGLE_STONE_CODE
++    activation=activate()
++    receipt['versioned_calibration_host']=activation
++    fixture_observations=[]
++    receipt['single_stone_fixture_observations']=fixture_observations
++    active_check=[None]
++    def single_stone_sample(label):
++        assert active_check[0] is not None
++        state=original_run(active_check[0],SINGLE_STONE_CODE)
++        fixture_observations.append({'label':label,'state':state})
++        save()
++        assert fixture_valid(state),state
+     original_capture = capture_native_window.capture
+     state = {'row': None, 'captures': 0}
+     def tracked_capture(session_arg, owner, path, executable):
++        assert datetime.now(timezone.utc)<datetime.fromisoformat('2026-10-21T23:25:00+00:00'),'07:25 capture cutoff'
+         label = Path(path).stem
++        single_stone_sample(label+'_before_wgc')
+         sample(label + '_before_wgc')
+         result = original_capture(session_arg, owner, path, executable)
++        single_stone_sample(label+'_after_wgc')
+         sample(label + '_after_wgc')
+         state['captures'] += 1
+         return result
+@@ -95,6 +111,7 @@
+     probe.base.capture = tracked_capture
+     original_run = probe.blueprints.BlueprintCheck.run
+     def tracked_run(check, code):
++        active_check[0]=check
+         is_load = 'identity,control,pose=' in code and 'source_document(identity,control)' in code
+         result = original_run(check, code)
+         if is_load:
+@@ -129,6 +146,12 @@
+     assert probe.fingerprint(helper) == 'cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8'
+     if STAGE == 'camera':
+         tool = importlib.import_module('verify_camera_projection')
++        original_write=tool.write_json
++        def versioned_write(path,evidence):
++            evidence['versioned_calibration_host']=activation
++            evidence['single_stone_fixture_observations']=fixture_observations
++            return original_write(path,evidence)
++        tool.write_json=versioned_write
+         arguments = [str(PROJECT / 'tools/verify_camera_projection.py'), str(output),
+             '--native-resolution', '--native-api', '--native-capture-exe', str(helper), '--fixture-lift-y', '64']
+     else:
+@@ -136,7 +159,7 @@
+         arguments = [str(PROJECT / 'tools/probe_product_water.py'), '--session', session,
+             '--owner', OWNER, '--capture-exe', str(helper), '--output', str(output),
+             '--launch-inputs', str(WORK / 'product-v2-launch-inputs.json'),
+-            '--camera-calibration', str(WORK / 'product-v2-camera-native-v1.json'),
++            '--camera-calibration', str(WORK / 'product-v2-camera-seam-v1.json'),
+             '--production-default', '--extras', '--controls', 'all',
+             '--world-fixture-lift-y', '64', '--world-view-scale', '.5',
+             '--max-seconds', '1800', '--max-handles', '250000']
+--- failed-fullA-v1/verify_prelaunch.py
++++ versioned-fullA-v2/verify_prelaunch.py
+@@ -106,6 +106,14 @@
+     assert not calls, 'World must never query editor Scene geometry'
+     namespace['geometry_sample']('product-v2-a-v1_editor_flow_east_wet')
+     assert len(calls)==1 and len(namespace['geometry'])==1
++    calibration=load('calibration_host.py')
++    assert sha(calibration.CANDIDATE)==calibration.EXPECTED
++    compiled=subprocess.run(['D:/Program/Python27/python.exe','-B','-c','import sys;compile(sys.stdin.read(),"single-stone-observation","exec")'],input=calibration.SINGLE_STONE_CODE.encode('utf8'),capture_output=True)
++    assert compiled.returncode==0,compiled.stderr
++    camera=(WORK/'run_camera.py').read_text('utf8')
++    assert 'single_stone_sample(label' in camera and "tool.write_json=versioned_write" in camera
++    assert 'versioned_calibration_host' in camera and 'validate_report' in flow
++    assert '07:25 capture cutoff' in camera and '07:25 capture cutoff' in flow
+     world=load('world_readback.py')
+     for code in (world.SERVER_CODE,world.CLIENT_CODE):
+         compiled=subprocess.run(['D:/Program/Python27/python.exe','-B','-c','import sys;compile(sys.stdin.read(),"world-readback","exec")'],input=code.encode('utf8'),capture_output=True)

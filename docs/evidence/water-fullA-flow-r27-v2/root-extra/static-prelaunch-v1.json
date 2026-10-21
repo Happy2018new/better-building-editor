@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "passed": true,
+  "MC_started": false,
+  "Popen_dispatched": false,
+  "RPC_dispatched": false,
+  "watcher_started": false,
+  "actual_launcher_prefix_nodes_executed": 59,
+  "stop_before_line": 161,
+  "explicit_mock_inputs": [
+    "fresh watcher status dictionary",
+    "launch output directory"
+  ],
+  "observed_active_MC_count": 0,
+  "source_files_checked": 4482,
+  "auxiliary_files_checked": 1391,
+  "source_contract_sha256": "027f11186bb5e50b4d9a0dc80a5ba4d06342104e1be4c2cc6de51a9f206bcf1a",
+  "owner_and_qualification_original_bytes_preserved": true,
+  "cold_payload_python2_compile": true,
+  "cold_payload_no_init_or_profile_mutation": true,
+  "runtime_lifecycle_imports": [
+    "run_group.py",
+    "observe_cold_default.py",
+    "scene_game.py",
+    "scene_restore.py",
+    "flow_restore.py",
+    "world_readback.py",
+    "scene_policy.py",
+    "retire_helpers.py",
+    "start_assert_watch.py",
+    "watch_handles.py"
+  ],
+  "full_A_15_cell_candidate": true,
+  "world_geometry_never_queries_editor": true,
+  "same_session_camera_required": true,
+  "normal_default_initialized_session_required": true,
+  "formal_A_accepted": false,
+  "default_path_evidence": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0,
+  "host_binding_sha256": "c41067ae5fa7b67c2570c95aa6ffbfc5323c2bb81c11b1f7a19872a7c42d22b7",
+  "plan_sha256": "60dc04ac7c1afd8f53ad40bb4390dda171b3026333c5dbef012724dfcb5e2b83",
+  "limitations": [
+    "No real watcher freshness, runtime SDK state or native pixels are claimed.",
+    "Normal initialization reads historical generated constants; it is not new-source acceptance.",
+    "Explicit source/host inventory is not complete transitive closure."
+  ]
+}

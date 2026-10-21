@@ -1,0 +1,698 @@
+{
+  "schema": 1,
+  "owner": "water-r27-merged-fullA-v2",
+  "checked_at": 1792622908.9866624,
+  "scope": "Capture and cleanup only; strict pixel/flow analysis and qualification remain separate.",
+  "group_completed": true,
+  "group_elapsed_seconds": 498.5598545074463,
+  "camera": {
+    "passed": true,
+    "completed": true,
+    "restored": true,
+    "cleanup_errors": []
+  },
+  "product": {
+    "completed": true,
+    "restored": true,
+    "cleanup_errors": [],
+    "source_unchanged": true
+  },
+  "source_checks": {
+    "source": {
+      "checked": 4482,
+      "matched": 4482,
+      "mismatches": [],
+      "passed": true
+    },
+    "auxiliary": {
+      "checked": 1391,
+      "matched": 1391,
+      "mismatches": [],
+      "passed": true
+    }
+  },
+  "source_before_after_equal": true,
+  "independent_restores": {
+    "independent-restore-after-camera.json": {
+      "restored": true,
+      "restore_unknown": false,
+      "source_unchanged": true
+    },
+    "independent-restore-v1.json": {
+      "restored": true,
+      "restore_unknown": false,
+      "source_unchanged": true
+    }
+  },
+  "static_count": 30,
+  "all_static_ok": true,
+  "cells": [
+    {
+      "key": "editor_flow_east_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 43,
+      "valid_frames": 41,
+      "rejected_frames": 2,
+      "maximum_gap_100ns": 969929,
+      "start_gap_100ns": 255866,
+      "tail_gap_100ns": 653372,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_east_wet_burst\\manifest.json",
+        "sha256": "efd01d0f6bb2b8dd104d41b703f5597ad8c31e26f9c17c0b6fed260c0965f709",
+        "bytes": 379740
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_east_wet_burst\\frame_000002.png",
+        "sha256": "98a48ee3658824fc5a958606a449a66fb58d46c39058f6bf5110ce8db9c1fb16",
+        "bytes": 143886
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_east_wet_burst\\frame_000042.png",
+        "sha256": "8be46d45e30a05c13d5b7ec37ec26cf730d0a7860e2c4771bb58c7a5d4d0d07f",
+        "bytes": 141541
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_east_wet.png",
+          "sha256": "ded0560c30fdc26d7d96e53a9d09a15559e24a9286ba4f0387c0709933b437ff",
+          "bytes": 143675
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_east_wet_later.png",
+          "sha256": "fccd0b8c11028d309b03016b68991cbe7e71b6e073b894a8df8984d4399beb68",
+          "bytes": 143884
+        }
+      ]
+    },
+    {
+      "key": "editor_flow_south_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 42,
+      "valid_frames": 42,
+      "rejected_frames": 0,
+      "maximum_gap_100ns": 848481,
+      "start_gap_100ns": 6079,
+      "tail_gap_100ns": 297206,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_south_wet_burst\\manifest.json",
+        "sha256": "b6842284b7b5d4c71b1cc3cfcc77b02afbdb84076e386dfcd172af727d8a2cd7",
+        "bytes": 392376
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_south_wet_burst\\frame_000001.png",
+        "sha256": "64aec686b09a6772bdd7ce498d28d57b90e152eb4723c07156b87b8e579a4e68",
+        "bytes": 143504
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_south_wet_burst\\frame_000042.png",
+        "sha256": "e553e4a483b15e9ce4524bad333fecb975f9c1bc8e4c842e3140f563bb2623f8",
+        "bytes": 143365
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_south_wet.png",
+          "sha256": "063299e2883570db674a5863092b2804e3db0383767f204e80b23c3c0ba86750",
+          "bytes": 143751
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_south_wet_later.png",
+          "sha256": "047d10aa350957454c6469ebb5f03541fd65b7944073d30139b81366f9511ca4",
+          "bytes": 143996
+        }
+      ]
+    },
+    {
+      "key": "editor_flow_west_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 44,
+      "valid_frames": 42,
+      "rejected_frames": 2,
+      "maximum_gap_100ns": 787951,
+      "start_gap_100ns": 169625,
+      "tail_gap_100ns": 557745,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_west_wet_burst\\manifest.json",
+        "sha256": "a2fd5e0120e3130bc6eef1e6f84981995ef1fb525c7fa0724b46291b68cee85c",
+        "bytes": 400566
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_west_wet_burst\\frame_000002.png",
+        "sha256": "49877eb2a660dbe14fcf0220b1dd16ab99752e37dc19d35686c5ca0d939aca24",
+        "bytes": 140580
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_west_wet_burst\\frame_000043.png",
+        "sha256": "13f31c43b47476a15150cf456d92dde55a1b94b7a02af392707c01d48cf500f9",
+        "bytes": 141041
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_west_wet.png",
+          "sha256": "6c8ecb40d56ba8044df7de500cbdbd451591b7e14c9c104eee3ef8a515738fc8",
+          "bytes": 140574
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_west_wet_later.png",
+          "sha256": "2a05da949331ff8a4b7dff9a1a1d5e3c462eb0cbdcbf3bd658aac19bf79ea3dd",
+          "bytes": 140728
+        }
+      ]
+    },
+    {
+      "key": "editor_flow_north_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 44,
+      "valid_frames": 42,
+      "rejected_frames": 2,
+      "maximum_gap_100ns": 787961,
+      "start_gap_100ns": 238199,
+      "tail_gap_100ns": 489182,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_north_wet_burst\\manifest.json",
+        "sha256": "cf57965021a2d083feb6a173a79d8289bf69213925fe907499a974683cd00987",
+        "bytes": 399159
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_north_wet_burst\\frame_000002.png",
+        "sha256": "4067cc7bbaeeed42a31e03c2ba2dc8c95a0fdf5f2e418f60ed4ca50edc899fb5",
+        "bytes": 139164
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_north_wet_burst\\frame_000043.png",
+        "sha256": "ba59a40db4c49c3c615ffe1c1d6b7cdaa86f055ea552cab4ddbe0f90ac80dda8",
+        "bytes": 139621
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_north_wet.png",
+          "sha256": "92b53067d8c6f4cb42fbe6b43b16a03ce3519ff1c499bc88203ba6d2d4ef0b8d",
+          "bytes": 139499
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_flow_north_wet_later.png",
+          "sha256": "819a64c9942acefe6107bf1c145b2674bc69a3bb53b50d6125c08c44d8f6f6fe",
+          "bytes": 139454
+        }
+      ]
+    },
+    {
+      "key": "editor_falling_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 44,
+      "valid_frames": 42,
+      "rejected_frames": 2,
+      "maximum_gap_100ns": 788011,
+      "start_gap_100ns": 74837,
+      "tail_gap_100ns": 713329,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_falling_wet_burst\\manifest.json",
+        "sha256": "8be7db34d9e7ef4f20dce182623b448caacfdb5a43f6d6aa89bf810af16776f3",
+        "bytes": 398041
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_falling_wet_burst\\frame_000002.png",
+        "sha256": "6dbc1a517a6ef55a6bc49b4a057fa21b4d4604f6a7da7563806c0d8e28917d5f",
+        "bytes": 132917
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_falling_wet_burst\\frame_000043.png",
+        "sha256": "a2b2a579bdfbbb4fa29b5fc8a97cb1536fa8f3588fe09fb2e01a7cc47bee9c34",
+        "bytes": 132893
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_falling_wet.png",
+          "sha256": "bd25c582e49b81a46a4bac6c02a44b7753e4b9226048c8c6c46ea57111f3eb71",
+          "bytes": 133127
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_editor_falling_wet_later.png",
+          "sha256": "aa49fd382f947950f81e2c3a336d7d38efc2e47bbd9230ffa37100c34b020fe4",
+          "bytes": 132794
+        }
+      ]
+    },
+    {
+      "key": "full_flow_east_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 43,
+      "valid_frames": 42,
+      "rejected_frames": 1,
+      "maximum_gap_100ns": 848523,
+      "start_gap_100ns": 175532,
+      "tail_gap_100ns": 310096,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_east_wet_burst\\manifest.json",
+        "sha256": "9ddd69f7d0dd75604413c9814ffdeec44f46235bba3efed916ecbe2671661da7",
+        "bytes": 397831
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_east_wet_burst\\frame_000002.png",
+        "sha256": "9eb129d9045ea95f0ab11c5d2b925900f3cd94842dd1eb1ee89db130968598a1",
+        "bytes": 454691
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_east_wet_burst\\frame_000043.png",
+        "sha256": "22426b36175a673dc9a74e14cca68a2465ac30e0532d2d7da1dd8efdbe93e020",
+        "bytes": 454579
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_east_wet.png",
+          "sha256": "ec2bba442f61b765715b5e3e05ddcfc9cbaf4d8e3b4a27c6b2d7efaed7b8f178",
+          "bytes": 454757
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_east_wet_later.png",
+          "sha256": "b7ec2dfeba6b57c05fa27e86ece7f4f21f9891aba6d5697fe11c468e4b903b0e",
+          "bytes": 454547
+        }
+      ]
+    },
+    {
+      "key": "full_flow_south_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 44,
+      "valid_frames": 42,
+      "rejected_frames": 2,
+      "maximum_gap_100ns": 788418,
+      "start_gap_100ns": 177813,
+      "tail_gap_100ns": 368506,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_south_wet_burst\\manifest.json",
+        "sha256": "110fdec1d7e961fd9afddb290bf7e65663a926444dfe0d1c8dbd291dea4c873c",
+        "bytes": 400714
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_south_wet_burst\\frame_000002.png",
+        "sha256": "a5bfdf4448494da3af155ccc370a4e23701895ced73eb4cff4c3ffa38ce8bd9c",
+        "bytes": 456828
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_south_wet_burst\\frame_000043.png",
+        "sha256": "f9f7af1d48a68c8cea33f724cd1bf579c7f8b6bedf1e4eba60a66031390ba657",
+        "bytes": 457142
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_south_wet.png",
+          "sha256": "dafd68d602e6aefacc94b570e51226510b111770d752d20290753cb69cc258cd",
+          "bytes": 457657
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_south_wet_later.png",
+          "sha256": "03db6b91b7211f6959a6f90b7ed9f097d5ea2ca5197e7ae96c61d8b25efa72aa",
+          "bytes": 457248
+        }
+      ]
+    },
+    {
+      "key": "full_flow_west_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 44,
+      "valid_frames": 42,
+      "rejected_frames": 2,
+      "maximum_gap_100ns": 909233,
+      "start_gap_100ns": 175963,
+      "tail_gap_100ns": 370229,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_west_wet_burst\\manifest.json",
+        "sha256": "5fa5d095e3c609f223c30c03437d6765f56d58cbbd3a8363741f72967a13aa56",
+        "bytes": 400243
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_west_wet_burst\\frame_000002.png",
+        "sha256": "1aa10054bc6b9061e03f7dca35363d332013d0c378583b1a3f5b375a207d3a91",
+        "bytes": 453503
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_west_wet_burst\\frame_000043.png",
+        "sha256": "9b4053320e6f2dfad209998f2cb1e13e218a8db4746b30753213c2f224292bf3",
+        "bytes": 453553
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_west_wet.png",
+          "sha256": "a0fc31064398bc5df189fb04df4f20a0917227491ca884f51a6a858b7ff3cf90",
+          "bytes": 454597
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_west_wet_later.png",
+          "sha256": "d496aed4b336c83b12d697f3b3b9a96e4c4fbbc9a6361208c6c9ea58efd3bce9",
+          "bytes": 454375
+        }
+      ]
+    },
+    {
+      "key": "full_flow_north_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 43,
+      "valid_frames": 43,
+      "rejected_frames": 0,
+      "maximum_gap_100ns": 848347,
+      "start_gap_100ns": 12473,
+      "tail_gap_100ns": 48663,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_north_wet_burst\\manifest.json",
+        "sha256": "02d564f692c71f4eb9d9daa1cc543d0be15e2cd5c6baed700d91e8c344e007cd",
+        "bytes": 396670
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_north_wet_burst\\frame_000001.png",
+        "sha256": "a5fea5fbc71199b3459ae0c94d0e3e9f3a08f4b2b1230d8345f569b3b54236e4",
+        "bytes": 458482
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_north_wet_burst\\frame_000043.png",
+        "sha256": "1b17f22a909c8ace4fac3a6f2f6a8464c2f310876ecf39125ced364a876d3eda",
+        "bytes": 458411
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_north_wet.png",
+          "sha256": "efddce640b81d313017988653729cc73950b768d979d199997fb95beeb0a3c8e",
+          "bytes": 457663
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_flow_north_wet_later.png",
+          "sha256": "191cdea083eacc70bb12724fc6fedcaea296d366a2c004f34438ac4a32e425b7",
+          "bytes": 457588
+        }
+      ]
+    },
+    {
+      "key": "full_falling_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 44,
+      "valid_frames": 42,
+      "rejected_frames": 2,
+      "maximum_gap_100ns": 970468,
+      "start_gap_100ns": 219125,
+      "tail_gap_100ns": 143989,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_falling_wet_burst\\manifest.json",
+        "sha256": "02753305989b76936b36ab90ffb1bb4575d6f63935a48d48cd70d5b929a8a58c",
+        "bytes": 397258
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_falling_wet_burst\\frame_000002.png",
+        "sha256": "930a04dab457b1e2578edd531f77d7edcc04ca67c5238837a90c04eca4e5dcff",
+        "bytes": 64167
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_falling_wet_burst\\frame_000043.png",
+        "sha256": "47b03b0f2d13fc0773072b5e20e09b9744a70f59160acd26236610ed6462ea04",
+        "bytes": 64307
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_falling_wet.png",
+          "sha256": "1c553fdc0e90af852c28ede3de3fd1b5efb66ece7274eb1a170247718477b044",
+          "bytes": 64406
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_full_falling_wet_later.png",
+          "sha256": "aea2ed2ec7543a84ac68c797b79c88a34620a236d2485a6cc87d604df2479cf8",
+          "bytes": 64387
+        }
+      ]
+    },
+    {
+      "key": "missing_flow_east_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 43,
+      "valid_frames": 42,
+      "rejected_frames": 1,
+      "maximum_gap_100ns": 1211866,
+      "start_gap_100ns": 178058,
+      "tail_gap_100ns": 186585,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_east_wet_burst\\manifest.json",
+        "sha256": "2e483ac2da5e326c558fd032c30db738415ce8c6e1f576130dc1ccb65dcc4c17",
+        "bytes": 397663
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_east_wet_burst\\frame_000002.png",
+        "sha256": "ac34f173414d7ed27c8ea4864bc166947f8e8c1ccc5001bd79aac02ad6b0ef64",
+        "bytes": 454980
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_east_wet_burst\\frame_000043.png",
+        "sha256": "9ae12c7dddf3b82880881045f775c37260726a95180aaf5c127d77930f3eea59",
+        "bytes": 454806
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_east_wet.png",
+          "sha256": "33056a4e35cb7e22b35cc75e5fc1329e37b99fb8b08f2493061a8e04e62dd4d6",
+          "bytes": 454734
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_east_wet_later.png",
+          "sha256": "7c7a99cf21a1aae33cb3102fc8174985cbdddbb69297ab47bd450d79d922c42f",
+          "bytes": 455294
+        }
+      ]
+    },
+    {
+      "key": "missing_flow_south_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 43,
+      "valid_frames": 42,
+      "rejected_frames": 1,
+      "maximum_gap_100ns": 848426,
+      "start_gap_100ns": 161949,
+      "tail_gap_100ns": 80901,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_south_wet_burst\\manifest.json",
+        "sha256": "75880e90468984d763ca6167459c7a96952d3eee22bc309e8201cdc4d5b31aa3",
+        "bytes": 395613
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_south_wet_burst\\frame_000002.png",
+        "sha256": "6cb35b3541efccbaa9ef8bf36a980ca055d3b2768da480b8c9aac0469ae118ae",
+        "bytes": 457719
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_south_wet_burst\\frame_000043.png",
+        "sha256": "29395823e43b9e6e295fe7252266a3a893e6916e23d071fcbf418215b4b5c3f0",
+        "bytes": 457623
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_south_wet.png",
+          "sha256": "befcabce195fa14a9134276b8c0264ed277ed20949a551a9be5a09e14060a0a4",
+          "bytes": 457690
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_south_wet_later.png",
+          "sha256": "e44d50c5a55bc53c196366045c74a0a635d81b2dde30d3ab99d494c27d1c60d1",
+          "bytes": 457125
+        }
+      ]
+    },
+    {
+      "key": "missing_flow_west_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 42,
+      "valid_frames": 42,
+      "rejected_frames": 0,
+      "maximum_gap_100ns": 969609,
+      "start_gap_100ns": 26719,
+      "tail_gap_100ns": 94857,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_west_wet_burst\\manifest.json",
+        "sha256": "ecdaae9fe7a947a941a9ddc73576277afa4ab54232f670df6df99d94ab7b8a12",
+        "bytes": 393053
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_west_wet_burst\\frame_000001.png",
+        "sha256": "e409fe450fe756ad6b1e94250828cb3cc9b702d8514ce107beeef74c9c8226aa",
+        "bytes": 455346
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_west_wet_burst\\frame_000042.png",
+        "sha256": "a23e9d80415fe44c21ccba9c12bc5ca8039d8d5d684db84f3a50d955f5eddf55",
+        "bytes": 454745
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_west_wet.png",
+          "sha256": "f1f0b373386cc56c37504e732d6194838093e5d6f12f40fe94cc0455550cabf6",
+          "bytes": 454630
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_west_wet_later.png",
+          "sha256": "11dbd8b2d63e40052f8bcc2ccfece450288ead80bb7a8c2e303055475cb389d2",
+          "bytes": 453466
+        }
+      ]
+    },
+    {
+      "key": "missing_flow_north_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 43,
+      "valid_frames": 42,
+      "rejected_frames": 1,
+      "maximum_gap_100ns": 909986,
+      "start_gap_100ns": 31683,
+      "tail_gap_100ns": 389518,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_north_wet_burst\\manifest.json",
+        "sha256": "ab1afc4bbe65c8f08743e0ec325c1cca2ecfc36b8f626e5431bf8a927afa799e",
+        "bytes": 396111
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_north_wet_burst\\frame_000001.png",
+        "sha256": "7f1b086a9f6c2bc57c94db1c18027953144b58b0b9d0a6e6ae08aa1f6b42516c",
+        "bytes": 457643
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_north_wet_burst\\frame_000042.png",
+        "sha256": "efca2ee9e96af7c097fcbcf891b0f99d67a2ad9e6f7d19225b24afd665a9bc34",
+        "bytes": 458556
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_north_wet.png",
+          "sha256": "486fdc3afd22d255b2b3c6c22661caad4259437bc5826fb9bd00ee8f74296852",
+          "bytes": 458280
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_flow_north_wet_later.png",
+          "sha256": "f3d8a3b6e32049f667deef886fcd75af5a31e18d0c7510f2ab7bb17266082fdc",
+          "bytes": 457844
+        }
+      ]
+    },
+    {
+      "key": "missing_falling_wet",
+      "ok": true,
+      "reliable": true,
+      "capture_valid": true,
+      "temporal_complete": true,
+      "attempted_frames": 43,
+      "valid_frames": 42,
+      "rejected_frames": 1,
+      "maximum_gap_100ns": 970733,
+      "start_gap_100ns": 2258,
+      "tail_gap_100ns": 59117,
+      "raw_manifest": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_falling_wet_burst\\manifest.json",
+        "sha256": "955fdcf7d30d58f390e66ab7363cb807f9de2399c46524a5579a02dcdacc85e0",
+        "bytes": 395139
+      },
+      "first_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_falling_wet_burst\\frame_000001.png",
+        "sha256": "e4c57e15636caacbb9b744a8ae75324cb7c31dad1d29a64e96d4e8035df6ebe0",
+        "bytes": 64182
+      },
+      "last_valid_png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_falling_wet_burst\\frame_000042.png",
+        "sha256": "e6a5714543bb703e1bc50eab9b9d0ef7797973242b65d2c4d81ad11826925dc0",
+        "bytes": 64218
+      },
+      "static_pngs": [
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_falling_wet.png",
+          "sha256": "fbebf858db6d4c2dd3fba1de4859989f29d57177e6942ab631ae8e17e246fb43",
+          "bytes": 64425
+        },
+        {
+          "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1_missing_falling_wet_later.png",
+          "sha256": "3c062344fe2a2215a0db84fd95b312ae8005e0424cfa7faae01dee0c0da9235f",
+          "bytes": 64368
+        }
+      ]
+    }
+  ],
+  "all_cell_capture_valid": true,
+  "all_cell_temporal_complete": true,
+  "ordinary_stop_exit_code": 0,
+  "exact_identities_absent": {
+    "game": true,
+    "mcdk": true
+  },
+  "exit_observer_completed": true,
+  "processes": {
+    "game": {
+      "pid": 33480,
+      "identity": "134370958476201603",
+      "exit_code": 3221226505,
+      "exit_code_hex": "0xC0000409"
+    },
+    "mcdk": {
+      "pid": 60220,
+      "identity": "134370958474387458",
+      "exit_code": 0,
+      "exit_code_hex": "0x00000000"
+    }
+  },
+  "helper_retirement": {
+    "game_and_mcdk_identities_absent": true,
+    "exact_helper_terminated": true
+  },
+  "reports": {
+    "group-execution-v1.json": {
+      "sha256": "2fb91fe42e6d7c12a931266a2128706f3ca3c04f0f8e9bc1ef21319106b03d86",
+      "bytes": 43743
+    },
+    "product-v2-camera-seam-v1.json": {
+      "sha256": "17d697caac263fd770ea0dc1b94147d07a5788a4f06c748fec86f55334d042c6",
+      "bytes": 83879
+    },
+    "product-v2-a-v1.json": {
+      "sha256": "b38ae6262e6b98679bd5f15f5a66179c75bbc003b320fe5e39ba9fe609dbd0ba",
+      "bytes": 17855836
+    },
+    "launch/exact-exit.json": {
+      "sha256": "a3a8e3a4fd0b15b5f02a09e6fe857336477daa519cfa3475e383c738b155caf0",
+      "bytes": 1001
+    }
+  },
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0
+}
