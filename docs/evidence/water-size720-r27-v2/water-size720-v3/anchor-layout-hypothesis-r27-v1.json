@@ -1,0 +1,287 @@
+{
+  "schema": 1,
+  "read_only": true,
+  "MC_started": false,
+  "formal_A_accepted": false,
+  "thresholds_unchanged": true,
+  "original_reports_preserved": true,
+  "host_sha256": "9b4eb3031c617179bd3e59b08a815d9194d7a81ccd85a005e558e7660c95baa3",
+  "hypothesis": "The native physical centre-to-anchor offset equals min(logical doll size); logical offset is min(size)/integer_GUI_scale. Existing ui_offset/analyzer use /4.",
+  "caveat": "This translates declared geometry only to diagnose native anchor behavior. It must not be used to move the flow ROI or qualify the visibly displaced product. Native neutral geometry controls are required before changing production.",
+  "records": [
+    {
+      "report": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261020\\water-mixed\\product-v2-a-v3.json",
+      "report_sha256": "2ba4b2e681b5b450397f67bbb348ce30b9c46d5040543dfd7564b3fe1e770fcd",
+      "frame": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261020\\water-mixed\\product-v2-a-v3_editor_flow_east_wet_burst\\frame_000001.png",
+      "frame_sha256": "a80a7db1d71a58656cdaff9d40fb7e6f5862ff0762dd10e29cf95606b5fc8b78",
+      "native_size": [
+        1994,
+        1105
+      ],
+      "SDK_screen": [
+        499.0,
+        277.0
+      ],
+      "native_to_SDK_scale": [
+        3.995991983967936,
+        3.9891696750902526
+      ],
+      "inferred_integer_gui_scale": 4,
+      "groups": [
+        {
+          "shape_position": [
+            2,
+            3,
+            3
+          ],
+          "short_side": 126.73237609863281,
+          "native_y_shift": -0.0,
+          "all_faces_same_translation": true,
+          "hypothesis_bounds": [
+            [
+              699.1787810412518,
+              408.3951076393045
+            ],
+            [
+              925.7472857331309,
+              613.0744669824809
+            ]
+          ],
+          "control_position": [
+            57.73968505859375,
+            120.84246826171875
+          ],
+          "control_size": [
+            327.8634338378906,
+            126.73237609863281
+          ],
+          "pose": [
+            0.3212335489314594,
+            -65.0,
+            0.0,
+            35
+          ],
+          "pixel_metrics_limit": "Color signal is diagnostic; no geometry/flow/alpha gate is granted."
+        },
+        {
+          "shape_position": [
+            4,
+            3,
+            3
+          ],
+          "short_side": 205.6798095703125,
+          "native_y_shift": -0.0,
+          "all_faces_same_translation": true,
+          "hypothesis_bounds": [
+            [
+              965.6974267363687,
+              571.40003672353
+            ],
+            [
+              1192.2659304164167,
+              691.808158497721
+            ]
+          ],
+          "control_position": [
+            117.7249984741211,
+            140.57933044433594
+          ],
+          "control_size": [
+            474.67877197265625,
+            205.6798095703125
+          ],
+          "pose": [
+            0.19793236313238355,
+            -65.0,
+            0.0,
+            35
+          ],
+          "pixel_metrics_limit": "Color signal is diagnostic; no geometry/flow/alpha gate is granted.",
+          "diagnostic_masks": {
+            "original_gui4_formula": {
+              "iou": 0.7449600798403193,
+              "expected_pixels": 15578,
+              "signal_pixels": 19391,
+              "intersection": 14929,
+              "union": 20040
+            },
+            "layout_gui_formula": {
+              "iou": 0.7449600798403193,
+              "expected_pixels": 15578,
+              "signal_pixels": 19391,
+              "intersection": 14929,
+              "union": 20040
+            },
+            "wrong_gui3": {
+              "iou": 0.24133863427847438,
+              "expected_pixels": 9022,
+              "signal_pixels": 19391,
+              "intersection": 5524,
+              "union": 22889
+            },
+            "wrong_translation_sign": {
+              "iou": 0.7449600798403193,
+              "expected_pixels": 15578,
+              "signal_pixels": 19391,
+              "intersection": 14929,
+              "union": 20040
+            },
+            "up20_negative": {
+              "iou": 0.5761997552907056,
+              "expected_pixels": 15391,
+              "signal_pixels": 19391,
+              "intersection": 12715,
+              "union": 22067
+            },
+            "down20_negative": {
+              "iou": 0.43485436092086804,
+              "expected_pixels": 15387,
+              "signal_pixels": 19391,
+              "intersection": 10540,
+              "union": 24238
+            }
+          }
+        }
+      ],
+      "overlay": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\anchor-layout-overlay-old-gui4-v1.png",
+      "overlay_sha256": "1cea8da6b8fbec6550cce066e8fb6b21aa5bfe3d1f4ffd731eba516a956eb0b9"
+    },
+    {
+      "report": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\diagnostic-east-editor-size720-v1.json",
+      "report_sha256": "f54ab5345002e3a1c753a61c919daec714d483d15df941c86716bc807beb9da0",
+      "frame": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\diagnostic-east-editor-size720-v1_editor_flow_east_wet_burst\\frame_000001.png",
+      "frame_sha256": "f0d81877546748e6fc3a1e20a1b99b2e1c96e36bad89f9dc57408c246929bfd0",
+      "native_size": [
+        1280,
+        720
+      ],
+      "SDK_screen": [
+        641.0,
+        360.0
+      ],
+      "native_to_SDK_scale": [
+        1.9968798751950079,
+        2.0
+      ],
+      "inferred_integer_gui_scale": 2,
+      "groups": [
+        {
+          "shape_position": [
+            2,
+            3,
+            3
+          ],
+          "short_side": 164.70632934570312,
+          "native_y_shift": -82.35316467285156,
+          "all_faces_same_translation": true,
+          "hypothesis_bounds": [
+            [
+              446.5780993666787,
+              183.75041996772
+            ],
+            [
+              593.7244790032008,
+              317.11615003854905
+            ]
+          ],
+          "control_position": [
+            75.0407485961914,
+            157.05157470703125
+          ],
+          "control_size": [
+            418.5842590332031,
+            164.70632934570312
+          ],
+          "pose": [
+            0.3212335489314593,
+            -65.0,
+            0.0,
+            35
+          ],
+          "pixel_metrics_limit": "Color signal is diagnostic; no geometry/flow/alpha gate is granted."
+        },
+        {
+          "shape_position": [
+            4,
+            3,
+            3
+          ],
+          "short_side": 267.30950927734375,
+          "native_y_shift": -133.65475463867188,
+          "all_faces_same_translation": true,
+          "hypothesis_bounds": [
+            [
+              619.6703245953383,
+              238.6601984664294
+            ],
+            [
+              766.8167157785584,
+              317.1161719960915
+            ]
+          ],
+          "control_position": [
+            153.0,
+            182.70237731933594
+          ],
+          "control_size": [
+            609.3911743164062,
+            267.30950927734375
+          ],
+          "pose": [
+            0.19793236313238358,
+            -65.0,
+            0.0,
+            35
+          ],
+          "pixel_metrics_limit": "Color signal is diagnostic; no geometry/flow/alpha gate is granted.",
+          "diagnostic_masks": {
+            "original_gui4_formula": {
+              "iou": 0.0,
+              "expected_pixels": 0,
+              "signal_pixels": 7161,
+              "intersection": 0,
+              "union": 7161
+            },
+            "layout_gui_formula": {
+              "iou": 0.5548423423423423,
+              "expected_pixels": 6646,
+              "signal_pixels": 7161,
+              "intersection": 4927,
+              "union": 8880
+            },
+            "wrong_gui3": {
+              "iou": 0.0,
+              "expected_pixels": 6,
+              "signal_pixels": 7161,
+              "intersection": 0,
+              "union": 7167
+            },
+            "wrong_translation_sign": {
+              "iou": 0.0,
+              "expected_pixels": 0,
+              "signal_pixels": 7161,
+              "intersection": 0,
+              "union": 7161
+            },
+            "up20_negative": {
+              "iou": 0.35781919665105155,
+              "expected_pixels": 6462,
+              "signal_pixels": 7161,
+              "intersection": 3590,
+              "union": 10033
+            },
+            "down20_negative": {
+              "iou": 0.32541845075905024,
+              "expected_pixels": 6459,
+              "signal_pixels": 7161,
+              "intersection": 3344,
+              "union": 10276
+            }
+          }
+        }
+      ],
+      "overlay": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\anchor-layout-overlay-new-gui2-v1.png",
+      "overlay_sha256": "c6a1c8aab7545bde0baea3860bdabc8283b06d546a46c83c4dd1c037f0d46732"
+    }
+  ]
+}

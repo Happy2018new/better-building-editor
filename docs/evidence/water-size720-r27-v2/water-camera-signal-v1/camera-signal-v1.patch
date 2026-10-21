@@ -1,0 +1,14 @@
+--- a/tools/verify_camera_projection.py
++++ b/tools/verify_camera_projection.py
+@@ -112,7 +112,10 @@
+         ImageDraw.Draw(center).rectangle((width * .3, height * .25, width * .7, height * .75), fill=255)
+         mask = ImageChops.multiply(mask, center)
+     contribution = maximum(signal(shown, hidden)).point(lambda value: 255 if value > 20 else 0)
+-    mask = largest_component(ImageChops.multiply(mask, contribution))
++    seed = ImageChops.multiply(mask, contribution)
++    closed = seed.filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.MinFilter(3))
++    # Bridge only a one-pixel seam supported by the shown-minus-hidden signal.
++    mask = largest_component(ImageChops.lighter(seed, ImageChops.multiply(closed, contribution)))
+     outline = fill_enclosed_holes(mask).filter(ImageFilter.MedianFilter(3))
+     outline = outline.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.MaxFilter(3))
+     assert ImageChops.multiply(outline, contribution).histogram()[255] >= 1000, 'Native cube contribution is not observable'

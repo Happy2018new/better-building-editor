@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-formal-editor720-v1\run_diagnostic.py", line 204, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-formal-editor720-v1\run_diagnostic.py", line 188, in main
+    result = probe.main()
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\projects\water-r25-final41-v2\tools\probe_product_water.py", line 608, in main
+    capture_flow_burst(label, row)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\projects\water-r25-final41-v2\tools\probe_product_water.py", line 423, in capture_flow_burst
+    sample = native_burst(args.session, args.owner, output, args.flow_burst_exe,
+                          args.flow_burst_sha256, duration_ms=args.flow_burst_duration_ms,
+                          max_frames=240, max_gap_ms=150)
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-formal-editor720-v1\run_diagnostic.py", line 168, in tracked_burst
+    captured = original_burst(*args, **kwargs)
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261021\water-startup-protocol-v2\candidate\tools\capture_native_burst.py", line 623, in capture
+    raise CaptureError(report)
+capture_native_burst.CaptureError: helper: Native helper exited with code 2; native_evidence: Native burst has an uncovered start, interior or tail gap

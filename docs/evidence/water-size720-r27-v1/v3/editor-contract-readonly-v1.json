@@ -1,0 +1,211 @@
+{
+  "schema": 1,
+  "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2\\tools\\probe_product_water.py",
+  "sha256": "d68da331db2ac034a5a0407b014bffbe1a3feaf3cf573e31e41af93646c8d9d1",
+  "line_ranges_read": [
+    [
+      304,
+      316
+    ],
+    [
+      408,
+      442
+    ]
+  ],
+  "lines": [
+    {
+      "line": 304,
+      "text": "    before_sources = snapshot_sources(base.ROOT)"
+    },
+    {
+      "line": 305,
+      "text": "    if launch_inputs.get('source_sha256') != before_sources:"
+    },
+    {
+      "line": 306,
+      "text": "        parser.error('Project source/resources changed since this game launch')"
+    },
+    {
+      "line": 307,
+      "text": "    calibration = None"
+    },
+    {
+      "line": 308,
+      "text": "    if set(routes) - {'editor'}:"
+    },
+    {
+      "line": 309,
+      "text": "        if not args.camera_calibration:"
+    },
+    {
+      "line": 310,
+      "text": "            parser.error('World captures need an independent same-session stone calibration')"
+    },
+    {
+      "line": 311,
+      "text": "        calibration = json.loads(args.camera_calibration.read_bytes())"
+    },
+    {
+      "line": 312,
+      "text": "        if (not all(calibration.get(key) is True for key in ('passed', 'completed', 'restored'))"
+    },
+    {
+      "line": 313,
+      "text": "                or calibration.get('cleanup_errors')"
+    },
+    {
+      "line": 314,
+      "text": "                or Path(calibration.get('session_file', '')).resolve() != Path(session['session_file']).resolve()):"
+    },
+    {
+      "line": 315,
+      "text": "            parser.error('Camera calibration must pass and restore in this exact session')"
+    },
+    {
+      "line": 316,
+      "text": "    report = {'schema': 1, 'completed': False, 'restored': False, 'cleanup_errors': [], 'captures': {},"
+    },
+    {
+      "line": 408,
+      "text": "    def capture_flow_burst(label, row):"
+    },
+    {
+      "line": 409,
+      "text": "        from capture_native_burst import CaptureError, capture as native_burst"
+    },
+    {
+      "line": 410,
+      "text": "        if time.monotonic() - started > args.max_seconds:"
+    },
+    {
+      "line": 411,
+      "text": "            raise TimeoutError('Product-water flow burst budget expired')"
+    },
+    {
+      "line": 412,
+      "text": "        if row['route'] == 'editor':"
+    },
+    {
+      "line": 413,
+      "text": "            before = scene_capture_state(check.run(SCENE_STATE))"
+    },
+    {
+      "line": 414,
+      "text": "            if before is None or before != scene_capture_state(row['ready']):"
+    },
+    {
+      "line": 415,
+      "text": "                raise RuntimeError('Scene layout moved before flow burst: ' + label)"
+    },
+    {
+      "line": 416,
+      "text": "        else:"
+    },
+    {
+      "line": 417,
+      "text": "            before = check.run(CAMERA_STATE)"
+    },
+    {
+      "line": 418,
+      "text": "            if (not camera_matches(before, row['camera_expected'])"
+    },
+    {
+      "line": 419,
+      "text": "                    or not calibrated_viewport_matches(before, report['camera_calibration'])):"
+    },
+    {
+      "line": 420,
+      "text": "                raise RuntimeError('World camera moved before flow burst: ' + label)"
+    },
+    {
+      "line": 421,
+      "text": "        output = args.output.with_name(args.output.stem + '_' + label + '_burst')"
+    },
+    {
+      "line": 422,
+      "text": "        try:"
+    },
+    {
+      "line": 423,
+      "text": "            sample = native_burst(args.session, args.owner, output, args.flow_burst_exe,"
+    },
+    {
+      "line": 424,
+      "text": "                                  args.flow_burst_sha256, duration_ms=args.flow_burst_duration_ms,"
+    },
+    {
+      "line": 425,
+      "text": "                                  max_frames=240, max_gap_ms=150)"
+    },
+    {
+      "line": 426,
+      "text": "        except CaptureError as error:"
+    },
+    {
+      "line": 427,
+      "text": "            report['flow_bursts'][label] = {'row': row, 'before': before, 'after': None,"
+    },
+    {
+      "line": 428,
+      "text": "                                          'capture': error.report}"
+    },
+    {
+      "line": 429,
+      "text": "            record()"
+    },
+    {
+      "line": 430,
+      "text": "            raise"
+    },
+    {
+      "line": 431,
+      "text": "        after = (scene_capture_state(check.run(SCENE_STATE)) if row['route'] == 'editor'"
+    },
+    {
+      "line": 432,
+      "text": "                 else check.run(CAMERA_STATE))"
+    },
+    {
+      "line": 433,
+      "text": "        report['flow_bursts'][label] = {'row': row, 'before': before, 'after': after,"
+    },
+    {
+      "line": 434,
+      "text": "                                      'capture': sample}"
+    },
+    {
+      "line": 435,
+      "text": "        record()"
+    },
+    {
+      "line": 436,
+      "text": "        if before != after:"
+    },
+    {
+      "line": 437,
+      "text": "            raise RuntimeError('Physical face camera moved during flow burst: ' + label)"
+    },
+    {
+      "line": 438,
+      "text": "        if row['route'] != 'editor' and [sample['window']['width'], sample['window']['height']] != report['camera_calibration']['capture_size']:"
+    },
+    {
+      "line": 439,
+      "text": "            raise RuntimeError('Flow burst viewport differs from the same-session calibration')"
+    },
+    {
+      "line": 440,
+      "text": ""
+    },
+    {
+      "line": 441,
+      "text": "    with base.Client(timeout=45) as client:"
+    },
+    {
+      "line": 442,
+      "text": "        check = blueprints.BlueprintCheck(client, args.output, 45.)"
+    }
+  ],
+  "world_qualification": false,
+  "editor_only": true
+}

@@ -1,0 +1,42 @@
+--- size720-v3/launch_r25.py
++++ anchor-v1/launch_r25.py
+@@ -13,8 +13,8 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r27-final41-size720-v3'
+-PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
++OWNER = 'water-r27-anchor-calibration-v1'
++PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-anchor-diagnostic-v1')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+ from _session import process_identity, registry_dir
+@@ -50,7 +50,7 @@
+     binding = json.loads(binding_path.read_bytes())
+     assert binding['owner'] == OWNER and Path(binding['project']).resolve() == PROJECT.resolve()
+     assert guard_policy.remaining_seconds(binding['guard_deadline_utc']) > 300, 'No time for cold launch and restore'
+-    host_binding = json.loads((WORK / 'prelaunch-host-binding-r27-direct.json').read_bytes())
++    host_binding = json.loads((WORK / 'prelaunch-host-binding-v1.json').read_bytes())
+     assert hashlib.sha256(binding_path.read_bytes()).hexdigest() == host_binding['source_binding_sha256']
+     for name, expected in host_binding['host_sha256'].items():
+         assert hashlib.sha256((WORK / name).read_bytes()).hexdigest() == expected, name
+@@ -80,7 +80,7 @@
+     assert snapshot_sources(PROJECT) == launch_inputs['source_sha256']
+     config = json.loads((PROJECT / '.mcdev.json').read_bytes())
+     assert all(config.get(key) is False for key in ('auto_hot_reload_mods', 'auto_hot_reload_ui', 'auto_hot_reload_shaders', 'auto_hot_reload_materials'))
+-    assert hashlib.sha256((Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v2\\final-launch-source.zip')).read_bytes()).hexdigest()==launch_inputs['archive']['sha256']
++    assert hashlib.sha256((Path(binding['archive']['path'])).read_bytes()).hexdigest()==launch_inputs['archive']['sha256']
+     out = WORK / 'launch'
+     out.mkdir(exist_ok=False)
+     mcdk = ROOT / '.runtime/mcdk-retry-r11/build-ipc-framing-r11/tools/mcdk/mcdk.exe'
+--- size720-v3/start_assert_watch.py
++++ anchor-v1/start_assert_watch.py
+@@ -13,7 +13,7 @@
+ 
+ def main():
+     binding = json.loads((WORK / 'final-source-binding-v1.json').read_bytes())
+-    hosts = json.loads((WORK / 'prelaunch-host-binding-r27-direct.json').read_bytes())
++    hosts = json.loads((WORK / 'prelaunch-host-binding-v1.json').read_bytes())
+     for name, expected in hosts['external_host_sha256'].items():
+         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
+     assert datetime.now(timezone.utc) < datetime.fromisoformat(binding['guard_deadline_utc'])

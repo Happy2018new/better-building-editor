@@ -1,0 +1,272 @@
+--- formal/burst_window_capture.cpp
++++ trace/burst_window_capture.cpp
+@@ -3,6 +3,7 @@
+ #include <windows.h>
+ #include "burst_window_capture.h"
+ 
++#include <array>
+ #include <atomic>
+ #include <iomanip>
+ #include <limits>
+@@ -52,6 +53,122 @@
+             }
+             ~DpiContext() { if (previous) SetThreadDpiAwarenessContext(previous); }
+         };
++
++        // Private diagnostics only. Fixed arrays are allocated before StartCapture.
++        // Writers never allocate, format JSON, acquire a mutex, do IPC or read a frame timestamp.
++        constexpr uint32_t TraceLimit = 4096;
++        struct DiagnosticEvent {
++            int64_t begin = 0, end = 0;
++            DWORD thread = 0;
++            uint32_t kind = 0, value = 0;
++            std::atomic<bool> published{false};
++        };
++        struct DiagnosticTrace {
++            std::array<DiagnosticEvent, TraceLimit> arrivals, worker;
++            std::atomic<uint32_t> arrivalCount{0}, workerCount{0};
++            std::atomic<bool> overflow{false}, clockFailure{false};
++            uint32_t frameSequence = 0; // Capture worker only; no WGC object reference.
++            int64_t frequency = 0;
++            int64_t now() noexcept {
++                LARGE_INTEGER current{};
++                if (!QueryPerformanceCounter(&current)) { clockFailure = true; return 0; }
++                return static_cast<int64_t>(static_cast<long double>(current.QuadPart) * 10000000.L / frequency);
++            }
++            void record(bool arrival, uint32_t kind, int64_t begin, int64_t end, uint32_t value = 0) noexcept {
++                auto& count = arrival ? arrivalCount : workerCount;
++                auto& events = arrival ? arrivals : worker;
++                const auto index = count.fetch_add(1, std::memory_order_relaxed);
++                if (index >= TraceLimit) { overflow = true; return; }
++                auto& event = events[index];
++                event.begin = begin; event.end = end; event.thread = GetCurrentThreadId();
++                event.kind = kind; event.value = value;
++                event.published.store(true, std::memory_order_release);
++            }
++            bool complete() const noexcept {
++                if (overflow || clockFailure) return false;
++                for (uint32_t i = 0; i < std::min(arrivalCount.load(), TraceLimit); ++i)
++                    if (!arrivals[i].published.load(std::memory_order_acquire)) return false;
++                for (uint32_t i = 0; i < std::min(workerCount.load(), TraceLimit); ++i)
++                    if (!worker[i].published.load(std::memory_order_acquire)) return false;
++                return true;
++            }
++            void append(std::ostream& out) const {
++                out << ",\"diagnostic_only\":true,\"diagnostic_trace_version\":\"startup_poll_arrival_lifetime_trace_v2\""
++                    << ",\"diagnostic_frame_lifetime_events\":true"
++                    << ",\"diagnostic_frame_acquisition_count\":" << frameSequence
++                    << ",\"diagnostic_fixed_storage_bytes\":" << sizeof(DiagnosticTrace)
++                    << ",\"diagnostic_storage_charged_to_encoder_reserve\":true"
++                    << ",\"diagnostic_event_limit_per_stream\":" << TraceLimit
++                    << ",\"diagnostic_trace_complete\":" << complete()
++                    << ",\"diagnostic_trace_overflow\":" << overflow.load()
++                    << ",\"diagnostic_clock_failure\":" << clockFailure.load();
++                const auto stream = [&](const char* name, const auto& events, uint32_t count) {
++                    out << ",\"" << name << "_reserved_count\":" << count << ",\"" << name << "\":[";
++                    for (uint32_t i = 0; i < std::min(count, TraceLimit); ++i) {
++                        const auto& event = events[i];
++                        const bool ready = event.published.load(std::memory_order_acquire);
++                        out << (i ? "," : "") << "{\"reservation_sequence\":" << i + 1
++                            << ",\"published\":" << ready;
++                        if (ready) out << ",\"begin_qpc_100ns\":" << event.begin
++                            << ",\"end_qpc_100ns\":" << event.end << ",\"thread_id\":" << event.thread
++                            << ",\"kind\":" << event.kind << ",\"value\":" << event.value;
++                        out << '}';
++                    }
++                    out << ']';
++                };
++                stream("diagnostic_arrivals", arrivals, arrivalCount.load());
++                stream("diagnostic_worker_events", worker, workerCount.load());
++            }
++        };
++        static_assert(sizeof(DiagnosticTrace) < 1024 * 1024,
++            "Private fixed trace must fit inside the existing 64 MiB encoder reserve");
++
++        // LIFETIME_DIAGNOSTIC_BEGIN: numeric metadata only, never a Frame/Surface/Texture.
++        struct FrameLifetime {
++            DiagnosticTrace* trace = nullptr;
++            uint32_t id = 0;
++            void event(uint32_t kind, uint32_t numeric) const noexcept {
++                const auto stamp = trace->now();
++                trace->record(false, kind, stamp, stamp, numeric);
++            }
++            void acquired(uint32_t kind) noexcept {
++                id = ++trace->frameSequence;
++                event(kind, id);
++            }
++            void closeBegin() const noexcept { event(20, id); }
++            void closeSuccess() const noexcept { event(21, id); }
++            void closeHresult(int32_t code) const noexcept {
++                event(22, id);
++                event(23, static_cast<uint32_t>(code));
++            }
++            void closeUnknown() const noexcept { event(24, id); }
++        };
++        struct FrameScopeCompleted {
++            FrameLifetime* lifetime = nullptr;
++            uint32_t kind = 30;
++            ~FrameScopeCompleted() {
++                // Declared before the Frame wrapper: its members have already been destroyed.
++                if (lifetime->id) lifetime->event(kind, lifetime->id);
++            }
++        };
++        template <typename T> struct ObservedFrameResource {
++            T value{nullptr};
++            FrameLifetime* lifetime = nullptr;
++            ~ObservedFrameResource() {
++                if (value) {
++                    lifetime->closeBegin();
++                    try {
++                        value.Close();
++                        lifetime->closeSuccess();
++                    } catch (const winrt::hresult_error& error) {
++                        lifetime->closeHresult(error.code().value);
++                    } catch (...) {
++                        lifetime->closeUnknown();
++                    }
++                }
++            }
++        };
++        // LIFETIME_DIAGNOSTIC_END
+ 
+         struct FrameSignal {
+             Handle event{CreateEventW(nullptr, FALSE, FALSE, nullptr)};
+@@ -257,6 +374,7 @@
+             std::string failure, stopReason = "setup_failure";
+             std::vector<std::string> records;
+             std::unique_ptr<FrameTimeline> timeline;
++            std::shared_ptr<DiagnosticTrace> trace;
+ 
+             std::string manifest() const {
+                 const bool captureValid = failure.empty() && timeline && timeline->count() > 0;
+@@ -347,7 +465,9 @@
+                     << ",\"final_window_state\":" << stateJson(finalState) << ",\"frames\":[";
+                 for (size_t i = 0; i < records.size(); ++i)
+                     out << (i ? "," : "") << records[i];
+-                out << "]}";
++                out << "]";
++                if (trace) trace->append(out);
++                out << "}";
+                 return out.str();
+             }
+         };
+@@ -401,6 +521,8 @@
+                 device.as<IDXGIDevice>().get(), inspectable.put()));
+             auto captureDevice = inspectable.as<IDirect3DDevice>();
+             auto factory = winrt::create_instance<IWICImagingFactory>(CLSID_WICImagingFactory);
++            run.trace = std::make_shared<DiagnosticTrace>();
++            run.trace->frequency = run.frequency;
+             auto signal = std::make_shared<FrameSignal>();
+             winrt::check_bool(signal->event.value != nullptr);
+             CaptureResource<Direct3D11CaptureFramePool> pool{
+@@ -410,7 +532,9 @@
+             if (auto cursor = session.value.try_as<IGraphicsCaptureSession2>())
+                 cursor.IsCursorCaptureEnabled(false);
+             auto arrived = pool.value.FrameArrived(
+-                winrt::auto_revoke, [signal](auto const&, auto const&) {
++                winrt::auto_revoke, [signal, trace = run.trace](auto const&, auto const&) {
++                    const auto stamp = trace->now();
++                    trace->record(true, 1, stamp, stamp);
+                     ++signal->arrivals;
+                     SetEvent(signal->event.value);
+                 });
+@@ -444,7 +568,10 @@
+                     continue;
+                 }
+                 if (signal->closed) throw std::runtime_error("preparation_capture_item_closed");
+-                CaptureResource<Direct3D11CaptureFrame> preparationFrame{pool.value.TryGetNextFrame()};
++                FrameLifetime preparationLifetime{run.trace.get()};
++                FrameScopeCompleted preparationScope{&preparationLifetime};
++                ObservedFrameResource<Direct3D11CaptureFrame> preparationFrame{pool.value.TryGetNextFrame(), &preparationLifetime};
++                if (preparationFrame.value) preparationLifetime.acquired(10);
+                 const auto selectionReturned = qpcNow(run.frequency);
+                 const auto sourceTime = preparationFrame.value ? preparationFrame.value.SystemRelativeTime().count() : 0;
+                 const auto initialPreparation = qpcNow(run.frequency);
+@@ -552,7 +679,11 @@
+             uint32_t retainedFrames = 0;
+             std::vector<PendingFrame> pending;
+             while (true) {
++                if (run.trace->overflow || run.trace->clockFailure)
++                    throw std::runtime_error("diagnostic_trace_overflow_or_clock_failure");
++                const auto loopBegin = run.trace->now();
+                 const auto before = observe(run.binding, process.value, run.frequency);
++                run.trace->record(false, 1, loopBegin, run.trace->now());
+                 run.finalState = before;
+                 run.arrivals = signal->arrivals;
+                 if (const auto error = windowFailure(run.binding, before, &run.baseline, run.options.allowUserForeground); !error.empty())
+@@ -573,17 +704,45 @@
+                 }
+                 if (!durationElapsed && before.observedQpc100ns < nextSample) {
+                     const auto waitMs = (nextSample - before.observedQpc100ns + 9999) / 10000;
++                    const auto sleepBegin = run.trace->now();
+                     Sleep(static_cast<DWORD>(std::min<int64_t>(25, waitMs)));
++                    run.trace->record(false, 5, sleepBegin, run.trace->now());
+                     continue;
+                 }
+-                CaptureResource<Direct3D11CaptureFrame> frame{pool.value.TryGetNextFrame()};
++                const auto pollBegin = run.trace->now();
++                FrameLifetime frameLifetime{run.trace.get()};
++                FrameScopeCompleted frameScope{&frameLifetime};
++                ObservedFrameResource<Direct3D11CaptureFrame> frame{pool.value.TryGetNextFrame(), &frameLifetime};
++                if (frame.value) frameLifetime.acquired(11);
++                run.trace->record(false, 2, pollBegin, run.trace->now(), frame.value ? 1 : 0);
+                 // At each bounded sampling point, prefer the newest available compositor frame.
+                 if (frame.value) {
+                     for (uint32_t drained = 0; drained < 8; ++drained) {
++                        const auto drainBegin = run.trace->now();
++                        FrameLifetime newerLifetime{run.trace.get()};
++                        FrameScopeCompleted newerScope{&newerLifetime, 32};
+                         auto newer = pool.value.TryGetNextFrame();
++                        if (newer) newerLifetime.acquired(12);
++                        run.trace->record(false, 3, drainBegin, run.trace->now(), newer ? 1 : 0);
+                         if (!newer) break;
+-                        frame.value.Close();
++                        // DRAIN_LIFETIME_BEGIN: exactly one original Close, same exception propagation.
++                        frameLifetime.closeBegin();
++                        try {
++                            frame.value.Close();
++                            frameLifetime.closeSuccess();
++                        } catch (const winrt::hresult_error& error) {
++                            frameLifetime.closeHresult(error.code().value);
++                            throw;
++                        } catch (...) {
++                            frameLifetime.closeUnknown();
++                            throw;
++                        }
+                         frame.value = std::move(newer);
++                        frameLifetime.event(31, frameLifetime.id); // Old COM member was released by assignment.
++                        frameLifetime.id = newerLifetime.id;
++                        newerLifetime.id = 0; // The acquired object was moved into frame; no extra Close.
++                        frameLifetime.event(13, frameLifetime.id);
++                        // DRAIN_LIFETIME_END
+                     }
+                 }
+                 if (!frame.value) {
+@@ -592,8 +751,10 @@
+                         break;
+                     }
+                     const auto remainingMs = (run.deadline - before.observedQpc100ns + 9999) / 10000;
++                    const auto waitBegin = run.trace->now();
+                     const auto wait = WaitForSingleObject(signal->event.value,
+                         static_cast<DWORD>(std::min<int64_t>(50, remainingMs)));
++                    run.trace->record(false, 4, waitBegin, run.trace->now(), wait);
+                     if (wait == WAIT_FAILED) throw std::runtime_error("frame_event_wait_failed");
+                     continue;
+                 }
+@@ -776,6 +937,8 @@
+             if (const auto error = windowFailure(run.binding, run.finalState, &run.baseline, run.options.allowUserForeground); !error.empty())
+                 throw std::runtime_error(error);
+             // End WGC sampling before any PNG encoding. Buffered IWICBitmap objects own their pixels.
++            // Revoke only after measurement ended; published atomic flags make late callbacks explicit.
++            arrived.revoke();
+             session.value.Close();
+             session.value = nullptr;
+             pool.value.Close();
+@@ -784,6 +947,7 @@
+             run.captureFinished = run.captureFinalState.observedQpc100ns;
+             if (const auto error = windowFailure(run.binding, run.captureFinalState, &run.baseline, run.options.allowUserForeground); !error.empty())
+                 throw std::runtime_error(error);
++            if (!run.trace->complete()) throw std::runtime_error("diagnostic_trace_incomplete");
+             run.encodingStartState = observe(run.binding, process.value, run.frequency);
+             run.encodingStarted = run.encodingStartState.observedQpc100ns;
+             if (const auto error = windowFailure(run.binding, run.encodingStartState, &run.baseline, run.options.allowUserForeground); !error.empty())

@@ -1,0 +1,2514 @@
+{
+  "schema": 1,
+  "read_only": true,
+  "MC_started": false,
+  "root_cause_identified": false,
+  "no_thresholds_changed": true,
+  "previous_results_preserved": true,
+  "records": [
+    {
+      "directory": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3",
+      "manifest_sha256": "4454974169d509fc55e6fe143bb3e5ea5131235d672bd468b2e04e9c4db41ddd",
+      "diagnostic_lifetime_events_present": true,
+      "diagnostic_arrivals_present": true,
+      "manifest_keys": [
+        "activation_fallback",
+        "attempted_frames",
+        "backend",
+        "background_only",
+        "baseline",
+        "buffer_frame_limit",
+        "capture_final_window_state",
+        "capture_finished_qpc_100ns",
+        "capture_protocol",
+        "capture_span_100ns",
+        "capture_valid",
+        "clock",
+        "diagnostic_arrivals",
+        "diagnostic_arrivals_reserved_count",
+        "diagnostic_clock_failure",
+        "diagnostic_event_limit_per_stream",
+        "diagnostic_fixed_storage_bytes",
+        "diagnostic_frame_acquisition_count",
+        "diagnostic_frame_lifetime_events",
+        "diagnostic_only",
+        "diagnostic_storage_charged_to_encoder_reserve",
+        "diagnostic_trace_complete",
+        "diagnostic_trace_overflow",
+        "diagnostic_trace_version",
+        "diagnostic_worker_events",
+        "diagnostic_worker_events_reserved_count",
+        "encoder_reserve_bytes",
+        "encoding_finished_qpc_100ns",
+        "encoding_policy",
+        "encoding_start_window_state",
+        "encoding_started_qpc_100ns",
+        "error",
+        "final_window_state",
+        "finished_qpc_100ns",
+        "first_frame_qpc_100ns",
+        "frame_arrival_events",
+        "frames",
+        "future_timestamp_wait_guard_limit",
+        "future_timestamp_wait_limit_ms",
+        "last_frame_qpc_100ns",
+        "max_frame_age_ms",
+        "max_frames",
+        "max_gap_ms",
+        "maximum_gap_100ns",
+        "mode",
+        "native_resolution",
+        "ok",
+        "owned_creation_time",
+        "owned_hwnd",
+        "owned_pid",
+        "peak_accounted_buffer_bytes",
+        "peak_buffered_frames",
+        "peak_raw_buffer_bytes",
+        "pixel_acceptance",
+        "planned_duration_ms",
+        "planned_end_qpc_100ns",
+        "preparation_actual_end_qpc_100ns",
+        "preparation_combined_peak_raw_bytes",
+        "preparation_duration_ms",
+        "preparation_first_last_raw_bytes",
+        "preparation_fixed_end_qpc_100ns",
+        "preparation_frame_count",
+        "preparation_frames",
+        "preparation_future_wait_limit_ms",
+        "preparation_idle_tail_ms",
+        "preparation_png_policy",
+        "preparation_policy",
+        "preparation_poll_count",
+        "preparation_polls",
+        "preparation_selection_cutoff_qpc_100ns",
+        "preparation_start_qpc_100ns",
+        "preparation_tail_guard_count",
+        "preparation_tail_guards",
+        "preparation_wait_guard_count",
+        "preparation_wait_guards",
+        "raw_buffer_limit_bytes",
+        "rejected_frames",
+        "request_qpc_100ns",
+        "sampling_interval_ms",
+        "sampling_policy",
+        "schema",
+        "single_bitmap_limit_bytes",
+        "source_frame_loss_known",
+        "start_gap_100ns",
+        "stop_reason",
+        "tail_gap_100ns",
+        "tail_gap_exceeded",
+        "temporal_complete",
+        "timestamp_policy",
+        "total_buffer_limit_bytes",
+        "total_span_100ns",
+        "valid_frames"
+      ],
+      "attempted_frames": 43,
+      "valid_frames": 42,
+      "maximum_poll_through_readback_ms": 4.1512,
+      "maximum_readback_to_capture_guard_ms": 309106273.759,
+      "worst_gaps": [
+        {
+          "gap_ms": 84.8451,
+          "first_sequence": 35,
+          "second_sequence": 36,
+          "worker_unobserved_between_frames_ms": 73.9338,
+          "context": [
+            {
+              "sequence": 34,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 2540.0771,
+              "source_frame_age_at_poll_ms": 30.7635,
+              "poll_through_readback_ms": 1.93,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 2570.8406,
+              "readback_from_measurement_start_ms": 2572.7706,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 35,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 2612.8013,
+              "source_frame_age_at_poll_ms": 37.4043,
+              "poll_through_readback_ms": 3.3709,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 2650.2056,
+              "readback_from_measurement_start_ms": 2653.5765,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 36,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 2697.6464,
+              "source_frame_age_at_poll_ms": 29.8639,
+              "poll_through_readback_ms": 2.5735,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 2727.5103,
+              "readback_from_measurement_start_ms": 2730.0838,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 37,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 2770.3706,
+              "source_frame_age_at_poll_ms": 34.5045,
+              "poll_through_readback_ms": 2.0913,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 2804.8751,
+              "readback_from_measurement_start_ms": 2806.9664,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        },
+        {
+          "gap_ms": 78.7921,
+          "first_sequence": 24,
+          "second_sequence": 25,
+          "worker_unobserved_between_frames_ms": 73.6846,
+          "context": [
+            {
+              "sequence": 23,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1685.5392,
+              "source_frame_age_at_poll_ms": 31.2375,
+              "poll_through_readback_ms": 3.8483,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1716.7767,
+              "readback_from_measurement_start_ms": 1720.625,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 24,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1758.2717,
+              "source_frame_age_at_poll_ms": 35.4783,
+              "poll_through_readback_ms": 2.2575,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1793.75,
+              "readback_from_measurement_start_ms": 1796.0075,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 25,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1837.0638,
+              "source_frame_age_at_poll_ms": 32.6283,
+              "poll_through_readback_ms": 2.2274,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1869.6921,
+              "readback_from_measurement_start_ms": 1871.9195,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 26,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1915.8497,
+              "source_frame_age_at_poll_ms": 31.6398,
+              "poll_through_readback_ms": 2.6911,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1947.4895,
+              "readback_from_measurement_start_ms": 1950.1806,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        },
+        {
+          "gap_ms": 78.7919,
+          "first_sequence": 20,
+          "second_sequence": 21,
+          "worker_unobserved_between_frames_ms": 75.7831,
+          "context": [
+            {
+              "sequence": 19,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1370.3934,
+              "source_frame_age_at_poll_ms": 34.7604,
+              "poll_through_readback_ms": 2.5697,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1405.1538,
+              "readback_from_measurement_start_ms": 1407.7235,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 20,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1449.1768,
+              "source_frame_age_at_poll_ms": 34.3861,
+              "poll_through_readback_ms": 2.0355,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1483.5629,
+              "readback_from_measurement_start_ms": 1485.5984,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 21,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1527.9687,
+              "source_frame_age_at_poll_ms": 33.4128,
+              "poll_through_readback_ms": 2.0974,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1561.3815,
+              "readback_from_measurement_start_ms": 1563.4789,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 22,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1606.7527,
+              "source_frame_age_at_poll_ms": 32.7744,
+              "poll_through_readback_ms": 2.4875,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1639.5271,
+              "readback_from_measurement_start_ms": 1642.0146,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        },
+        {
+          "gap_ms": 78.7902,
+          "first_sequence": 12,
+          "second_sequence": 13,
+          "worker_unobserved_between_frames_ms": 76.0423,
+          "context": [
+            {
+              "sequence": 11,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 752.2104,
+              "source_frame_age_at_poll_ms": 31.0057,
+              "poll_through_readback_ms": 2.195,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 783.2161,
+              "readback_from_measurement_start_ms": 785.4111,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 12,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 824.9412,
+              "source_frame_age_at_poll_ms": 35.8445,
+              "poll_through_readback_ms": 3.2042,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 860.7857,
+              "readback_from_measurement_start_ms": 863.9899,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 13,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 903.7314,
+              "source_frame_age_at_poll_ms": 36.3008,
+              "poll_through_readback_ms": 2.948,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 940.0322,
+              "readback_from_measurement_start_ms": 942.9802,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 14,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 982.5184,
+              "source_frame_age_at_poll_ms": 34.2517,
+              "poll_through_readback_ms": 3.2713,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1016.7701,
+              "readback_from_measurement_start_ms": 1020.0414,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        },
+        {
+          "gap_ms": 78.7897,
+          "first_sequence": 26,
+          "second_sequence": 27,
+          "worker_unobserved_between_frames_ms": 74.9947,
+          "context": [
+            {
+              "sequence": 25,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1837.0638,
+              "source_frame_age_at_poll_ms": 32.6283,
+              "poll_through_readback_ms": 2.2274,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1869.6921,
+              "readback_from_measurement_start_ms": 1871.9195,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 26,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1915.8497,
+              "source_frame_age_at_poll_ms": 31.6398,
+              "poll_through_readback_ms": 2.6911,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1947.4895,
+              "readback_from_measurement_start_ms": 1950.1806,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 27,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1994.6394,
+              "source_frame_age_at_poll_ms": 30.5359,
+              "poll_through_readback_ms": 2.2417,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 2025.1753,
+              "readback_from_measurement_start_ms": 2027.417,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 28,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 2067.368,
+              "source_frame_age_at_poll_ms": 34.7681,
+              "poll_through_readback_ms": 2.8076,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 2102.1361,
+              "readback_from_measurement_start_ms": 2104.9437,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        }
+      ],
+      "per_frame_observable_stages": [
+        {
+          "sequence": 1,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 0.7277,
+          "source_frame_age_at_poll_ms": 3.615,
+          "poll_through_readback_ms": 3.3323,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 4.3427,
+          "readback_from_measurement_start_ms": 7.675,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 2,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 55.265,
+          "source_frame_age_at_poll_ms": 27.7254,
+          "poll_through_readback_ms": 2.1617,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 82.9904,
+          "readback_from_measurement_start_ms": 85.1521,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 3,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 127.9896,
+          "source_frame_age_at_poll_ms": 33.791,
+          "poll_through_readback_ms": 2.0768,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 161.7806,
+          "readback_from_measurement_start_ms": 163.8574,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 4,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 206.775,
+          "source_frame_age_at_poll_ms": 32.7133,
+          "poll_through_readback_ms": 2.8911,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 239.4883,
+          "readback_from_measurement_start_ms": 242.3794,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 5,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 285.56,
+          "source_frame_age_at_poll_ms": 30.7607,
+          "poll_through_readback_ms": 3.804,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 316.3207,
+          "readback_from_measurement_start_ms": 320.1247,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 6,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 358.2842,
+          "source_frame_age_at_poll_ms": 35.508,
+          "poll_through_readback_ms": 2.2109,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 393.7922,
+          "readback_from_measurement_start_ms": 396.0031,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 7,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 437.0675,
+          "source_frame_age_at_poll_ms": 35.516,
+          "poll_through_readback_ms": 2.3016,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 472.5835,
+          "readback_from_measurement_start_ms": 474.8851,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 8,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 515.8533,
+          "source_frame_age_at_poll_ms": 33.5089,
+          "poll_through_readback_ms": 1.9943,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 549.3622,
+          "readback_from_measurement_start_ms": 551.3565,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 9,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 594.6391,
+          "source_frame_age_at_poll_ms": 32.9987,
+          "poll_through_readback_ms": 2.204,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 627.6378,
+          "readback_from_measurement_start_ms": 629.8418,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 10,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 673.4261,
+          "source_frame_age_at_poll_ms": 31.8888,
+          "poll_through_readback_ms": 4.1512,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 705.3149,
+          "readback_from_measurement_start_ms": 709.4661,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 11,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 752.2104,
+          "source_frame_age_at_poll_ms": 31.0057,
+          "poll_through_readback_ms": 2.195,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 783.2161,
+          "readback_from_measurement_start_ms": 785.4111,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 12,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 824.9412,
+          "source_frame_age_at_poll_ms": 35.8445,
+          "poll_through_readback_ms": 3.2042,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 860.7857,
+          "readback_from_measurement_start_ms": 863.9899,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 13,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 903.7314,
+          "source_frame_age_at_poll_ms": 36.3008,
+          "poll_through_readback_ms": 2.948,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 940.0322,
+          "readback_from_measurement_start_ms": 942.9802,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 14,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 982.5184,
+          "source_frame_age_at_poll_ms": 34.2517,
+          "poll_through_readback_ms": 3.2713,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1016.7701,
+          "readback_from_measurement_start_ms": 1020.0414,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 15,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1061.304,
+          "source_frame_age_at_poll_ms": 33.714,
+          "poll_through_readback_ms": 3.0604,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1095.018,
+          "readback_from_measurement_start_ms": 1098.0784,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 16,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1140.0907,
+          "source_frame_age_at_poll_ms": 31.4446,
+          "poll_through_readback_ms": 2.2271,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1171.5353,
+          "readback_from_measurement_start_ms": 1173.7624,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 17,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1212.8152,
+          "source_frame_age_at_poll_ms": 35.9056,
+          "poll_through_readback_ms": 2.7789,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1248.7208,
+          "readback_from_measurement_start_ms": 1251.4997,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 18,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1291.6048,
+          "source_frame_age_at_poll_ms": 35.0595,
+          "poll_through_readback_ms": 2.0855,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1326.6643,
+          "readback_from_measurement_start_ms": 1328.7498,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 19,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1370.3934,
+          "source_frame_age_at_poll_ms": 34.7604,
+          "poll_through_readback_ms": 2.5697,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1405.1538,
+          "readback_from_measurement_start_ms": 1407.7235,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 20,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1449.1768,
+          "source_frame_age_at_poll_ms": 34.3861,
+          "poll_through_readback_ms": 2.0355,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1483.5629,
+          "readback_from_measurement_start_ms": 1485.5984,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 21,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1527.9687,
+          "source_frame_age_at_poll_ms": 33.4128,
+          "poll_through_readback_ms": 2.0974,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1561.3815,
+          "readback_from_measurement_start_ms": 1563.4789,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 22,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1606.7527,
+          "source_frame_age_at_poll_ms": 32.7744,
+          "poll_through_readback_ms": 2.4875,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1639.5271,
+          "readback_from_measurement_start_ms": 1642.0146,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 23,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1685.5392,
+          "source_frame_age_at_poll_ms": 31.2375,
+          "poll_through_readback_ms": 3.8483,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1716.7767,
+          "readback_from_measurement_start_ms": 1720.625,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 24,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1758.2717,
+          "source_frame_age_at_poll_ms": 35.4783,
+          "poll_through_readback_ms": 2.2575,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1793.75,
+          "readback_from_measurement_start_ms": 1796.0075,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 25,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1837.0638,
+          "source_frame_age_at_poll_ms": 32.6283,
+          "poll_through_readback_ms": 2.2274,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1869.6921,
+          "readback_from_measurement_start_ms": 1871.9195,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 26,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1915.8497,
+          "source_frame_age_at_poll_ms": 31.6398,
+          "poll_through_readback_ms": 2.6911,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1947.4895,
+          "readback_from_measurement_start_ms": 1950.1806,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 27,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1994.6394,
+          "source_frame_age_at_poll_ms": 30.5359,
+          "poll_through_readback_ms": 2.2417,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2025.1753,
+          "readback_from_measurement_start_ms": 2027.417,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 28,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2067.368,
+          "source_frame_age_at_poll_ms": 34.7681,
+          "poll_through_readback_ms": 2.8076,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2102.1361,
+          "readback_from_measurement_start_ms": 2104.9437,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 29,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2146.1552,
+          "source_frame_age_at_poll_ms": 34.0848,
+          "poll_through_readback_ms": 2.6038,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2180.24,
+          "readback_from_measurement_start_ms": 2182.8438,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 30,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2224.9408,
+          "source_frame_age_at_poll_ms": 32.7005,
+          "poll_through_readback_ms": 2.1705,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2257.6413,
+          "readback_from_measurement_start_ms": 2259.8118,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 31,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2303.7273,
+          "source_frame_age_at_poll_ms": 33.6861,
+          "poll_through_readback_ms": 2.3415,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2337.4134,
+          "readback_from_measurement_start_ms": 2339.7549,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 32,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2382.5129,
+          "source_frame_age_at_poll_ms": 33.0203,
+          "poll_through_readback_ms": 2.2918,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2415.5332,
+          "readback_from_measurement_start_ms": 2417.825,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 33,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2461.2947,
+          "source_frame_age_at_poll_ms": 31.5322,
+          "poll_through_readback_ms": 1.8816,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2492.8269,
+          "readback_from_measurement_start_ms": 2494.7085,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 34,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2540.0771,
+          "source_frame_age_at_poll_ms": 30.7635,
+          "poll_through_readback_ms": 1.93,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2570.8406,
+          "readback_from_measurement_start_ms": 2572.7706,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 35,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2612.8013,
+          "source_frame_age_at_poll_ms": 37.4043,
+          "poll_through_readback_ms": 3.3709,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2650.2056,
+          "readback_from_measurement_start_ms": 2653.5765,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 36,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2697.6464,
+          "source_frame_age_at_poll_ms": 29.8639,
+          "poll_through_readback_ms": 2.5735,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2727.5103,
+          "readback_from_measurement_start_ms": 2730.0838,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 37,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2770.3706,
+          "source_frame_age_at_poll_ms": 34.5045,
+          "poll_through_readback_ms": 2.0913,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2804.8751,
+          "readback_from_measurement_start_ms": 2806.9664,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 38,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2849.1601,
+          "source_frame_age_at_poll_ms": 33.1279,
+          "poll_through_readback_ms": 2.3442,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2882.288,
+          "readback_from_measurement_start_ms": 2884.6322,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 39,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2927.9462,
+          "source_frame_age_at_poll_ms": 32.0791,
+          "poll_through_readback_ms": 2.5684,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2960.0253,
+          "readback_from_measurement_start_ms": 2962.5937,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 40,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 3006.7333,
+          "source_frame_age_at_poll_ms": 30.5512,
+          "poll_through_readback_ms": 2.4924,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 3037.2845,
+          "readback_from_measurement_start_ms": 3039.7769,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 41,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 3079.4609,
+          "source_frame_age_at_poll_ms": 35.9997,
+          "poll_through_readback_ms": 2.4582,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 3115.4606,
+          "readback_from_measurement_start_ms": 3117.9188,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 42,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 3158.2505,
+          "source_frame_age_at_poll_ms": 36.8449,
+          "poll_through_readback_ms": 2.5852,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 3195.0954,
+          "readback_from_measurement_start_ms": 3197.6806,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 43,
+          "capture_valid": false,
+          "frame_time_from_measurement_start_ms": 3218.8535,
+          "source_frame_age_at_poll_ms": 6.9516,
+          "poll_through_readback_ms": -309106273.4299,
+          "readback_to_capture_guard_ms": 309106273.759,
+          "before_from_measurement_start_ms": 3225.8051,
+          "readback_from_measurement_start_ms": -309103047.6248,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        }
+      ],
+      "Close_or_COM_release_coverage": "explicit trace events"
+    },
+    {
+      "directory": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-formal-editor720-v1",
+      "manifest_sha256": "b0c07c94bd3347fd26bae806f7295a532ee4823f63920162fdcddf14e945c232",
+      "diagnostic_lifetime_events_present": false,
+      "diagnostic_arrivals_present": false,
+      "manifest_keys": [
+        "activation_fallback",
+        "attempted_frames",
+        "backend",
+        "background_only",
+        "baseline",
+        "buffer_frame_limit",
+        "capture_final_window_state",
+        "capture_finished_qpc_100ns",
+        "capture_protocol",
+        "capture_span_100ns",
+        "capture_valid",
+        "clock",
+        "encoder_reserve_bytes",
+        "encoding_finished_qpc_100ns",
+        "encoding_policy",
+        "encoding_start_window_state",
+        "encoding_started_qpc_100ns",
+        "error",
+        "final_window_state",
+        "finished_qpc_100ns",
+        "first_frame_qpc_100ns",
+        "frame_arrival_events",
+        "frames",
+        "future_timestamp_wait_guard_limit",
+        "future_timestamp_wait_limit_ms",
+        "last_frame_qpc_100ns",
+        "max_frame_age_ms",
+        "max_frames",
+        "max_gap_ms",
+        "maximum_gap_100ns",
+        "mode",
+        "native_resolution",
+        "ok",
+        "owned_creation_time",
+        "owned_hwnd",
+        "owned_pid",
+        "peak_accounted_buffer_bytes",
+        "peak_buffered_frames",
+        "peak_raw_buffer_bytes",
+        "pixel_acceptance",
+        "planned_duration_ms",
+        "planned_end_qpc_100ns",
+        "preparation_actual_end_qpc_100ns",
+        "preparation_combined_peak_raw_bytes",
+        "preparation_duration_ms",
+        "preparation_first_last_raw_bytes",
+        "preparation_fixed_end_qpc_100ns",
+        "preparation_frame_count",
+        "preparation_frames",
+        "preparation_future_wait_limit_ms",
+        "preparation_idle_tail_ms",
+        "preparation_png_policy",
+        "preparation_policy",
+        "preparation_poll_count",
+        "preparation_polls",
+        "preparation_selection_cutoff_qpc_100ns",
+        "preparation_start_qpc_100ns",
+        "preparation_tail_guard_count",
+        "preparation_tail_guards",
+        "preparation_wait_guard_count",
+        "preparation_wait_guards",
+        "raw_buffer_limit_bytes",
+        "rejected_frames",
+        "request_qpc_100ns",
+        "sampling_interval_ms",
+        "sampling_policy",
+        "schema",
+        "single_bitmap_limit_bytes",
+        "source_frame_loss_known",
+        "start_gap_100ns",
+        "stop_reason",
+        "tail_gap_100ns",
+        "tail_gap_exceeded",
+        "temporal_complete",
+        "timestamp_policy",
+        "total_buffer_limit_bytes",
+        "total_span_100ns",
+        "valid_frames"
+      ],
+      "attempted_frames": 37,
+      "valid_frames": 36,
+      "maximum_poll_through_readback_ms": 15.3026,
+      "maximum_readback_to_capture_guard_ms": 311249504.041,
+      "worst_gaps": [
+        {
+          "gap_ms": 593.9861,
+          "first_sequence": 28,
+          "second_sequence": 29,
+          "worker_unobserved_between_frames_ms": 79.7914,
+          "context": [
+            {
+              "sequence": 27,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1932.9605,
+              "source_frame_age_at_poll_ms": 34.8115,
+              "poll_through_readback_ms": 2.0894,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1967.772,
+              "readback_from_measurement_start_ms": 1969.8614,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 28,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1975.3815,
+              "source_frame_age_at_poll_ms": 532.802,
+              "poll_through_readback_ms": 2.6463,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 2508.1835,
+              "readback_from_measurement_start_ms": 2510.8298,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 29,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 2569.3676,
+              "source_frame_age_at_poll_ms": 21.2536,
+              "poll_through_readback_ms": 1.6519,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 2590.6212,
+              "readback_from_measurement_start_ms": 2592.2731,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 30,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 2636.0203,
+              "source_frame_age_at_poll_ms": 30.5079,
+              "poll_through_readback_ms": 2.0404,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 2666.5282,
+              "readback_from_measurement_start_ms": 2668.5686,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        },
+        {
+          "gap_ms": 78.8025,
+          "first_sequence": 8,
+          "second_sequence": 9,
+          "worker_unobserved_between_frames_ms": 74.9177,
+          "context": [
+            {
+              "sequence": 7,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 381.4254,
+              "source_frame_age_at_poll_ms": 36.6444,
+              "poll_through_readback_ms": 1.6668,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 418.0698,
+              "readback_from_measurement_start_ms": 419.7366,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 8,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 460.2172,
+              "source_frame_age_at_poll_ms": 36.095,
+              "poll_through_readback_ms": 1.6789,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 496.3122,
+              "readback_from_measurement_start_ms": 497.9911,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 9,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 539.0197,
+              "source_frame_age_at_poll_ms": 33.8891,
+              "poll_through_readback_ms": 1.7072,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 572.9088,
+              "readback_from_measurement_start_ms": 574.616,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 10,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 617.8141,
+              "source_frame_age_at_poll_ms": 33.2049,
+              "poll_through_readback_ms": 1.4513,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 651.019,
+              "readback_from_measurement_start_ms": 652.4703,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        },
+        {
+          "gap_ms": 78.7956,
+          "first_sequence": 25,
+          "second_sequence": 26,
+          "worker_unobserved_between_frames_ms": 75.814,
+          "context": [
+            {
+              "sequence": 24,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1702.6337,
+              "source_frame_age_at_poll_ms": 30.3125,
+              "poll_through_readback_ms": 1.9703,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1732.9462,
+              "readback_from_measurement_start_ms": 1734.9165,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 25,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1775.3774,
+              "source_frame_age_at_poll_ms": 36.3677,
+              "poll_through_readback_ms": 2.029,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1811.7451,
+              "readback_from_measurement_start_ms": 1813.7741,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 26,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1854.173,
+              "source_frame_age_at_poll_ms": 35.4151,
+              "poll_through_readback_ms": 2.1677,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1889.5881,
+              "readback_from_measurement_start_ms": 1891.7558,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 27,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 1932.9605,
+              "source_frame_age_at_poll_ms": 34.8115,
+              "poll_through_readback_ms": 2.0894,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 1967.772,
+              "readback_from_measurement_start_ms": 1969.8614,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        },
+        {
+          "gap_ms": 78.7955,
+          "first_sequence": 5,
+          "second_sequence": 6,
+          "worker_unobserved_between_frames_ms": 76.4684,
+          "context": [
+            {
+              "sequence": 4,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 151.1222,
+              "source_frame_age_at_poll_ms": 32.4922,
+              "poll_through_readback_ms": 1.6133,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 183.6144,
+              "readback_from_measurement_start_ms": 185.2277,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 5,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 229.9097,
+              "source_frame_age_at_poll_ms": 31.3546,
+              "poll_through_readback_ms": 1.6878,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 261.2643,
+              "readback_from_measurement_start_ms": 262.9521,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 6,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 308.7052,
+              "source_frame_age_at_poll_ms": 30.7153,
+              "poll_through_readback_ms": 1.6066,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 339.4205,
+              "readback_from_measurement_start_ms": 341.0271,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 7,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 381.4254,
+              "source_frame_age_at_poll_ms": 36.6444,
+              "poll_through_readback_ms": 1.6668,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 418.0698,
+              "readback_from_measurement_start_ms": 419.7366,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        },
+        {
+          "gap_ms": 78.7944,
+          "first_sequence": 9,
+          "second_sequence": 10,
+          "worker_unobserved_between_frames_ms": 76.403,
+          "context": [
+            {
+              "sequence": 8,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 460.2172,
+              "source_frame_age_at_poll_ms": 36.095,
+              "poll_through_readback_ms": 1.6789,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 496.3122,
+              "readback_from_measurement_start_ms": 497.9911,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 9,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 539.0197,
+              "source_frame_age_at_poll_ms": 33.8891,
+              "poll_through_readback_ms": 1.7072,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 572.9088,
+              "readback_from_measurement_start_ms": 574.616,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 10,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 617.8141,
+              "source_frame_age_at_poll_ms": 33.2049,
+              "poll_through_readback_ms": 1.4513,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 651.019,
+              "readback_from_measurement_start_ms": 652.4703,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            },
+            {
+              "sequence": 11,
+              "capture_valid": true,
+              "frame_time_from_measurement_start_ms": 696.6009,
+              "source_frame_age_at_poll_ms": 32.0473,
+              "poll_through_readback_ms": 1.7634,
+              "readback_to_capture_guard_ms": 0.0,
+              "before_from_measurement_start_ms": 728.6482,
+              "readback_from_measurement_start_ms": 730.4116,
+              "assessment": null,
+              "future_wait": {
+                "requested": false,
+                "deadline_qpc_100ns": 0,
+                "elapsed_100ns": 0,
+                "outcome": "not_requested",
+                "guards": []
+              }
+            }
+          ]
+        }
+      ],
+      "per_frame_observable_stages": [
+        {
+          "sequence": 1,
+          "capture_valid": false,
+          "frame_time_from_measurement_start_ms": -0.3989,
+          "source_frame_age_at_poll_ms": 12.3541,
+          "poll_through_readback_ms": -311249503.8589,
+          "readback_to_capture_guard_ms": 311249504.041,
+          "before_from_measurement_start_ms": 11.9552,
+          "readback_from_measurement_start_ms": -311249491.9037,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 2,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 17.7829,
+          "source_frame_age_at_poll_ms": -4.8433,
+          "poll_through_readback_ms": 15.3026,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 12.9396,
+          "readback_from_measurement_start_ms": 28.2422,
+          "assessment": null,
+          "future_wait": {
+            "requested": true,
+            "deadline_qpc_100ns": 3112495548443,
+            "elapsed_100ns": 140588,
+            "outcome": "eligible",
+            "guards": [
+              {
+                "hwnd": 11407778,
+                "pid": 62456,
+                "thread_id": 62336,
+                "creation_time": "134370751714099759",
+                "process_live": true,
+                "window_valid": true,
+                "visible": true,
+                "minimized": false,
+                "cloaked": false,
+                "geometry_valid": true,
+                "client_rect_screen": [
+                  640,
+                  457,
+                  1920,
+                  1177
+                ],
+                "dwm_frame_rect": [
+                  638,
+                  412,
+                  1922,
+                  1179
+                ],
+                "foreground_hwnd": 1707290,
+                "foreground_pid": 14140,
+                "extended_style": 134480144,
+                "background_safe": true,
+                "window_noactivate_style": true,
+                "observed_qpc_100ns": 3112495189031
+              }
+            ]
+          }
+        },
+        {
+          "sequence": 3,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 72.3313,
+          "source_frame_age_at_poll_ms": 33.4049,
+          "poll_through_readback_ms": 1.6193,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 105.7362,
+          "readback_from_measurement_start_ms": 107.3555,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 4,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 151.1222,
+          "source_frame_age_at_poll_ms": 32.4922,
+          "poll_through_readback_ms": 1.6133,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 183.6144,
+          "readback_from_measurement_start_ms": 185.2277,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 5,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 229.9097,
+          "source_frame_age_at_poll_ms": 31.3546,
+          "poll_through_readback_ms": 1.6878,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 261.2643,
+          "readback_from_measurement_start_ms": 262.9521,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 6,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 308.7052,
+          "source_frame_age_at_poll_ms": 30.7153,
+          "poll_through_readback_ms": 1.6066,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 339.4205,
+          "readback_from_measurement_start_ms": 341.0271,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 7,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 381.4254,
+          "source_frame_age_at_poll_ms": 36.6444,
+          "poll_through_readback_ms": 1.6668,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 418.0698,
+          "readback_from_measurement_start_ms": 419.7366,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 8,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 460.2172,
+          "source_frame_age_at_poll_ms": 36.095,
+          "poll_through_readback_ms": 1.6789,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 496.3122,
+          "readback_from_measurement_start_ms": 497.9911,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 9,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 539.0197,
+          "source_frame_age_at_poll_ms": 33.8891,
+          "poll_through_readback_ms": 1.7072,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 572.9088,
+          "readback_from_measurement_start_ms": 574.616,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 10,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 617.8141,
+          "source_frame_age_at_poll_ms": 33.2049,
+          "poll_through_readback_ms": 1.4513,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 651.019,
+          "readback_from_measurement_start_ms": 652.4703,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 11,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 696.6009,
+          "source_frame_age_at_poll_ms": 32.0473,
+          "poll_through_readback_ms": 1.7634,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 728.6482,
+          "readback_from_measurement_start_ms": 730.4116,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 12,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 775.3876,
+          "source_frame_age_at_poll_ms": 30.7209,
+          "poll_through_readback_ms": 1.7915,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 806.1085,
+          "readback_from_measurement_start_ms": 807.9,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 13,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 848.1159,
+          "source_frame_age_at_poll_ms": 35.2151,
+          "poll_through_readback_ms": 1.4287,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 883.331,
+          "readback_from_measurement_start_ms": 884.7597,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 14,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 926.8984,
+          "source_frame_age_at_poll_ms": 32.187,
+          "poll_through_readback_ms": 1.7326,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 959.0854,
+          "readback_from_measurement_start_ms": 960.818,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 15,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1005.6798,
+          "source_frame_age_at_poll_ms": 31.0145,
+          "poll_through_readback_ms": 1.9326,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1036.6943,
+          "readback_from_measurement_start_ms": 1038.6269,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 16,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1078.4143,
+          "source_frame_age_at_poll_ms": 36.5573,
+          "poll_through_readback_ms": 2.1634,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1114.9716,
+          "readback_from_measurement_start_ms": 1117.135,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 17,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1157.1997,
+          "source_frame_age_at_poll_ms": 35.2727,
+          "poll_through_readback_ms": 1.7271,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1192.4724,
+          "readback_from_measurement_start_ms": 1194.1995,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 18,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1235.9906,
+          "source_frame_age_at_poll_ms": 34.6946,
+          "poll_through_readback_ms": 2.3972,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1270.6852,
+          "readback_from_measurement_start_ms": 1273.0824,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 19,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1314.7771,
+          "source_frame_age_at_poll_ms": 33.1077,
+          "poll_through_readback_ms": 1.6897,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1347.8848,
+          "readback_from_measurement_start_ms": 1349.5745,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 20,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1393.568,
+          "source_frame_age_at_poll_ms": 29.3766,
+          "poll_through_readback_ms": 1.809,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1422.9446,
+          "readback_from_measurement_start_ms": 1424.7536,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 21,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1466.2972,
+          "source_frame_age_at_poll_ms": 34.4137,
+          "poll_through_readback_ms": 1.6696,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1500.7109,
+          "readback_from_measurement_start_ms": 1502.3805,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 22,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1545.073,
+          "source_frame_age_at_poll_ms": 32.877,
+          "poll_through_readback_ms": 1.7891,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1577.95,
+          "readback_from_measurement_start_ms": 1579.7391,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 23,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1623.8542,
+          "source_frame_age_at_poll_ms": 31.2815,
+          "poll_through_readback_ms": 1.8051,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1655.1357,
+          "readback_from_measurement_start_ms": 1656.9408,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 24,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1702.6337,
+          "source_frame_age_at_poll_ms": 30.3125,
+          "poll_through_readback_ms": 1.9703,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1732.9462,
+          "readback_from_measurement_start_ms": 1734.9165,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 25,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1775.3774,
+          "source_frame_age_at_poll_ms": 36.3677,
+          "poll_through_readback_ms": 2.029,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1811.7451,
+          "readback_from_measurement_start_ms": 1813.7741,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 26,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1854.173,
+          "source_frame_age_at_poll_ms": 35.4151,
+          "poll_through_readback_ms": 2.1677,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1889.5881,
+          "readback_from_measurement_start_ms": 1891.7558,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 27,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1932.9605,
+          "source_frame_age_at_poll_ms": 34.8115,
+          "poll_through_readback_ms": 2.0894,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 1967.772,
+          "readback_from_measurement_start_ms": 1969.8614,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 28,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 1975.3815,
+          "source_frame_age_at_poll_ms": 532.802,
+          "poll_through_readback_ms": 2.6463,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2508.1835,
+          "readback_from_measurement_start_ms": 2510.8298,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 29,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2569.3676,
+          "source_frame_age_at_poll_ms": 21.2536,
+          "poll_through_readback_ms": 1.6519,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2590.6212,
+          "readback_from_measurement_start_ms": 2592.2731,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 30,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2636.0203,
+          "source_frame_age_at_poll_ms": 30.5079,
+          "poll_through_readback_ms": 2.0404,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2666.5282,
+          "readback_from_measurement_start_ms": 2668.5686,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 31,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2708.7389,
+          "source_frame_age_at_poll_ms": 34.9077,
+          "poll_through_readback_ms": 2.3474,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2743.6466,
+          "readback_from_measurement_start_ms": 2745.994,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 32,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2787.52,
+          "source_frame_age_at_poll_ms": 32.7146,
+          "poll_through_readback_ms": 1.9437,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2820.2346,
+          "readback_from_measurement_start_ms": 2822.1783,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 33,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2866.299,
+          "source_frame_age_at_poll_ms": 30.2724,
+          "poll_through_readback_ms": 2.1831,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2896.5714,
+          "readback_from_measurement_start_ms": 2898.7545,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 34,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 2939.0133,
+          "source_frame_age_at_poll_ms": 35.1658,
+          "poll_through_readback_ms": 2.4592,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 2974.1791,
+          "readback_from_measurement_start_ms": 2976.6383,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 35,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 3017.7912,
+          "source_frame_age_at_poll_ms": 30.9015,
+          "poll_through_readback_ms": 1.9249,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 3048.6927,
+          "readback_from_measurement_start_ms": 3050.6176,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 36,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 3090.5034,
+          "source_frame_age_at_poll_ms": 34.8357,
+          "poll_through_readback_ms": 2.5048,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 3125.3391,
+          "readback_from_measurement_start_ms": 3127.8439,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        },
+        {
+          "sequence": 37,
+          "capture_valid": true,
+          "frame_time_from_measurement_start_ms": 3169.2837,
+          "source_frame_age_at_poll_ms": 33.8554,
+          "poll_through_readback_ms": 1.67,
+          "readback_to_capture_guard_ms": 0.0,
+          "before_from_measurement_start_ms": 3203.1391,
+          "readback_from_measurement_start_ms": 3204.8091,
+          "assessment": null,
+          "future_wait": {
+            "requested": false,
+            "deadline_qpc_100ns": 0,
+            "elapsed_100ns": 0,
+            "outcome": "not_requested",
+            "guards": []
+          }
+        }
+      ],
+      "Close_or_COM_release_coverage": "not instrumented: no runtime proof of every Close or COM release"
+    }
+  ],
+  "contracts": {
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\host-contract-v1.json": "bef28f515f9274c0d9a9926537825e04a5a425ed8601acfa61d364bf9e8dca7a",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\trace-lifetime-v2\\host-contract-v1.json": "c6b22a5bfbc5cb0c2b32fdd0c2bb0f9d4497b0523110defb1aaddbabb62d2a5f"
+  },
+  "python_wrapper_comparison": {
+    "capture_native_burst.py": {
+      "bytes_equal": true,
+      "formal_sha256": "0f51cf602263358c42950ded96eaa4859458846be67c810a14de27b4ffac6045",
+      "trace_sha256": "0f51cf602263358c42950ded96eaa4859458846be67c810a14de27b4ffac6045"
+    },
+    "capture_native_burst_deferred.py": {
+      "bytes_equal": true,
+      "formal_sha256": "6421e443747dde4a33cead714aed25adac57c9acf0e67afe45373506c321034a",
+      "trace_sha256": "6421e443747dde4a33cead714aed25adac57c9acf0e67afe45373506c321034a"
+    },
+    "capture_native_burst_startup.py": {
+      "bytes_equal": true,
+      "formal_sha256": "10c330f79e5348e7f06ebd26eb33984969419f7b8656cbcc5cd9aeec5fa4a3fc",
+      "trace_sha256": "10c330f79e5348e7f06ebd26eb33984969419f7b8656cbcc5cd9aeec5fa4a3fc"
+    }
+  },
+  "cpp_diff": {
+    "formal_source_sha256": "99c714fe7e5f288e65cd05ddcf43dd5a04d5a0213f62560678e5d128eaaa2fec",
+    "trace_source_sha256": "aa647930465834a5bd5b58e1b25013e28c5d273942ff5e207831c4c76de4f615",
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-formal-editor720-v1\\formal-to-trace-cpp-readonly.patch",
+    "sha256": "e14fb123daeb445db47b3f106964dd6f5062795c7e5361aeefd6116372425bbe",
+    "differences": "Trace adds fixed numeric poll/arrival/lifetime storage and timestamps, changing scheduling overhead; original acquisition/wait/buffer/timeline remain."
+  },
+  "limitation": "Per-frame poll/readback observations cannot observe empty polling or callbacks in the nontrace run. A long unobserved interval cannot assign CPU, engine, compositor, WGC or driver cause."
+}

@@ -443,3 +443,15 @@ docs/evidence/liquid-owner-diagnostics-r27-v1/** -text whitespace=cr-at-eol
 
 docs/evidence/concrete-context-r27-v2/** -text whitespace=cr-at-eol
 docs/evidence/concrete-support-r27-v3-v1/** -text whitespace=cr-at-eol
+docs/evidence/water-size720-r27-v1/** -text whitespace=cr-at-eol
+docs/evidence/water-size720-r27-v2/** -text whitespace=cr-at-eol
+# Frozen diagnostic patches retain their original whitespace, including CRCRLF.
+docs/evidence/water-size720-r27-v1/v1/v6-to-r27-host.patch whitespace=cr-at-eol,-blank-at-eol
+docs/evidence/water-size720-r27-v1/v2/v6-to-r27-host.patch whitespace=cr-at-eol,-blank-at-eol
+docs/evidence/water-size720-r27-v1/v3/v6-to-r27-host.patch whitespace=cr-at-eol,-blank-at-eol
+docs/evidence/water-size720-r27-v2/water-anchor-calibration-v1/size720-v3-to-anchor-v1-host.patch whitespace=cr-at-eol,-blank-at-eol
+docs/evidence/water-size720-r27-v2/water-anchor-calibration-v2/size720-v3-to-anchor-v1-host.patch whitespace=cr-at-eol,-blank-at-eol
+docs/evidence/water-size720-r27-v2/water-camera-signal-v2/camera-signal-v2.patch whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
+docs/evidence/water-size720-r27-v2/water-formal-editor720-v1/formal-to-trace-cpp-readonly.patch whitespace=cr-at-eol,-blank-at-eol
+docs/evidence/water-size720-r27-v2/water-formal-editor720-v1/prepare_formal_editor.py whitespace=cr-at-eol,-blank-at-eol
+docs/evidence/water-size720-r27-v2/water-formal-editor720-v1/v3-to-nontrace-editor.patch whitespace=cr-at-eol,-blank-at-eol

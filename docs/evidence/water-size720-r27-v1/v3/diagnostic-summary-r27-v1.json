@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "diagnostic_only": true,
+  "formal_A_accepted": false,
+  "production_admission_performed": false,
+  "world_A_accepted": false,
+  "manual_closures_added": 0,
+  "owner": "water-r27-final41-size720-v3",
+  "source_contract_sha256": "a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194",
+  "inputs": {
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\diagnostic-east-editor-size720-v1_editor_flow_east_wet_burst\\manifest.json": {
+      "sha256": "4454974169d509fc55e6fe143bb3e5ea5131235d672bd468b2e04e9c4db41ddd",
+      "bytes": 552206
+    },
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\diagnostic-east-editor-size720-v1_editor_flow_east_wet_burst.capture.json": {
+      "sha256": "38828d63886138b549f631e94296b59c37aeec9c41e4efdf11a48779dc926012",
+      "bytes": 1053655
+    },
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\diagnostic-east-editor-size720-v1.json": {
+      "sha256": "f54ab5345002e3a1c753a61c919daec714d483d15df941c86716bc807beb9da0",
+      "bytes": 3356252
+    },
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\trace-lifetime-v2\\analyze_lifetime_trace.py": {
+      "sha256": "3ba2a3603fe2325c965bb2674aaba62d600b51272d2672fb86cd804162a48d0d",
+      "bytes": 7252
+    }
+  },
+  "host_sha256": "301f2ee123bd29ad443de43af14169f255a9bdb70da5dc144f7833aa66a379c6",
+  "capture_valid": true,
+  "temporal_complete": true,
+  "native_window_size": [
+    1280,
+    720
+  ],
+  "start_gap_ms": 0.7277,
+  "maximum_interior_gap_ms": 84.8451,
+  "tail_gap_ms": 41.7495,
+  "actual_gap_limit_ms": 150,
+  "valid_frames": 42,
+  "attempted_frames": 43,
+  "arrival_events": 181,
+  "maximum_arrival_gap_ms": 60.0374,
+  "lifecycle": {
+    "schema": 1,
+    "diagnostic_only": true,
+    "formal_A_accepted": false,
+    "lifecycle_structurally_complete": true,
+    "every_frame_closed_successfully_without_exception": true,
+    "errors": [],
+    "close_failure_count": 0,
+    "raw_unclosed_drain_releases": [],
+    "maximum_close_duration_ms": 0.3462,
+    "limitations": [
+      "Markers observe original Close and lexical COM-wrapper member destruction; no internal WGC pool state is read.",
+      "Instrumentation perturbs timing and cannot qualify formal A.",
+      "A complete lifetime trace cannot by itself locate game, compositor, WGC or driver delay."
+    ]
+  },
+  "peak_accounted_buffer_bytes": 221937664,
+  "total_buffer_limit_bytes": 536870912,
+  "report_completed": true,
+  "report_restored": true,
+  "source_unchanged": true,
+  "cleanup_errors": [],
+  "independent_standard_restore_passed": true,
+  "explicit_bootstrap_retirement_recorded": true,
+  "resource": {
+    "game": {
+      "maximum_handles": 879,
+      "maximum_adjacent_growth": 138
+    },
+    "mcdk": {
+      "maximum_handles": 235,
+      "maximum_adjacent_growth": 10
+    }
+  },
+  "continuous_guard_sample_count": 248,
+  "guard_breach": null,
+  "modal_guard_breach": null,
+  "limitations": [
+    "One changed size and a different frozen product source do not establish the cause of the old S0 callback gap.",
+    "Private lifetime trace is not the pinned formal A helper.",
+    "No old pixel ROI or world-camera qualification was reused."
+  ]
+}

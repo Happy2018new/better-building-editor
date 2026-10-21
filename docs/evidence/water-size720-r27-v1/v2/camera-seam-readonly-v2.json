@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "diagnostic_only": true,
+  "source_sha256": {
+    "product-v2-camera-native-v1_tilted_shown.png": "a1ffe44ba7121b410a0403d3045138655d97fdccb93f9f815061784bab7022f1",
+    "product-v2-camera-native-v1_tilted_hidden.png": "9a60f164370d5dc6f1347931a4b6540de97e1052b183f4e511238a9a040ece8f",
+    "product-v2-camera-native-v1_tilted_signal.png": "5ace9399e911d4decb851989b507c07c474868bacefe72c49e7b2c95ccd2f456",
+    "product-v2-camera-native-v1.json": "e9df0b603f62d4752f48b83c1afd888b16f63e288fd6fd5248e11ab3ed6a7911"
+  },
+  "host_sha256": "c9a9c65b2cd8fa24455878b289bb806e941cfe692eb0e178db7061fa8e6d9202",
+  "original_camera_passed": false,
+  "limits_unchanged": true,
+  "original_fit": {
+    "vertical_fov": 67.0,
+    "bounds": [
+      595,
+      340,
+      686,
+      417
+    ],
+    "predicted_bounds": [
+      594,
+      307,
+      686,
+      417
+    ],
+    "boundary_rms_pixels": 16.507574019219177,
+    "mask_iou": 0.701297353399066,
+    "outline_recall_2px": 0.7409638554216867,
+    "outline_precision_2px": 0.62,
+    "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+  },
+  "rows": [
+    {
+      "y": 333,
+      "neutral_and_difference_pixels": 90,
+      "difference_pixels": 90,
+      "retained_signal_pixels": 0,
+      "shown_rgb_at_x640": [
+        116,
+        116,
+        116
+      ]
+    },
+    {
+      "y": 334,
+      "neutral_and_difference_pixels": 90,
+      "difference_pixels": 90,
+      "retained_signal_pixels": 0,
+      "shown_rgb_at_x640": [
+        116,
+        116,
+        116
+      ]
+    },
+    {
+      "y": 335,
+      "neutral_and_difference_pixels": 90,
+      "difference_pixels": 90,
+      "retained_signal_pixels": 0,
+      "shown_rgb_at_x640": [
+        127,
+        127,
+        127
+      ]
+    },
+    {
+      "y": 336,
+      "neutral_and_difference_pixels": 90,
+      "difference_pixels": 90,
+      "retained_signal_pixels": 0,
+      "shown_rgb_at_x640": [
+        127,
+        127,
+        127
+      ]
+    },
+    {
+      "y": 337,
+      "neutral_and_difference_pixels": 90,
+      "difference_pixels": 91,
+      "retained_signal_pixels": 0,
+      "shown_rgb_at_x640": [
+        127,
+        127,
+        127
+      ]
+    },
+    {
+      "y": 338,
+      "neutral_and_difference_pixels": 90,
+      "difference_pixels": 91,
+      "retained_signal_pixels": 0,
+      "shown_rgb_at_x640": [
+        127,
+        127,
+        127
+      ]
+    },
+    {
+      "y": 339,
+      "neutral_and_difference_pixels": 0,
+      "difference_pixels": 91,
+      "retained_signal_pixels": 0,
+      "shown_rgb_at_x640": [
+        132,
+        156,
+        178
+      ]
+    },
+    {
+      "y": 340,
+      "neutral_and_difference_pixels": 91,
+      "difference_pixels": 91,
+      "retained_signal_pixels": 90,
+      "shown_rgb_at_x640": [
+        93,
+        93,
+        93
+      ]
+    },
+    {
+      "y": 341,
+      "neutral_and_difference_pixels": 91,
+      "difference_pixels": 91,
+      "retained_signal_pixels": 91,
+      "shown_rgb_at_x640": [
+        93,
+        93,
+        93
+      ]
+    },
+    {
+      "y": 342,
+      "neutral_and_difference_pixels": 91,
+      "difference_pixels": 91,
+      "retained_signal_pixels": 91,
+      "shown_rgb_at_x640": [
+        93,
+        93,
+        93
+      ]
+    },
+    {
+      "y": 343,
+      "neutral_and_difference_pixels": 91,
+      "difference_pixels": 91,
+      "retained_signal_pixels": 91,
+      "shown_rgb_at_x640": [
+        93,
+        93,
+        93
+      ]
+    },
+    {
+      "y": 344,
+      "neutral_and_difference_pixels": 90,
+      "difference_pixels": 91,
+      "retained_signal_pixels": 90,
+      "shown_rgb_at_x640": [
+        102,
+        102,
+        102
+      ]
+    },
+    {
+      "y": 345,
+      "neutral_and_difference_pixels": 90,
+      "difference_pixels": 91,
+      "retained_signal_pixels": 90,
+      "shown_rgb_at_x640": [
+        102,
+        102,
+        102
+      ]
+    }
+  ],
+  "observed": "One full non-neutral raster row disconnects the visible top from the front; largest_component retains only the front.",
+  "limitations": [
+    "No causal claim about water callback gaps.",
+    "No correction of the original camera result.",
+    "No new same-session world-camera qualification."
+  ],
+  "editor_only_contract": {
+    "path": "tools/probe_product_water.py",
+    "sha256": "d68da331db2ac034a5a0407b014bffbe1a3feaf3cf573e31e41af93646c8d9d1",
+    "camera_required_condition": "if set(routes) - {'editor'}",
+    "editor_burst_guard": "same scene_capture_state before and after; native burst validates physical window geometry"
+  },
+  "manual_closures_added": 0
+}

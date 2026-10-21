@@ -1,0 +1,311 @@
+{
+  "schema": 1,
+  "read_only": true,
+  "MC_started": false,
+  "formal_A_accepted": false,
+  "report_sha256": "f54ab5345002e3a1c753a61c919daec714d483d15df941c86716bc807beb9da0",
+  "frame_sha256": "f0d81877546748e6fc3a1e20a1b99b2e1c96e36bad89f9dc57408c246929bfd0",
+  "analyzer_sha256": "3cdc9597170a2fd53254539961a5bb8d51e278eeed279bb580d22a668971179f",
+  "sample_position": [
+    2,
+    3,
+    3
+  ],
+  "physical_grid_spacing": 0.008842105263157894,
+  "mapped_bounds": [
+    [
+      458.34980973760054,
+      271.2066479234603
+    ],
+    [
+      581.9527686322791,
+      324.78881239379126
+    ]
+  ],
+  "scene_state": {
+    "camera_pose": [
+      35.0,
+      25.0,
+      4.6
+    ],
+    "camera_pan": [
+      0.0,
+      0.0
+    ],
+    "camera_depth": 0.0,
+    "depth_plane": null,
+    "scene_origin": [
+      0,
+      0,
+      0
+    ],
+    "scene_size": [
+      10,
+      8,
+      10
+    ],
+    "screen_size": [
+      641.0,
+      360.0
+    ],
+    "liquid_layout": [
+      {
+        "key": "((0, 0, 0), ('flowing_water_grey', 'candidate_water_top_center_turn256_v1'), 0)",
+        "geometry": [
+          [
+            -77.95925373306204,
+            41.17658334255202
+          ],
+          [
+            418.5842537330621,
+            164.70633337020809
+          ]
+        ],
+        "visible": [
+          false,
+          true
+        ],
+        "poses": [
+          null,
+          [
+            0.3212335489314593,
+            -65.0,
+            0.0,
+            35
+          ]
+        ],
+        "doll_positions": [
+          [
+            75.0407485961914,
+            157.05157470703125
+          ],
+          [
+            75.0407485961914,
+            157.05157470703125
+          ]
+        ],
+        "doll_sizes": [
+          [
+            418.5842590332031,
+            164.70632934570312
+          ],
+          [
+            418.5842590332031,
+            164.70632934570312
+          ]
+        ]
+      },
+      {
+        "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+        "geometry": [
+          [
+            -77.95925373306204,
+            41.17658334255202
+          ],
+          [
+            418.5842537330621,
+            164.70633337020809
+          ]
+        ],
+        "visible": [
+          false,
+          true
+        ],
+        "poses": [
+          null,
+          [
+            0.3212335489314593,
+            -65.0,
+            0.0,
+            35
+          ]
+        ],
+        "doll_positions": [
+          [
+            75.0407485961914,
+            157.05157470703125
+          ],
+          [
+            75.0407485961914,
+            157.05157470703125
+          ]
+        ],
+        "doll_sizes": [
+          [
+            418.5842590332031,
+            164.70632934570312
+          ],
+          [
+            418.5842590332031,
+            164.70632934570312
+          ]
+        ]
+      },
+      {
+        "key": "((4, 0, 0), ('flowing_water_grey', 'candidate_water_top_center_turn256_v1'), 0)",
+        "geometry": [
+          [
+            0.0,
+            66.82737370822552
+          ],
+          [
+            609.3911810004989,
+            267.3094948329021
+          ]
+        ],
+        "visible": [
+          false,
+          true
+        ],
+        "poses": [
+          null,
+          [
+            0.19793236313238358,
+            -65.0,
+            0.0,
+            35
+          ]
+        ],
+        "doll_positions": [
+          [
+            153.0,
+            182.70237731933594
+          ],
+          [
+            153.0,
+            182.70237731933594
+          ]
+        ],
+        "doll_sizes": [
+          [
+            609.3911743164062,
+            267.30950927734375
+          ],
+          [
+            609.3911743164062,
+            267.30950927734375
+          ]
+        ]
+      },
+      {
+        "key": "((4, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+        "geometry": [
+          [
+            0.0,
+            66.82737370822552
+          ],
+          [
+            609.3911810004989,
+            267.3094948329021
+          ]
+        ],
+        "visible": [
+          false,
+          true
+        ],
+        "poses": [
+          null,
+          [
+            0.19793236313238358,
+            -65.0,
+            0.0,
+            35
+          ]
+        ],
+        "doll_positions": [
+          [
+            153.0,
+            182.70237731933594
+          ],
+          [
+            153.0,
+            182.70237731933594
+          ]
+        ],
+        "doll_sizes": [
+          [
+            609.3911743164062,
+            267.30950927734375
+          ],
+          [
+            609.3911743164062,
+            267.30950927734375
+          ]
+        ]
+      }
+    ]
+  },
+  "ready_keys": [
+    "all_parts_current",
+    "all_parts_ready",
+    "biome",
+    "blocks",
+    "camera_depth",
+    "camera_pan",
+    "camera_pose",
+    "current_source",
+    "depth_plane",
+    "diagnostics",
+    "dirty",
+    "document_actor_cells",
+    "document_background_cells",
+    "document_id",
+    "document_render_actor_cells",
+    "edit_active",
+    "editor_id",
+    "expected_document_id",
+    "expected_editor_id",
+    "expected_metadata",
+    "groups_revision",
+    "io_active",
+    "liquid",
+    "liquid_control_requests",
+    "liquid_groups",
+    "metadata",
+    "model_name",
+    "model_revision_current",
+    "mounting",
+    "name",
+    "native_calls",
+    "page",
+    "parts",
+    "preview_error",
+    "preview_pending",
+    "renderer_active",
+    "renderer_age",
+    "running",
+    "scene_origin",
+    "scene_size",
+    "screen_size",
+    "shapes",
+    "size",
+    "source_cells",
+    "tile_builds",
+    "world_actors"
+  ],
+  "screen_size": [
+    641.0,
+    360.0
+  ],
+  "shape": {
+    "layer": 0,
+    "texture": "flowing_water_grey",
+    "heights": [
+      0.7407407407407408,
+      0.7264957264957265,
+      0.7264957264957265,
+      0.7407407407407408
+    ],
+    "flow_uv": [
+      "candidate_water_top_center_turn256_v1",
+      192
+    ],
+    "faces": 1,
+    "position": [
+      2,
+      3,
+      3
+    ]
+  },
+  "overlay_sha256": "f3608628964da80bbb99bb9f28754336d106632b2df4ddce526dc86cba4d4a58"
+}

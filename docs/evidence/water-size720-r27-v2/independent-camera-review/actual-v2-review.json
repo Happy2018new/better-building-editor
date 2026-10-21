@@ -1,0 +1,297 @@
+{
+  "schema": "independent-actual-camera-signal-v2-review",
+  "candidate_v2_sha256": "261e2fb407ceee541cf800a28dd7e56778d33b579f72159ee54620c684609f8a",
+  "candidate_v1_sha256": "5438f05d581b9defc362995e865435015ae72d6ca5bda9e11654aa4b932f8bd4",
+  "shared_tool_sha256": "20b702496787cf34d85102d600399f103733b260cc08ecc153067d6caf519eb8",
+  "prior_counterexample_report_sha256": "8582cc7705d14cfe0cd89345bf968bbbfa6b61faa8b884aab54e207959a7b929",
+  "review_script_sha256": "e0ef221fbc332b849dc58fcd58dd289cf2a75fd9bfa86f3b7ad475e4cd57e388",
+  "all_other_function_AST_unchanged": true,
+  "fitter_and_limits_unchanged": true,
+  "signal_extractor_uses_analytic_projection_or_fit": false,
+  "runtime_calls": 0,
+  "MC_started": false,
+  "shared_tools_modified": false,
+  "camera_or_GPU_qualification_granted": false,
+  "synthetic": [
+    {
+      "name": "full_supported_gap1",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": true,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "full_supported_gap2",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": true,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "endbridges-gap1",
+      "v1_unsupported_added_pixels": 88,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "endbridges-gap2",
+      "v1_unsupported_added_pixels": 176,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "endbridges-gap1-center20",
+      "v1_unsupported_added_pixels": 88,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "endbridges-gap2-center20",
+      "v1_unsupported_added_pixels": 176,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "leftbridge-gap1",
+      "v1_unsupported_added_pixels": 91,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "leftbridge-gap2",
+      "v1_unsupported_added_pixels": 2,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "centerbridge-gap1",
+      "v1_unsupported_added_pixels": 93,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "all-low-gap1",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "all-threshold20-gap2",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "coarse-gap3-supported",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "coarse-gap4-supported",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "coarse-gap3-endbridges",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "disjoint-faces-gap2",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "disjoint-faces-gap6",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "partial-upper-missing-window",
+      "v1_unsupported_added_pixels": 720,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "partial-upper-open-notch",
+      "v1_unsupported_added_pixels": 2,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "partial-upper-missing-whole-strip",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": false,
+      "v2_passed_original_fit_limits": false,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    },
+    {
+      "name": "baseline-existing-unsupported-hole",
+      "v1_unsupported_added_pixels": 0,
+      "actual_v2_matches_independent_formula_bytes": true,
+      "actual_v2_unsupported_added_pixels": 0,
+      "old_outline_preserved": true,
+      "v1_passed_original_fit_limits": true,
+      "v2_passed_original_fit_limits": true,
+      "fit_evidence": "Identical final pixels and unchanged fit_fov AST preserve the independent prior fixed-FOV result."
+    }
+  ],
+  "real_preserved": [
+    {
+      "report_sha256": "e9df0b603f62d4752f48b83c1afd888b16f63e288fd6fd5248e11ab3ed6a7911",
+      "view": "front",
+      "shown_sha256": "6b0a009e4b919351d77f3d165df6dc8a33dc0fada3c8391dffab1e5d9d18d2dc",
+      "hidden_sha256": "23d225cb9b28d5b4164e09d5dd234ec40a14e75c9f23e7db9a492a4ae0d6427e",
+      "actual_v2_equals_v1_pixels": true,
+      "unchanged_fit_limits_remain_satisfied": true
+    },
+    {
+      "report_sha256": "e9df0b603f62d4752f48b83c1afd888b16f63e288fd6fd5248e11ab3ed6a7911",
+      "view": "right",
+      "shown_sha256": "2891f3da245316187034d59ebf602604f735ba91cb5576feba9f363219bd743f",
+      "hidden_sha256": "4f2a29bad7476fe8bcdc17bf33806a8bffc7583816ad4aedfc248a8ef00bd271",
+      "actual_v2_equals_v1_pixels": true,
+      "unchanged_fit_limits_remain_satisfied": true
+    },
+    {
+      "report_sha256": "e9df0b603f62d4752f48b83c1afd888b16f63e288fd6fd5248e11ab3ed6a7911",
+      "view": "tilted",
+      "shown_sha256": "a1ffe44ba7121b410a0403d3045138655d97fdccb93f9f815061784bab7022f1",
+      "hidden_sha256": "9a60f164370d5dc6f1347931a4b6540de97e1052b183f4e511238a9a040ece8f",
+      "actual_v2_equals_v1_pixels": true,
+      "unchanged_fit_limits_remain_satisfied": true
+    },
+    {
+      "report_sha256": "86e69f8db981b95b961a13911a0860f54ffa69babbfdfd720da128a5eea13179",
+      "view": "front",
+      "shown_sha256": "4866cc9fc947c896c3f6e159ede7c982e7effc25899afbd03ec1c9736f78588e",
+      "hidden_sha256": "a14089a8773f0810aeed411105dc362df400ee6311c5fb713700de39c53fa783",
+      "actual_v2_equals_v1_pixels": true,
+      "unchanged_fit_limits_remain_satisfied": true
+    },
+    {
+      "report_sha256": "86e69f8db981b95b961a13911a0860f54ffa69babbfdfd720da128a5eea13179",
+      "view": "right",
+      "shown_sha256": "8c9b38ee95075f15e7c91250782b58999602f9d7b7eea32838dba225f56c0adb",
+      "hidden_sha256": "95d9c8f128b0362360d6dcfdec65e15839302620c5d7d2faab6c90517bc63df0",
+      "actual_v2_equals_v1_pixels": true,
+      "unchanged_fit_limits_remain_satisfied": true
+    },
+    {
+      "report_sha256": "86e69f8db981b95b961a13911a0860f54ffa69babbfdfd720da128a5eea13179",
+      "view": "tilted",
+      "shown_sha256": "9e0d2dd97ea380b5bb00d701836999a446015f1d5a4eb05532d2321b680a31d5",
+      "hidden_sha256": "a1da6f8c01d6d4fecba2bfc2bc3fbdb3686adef6dd942eddde2e7843b1939dae",
+      "actual_v2_equals_v1_pixels": true,
+      "unchanged_fit_limits_remain_satisfied": true
+    }
+  ],
+  "original_synthetic_preserved": [
+    {
+      "name": "gap1-contribution255",
+      "actual_v2_equals_v1_pixels": true
+    },
+    {
+      "name": "gap2-contribution255",
+      "actual_v2_equals_v1_pixels": true
+    },
+    {
+      "name": "gap3-contribution255",
+      "actual_v2_equals_v1_pixels": true
+    },
+    {
+      "name": "gap1-contribution20",
+      "actual_v2_equals_v1_pixels": true
+    },
+    {
+      "name": "gap1-contribution21",
+      "actual_v2_equals_v1_pixels": true
+    },
+    {
+      "name": "gap1-contribution0",
+      "actual_v2_equals_v1_pixels": true
+    }
+  ],
+  "passed": true,
+  "v1_unsupported_cases": 9,
+  "v1_false_fit_cases_blocked": 7,
+  "scope": "Confirms the final-delta bound and preserved offline inputs only. Old baseline morphology may already contain unsupported pixels; v2 preserves that baseline and this review grants no new camera or GPU qualification."
+}

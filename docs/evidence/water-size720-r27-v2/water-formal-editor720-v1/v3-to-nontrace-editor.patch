@@ -1,0 +1,102 @@
+--- v3/launch_r25.py
++++ formal-editor/launch_r25.py
+@@ -13,7 +13,7 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r27-final41-size720-v3'
++OWNER = 'water-r27-final41-formal-editor720-v1'
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+@@ -50,7 +50,7 @@
+     binding = json.loads(binding_path.read_bytes())
+     assert binding['owner'] == OWNER and Path(binding['project']).resolve() == PROJECT.resolve()
+     assert guard_policy.remaining_seconds(binding['guard_deadline_utc']) > 300, 'No time for cold launch and restore'
+-    host_binding = json.loads((WORK / 'prelaunch-host-binding-r27-direct.json').read_bytes())
++    host_binding = json.loads((WORK / 'prelaunch-host-binding-r27.json').read_bytes())
+     assert hashlib.sha256(binding_path.read_bytes()).hexdigest() == host_binding['source_binding_sha256']
+     for name, expected in host_binding['host_sha256'].items():
+         assert hashlib.sha256((WORK / name).read_bytes()).hexdigest() == expected, name
+--- v3/start_assert_watch.py
++++ formal-editor/start_assert_watch.py
+@@ -13,7 +13,7 @@
+ 
+ def main():
+     binding = json.loads((WORK / 'final-source-binding-v1.json').read_bytes())
+-    hosts = json.loads((WORK / 'prelaunch-host-binding-r27-direct.json').read_bytes())
++    hosts = json.loads((WORK / 'prelaunch-host-binding-r27.json').read_bytes())
+     for name, expected in hosts['external_host_sha256'].items():
+         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
+     assert datetime.now(timezone.utc) < datetime.fromisoformat(binding['guard_deadline_utc'])
+--- v3/run_size_group.py
++++ formal-editor/run_size_group.py
+@@ -39,7 +39,7 @@
+     output = WORK / 'group-execution-v1.json'
+     assert not output.exists(), 'Retain all previous outcomes'
+     assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-21T23:30:00+00:00')
+-    receipt = {'schema': 1, 'owner': binding['owner'], 'label': 'final41-size720-diagnostic',
++    receipt = {'schema': 1, 'owner': binding['owner'], 'label': 'final41-formal-editor-single-cell',
+                'source_contract_sha256': binding['source_contract_sha256'],
+                'production_admission_performed': False, 'default_path_evidence': False,
+                'started_at': time.time(), 'steps': [], 'completed': False,
+@@ -51,8 +51,8 @@
+         output.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+ 
+     def command(name, filename, args=()):
+-        if name in ('launch', 'bootstrap', 'G', 'F-editor'):
+-            assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-21T23:30:00+00:00'), 'No new experiment after 14:55'
++        if name in ('launch', 'bootstrap', 'resize', 'A', 'G', 'F-editor'):
++            assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-21T23:30:00+00:00'), 'No new experiment after local 07:30'
+         row = {'name': name, 'started_at': time.time(), 'arguments': [sys.executable, '-B', '-X', 'utf8', str(WORK / filename), *args]}
+         row['memory_preflight'] = {'available_commit_bytes': available_commit(), 'minimum_available_commit_bytes': 6 * 1024 ** 3}
+         receipt['steps'].append(row)
+--- v3/run_diagnostic.py
++++ formal-editor/run_diagnostic.py
+@@ -13,7 +13,7 @@
+ WORK = Path(__file__).resolve().parent
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
+ SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+-OWNER = 'water-r27-final41-size720-v3'
++OWNER = 'water-r27-final41-formal-editor720-v1'
+ STAGE = sys.argv[1] if len(sys.argv) == 2 else None
+ if STAGE not in ('A', 'B', 'R', 'G'):
+     raise ValueError('Pass one stage: A, B, R, or G')
+@@ -25,7 +25,7 @@
+     'G': ('gallery',),
+ }[STAGE]
+ ROUTES = ('editor',)
+-OUT = WORK / 'diagnostic-east-editor-size720-v1.json'
++OUT = WORK / 'formal-east-editor-size720-v1.json'
+ HANDLES = OUT.with_name(OUT.stem + '-handles.json')
+ RECEIPT = OUT.with_name(OUT.stem + '-host.json')
+ 
+@@ -78,7 +78,7 @@
+                'source_contract_sha256': launch['source_contract_sha256'],
+                'production_admission_performed': False, 'qualified_or_default_gate_set': False,
+                'maximum_handles': 250000, 'rapid_step_growth_limit': 10000,
+-               'diagnostic_only': True, 'qualification_evidence': False, 'production_admission_performed': False, 'started_at': time.time(), 'completed': False}
++               'diagnostic_only': False, 'qualification_evidence': True, 'sampling_protocol_check_only': True, 'formal_A_accepted': False, 'world_A_accepted': False, 'production_admission_performed': False, 'started_at': time.time(), 'completed': False}
+ 
+     def save():
+         HANDLES.write_text(json.dumps({'schema': 1, 'samples': samples}, indent=2) + '\n', 'utf8')
+@@ -134,8 +134,8 @@
+     if STAGE in ('A', 'B'):
+         arguments += ['--extras']
+     if STAGE == 'A':
+-        # Explicit new acquisition protocol; frozen product source remains unchanged.
+-        candidate = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261021\\trace-lifetime-v2') / 'candidate/tools'
++        # Reviewed non-trace fixed-startup protocol; frozen product source remains unchanged.
++        candidate = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2') / 'candidate/tools'
+         sys.path.insert(0, str(candidate))
+         import capture_native_burst
+         import capture_native_burst_deferred
+@@ -144,7 +144,7 @@
+         for module in (capture_native_burst, capture_native_burst_deferred, capture_native_burst_startup):
+             assert Path(module.__file__).resolve().parent == candidate.resolve()
+         capture_native_burst.ROOT = PROJECT
+-        contract_path = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261021\\trace-lifetime-v2') / 'host-contract-v1.json'
++        contract_path = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2') / 'host-contract-v1.json'
+         contract = json.loads(contract_path.read_bytes())
+         receipt['startup_host_contract_sha256'] = probe.fingerprint(contract_path)
+         receipt['startup_host_contract'] = contract

@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "round": "R27",
+  "owner": "water-r27-final41-formal-editor720-v1",
+  "source_contract_sha256": "a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194",
+  "sampling_protocol_check_only": true,
+  "formal_A_accepted": false,
+  "world_A_accepted": false,
+  "single_variable_from_v3": "lifetime trace helper replaced by reviewed non-trace fixed-startup-v2 helper",
+  "native_client_area": [
+    1280,
+    720
+  ],
+  "preparation_ms": 1500,
+  "measurement_ms": 3200,
+  "gap_limit_ms": 150,
+  "total_buffer_limit_bytes": 536870912,
+  "minimum_available_commit_bytes": 6442450944,
+  "maximum_process_handles": 250000,
+  "maximum_adjacent_handle_growth": 10000,
+  "cases": [
+    "flow_east"
+  ],
+  "routes": [
+    "editor"
+  ],
+  "complete_A_still_requires_15_cells": true,
+  "world_camera_not_required_for_editor": true,
+  "final_merged_source_not_qualified": true,
+  "no_long_step_after_utc": "2026-10-21T23:30:00+00:00",
+  "cleanup_deadline_utc": "2026-10-21T23:45:00+00:00",
+  "OS_process_suspension_allowed": false,
+  "manual_closures_added": 0
+}

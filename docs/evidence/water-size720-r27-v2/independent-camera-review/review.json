@@ -1,0 +1,2330 @@
+{
+  "schema": "independent-camera-signal-final-delta-review-v1",
+  "binding_sha256": "2ce92bb048e36d71a3fcbeeadbc0b600791fabb2fe14d75e896143ba071eb0d1",
+  "original_sha256": "20b702496787cf34d85102d600399f103733b260cc08ecc153067d6caf519eb8",
+  "candidate_v1_sha256": "5438f05d581b9defc362995e865435015ae72d6ca5bda9e11654aa4b932f8bd4",
+  "review_script_sha256": "601c5d5ce0590efa39ba18a67b5530ad92553f361476343431f7ed1c7a9b163e",
+  "runtime_calls": 0,
+  "MC_started": false,
+  "shared_tools_modified": false,
+  "GPU_qualification_granted": false,
+  "formula_reviewed": "old_outline OR (v1_final_outline AND original_contribution_gt_20)",
+  "formula_is_actual_v2_implementation": false,
+  "unchanged_fit_limits": {
+    "boundary_rms_pixels_max": 2,
+    "mask_iou_min": 0.95,
+    "outline_recall_2px_min": 0.985,
+    "outline_precision_2px_min": 0.985
+  },
+  "synthetic": [
+    {
+      "name": "full_supported_gap1",
+      "parameters": {
+        "gap": 1
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\full_supported_gap1-shown.png",
+      "shown_sha256": "48e3b4701088b9cda0bc026d52295472f5269926177c6822469027a25a652655",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\full_supported_gap1-hidden.png",
+      "hidden_sha256": "776a99740a1d6bc40bad24e53b0eb572e3ffdf75cdf216d9295c39325146cea6",
+      "v1_added_pixels": 4416,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        }
+      }
+    },
+    {
+      "name": "full_supported_gap2",
+      "parameters": {
+        "gap": 2
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\full_supported_gap2-shown.png",
+      "shown_sha256": "5b39b8a61c8f7420286a630e190f067b4db60f105e69f06baac2283d6464e8ee",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\full_supported_gap2-hidden.png",
+      "hidden_sha256": "776a99740a1d6bc40bad24e53b0eb572e3ffdf75cdf216d9295c39325146cea6",
+      "v1_added_pixels": 4512,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        }
+      }
+    },
+    {
+      "name": "endbridges-gap1",
+      "parameters": {
+        "gap": 1,
+        "support": "ends"
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\endbridges-gap1-shown.png",
+      "shown_sha256": "48e3b4701088b9cda0bc026d52295472f5269926177c6822469027a25a652655",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\endbridges-gap1-hidden.png",
+      "hidden_sha256": "488c890f91c133b45de7e250ecaee3eec16be6e6c41cfb6b03bb879768dd42d9",
+      "v1_added_pixels": 4416,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 88,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 88,
+      "median_unsupported_new_pixels": 88,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9900173611111112,
+            "outline_recall_2px": 0.6761565836298933,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "endbridges-gap2",
+      "parameters": {
+        "gap": 2,
+        "support": "ends"
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\endbridges-gap2-shown.png",
+      "shown_sha256": "5b39b8a61c8f7420286a630e190f067b4db60f105e69f06baac2283d6464e8ee",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\endbridges-gap2-hidden.png",
+      "hidden_sha256": "82e5e093f382403f353d098bbb4624289e45c7a983462dc61e32b2b78094a6ef",
+      "v1_added_pixels": 4512,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 176,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 176,
+      "median_unsupported_new_pixels": 176,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.98046875,
+            "outline_recall_2px": 0.6737588652482269,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "endbridges-gap1-center20",
+      "parameters": {
+        "gap": 1,
+        "support": "ends",
+        "magnitude": 20
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\endbridges-gap1-center20-shown.png",
+      "shown_sha256": "48e3b4701088b9cda0bc026d52295472f5269926177c6822469027a25a652655",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\endbridges-gap1-center20-hidden.png",
+      "hidden_sha256": "36c57b3fc8adee6c20bdb78b000ba8b8c20a0e27c9565f11fa956d81dd847506",
+      "v1_added_pixels": 4416,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 88,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 88,
+      "median_unsupported_new_pixels": 88,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9900173611111112,
+            "outline_recall_2px": 0.6761565836298933,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "endbridges-gap2-center20",
+      "parameters": {
+        "gap": 2,
+        "support": "ends",
+        "magnitude": 20
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\endbridges-gap2-center20-shown.png",
+      "shown_sha256": "5b39b8a61c8f7420286a630e190f067b4db60f105e69f06baac2283d6464e8ee",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\endbridges-gap2-center20-hidden.png",
+      "hidden_sha256": "f2d9f698f6b13daeefa49dd2bdeef321b39df96a68e1a5ae535395a9d880232f",
+      "v1_added_pixels": 4512,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 176,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 176,
+      "median_unsupported_new_pixels": 176,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.98046875,
+            "outline_recall_2px": 0.6737588652482269,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "leftbridge-gap1",
+      "parameters": {
+        "gap": 1,
+        "support": "left"
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\leftbridge-gap1-shown.png",
+      "shown_sha256": "48e3b4701088b9cda0bc026d52295472f5269926177c6822469027a25a652655",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\leftbridge-gap1-hidden.png",
+      "hidden_sha256": "635393857236f942e187314cc55e62e027fefdea8f75ed5121125e63e9166cf2",
+      "v1_added_pixels": 4413,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 91,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 91,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9992404513888888,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9893663194444444,
+            "outline_recall_2px": 0.6790780141843972,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "leftbridge-gap2",
+      "parameters": {
+        "gap": 2,
+        "support": "left"
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\leftbridge-gap2-shown.png",
+      "shown_sha256": "5b39b8a61c8f7420286a630e190f067b4db60f105e69f06baac2283d6464e8ee",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\leftbridge-gap2-hidden.png",
+      "hidden_sha256": "ff84a4efadf667a6a1e577dd5a2c8e856b93a43b8eb8e286e9627d374c53d361",
+      "v1_added_pixels": 4328,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 2,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 2,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9796006944444444,
+            "outline_recall_2px": 0.6797153024911032,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9793836805555556,
+            "outline_recall_2px": 0.6773049645390071,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "centerbridge-gap1",
+      "parameters": {
+        "gap": 1,
+        "support": "center"
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\centerbridge-gap1-shown.png",
+      "shown_sha256": "48e3b4701088b9cda0bc026d52295472f5269926177c6822469027a25a652655",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\centerbridge-gap1-hidden.png",
+      "hidden_sha256": "e41085a0d9a7376a9b26e17cd8ada5bf50ee0935c5a9ef39ee83c25ce9a9359c",
+      "v1_added_pixels": 4410,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 93,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 93,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9989149305555556,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9888237847222222,
+            "outline_recall_2px": 0.6807760141093474,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "all-low-gap1",
+      "parameters": {
+        "gap": 1,
+        "support": "none"
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\all-low-gap1-shown.png",
+      "shown_sha256": "48e3b4701088b9cda0bc026d52295472f5269926177c6822469027a25a652655",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\all-low-gap1-hidden.png",
+      "hidden_sha256": "d173a29973def177e04e8b0d3eeef3be6051e2b7d8dc2113eade92a8d8495f94",
+      "v1_added_pixels": 0,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "all-threshold20-gap2",
+      "parameters": {
+        "gap": 2,
+        "support": "none",
+        "magnitude": 20
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\all-threshold20-gap2-shown.png",
+      "shown_sha256": "5b39b8a61c8f7420286a630e190f067b4db60f105e69f06baac2283d6464e8ee",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\all-threshold20-gap2-hidden.png",
+      "hidden_sha256": "9543580a9a6fca62d1dad55086417f51b2d69a2210f9d934a7228511e9a90842",
+      "v1_added_pixels": 0,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "coarse-gap3-supported",
+      "parameters": {
+        "gap": 3
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\coarse-gap3-supported-shown.png",
+      "shown_sha256": "035e2b45780e2e8d207fc2f95a3230fcf7b80f996c4f0e413b4d93d6f5836366",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\coarse-gap3-supported-hidden.png",
+      "hidden_sha256": "776a99740a1d6bc40bad24e53b0eb572e3ffdf75cdf216d9295c39325146cea6",
+      "v1_added_pixels": 0,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            128,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              128,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 24.0,
+            "mask_iou": 0.4995659722222222,
+            "outline_recall_2px": 0.6830985915492958,
+            "outline_precision_2px": 0.5105263157894737,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            128,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              128,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 24.0,
+            "mask_iou": 0.4995659722222222,
+            "outline_recall_2px": 0.6830985915492958,
+            "outline_precision_2px": 0.5105263157894737,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            128,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              128,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 24.0,
+            "mask_iou": 0.4995659722222222,
+            "outline_recall_2px": 0.6830985915492958,
+            "outline_precision_2px": 0.5105263157894737,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "coarse-gap4-supported",
+      "parameters": {
+        "gap": 4
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\coarse-gap4-supported-shown.png",
+      "shown_sha256": "1c5d8afa67048ac133000ae19d19cf6bcd7b1924ba2692b7bfc74296c58b6d9f",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\coarse-gap4-supported-hidden.png",
+      "hidden_sha256": "776a99740a1d6bc40bad24e53b0eb572e3ffdf75cdf216d9295c39325146cea6",
+      "v1_added_pixels": 0,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            129,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              129,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 24.5,
+            "mask_iou": 0.4891493055555556,
+            "outline_recall_2px": 0.6808510638297872,
+            "outline_precision_2px": 0.5052631578947369,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            129,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              129,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 24.5,
+            "mask_iou": 0.4891493055555556,
+            "outline_recall_2px": 0.6808510638297872,
+            "outline_precision_2px": 0.5052631578947369,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            129,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              129,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 24.5,
+            "mask_iou": 0.4891493055555556,
+            "outline_recall_2px": 0.6808510638297872,
+            "outline_precision_2px": 0.5052631578947369,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "coarse-gap3-endbridges",
+      "parameters": {
+        "gap": 3,
+        "support": "ends"
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\coarse-gap3-endbridges-shown.png",
+      "shown_sha256": "035e2b45780e2e8d207fc2f95a3230fcf7b80f996c4f0e413b4d93d6f5836366",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\coarse-gap3-endbridges-hidden.png",
+      "hidden_sha256": "2df6dd52918a9329b0fa3c54f0a60c77f5b77f5983e31156414e8b4d7cc0468d",
+      "v1_added_pixels": 0,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            128,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              128,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 24.0,
+            "mask_iou": 0.4995659722222222,
+            "outline_recall_2px": 0.6830985915492958,
+            "outline_precision_2px": 0.5105263157894737,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            128,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              128,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 24.0,
+            "mask_iou": 0.4995659722222222,
+            "outline_recall_2px": 0.6830985915492958,
+            "outline_precision_2px": 0.5105263157894737,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            128,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              128,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 24.0,
+            "mask_iou": 0.4995659722222222,
+            "outline_recall_2px": 0.6830985915492958,
+            "outline_precision_2px": 0.5105263157894737,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "disjoint-faces-gap2",
+      "parameters": {
+        "gap": 2,
+        "support": "none"
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\disjoint-faces-gap2-shown.png",
+      "shown_sha256": "5b39b8a61c8f7420286a630e190f067b4db60f105e69f06baac2283d6464e8ee",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\disjoint-faces-gap2-hidden.png",
+      "hidden_sha256": "1abc27713e6d6279aac9bcc357cc381d7ddb4a9b8cba530523acd025ec2b52f6",
+      "v1_added_pixels": 0,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            127,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              127,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.5,
+            "mask_iou": 0.5099826388888888,
+            "outline_recall_2px": 0.6853146853146853,
+            "outline_precision_2px": 0.5157894736842106,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "disjoint-faces-gap6",
+      "parameters": {
+        "gap": 6,
+        "support": "none"
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\disjoint-faces-gap6-shown.png",
+      "shown_sha256": "b8c9fc76c14ad1d24b9cf8a89ee0f64acc5a388155a0c548e9b89116d90c357c",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\disjoint-faces-gap6-hidden.png",
+      "hidden_sha256": "44ea46e40808b40c3038d56ed70ff91ba256850e427dfcddab9953d0a072225c",
+      "v1_added_pixels": 0,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            80,
+            176,
+            125
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              125
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 25.5,
+            "mask_iou": 0.4683159722222222,
+            "outline_recall_2px": 0.6762589928057554,
+            "outline_precision_2px": 0.49473684210526314,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            125
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              125
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 25.5,
+            "mask_iou": 0.4683159722222222,
+            "outline_recall_2px": 0.6762589928057554,
+            "outline_precision_2px": 0.49473684210526314,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            125
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              125
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 25.5,
+            "mask_iou": 0.4683159722222222,
+            "outline_recall_2px": 0.6762589928057554,
+            "outline_precision_2px": 0.49473684210526314,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "partial-upper-missing-window",
+      "parameters": {
+        "gap": 1,
+        "missing": [
+          100,
+          92,
+          135,
+          111
+        ]
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\partial-upper-missing-window-shown.png",
+      "shown_sha256": "48e3b4701088b9cda0bc026d52295472f5269926177c6822469027a25a652655",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\partial-upper-missing-window-hidden.png",
+      "hidden_sha256": "8f9810f36df99a9b84c1933e8a1e26ef918c52a0b8a4aea41b51abdd40956ac4",
+      "v1_added_pixels": 4416,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 720,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 720,
+      "median_unsupported_new_pixels": 720,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9214409722222222,
+            "outline_recall_2px": 0.7661290322580645,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "partial-upper-open-notch",
+      "parameters": {
+        "gap": 1,
+        "missing": [
+          100,
+          80,
+          135,
+          104
+        ]
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\partial-upper-open-notch-shown.png",
+      "shown_sha256": "48e3b4701088b9cda0bc026d52295472f5269926177c6822469027a25a652655",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\partial-upper-open-notch-hidden.png",
+      "hidden_sha256": "2b0572af9d51dc1f3e548fb9612612c4be2abee913c12dbb3a0c79708ec107d8",
+      "v1_added_pixels": 3516,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 2,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 2,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9019097222222222,
+            "outline_recall_2px": 0.8093023255813954,
+            "outline_precision_2px": 0.9157894736842105,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9016927083333334,
+            "outline_recall_2px": 0.8093023255813954,
+            "outline_precision_2px": 0.9157894736842105,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "partial-upper-missing-whole-strip",
+      "parameters": {
+        "gap": 1,
+        "missing": [
+          80,
+          80,
+          175,
+          110
+        ]
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\partial-upper-missing-whole-strip-shown.png",
+      "shown_sha256": "48e3b4701088b9cda0bc026d52295472f5269926177c6822469027a25a652655",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\partial-upper-missing-whole-strip-hidden.png",
+      "hidden_sha256": "4169432f4f1764f43da9eea22242abce922443c6ed1586e9d1b15774c5acaa54",
+      "v1_added_pixels": 1440,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 0,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            126,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              126,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 23.0,
+            "mask_iou": 0.5203993055555556,
+            "outline_recall_2px": 0.6875,
+            "outline_precision_2px": 0.5210526315789473,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "v1": {
+          "bounds": [
+            80,
+            111,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              111,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 15.5,
+            "mask_iou": 0.6766493055555556,
+            "outline_recall_2px": 0.7169811320754716,
+            "outline_precision_2px": 0.6,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            111,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              111,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 15.5,
+            "mask_iou": 0.6766493055555556,
+            "outline_recall_2px": 0.7169811320754716,
+            "outline_precision_2px": 0.6,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": false
+        }
+      }
+    },
+    {
+      "name": "baseline-existing-unsupported-hole",
+      "parameters": {
+        "no_seam": true,
+        "missing": [
+          100,
+          92,
+          135,
+          111
+        ]
+      },
+      "shown_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\baseline-existing-unsupported-hole-shown.png",
+      "shown_sha256": "e11b15c7534e17f88021eb82e33c93410e189d0c7190abe60f44159b6330f5c1",
+      "hidden_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\books-editor-v1\\camera-signal-review-v1\\baseline-existing-unsupported-hole-hidden.png",
+      "hidden_sha256": "8f9810f36df99a9b84c1933e8a1e26ef918c52a0b8a4aea41b51abdd40956ac4",
+      "v1_added_pixels": 0,
+      "v1_removed_pixels": 0,
+      "v1_unsupported_added_pixels": 0,
+      "raw_bridge_unsupported_pixels": 0,
+      "component_unsupported_new_pixels": 0,
+      "filled_unsupported_new_pixels": 0,
+      "median_unsupported_new_pixels": 0,
+      "constrained_unsupported_added_pixels": 0,
+      "old_preexisting_unsupported_pixels": 720,
+      "formula_keeps_old_pixels": true,
+      "metrics": {
+        "old": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "v1": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        },
+        "final_delta_formula": {
+          "bounds": [
+            80,
+            80,
+            176,
+            176
+          ],
+          "fit": {
+            "vertical_fov": 56.2,
+            "bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "predicted_bounds": [
+              80,
+              80,
+              176,
+              176
+            ],
+            "boundary_rms_pixels": 0.0,
+            "mask_iou": 0.9995659722222222,
+            "outline_recall_2px": 1.0,
+            "outline_precision_2px": 1.0,
+            "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+          },
+          "passes_unchanged_limits": true
+        }
+      }
+    }
+  ],
+  "preserved_real": [
+    {
+      "report_sha256": "e9df0b603f62d4752f48b83c1afd888b16f63e288fd6fd5248e11ab3ed6a7911",
+      "view": "front",
+      "shown_sha256": "6b0a009e4b919351d77f3d165df6dc8a33dc0fada3c8391dffab1e5d9d18d2dc",
+      "hidden_sha256": "23d225cb9b28d5b4164e09d5dd234ec40a14e75c9f23e7db9a492a4ae0d6427e",
+      "formula_equals_v1_final_bytes": true,
+      "passed_original_limits": true
+    },
+    {
+      "report_sha256": "e9df0b603f62d4752f48b83c1afd888b16f63e288fd6fd5248e11ab3ed6a7911",
+      "view": "right",
+      "shown_sha256": "2891f3da245316187034d59ebf602604f735ba91cb5576feba9f363219bd743f",
+      "hidden_sha256": "4f2a29bad7476fe8bcdc17bf33806a8bffc7583816ad4aedfc248a8ef00bd271",
+      "formula_equals_v1_final_bytes": true,
+      "passed_original_limits": true
+    },
+    {
+      "report_sha256": "e9df0b603f62d4752f48b83c1afd888b16f63e288fd6fd5248e11ab3ed6a7911",
+      "view": "tilted",
+      "shown_sha256": "a1ffe44ba7121b410a0403d3045138655d97fdccb93f9f815061784bab7022f1",
+      "hidden_sha256": "9a60f164370d5dc6f1347931a4b6540de97e1052b183f4e511238a9a040ece8f",
+      "formula_equals_v1_final_bytes": true,
+      "passed_original_limits": true
+    },
+    {
+      "report_sha256": "86e69f8db981b95b961a13911a0860f54ffa69babbfdfd720da128a5eea13179",
+      "view": "front",
+      "shown_sha256": "4866cc9fc947c896c3f6e159ede7c982e7effc25899afbd03ec1c9736f78588e",
+      "hidden_sha256": "a14089a8773f0810aeed411105dc362df400ee6311c5fb713700de39c53fa783",
+      "formula_equals_v1_final_bytes": true,
+      "passed_original_limits": true
+    },
+    {
+      "report_sha256": "86e69f8db981b95b961a13911a0860f54ffa69babbfdfd720da128a5eea13179",
+      "view": "right",
+      "shown_sha256": "8c9b38ee95075f15e7c91250782b58999602f9d7b7eea32838dba225f56c0adb",
+      "hidden_sha256": "95d9c8f128b0362360d6dcfdec65e15839302620c5d7d2faab6c90517bc63df0",
+      "formula_equals_v1_final_bytes": true,
+      "passed_original_limits": true
+    },
+    {
+      "report_sha256": "86e69f8db981b95b961a13911a0860f54ffa69babbfdfd720da128a5eea13179",
+      "view": "tilted",
+      "shown_sha256": "9e0d2dd97ea380b5bb00d701836999a446015f1d5a4eb05532d2321b680a31d5",
+      "hidden_sha256": "a1da6f8c01d6d4fecba2bfc2bc3fbdb3686adef6dd942eddde2e7843b1939dae",
+      "formula_equals_v1_final_bytes": true,
+      "passed_original_limits": true
+    }
+  ],
+  "preserved_synthetic": [
+    {
+      "name": "gap1-contribution255",
+      "formula_equals_v1_final_bytes": true
+    },
+    {
+      "name": "gap2-contribution255",
+      "formula_equals_v1_final_bytes": true
+    },
+    {
+      "name": "gap3-contribution255",
+      "formula_equals_v1_final_bytes": true
+    },
+    {
+      "name": "gap1-contribution20",
+      "formula_equals_v1_final_bytes": true
+    },
+    {
+      "name": "gap1-contribution21",
+      "formula_equals_v1_final_bytes": true
+    },
+    {
+      "name": "gap1-contribution0",
+      "formula_equals_v1_final_bytes": true
+    }
+  ],
+  "synthetic_fixed_fov_from_nominal_fixture": 56.2,
+  "v1_has_final_delta_counterexample": true,
+  "v1_counterexamples_passing_unchanged_fit_limits": [
+    "endbridges-gap1",
+    "endbridges-gap2",
+    "endbridges-gap1-center20",
+    "endbridges-gap2-center20",
+    "leftbridge-gap1",
+    "centerbridge-gap1",
+    "partial-upper-missing-window"
+  ],
+  "final_delta_formula_blocks_false_fits": true,
+  "v1_cannot_be_admitted_as_contribution_supported": true,
+  "new_GPU_or_camera_qualification": false
+}

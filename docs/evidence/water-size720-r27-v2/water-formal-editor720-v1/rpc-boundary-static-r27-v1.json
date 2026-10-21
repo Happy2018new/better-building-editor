@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "read_only": true,
+  "MC_started": false,
+  "formal_A_accepted": false,
+  "runtime_RPC_audit_performed": false,
+  "conclusion": "In the frozen host call path, scene RPCs occur before native_burst and after its synchronous return. tracked_burst samples host process counters before/after; those metrics use Win32 APIs, not execute_code. _run_helper waits synchronously on child.communicate. No periodic MC scene/telemetry RPC is scheduled by these functions during the burst.",
+  "limits": [
+    "Static call-boundary evidence does not observe arbitrary MCDK background tasks or every process/thread.",
+    "It does not establish whether game render/main thread was blocked during the nontrace 593.9861ms source gap.",
+    "Nontrace lacks callback, empty-poll and COM lifetime event times; those cannot be reconstructed.",
+    "The source gap and worker observation gap occur at different seq pairs; neither is renamed as a readback latency."
+  ],
+  "sequences": {
+    "editor_scene_before_RPC": "product capture_flow_burst before native_burst",
+    "before_metrics": "tracked_burst -> sample -> metrics uses OpenProcess/GetProcessMemoryInfo/GetProcessHandleCount",
+    "synchronous_wait": "_run_helper -> Popen -> communicate(timeout)",
+    "after_metrics": "tracked_burst after successful return only; on exception not executed",
+    "editor_scene_after_RPC": "product after successful native_burst return only; on CaptureError records after=None"
+  },
+  "segments": {
+    "product": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2\\tools\\probe_product_water.py",
+      "sha256": "d68da331db2ac034a5a0407b014bffbe1a3feaf3cf573e31e41af93646c8d9d1",
+      "functions": [
+        {
+          "name": "capture_flow_burst",
+          "first_line": 408,
+          "last_line": 439,
+          "source": "    def capture_flow_burst(label, row):\n        from capture_native_burst import CaptureError, capture as native_burst\n        if time.monotonic() - started > args.max_seconds:\n            raise TimeoutError('Product-water flow burst budget expired')\n        if row['route'] == 'editor':\n            before = scene_capture_state(check.run(SCENE_STATE))\n            if before is None or before != scene_capture_state(row['ready']):\n                raise RuntimeError('Scene layout moved before flow burst: ' + label)\n        else:\n            before = check.run(CAMERA_STATE)\n            if (not camera_matches(before, row['camera_expected'])\n                    or not calibrated_viewport_matches(before, report['camera_calibration'])):\n                raise RuntimeError('World camera moved before flow burst: ' + label)\n        output = args.output.with_name(args.output.stem + '_' + label + '_burst')\n        try:\n            sample = native_burst(args.session, args.owner, output, args.flow_burst_exe,\n                                  args.flow_burst_sha256, duration_ms=args.flow_burst_duration_ms,\n                                  max_frames=240, max_gap_ms=150)\n        except CaptureError as error:\n            report['flow_bursts'][label] = {'row': row, 'before': before, 'after': None,\n                                          'capture': error.report}\n            record()\n            raise\n        after = (scene_capture_state(check.run(SCENE_STATE)) if row['route'] == 'editor'\n                 else check.run(CAMERA_STATE))\n        report['flow_bursts'][label] = {'row': row, 'before': before, 'after': after,\n                                      'capture': sample}\n        record()\n        if before != after:\n            raise RuntimeError('Physical face camera moved during flow burst: ' + label)\n        if row['route'] != 'editor' and [sample['window']['width'], sample['window']['height']] != report['camera_calibration']['capture_size']:\n            raise RuntimeError('Flow burst viewport differs from the same-session calibration')"
+        }
+      ]
+    },
+    "host": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\run_diagnostic.py",
+      "sha256": "ad509713b85ce877f231eca414e83650f313e74a6c59c95f989e3deffef6b905",
+      "functions": [
+        {
+          "name": "sample",
+          "first_line": 87,
+          "last_line": 95,
+          "source": "    def sample(label, enforce=True):\n        row = dict(probe.workspace.transport.metrics(str(SESSION), OWNER), label=label,\n                   sampled_at=time.strftime('%Y-%m-%dT%H:%M:%S%z'), mcdk_handles=count_mcdk())\n        samples.append(row)\n        save()\n        if enforce and (row['handles'] >= 250000 or\n                        (len(samples) > 1 and row['handles'] - samples[-2]['handles'] >= 10000)):\n            raise RuntimeError('Handle guard reached at ' + label)\n        return row"
+        },
+        {
+          "name": "tracked_burst",
+          "first_line": 165,
+          "last_line": 171,
+          "source": "        def tracked_burst(*args, **kwargs):\n            label = Path(args[2]).stem\n            sample(label + '_before_burst')\n            captured = original_burst(*args, **kwargs)\n            sample(label + '_after_burst')\n            state['burst_count'] += 1\n            return captured"
+        }
+      ]
+    },
+    "formal_host": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-formal-editor720-v1\\run_diagnostic.py",
+      "sha256": "0771e5c5ffae37d9b3ba571bcf29c4a11a2dc1df2c9d9a3bb82378aad0daad5e",
+      "functions": [
+        {
+          "name": "sample",
+          "first_line": 87,
+          "last_line": 95,
+          "source": "    def sample(label, enforce=True):\n        row = dict(probe.workspace.transport.metrics(str(SESSION), OWNER), label=label,\n                   sampled_at=time.strftime('%Y-%m-%dT%H:%M:%S%z'), mcdk_handles=count_mcdk())\n        samples.append(row)\n        save()\n        if enforce and (row['handles'] >= 250000 or\n                        (len(samples) > 1 and row['handles'] - samples[-2]['handles'] >= 10000)):\n            raise RuntimeError('Handle guard reached at ' + label)\n        return row"
+        },
+        {
+          "name": "tracked_burst",
+          "first_line": 165,
+          "last_line": 171,
+          "source": "        def tracked_burst(*args, **kwargs):\n            label = Path(args[2]).stem\n            sample(label + '_before_burst')\n            captured = original_burst(*args, **kwargs)\n            sample(label + '_after_burst')\n            state['burst_count'] += 1\n            return captured"
+        }
+      ]
+    },
+    "metrics": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2\\tools\\probe_liquid_uniform_transport.py",
+      "sha256": "4c45030a391945637ae49ae1f39cc84c5a556a7f0219879dd3560f4a627d33f5",
+      "functions": [
+        {
+          "name": "metrics",
+          "first_line": 87,
+          "last_line": 111,
+          "source": "def metrics(session_file, owner):\n    session = load_session(session_file, owner, live=True)\n    kernel = ctypes.WinDLL('kernel32', use_last_error=True)\n    kernel.OpenProcess.argtypes = (wintypes.DWORD,wintypes.BOOL,wintypes.DWORD)\n    kernel.OpenProcess.restype = wintypes.HANDLE\n    kernel.CloseHandle.argtypes = (wintypes.HANDLE,)\n    kernel.GetProcessHandleCount.argtypes = (wintypes.HANDLE,ctypes.POINTER(wintypes.DWORD))\n    psapi = ctypes.WinDLL('psapi', use_last_error=True)\n    psapi.GetProcessMemoryInfo.argtypes = (wintypes.HANDLE,ctypes.POINTER(MemoryCounters),wintypes.DWORD)\n    handle = kernel.OpenProcess(0x0410,False,session['game_pid'])\n    if not handle:\n        raise ctypes.WinError(ctypes.get_last_error())\n    try:\n        memory = MemoryCounters()\n        memory.cb = ctypes.sizeof(memory)\n        count = wintypes.DWORD()\n        if not psapi.GetProcessMemoryInfo(handle,ctypes.byref(memory),memory.cb):\n            raise ctypes.WinError(ctypes.get_last_error())\n        if not kernel.GetProcessHandleCount(handle,ctypes.byref(count)):\n            raise ctypes.WinError(ctypes.get_last_error())\n        return {'time':time.time(),'game_pid':session['game_pid'],'game_identity':session['game_identity'],\n                'working_set_bytes':memory.WorkingSetSize,'peak_working_set_bytes':memory.PeakWorkingSetSize,\n                'private_commit_bytes':memory.PagefileUsage,'handles':count.value}\n    finally:\n        kernel.CloseHandle(handle)"
+        }
+      ]
+    },
+    "wrapper": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\trace-lifetime-v2\\candidate\\tools\\capture_native_burst.py",
+      "sha256": "0f51cf602263358c42950ded96eaa4859458846be67c810a14de27b4ffac6045",
+      "functions": [
+        {
+          "name": "_run_helper",
+          "first_line": 469,
+          "last_line": 500,
+          "source": "def _run_helper(report, command):\n    timeout = report['request']['planned_duration_ms'] / 1000. + 15.\n    report['helper_timeout_seconds'] = timeout\n    report['helper_command'] = command\n    helper = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,\n                              stderr=subprocess.PIPE, creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))\n    report['helper_pid'] = helper.pid\n    stdout = stderr = b''\n    try:\n        try:\n            stdout, stderr = helper.communicate(timeout=timeout)\n        except subprocess.TimeoutExpired as error:\n            report['helper_timed_out'] = True\n            _failure(report, 'helper', TimeoutError('Native helper exceeded the duration + 15 second limit'))\n            stdout, stderr = error.output or b'', error.stderr or b''\n            # Popen.kill uses this child's retained process handle on Windows.\n            helper.kill()\n            stdout, stderr = helper.communicate(timeout=5)\n            report['own_helper_terminated'] = True\n    finally:\n        if helper.poll() is None:\n            helper.kill()\n            helper.wait(timeout=5)\n            report['own_helper_terminated'] = True\n        report['helper_returncode'] = helper.poll()\n        report['helper_stderr'] = stderr.decode('utf8', 'replace')\n        report['helper_stdout'] = {'bytes': len(stdout), 'sha256': hashlib.sha256(stdout).hexdigest()}\n        if report['helper_timed_out'] or report['helper_returncode'] != 0:\n            report['helper_stdout']['text'] = stdout.decode('utf8', 'replace')\n    if report['helper_returncode'] != 0:\n        _failure(report, 'helper', RuntimeError('Native helper exited with code %s' % report['helper_returncode']))\n    return stdout"
+        }
+      ]
+    },
+    "guard": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\watch_handles.py",
+      "sha256": "c84b1e4647980dd8b44406ae4e90e1fd1a30c3c00747342c830e8213eac4e2d4",
+      "functions": [
+        {
+          "name": "sample_process",
+          "first_line": 20,
+          "last_line": 37,
+          "source": "def sample_process(pid, expected):\n    kernel = _kernel()\n    kernel.GetProcessHandleCount.argtypes = (wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD))\n    handle = kernel.OpenProcess(0x1000, False, pid)\n    if not handle:\n        return {'pid': pid, 'identity_verified': False, 'handles': None}\n    try:\n        actual = _identity(kernel, handle)\n        row = {'pid': pid, 'expected_identity': expected, 'observed_identity': actual,\n               'identity_verified': actual == expected, 'handles': None}\n        if row['identity_verified']:\n            count = wintypes.DWORD()\n            if not kernel.GetProcessHandleCount(handle, ctypes.byref(count)):\n                raise ctypes.WinError(ctypes.get_last_error())\n            row['handles'] = count.value\n        return row\n    finally:\n        kernel.CloseHandle(handle)"
+        }
+      ]
+    }
+  }
+}
