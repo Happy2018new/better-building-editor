@@ -9,10 +9,16 @@ METADATA = (
      (24, 10, 24), 'minecraft:oak_stairs'),
     (PREFIX + 't02', 'transforms', 'T02 · 楼梯、半砖与附着方向',
      (32, 10, 32), 'minecraft:trapdoor'),
+    (PREFIX + 't03', 'transforms', 'T03 · 门、床与双格植物整组',
+     (32, 10, 32), 'minecraft:wooden_door'),
+    (PREFIX + 't03_half', 'transforms', 'T03 · 只框门上半的伙伴边界',
+     (32, 10, 32), 'minecraft:wooden_door'),
     (PREFIX + 't04', 'transforms', 'T04 · 跨格双箱与内容保真',
      (32, 10, 24), 'minecraft:chest'),
     (PREFIX + 't05', 'transforms', 'T05 · 四种铁轨与坡顶连接',
      (32, 8, 32), 'minecraft:rail'),
+    (PREFIX + 't06', 'transforms', 'T06 · 楼梯转角与跨格连接',
+     (32, 10, 32), 'minecraft:oak_fence'),
     (PREFIX + 't08', 'transforms', 'T08 · 跨16格、多格与原子撤销',
      (32, 36, 32), 'minecraft:wooden_door'),
 )
@@ -33,6 +39,20 @@ CASES = {
         'actions': ('mirror_y', 'undo', 'rotate_y90', 'undo', 'mirror_x',
                     'undo', 'mirror_z', 'undo'),
     },
+    PREFIX + 't03': {
+        'selection': ((2, 1, 2), (20, 5, 23)), 'focus': (10, 3, 12),
+        'partial_targets': ((4, 3, 4), (4, 2, 11), (4, 3, 17)),
+        'message': 'T03：前排两种铰链门，中排四向床，后排高草/向日葵。整组旋转或镜像后撤销；只框上半门请载入T03伙伴边界例。',
+        'actions': ('rotate_y90', 'undo', 'mirror_x', 'undo', 'mirror_y',
+                    'undo', 'mirror_z', 'undo'),
+    },
+    PREFIX + 't03_half': {
+        'requested_selection': ((4, 3, 4), (4, 3, 4)),
+        'selection': ((4, 2, 4), (4, 3, 4)), 'focus': (4, 3, 4),
+        'partial_targets': ((4, 3, 4), (4, 2, 11), (4, 3, 17)),
+        'message': 'T03伙伴边界：只请求门上半(4,3,4)，现有规则已补选下半。旋转后整门应保持完整，撤销恢复；其他门床植物不应变化。',
+        'actions': ('rotate_y90', 'undo', 'mirror_x', 'undo', 'mirror_y', 'undo'),
+    },
     PREFIX + 't04': {
         'selection': ((14, 1, 3), (18, 5, 8)), 'focus': (16, 3, 5),
         'pairs': (((15, 2, 4), (16, 2, 4)), ((15, 2, 7), (16, 2, 7))),
@@ -46,6 +66,20 @@ CASES = {
         'slope_top_pairs': tuple(((4, 2, z), (5, 3, z)) for z in (3, 8, 13, 18)),
         'message': 'T05：四排依次为普通/动力/探测/激活铁轨，最末为普通轨转角。分别记录像素与投影接缝。',
         'actions': ('rotate_y90', 'undo', 'mirror_x', 'undo'),
+    },
+    PREFIX + 't06': {
+        'selection': ((2, 1, 2), (20, 5, 27)), 'focus': (11, 3, 15),
+        'stair_corners': (((4, 2, 4), (4, 2, 3), 'outer', False),
+                          ((10, 2, 4), (10, 2, 5), 'inner', False),
+                          ((4, 3, 9), (4, 3, 8), 'outer', True),
+                          ((10, 3, 9), (10, 3, 10), 'inner', True)),
+        'gate': (15, 2, 13), 'gate_neighbors': ((14, 2, 13), (16, 2, 13)),
+        'wall': (15, 2, 16),
+        'wall_neighbors': ((14, 2, 16), (16, 2, 16), (15, 2, 17)),
+        'thin_runs': (('glass_pane', ((14, 2, 22), (15, 2, 22), (16, 2, 22), (15, 2, 23))),
+                      ('iron_bars', ((14, 2, 26), (15, 2, 26), (16, 2, 26), (15, 2, 25)))),
+        'message': 'T06：前两排为正倒楼梯外角/内角，后方为栅栏门、墙、玻璃板、铁栏杆；连接跨X或Z=15/16。整体旋转或镜像，检查接缝，再撤销。',
+        'actions': ('rotate_y90', 'undo', 'mirror_x', 'undo', 'mirror_z', 'undo'),
     },
     PREFIX + 't08': {
         'selection': ((14, 14, 14), (18, 18, 18)), 'focus': (16, 16, 16),
@@ -71,7 +105,7 @@ def prepare(editor, identity):
     row = CASES.get(identity)
     if row is None:
         return False
-    editor.select_box(*row['selection'])
+    editor.select_box(*row.get('requested_selection', row['selection']))
     editor.message = row['message']
     return True
 
@@ -164,6 +198,50 @@ def _chests(fixture, row):
                 'red_concrete' if number == 0 else 'blue_concrete'))
 
 
+def _parts(fixture, row):
+    from .debug_blueprints import material
+    from .cell import foreground
+    for x, direction, opened, hinge in ((4, 'north', False, False),
+                                        (10, 'east', True, True)):
+        fixture.group((x, 2, 4), material('wooden_door', {
+            'minecraft:cardinal_direction': direction, 'open_bit': opened,
+            'door_hinge_bit': hinge, 'upper_block_bit': False}))
+        fixture.put((x, 1, 4), material('stone'))
+    for x, direction in ((4, 0), (9, 1), (14, 2), (19, 3)):
+        fixture.group((x, 2, 10), material('bed', {
+            'direction': direction, 'head_piece_bit': False}), entity='Bed')
+    for x, name in ((4, 'tall_grass'), (10, 'sunflower')):
+        fixture.group((x, 2, 17), material(name, {'upper_block_bit': False}))
+        fixture.put((x, 1, 17), material('grass_block'))
+    # Beds have horizontal partners; provide a support below both native halves.
+    for pos in tuple(fixture.document.blocks):
+        if foreground(fixture.document.get(pos))[0] == 'minecraft:bed':
+            fixture.put((pos[0], pos[1] - 1, pos[2]), material('stone'))
+    for pos, name in (((2, 1, 2), 'red_concrete'), ((20, 5, 23), 'blue_concrete')):
+        fixture.put(pos, material(name))
+
+
+def _connections(fixture, row):
+    from .debug_blueprints import material
+    for center, neighbor, unused, upper in row['stair_corners']:
+        for pos, direction in ((center, 3), (neighbor, 0)):
+            fixture.put(pos, material('oak_stairs', {
+                'weirdo_direction': direction, 'upside_down_bit': upper}))
+    fixture.put(row['gate'], material('fence_gate', {
+        'minecraft:cardinal_direction': 'north', 'open_bit': False}))
+    for pos in row['gate_neighbors']:
+        fixture.put(pos, material('oak_fence'))
+    for pos in (row['wall'],) + row['wall_neighbors']:
+        fixture.put(pos, material('cobblestone_wall'))
+    for name, positions in row['thin_runs']:
+        for pos in positions:
+            fixture.put(pos, material(name))
+    for pos in tuple(fixture.document.blocks):
+        fixture.put((pos[0], pos[1] - 1, pos[2]), material('stone'))
+    for pos, name in (((2, 1, 2), 'red_concrete'), ((20, 5, 27), 'blue_concrete')):
+        fixture.put(pos, material(name))
+
+
 def _rails(fixture, row):
     from .debug_blueprints import material
     for name, z in zip(row['rail_names'], row['lanes']):
@@ -197,10 +275,11 @@ def _boundary(fixture, row):
 
 def populate(fixture, identity):
     row = CASES[identity]
-    builders = {'t01': _asymmetric, 't02': _directions, 't04': _chests,
-                't05': _rails, 't08': _boundary}
+    builders = {'t01': _asymmetric, 't02': _directions, 't03': _parts,
+                't03_half': _parts, 't04': _chests, 't05': _rails,
+                't06': _connections, 't08': _boundary}
     builders[identity[len(PREFIX):]](fixture, row)
-    return fixture.finish()
+    return fixture.finish(reconnect=identity == PREFIX + 't06')
 
 
 def build(identity):

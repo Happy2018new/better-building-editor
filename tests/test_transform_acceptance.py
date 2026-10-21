@@ -209,6 +209,108 @@ class TransformAcceptanceTests(unittest.TestCase):
                              for pos in pair]
                     self.assertEqual({0, 1}, set(roles))
 
+    def test_t03_native_groups_have_literal_partners_and_four_bed_orientations(self):
+        document = build(PREFIX + 't03')
+        self.assertEqual(30, len(document.blocks))
+        for pos, opened, hinge, direction in (((4, 2, 4), False, False, 'north'),
+                                              ((10, 2, 4), True, True, 'east')):
+            for upper, y in ((False, 2), (True, 3)):
+                self.assertEqual({'door_hinge_bit': hinge, 'open_bit': opened,
+                                  'minecraft:cardinal_direction': direction,
+                                  'upper_block_bit': upper},
+                                 registry.states(foreground(document.get((pos[0], y, pos[2])))))
+        for x, direction, head in ((4, 0, (4, 2, 11)), (9, 1, (8, 2, 10)),
+                                   (14, 2, (14, 2, 9)), (19, 3, (20, 2, 10))):
+            for pos, is_head in (((x, 2, 10), False), (head, True)):
+                value = document.get(pos)
+                self.assertEqual({'direction': direction, 'head_piece_bit': is_head,
+                                  'occupied_bit': False}, registry.states(foreground(value)))
+                self.assertEqual('Bed', scalar(entity(value), 'id'))
+                self.assertEqual(pos, tuple(scalar(entity(value), axis) for axis in 'xyz'))
+                self.assertEqual(material('stone'), foreground(document.get((pos[0], 1, pos[2]))))
+        for x, name in ((4, 'tall_grass'), (10, 'sunflower')):
+            for upper, y in ((False, 2), (True, 3)):
+                value = foreground(document.get((x, y, 17)))
+                self.assertEqual('minecraft:' + name, value[0])
+                self.assertEqual({'upper_block_bit': upper}, registry.states(value))
+
+    def test_t03_single_half_selection_keeps_partner_and_unrelated_cells_for_each_transform(self):
+        pairs = (((4, 3, 4), (4, 2, 4)),
+                 ((4, 2, 11), (4, 2, 10)),
+                 ((4, 3, 17), (4, 2, 17)))
+        public = editor_for(PREFIX + 't03_half')
+        self.assertEqual({pairs[0][0], pairs[0][1]}, set(public.selection))
+        self.assertEqual(CASES[PREFIX + 't03_half']['selection'], (public.start, public.end))
+        for half, partner in pairs:
+            for operation in OPERATIONS:
+                with self.subTest(half=half, operation=operation):
+                    editor = editor_for(PREFIX + 't03')
+                    editor.select_box(half, half)
+                    selected = {half, partner}
+                    self.assertEqual(selected, set(editor.selection))
+                    before = copy.deepcopy(dict(editor.document.blocks.items()))
+                    lo, hi = editor.start, editor.end
+                    editor.run(operation)
+                    expected = {target_point(pos, lo, hi, operation) for pos in selected}
+                    self.assertEqual(expected, set(editor.selection))
+                    for pos, cell in before.items():
+                        if pos not in selected:
+                            self.assertEqual(cell, editor.document.get(pos))
+                    for pos in expected:
+                        reciprocal = group_partner(foreground(editor.document.get(pos)))
+                        self.assertIsNotNone(reciprocal)
+                        offset, other = reciprocal
+                        paired = tuple(pos[i] + offset[i] for i in range(3))
+                        self.assertIn(paired, expected)
+                        self.assertEqual(other, foreground(editor.document.get(paired)))
+                    if editor.undo_stack:
+                        changed = copy.deepcopy(dict(editor.document.blocks.items()))
+                        self.assertTrue(editor.undo())
+                        self.assertEqual(before, dict(editor.document.blocks.items()))
+                        self.assertEqual(selected, set(editor.selection))
+                        self.assertTrue(editor.redo())
+                        self.assertEqual(changed, dict(editor.document.blocks.items()))
+                    editor.run(INVERSES[operation])
+                    self.assertEqual(before, dict(editor.document.blocks.items()))
+                    self.assertEqual(selected, set(editor.selection))
+
+    def test_t06_cross_chunk_connections_have_reconciled_wall_and_distinct_corner_inputs(self):
+        identity = PREFIX + 't06'
+        row, document = CASES[identity], build(identity)
+        self.assertEqual(48, len(document.blocks))
+        for center, neighbor, kind, upper in row['stair_corners']:
+            self.assertEqual((center[0], center[1], center[2] + (-1 if kind == 'outer' else 1)), neighbor)
+            for pos, direction in ((center, 3), (neighbor, 0)):
+                self.assertEqual({'weirdo_direction': direction, 'upside_down_bit': upper},
+                                 registry.states(foreground(document.get(pos))))
+                self.assertEqual(material('stone'), foreground(document.get((pos[0], pos[1]-1, pos[2]))))
+        self.assertEqual({'in_wall_bit': False, 'minecraft:cardinal_direction': 'north',
+                          'open_bit': False}, registry.states(foreground(document.get(row['gate']))))
+        for pos in row['gate_neighbors']:
+            self.assertEqual(material('oak_fence'), foreground(document.get(pos)))
+        wall = registry.states(foreground(document.get(row['wall'])))
+        self.assertEqual({'wall_post_bit': True, 'wall_connection_type_north': 'none',
+                          'wall_connection_type_east': 'short', 'wall_connection_type_south': 'short',
+                          'wall_connection_type_west': 'short'}, wall)
+        for name, positions in row['thin_runs']:
+            for pos in positions:
+                self.assertEqual(material(name), foreground(document.get(pos)))
+            self.assertEqual({0, 1}, {pos[0] // 16 for pos in positions})
+        lo, hi = row['selection']
+        normals = {'north': (0, 0, -1), 'east': (1, 0, 0),
+                   'south': (0, 0, 1), 'west': (-1, 0, 0)}
+        for operation in ('rotate_y90', 'rotate_y180', 'rotate_y270', 'mirror_x', 'mirror_z'):
+            editor = editor_for(identity)
+            editor.run(operation)
+            target = target_point(row['wall'], lo, hi, operation)
+            actual = registry.states(foreground(editor.document.get(target)))
+            matrix = MATRICES[operation]
+            for face, normal in normals.items():
+                transformed = tuple(sum(matrix[a][b] * normal[b] for b in range(3)) for a in range(3))
+                transformed_face = next(key for key, value in normals.items() if value == transformed)
+                self.assertEqual(wall['wall_connection_type_' + face],
+                                 actual['wall_connection_type_' + transformed_face])
+
     def test_t05_four_rail_types_have_supported_slope_top_neighbor_and_closed_curve(self):
         row = CASES[PREFIX + 't05']
         document = build(PREFIX + 't05')
