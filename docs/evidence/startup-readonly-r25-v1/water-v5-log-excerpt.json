@@ -1,0 +1,142 @@
+{
+  "original_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\bd116ce74ace42aca00c8e9274037d8e\\mcdk.log",
+  "original_sha256": "a0bca4b46bf44720efa67257145e8abcf54358387d7b09d0ae0a75334a1a66e2",
+  "original_bytes": 270691,
+  "session_binding": {
+    "id": "bd116ce74ace42aca00c8e9274037d8e",
+    "owner": "water-r25-final41-editor-v5",
+    "game_pid": 41056,
+    "game_identity": "134370331574994851",
+    "mcdk_pid": 65652,
+    "mcdk_identity": "134370331572303699"
+  },
+  "extraction": "Exact decoded lines with one-based source line numbers; original full log retained locally",
+  "lines": [
+    {
+      "line": 2677,
+      "text": "[Python] [2026-10-21 13:14:28,336] [INFO][Developer] [GeneralSetting] _RegisterUI finished"
+    },
+    {
+      "line": 2678,
+      "text": "[Python] Traceback (most recent call last):"
+    },
+    {
+      "line": 2679,
+      "text": "[Python]   File \"mod/common/system/eventBus.py\", line 280, in Post"
+    },
+    {
+      "line": 2680,
+      "text": "[Python]   File \"mod/common/system/eventHandler.py\", line 27, in Call"
+    },
+    {
+      "line": 2681,
+      "text": "[Python]   File \"modern_projection/client_system.py\", line 51, in UiInitFinished"
+    },
+    {
+      "line": 2682,
+      "text": "[Python]   File \"modern_projection/projection/session.py\", line 40, in __init__"
+    },
+    {
+      "line": 2683,
+      "text": "[Python]   File \"modern_projection/projection/liquid_deployment.py\", line 27, in production_profile"
+    },
+    {
+      "line": 2684,
+      "text": "[Python]   File \"modern_projection/projection/liquid_product_deployment.py\", line 41, in production_profile"
+    },
+    {
+      "line": 2685,
+      "text": "[Python] ValueError: Product water needs complete visible acceptance for these exact rules and resources"
+    },
+    {
+      "line": 2686,
+      "text": "[Python] [2026-10-21 13:14:28,467] [ERROR][Engine] post_error_dump: Starting error dump"
+    },
+    {
+      "line": 2687,
+      "text": "[Python] [2026-10-21 13:14:28,467] [ERROR][Engine] Error dump: None"
+    },
+    {
+      "line": 2688,
+      "text": "[Python] launch game time:22486.2ms json speed time:32.069ms"
+    },
+    {
+      "line": 2720,
+      "text": "[Python] [2026-10-21 13:18:03,573] [INFO][Developer] get_cls_by_clsstr modern_projection.projection.tool_hud TerminalHudScreen"
+    },
+    {
+      "line": 2721,
+      "text": "[Python] [2026-10-21 13:18:03,573] [INFO][Developer] get_cls"
+    },
+    {
+      "line": 2722,
+      "text": "[Python] [2026-10-21 13:18:03,575] [INFO][Developer] get_cls success!!!"
+    },
+    {
+      "line": 2723,
+      "text": "[Python] Traceback (most recent call last):"
+    },
+    {
+      "line": 2724,
+      "text": "[Python]   File \"mod/common/system/eventBus.py\", line 223, in PostEvent"
+    },
+    {
+      "line": 2725,
+      "text": "[Python]   File \"mod/common/system/eventHandler.py\", line 27, in Call"
+    },
+    {
+      "line": 2726,
+      "text": "[Python]   File \"mod/client/system/petSysClient.py\", line 607, in OnSummonPet"
+    },
+    {
+      "line": 2727,
+      "text": "[Python]   File \"mod/client/system/petSysClient.py\", line 1873, in _ShowPetToast"
+    },
+    {
+      "line": 2728,
+      "text": "[Python] AttributeError: 'NoneType' object has no attribute 'show_toast'"
+    },
+    {
+      "line": 2729,
+      "text": "[Python] [2026-10-21 13:18:03,789] [ERROR][Engine] post_error_dump: Starting error dump"
+    },
+    {
+      "line": 2730,
+      "text": "[Python] [2026-10-21 13:18:03,792] [ERROR][Engine] Error dump: None"
+    },
+    {
+      "line": 2731,
+      "text": "[Python] =====> ModernProjection Client Destroy <====="
+    },
+    {
+      "line": 2732,
+      "text": "[Python] [IPCSystem] 连接已关闭"
+    },
+    {
+      "line": 2733,
+      "text": "[Python] ecs_framework clear all"
+    },
+    {
+      "line": 2734,
+      "text": "[Python] OperationHistoryFactory Reset"
+    },
+    {
+      "line": 2735,
+      "text": "[Python] =====> ModernProjection Server Destroy <====="
+    }
+  ],
+  "live_default_gate_refusal_observed_in_original_log": true,
+  "refusal_precedes_last_pre_bootstrap_sample_at": "2026-10-21T13:14:28.710662+08:00",
+  "terminal_hud_create_after_ignore": "2026-10-21T13:18:03.573+08:00",
+  "limit": "TerminalHud Create log is not Session identity, completed bootstrap receipt, function restoration or formal water G/F/D evidence.",
+  "related_receipts": [
+    {
+      "file": "docs/evidence/water-final41-startup-r25-v1/v5/candidate-bootstrap-execution-v1.json",
+      "sha256": "c1f82d177bffb5e06a17fe98c65afabbdd711948cda1c6623a84612fdba6404d"
+    },
+    {
+      "file": "docs/evidence/water-final41-startup-r25-v1/v5/exact-dialog-ignore-for-close-v1.json",
+      "sha256": "755592dc211c6b0f085bb225780c1eb1f78db838c1f878d1f3b579d2b90ab057"
+    }
+  ]
+}

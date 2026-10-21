@@ -1,0 +1,119 @@
+{
+  "records": [
+    {
+      "label": "common",
+      "original_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d8fe0ca46a4d4eee81e69be70063f262\\mcdk.log",
+      "original_sha256": "b33cf097b8323eee99cd649d7b21630b8c838a55ab2db920bc7c6a7f4a4d8179",
+      "original_bytes": 425278,
+      "lines": [
+        {
+          "line": 2226,
+          "text": "[Python] [2026-10-21 09:45:41,165] [INFO][Developer] get_cls"
+        },
+        {
+          "line": 2227,
+          "text": "[Python] [2026-10-21 09:45:41,167] [INFO][Developer] get_cls success!!!"
+        },
+        {
+          "line": 2228,
+          "text": "[Python] launch game time:22058.6ms json speed time:26.116ms"
+        },
+        {
+          "line": 2229,
+          "text": "[Python] [pyreact.navigator] top='hud_screen' entry=None screen=None"
+        },
+        {
+          "line": 2230,
+          "text": "[Python] Traceback (most recent call last):"
+        },
+        {
+          "line": 2231,
+          "text": "[Python]   File \"mod/common/system/eventBus.py\", line 223, in PostEvent"
+        },
+        {
+          "line": 2232,
+          "text": "[Python]   File \"mod/common/system/eventHandler.py\", line 27, in Call"
+        },
+        {
+          "line": 2233,
+          "text": "[Python]   File \"mod/client/system/petSysClient.py\", line 607, in OnSummonPet"
+        },
+        {
+          "line": 2234,
+          "text": "[Python]   File \"mod/client/system/petSysClient.py\", line 1873, in _ShowPetToast"
+        },
+        {
+          "line": 2235,
+          "text": "[Python] AttributeError: 'NoneType' object has no attribute 'show_toast'"
+        },
+        {
+          "line": 2236,
+          "text": "[Python] [2026-10-21 09:45:50,759] [ERROR][Engine] post_error_dump: Starting error dump"
+        },
+        {
+          "line": 2237,
+          "text": "[Python] [2026-10-21 09:45:50,759] [ERROR][Engine] Error dump: None"
+        }
+      ]
+    },
+    {
+      "label": "t02",
+      "original_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e1a3d8d8cea949ff8753571cab5f375a\\mcdk.log",
+      "original_sha256": "17e72787a099758649310df90cd44725d5b316b87d36111087743386e3f41042",
+      "original_bytes": 276839,
+      "lines": [
+        {
+          "line": 2022,
+          "text": "[Python] [2026-10-21 13:08:16,293] [INFO][Developer] get_cls"
+        },
+        {
+          "line": 2023,
+          "text": "[Python] [2026-10-21 13:08:16,293] [INFO][Developer] get_cls success!!!"
+        },
+        {
+          "line": 2024,
+          "text": "[Python] launch game time:22288.2ms json speed time:34.141ms"
+        },
+        {
+          "line": 2025,
+          "text": "[Python] [pyreact.navigator] top='hud_screen' entry=None screen=None"
+        },
+        {
+          "line": 2026,
+          "text": "[Python] Traceback (most recent call last):"
+        },
+        {
+          "line": 2027,
+          "text": "[Python]   File \"mod/common/system/eventBus.py\", line 223, in PostEvent"
+        },
+        {
+          "line": 2028,
+          "text": "[Python]   File \"mod/common/system/eventHandler.py\", line 27, in Call"
+        },
+        {
+          "line": 2029,
+          "text": "[Python]   File \"mod/client/system/petSysClient.py\", line 607, in OnSummonPet"
+        },
+        {
+          "line": 2030,
+          "text": "[Python]   File \"mod/client/system/petSysClient.py\", line 1873, in _ShowPetToast"
+        },
+        {
+          "line": 2031,
+          "text": "[Python] AttributeError: 'NoneType' object has no attribute 'show_toast'"
+        },
+        {
+          "line": 2032,
+          "text": "[Python] [2026-10-21 13:08:25,960] [ERROR][Engine] post_error_dump: Starting error dump"
+        },
+        {
+          "line": 2033,
+          "text": "[Python] [2026-10-21 13:08:25,961] [ERROR][Engine] Error dump: None"
+        }
+      ]
+    }
+  ],
+  "observation": "The native pet toast exception also occurs in both successful common/T02 controls. It is not specific to water-v5 and alone does not establish the cause of the disabled-skin assert or IPC timeout.",
+  "new_game_launches": 0,
+  "production_mutations": 0
+}

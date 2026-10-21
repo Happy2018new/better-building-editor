@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "reviewed_at": "2026-10-21T13:39:58.012931+08:00",
+  "read_only": true,
+  "new_game_launches": 0,
+  "source_mutations": 0,
+  "production_admission_performed": false,
+  "manual_closures_added": 0,
+  "supersedes_only_observation": "Earlier agent run summary did not observe live default refusal. The original eventBus trace now establishes rejection before the one-shot candidate call; original summaries remain unchanged.",
+  "records": [
+    {
+      "file": "config-comparison.json",
+      "sha256": "3654f397c605a52eb4af5be891f707cf8b23886f57cb142bf6c00222b3ab050c",
+      "bytes": 3498
+    },
+    {
+      "file": "control-log-excerpts.json",
+      "sha256": "2b66e80ec5b4f0388749c41431125f3180d1c867e58a441f467f4034bc250f6c",
+      "bytes": 4157
+    },
+    {
+      "file": "water-v5-log-excerpt.json",
+      "sha256": "aafe722bc7a5bb7c30ed90607d389b98d4e6d881b14d1649141e6817269e3596",
+      "bytes": 4807
+    }
+  ]
+}
