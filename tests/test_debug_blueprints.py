@@ -92,8 +92,9 @@ class DebugBlueprintTests(unittest.TestCase):
                     self.assertEqual(part, registry.canonical(part))
             prepared = prepare_palette(doc.palette_data())
             source_identity = identity.replace('test.ordinary.context.', '')
-            height = doc.size[1] + (OVERLAY_BASE if source_identity == 'test.layers.snow' else 0)
-            self.assertEqual((doc.size[2], doc.size[0], height), prepared['volume'])
+            snow_fixtures = ('test.layers.snow', 'test.transforms.acceptance.t07')
+            height = doc.size[1] + (OVERLAY_BASE if source_identity in snow_fixtures else 0)
+            self.assertEqual((doc.size[2], doc.size[0], height), prepared['volume'], identity)
             self.assertEqual(before, doc.blocks)
 
     def test_independent_opens_and_config_sharing_round_trip(self):

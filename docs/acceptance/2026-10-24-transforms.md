@@ -52,11 +52,11 @@
 | --- | --- | --- | --- |
 | T01 | `test.transforms.acceptance.t01` | 人工未检查 | v5、v8 数据旋转／撤销／重做往返通过；v8 主材质受控 missing 的 empty→occupied→restored 观察值为 1→2→1，紫色目标格隐藏并恢复，六张 missing shown/hidden 原图已读，独立恢复读回通过。真实世界占用、save_reload 与其他操作外观仍待查 |
 | T02 | `test.transforms.acceptance.t02` | 人工未检查；两代表三路径窄补，按钮完整场景仍待 | 60格／28方向样本；原八步数据结果保留。c531正常冷源另拍四梯子／六按钮10近景，Y镜像按钮与90°旋转梯子各full／受控missing消隐恢复、undo通过。root已读两代表8图；button_0的单层两斜视有模型和厚度，完整场景仍不清；离线full／single及局部chunk均保留按钮状态，仅single过滤Y4支撑，不判六面按钮通过。真实占用、全部28样本／X／Z待；相机语义恢复通过但exact=false。见[T02记录](../verification/TRANSFORM_DIRECTIONS_R25.md) |
-| T03 | 待准备 | 未检查 | — |
+| T03 | `test.transforms.acceptance.t03`；边界补充`test.transforms.acceptance.t03_half` | 人工未检查；公开卡已准备 | R27的7015c9c4冷源已补整组旋转／撤销、编辑器／full及门两半受控missing；半门请求实际闭合为整门，镜像typed数据已核，after严格缓存链预检仍阻塞。四向床、双格植物全部外观／全部矩阵未关闭。见[代表记录](../verification/TRANSFORM_REPRESENTATIVES_R27.md) |
 | T04 | `test.transforms.acceptance.t04` | 人工未检查；箱纹窄修复共同冷验通过 | 原支撑箱纹失败保留。修复先有A／B／A支持，后在7c7c32f0共同冷源无context补丁复查：镜像前后编辑器、完整投影及单半／双半受控missing与恢复共7张原图已独立读取，红支撑干净、蓝对照保持、双箱恢复，来源不变、独立恢复通过。见[箱归属记录](../verification/CHEST_CONTEXT_R25.md)。先前实际SDK内联save_reload仍绑定原来源；真实占用及跨客户端重启持久性待验 |
 | T05 | `test.transforms.acceptance.t05` | 人工未检查 | 10-21默认材质冷源代表旋转／typed状态通过，编辑器和完整投影四排坡道及闭环均入画；普通坡轨近景接头可见，受控单格／双格missing消隐恢复符合预期。全部轨态、连接和纹理像素仍分别记录，save_reload与最终共同源尚待 |
-| T06 | 待准备 | 未检查 | — |
-| T07 | 待准备 | 未检查 | — |
+| T06 | `test.transforms.acceptance.t06` | 人工未检查；公开卡与代表预检已准备 | R27的7015c9c4冷源已补旋转／撤销、编辑器／full及中心pane受控missing；48格typed数据保持。概览裁掉部分楼梯，正倒内外角全部像素和镜像矩阵仍待，不能以注册卡代替外观通过。见[代表记录](../verification/TRANSFORM_REPRESENTATIVES_R27.md) |
+| T07 | `test.transforms.acceptance.t07` | 人工未检查；卡及离线前检已准备，实机待补 | e39ab8ca新增19格含水／含雪／双面typed告示牌，源格实际复制、六操作独立坐标／状态与Py2／Py3往返已核；默认先旋转再撤销。尚未实际冷启公开入口或三路径外观，水最终来源门亦未转移，不派发为就绪人工项。见[双层卡记录](../verification/TRANSFORM_REPRESENTATIVES_R27.md) |
 | T08 | `test.transforms.acceptance.t08` | 人工未检查 | v5 旋转／历史、锁定伙伴整笔拒绝数据通过。10-21 正式冷源补齐异步旋转、默认主材质完整投影、跨 Y=15/16 门的四阶段受控 missing（整门→上半→全消失无底条→恢复）及实际 SDK 分页 save_reload，独立恢复通过。旧私有材质失败保留；真实占用扫描、全部门状态与跨客户端重启持久性待验 |
 | R01 | 待冻结人工候选 | 人工未检查；新来源bootstrap与编辑器窄图已补 | v3／v4／v5原失败保留。v6原41源bootstrap单次成功、原函数精确恢复；G湿干2图、五例F-editor原14行／30图及恢复通过。仅候选编辑器证据；UV／alpha／style、正式A、全F／B／R、最终owner／默认／D仍开，不能据此交付正式默认资格。见[水新源记录](../verification/WATER_FINAL_SOURCE_R25.md) |
 | R02 | 待准备 | 未检查 | 预检有效后纳入 |

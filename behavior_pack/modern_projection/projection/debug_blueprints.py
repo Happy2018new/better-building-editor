@@ -41,6 +41,7 @@ from .debug_transform_acceptance import (METADATA as TRANSFORM_ACCEPTANCE_METADA
                                          prepare as prepare_transform_acceptance)
 from .debug_barrier_blueprints import METADATA as BARRIER_METADATA, VISUAL_CASE as BARRIER_VISUAL_CASE
 from .debug_pressure_blueprints import METADATA as PRESSURE_METADATA, VISUAL_CASE as PRESSURE_VISUAL_CASE
+from .debug_concrete_blueprints import METADATA as CONCRETE_METADATA, VISUAL_CASE as CONCRETE_VISUAL_CASE
 from .debug_ordinary_plant_blueprints import (METADATA as ORDINARY_PLANT_METADATA,
                                               CORAL_METADATA, PEONY_METADATA, KELP_METADATA)
 
@@ -83,6 +84,7 @@ BLUEPRINTS = (
     PRODUCT_METADATA,
     BARRIER_METADATA,
     PRESSURE_METADATA,
+    CONCRETE_METADATA,
     ORDINARY_PLANT_METADATA,
     CORAL_METADATA,
     PEONY_METADATA,
@@ -92,6 +94,7 @@ BLUEPRINTS += ORDINARY_METADATA + context_metadata(BLUEPRINTS)
 VISUAL_CASES = {
     'barrier_visibility': BARRIER_VISUAL_CASE,
     'pressure_signals': PRESSURE_VISUAL_CASE,
+    'concrete_neighbors': CONCRETE_VISUAL_CASE,
     'slab_interactions': SLAB_VISUAL_CASE,
     'neighbor_actions': ACTION_MATRIX,
     'product_connections': PRODUCT_VISUAL_CASE,
@@ -385,6 +388,9 @@ def build(identity):
         return populate_peonies(fixture)
     if identity == PRESSURE_METADATA[0]:
         from .debug_pressure_blueprints import populate
+        return populate(fixture)
+    if identity == CONCRETE_METADATA[0]:
+        from .debug_concrete_blueprints import populate
         return populate(fixture)
     if identity == BARRIER_METADATA[0]:
         from .debug_barrier_blueprints import populate
