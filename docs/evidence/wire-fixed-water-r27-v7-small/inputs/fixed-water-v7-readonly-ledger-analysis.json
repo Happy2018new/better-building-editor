@@ -1,0 +1,859 @@
+{
+  "schema": "wire-r27-fixed-water-v7-readonly-double-packed-ledger-analysis",
+  "passed": true,
+  "report_path": "negative-wet-wire-fixed-water-actual-v7/report.json",
+  "original_report_sha256": "c5a08154aa945a5363c72bb04d672875c0fdfa6b0a5a23d296d020912270a3e0",
+  "original_frozen_host_verdict": {
+    "completed": true,
+    "restored": false,
+    "cleanup_errors": [
+      {
+        "step": "water_observer",
+        "error": "AssertionError: "
+      }
+    ]
+  },
+  "original_report_or_freeze_rewritten": false,
+  "runtime_calls": 0,
+  "MC_started": false,
+  "strict_opaque_wire_mask_RGB_all_modes_match": true,
+  "actual_native_calls": 864,
+  "method_counts": {
+    "CreateFreeModel": 72,
+    "SetExtraUniformValue": 432,
+    "SetFreeModelBoundingBox": 72,
+    "SetFreeModelScale": 72,
+    "SetFreeModelRot": 72,
+    "SetFreeModelPos": 72,
+    "RemoveFreeModel": 72
+  },
+  "all_call_arguments_returns_and_order_retained": true,
+  "all_native_calls_succeeded": true,
+  "water_observer_exact_restoration_and_zero_alive": true,
+  "original_independent_state_audit_restored": true,
+  "runtime_and_host_sources_unchanged": true,
+  "mapping_failure_site": "water_resource_mapping_v1.py:79",
+  "mapping_failure_cause": "Applied ledger value is packed once when storing an acknowledged native uniform and again inside the complete snapshot. Frozen host unpacked only the outer transport before comparing that packed tuple dictionary with a reconstructed native tuple.",
+  "additional_stored_value_decodes": 7488,
+  "frozen_one_decode_inequalities": 7488,
+  "all_native_acknowledgements_equal_after_exact_additional_value_decode": true,
+  "checked_active_group_snapshots": 288,
+  "snapshots": [
+    {
+      "path": "snapshot-001.json",
+      "label": "opaque_top_base_shown:before",
+      "call_count": 60,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 24,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-002.json",
+      "label": "opaque_top_base_shown:after",
+      "call_count": 60,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 24,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-003.json",
+      "label": "opaque_top_base_hidden:before",
+      "call_count": 60,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 24,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-004.json",
+      "label": "opaque_top_base_hidden:after",
+      "call_count": 60,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 24,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-005.json",
+      "label": "opaque_top_repeat_shown:before",
+      "call_count": 132,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 48,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-006.json",
+      "label": "opaque_top_repeat_shown:after",
+      "call_count": 132,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 48,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-007.json",
+      "label": "opaque_top_repeat_hidden:before",
+      "call_count": 132,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 48,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-008.json",
+      "label": "opaque_top_repeat_hidden:after",
+      "call_count": 132,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 48,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-009.json",
+      "label": "opaque_top_candidate_shown:before",
+      "call_count": 204,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 72,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-010.json",
+      "label": "opaque_top_candidate_shown:after",
+      "call_count": 204,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 72,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-011.json",
+      "label": "opaque_top_candidate_hidden:before",
+      "call_count": 204,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 72,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-012.json",
+      "label": "opaque_top_candidate_hidden:after",
+      "call_count": 204,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 72,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-013.json",
+      "label": "opaque_top_restored_shown:before",
+      "call_count": 276,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 96,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-014.json",
+      "label": "opaque_top_restored_shown:after",
+      "call_count": 276,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 96,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-015.json",
+      "label": "opaque_top_restored_hidden:before",
+      "call_count": 276,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 96,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-016.json",
+      "label": "opaque_top_restored_hidden:after",
+      "call_count": 276,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 96,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-017.json",
+      "label": "opaque_grazing_base_shown:before",
+      "call_count": 348,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 120,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-018.json",
+      "label": "opaque_grazing_base_shown:after",
+      "call_count": 348,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 120,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-019.json",
+      "label": "opaque_grazing_base_hidden:before",
+      "call_count": 348,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 120,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-020.json",
+      "label": "opaque_grazing_base_hidden:after",
+      "call_count": 348,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 120,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-021.json",
+      "label": "opaque_grazing_repeat_shown:before",
+      "call_count": 420,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 144,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-022.json",
+      "label": "opaque_grazing_repeat_shown:after",
+      "call_count": 420,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 144,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-023.json",
+      "label": "opaque_grazing_repeat_hidden:before",
+      "call_count": 420,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 144,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-024.json",
+      "label": "opaque_grazing_repeat_hidden:after",
+      "call_count": 420,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 144,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-025.json",
+      "label": "opaque_grazing_candidate_shown:before",
+      "call_count": 492,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 168,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-026.json",
+      "label": "opaque_grazing_candidate_shown:after",
+      "call_count": 492,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 168,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-027.json",
+      "label": "opaque_grazing_candidate_hidden:before",
+      "call_count": 492,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 168,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-028.json",
+      "label": "opaque_grazing_candidate_hidden:after",
+      "call_count": 492,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 168,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-029.json",
+      "label": "opaque_grazing_restored_shown:before",
+      "call_count": 564,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 192,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-030.json",
+      "label": "opaque_grazing_restored_shown:after",
+      "call_count": 564,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 192,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-031.json",
+      "label": "opaque_grazing_restored_hidden:before",
+      "call_count": 564,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 192,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-032.json",
+      "label": "opaque_grazing_restored_hidden:after",
+      "call_count": 564,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 192,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-033.json",
+      "label": "default_top_base_shown:before",
+      "call_count": 636,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 216,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-034.json",
+      "label": "default_top_base_shown:after",
+      "call_count": 636,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 216,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-035.json",
+      "label": "default_top_base_hidden:before",
+      "call_count": 636,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 216,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-036.json",
+      "label": "default_top_base_hidden:after",
+      "call_count": 636,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 216,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-037.json",
+      "label": "default_top_repeat_shown:before",
+      "call_count": 708,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 240,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-038.json",
+      "label": "default_top_repeat_shown:after",
+      "call_count": 708,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 240,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-039.json",
+      "label": "default_top_repeat_hidden:before",
+      "call_count": 708,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 240,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-040.json",
+      "label": "default_top_repeat_hidden:after",
+      "call_count": 708,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 240,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-041.json",
+      "label": "default_top_candidate_shown:before",
+      "call_count": 780,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 264,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-042.json",
+      "label": "default_top_candidate_shown:after",
+      "call_count": 780,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 264,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-043.json",
+      "label": "default_top_candidate_hidden:before",
+      "call_count": 780,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 264,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-044.json",
+      "label": "default_top_candidate_hidden:after",
+      "call_count": 780,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 264,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-045.json",
+      "label": "default_top_restored_shown:before",
+      "call_count": 852,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 288,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-046.json",
+      "label": "default_top_restored_shown:after",
+      "call_count": 852,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 288,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-047.json",
+      "label": "default_top_restored_hidden:before",
+      "call_count": 852,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 288,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    },
+    {
+      "path": "snapshot-048.json",
+      "label": "default_top_restored_hidden:after",
+      "call_count": 852,
+      "checked_groups": 6,
+      "frozen_one_decode_mismatches": 288,
+      "additional_stored_value_decode_matches_all_native_acknowledgements": true
+    }
+  ],
+  "actual_FreeModel_to_frozen_shader_mappings": [
+    {
+      "resource_name": "modern_projection_liquid_product_flowing_water_grey_world",
+      "model_entry": {
+        "animation": {},
+        "dy_load": true,
+        "material": "modern_projection_liquid_product_flowing_water_grey_world",
+        "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+        "skeleton": "modern_projection/liquid/skeleton.json",
+        "texture": {
+          "tex0": "modern_projection/liquid/flowing_water_grey"
+        }
+      },
+      "material_name": "modern_projection_liquid_product_flowing_water_grey_world:entity_for_skeleton_alpha",
+      "material_entry": {
+        "+samplerStates": [
+          {
+            "samplerIndex": 0,
+            "textureFilter": "Point"
+          }
+        ],
+        "+states": [
+          "Blending",
+          "DisableDepthWrite",
+          "InvertCulling"
+        ],
+        "blendDst": "OneMinusSrcAlpha",
+        "blendSrc": "SourceAlpha",
+        "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment",
+        "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+      },
+      "frozen_dependencies": [
+        {
+          "path": "resource_pack/models/netease_models.json",
+          "sha256": "2d81afdf0fadc52606bd9c4a2b88f7f79e82a351002ea8949189d8fc3d82d4a1"
+        },
+        {
+          "path": "resource_pack/materials/entity.material",
+          "sha256": "07519f7c3ec60eaf048bdf5d681d12bbf7bd84743aeca74f5e8ba27f00571f4f"
+        },
+        {
+          "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment",
+          "sha256": "757c67cc104426c5f1008c66a13a4889ab5b554c1bc127b9e82cc35a90fb900b"
+        },
+        {
+          "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_geometry_world.vertex",
+          "sha256": "ca969afd8072b1560fa519119d1af48c7a2329c0dadfa1257d98d88d17d3923f"
+        },
+        {
+          "path": "resource_pack/models/modern_projection/liquid/flowing_water_grey_mesh.json",
+          "sha256": "31dd928fd955da704cf9880b6aedcfee760bcc4173edd505f5a4697fcb797210"
+        },
+        {
+          "path": "resource_pack/models/modern_projection/liquid/skeleton.json",
+          "sha256": "2ee4a750956632219fb9bec5c7dc0abaf521bcafd3f0e25c02bf331b7d2656db"
+        },
+        {
+          "path": "resource_pack/textures/models/modern_projection/liquid/flowing_water_grey.png",
+          "sha256": "f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246"
+        }
+      ]
+    },
+    {
+      "resource_name": "modern_projection_liquid_product_still_water_grey_world",
+      "model_entry": {
+        "animation": {},
+        "dy_load": true,
+        "material": "modern_projection_liquid_product_still_water_grey_world",
+        "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+        "skeleton": "modern_projection/liquid/skeleton.json",
+        "texture": {
+          "tex0": "modern_projection/liquid/still_water_grey"
+        }
+      },
+      "material_name": "modern_projection_liquid_product_still_water_grey_world:entity_for_skeleton_alpha",
+      "material_entry": {
+        "+samplerStates": [
+          {
+            "samplerIndex": 0,
+            "textureFilter": "Point"
+          }
+        ],
+        "+states": [
+          "Blending",
+          "DisableDepthWrite",
+          "InvertCulling"
+        ],
+        "blendDst": "OneMinusSrcAlpha",
+        "blendSrc": "SourceAlpha",
+        "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment",
+        "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+      },
+      "frozen_dependencies": [
+        {
+          "path": "resource_pack/models/netease_models.json",
+          "sha256": "2d81afdf0fadc52606bd9c4a2b88f7f79e82a351002ea8949189d8fc3d82d4a1"
+        },
+        {
+          "path": "resource_pack/materials/entity.material",
+          "sha256": "07519f7c3ec60eaf048bdf5d681d12bbf7bd84743aeca74f5e8ba27f00571f4f"
+        },
+        {
+          "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment",
+          "sha256": "8ee90995be6b097aef07a80c6a43ea241271edf0c95d76b15541090e26a69e8f"
+        },
+        {
+          "path": "resource_pack/shaders/glsl/modern_projection_liquid_product_geometry_world.vertex",
+          "sha256": "ca969afd8072b1560fa519119d1af48c7a2329c0dadfa1257d98d88d17d3923f"
+        },
+        {
+          "path": "resource_pack/models/modern_projection/liquid/still_water_grey_mesh.json",
+          "sha256": "fc1d11b68d0a5068970442fae3888db4240a0e8c66023cd15071dd897e5ad15e"
+        },
+        {
+          "path": "resource_pack/models/modern_projection/liquid/skeleton.json",
+          "sha256": "2ee4a750956632219fb9bec5c7dc0abaf521bcafd3f0e25c02bf331b7d2656db"
+        },
+        {
+          "path": "resource_pack/textures/models/modern_projection/liquid/still_water_grey.png",
+          "sha256": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3"
+        }
+      ]
+    }
+  ],
+  "source_receipt_files": [
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0001.json",
+      "sha256": "eb76805ad20fb2c2d2922bbf650dd8eeda6accfdcfa2d10acf7b91ee8d0eef0c"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0002.json",
+      "sha256": "91ff21ea7f332a446cb4a6be43ec1764c03969b4e446e59b6b14af0ea7071626"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0003.json",
+      "sha256": "c57c678b0dbbd6e82085982ba8e41481a8b72a189c4f2903dc16eaca3dc2b7a0"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0004.json",
+      "sha256": "642604839664eca0f1a6ee429ec217170449bd89a4aa244b1ce404956c099c4c"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0005.json",
+      "sha256": "3fce7d1354f39bc93683cfca53fe679b1ab5663e425d32ea04834b8bc1f6842d"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0006.json",
+      "sha256": "da4d955ad7f66124c6e041592cd5830ade5cbfbdb0f6592006483052af31fa19"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0007.json",
+      "sha256": "049ad925eb5de4284a2cb0dc311b06431d371d9715d6fefe38aac9d08b64c05b"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0008.json",
+      "sha256": "98a29df71a5c419216b241108c3ce348f21eb4126820af7df80ea192babd0c25"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0009.json",
+      "sha256": "21b69e627a389b5c08887fc3bf00a0fd13d36ec82f27879051f90fb8f0cbd496"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0010.json",
+      "sha256": "73ca5894725227cea9ac40f0d2b87dbdc1f2788943c547fefd0d446ace69055c"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0011.json",
+      "sha256": "84f04163040538a459835fe1762e850aa0c13525ff40922232ab27885b9a9374"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0012.json",
+      "sha256": "4bfa0a6529ac58a6d394fb2f789f9eb5ed9d5eb8cbda0d5e11c8db6c73626f54"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0013.json",
+      "sha256": "8a17f056acffe3e3790b2051aa532333e40ca6d707617db7859cb85fb36bfb3e"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0014.json",
+      "sha256": "84ef48c12defe05f5e75be718b49765f5d2486950c6e5dd4bdb48af3db5b8772"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0015.json",
+      "sha256": "b8f8d75d55035ca4c316135615b4a53ff8c99e1c85082413dec632ad8892cace"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0016.json",
+      "sha256": "fdaac456a8e51c239047c7d3608cbd6ccda47610bbb51b94243c4e2ea84e0613"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0017.json",
+      "sha256": "23a913b075b7d26d1db882ae77c4ad0bad9a1d9df51b8a192e54d6934ed3e6b9"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0018.json",
+      "sha256": "1480e2ce3dc02d47f3eafffb50fc21b17eb25549ae8749ba46f7348f15a9b3de"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0019.json",
+      "sha256": "0c1e7d1b60e19f0911cf27db2fffe3fcc731d6655304c8bd383401904ac934c3"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0020.json",
+      "sha256": "6450c975c31ece375b97f0609dc2017afe57da2578a189b7b44ddecb121afe64"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0021.json",
+      "sha256": "a268aac988b9a47d3073dbbad3fcb806ae9f084851d7a14ba8f8ed7d0631f655"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0022.json",
+      "sha256": "4ee0a7478dc266b55ee0dc3e07f31b9d7b24c3ed2348119534c81a85c29be1db"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0023.json",
+      "sha256": "c0812cece9c0f89f9c29f898b7a14987c3ea2e4b078ba6bfabc47d1c12b0a67a"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/calls-0024.json",
+      "sha256": "da59539ef08f7977acacd9b874a3a76feb578944cc0cdf53d5aa2e381fec1a78"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/export-summary.json",
+      "sha256": "7d7c2697f9a189d0819b4fc3276b933e71b587f71bc0f62f22e5116ebb036596"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/installation.json",
+      "sha256": "9d046ebf37a00d2819860a8ab88f813ff0775457953713d6a211900fc20cb09c"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/retirement.json",
+      "sha256": "a62427547996edffb437c3f8f58708940ecf937c6a892292a1663a3933f88245"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-001.json",
+      "sha256": "2d493553c4a875bc9d47d9df0956a37c73ff6d9cdd8339cecfa3656f8df7ddab"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-002.json",
+      "sha256": "2bf5ab9c26ad954ab835af6b3d8f976c44591bd0714d75fb18ead617f04faa5c"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-003.json",
+      "sha256": "6735b72a0da4418323294eb7cc70e96c22c0c7498a276b4cea050414fdfb354f"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-004.json",
+      "sha256": "97379c4cc22eb4bede615007add277b6ace87f285d6e74c250f3ba12749b3d48"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-005.json",
+      "sha256": "77edce074412fe8ac7ba91d05e0e42d9deb51674f7451e8d429b842d1bce9dfe"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-006.json",
+      "sha256": "2ed45db66d5832055c9e695fa168ac6f3d7779da3caa6879689cc48d254a3513"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-007.json",
+      "sha256": "7e6d2882d35c2f465b0f40f454f9864f6fa7498434bad0c72e888623db13ef8b"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-008.json",
+      "sha256": "7269754c6d40293fd3a5c159b598996173a8cd1aff264ef71bbd1376b95a76a2"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-009.json",
+      "sha256": "fb2c695aca8a9b928590e0f0efe4cb9e20d1d40b21ad44bdb2e123926d7dffbf"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-010.json",
+      "sha256": "f2a686d425e72fe381dc94da4aa531b8f9870ed5f6c9b88dcd9cbab755fcfc9e"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-011.json",
+      "sha256": "5303abdc8ab994dd1a8f697b07dff6f638a807669301e6dd54228e233adea7d4"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-012.json",
+      "sha256": "c9335018443bf63de0046fd34a85f6e1fe834e0c81d1ed776e0504fc12bd9d49"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-013.json",
+      "sha256": "d8123d85c421e0edbb472a200b2a2a0a8b07b53095dcc5f323e392e465564f6c"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-014.json",
+      "sha256": "f3748a5f64ac4eae1c5d4deb2afc62521b807da3e84ddc8b5d850f5038253c12"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-015.json",
+      "sha256": "27a1ef1233458fa7760ac1ff2e2495f4f888f26812ca5279530b5709546de4cb"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-016.json",
+      "sha256": "0c12323f45572af5abc427b2a24a4c6a2a6edf0cb64d0609a2b97c97706eecf7"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-017.json",
+      "sha256": "e1b3841649dfd82f764da0cf314f97892a5b292c0d5f5b2a5e4e100e10d5bc22"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-018.json",
+      "sha256": "b1c79731ac3843404aee535146e0f26182c6399f5ae5e9867de66d0f810b07d1"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-019.json",
+      "sha256": "89df312521d0877e52de7c5044effb616db3a53b6dd18ca29c879afd661e1588"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-020.json",
+      "sha256": "db28a3d66164df7b633025bcacf051d3380c682a88f27c778d612ada918953d2"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-021.json",
+      "sha256": "4ae048acf5d4adff365560eb21a6d5e86bd211f5547e7d33b65eb717ae88c283"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-022.json",
+      "sha256": "b6ff2908260293ef9322140b20ca1ce130ceea9c19980fa4cc40d709c8743141"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-023.json",
+      "sha256": "49d3841677a54ec3c7ec2acc57e76f3f979fcc1557b8cd1181a52aec9a220ced"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-024.json",
+      "sha256": "ff99aab8032ea5918912b14d094fdfe8b16d0cc477648e9037876c0a6fd94827"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-025.json",
+      "sha256": "46dab8c23bd56b62ab76e2c585e5b919250428c9b439f2b960f9eab0c9ca10f1"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-026.json",
+      "sha256": "e652382608a80508115909df34a7f49153ba32e6ef355f090b782a44ac43a83c"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-027.json",
+      "sha256": "bd2297d2daba4dbfe957f13f36ca6bc6955ed5a68a9740320112c956c23d30cf"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-028.json",
+      "sha256": "eda0f2833b0803250b4ce5986e533f4946f286297d5fae626f8d7748423ba5d2"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-029.json",
+      "sha256": "5e052dcd4105bae838e2016d53c89ecbf4a0f802f1d4526b2d1bd996d0b5c266"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-030.json",
+      "sha256": "67f5b8ac29914b9ef5e019428cd5b9ff3184adafa27c0b16283636b224487c06"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-031.json",
+      "sha256": "2055c09a3192392f152070b765f23aea3dc4f5316dd0548bd61aa0509eac9682"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-032.json",
+      "sha256": "7e9d43f0ef8f61423481e17f01debf33fb9c3340143f4fb11bcb26718859cebd"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-033.json",
+      "sha256": "6cb725f975d19efe36b2dc5f0c55f488e72443ca5cedbc208da51cf631c870bd"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-034.json",
+      "sha256": "693ee7bf086020e406c47f782863e6ab2dcb4a7b5fe9841829565033c1a5bed9"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-035.json",
+      "sha256": "0d1c56842e708577756b99beb791ac979ee720d69a43a937d4c0374187ce8e24"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-036.json",
+      "sha256": "ad292f6e677e51c7220bc10004d3217e73520a1e6891ea958de8da1203826565"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-037.json",
+      "sha256": "2aab4ab5c32cc76b15d5b802bf64c7d9849845f9ac1338a9d3491d913412bc2d"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-038.json",
+      "sha256": "cb65f1a70ff70c27e780994ac1903526f90c6162252be000b9b049ae4f7edae2"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-039.json",
+      "sha256": "819a331b1bef1430f3d1c1e265c25410e10ae6e99f19ee0d1b9dd0dfed3ae664"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-040.json",
+      "sha256": "9052fced44663e587d4f2c31e72684d58c52b4072dc46a070a5d26883dbbc6ad"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-041.json",
+      "sha256": "5f58b31203dfb32cf5907a976531db6c36fb766538c415bbe91a25221790118f"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-042.json",
+      "sha256": "ead36d3629ae27a6c6b8a7b551a4255f75232e187a94ba0bf8dfd049fb7f1de2"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-043.json",
+      "sha256": "893044a00cb9ed2d0155e3f60b5367c12b2c07f1ef704aeb2f780d80190a9890"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-044.json",
+      "sha256": "3b0ad25ebae7abbe9f80b1faa22e0a9f5081e875f620f3794dae3ad2e6f3adc4"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-045.json",
+      "sha256": "c7b24283beb8cee3f77a547f92699fdf9883b7d244e3085637cf6c10ec9d30ab"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-046.json",
+      "sha256": "24a2a05a1c230b3a7ee4b7949810c2ed3800ee1bf26466209df5689210608787"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-047.json",
+      "sha256": "86c9b41104e70f83dc020036526bbc7a707e48ffb6f793f5c2695376b0ad5f94"
+    },
+    {
+      "path": "negative-wet-wire-fixed-water-actual-v7/water-receipts/snapshot-048.json",
+      "sha256": "76cadbf170e00cd138124398c5da2a2df453da0ce375fbd85955f7002df8ca01"
+    }
+  ],
+  "independent_native_readback": false,
+  "engine_clock_readback": false,
+  "individual_v6_pixel_causality_proven": false,
+  "production_changed": false,
+  "candidate_promoted": false,
+  "manual_closures": 0
+}

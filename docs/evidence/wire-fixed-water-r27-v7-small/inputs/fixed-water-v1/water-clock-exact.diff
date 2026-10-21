@@ -1,0 +1,42 @@
+--- before/modern_projection_liquid_product_still_water_grey.fragment
++++ private-fixed/modern_projection_liquid_product_still_water_grey.fragment
+@@ -19,9 +19,9 @@
+ }
+ void main() {
+     if (liquidVisible<0.5 || liquidClip>0.0) discard;
+-    float clock = TOTAL_REAL_WORLD_TIME*20.0/TICKS_PER_FRAME;
++    float clock = 0.0;
+     float frame=mod(floor(clock),FRAME_COUNT);
+-    vec4 texel=mix(sampleFrame(frame),sampleFrame(mod(frame+1.0,FRAME_COUNT)),fract(clock));
++    vec4 texel=mix(sampleFrame(frame),sampleFrame(mod(frame+1.0,FRAME_COUNT)),0.0);
+     float tint=EXTRA_VECTOR4.z;
+     vec3 rgb=vec3(floor(tint/65536.0),mod(floor(tint/256.0),256.0),mod(tint,256.0))/255.0;
+     float defaultAlpha=STYLE_DEFAULT_OPACITY<0.0 ? texel.a : STYLE_DEFAULT_OPACITY;
+--- before/modern_projection_liquid_product_flowing_water_grey.fragment
++++ private-fixed/modern_projection_liquid_product_flowing_water_grey.fragment
+@@ -19,9 +19,9 @@
+ }
+ void main() {
+     if (liquidVisible<0.5 || liquidClip>0.0) discard;
+-    float clock = TOTAL_REAL_WORLD_TIME*20.0/TICKS_PER_FRAME;
++    float clock = 0.0;
+     float frame=mod(floor(clock),FRAME_COUNT);
+-    vec4 texel=mix(sampleFrame(frame),sampleFrame(mod(frame+1.0,FRAME_COUNT)),fract(clock));
++    vec4 texel=mix(sampleFrame(frame),sampleFrame(mod(frame+1.0,FRAME_COUNT)),0.0);
+     float tint=EXTRA_VECTOR4.z;
+     vec3 rgb=vec3(floor(tint/65536.0),mod(floor(tint/256.0),256.0),mod(tint,256.0))/255.0;
+     float defaultAlpha=STYLE_DEFAULT_OPACITY<0.0 ? texel.a : STYLE_DEFAULT_OPACITY;
+--- before/modern_projection_liquid_product_flowing_water_grey_top.fragment
++++ private-fixed/modern_projection_liquid_product_flowing_water_grey_top.fragment
+@@ -19,9 +19,9 @@
+ }
+ void main() {
+     if (liquidVisible<0.5 || liquidClip>0.0) discard;
+-    float clock = TOTAL_REAL_WORLD_TIME*20.0/TICKS_PER_FRAME;
++    float clock = 0.0;
+     float frame=mod(floor(clock),FRAME_COUNT);
+-    vec4 texel=mix(sampleFrame(frame),sampleFrame(mod(frame+1.0,FRAME_COUNT)),fract(clock));
++    vec4 texel=mix(sampleFrame(frame),sampleFrame(mod(frame+1.0,FRAME_COUNT)),0.0);
+     float tint=EXTRA_VECTOR4.z;
+     vec3 rgb=vec3(floor(tint/65536.0),mod(floor(tint/256.0),256.0),mod(tint,256.0))/255.0;
+     float defaultAlpha=STYLE_DEFAULT_OPACITY<0.0 ? texel.a : STYLE_DEFAULT_OPACITY;

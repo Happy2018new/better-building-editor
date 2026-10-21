@@ -1,0 +1,167 @@
+{
+  "schema": "wire-r27-private-status-io-Windows-mutex-controls-v2-bounded-replace",
+  "passed": true,
+  "controls": [
+    {
+      "name": "entire_watcher_AST_identical_except_one_status_publication_and_import",
+      "passed": true
+    },
+    {
+      "name": "frozen_session_manifest_reader_and_old_watcher_bytes_unchanged",
+      "passed": true
+    },
+    {
+      "name": "stable_Local_mutex_from_case_and_dot_normalized_absolute_path",
+      "passed": true
+    },
+    {
+      "name": "complete_sibling_temp_before_mutex_and_actual_replace_in_distinct_process",
+      "passed": true,
+      "old_complete_reads": 100,
+      "writer_pid": 64952,
+      "parent_pid": 40552
+    },
+    {
+      "name": "500_actual_os_replace_publications_with_two_separate_native_reader_processes",
+      "passed": true,
+      "parent_pid": 40552,
+      "reader_pids": [
+        65884,
+        36644
+      ],
+      "reads": [
+        1021,
+        997
+      ],
+      "observed_generations": [
+        501,
+        501
+      ],
+      "retry_events": [
+        0,
+        0
+      ],
+      "actual_replace_calls": 504,
+      "replace_OS_errors": [
+        {
+          "winerror": 5,
+          "generation": 71
+        },
+        {
+          "winerror": 5,
+          "generation": 398
+        },
+        {
+          "winerror": 5,
+          "generation": 467
+        },
+        {
+          "winerror": 5,
+          "generation": 477
+        }
+      ],
+      "malformed_or_half_written_documents": 0,
+      "elapsed_seconds": 2.6257940999930725
+    },
+    {
+      "name": "actual_cross_process_reader_mutex_timeout_rejects_once",
+      "passed": true,
+      "wait_ms": 750,
+      "elapsed_seconds": 0.76065050001489,
+      "owner_pid": 43944
+    },
+    {
+      "name": "actual_cross_process_writer_mutex_timeout_rejects_once",
+      "passed": true,
+      "wait_ms": 750,
+      "elapsed_seconds": 0.7640766000258736,
+      "owner_pid": 43944
+    },
+    {
+      "name": "actual_process_exit_abandoned_mutex_reader_rejects_and_releases_ownership",
+      "passed": true,
+      "child_exit_code": 23,
+      "release_calls": 1,
+      "close_calls": 1,
+      "next_acquisition_succeeds": true
+    },
+    {
+      "name": "actual_process_exit_abandoned_mutex_writer_rejects_and_releases_ownership",
+      "passed": true,
+      "child_exit_code": 23,
+      "release_calls": 1,
+      "close_calls": 1,
+      "next_acquisition_succeeds": true
+    },
+    {
+      "name": "actual_locked_target_replace_error_exhausts_only_5_32_33_bounded_retry_preserves_old_and_cleans_temp",
+      "passed": true,
+      "actual_replace_calls": 5,
+      "elapsed_seconds": 0.7664026000420563,
+      "bounded_delays_seconds": 0.75,
+      "original_final_exception_object_propagated": true,
+      "type": "PermissionError",
+      "winerror": 5,
+      "errno": 13
+    },
+    {
+      "name": "actual_missing_source_replace_Win32_2_rejects_once_preserves_original_exception_and_old_target",
+      "passed": true,
+      "actual_replace_calls": 1,
+      "winerror": 2,
+      "temp_cleaned": true,
+      "original_exception_object_propagated": true,
+      "test_adaptation": "Control redirects only source argument to a missing sibling; real os.replace supplies error"
+    },
+    {
+      "name": "serialization_error_preserves_old_target_before_temp_or_mutex",
+      "passed": true
+    },
+    {
+      "name": "strict_json_error_not_retried",
+      "passed": true,
+      "native_calls": 1,
+      "retry_events": 0
+    },
+    {
+      "name": "strict_schema_error_not_retried",
+      "passed": true,
+      "native_calls": 1,
+      "retry_events": 0
+    },
+    {
+      "name": "strict_owner_error_not_retried",
+      "passed": true,
+      "native_calls": 1,
+      "retry_events": 0
+    },
+    {
+      "name": "strict_identity_error_not_retried",
+      "passed": true,
+      "native_calls": 1,
+      "retry_events": 0
+    },
+    {
+      "name": "strict_missing_Win32_2_error_not_retried",
+      "passed": true,
+      "native_calls": 1,
+      "retry_events": 0
+    }
+  ],
+  "control_count": 17,
+  "candidate_source_sha256": {
+    "status_io.py": "69f9c17426c32e1bf1e42bed2f77e0097805462116812e50e7fe32e9c4592e42",
+    "watch_owned_disabled_skin_assert_r27_v10.py": "befb2e6c4784801d2b04c6c4af527c8789ac1ea08e933f21dd0bd94c6bbb8ad2",
+    "windows_manifest_reader.py": "2ae4d46fc4fc63249b1b10d8cc6e7028009f4fa1941ea64f88452871a89eb28d",
+    "test_status_io.py": "e7f573c83fa5818e1eae4dadb9e85c895d0c3f9481ae2572a6234b622fdc4a2f"
+  },
+  "frozen_old_watcher_sha256": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+  "frozen_old_reader_sha256": "2ae4d46fc4fc63249b1b10d8cc6e7028009f4fa1941ea64f88452871a89eb28d",
+  "runtime_calls": 0,
+  "MC_started": false,
+  "watcher_started": false,
+  "candidate_promoted": false,
+  "GPU_qualified": false,
+  "manual_closures": 0,
+  "scope": "Private participating status writer/readers only; no session reader changes"
+}

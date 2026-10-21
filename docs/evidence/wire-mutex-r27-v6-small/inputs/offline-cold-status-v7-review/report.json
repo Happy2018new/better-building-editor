@@ -1,0 +1,75 @@
+{
+  "schema": "wire-r27-cold-status-v7-offline-review",
+  "passed": true,
+  "control_count": 9,
+  "controls": [
+    {
+      "name": "all_new_frozen_plan_and_runtime_host_input_hashes_match",
+      "passed": true
+    },
+    {
+      "name": "product_candidate_game_CRC32_original_observer_and_payload_bytes_unchanged",
+      "passed": true,
+      "files": {
+        "candidate-drop-direct-only/render_context.py": "cd37869a6d9f1222e148e9fc7143fc51f98648e75cd31523eddaed02db76fa1a",
+        "observer_client_v3.py": "a23060f6eb67f080f28bdae32adab101f33a87467e287bd817ed161d12574729",
+        "trial_payloads_v3.py": "f84a3e7ecc6dd080f6322de03617ada2a2364ea5d7d70960c6ba340a5a97c115",
+        "phase_transport_v5.py": "2a284678019ad5c78748d23c3adb9ca8e53b4777155d56946ec57663d6c45c9e"
+      }
+    },
+    {
+      "name": "complete_finally_restoration_source_native_decode_and_retirement_validation_AST_unchanged",
+      "passed": true
+    },
+    {
+      "name": "session_manifest_reader_routes_native_bytes_owner_and_identity_validation_unchanged",
+      "passed": true
+    },
+    {
+      "name": "exactly_three_status_read_sites_use_mutex_adapter_and_binding_pins_status_io",
+      "passed": true,
+      "sites": [
+        {
+          "path": "cold_lifecycle_v7.py",
+          "line": 196,
+          "source": "reader.read_status_json(folder / 'assert-watch/status.json', events)"
+        },
+        {
+          "path": "cold_lifecycle_v7.py",
+          "line": 133,
+          "source": "reader.read_status_json(folder / 'assert-watch/status.json', events)"
+        },
+        {
+          "path": "trial_capture_v6.py",
+          "line": 225,
+          "source": "session_reader.read_status_json(args.watch, read_events)"
+        }
+      ]
+    },
+    {
+      "name": "fresh_flat_then_four_negatives_then_slopes_then_boundary_and_exact_deadline_negative_controls",
+      "passed": true
+    },
+    {
+      "name": "new_adapter_pins_exact_status_module_and_reads_actual_offline_mutex_status",
+      "passed": true
+    },
+    {
+      "name": "new_adapter_actual_JSON_error_rejects_without_OS_retry_events",
+      "passed": true
+    },
+    {
+      "name": "new_owner_project_unprepared_and_entire_cold_plan_passes_verification_without_process_actions",
+      "passed": true
+    }
+  ],
+  "runtime_calls": 0,
+  "MC_started": false,
+  "watcher_started": false,
+  "project_prepared": false,
+  "candidate_promoted": false,
+  "manual_closures": 0,
+  "trial_plan_sha256": "219618a123100a9981b3e9001a1c7cd9d0a3761cd6482658026a8511406291d0",
+  "lifecycle_plan_sha256": "14cb2a7bb212a858c79081685d045b20d1b3dad20cc17938ceb80e7b6452d81e",
+  "test_source_sha256": "a082a83c1559e4acd9e7367aa65939387fc499f79a9c4d6501f48eb3b746b57c"
+}

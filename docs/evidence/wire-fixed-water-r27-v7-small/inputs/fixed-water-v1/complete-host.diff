@@ -1,0 +1,192 @@
+--- trial_capture_v6.py
++++ trial_capture_v7_fixed_water.py
+@@ -17,16 +17,18 @@
+ import phase_transport_v5 as phase_transport
+ import native_receipts_v2 as native_receipts
+ import session_reader_v3 as session_reader
++sys.path.insert(0,str(HERE/'fixed-water-v1'))
++import fixed_water_receipts_v1 as water_receipts
+ import independent_audit_v1 as independent
+ 
+ CAPTURE_SHA='cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8'
+ DEADLINE=datetime(2026,10,21,23,25,tzinfo=timezone.utc)
+ BOUNDARY_START_CUTOFF=datetime(2026,10,21,23,0,tzinfo=timezone.utc)
+ RESTORE_TARGET=datetime(2026,10,21,23,30,tzinfo=timezone.utc)
+-FIXTURE_ORDER=('flat-interior','negative-wet-wire','negative-wet-support','negative-two-solid','negative-stone-support','ascending','descending','flat-boundary')
+-MINIMUM_START_SECONDS={name:(1500 if name=='flat-boundary' else 420 if name in ('ascending','descending') else 300) for name in FIXTURE_ORDER}
++FIXTURE_ORDER=('flat-interior','negative-wet-wire')
++MINIMUM_START_SECONDS={name:600 for name in FIXTURE_ORDER}
+ HELPERS=('_mark_floor_support','_mark_palette_floor_support','_hidden_neighbor')
+-LOCAL_INPUTS=('trial_capture_v6.py','phase_transport_v5.py','test_phase_transport_v5.py','deployed-IPCSystem-v4.py','trial_fixtures_v1.py','trial_payloads_v3.py',
++LOCAL_INPUTS=('trial_capture_v7_fixed_water.py','fixed-water-v1/water_setter_observer.py','fixed-water-v1/test_water_observer_py2.py','fixed-water-v1/fixed_water_receipts_v1.py','fixed-water-v1/water_resource_mapping_v1.py','fixed-water-v1/shader-change-manifest-v1.json','phase_transport_v5.py','test_phase_transport_v5.py','deployed-IPCSystem-v4.py','trial_fixtures_v1.py','trial_payloads_v3.py',
+  'independent_audit_v1.py','observer_client_v3.py','source-binding-v2.json',
+  'candidate-drop-direct-only/render_context.py','candidate_trace_v2.py','offline_verify_v2.py',
+  'native_receipts_v2.py','session_reader_v3.py','test_native_controls_v2.py',
+@@ -66,7 +68,7 @@
+ 
+ def plan():
+     source=json.loads((HERE/'source-binding-v2.json').read_bytes())
+-    return {'schema':'wire-r27-new-phase-document-native-attribution-v6-status-mutex-game-crc32-host-SHA256',
++    return {'schema':'wire-r27-private-fixed-water-v1-status-mutex-game-crc32-host-SHA256',
+      'runtime_calls':0,'starts_game':False,'writes_production':False,'world_writes':False,
+      'candidate_qualified':False,'manual_closures':0,'helpers':HELPERS,
+      'local_inputs':[{'path':name,'sha256':sha(HERE/name)} for name in LOCAL_INPUTS],
+@@ -75,9 +77,9 @@
+      'hard_deadline_utc':DEADLINE.isoformat(),
+      'boundary_start_before_utc':BOUNDARY_START_CUTOFF.isoformat(),
+      'restoration_target_utc':RESTORE_TARGET.isoformat(),
+-     'fixture_order':FIXTURE_ORDER,'extended_fixture_maximum':7,
++     'fixture_order':FIXTURE_ORDER,'extended_fixture_maximum':1,
+      'minimum_start_seconds':MINIMUM_START_SECONDS,
+-     'timing_basis':'Previous actual fresh flat: 143.34s total / 4.42s restoring; prior boundary failed after 456.47s at 7 complete plus 82/111 chunks of phase8, restoring7.28s. These are observed inputs, not a guarantee. Reserve 300s flat/small negative, 420s ascending/descending, 1500s boundary.',
++     'timing_basis':'Extra independent bounded water receipts require 600s per fixture. Previous actual fresh flat: 143.34s total / 4.42s restoring; prior boundary failed after 456.47s at 7 complete plus 82/111 chunks of phase8, restoring7.28s. These are observed inputs, not a guarantee. Reserve 300s flat/small negative, 420s ascending/descending, 1500s boundary.',
+      'stop_policy':'Stop after any failure; no automatic restart. Start only if remaining time meets measured budget. No flat-boundary start at/after 07:00 CST; diagnostics stop 07:25 CST, target restored by 07:30 CST.',
+      'sequence':['base','repeat','candidate','restored'],
+      'phase_identity':'New Editor, Document, WorldProjection and work snapshot per phase; retained references prevent id reuse. Compare logical two layers, size, origin, profiles, camera.',
+@@ -94,7 +96,7 @@
+      'flat_max_elapsed_seconds':900,
+      'native_resource_boundary':'Python cache maps restored; unique native diagnostic geometry is reclaimed by later ordinary owned-process stop, which this attach-only tool does not perform.',
+      'limits':['Red mask/pixel equality is a conservative sentinel, not final mesh/thickness acceptance.',
+-       'Observer covers actual native Deserialize/Serialize/Combine input, not custom liquid FreeModels.',
++       'Palette observer bytes unchanged. Separate water receipts cover forwarded native FreeModel/uniform calls; successful setters are acknowledgements, not native readback.',
+        'No product integration, no final cold-source acceptance, no manual issue closure.']}
+ 
+ 
+@@ -246,7 +248,10 @@
+             finally:save()
+         def capture(self,label,tree=None):
+             boundary('capture:'+label)
++            before=water.snapshot(self,label+':before')
+             result=super().capture(label,tree)
++            after=water.snapshot(self,label+':after')
++            result['water_receipts']={'before':before,'after':after}
+             assert result['capture']['window']['pid']==row['game_pid']
+             gate['captures'].append({'label':label,'record':result});save()
+             return result
+@@ -276,6 +281,7 @@
+           'mask':full.image_record(path),'roi':full.image_record(roi_path)}
+ 
+     audit=installed=visual=observed=hook=False
++    water=water_receipts.WaterReceiptSink(folder/'water-receipts',HERE/'fixed-water-v1/water_setter_observer.py')
+     with Client(timeout=30) as client:
+         check=Check(client,folder/'report.json',60,native_resolution=True,background_only=True,
+           native_capture_helper=ROOT/'tools/capture_native_window.py')
+@@ -288,6 +294,7 @@
+             visual=True;check.run(SAVE_VISUAL)
+             hook=True;check.run(payloads.HOOK_INSTALL%(base64.b64encode((HERE/'candidate-drop-direct-only/render_context.py').read_bytes()).decode('ascii'),base64.b64encode((HERE/'candidate_trace_v2.py').read_bytes()).decode('ascii')))
+             observed=True;report['observer_install']=check.run(payloads.OBSERVER_INSTALL%base64.b64encode((HERE/'observer_client_v3.py').read_bytes()).decode('ascii'))
++            report['water_observer_install']=water.install(check)
+             report['profile']=check.run(payloads.PROFILE)
+             from projection.block_registry import fingerprint
+             report['setup']=check.run(full.BEGIN%fingerprint())
+@@ -359,6 +366,7 @@
+         finally:
+             gate['restore_mode']=True;save()
+             actions=[('stop_projection','b.stop_projection()\n_result=True')]
++            if water.install_attempted:actions.append(('water_observer',None))
+             if hook:actions.append(('original_helpers',payloads.HOOK_RETIRE))
+             if observed:actions.append(('observer',payloads.OBSERVER_RETIRE))
+             if visual:actions.extend((('camera',camera_restore_code(False)),('visual',"saved=sys._blueprint_visual_saved\ns.origin=saved['origin']\ns.opacity=saved['opacity']\ns.projection_missing=saved['missing']\ns.projection_outline=saved['outline']\ndel sys._blueprint_visual_saved\n_result=True")))
+@@ -367,6 +375,12 @@
+             was_open=False
+             for label,code in actions:
+                 try:
++                    if label=='water_observer':
++                        report['water_retirement']=water.retire(check);save()
++                        assert report['water_retirement']['passed'],report['water_retirement']['errors']
++                        from water_resource_mapping_v1 import verify_mapping
++                        report['water_mapping']=verify_mapping(project,folder/'water-receipts',args.fixture);save()
++                        continue
+                     marker={'original_helpers':'_books_wire_hook','observer':'_books_wire_observer_module',
+                       'camera':'_blueprint_visual_saved','visual':'_blueprint_visual_saved',
+                       'workspace_state':'_blueprint_qa_saved','document':'_blueprint_qa_saved'}.get(label)
+@@ -407,7 +421,7 @@
+     mode.add_argument('--plan-only',action='store_true');mode.add_argument('--run',action='store_true')
+     parser.add_argument('--plan',type=Path,required=True)
+     parser.add_argument('--output',type=Path)
+-    parser.add_argument('--fixture',choices=fixtures.NAMES,default='flat-interior')
++    parser.add_argument('--fixture',choices=FIXTURE_ORDER,default='flat-interior')
+     parser.add_argument('--session');parser.add_argument('--owner')
+     for name in ('project','manifest','watch','watch-binding','capture-exe','sentinel-review'):parser.add_argument('--'+name,type=Path)
+     args=parser.parse_args()
+--- cold_lifecycle_v7.py
++++ cold_lifecycle_v8_fixed_water.py
+@@ -12,14 +12,14 @@
+ HERE=Path(__file__).resolve().parent
+ ROOT=HERE.parents[2]
+ sys.path.insert(0,str(HERE))
+-import trial_capture_v6 as trial
++import trial_capture_v7_fixed_water as trial
+ import session_reader_v3 as reader
+ import lifecycle_cleanup_v3 as cleanup
+ 
+-OWNER='wire-r27-crc32-mutex-v10'
++OWNER='wire-r27-fixed-water-v1'
+ PROJECT=ROOT/'.runtime/projects'/OWNER
+-SOURCE_PROJECT=ROOT/'.runtime/projects/wire-r27-small-retirement-v3'
+-SOURCE_MANIFEST=HERE/'project-manifest-v3.json'
++SOURCE_PROJECT=ROOT/'.runtime/projects/wire-r27-crc32-mutex-v10'
++SOURCE_MANIFEST=HERE/'project-manifest-v6.json'
+ MCDK=ROOT/'.runtime/mcdk-retry-r11/build-ipc-framing-r11/tools/mcdk/mcdk.exe'
+ GUARD=ROOT/'docs/evidence/background-focus-r13-v1/inputs/native_focus_guard.dll'
+ MCDK_SHA='b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9'
+@@ -30,12 +30,12 @@
+  '.agents/skills/pyreact-debugging/scripts/_session.py',
+  'tools/census_intrinsic_glint_ui_r21.py',
+  '.runtime/round-20261022/concrete-support-v3-runtime/lifecycle.py')
+-LOCAL=('cold_lifecycle_v7.py','lifecycle_cleanup_v3.py','test_cleanup_v3.py','watch_exact_exit_v3.py','session_reader_v3.py',
+- 'frozen-trial-plan-v6.json','trial_capture_v6.py','phase_transport_v5.py','test_phase_transport_v5.py','project-manifest-v3.json','source-binding-v2.json')
++LOCAL=('cold_lifecycle_v8_fixed_water.py','lifecycle_cleanup_v3.py','test_cleanup_v3.py','watch_exact_exit_v3.py','session_reader_v3.py',
++ 'frozen-trial-plan-v7-fixed-water.json','trial_capture_v7_fixed_water.py','phase_transport_v5.py','test_phase_transport_v5.py','project-manifest-v6.json','source-binding-v2.json','fixed-water-v1/shader-change-manifest-v1.json')
+ 
+ 
+ def freeze_plan():
+-    return {'schema':'wire-r27-cold-lifecycle-v7-status-mutex-game-crc32-host-SHA256','owner':OWNER,'project':str(PROJECT),
++    return {'schema':'wire-r27-cold-lifecycle-v8-private-fixed-water','owner':OWNER,'project':str(PROJECT),
+       'diagnostic_deadline_utc':trial.DEADLINE.isoformat(),'watch_until_utc':WATCH_UNTIL.isoformat(),
+       'mcdk_sha256':MCDK_SHA,'guard_sha256':GUARD_SHA,
+       'reviewed_reader_sha256':reader.READER_SHA,'reviewed_watcher_sha256':reader.WATCHER_SHA,
+@@ -84,6 +84,10 @@
+         trial.runtime_matches(SOURCE_PROJECT,SOURCE_MANIFEST)
+         original=json.loads(SOURCE_MANIFEST.read_bytes())
+         source_rows=[]
++        shader_rows=json.loads((HERE/'fixed-water-v1/shader-change-manifest-v1.json').read_bytes())['shaders']
++        changes={row['path']:row for row in shader_rows}
++        assert len(changes)==3
++        changed=[]
+         for row in original['source_files']:
+             relative=Path(row['path'])
+             source=(SOURCE_PROJECT/relative).resolve(strict=True)
+@@ -94,18 +98,29 @@
+             if relative.as_posix()=='.mcdev.json':
+                 config=json.loads(raw)
+                 assert all(config[key] is False for key in ('auto_hot_reload_mods','auto_hot_reload_ui','auto_hot_reload_shaders','auto_hot_reload_materials'))
++            if row['path'] in changes:
++                change=changes[row['path']]
++                assert hashlib.sha256(raw).hexdigest()==change['original_sha256']
++                fixed=(HERE/'fixed-water-v1'/relative.name).read_bytes()
++                assert len(fixed)==change['fixed_bytes'] and hashlib.sha256(fixed).hexdigest()==change['fixed_sha256']
++                assert fixed==raw.replace(b'float clock = TOTAL_REAL_WORLD_TIME*20.0/TICKS_PER_FRAME;',b'float clock = 0.0;').replace(b'fract(clock)',b'0.0')
++                raw=fixed
++                row=dict(row,bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest())
++                changed.append(row['path'])
+             target=PROJECT/relative
+             target.parent.mkdir(parents=True,exist_ok=True)
+             with target.open('xb') as stream:stream.write(raw)
+             source_rows.append(dict(row))
+-        assert source_rows==original['source_files']
++        assert sorted(changed)==sorted(changes)
++        assert len(source_rows)==len(original['source_files'])
++        assert [row for row in source_rows if row['path'] not in changes]==[row for row in original['source_files'] if row['path'] not in changes]
+         trial.runtime_matches(SOURCE_PROJECT,SOURCE_MANIFEST)
+-        trial.write(args.manifest,{'schema':'wire-r27-new-cold-base-source-v6-byte-identical','owner':OWNER,
++        trial.write(args.manifest,{'schema':'wire-r27-new-cold-fixed-water-v1-three-clock-expression-deltas','owner':OWNER,
+           'project':str(PROJECT),'source_files':sorted(source_rows,key=lambda row:row['path']),
+           'head':original['head'],
+           'source_snapshot_manifest_sha256':trial.sha(SOURCE_MANIFEST),
+           'source_snapshot_project':str(SOURCE_PROJECT),
+-          'trial_plan_sha256':trial.sha(HERE/'frozen-trial-plan-v6.json'),
++          'trial_plan_sha256':trial.sha(HERE/'frozen-trial-plan-v7-fixed-water.json'),
+           'lifecycle_plan_sha256':trial.sha(args.plan),'source_binding_sha256':trial.sha(HERE/'source-binding-v2.json')})
+         trial.runtime_matches(PROJECT,args.manifest)
+         trial.write(folder/'prepared.json',{'manifest_sha256':trial.sha(args.manifest),'files':len(source_rows),
