@@ -1,0 +1,78 @@
+{
+  "python_version": "2.7.13 (v2.7.13:a06454b1afa1, Dec 17 2016, 20:53:40) [MSC v.1500 64 bit (AMD64)]", 
+  "deployed_IPCSystem_sha256": "aa37dc422b869936d34380c23f81a8fb1b0ca3b8cd12aed781efa929c9c91e8c", 
+  "causal_limit": "Source-derived oversized frame mechanism and observed disconnection/timeout; no captured full response packet and no native stack for separate game exit 0xC0000409.", 
+  "actual_packet_captured": false, 
+  "known_IPC_response_lower_bound_bytes": 30384984, 
+  "runtime_log": "03:33:31 [IPCSystem] connection closed; 03:33:41 IPC JSON request timeout", 
+  "exceeds_receiver_limit": true, 
+  "known_retained_records": 72, 
+  "known_retire_json_bytes": 15180117, 
+  "IPC_receiver_max_bytes": 16777216, 
+  "phase_files": [
+    {
+      "path": "phase-01-native.json", 
+      "sha256": "9b58366bef717bff2fd128c0c33ebe6c57ee8ce8e2049b5ad33e739c419cc858", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-02-native.json", 
+      "sha256": "2e6e4d4ba1fa3e29e2be7f636426d45fcb29a0ef8dae573be3be80636a16278c", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-03-native.json", 
+      "sha256": "e67e94f12783319be506ee21435af9a25a12776228b84787e964632e712b281c", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-04-native.json", 
+      "sha256": "e0938ba2dc85a4814c0fafd302e00872b44a352af97d0bbed48643ff15d2649c", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-05-native.json", 
+      "sha256": "91c9c272bd71483fb17e89658ef471da6c9cf8725221f1f11b4341e0dd19c327", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-06-native.json", 
+      "sha256": "f71c75c9fd8ccec42f60a3cee38c73de383ae0084eac74dbe82c191d059e29a3", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-07-native.json", 
+      "sha256": "f346570ede676c7ffbc25a8f4ea9831bc23636b72a6e5c594b3535dab51c72af", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-08-native.json", 
+      "sha256": "6bb49b76895fca2b92a57437092b620a8dd3d729cf094c3a728814aa51bf6f19", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-09-native.json", 
+      "sha256": "54e19106678c4ad6238d28aff3145d7fd664831f4545e9a7b5222cffcd2542b0", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-10-native.json", 
+      "sha256": "7548299a8be34d972e6cd37ff00e58f229f0353c287596d1dc3963974d5453d1", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-11-native.json", 
+      "sha256": "e5110a22ae1a4f36c094138184816a1276343b2ed37c71506725ae0a5964de9f", 
+      "records": 6
+    }, 
+    {
+      "path": "phase-12-native.json", 
+      "sha256": "6d67037e549657e003cc9567509c9c2a971d8dead9897f18ea531af06cb9e111", 
+      "records": 6
+    }
+  ], 
+  "known_exported_phase_files": 12, 
+  "host_added_hashes_removed": true, 
+  "method": "Executed exact deployed Python2 safe-value/repr/result functions against actual saved phase records, stripping host-only hashes. Known records remain in observer until full-list retire; extra records would increase payload. Request id width may add bytes.", 
+  "schema": "wire-r27-v2-retire-frame-size-reconstruction"
+}

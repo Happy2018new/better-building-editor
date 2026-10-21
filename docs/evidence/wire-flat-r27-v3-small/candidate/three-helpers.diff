@@ -1,0 +1,37 @@
+--- baseline/render_context.py
++++ private-candidate/render_context.py
+@@ -101,6 +101,7 @@
+ 
+ 
+ _FLOOR_LEVER = ('minecraft:lever', 5)
++_DRY_WIRE = frozenset(('minecraft:redstone_wire', power) for power in range(16))
+ _CONCRETE = frozenset(('minecraft:' + color + '_concrete', 0) for color in (
+     'white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray',
+     'light_gray', 'cyan', 'purple', 'blue', 'brown', 'green', 'red', 'black'))
+@@ -118,6 +119,8 @@
+         return
+     if front == _FLOOR_LEVER:
+         cell['_dry_floor_lever'] = True
++    elif front in _DRY_WIRE:
++        cell['_dry_floor_wire'] = True
+     elif front in _CONCRETE:
+         cell['_dry_concrete'] = True
+ 
+@@ -127,7 +130,7 @@
+                     if value != AIR for index in indices)
+     for front, indices in source.get('common', {}).items():
+         resolved = try_canonical(front)
+-        if resolved == _FLOOR_LEVER or resolved in _CONCRETE:
++        if resolved == _FLOOR_LEVER or resolved in _DRY_WIRE or resolved in _CONCRETE:
+             for index in indices:
+                 if index not in wet:
+                     _mark_floor_support(cells.get(index), front, AIR)
+@@ -141,7 +144,7 @@
+     material, target_material = cell.get('common'), target.get('common')
+     return ((_door(material) and not _door(target_material)) or
+             (material in _STATIC_CHEST_BODIES and target_material not in _STATIC_CHEST_BODIES) or
+-            (neighbor == (0, -1, 0) and target.get('_dry_floor_lever') is True and
++            (neighbor == (0, -1, 0) and (target.get('_dry_floor_lever') is True or target.get('_dry_floor_wire') is True) and
+              cell.get('_dry_concrete') is True))
+ 
+ 

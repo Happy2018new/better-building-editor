@@ -1,0 +1,159 @@
+--- observer_client_v2.py
++++ observer_client_v3.py
+@@ -130,12 +130,33 @@
+       'geometry_function':getattr(type(b).geometry,'im_func',type(b).geometry),
+       'retained_palettes':[],'retained_inputs':[],'retained_phase_objects':[]}
+     b.factory=ConcreteFactoryReceipt(b.factory)
++    sys._books_wire_observer['installed_factory']=b.factory
+ 
+ 
+ def concrete_retire():
+     saved=sys._books_wire_observer
+-    assert isinstance(b.factory,ConcreteFactoryReceipt)
+-    records=list(saved['records'])
+-    b.factory=saved['factory']
+-    del sys._books_wire_observer
+-    return records
++    summary=None
++    try:
++        assert b.factory is saved['installed_factory'] and isinstance(b.factory,ConcreteFactoryReceipt)
++        records=saved['records']
++        assert len(records)<=4096,'Native record count exceeds bounded retirement receipt'
++        phases={}
++        for record in records:
++            key=record['phase_key']
++            assert isinstance(key,(str,type(u''))) and 0<len(key)<=192
++            assert key in phases or len(phases)<12,'More than twelve native phase keys'
++            phase=record['phase']
++            assert phase in ('CreatePalette','Deserialize','Combine')
++            counts=phases.setdefault(key,{'CreatePalette':0,'Deserialize':0,'Combine':0})
++            counts[phase]+=1
++        summary={'schema':'wire-native-retirement-v3','retired':True,
++          'record_count':len(records),'phase_counts':phases,
++          'original_factory_id':id(saved['factory']),'installed_factory_id':id(saved['installed_factory'])}
++        assert len(json.dumps(summary).encode('ascii'))<=8192,'Retirement receipt exceeds eight KiB'
++    finally:
++        b.factory=saved['factory']
++        del sys._books_wire_observer
++    summary.update(factory_restored=b.factory is saved['factory'],
++      restored_factory_id=id(b.factory),observer_removed=not hasattr(sys,'_books_wire_observer'))
++    assert len(json.dumps(summary).encode('ascii'))<=8192,'Final retirement receipt exceeds eight KiB'
++    return summary
+--- trial_payloads_v2.py
++++ trial_payloads_v3.py
+@@ -148,12 +148,17 @@
+ eval(compile(base64.b64decode(%r),'<wire-readonly-observer>','exec'),module.__dict__)
+ sys._books_wire_observer_module=module
+ module.concrete_install()
+-_result=True
++saved=sys._books_wire_observer
++_result=json.dumps({'installed':True,'original_factory_id':id(saved['factory']),
++ 'installed_factory_id':id(saved['installed_factory']),'record_count':len(saved['records'])})
+ '''
+ 
+ OBSERVER_RETIRE='''module=sys._books_wire_observer_module
+-records=module.concrete_retire()
+-del sys._books_wire_observer_module
+-_result=json.dumps({'records':records,'observer_removed':not hasattr(sys,'_books_wire_observer'),
+- 'module_removed':not hasattr(sys,'_books_wire_observer_module')})
++try:
++ receipt=module.concrete_retire()
++finally:
++ del sys._books_wire_observer_module
++receipt['module_removed']=not hasattr(sys,'_books_wire_observer_module')
++_result=json.dumps(receipt)
++assert len(_result.encode('ascii'))<=8192,'Final observer retirement payload exceeds eight KiB'
+ '''
+--- trial_capture_v2.py
++++ trial_capture_v3.py
+@@ -13,7 +13,7 @@
+ ROOT=HERE.parents[2]
+ sys.path.insert(0,str(HERE))
+ import trial_fixtures_v1 as fixtures
+-import trial_payloads_v2 as payloads
++import trial_payloads_v3 as payloads
+ import native_receipts_v2 as native_receipts
+ import session_reader_v2 as session_reader
+ import independent_audit_v1 as independent
+@@ -21,10 +21,11 @@
+ CAPTURE_SHA='cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8'
+ DEADLINE=datetime(2026,10,21,23,30,tzinfo=timezone.utc)
+ HELPERS=('_mark_floor_support','_mark_palette_floor_support','_hidden_neighbor')
+-LOCAL_INPUTS=('trial_capture_v2.py','trial_fixtures_v1.py','trial_payloads_v2.py',
+- 'independent_audit_v1.py','observer_client_v2.py','source-binding-v2.json',
++LOCAL_INPUTS=('trial_capture_v3.py','trial_fixtures_v1.py','trial_payloads_v3.py',
++ 'independent_audit_v1.py','observer_client_v3.py','source-binding-v2.json',
+  'candidate-drop-direct-only/render_context.py','candidate_trace_v2.py','offline_verify_v2.py',
+- 'native_receipts_v2.py','session_reader_v2.py','test_native_controls_v2.py')
++ 'native_receipts_v2.py','session_reader_v2.py','test_native_controls_v2.py',
++ 'test_native_controls_v3.py','test_retirement_v3.py')
+ HOST_INPUTS=('tools/diagnose_concrete_color_r23.py','tools/verify_debug_blueprints.py',
+  'tools/verify_debug_visuals.py','tools/verify_sign_visuals.py',
+  'tools/verify_shulker_orientations.py','tools/capture_native_window.py',
+@@ -51,7 +52,7 @@
+ 
+ def plan():
+     source=json.loads((HERE/'source-binding-v2.json').read_bytes())
+-    return {'schema':'wire-r27-new-phase-document-native-attribution-v2',
++    return {'schema':'wire-r27-new-phase-document-native-attribution-v3-small-retirement',
+      'runtime_calls':0,'starts_game':False,'writes_production':False,'world_writes':False,
+      'candidate_qualified':False,'manual_closures':0,'helpers':HELPERS,
+      'local_inputs':[{'path':name,'sha256':sha(HERE/name)} for name in LOCAL_INPUTS],
+@@ -67,6 +68,7 @@
+      'fixtures':[fixtures.fixture(name) for name in fixtures.NAMES],
+      'extended_requires':'Root review artifact of completed/restored sentinel, explicitly approving original screenshots for wire shape and thickness.',
+      'restoration':'Stop projection, original helper objects, observer, camera, visual/document/workspace, preview settle, original cache maps, independent helper/geometry/profile/cache audit.',
++     'retirement_receipt':'At most twelve bounded phase keys and 4096 records; return counts and exact restored factory identities, compare every exported phase record. No repeated full native payload.',
+      'native_resource_boundary':'Python cache maps restored; unique native diagnostic geometry is reclaimed by later ordinary owned-process stop, which this attach-only tool does not perform.',
+      'limits':['Red mask/pixel equality is a conservative sentinel, not final mesh/thickness acceptance.',
+        'Observer covers actual native Deserialize/Serialize/Combine input, not custom liquid FreeModels.',
+@@ -97,6 +99,29 @@
+     for row in json.loads((HERE/'source-binding-v2.json').read_bytes())['rows']:
+         assert actual[row['path']]==row['sha256'],'Trial base dependency mismatch: '+row['path']
+     return sha(manifest_path)
++
++
++def validate_retirement(receipt,folder,report):
++    assert receipt['schema']=='wire-native-retirement-v3'
++    assert all(receipt[key] is True for key in ('retired','factory_restored','observer_removed','module_removed'))
++    assert 'records' not in receipt and len(json.dumps(receipt).encode('ascii'))<=8192
++    installed=report['observer_install']
++    assert installed['installed'] and installed['record_count']==0
++    assert receipt['original_factory_id']==receipt['restored_factory_id']==installed['original_factory_id']
++    assert receipt['installed_factory_id']==installed['installed_factory_id']
++    expected={};total=0;files=[]
++    for path in sorted(folder.glob('phase-*-native.json')):
++        snapshot=json.loads(path.read_bytes());key=snapshot['phase_key']
++        assert key not in expected,'Repeated exported phase key'
++        counts={'CreatePalette':0,'Deserialize':0,'Combine':0}
++        for record in snapshot['records']:
++            assert record['phase_key']==key
++            counts[record['phase']]+=1;total+=1
++        expected[key]=counts
++        files.append({'path':path.name,'sha256':sha(path),'records':len(snapshot['records'])})
++    assert expected==receipt['phase_counts'] and total==receipt['record_count'],'Retired native count differs from exhaustive phase exports'
++    return {'verified':True,'all_phase_exports_exhaustive':True,'record_count':total,'phase_count':len(expected),
++      'phase_files':files,'receipt_bytes':len(json.dumps(receipt).encode('ascii')),'factory_restored_same_object':True}
+ 
+ 
+ def run(args,frozen):
+@@ -233,7 +258,7 @@
+             installed=True;check.run(INSTALL_PROBE)
+             visual=True;check.run(SAVE_VISUAL)
+             hook=True;check.run(payloads.HOOK_INSTALL%(base64.b64encode((HERE/'candidate-drop-direct-only/render_context.py').read_bytes()).decode('ascii'),base64.b64encode((HERE/'candidate_trace_v2.py').read_bytes()).decode('ascii')))
+-            observed=True;check.run(payloads.OBSERVER_INSTALL%base64.b64encode((HERE/'observer_client_v2.py').read_bytes()).decode('ascii'))
++            observed=True;report['observer_install']=check.run(payloads.OBSERVER_INSTALL%base64.b64encode((HERE/'observer_client_v3.py').read_bytes()).decode('ascii'))
+             report['profile']=check.run(payloads.PROFILE)
+             from projection.block_registry import fingerprint
+             report['setup']=check.run(full.BEGIN%fingerprint())
+@@ -319,7 +344,9 @@
+                     if marker:code="if hasattr(sys,%r):\n"%marker+'\n'.join(' '+line for line in code.splitlines())+"\nelse:_result={'skipped_missing_marker':True}"
+                     result=check.run(code)
+                     if label=='workspace_state' and isinstance(result,bool):was_open=result
+-                    if label=='observer':write(folder/'complete-native-receipts.json',result)
++                    if label=='observer':
++                        write(folder/'observer-retirement.json',result)
++                        report['observer_retirement']=validate_retirement(result,folder,report);save()
+                 except Exception as error:report['cleanup_errors'].append({'step':label,'error':'%s: %s'%(type(error).__name__,error)})
+             if installed:
+                 try:check.run('owner.open_workspace()\n_result=True' if was_open else 'if navigator.top is not None:navigator.pop()\n_result=True')

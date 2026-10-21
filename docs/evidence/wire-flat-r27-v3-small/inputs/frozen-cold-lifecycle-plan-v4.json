@@ -1,0 +1,77 @@
+{
+  "schema": "wire-r27-cold-lifecycle-v4-small-retirement",
+  "owner": "wire-r27-small-retirement-v3",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\wire-r27-small-retirement-v3",
+  "diagnostic_deadline_utc": "2026-10-21T23:30:00+00:00",
+  "watch_until_utc": "2026-10-21T23:45:00+00:00",
+  "mcdk_sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+  "guard_sha256": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93",
+  "reviewed_reader_sha256": "2ae4d46fc4fc63249b1b10d8cc6e7028009f4fa1941ea64f88452871a89eb28d",
+  "reviewed_watcher_sha256": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+  "local_inputs": [
+    {
+      "path": "cold_lifecycle_v4.py",
+      "sha256": "50bee006b5599739a547755f44f4304b0680d3fa9e14578cfdad3c38c1e146f5"
+    },
+    {
+      "path": "lifecycle_cleanup_v3.py",
+      "sha256": "452813a1b9582d127f6994b24826182ca0723fc0a9ac14ebca0d1b5dd12744dd"
+    },
+    {
+      "path": "test_cleanup_v3.py",
+      "sha256": "71e82f52c4b57f03a855c2950ddd9a1d174c67232ff75711406b0bb85fdc7ded"
+    },
+    {
+      "path": "watch_exact_exit_v2.py",
+      "sha256": "adccf35a1964d550b0bed0a135fc33247c9db09e3564593f46fb3308dc5f26d2"
+    },
+    {
+      "path": "session_reader_v2.py",
+      "sha256": "bdeb6e4816a64864bcbd2964c1bbab4b68f711c734100ba99fea34427951d1bb"
+    },
+    {
+      "path": "frozen-trial-plan-v3.json",
+      "sha256": "39b805708ab3ebcb8a59e035da060e14f32781380f20a1f833eefe8a36fb6be0"
+    },
+    {
+      "path": "trial_capture_v3.py",
+      "sha256": "527018b134e475499c1f1b9510e68604de8e2065b5a09c8f453e4b839a34220f"
+    },
+    {
+      "path": "source-binding-v2.json",
+      "sha256": "4710121ef93c424b0b826852af06a5bdc63e7497e8ff63d7b962d0f3ce2f1528"
+    }
+  ],
+  "external_inputs": [
+    {
+      "path": "tools/watch_intrinsic_glint_exit_r21.py",
+      "sha256": "aa436ee9a0f496554c69330d8456fa21b6bb551b63032f0b5a453ad9748646aa"
+    },
+    {
+      "path": ".agents/skills/pyreact-debugging/scripts/instances.py",
+      "sha256": "bd8fbeba3145cef771c0abd1859ca9f02520855b1db75e9ef76c7cee232ebfaa"
+    },
+    {
+      "path": ".agents/skills/pyreact-debugging/scripts/_session.py",
+      "sha256": "6960a3e5e6fdc8ccfac828aa3ebb0cab4a748d2d85488eeceb91fa77b0c899e6"
+    },
+    {
+      "path": "tools/census_intrinsic_glint_ui_r21.py",
+      "sha256": "890f467fec8eb946cc9bc4eefb85e2d2a922b15e012204f083936972a9258f65"
+    },
+    {
+      "path": ".runtime/round-20261022/concrete-support-v3-runtime/lifecycle.py",
+      "sha256": "e1ed297ad16eeb34f81dcd8ca0dfcd53c282474b4a0a351bdb3c6cc4986097dd"
+    }
+  ],
+  "noactivation": true,
+  "available_commit_minimum_gib": 6,
+  "maximum_mc_instances": 5,
+  "handle_limit": 250000,
+  "maximum_handle_growth": 10000,
+  "runtime_calls": 0,
+  "prepared_runtime": true,
+  "starts_MC": false,
+  "failure_cleanup": "Finally retains original creation identities and calls ordinary owned stop once; no force/restart. Errors or timeout remain explicit.",
+  "shutdown": "Ordinary exact-owner stop only; retain exact handles and report actual game/MCDK exit codes independently of command return code."
+}

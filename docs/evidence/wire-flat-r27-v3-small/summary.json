@@ -1,0 +1,58 @@
+{
+  "schema": "wire-r27-review-summary-v3",
+  "production_changed": false,
+  "candidate_promoted": false,
+  "GPU_qualified": false,
+  "manual_closures": 0,
+  "flat": {
+    "completed": true,
+    "restored": true,
+    "phase_count": 12,
+    "native_record_count": 72,
+    "root_original_images_reviewed": 6,
+    "original_images_in_bundle": 6,
+    "all_original_image_hashes_in_root_review": 24
+  },
+  "boundary": {
+    "completed": false,
+    "restored": false,
+    "exported_phase_count": 0,
+    "image_count": 0,
+    "failed_rpc_number": 20,
+    "error": "IPC JSON request timed out",
+    "actual_native_record_count_known": false,
+    "inferred_minimum_record_count": 21,
+    "minimum_IPC_JSON_plus_repr_bytes": 48340592
+  },
+  "lifecycle": {
+    "ordinary_stop_returncode": 0,
+    "actual_game_exit": "0xC0000409",
+    "actual_MCDK_exit": "0x00000000",
+    "actual_watcher_exit": "0x00000001",
+    "genuinely_live_MC_at_cleanup": 0,
+    "forced_game_or_MCDK_stop": false,
+    "restarted_after_failure": false
+  },
+  "cpu_business": {
+    "passed": true,
+    "positive_cases": 1024,
+    "negative_cases": 1288,
+    "mixed_cache_documents": 2,
+    "actual_native_paths_proved": false
+  },
+  "candidate": {
+    "changed_helpers": [
+      "_mark_floor_support",
+      "_mark_palette_floor_support",
+      "_hidden_neighbor"
+    ],
+    "added_constant": "_DRY_WIRE",
+    "only_admitted_change": "Directly lower copied dry concrete context neighbor under dry redstone wire; own targets and both logical layers retained"
+  },
+  "historical_v2_failure_retained": true,
+  "acceptance_limits": [
+    "Only flat GPU sentinel reviewed; other six fixtures unrun and boundary incomplete",
+    "No native stack attributes either game abnormal exit",
+    "CPU business expectations stay private runtime until promotion"
+  ]
+}

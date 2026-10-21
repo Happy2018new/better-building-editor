@@ -1,0 +1,81 @@
+{
+  "before": {
+    "at": "2026-10-22T03:35:00.981128+08:00",
+    "memory": {
+      "observed_at": "2026-10-21T19:35:00.981697+00:00",
+      "commit_total_bytes": 33823473664,
+      "commit_limit_bytes": 46100955136,
+      "commit_available_bytes": 12277481472,
+      "physical_available_bytes": 1219497984
+    },
+    "game": {
+      "pid": 56388,
+      "expected_identity": "134370845753020119",
+      "actual_identity": "134370845753020119",
+      "handles": 824
+    },
+    "mcdk": {
+      "pid": 48580,
+      "expected_identity": "134370845750631241",
+      "actual_identity": "134370845750631241",
+      "handles": 231
+    }
+  },
+  "ordinary_returncode": 0,
+  "states": [
+    {
+      "at": "2026-10-22T03:35:07.145525+08:00",
+      "memory": {
+        "observed_at": "2026-10-21T19:35:07.146265+00:00",
+        "commit_total_bytes": 31148761088,
+        "commit_limit_bytes": 46100955136,
+        "commit_available_bytes": 14952194048,
+        "physical_available_bytes": 2408546304
+      },
+      "game": {
+        "pid": 56388,
+        "expected_identity": "134370845753020119",
+        "actual_identity": null,
+        "handles": null
+      },
+      "mcdk": {
+        "pid": 48580,
+        "expected_identity": "134370845750631241",
+        "actual_identity": null,
+        "handles": null
+      }
+    }
+  ],
+  "force_executed": false,
+  "still_live": false,
+  "exact_exit": {
+    "schema": 1,
+    "session": "58fabc2865b94083b0875f268f9ca570",
+    "owner": "wire-r27-direct-attribution-v2",
+    "opened_at": "2026-10-21T19:29:57.910802+00:00",
+    "processes": {
+      "game": {
+        "pid": 56388,
+        "identity": "134370845753020119",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-21T19:35:07.131503+00:00"
+      },
+      "mcdk": {
+        "pid": 48580,
+        "identity": "134370845750631241",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-21T19:35:07.135168+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "read_events": [],
+  "all_actual_exit_codes_zero": false
+}
