@@ -7,6 +7,8 @@ PREFIX = 'test.transforms.acceptance.'
 METADATA = (
     (PREFIX + 't01', 'transforms', 'T01 · 不对称建筑与六种变换',
      (24, 10, 24), 'minecraft:oak_stairs'),
+    (PREFIX + 't02', 'transforms', 'T02 · 楼梯、半砖与附着方向',
+     (32, 10, 32), 'minecraft:trapdoor'),
     (PREFIX + 't04', 'transforms', 'T04 · 跨格双箱与内容保真',
      (32, 10, 24), 'minecraft:chest'),
     (PREFIX + 't05', 'transforms', 'T05 · 四种铁轨与坡顶连接',
@@ -22,6 +24,13 @@ CASES = {
                     ((2, 5, 2), 'magenta_concrete')),
         'message': 'T01：已选中7×5×5范围；红绿蓝黄为底角，紫为上角。先旋转90°，撤销，再看镜像。',
         'actions': ('rotate_y90', 'undo', 'mirror_x', 'undo', 'mirror_y',
+                    'undo', 'mirror_z', 'undo'),
+    },
+    PREFIX + 't02': {
+        'selection': ((1, 1, 1), (21, 6, 30)), 'focus': (11, 3, 15),
+        'columns': (3, 8, 13, 18),
+        'message': 'T02：从前到后为正倒楼梯、上下半砖、关闭/打开活板门、四向梯子、六面按钮。镜像Y看上下，旋转看朝向；每步可撤销。',
+        'actions': ('mirror_y', 'undo', 'rotate_y90', 'undo', 'mirror_x',
                     'undo', 'mirror_z', 'undo'),
     },
     PREFIX + 't04': {
@@ -112,6 +121,39 @@ def _paired_chests(fixture, left, right, direction):
         fixture.document.blocks[pos] = hydrate_chest_actor(cell, pos)
 
 
+def _directions(fixture, row):
+    from .debug_blueprints import material
+    directions = ((1, 0, 0), (-1, 0, 0), (0, 0, 1), (0, 0, -1))
+    facings = ((0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1),
+               (-1, 0, 0), (1, 0, 0))
+    stone = material('stone')
+    for direction, x in enumerate(row['columns']):
+        for upper, z in ((False, 3), (True, 7)):
+            fixture.put((x, 2, z), stone)
+            fixture.put((x, 3, z), material('oak_stairs', {
+                'weirdo_direction': direction, 'upside_down_bit': upper}))
+        for opened, z in ((False, 15), (True, 19)):
+            fixture.put((x, 3, z), material('trapdoor', {
+                'direction': direction, 'upside_down_bit': bool(direction % 2),
+                'open_bit': opened}))
+            normal = directions[direction]
+            fixture.put((x - normal[0], 3, z - normal[2]), stone)
+        normal = facings[direction + 2]
+        fixture.put((x, 3, 23), material('ladder', {'facing_direction': direction + 2}))
+        fixture.put((x - normal[0], 3, 23 - normal[2]), stone)
+    for x, half in zip(row['columns'][:2], ('bottom', 'top')):
+        fixture.put((x, 2, 11), stone)
+        fixture.put((x, 3, 11), material('oak_slab', {'minecraft:vertical_half': half}))
+    for direction, normal in enumerate(facings):
+        x, z = row['columns'][direction % 4], 27 if direction < 4 else 29
+        fixture.put((x, 3, z), material('stone_button', {
+            'facing_direction': direction, 'button_pressed_bit': False}))
+        fixture.put((x - normal[0], 3 - normal[1], z - normal[2]), stone)
+    for pos, color in (((1, 1, 1), 'red_concrete'), ((21, 1, 1), 'lime_concrete'),
+                       ((1, 1, 30), 'blue_concrete'), ((21, 6, 30), 'magenta_concrete')):
+        fixture.put(pos, material(color))
+
+
 def _chests(fixture, row):
     from .debug_blueprints import material
     _marked_base(fixture, (14, 1, 3), (18, 1, 8))
@@ -155,7 +197,8 @@ def _boundary(fixture, row):
 
 def populate(fixture, identity):
     row = CASES[identity]
-    builders = {'t01': _asymmetric, 't04': _chests, 't05': _rails, 't08': _boundary}
+    builders = {'t01': _asymmetric, 't02': _directions, 't04': _chests,
+                't05': _rails, 't08': _boundary}
     builders[identity[len(PREFIX):]](fixture, row)
     return fixture.finish()
 
