@@ -1,0 +1,45 @@
+{
+  "schema": "wire-r27-CRC-boundary-watch-read-failure-v1",
+  "completed": false,
+  "restored": false,
+  "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+  "cleanup_errors": [
+    {
+      "step": "observer",
+      "error": "AssertionError: Retired native count differs from exhaustive phase exports"
+    }
+  ],
+  "captured_tool_traceback_call_chain": [
+    "phase_transport_v5.collect:118 check.run(CHUNK)",
+    "trial_capture_v5.Check.run:211 boundary before RPC entry/dispatch",
+    "trial_capture_v5.boundary:203 session_reader.read_json(args.watch)",
+    "session_reader_v2.read_json:34 bounded_manifest_read(native_read_json)",
+    "windows_manifest_reader.native_read_json:44 json.loads(native_read_bytes(path))",
+    "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+  ],
+  "traceback_provenance": "Derived from captured exec tool process stderr; original process stderr was not separately stored",
+  "exact_failed_read_bytes_preserved": false,
+  "empty_read_proven": false,
+  "watcher_source_has_in_place_truncate_then_write_status_publication": true,
+  "completed_phase_exports": 7,
+  "exported_native_records": 168,
+  "observer_final_record_count": 192,
+  "phase8_partial_chunks_acknowledged": 82,
+  "phase8_expected_chunks": 111,
+  "all_completed_chunk_CRC_checks_had_passed": true,
+  "MC_chunk_RPC_for_failing_boundary_dispatched": false,
+  "independent_runtime_state_audit_restored": true,
+  "runtime_and_host_unchanged": true,
+  "ordinary_stop_returncode": 0,
+  "retained_actual_game_exit_code": "0xC0000409",
+  "retained_actual_MCDK_exit_code": "0x00000000",
+  "watcher_cleanup_exit_code": "0x00000001",
+  "genuinely_live_MC_after_cleanup": 0,
+  "forced_game_or_MCDK_stop": false,
+  "restarted_after_failure": false,
+  "remaining_six_extension_fixtures_run": false,
+  "native_exit_cause_attributed": false,
+  "production_changed": false,
+  "GPU_qualified": false,
+  "manual_closures": 0
+}

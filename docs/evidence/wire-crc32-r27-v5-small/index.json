@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "packages": [
+    {
+      "path": "flat/manifest.json",
+      "sha256": "947940d5467f488e6375bcb365af1c65376fda16fa0cea3b0a51a37116db2ed8",
+      "independent_review": "flat-root-review.json"
+    },
+    {
+      "path": "boundary-failure/manifest.json",
+      "sha256": "7040ae59a9adddada67e50db71ead15b40872a47adf9e7ace17e4f62b37bfe38",
+      "independent_review": "boundary-failure-root-review.json"
+    },
+    {
+      "path": "game-sha-failure/manifest.json",
+      "sha256": "967abaa7d69fa6e5e26ca513bf86b0206bbbf2f77bb598203194e3228c8b5ef4",
+      "independent_review": "game-sha-failure-root-review.json"
+    }
+  ],
+  "production_promoted": false,
+  "manual_closures_added": 0,
+  "flat_completed": true,
+  "boundary_completed": false,
+  "boundary_independent_state_restored": true,
+  "game_exit": "0xC0000409",
+  "MC_started_by_packaging": false
+}

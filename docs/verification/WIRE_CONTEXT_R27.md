@@ -23,3 +23,18 @@ CPU私有业务对照覆盖1024正例、1288反例和2份混合缓存文档，�
 [安全小包](../evidence/wire-flat-r27-v3-small/README.md)包含78对象、91文件、4,899,424字节，每文件不超过250000字节；manifest SHA256 `61437df65fdbca309d90323da4a27198db32d5993e56fff3cda6493fc3e0f728`。新flat完整报告、12个完整phase、退场、六张关键原PNG字节分片、主代理复核、boundary失败及退出、旧v2失败、候选差异和CPU对照分别保留。完整项目archive不重复放入Git。
 
 主代理独立重建全部78对象，逐字节比较74份实际来源，核对全部分片／容器／内容SHA，递归检查嵌套JSON、Base64、转义文本及本地凭据相等值，零发现；3个阳性和1个阴性扫描控制通过。工作区原件未被脱敏覆盖，派生与原件SHA分开。后续分块传输仍属私有验证工具，须新来源／计划／manifest及同会话flat门，不能借本次sentinel放宽新实现资格。
+
+
+## 05:54 CRC32 分块新实测与未完成的边界
+
+实际3.10游戏在任何诊断修改前通过 `zlib.crc32('123456789') & 0xffffffff == 3421780262` 已知答案检查。游戏本身缺少hashlib.sha256；新导出仅在游戏计算CRC32，按256KiB完整分块传输，host独立重建后才计算SHA256。此前v4在首个START即因缺少sha256失败，0阶段／0截图，原失败与独立恢复结果一并保存。
+
+新 `flat-interior-actual-v5` 完成12阶段、72条原生记录、72个实采传输分块和24张原PNG，completed/restored/source_unchanged均true，cleanup为空。root独立逐RPC重建CRC及原始JSON，并实际查看六张关键原图；本次平面线形／厚度没有可见退化，默认透明度下混凝土十字亮斑消失。此范围仅为flat，不转授边界、坡道或含水反例。
+
+同会话 `flat-boundary-actual-v5` 完整导出前7阶段／168条记录；第8阶段创建后，在111个分块中的82个已回传时，host尚未派发下一RPC便读取watcher状态遇到JSONDecodeError。该次失败读取的原bytes未捕获，不能写成实测空文件；独立离线对照只证明原in-place publisher确有可观察截断窗口。observer共创建192条而完整导出168条，故整体completed/restored=false必须保留；另一项独立运行状态审计确认factory/helper/cache/geometry/profile及marker/jobs/actors已恢复、source不变，restored=true。两者衡量不同条件，不互相覆盖。余下六组未执行。
+
+普通owned stop返回0，但原生同handle记录game退出 `0xC0000409`、MCDK退出0；专属watcher精确回收退出1。没有强杀game/MCDK或自动重启，也没有native堆栈证明异常退出原因。
+
+[新精简证据](../evidence/wire-crc32-r27-v5-small/index.json)保留flat、boundary失败、旧game SHA失败三包。root分别独立重建72对象／25对象／8份旧失败原件，核对68／23／8份精确实际来源及递归凭据检测，发现0；每文件小于300000B。完整source archive和大边界原JSON不重复入Git，原始大JSON保持runtime，Git保存可无损还原的gzip。
+
+另有v6直接os.replace、v7有界5/32/33重试、v8 ReplaceFileW三个私有状态发布候选在实际Windows并发控制失败，均未晋升。静态share-delete保留handle对照中的ReplaceFileW成功不能替代500次并发控制；v8实际Win2的更深抛出位置未被捕获，不能据此断言target名称出现空档，也未增加Win2／JSON／schema／owner／identity重试。下一步只准备新私有named-mutex状态读写控制，当前没有凭此启动MC。生产铁线候选、混凝土整项及人工关闭继续保持原状态。

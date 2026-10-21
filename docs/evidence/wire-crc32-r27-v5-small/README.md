@@ -1,0 +1,3 @@
+# R27 CRC32 transport evidence
+
+The flat comparison completed 12 phases / 72 native records. Boundary stopped during its eighth export after 7 complete phases / 168 records; its exhaustive export census failed although the independent runtime-state restoration passed. The separate earlier game-hashlib failure is preserved. Game-side CRC32 and host-derived SHA256 are distinct. All three subpackages were independently reconstructed, compared against original files and recursively checked for credentials. Production wire candidate remains unpromoted; user acceptance remains open. See ../../verification/WIRE_CONTEXT_R27.md.

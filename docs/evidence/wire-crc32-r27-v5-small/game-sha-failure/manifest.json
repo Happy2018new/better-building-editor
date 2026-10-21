@@ -1,0 +1,82 @@
+{
+  "schema": "wire-r27-v4-game-SHA-absent-failure-evidence",
+  "fixture_completed": false,
+  "host_report_restored": false,
+  "independent_state_audit_restored": true,
+  "game_actual_engine": "3.10.0.420447",
+  "error": "Actual first START export RPC19: game hashlib module has no sha256 attribute",
+  "phase_exports": 0,
+  "captures": 0,
+  "actual_retirement_records": 6,
+  "host_retirement_reconciliation_passed": false,
+  "ordinary_stop_returncode": 0,
+  "actual_game_exit": "0xC0000409",
+  "actual_MCDK_exit": "0x00000000",
+  "actual_watcher_exit": "0x00000001",
+  "genuinely_live_MC_at_cleanup": 0,
+  "forced_game_or_MCDK_stop": false,
+  "restarted_after_failure": false,
+  "production_changed": false,
+  "candidate_promoted": false,
+  "GPU_qualified": false,
+  "manual_closures": 0,
+  "causal_limit": "No native stack attributes the separate abnormal game exit; no current3.10 CRC32 probe executed.",
+  "original_files": [
+    {
+      "path": "flat-interior-actual-v4-final/report.json",
+      "bytes": 25008,
+      "original_sha256": "404db11004d348855555263aa03de2f14ec0016d18176895ed900da133555d40",
+      "content_transform": "none",
+      "credential_findings": []
+    },
+    {
+      "path": "flat-interior-actual-v4-final/gate.json",
+      "bytes": 29552,
+      "original_sha256": "0b1f8680d1e91162a04c05b050588dc3491dc056c450051c48c7554098e33bbd",
+      "content_transform": "none",
+      "credential_findings": []
+    },
+    {
+      "path": "flat-interior-actual-v4-final/rpc-0019.py",
+      "bytes": 2072,
+      "original_sha256": "994b71bb12ecb4d0c3cd502e3c8b2b8848a082b77e0ef737627d45fa91ce1ba4",
+      "content_transform": "none",
+      "credential_findings": []
+    },
+    {
+      "path": "flat-interior-actual-v4-final/observer-retirement.json",
+      "bytes": 435,
+      "original_sha256": "1e670192da434379c2b795475ad6dad39ac2fb325daf8344b4a091ec2bfcfd74",
+      "content_transform": "none",
+      "credential_findings": []
+    },
+    {
+      "path": "launch-v4-final/stop.json",
+      "bytes": 2477,
+      "original_sha256": "7435933f4b1d887aac5df9c3261dc1ba21b81aaf0500e82cb52800422105065c",
+      "content_transform": "none",
+      "credential_findings": []
+    },
+    {
+      "path": "launch-v4-final/exact-exit.json",
+      "bytes": 1007,
+      "original_sha256": "6fa0d94b542ae9ece0e99ecf76cf64b9e804a667aa6d6d133f44fa53f412e439",
+      "content_transform": "none",
+      "credential_findings": []
+    },
+    {
+      "path": "launch-v4-final/watcher-stop-v5.json",
+      "bytes": 450,
+      "original_sha256": "61918f8555c692e760d26674a2cfcacdbd60751c8ec7835a6c0d320941ad8652",
+      "content_transform": "none",
+      "credential_findings": []
+    },
+    {
+      "path": "launch-v4-final/watch-binding.json",
+      "bytes": 1015,
+      "original_sha256": "cf95f39824250560a6ea6124921d644351f026d01a56398daa42999a52ae25f8",
+      "content_transform": "none",
+      "credential_findings": []
+    }
+  ]
+}

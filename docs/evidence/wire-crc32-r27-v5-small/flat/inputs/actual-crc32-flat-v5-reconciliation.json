@@ -1,0 +1,154 @@
+{
+  "schema": "wire-r27-actual-crc32-full-byte-reconciliation-v5",
+  "passed": true,
+  "report_sha256": "5607e8462e8063cb7a1fa89e9cf4e016fdf1877deb296d4f204c54ccfc12c93b",
+  "fixture": "flat-interior",
+  "actual_game_crc32_preflight": {
+    "crc32": "cbf43926",
+    "input": "123456789",
+    "engine": "3.10.0.420447",
+    "game_SHA256_required": false,
+    "schema": "wire-game-crc32-known-answer-v1"
+  },
+  "actual_RPC_chunk_count": 72,
+  "actual_native_records": 72,
+  "phases": [
+    {
+      "phase": 1,
+      "key": "wire-r27.flat-interior:opaque:top:base",
+      "original_bytes": 1222532,
+      "game_crc32": "68bd4789",
+      "host_original_json_sha256": "dfc2560dea704f5557550ce60495e422389867f5cf384bd74fe41fe79f83d7a0",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 2,
+      "key": "wire-r27.flat-interior:opaque:top:repeat",
+      "original_bytes": 1222558,
+      "game_crc32": "88f60864",
+      "host_original_json_sha256": "ad4d63371a79695c0e3045ec298f808940de619492ce016562e56ab21b13ec7d",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 3,
+      "key": "wire-r27.flat-interior:opaque:top:candidate",
+      "original_bytes": 2197868,
+      "game_crc32": "641dc525",
+      "host_original_json_sha256": "e18f883aa1964dfb076cbd41682e1c674fcccf900a5513611d919936407084b1",
+      "chunks": 9,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 4,
+      "key": "wire-r27.flat-interior:opaque:top:restored",
+      "original_bytes": 1222591,
+      "game_crc32": "6f1e01a7",
+      "host_original_json_sha256": "ed7a314a7fde05bf27fed9d9de3518c67e7083a196cfaf2bdabe439fe5a7f9de",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 5,
+      "key": "wire-r27.flat-interior:opaque:grazing:base",
+      "original_bytes": 1222567,
+      "game_crc32": "9fab3d0c",
+      "host_original_json_sha256": "5b16b964578020203fb00831ca49b50d336eaeedc4c49c013d07b7965eba9cb0",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 6,
+      "key": "wire-r27.flat-interior:opaque:grazing:repeat",
+      "original_bytes": 1222593,
+      "game_crc32": "e7bcdb9d",
+      "host_original_json_sha256": "a8c46475f76022b931e9c77c0726629ed52e59793aac369fcd00ff0c2438d68c",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 7,
+      "key": "wire-r27.flat-interior:opaque:grazing:candidate",
+      "original_bytes": 2203247,
+      "game_crc32": "730b2454",
+      "host_original_json_sha256": "1186d55db3a19b03654d9edda1a54f1ee9b305544c08c4f8d33a03462e0777a5",
+      "chunks": 9,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 8,
+      "key": "wire-r27.flat-interior:opaque:grazing:restored",
+      "original_bytes": 1222619,
+      "game_crc32": "ece63334",
+      "host_original_json_sha256": "943a23b1544d0b01093f937e2f83b189e9a1f511806495ea1861a42b8995e00f",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 9,
+      "key": "wire-r27.flat-interior:default:top:base",
+      "original_bytes": 1222546,
+      "game_crc32": "5700a7d6",
+      "host_original_json_sha256": "750afd43b0e0149ce302ad23c3a6eab1220fee48499ab5e43c3d03388fe095a0",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 10,
+      "key": "wire-r27.flat-interior:default:top:repeat",
+      "original_bytes": 1222578,
+      "game_crc32": "6e2359a3",
+      "host_original_json_sha256": "1bef5fd0bda89dd2a7ed60db0fad54a7a7b74d5dc7ec28789659c498f8e763af",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 11,
+      "key": "wire-r27.flat-interior:default:top:candidate",
+      "original_bytes": 2197888,
+      "game_crc32": "95802387",
+      "host_original_json_sha256": "e2c0085677ba73c18cb34d825ee19282fa4e40dfb89b48fc6ff3ecd2f41e78b7",
+      "chunks": 9,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    },
+    {
+      "phase": 12,
+      "key": "wire-r27.flat-interior:default:top:restored",
+      "original_bytes": 1222604,
+      "game_crc32": "8e6ef6d0",
+      "host_original_json_sha256": "0068a024b3614c2455c268f47bb657c040859e5bfe1566cdaa3359a4a01e74ba",
+      "chunks": 5,
+      "actual_native_records": 6,
+      "original_bytes_equal_reconstructed_actual_RPC_chunks": true,
+      "all_original_fields_preserved_in_separate_native_JSON": true
+    }
+  ],
+  "runtime_calls": 0,
+  "MC_started": false,
+  "GPU_qualified": false,
+  "manual_closures": 0,
+  "SHA256_origin": "host-derived after complete actual game CRC32 chunk reconstruction"
+}

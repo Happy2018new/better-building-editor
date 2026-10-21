@@ -1,0 +1,138 @@
+{
+  "passed": true,
+  "manifest_sha256": "7040ae59a9adddada67e50db71ead15b40872a47adf9e7ace17e4f62b37bfe38",
+  "objects": 25,
+  "source_originals_compared": 23,
+  "stored_files": 26,
+  "credential_findings": 0,
+  "positive_credential_controls": 3,
+  "negative_credential_controls": 1,
+  "rows": [
+    {
+      "object": "boundary/report.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "boundary/gate.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "boundary/observer-retirement.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "boundary/rpc-0939-result.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "boundary/rpc-1021.py",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "boundary/rpc-1021-result.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "boundary/rpc-1024-result.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "boundary/rpc-1033-result.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "lifecycle/stop.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "lifecycle/exact-exit.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "lifecycle/watcher-stop-v6.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "lifecycle/watch-binding.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "lifecycle/assert-watch/status.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "inputs/trial_capture_v5.py",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "inputs/phase_transport_v5.py",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "inputs/session_reader_v2.py",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "inputs/frozen-trial-plan-v5.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "inputs/frozen-cold-lifecycle-plan-v6.json",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "inputs/retire_crc32_watcher_v5.py",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "inputs/package_crc32_boundary_failure_v1.py",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "inputs/watch_owned_disabled_skin_assert_r27_v5.py",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "inputs/windows_manifest_reader.py",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "verify_bundle.py",
+      "source_compared": true,
+      "passed": true
+    },
+    {
+      "object": "summary.json",
+      "source_compared": false,
+      "passed": true
+    },
+    {
+      "object": "credential-scan.json",
+      "source_compared": false,
+      "passed": true
+    }
+  ],
+  "manual_closures_added": 0
+}

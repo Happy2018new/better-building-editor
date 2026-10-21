@@ -1,0 +1,192 @@
+{
+  "schema": "wire-complete-phase-bounded-transport-offline-v5-crc32",
+  "passed": true,
+  "controls": [
+    {
+      "name": "all_12_actual_complete_phase_files_byte_identical_after_reassembly",
+      "passed": true
+    },
+    {
+      "name": "out_of_order_rejected",
+      "passed": true
+    },
+    {
+      "name": "missing_middle_chunk_rejected",
+      "passed": true
+    },
+    {
+      "name": "truncated_final_chunk_rejected",
+      "passed": true
+    },
+    {
+      "name": "truncated_payload_rejected",
+      "passed": true
+    },
+    {
+      "name": "chunk_CRC32_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "name": "phase_CRC32_binding_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "name": "phase_key_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "name": "duplicate_chunk_rejected",
+      "passed": true
+    },
+    {
+      "name": "assembled_full_CRC32_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "name": "phase_budget_exact_128MiB_inclusive_metadata_allowed",
+      "passed": true
+    },
+    {
+      "name": "phase_budget_134217729_rejected",
+      "passed": true
+    },
+    {
+      "name": "complete_finally_restoration_AST_exactly_unchanged",
+      "passed": true
+    },
+    {
+      "name": "source_hash_native_decode_and_small_retirement_validation_AST_unchanged",
+      "passed": true
+    },
+    {
+      "name": "original_frozen_READ_PHASE_embedded_unchanged_in_single_serialization",
+      "passed": true
+    },
+    {
+      "name": "game_CRC32_only_host_SHA256_explicitly_derived_no_game_SHA_module_requirement",
+      "passed": true
+    },
+    {
+      "name": "real_Python2_actual_START_CHUNK_RELEASE_templates_and_exact_deployed_IPC_response_functions",
+      "passed": true,
+      "max_actual_IPC_packet_bytes": 699747,
+      "input_complete_bytes": 2206362,
+      "chunks": 9
+    }
+  ],
+  "control_count": 17,
+  "actual_phase_files": [
+    {
+      "path": "phase-01-native.json",
+      "bytes": 1230870,
+      "crc32": "57daa568",
+      "chunks": 5,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-02-native.json",
+      "bytes": 1230896,
+      "crc32": "c9096d68",
+      "chunks": 5,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-03-native.json",
+      "bytes": 2206362,
+      "crc32": "5b175406",
+      "chunks": 9,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-04-native.json",
+      "bytes": 1230929,
+      "crc32": "84bcacdc",
+      "chunks": 5,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-05-native.json",
+      "bytes": 1230905,
+      "crc32": "4811a83f",
+      "chunks": 5,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-06-native.json",
+      "bytes": 1230931,
+      "crc32": "47440096",
+      "chunks": 5,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-07-native.json",
+      "bytes": 2211741,
+      "crc32": "3fbc7381",
+      "chunks": 9,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-08-native.json",
+      "bytes": 1230957,
+      "crc32": "31a00536",
+      "chunks": 5,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-09-native.json",
+      "bytes": 1230884,
+      "crc32": "f2fb8b6f",
+      "chunks": 5,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-10-native.json",
+      "bytes": 1230916,
+      "crc32": "e1ae7fa8",
+      "chunks": 5,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-11-native.json",
+      "bytes": 2206382,
+      "crc32": "ab65528d",
+      "chunks": 9,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    },
+    {
+      "path": "phase-12-native.json",
+      "bytes": 1230942,
+      "crc32": "b86740df",
+      "chunks": 5,
+      "records": 6,
+      "all_fields_and_complete_bytes_retained": true
+    }
+  ],
+  "actual_records_in_saved_inputs": 72,
+  "runtime_calls": 0,
+  "MC_started": false,
+  "candidate_promoted": false,
+  "GPU_qualified": false,
+  "manual_closures": 0,
+  "source_sha256": {
+    "trial_capture_v3.py": "527018b134e475499c1f1b9510e68604de8e2065b5a09c8f453e4b839a34220f",
+    "trial_capture_v5.py": "bb2bc2cc59a0ef1f315021b9d250b817ff5ca9a6862c8c7a5205076bfdd1095d",
+    "trial_payloads_v3.py": "f84a3e7ecc6dd080f6322de03617ada2a2364ea5d7d70960c6ba340a5a97c115",
+    "observer_client_v3.py": "a23060f6eb67f080f28bdae32adab101f33a87467e287bd817ed161d12574729",
+    "phase_transport_v5.py": "2a284678019ad5c78748d23c3adb9ca8e53b4777155d56946ec57663d6c45c9e",
+    "test_phase_transport_v5.py": "5f4932e23ae99647742e665470a7dcbdbcba53d7af8d9011305b5df729f83eba"
+  },
+  "phase_budget_contract": "128 MiB inclusive allowed; max+1 rejected. Available commit memory gate remains independent.",
+  "limit": "Existing saved full JSON inputs prove transport byte fidelity; no new actual game or GPU execution."
+}
