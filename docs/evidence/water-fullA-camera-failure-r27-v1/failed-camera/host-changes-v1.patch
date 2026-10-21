@@ -1,0 +1,171 @@
+--- single-cell/launch_r25.py
++++ fullA/launch_r25.py
+@@ -13,7 +13,7 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r27-merged-flow-editor-v1'
++OWNER = 'water-r27-merged-fullA-v1'
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-merged-flow-editor-v1')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+--- single-cell/run_group.py
++++ fullA/run_group.py
+@@ -66,9 +66,13 @@
+         try:
+             with base.Client(timeout=20) as client:
+                 check['scene']=restore_scene(client,base.run,blueprints)
++                from world_readback import readback, compare
++                baseline=json.loads((WORK/'world-baseline-v1.json').read_bytes())
++                check['world']=readback(client,base.run)
++                check['world_verdict']=compare(check['world'],baseline['state'])
+             check['source_unchanged']=all(sha(Path(binding['project'])/name)==expected for name,expected in
+                                         dict(binding['source_sha256'],**binding['auxiliary_sha256']).items())
+-            check['restored']=check['scene']['restored'] and check['source_unchanged']
++            check['restored']=check['scene']['restored'] and check['source_unchanged'] and check['world_verdict']['restored']
+             check['restore_unknown']=False
+         except Exception as error:
+             check['error']={'type':type(error).__name__,'message':str(error)}
+@@ -86,7 +90,10 @@
+         launch=json.loads((WORK/'launch/launch.json').read_bytes())
+         command('ordinary-cold-init','observe_cold_default.py')
+         command('resize','resize_background.py')
+-        command('A','run_flow.py',('A',),timeout=900)
++        command('world-baseline','world_readback.py')
++        command('camera','run_camera.py',('camera',),timeout=480)
++        independent_restore('after-camera')
++        command('A','run_flow.py',('A',),timeout=1800)
+         row['completed']=True
+     except BaseException as error:
+         row['error']={'type':type(error).__name__,'message':str(error),'traceback':traceback.format_exc()}
+--- single-cell/run_flow.py
++++ fullA/run_flow.py
+@@ -13,19 +13,19 @@
+ WORK = Path(__file__).resolve().parent
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-merged-flow-editor-v1')
+ SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+-OWNER = 'water-r27-merged-flow-editor-v1'
++OWNER = 'water-r27-merged-fullA-v1'
+ STAGE = sys.argv[1] if len(sys.argv) == 2 else None
+ if STAGE != 'A':
+     raise ValueError('Pass one stage: A, B, R, or G')
+ CASES = {
+-    'A': ('flow_east',),
++    'A': ('flow_east', 'flow_south', 'flow_west', 'flow_north', 'falling'),
+     'B': ('wet_oak_fence', 'pool'),
+     'R': ('neighbor_oak_slab', 'neighbor_oak_stairs', 'neighbor_glass_pane',
+           'neighbor_stone', 'transparent_overlap'),
+     'G': ('gallery',),
+ }[STAGE]
+-ROUTES = ('editor',)
+-OUT = WORK / 'merged-flow-editor-v1.json'
++ROUTES = ('editor', 'full', 'missing')
++OUT = WORK / 'product-v2-a-v1.json'
+ HANDLES = OUT.with_name(OUT.stem + '-handles.json')
+ RECEIPT = OUT.with_name(OUT.stem + '-host.json')
+ 
+@@ -78,7 +78,7 @@
+                'source_contract_sha256': launch['source_contract_sha256'],
+                'production_admission_performed': False, 'qualified_or_default_gate_set': False,
+                'maximum_handles': 250000, 'rapid_step_growth_limit': 10000,
+-               'diagnostic_only': False, 'qualification_evidence': False, 'sampling_protocol_check_only': True, 'formal_A_accepted': False, 'world_A_accepted': False, 'production_admission_performed': False, 'started_at': time.time(), 'completed': False, 'ordinary_profile_no_assignment':True, 'old_qualification_reused_as_new_A':False}
++               'diagnostic_only': False, 'qualification_evidence': False, 'sampling_protocol_check_only': False, 'formal_A_capture_candidate': True, 'formal_A_accepted': False, 'world_A_accepted': False, 'production_admission_performed': False, 'started_at': time.time(), 'completed': False, 'ordinary_profile_no_assignment':True, 'old_qualification_reused_as_new_A':False}
+ 
+     def save():
+         HANDLES.write_text(json.dumps({'schema': 1, 'samples': samples}, indent=2) + '\n', 'utf8')
+@@ -101,6 +101,10 @@
+     active_check=[None]
+ 
+     def geometry_sample(label):
++        route = next((route for route in ROUTES if label.startswith(OUT.stem + '_' + route + '_')), None)
++        assert route is not None, label
++        if route != 'editor':
++            return
+         assert active_check[0] is not None
+         value=original_run(active_check[0],probe.SCENE_STATE+scene_game.EXTRA_STATE)
+         verdict=describe_scene(value,2,True)
+@@ -143,10 +147,11 @@
+                  '--capture-exe', str(capture_exe), '--output', str(OUT),
+                  '--launch-inputs', str(WORK / 'product-v2-launch-inputs.json'),
+                  '--controls', 'wet' if STAGE in ('A', 'B') else 'all',
+-                 '--max-seconds', '600', '--max-handles', '250000', '--production-default']
++                 '--max-seconds', '1800', '--max-handles', '250000', '--production-default']
+     if STAGE != 'A':
+         arguments += ['--frozen']
+-    assert ROUTES == ('editor',), 'This diagnostic grants no world-camera qualification'
++    arguments += ['--camera-calibration', str(WORK / 'product-v2-camera-native-v1.json'),
++                  '--world-fixture-lift-y', '64', '--world-view-scale', '.5']
+     if STAGE in ('A', 'B'):
+         arguments += ['--extras']
+     if STAGE == 'A':
+@@ -189,7 +194,7 @@
+ 
+         capture_native_burst.capture = tracked_burst
+         arguments += ['--flow-burst-exe', str(burst_exe), '--flow-burst-sha256', burst_hash,
+-                      '--flow-burst-duration-ms', '3200']
++                      '--flow-burst-duration-ms', '3200', '--falling-skyward']
+     elif STAGE == 'R':
+         arguments += ['--reverse-view']
+     elif STAGE == 'G':
+--- single-cell/verify_prelaunch.py
++++ fullA/verify_prelaunch.py
+@@ -83,7 +83,7 @@
+                    for node in ast.walk(payload))
+     imported = []
+     for name in ('run_group.py', 'observe_cold_default.py', 'scene_game.py', 'scene_restore.py',
+-                 'flow_restore.py', 'scene_policy.py', 'retire_helpers.py', 'start_assert_watch.py', 'watch_handles.py'):
++                 'flow_restore.py', 'world_readback.py', 'scene_policy.py', 'retire_helpers.py', 'start_assert_watch.py', 'watch_handles.py'):
+         load(name)
+         imported.append(name)
+     flow = (WORK / 'run_flow.py').read_text('utf8')
+@@ -91,6 +91,25 @@
+     assert "geometry_sample(label + '_before_burst')" in flow
+     assert "capture_native_burst_startup" in flow and "'3200'" in flow
+     assert "if STAGE != 'A':" in flow
++    assert "ROUTES = ('editor', 'full', 'missing')" in flow
++    assert "'flow_south', 'flow_west', 'flow_north', 'falling'" in flow
++    assert "'--falling-skyward'" in flow and "'--camera-calibration'" in flow
++    assert "if route != 'editor':" in flow
++    geometry_function=next(node for node in ast.walk(ast.parse(flow)) if isinstance(node,ast.FunctionDef) and node.name=='geometry_sample')
++    calls=[]
++    namespace={'ROUTES':('editor','full','missing'),'OUT':Path('product-v2-a-v1.json'),'active_check':[object()],
++      'original_run':lambda *args:calls.append(args) or {},'probe':type('Probe',(),{'SCENE_STATE':''})(),
++      'scene_game':type('Game',(),{'EXTRA_STATE':''})(),'describe_scene':lambda *args:{'complete':True},
++      'geometry':[],'save':lambda:None}
++    exec(compile(ast.fix_missing_locations(ast.Module(body=[geometry_function],type_ignores=[])),'actual_geometry_guard','exec'),namespace)
++    for route in ('full','missing'):namespace['geometry_sample']('product-v2-a-v1_'+route+'_flow_east_wet')
++    assert not calls, 'World must never query editor Scene geometry'
++    namespace['geometry_sample']('product-v2-a-v1_editor_flow_east_wet')
++    assert len(calls)==1 and len(namespace['geometry'])==1
++    world=load('world_readback.py')
++    for code in (world.SERVER_CODE,world.CLIENT_CODE):
++        compiled=subprocess.run(['D:/Program/Python27/python.exe','-B','-c','import sys;compile(sys.stdin.read(),"world-readback","exec")'],input=code.encode('utf8'),capture_output=True)
++        assert compiled.returncode==0,compiled.stderr
+     group = (WORK / 'run_group.py').read_text('utf8')
+     assert 'run_candidate_bootstrap' not in group and 'retire_bootstrap' not in group
+     prefix = json.loads((output / 'launch-prefix/launch.json').read_bytes())
+@@ -103,7 +122,7 @@
+               'source_contract_sha256': binding['source_contract_sha256'],
+               'owner_and_qualification_original_bytes_preserved': True,
+               'cold_payload_python2_compile': True, 'cold_payload_no_init_or_profile_mutation': True,
+-              'runtime_lifecycle_imports': imported, 'single_cell_stage_A_only': True,
++              'runtime_lifecycle_imports': imported, 'full_A_15_cell_candidate': True, 'world_geometry_never_queries_editor': True, 'same_session_camera_required': True,
+               'normal_default_initialized_session_required': True,
+               'formal_A_accepted': False, 'default_path_evidence': False,
+               'production_admission_performed': False, 'manual_closures_added': 0,
+--- size720-v3/run_camera.py
++++ fullA/run_camera.py
+@@ -11,10 +11,10 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
+-OWNER = 'water-r27-final41-size720-v3'
++PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-merged-flow-editor-v1')
++OWNER = 'water-r27-merged-fullA-v1'
+ STAGE = sys.argv[1] if len(sys.argv) == 2 else None
+-if STAGE not in ('camera', 'D'):
++if STAGE != 'camera':
+     raise ValueError('Pass camera or D')
+ 
+ 

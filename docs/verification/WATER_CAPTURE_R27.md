@@ -303,3 +303,25 @@ source4484→4482的净差是去掉五个旧诊断shader `modern_projection_r27_
 
 
 06:05根代理已独立重建[本次单格精简证据](../evidence/water-merged-flow-editor-r27-v1/index.json)：40逻辑条目／44存储文件，37份可精确还原原件、3份脱敏派生共7处替换，4张PNG均为原字节，0有损。全部原始与派生SHA、长度、300000B上限及递归凭据检测通过，8项scanner等价对照通过，发现0；独审报告随包保留。全burst图及119MBarchive不重复入仓，本包不替代完整15格A或当前来源发行资格。
+
+
+## 06:12—06:15：完整A在同session相机门前停止，尚未进入任何水样本
+
+root独审新的15cell plan（SHA accdbea34299fec99bc8aa7596da2c18884f4f1e0afec89501d8b15087ea5829）与pre-Popen实际59节点后，在共享来源3462项CPU全量结束且源bytes未变时授予独占采样窗口。新owner water-r27-merged-fullA-v1复用此前冻结shared private project及119MB archive，不重新复制。唯一game身份20308/134370943592652280、MCDK68612/134370943590848751。冷启103.785936s，普通初始化只读观察6.590254s、resize0.534945s、world baseline1.027709s均exit0；没有旧bootstrap或候选profile assignment。
+
+原stone camera完整采集front/right/tilted三个view，共六张原shown/hidden，completed/restored true、cleanup_errors空；front/right通过，tilted未通过。因此camera命令exit1，原fail-closed阻止产品probe启动，A实际0/15格、0burst，没有world水面fixture或实际水面相机。不能借校准cube的结果认定水surface几何通过，也没有原条件重试。
+
+原共同vertical FOV66.7下，front/right均RMS0.5px、IoU0.990097、outline recall/precision1；tilted为RMS16.507574px、IoU0.699082、recall0.740964、precision0.62，原门仍为2px/.95/.985/.985。root与本代理实际打开tilted原shown和outline：stone顶面在原图完整可见，而原extraction只保留正面。只读重放保持原neutral<13、red>50、contribution>20及四邻接规则：原pre-component mask有9532px、bbox[595,307,686,417]，被分成front6794px/bbox[595,340,686,417]和top2738px/bbox[595,307,686,339]。y339整行没有neutral通过像素，中心RGB[135,158,181]的channel spread46，虽有真实贡献仍被neutral门排除；原largest_component因此删除较小顶面。这里准确定位的是原校准mask的提取链，不代表渲染顶面缺失。
+
+唯一group总194.772934s；finally独立editor与world读回restored true、restore_unknown false，player足点/维度、相机锁/旋转、天气/规则及两侧markers全部恢复，navigator/jobs/projection false、world actors0；原独立恢复逐SHA核过5873项源与辅助未变。普通stop0、两个精确创建身份均消失、helper回收exit0；独立最终observer completed true，game0xC0000409、MCDK0。原group、camera和所有PNG不回写。只读失败分析在water-merged-fullA-camera-failure-analysis-v1/camera-failure-readonly-v1.json，SHA e961b37e90735cd8ff3efce73949ae05813b055bdbf65055e5d087419ba77df2。
+
+## 06:21：独立单像素缝extractor候选及旧raw固定FOV控制
+
+root要求先离线解决校准提取，新的独立candidate_extractor.py位于water-camera-extractor-seam-candidate-v1，SHA 3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f，窄diff SHA 9e302f119fc5afbfdafe40d8c8fde6287b4df53693d06ae03dc99a2277f8f347。旧工具/源/报告不改。候选仍使用原neutral/brightness/contribution门和原最终morphology；无expected轮廓、corner或camera输入用于建mask。仅当原mask恰有两个组件、它们之间存在连续直线且恰为1px的实际缝时才考虑连接；每个缝像素须通过原brightness与contribution门，且能由相邻neutral foreground与该处hidden background的RGB线性混合解释，残差复用原13 tolerance。多组件、无实际贡献的背景缝及不合支持条件的缝直接拒绝。
+
+3组真实旧raw重放和9项synthetic负控通过，controls-v1/report.json SHA 418aa0076a15767dc4fd05fa40b5d8e6dd1cfbac706a144a71370dd6d701dc7d。重放固定原66.7 FOV，无新增搜索、拟合或阈值变更；真实tilted仅连接91个实际缝像素，得到RMS0.5px、IoU0.988669、recall/precision1。真缺顶、x/y移动12px、单view放大1.25、额外远处neutral物体、相隔1px真实背景的独立neutral物体、真背景缝/2px缝/洋红缝均拒绝。完全同像素的另一物体无法仅凭截图区分，仍须保留原单stone SDK/fixture合同；全view同尺度缩放与FOV数学上混淆，缩放负控明确为单view对原固定common FOV。该结果只是新extractor离线候选，未在新MC校准执行，不能覆盖原camera失败或授完整A。
+
+相机失败与候选窄包先保存在runtime：water-merged-fullA-camera-failure-package-v1/index.json，SHA e7c6e0e590f81d1eb1316d97cdd3ef5824fbc11999a910bbc7c83951ecdd396b。57逻辑条目/61文件，总1,767,922B，最大240KB；包括六原shown/hidden及原signal/outline、原恢复/exit/源绑定与候选控制，必要大PNG按原bytes分片，0有损。56条可精确还原原件，1处standard [REDACTED]递归派生，原/新SHA分列；原raw与旧v4未变，待root独审。正式A/world A、source release与最终默认准入继续开放，本专项新增用户人工关闭0。
+
+
+06:27根代理已独立重建[相机失败精简证据](../evidence/water-fullA-camera-failure-r27-v1/index.json)：57逻辑条目／61原存储文件、56精确原件、1处标准脱敏、0有损；原件／内容／分片SHA与300000B上限全部通过，递归凭据检测发现0，8项scanner等价对照通过。独审报告随包保存。根代理另在独立输出目录执行原控制逻辑，3组旧raw与9项负控全部通过，报告SHA同418aa0076a15767dc4fd05fa40b5d8e6dd1cfbac706a144a71370dd6d701dc7d。新相机extractor仍只是已独审的host候选，旧camera失败与0/15不改，正式水A／当前源码发行资格继续开放。

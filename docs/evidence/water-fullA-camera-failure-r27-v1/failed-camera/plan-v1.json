@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "owner": "water-r27-merged-fullA-v1",
+  "created_at_utc": "2026-10-21T21:53:47.418932+00:00",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-merged-flow-editor-v1",
+  "source_contract_sha256": "027f11186bb5e50b4d9a0dc80a5ba4d06342104e1be4c2cc6de51a9f206bcf1a",
+  "source_manifest_sha256": "87b25305919d99666dbf379bcba539eaafe6433c6a0f1bce18d714a5624349c9",
+  "control": "wet",
+  "physical_client_size": [
+    1280,
+    720
+  ],
+  "native_integer_gui": 2,
+  "native_geometry_tolerance_logical": 0.02,
+  "sampling_protocol": "Reviewed fixed-startup-v2 nontrace; no change to original thresholds or ROI",
+  "startup_host_contract": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\host-contract-v1.json",
+    "sha256": "bef28f515f9274c0d9a9926537825e04a5a425ed8601acfa61d364bf9e8dca7a"
+  },
+  "preparation_ms": 1500,
+  "measurement_ms": 3200,
+  "max_source_gap_ms": 150,
+  "max_capture_bytes": 536870912,
+  "minimum_available_commit_bytes": 6442450944,
+  "max_handles": 250000,
+  "maximum_adjacent_growth": 10000,
+  "single_sampling_protocol_cell_only": false,
+  "complete_A_still_requires_15_cells": true,
+  "formal_A_accepted": false,
+  "world_A_accepted": false,
+  "production_admission_performed": false,
+  "default_path_evidence": false,
+  "old_qualification_reused_as_new_A": false,
+  "source_scope_is_complete_transitive_closure": false,
+  "owner_and_qualification_original_bytes_preserved": true,
+  "no_new_MC_without_exact_root_grant": true,
+  "manual_closures_added": 0,
+  "source_manifest": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-flow-editor-v1\\private-source-v1.json",
+    "sha256": "87b25305919d99666dbf379bcba539eaafe6433c6a0f1bce18d714a5624349c9"
+  },
+  "cases": [
+    "flow_east",
+    "flow_south",
+    "flow_west",
+    "flow_north",
+    "falling"
+  ],
+  "routes": [
+    "editor",
+    "full",
+    "missing"
+  ],
+  "cell_count": 15,
+  "source_archive_reused_without_copy": true,
+  "same_session_stone_camera_required": true,
+  "camera_source_host": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-size720-v3\\run_camera.py",
+    "sha256": "74f94038e92fa9d3e04c05a24b9f3487e366935c579401ee10ed8117f969f60f"
+  },
+  "world_fixture_lift_y": 64,
+  "world_view_scale": 0.5,
+  "falling_skyward": true,
+  "world_capture_guards": "Unchanged original probe camera/FOV/viewport/source/source-gap gates",
+  "full_A_capture_is_not_formal_A_acceptance": true,
+  "source_release_qualification_independent": true,
+  "required_offline_analysis": [
+    "original flow metric",
+    "physical direction and speed",
+    "brightness",
+    "source/restore/host gates"
+  ],
+  "readonly_server_baseline_and_final_readback": true,
+  "no_launch_before_root_quiet_slot": true
+}

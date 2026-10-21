@@ -1,0 +1,448 @@
+{
+  "schema": 1,
+  "passed": false,
+  "scope": "Read-only explanation of original failed calibration extraction; no new acceptance gate",
+  "original_camera_report_sha256": "80e30ff91cce233269660dbdb4fbba5d8492c4954712f5365acf2232afdcfcc0",
+  "inspector_sha256": "06204f688cf9ee886b579a2d2bfe0791e04f874616f4f4ede340ba453fa568ea",
+  "original_analyzer_sha256": "20b702496787cf34d85102d600399f103733b260cc08ecc153067d6caf519eb8",
+  "original_camera_passed": false,
+  "original_camera_completed": true,
+  "original_camera_restored": true,
+  "original_cleanup_errors": [],
+  "original_limits": {
+    "boundary_rms_pixels": 2,
+    "mask_iou": 0.95,
+    "outline_recall_2px": 0.985,
+    "outline_precision_2px": 0.985,
+    "source": "Native JPEG edge extraction; complete hull must agree within two pixels in all three views"
+  },
+  "original_common_vertical_fov": 66.7,
+  "original_view_results": [
+    {
+      "view": "front",
+      "passed": true,
+      "fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          590,
+          310,
+          691,
+          410
+        ],
+        "predicted_bounds": [
+          590,
+          310,
+          690,
+          410
+        ],
+        "boundary_rms_pixels": 0.5,
+        "mask_iou": 0.9900970489205784,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      },
+      "camera": {
+        "position": [
+          6.5,
+          12.5,
+          12.5
+        ],
+        "rotation": [
+          0.0,
+          1.3660377589985728e-05,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          641.0,
+          360.0
+        ],
+        "fov": 60.0
+      },
+      "pose": {
+        "position": [
+          6.5,
+          12.5,
+          12.5
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          12.5,
+          6.5
+        ]
+      }
+    },
+    {
+      "view": "right",
+      "passed": true,
+      "fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          590,
+          310,
+          691,
+          410
+        ],
+        "predicted_bounds": [
+          590,
+          310,
+          690,
+          410
+        ],
+        "boundary_rms_pixels": 0.5,
+        "mask_iou": 0.9900970489205784,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      },
+      "camera": {
+        "position": [
+          12.5,
+          12.5,
+          6.5
+        ],
+        "rotation": [
+          0.0,
+          -90.0,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          641.0,
+          360.0
+        ],
+        "fov": 60.0
+      },
+      "pose": {
+        "position": [
+          12.5,
+          12.5,
+          6.5
+        ],
+        "rotation": [
+          -0.0,
+          270.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          12.5,
+          6.5
+        ]
+      }
+    },
+    {
+      "view": "tilted",
+      "passed": false,
+      "fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          595,
+          340,
+          686,
+          417
+        ],
+        "predicted_bounds": [
+          594,
+          307,
+          686,
+          417
+        ],
+        "boundary_rms_pixels": 16.507574019219177,
+        "mask_iou": 0.6990821903681551,
+        "outline_recall_2px": 0.7409638554216867,
+        "outline_precision_2px": 0.62,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      },
+      "camera": {
+        "position": [
+          6.5,
+          15.5,
+          12.5
+        ],
+        "rotation": [
+          26.565046310424805,
+          1.3660379408975132e-05,
+          -1.3660379408975132e-05
+        ],
+        "screen": [
+          641.0,
+          360.0
+        ],
+        "fov": 60.0
+      },
+      "pose": {
+        "position": [
+          6.5,
+          15.5,
+          12.5
+        ],
+        "rotation": [
+          26.56505012512207,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          12.5,
+          6.5
+        ]
+      }
+    }
+  ],
+  "tilted_raw_mask_bounds": [
+    595,
+    307,
+    686,
+    417
+  ],
+  "tilted_raw_mask_pixels": 9532,
+  "four_neighbor_components": [
+    {
+      "rank": 1,
+      "pixels": 6794,
+      "bounds": [
+        595,
+        340,
+        686,
+        417
+      ]
+    },
+    {
+      "rank": 2,
+      "pixels": 2738,
+      "bounds": [
+        595,
+        307,
+        686,
+        339
+      ]
+    }
+  ],
+  "original_row_pixel_observations": [
+    {
+      "y": 334,
+      "selected_pixels_original_bbox": 89,
+      "center_shown_rgb": [
+        116,
+        116,
+        116
+      ],
+      "center_shown_channel_spread": 0,
+      "center_contribution_selected": true,
+      "center_neutral_selected": true
+    },
+    {
+      "y": 335,
+      "selected_pixels_original_bbox": 90,
+      "center_shown_rgb": [
+        127,
+        127,
+        127
+      ],
+      "center_shown_channel_spread": 0,
+      "center_contribution_selected": true,
+      "center_neutral_selected": true
+    },
+    {
+      "y": 336,
+      "selected_pixels_original_bbox": 91,
+      "center_shown_rgb": [
+        127,
+        127,
+        127
+      ],
+      "center_shown_channel_spread": 0,
+      "center_contribution_selected": true,
+      "center_neutral_selected": true
+    },
+    {
+      "y": 337,
+      "selected_pixels_original_bbox": 91,
+      "center_shown_rgb": [
+        127,
+        127,
+        127
+      ],
+      "center_shown_channel_spread": 0,
+      "center_contribution_selected": true,
+      "center_neutral_selected": true
+    },
+    {
+      "y": 338,
+      "selected_pixels_original_bbox": 91,
+      "center_shown_rgb": [
+        127,
+        127,
+        127
+      ],
+      "center_shown_channel_spread": 0,
+      "center_contribution_selected": true,
+      "center_neutral_selected": true
+    },
+    {
+      "y": 339,
+      "selected_pixels_original_bbox": 0,
+      "center_shown_rgb": [
+        135,
+        158,
+        181
+      ],
+      "center_shown_channel_spread": 46,
+      "center_contribution_selected": true,
+      "center_neutral_selected": false
+    },
+    {
+      "y": 340,
+      "selected_pixels_original_bbox": 91,
+      "center_shown_rgb": [
+        93,
+        93,
+        93
+      ],
+      "center_shown_channel_spread": 0,
+      "center_contribution_selected": true,
+      "center_neutral_selected": true
+    },
+    {
+      "y": 341,
+      "selected_pixels_original_bbox": 91,
+      "center_shown_rgb": [
+        93,
+        93,
+        93
+      ],
+      "center_shown_channel_spread": 0,
+      "center_contribution_selected": true,
+      "center_neutral_selected": true
+    },
+    {
+      "y": 342,
+      "selected_pixels_original_bbox": 91,
+      "center_shown_rgb": [
+        93,
+        93,
+        93
+      ],
+      "center_shown_channel_spread": 0,
+      "center_contribution_selected": true,
+      "center_neutral_selected": true
+    }
+  ],
+  "derived_stage_images": {
+    "original_pre_component_mask.png": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-camera-failure-analysis-v1\\original_pre_component_mask.png",
+      "sha256": "d5c779882163cd74c54cf533c1e48499fa159bc248aee450f376f99918d59dd3",
+      "bounds": [
+        595,
+        307,
+        686,
+        417
+      ],
+      "pixels": 9532
+    },
+    "original_final_mask_replay.png": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-camera-failure-analysis-v1\\original_final_mask_replay.png",
+      "sha256": "69971ac563383718297fa0a3f54578dc4b3800392e75b6b3f6b17d348e1cb8c1",
+      "bounds": [
+        595,
+        340,
+        686,
+        417
+      ],
+      "pixels": 6790
+    }
+  },
+  "observation": "Original neutral test rejects the one-pixel seam row; four-neighbor components split top and front; original largest_component retains only front.",
+  "rendered_top_missing_claimed": false,
+  "rendered_water_geometry_or_camera_verified": false,
+  "A_cells_attempted": 0,
+  "A_bursts_attempted": 0,
+  "camera_fixture_relation": {
+    "calibration_cube_only": true,
+    "stone_fixture": {
+      "cube_material": [
+        "minecraft:stone",
+        0
+      ],
+      "projection_origin": [
+        5,
+        11,
+        5
+      ],
+      "cube_cell": [
+        1,
+        1,
+        1
+      ],
+      "cube_size": [
+        3,
+        3,
+        3
+      ],
+      "player_origin": [
+        0,
+        -60,
+        0
+      ]
+    },
+    "water_world_fixture_created": false,
+    "note": "The original stone calibration gate failed before product probe starts; no actual water surface or water world camera was captured in this session."
+  },
+  "group_completed": false,
+  "group_elapsed_seconds": 194.7729344367981,
+  "independent_restore_passed": true,
+  "source_unchanged_in_original_independent_restore": true,
+  "ordinary_stop_exit_code": 0,
+  "exact_identities_absent": {
+    "game": true,
+    "mcdk": true
+  },
+  "final_same_handle_exit": {
+    "schema": 1,
+    "session": "15b04e4faac841138d92c213c0111d4c",
+    "owner": "water-r27-merged-fullA-v1",
+    "opened_at": "2026-10-21T22:12:57.357511+00:00",
+    "processes": {
+      "game": {
+        "pid": 20308,
+        "identity": "134370943592652280",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-21T22:15:39.489800+00:00"
+      },
+      "mcdk": {
+        "pid": 68612,
+        "identity": "134370943590848751",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-21T22:15:40.492186+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "observed_inputs_sha256_before": {
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1.json": "80e30ff91cce233269660dbdb4fbba5d8492c4954712f5365acf2232afdcfcc0",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\group-execution-v1.json": "0b75279748f0d2dac23fcaac82fb6f263c75884c3e8ffb517b8d6c8ece51e144",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\independent-restore-v1.json": "8cffea218eec050dc5b7e275fae8182551a0c64cf6facbebf0157fe2f267de1b",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\launch\\exact-exit.json": "b29d1ffe037c0eea0699c715a26a933842a174b74cd1eceb5fcc7eb5152dfcc8",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\world-baseline-v1.json": "cf3f6233ef55fa6d91a7566e72bb2e0d7c345e0b6ab4b14367b469120d8180c2",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1_tilted_shown.png": "f3681c6db64a26fd10195501eb266c322ca9165303c857c86187ef2874d71c89",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1_tilted_hidden.png": "006d7ef4a3dfda7468dbbec2aff283377783996d63a7b2e48ee57d1470134362"
+  },
+  "observed_inputs_unchanged": true,
+  "source_or_original_report_mutated": false,
+  "ROI_or_threshold_or_FOV_fitting_changed": false,
+  "formal_A_accepted": false,
+  "world_A_accepted": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0
+}

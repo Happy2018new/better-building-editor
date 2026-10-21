@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-merged-fullA-v1\run_camera.py", line 175, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261022\water-merged-fullA-v1\run_camera.py", line 164, in main
+    result = tool.main()
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\projects\water-r27-merged-flow-editor-v1\tools\verify_camera_projection.py", line 364, in main
+    finalize_native_calibration(evidence, args.output)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\projects\water-r27-merged-flow-editor-v1\tools\verify_camera_projection.py", line 197, in finalize_native_calibration
+    native['validation'] = validate_calibration(evidence, native['session_binding'],
+                           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                native['source_contract_sha256'])
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\projects\water-r27-merged-flow-editor-v1\tools\water_native_projection.py", line 111, in validate_calibration
+    require(all(calibration.get(key) is True for key in ('passed', 'completed', 'restored'))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            and not calibration.get('cleanup_errors') and len(calibration['views']) == 3,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'Native camera calibration did not complete and restore')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\projects\water-r27-merged-flow-editor-v1\tools\water_native_projection.py", line 21, in require
+    raise ValueError(message)
+ValueError: Native camera calibration did not complete and restore

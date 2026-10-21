@@ -1,0 +1,1137 @@
+{
+  "schema": 1,
+  "passed": true,
+  "actual_raw_positive_cases": 3,
+  "synthetic_negative_cases": 9,
+  "rows": [
+    {
+      "name": "actual_front",
+      "expected_passed": true,
+      "candidate_passed": true,
+      "fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          590,
+          310,
+          691,
+          410
+        ],
+        "predicted_bounds": [
+          590,
+          310,
+          690,
+          410
+        ],
+        "boundary_rms_pixels": 0.5,
+        "mask_iou": 0.9900970489205784,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      },
+      "extractor_observations": {
+        "original_component_sizes": [
+          10100
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      },
+      "candidate_mask_sha256": "34e4cf49f24f73ab505258f449202bfdc91a8dba51504c63de96492d00636e3e",
+      "original_view_passed": true,
+      "original_fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          590,
+          310,
+          691,
+          410
+        ],
+        "predicted_bounds": [
+          590,
+          310,
+          690,
+          410
+        ],
+        "boundary_rms_pixels": 0.5,
+        "mask_iou": 0.9900970489205784,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "name": "actual_right",
+      "expected_passed": true,
+      "candidate_passed": true,
+      "fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          590,
+          310,
+          691,
+          410
+        ],
+        "predicted_bounds": [
+          590,
+          310,
+          690,
+          410
+        ],
+        "boundary_rms_pixels": 0.5,
+        "mask_iou": 0.9900970489205784,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      },
+      "extractor_observations": {
+        "original_component_sizes": [
+          10100
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      },
+      "candidate_mask_sha256": "34e4cf49f24f73ab505258f449202bfdc91a8dba51504c63de96492d00636e3e",
+      "original_view_passed": true,
+      "original_fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          590,
+          310,
+          691,
+          410
+        ],
+        "predicted_bounds": [
+          590,
+          310,
+          690,
+          410
+        ],
+        "boundary_rms_pixels": 0.5,
+        "mask_iou": 0.9900970489205784,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "name": "actual_tilted",
+      "expected_passed": true,
+      "candidate_passed": true,
+      "fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          595,
+          307,
+          686,
+          417
+        ],
+        "predicted_bounds": [
+          594,
+          307,
+          686,
+          417
+        ],
+        "boundary_rms_pixels": 0.5,
+        "mask_iou": 0.988669138854553,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      },
+      "extractor_observations": {
+        "original_component_sizes": [
+          6794,
+          2738
+        ],
+        "bridged_pixels": [
+          [
+            595,
+            339
+          ],
+          [
+            596,
+            339
+          ],
+          [
+            597,
+            339
+          ],
+          [
+            598,
+            339
+          ],
+          [
+            599,
+            339
+          ],
+          [
+            600,
+            339
+          ],
+          [
+            601,
+            339
+          ],
+          [
+            602,
+            339
+          ],
+          [
+            603,
+            339
+          ],
+          [
+            604,
+            339
+          ],
+          [
+            605,
+            339
+          ],
+          [
+            606,
+            339
+          ],
+          [
+            607,
+            339
+          ],
+          [
+            608,
+            339
+          ],
+          [
+            609,
+            339
+          ],
+          [
+            610,
+            339
+          ],
+          [
+            611,
+            339
+          ],
+          [
+            612,
+            339
+          ],
+          [
+            613,
+            339
+          ],
+          [
+            614,
+            339
+          ],
+          [
+            615,
+            339
+          ],
+          [
+            616,
+            339
+          ],
+          [
+            617,
+            339
+          ],
+          [
+            618,
+            339
+          ],
+          [
+            619,
+            339
+          ],
+          [
+            620,
+            339
+          ],
+          [
+            621,
+            339
+          ],
+          [
+            622,
+            339
+          ],
+          [
+            623,
+            339
+          ],
+          [
+            624,
+            339
+          ],
+          [
+            625,
+            339
+          ],
+          [
+            626,
+            339
+          ],
+          [
+            627,
+            339
+          ],
+          [
+            628,
+            339
+          ],
+          [
+            629,
+            339
+          ],
+          [
+            630,
+            339
+          ],
+          [
+            631,
+            339
+          ],
+          [
+            632,
+            339
+          ],
+          [
+            633,
+            339
+          ],
+          [
+            634,
+            339
+          ],
+          [
+            635,
+            339
+          ],
+          [
+            636,
+            339
+          ],
+          [
+            637,
+            339
+          ],
+          [
+            638,
+            339
+          ],
+          [
+            639,
+            339
+          ],
+          [
+            640,
+            339
+          ],
+          [
+            641,
+            339
+          ],
+          [
+            642,
+            339
+          ],
+          [
+            643,
+            339
+          ],
+          [
+            644,
+            339
+          ],
+          [
+            645,
+            339
+          ],
+          [
+            646,
+            339
+          ],
+          [
+            647,
+            339
+          ],
+          [
+            648,
+            339
+          ],
+          [
+            649,
+            339
+          ],
+          [
+            650,
+            339
+          ],
+          [
+            651,
+            339
+          ],
+          [
+            652,
+            339
+          ],
+          [
+            653,
+            339
+          ],
+          [
+            654,
+            339
+          ],
+          [
+            655,
+            339
+          ],
+          [
+            656,
+            339
+          ],
+          [
+            657,
+            339
+          ],
+          [
+            658,
+            339
+          ],
+          [
+            659,
+            339
+          ],
+          [
+            660,
+            339
+          ],
+          [
+            661,
+            339
+          ],
+          [
+            662,
+            339
+          ],
+          [
+            663,
+            339
+          ],
+          [
+            664,
+            339
+          ],
+          [
+            665,
+            339
+          ],
+          [
+            666,
+            339
+          ],
+          [
+            667,
+            339
+          ],
+          [
+            668,
+            339
+          ],
+          [
+            669,
+            339
+          ],
+          [
+            670,
+            339
+          ],
+          [
+            671,
+            339
+          ],
+          [
+            672,
+            339
+          ],
+          [
+            673,
+            339
+          ],
+          [
+            674,
+            339
+          ],
+          [
+            675,
+            339
+          ],
+          [
+            676,
+            339
+          ],
+          [
+            677,
+            339
+          ],
+          [
+            678,
+            339
+          ],
+          [
+            679,
+            339
+          ],
+          [
+            680,
+            339
+          ],
+          [
+            681,
+            339
+          ],
+          [
+            682,
+            339
+          ],
+          [
+            683,
+            339
+          ],
+          [
+            684,
+            339
+          ],
+          [
+            685,
+            339
+          ]
+        ],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      },
+      "candidate_mask_sha256": "4939754a39a910639321f884d532f8935b81231840b550cd08cf08b1d482db2b",
+      "original_view_passed": false,
+      "original_fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          595,
+          340,
+          686,
+          417
+        ],
+        "predicted_bounds": [
+          594,
+          307,
+          686,
+          417
+        ],
+        "boundary_rms_pixels": 16.507574019219177,
+        "mask_iou": 0.6990821903681551,
+        "outline_recall_2px": 0.7409638554216867,
+        "outline_precision_2px": 0.62,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "name": "real_top_removed",
+      "expected_passed": false,
+      "synthetic_image_perturbation": true,
+      "shown_sha256": "1d857e97c1037f7cee968557f70a7ac4ed837dfd0f6a057e0abe03020e46cbac",
+      "candidate_passed": false,
+      "fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          595,
+          340,
+          686,
+          417
+        ],
+        "predicted_bounds": [
+          594,
+          307,
+          686,
+          417
+        ],
+        "boundary_rms_pixels": 16.507574019219177,
+        "mask_iou": 0.6990821903681551,
+        "outline_recall_2px": 0.7409638554216867,
+        "outline_precision_2px": 0.62,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      },
+      "extractor_observations": {
+        "original_component_sizes": [
+          6794
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      }
+    },
+    {
+      "name": "cube_moved_x_12",
+      "expected_passed": false,
+      "synthetic_image_perturbation": true,
+      "shown_sha256": "6bd740fb08da033b14257659084bdf2f32a5df98e6a0b837e829a85bf65b4dbf",
+      "candidate_passed": false,
+      "fit": {
+        "vertical_fov": 66.7,
+        "bounds": [
+          607,
+          307,
+          698,
+          417
+        ],
+        "predicted_bounds": [
+          594,
+          307,
+          686,
+          417
+        ],
+        "boundary_rms_pixels": 8.845903006477066,
+        "mask_iou": 0.7507935068468305,
+        "outline_recall_2px": 0.3743718592964824,
+        "outline_precision_2px": 0.3725,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      },
+      "extractor_observations": {
+        "original_component_sizes": [
+          6794,
+          2738
+        ],
+        "bridged_pixels": [
+          [
+            607,
+            339
+          ],
+          [
+            608,
+            339
+          ],
+          [
+            609,
+            339
+          ],
+          [
+            610,
+            339
+          ],
+          [
+            611,
+            339
+          ],
+          [
+            612,
+            339
+          ],
+          [
+            613,
+            339
+          ],
+          [
+            614,
+            339
+          ],
+          [
+            615,
+            339
+          ],
+          [
+            616,
+            339
+          ],
+          [
+            617,
+            339
+          ],
+          [
+            618,
+            339
+          ],
+          [
+            619,
+            339
+          ],
+          [
+            620,
+            339
+          ],
+          [
+            621,
+            339
+          ],
+          [
+            622,
+            339
+          ],
+          [
+            623,
+            339
+          ],
+          [
+            624,
+            339
+          ],
+          [
+            625,
+            339
+          ],
+          [
+            626,
+            339
+          ],
+          [
+            627,
+            339
+          ],
+          [
+            628,
+            339
+          ],
+          [
+            629,
+            339
+          ],
+          [
+            630,
+            339
+          ],
+          [
+            631,
+            339
+          ],
+          [
+            632,
+            339
+          ],
+          [
+            633,
+            339
+          ],
+          [
+            634,
+            339
+          ],
+          [
+            635,
+            339
+          ],
+          [
+            636,
+            339
+          ],
+          [
+            637,
+            339
+          ],
+          [
+            638,
+            339
+          ],
+          [
+            639,
+            339
+          ],
+          [
+            640,
+            339
+          ],
+          [
+            641,
+            339
+          ],
+          [
+            642,
+            339
+          ],
+          [
+            643,
+            339
+          ],
+          [
+            644,
+            339
+          ],
+          [
+            645,
+            339
+          ],
+          [
+            646,
+            339
+          ],
+          [
+            647,
+            339
+          ],
+          [
+            648,
+            339
+          ],
+          [
+            649,
+            339
+          ],
+          [
+            650,
+            339
+          ],
+          [
+            651,
+            339
+          ],
+          [
+            652,
+            339
+          ],
+          [
+            653,
+            339
+          ],
+          [
+            654,
+            339
+          ],
+          [
+            655,
+            339
+          ],
+          [
+            656,
+            339
+          ],
+          [
+            657,
+            339
+          ],
+          [
+            658,
+            339
+          ],
+          [
+            659,
+            339
+          ],
+          [
+            660,
+            339
+          ],
+          [
+            661,
+            339
+          ],
+          [
+            662,
+            339
+          ],
+          [
+            663,
+            339
+          ],
+          [
+            664,
+            339
+          ],
+          [
+            665,
+            339
+          ],
+          [
+            666,
+            339
+          ],
+          [
+            667,
+            339
+          ],
+          [
+            668,
+            339
+          ],
+          [
+            669,
+            339
+          ],
+          [
+            670,
+            339
+          ],
+          [
+            671,
+            339
+          ],
+          [
+            672,
+            339
+          ],
+          [
+            673,
+            339
+          ],
+          [
+            674,
+            339
+          ],
+          [
+            675,
+            339
+          ],
+          [
+            676,
+            339
+          ],
+          [
+            677,
+            339
+          ],
+          [
+            678,
+            339
+          ],
+          [
+            679,
+            339
+          ],
+          [
+            680,
+            339
+          ],
+          [
+            681,
+            339
+          ],
+          [
+            682,
+            339
+          ],
+          [
+            683,
+            339
+          ],
+          [
+            684,
+            339
+          ],
+          [
+            685,
+            339
+          ],
+          [
+            686,
+            339
+          ],
+          [
+            687,
+            339
+          ],
+          [
+            688,
+            339
+          ],
+          [
+            689,
+            339
+          ],
+          [
+            690,
+            339
+          ],
+          [
+            691,
+            339
+          ],
+          [
+            692,
+            339
+          ],
+          [
+            693,
+            339
+          ],
+          [
+            694,
+            339
+          ],
+          [
+            695,
+            339
+          ],
+          [
+            696,
+            339
+          ],
+          [
+            697,
+            339
+          ]
+        ],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      }
+    },
+    {
+      "name": "cube_moved_y_12",
+      "expected_passed": false,
+      "synthetic_image_perturbation": true,
+      "shown_sha256": "4747f909d6de9445e4b9b9c7f90cdc36db2017b974ca0caa612ee3c49ae527b6",
+      "candidate_passed": false,
+      "rejection": "More than two neutral components; refuse unrelated visible objects",
+      "extractor_observations": {
+        "original_component_sizes": [
+          6655,
+          2738,
+          2,
+          2,
+          2,
+          2,
+          1
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      }
+    },
+    {
+      "name": "tilted_cube_scaled_1_25",
+      "expected_passed": false,
+      "synthetic_image_perturbation": true,
+      "shown_sha256": "656ed12bf814bf42f42cdaf0ebe48836a7cf73ca3efdf28808ed42488847a3b4",
+      "candidate_passed": false,
+      "rejection": "More than two neutral components; refuse unrelated visible objects",
+      "extractor_observations": {
+        "original_component_sizes": [
+          10341,
+          4261,
+          6,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      }
+    },
+    {
+      "name": "extra_independent_stone_patch",
+      "expected_passed": false,
+      "synthetic_image_perturbation": true,
+      "shown_sha256": "571e03fb29148e339278bedc77aacaa368111cf302227fb05cfc8699c1671def",
+      "candidate_passed": false,
+      "rejection": "More than two neutral components; refuse unrelated visible objects",
+      "extractor_observations": {
+        "original_component_sizes": [
+          6794,
+          2738,
+          400
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      }
+    },
+    {
+      "name": "independent_patch_one_background_pixel_away",
+      "expected_passed": false,
+      "synthetic_image_perturbation": true,
+      "shown_sha256": "83bff2cf54a7d4df92f14db552fbe89c56fdcba53f7bd907824f05b8ae2ccc09",
+      "candidate_passed": false,
+      "rejection": "More than two neutral components; refuse unrelated visible objects",
+      "extractor_observations": {
+        "original_component_sizes": [
+          6794,
+          2738,
+          600
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      }
+    },
+    {
+      "name": "seam_is_actual_background",
+      "expected_passed": false,
+      "synthetic_image_perturbation": true,
+      "shown_sha256": "b85f25b5e8c986d587188b9020ca94d0e2fb3432a81af1c083e312bcdda0856b",
+      "candidate_passed": false,
+      "rejection": "Seam has no actual bright foreground contribution",
+      "extractor_observations": {
+        "original_component_sizes": [
+          6794,
+          2738
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      }
+    },
+    {
+      "name": "seam_is_two_background_pixels",
+      "expected_passed": false,
+      "synthetic_image_perturbation": true,
+      "shown_sha256": "460f4e42e9319c0c41b80d2ff0bd19ec1a51c45337e115108032deeb829042fd",
+      "candidate_passed": false,
+      "rejection": "Independent neutral components have no one-pixel contact",
+      "extractor_observations": {
+        "original_component_sizes": [
+          6703,
+          2738
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      }
+    },
+    {
+      "name": "seam_is_unrelated_magenta",
+      "expected_passed": false,
+      "synthetic_image_perturbation": true,
+      "shown_sha256": "f821113efb296f7b409c75942cf7a380ca0d104ebad9547229cc5952cfc84672",
+      "candidate_passed": false,
+      "rejection": "Seam pixel is not an actual neighboring neutral/background blend",
+      "extractor_observations": {
+        "original_component_sizes": [
+          6794,
+          2738
+        ],
+        "bridged_pixels": [],
+        "color_tests_unchanged": true,
+        "expected_silhouette_used": false
+      }
+    }
+  ],
+  "candidate_extractor_sha256": "3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f",
+  "controls_sha256": "a85ec7ffa653f69bc5e482d6aaf9f7c112202109aaa0cd05e6263d48f6953cbf",
+  "original_analyzer_sha256": "20b702496787cf34d85102d600399f103733b260cc08ecc153067d6caf519eb8",
+  "original_inputs_sha256": {
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1.json": "80e30ff91cce233269660dbdb4fbba5d8492c4954712f5365acf2232afdcfcc0",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1_front_shown.png": "ae3595ddbc6b90c00e682aeb5151ee549718ba66aa66f8c889786460ea2b4250",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1_front_hidden.png": "6e33ba146986049a3d7169d1f0c8f9db219d5012ecdb9a9aea039dc80ffd62c9",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1_right_shown.png": "da25490b2d032b2b0f53f799037775e5698c00454b56908b1d9bf1996ef3d5a7",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1_right_hidden.png": "bce68e70e88fbb01c12a4ee0a5394f107726c1303c84d16acfb12ac341d758f0",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1_tilted_shown.png": "f3681c6db64a26fd10195501eb266c322ca9165303c857c86187ef2874d71c89",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v1\\product-v2-camera-native-v1_tilted_hidden.png": "006d7ef4a3dfda7468dbbec2aff283377783996d63a7b2e48ee57d1470134362"
+  },
+  "original_inputs_unchanged": true,
+  "fixed_original_vertical_fov": 66.7,
+  "new_fov_search_or_fit_performed": false,
+  "original_color_tests_unchanged": true,
+  "original_final_metric_thresholds_unchanged": true,
+  "expected_silhouette_used_to_build_mask": false,
+  "scope": "Actual old raw extraction replay with original fixed FOV and original metric gates; diagnostic candidate only",
+  "limitations": [
+    "A separately rendered object with identical color and identical one-pixel foreground/background raster cannot be distinguished from the same stone using pixels alone.",
+    "Uniform scaling across all calibration views is mathematically confounded with camera FOV; the scaling negative perturbs one tilted view against the original fixed common FOV.",
+    "Candidate has not been run in a new live MC calibration or used as a release qualification source."
+  ],
+  "MC_started": false,
+  "RPC_dispatched": false,
+  "formal_A_accepted": false,
+  "world_A_accepted": false,
+  "manual_closures_added": 0
+}
