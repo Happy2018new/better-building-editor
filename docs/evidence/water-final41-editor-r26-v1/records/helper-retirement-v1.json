@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "at_utc": "2026-10-21T06:35:48.063702+00:00",
+  "owner": "water-r25-final41-editor-v6",
+  "rows": [
+    {
+      "kind": "assertion-watcher",
+      "pid": 34528,
+      "identity": "134370376584894913",
+      "initial_exact_identity_live": true,
+      "action": "TerminateProcess exact retained handle of idle assigned Python watcher only",
+      "executable": "D:\\Program\\Python\\python.exe",
+      "exact_identity_absent_after": true
+    },
+    {
+      "kind": "handle-watcher",
+      "pid": 66324,
+      "identity": "134370376797786128",
+      "initial_exact_identity_live": false,
+      "exact_identity_absent_after": true
+    },
+    {
+      "kind": "exit-observer",
+      "pid": 57416,
+      "identity": "134370376795248270",
+      "initial_exact_identity_live": false,
+      "exact_identity_absent_after": true
+    }
+  ],
+  "all_owned_helper_identities_absent": true,
+  "game_or_mcdk_force_used": false,
+  "parent_requested_idle_helper_retirement": true
+}

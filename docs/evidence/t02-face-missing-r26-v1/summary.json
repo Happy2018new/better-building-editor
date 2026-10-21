@@ -1,0 +1,242 @@
+{
+  "owner": "r26-t02-face-missing-v1",
+  "source_commit": "c531b2f4802577e160b26105c6d73cd8322ff89f",
+  "source_manifest_sha256": "6000ea6cec1f9712b4325a3f6db2d6a80156a2726bced1671c9882646533cd9d",
+  "source_unchanged": true,
+  "completed": true,
+  "restored": true,
+  "error": null,
+  "manual_issues_closed": 0,
+  "manual_acceptance": false,
+  "candidate_profile_assignment": false,
+  "world_write_performed": false,
+  "native_world_occupancy": false,
+  "actual_public_card_callbacks": true,
+  "fixture_cells": 60,
+  "direction_samples": 28,
+  "fixture_material_counts": {
+    "minecraft:red_concrete": 1,
+    "minecraft:stone": 28,
+    "minecraft:oak_stairs": 8,
+    "minecraft:oak_slab": 2,
+    "minecraft:trapdoor": 8,
+    "minecraft:blue_concrete": 1,
+    "minecraft:ladder": 4,
+    "minecraft:stone_button": 6,
+    "minecraft:lime_concrete": 1,
+    "minecraft:magenta_concrete": 1
+  },
+  "editor_faces_observed": 10,
+  "operations": [
+    {
+      "operation": "mirror_y",
+      "data_equal": true,
+      "subject": {
+        "name": "button_0",
+        "material": "minecraft:stone_button",
+        "original_facing": 0,
+        "original_position": [
+          3,
+          3,
+          27
+        ],
+        "position": [
+          3,
+          4,
+          27
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ],
+        "support": [
+          3,
+          3,
+          27
+        ],
+        "editor_yaw": 35.0,
+        "editor_pitch": 80.0,
+        "world_offset": [
+          0.6,
+          4.0,
+          0.8
+        ]
+      },
+      "missing_completed": true,
+      "observer_restored": true,
+      "stages": [
+        {
+          "label": "empty",
+          "observations": [
+            1
+          ],
+          "commits": 0,
+          "player_stable": true,
+          "native_camera_stable": true,
+          "typed_snapshot_equal": true
+        },
+        {
+          "label": "occupied",
+          "observations": [
+            2
+          ],
+          "commits": 1,
+          "player_stable": true,
+          "native_camera_stable": true,
+          "typed_snapshot_equal": true
+        },
+        {
+          "label": "restored",
+          "observations": [
+            1
+          ],
+          "commits": 2,
+          "player_stable": true,
+          "native_camera_stable": true,
+          "typed_snapshot_equal": true
+        }
+      ]
+    },
+    {
+      "operation": "rotate_y90",
+      "data_equal": true,
+      "subject": {
+        "name": "ladder_2",
+        "material": "minecraft:ladder",
+        "original_facing": 2,
+        "original_position": [
+          3,
+          3,
+          23
+        ],
+        "position": [
+          8,
+          3,
+          3
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "support": [
+          7,
+          3,
+          3
+        ],
+        "editor_yaw": 90.0,
+        "editor_pitch": 5.0,
+        "world_offset": [
+          4.0,
+          0.0,
+          0.0
+        ]
+      },
+      "missing_completed": true,
+      "observer_restored": true,
+      "stages": [
+        {
+          "label": "empty",
+          "observations": [
+            1
+          ],
+          "commits": 0,
+          "player_stable": true,
+          "native_camera_stable": true,
+          "typed_snapshot_equal": true
+        },
+        {
+          "label": "occupied",
+          "observations": [
+            2
+          ],
+          "commits": 1,
+          "player_stable": true,
+          "native_camera_stable": true,
+          "typed_snapshot_equal": true
+        },
+        {
+          "label": "restored",
+          "observations": [
+            1
+          ],
+          "commits": 2,
+          "player_stable": true,
+          "native_camera_stable": true,
+          "typed_snapshot_equal": true
+        }
+      ]
+    }
+  ],
+  "independent_restore_audit_count": 2,
+  "independent_external_audits": {
+    "before": true,
+    "after1": true,
+    "after2": true
+  },
+  "bottom_button_diagnostic": {
+    "completed": true,
+    "restored": true,
+    "external_final_audits": {
+      "after1": true,
+      "after2": true
+    },
+    "display_only": true,
+    "complete_document_and_support_preserved": true
+  },
+  "visual_review": {
+    "opened_raw_images": [
+      "check/t02_ladder_2_editor.png",
+      "check/t02_ladder_3_editor.png",
+      "check/t02_ladder_4_editor.png",
+      "check/t02_ladder_5_editor.png",
+      "check/t02_button_0_editor.png",
+      "check/t02_button_1_editor.png",
+      "check/t02_button_2_editor.png",
+      "check/t02_button_3_editor.png",
+      "check/t02_button_4_editor.png",
+      "check/t02_button_5_editor.png",
+      "check/t02_mirror_y_world_closeup.png",
+      "check/t02_mirror_y_missing_empty.png",
+      "check/t02_mirror_y_missing_occupied.png",
+      "check/t02_mirror_y_missing_restored.png",
+      "check/t02_rotate_y90_world_closeup.png",
+      "check/t02_rotate_y90_missing_empty.png",
+      "check/t02_rotate_y90_missing_occupied.png",
+      "check/t02_rotate_y90_missing_restored.png",
+      "button0-diag/t02_button_0_full_pitch45_editor.png",
+      "button0-diag/t02_button_0_single_pitch80_editor.png",
+      "button0-diag/t02_button_0_single_pitch45_editor.png"
+    ],
+    "human_acceptance": false,
+    "manual_issues_closed": 0,
+    "agent_observation": {
+      "four_ladders": "All four editor closeups visibly contain the expected ladder face; the complete source and supports remain present.",
+      "six_buttons": "Six actual camera views recorded; upward button_1 has a discernible small rectangular face. button_0 and some side-button full views remain obscured or indistinct. Six-face pixel acceptance is not claimed.",
+      "mirror_y_representative": "The transformed button_0 appears as a small rectangle on the top support face in full/missing-empty; it disappears in occupied and returns in restored, while its stone support remains visible.",
+      "rotate_y90_representative": "The transformed ladder_2 is clearly visible in full and missing-empty, disappears in occupied, and returns in restored. The backing stone stays visible throughout.",
+      "button0_display_diagnostic": "Existing Session.layer(3) and display_mode(single) show a distinct small stone button at pitches -80 and -45. The unchanged 60-cell document still contains the original target and stone support. Full pitch -45 remains indistinct; isolated visibility proves geometry exists, not correct full-scene attachment or absence of clipping."
+    },
+    "remaining_visual_scope": [
+      "All 28 direction samples and complete six-button support/attachment pixels are not accepted.",
+      "button0 full-scene obstruction and exact attachment remain unresolved. Side buttons need unambiguous views.",
+      "Only mirror-Y button_0 and rotate-Y90 ladder_2 missing representatives were observed; not a full missing matrix.",
+      "Mirror-X/mirror-Z runtime, original-world occupancy and user acceptance are outside this bounded run."
+    ],
+    "process_completion_is_not_pixel_acceptance": true
+  },
+  "lifecycle": {
+    "ordinary_stop_and_finalize_completed": true,
+    "registry_state": "stopped",
+    "actual_exit_codes": {
+      "game": 3221226505,
+      "mcdk": 0
+    },
+    "normal_shutdown_qualified": false,
+    "force_executed": false,
+    "watcher_retired": true
+  },
+  "frozen_source_or_evidence_overwritten": false,
+  "credential_redaction": "Local raw retained; derived repository archive has raw, archive and decoded hashes; exactness is explicit."
+}

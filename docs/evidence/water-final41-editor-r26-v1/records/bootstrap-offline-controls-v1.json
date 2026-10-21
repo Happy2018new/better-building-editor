@@ -1,0 +1,444 @@
+{
+  "schema": 1,
+  "offline_only": true,
+  "MC_started": false,
+  "source_sha256": "088ae57b8ea713b7881a01b94b4289cb7b04f7e17f791d17fc2bf2be2b49fa26",
+  "checks": [
+    {
+      "name": "success",
+      "passed": true,
+      "expected_success": true,
+      "error": null,
+      "initialization_calls": 1,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "existing_session",
+      "passed": true,
+      "expected_success": false,
+      "error": "Session already exists; do not reinitialize",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "missing_bridge",
+      "passed": true,
+      "expected_success": false,
+      "error": "Expected the idle bridge left by constructor refusal",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "wrong_engine",
+      "passed": true,
+      "expected_success": false,
+      "error": "Unexpected client engine",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_entity",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: entity",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_preparing_entity",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: preparing_entity",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_mesh",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_mesh",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_pending",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: pending",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_pending_data",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: pending_data",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_pending_state",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: pending_state",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_upload",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: upload",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_download",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: download",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_capture_active",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: capture_active",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_work",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_work",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_occupancy",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_occupancy",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_shader",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_shader",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_liquid",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_liquid",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_entities",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_entities",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_retired_entities",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_retired_entities",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_retired_outlines",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_retired_outlines",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_retired_liquids",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_retired_liquids",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_models",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: models",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_model_layouts",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: model_layouts",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_context_models",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: context_models",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_frame_work",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: frame_work",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_frame_pumps",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: frame_pumps",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_frame_watchdog",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: frame_watchdog",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge_projection_requested",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: projection_requested",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge__projection_follow_position",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: _projection_follow_position",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "pending_bridge__projection_follow_restore",
+      "passed": true,
+      "expected_success": false,
+      "error": "Bridge still owns work: _projection_follow_restore",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "survey_effects",
+      "passed": true,
+      "expected_success": false,
+      "error": "Survey effects are active",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "outline_effects",
+      "passed": true,
+      "expected_success": false,
+      "error": "Projection outline is active",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "existing_hud",
+      "passed": true,
+      "expected_success": false,
+      "error": "Client system already owns UI or effects: hud",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "existing_staff_aura",
+      "passed": true,
+      "expected_success": false,
+      "error": "Client system already owns UI or effects: staff_aura",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "existing_nearby_staff_auras",
+      "passed": true,
+      "expected_success": false,
+      "error": "Client system already owns UI or effects: nearby_staff_auras",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "existing_probe_marker",
+      "passed": true,
+      "expected_success": false,
+      "error": "Existing private probe markers",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "disabled_gate",
+      "passed": true,
+      "expected_success": false,
+      "error": "Do not disable the production gate",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "owner_mismatch",
+      "passed": true,
+      "expected_success": false,
+      "error": "Generated implementation owner differs from frozen host binding",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "qualification_changed",
+      "passed": true,
+      "expected_success": false,
+      "error": "Old qualification was changed",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "production_unexpectedly_admitted",
+      "passed": true,
+      "expected_success": false,
+      "error": "Production entry did not retain the expected qualification mismatch",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "different_production_failure",
+      "passed": true,
+      "expected_success": false,
+      "error": "Unexpected production refusal: Unrelated failure",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "incomplete_water_owner",
+      "passed": true,
+      "expected_success": false,
+      "error": "Candidate must own the complete explicit water name set",
+      "initialization_calls": 0,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "skip_selection",
+      "passed": true,
+      "expected_success": false,
+      "error": "Constructor did not select the explicit candidate exactly once",
+      "initialization_calls": 1,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "second_selection",
+      "passed": true,
+      "expected_success": false,
+      "error": "Candidate selection was called more than once",
+      "initialization_calls": 1,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "init_exception",
+      "passed": true,
+      "expected_success": false,
+      "error": "Injected initialization failure",
+      "initialization_calls": 1,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "wrong_profile",
+      "passed": true,
+      "expected_success": false,
+      "error": "Session did not retain the explicit candidate",
+      "initialization_calls": 1,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "old_bridge",
+      "passed": true,
+      "expected_success": false,
+      "error": "Ordinary UiInitFinished did not complete new Session construction",
+      "initialization_calls": 1,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    },
+    {
+      "name": "wrong_bridge_session",
+      "passed": true,
+      "expected_success": false,
+      "error": "New bridge Session identity mismatch",
+      "initialization_calls": 1,
+      "original_function_identity_retained": true,
+      "qualification_untouched": true
+    }
+  ],
+  "passed": true,
+  "limitations": [
+    "Fake objects verify control flow and function restoration; IPC availability and live UiInitFinished safety remain unverified."
+  ]
+}

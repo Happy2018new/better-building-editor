@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/integration_resume",
+  "checked_at_utc": "2026-10-21T06:50:14.475333+00:00",
+  "blocking_findings": [],
+  "package_indexes": {
+    "water-final41-editor-r26-v1": "90251076a80c1180ebdc4eda67c4fdb6948611a8b71ad6dad8ae518dca641642",
+    "t02-face-missing-r26-v1": "c21d9603f4cdb267e9253067ee18db8e9e606c02a8785ae7ad8705efebbd0f0a"
+  },
+  "water": {
+    "candidate_bootstrap_and_restore_observed": true,
+    "f_report_rows": 14,
+    "f_host_transition_counter": 13,
+    "f_capture_count": 30,
+    "acceptance_flags": {
+      "native_shape_accepted": false,
+      "native_uv_accepted": false,
+      "native_alpha_accepted": false,
+      "product_style_accepted": false
+    },
+    "first_ordinary_stop_exit_code": 1,
+    "game_exit_hex": "0xC0000409",
+    "mcdk_exit_code": 0,
+    "registry_stopped": true,
+    "normal_shutdown_claimed": false,
+    "assertion_recoveries_observed": 0,
+    "idle_helper_retirement_includes_exact_python_watcher_termination": true,
+    "game_mcdk_forced": false
+  },
+  "t02": {
+    "ten_captures_two_operations_completed": true,
+    "restore_audits": {
+      "face-restore-after1.json": {
+        "sha256": "618b23f3987e93c3e4973bed836b4f2e75b8fa24f56b43e80efd67c0123a5068",
+        "camera_rotation_exact": false,
+        "camera_rotation_delta": [
+          0.0,
+          0.0,
+          -1.3660377589985728e-05
+        ],
+        "volatile_performance_fields": [
+          "previewWall"
+        ]
+      },
+      "face-restore-after2.json": {
+        "sha256": "76841d02c33f67775e4610631d503135d916414b0e971c0b7477a51b3f6022ea",
+        "camera_rotation_exact": false,
+        "camera_rotation_delta": [
+          0.0,
+          0.0,
+          -1.3660377589985728e-05
+        ],
+        "volatile_performance_fields": [
+          "previewWall"
+        ]
+      },
+      "button0-final-restore-after1.json": {
+        "sha256": "19bb3c7619d48deb65d1cf64b3f618d8d6bf65444982f033418dd70b3cb58afa",
+        "camera_rotation_exact": false,
+        "camera_rotation_delta": [
+          0.0,
+          0.0,
+          -1.3660377589985728e-05
+        ],
+        "volatile_performance_fields": [
+          "previewWall"
+        ]
+      },
+      "button0-final-restore-after2.json": {
+        "sha256": "e2e352a23d48f09f0b75fbafafbe983774c3990d0d3932a65d9bee613f0ee408",
+        "camera_rotation_exact": false,
+        "camera_rotation_delta": [
+          0.0,
+          0.0,
+          -1.3660377589985728e-05
+        ],
+        "volatile_performance_fields": [
+          "previewWall"
+        ]
+      }
+    },
+    "restoration_is_exact_for_strict_fields_and_tolerant_for_native_camera_rotation": true,
+    "native_camera_rotation_tolerance": 0.0001,
+    "previewWall_is_volatile_not_restore_equality": true,
+    "game_exit_hex": "0xC0000409",
+    "mcdk_exit_code": 0,
+    "registry_stopped": true,
+    "normal_shutdown_claimed": false,
+    "watcher_exact_identity_retired": true,
+    "force_executed": false
+  },
+  "independent_visual_spot_checks": [
+    {
+      "pack": "water-final41-editor-r26-v1",
+      "raw_images_opened": [
+        "product-v2-g-v1_editor_gallery_dry.png",
+        "product-v2-g-v1_editor_gallery_wet.png",
+        "product-v2-f-editor-v1_editor_source_wet.png",
+        "product-v2-f-editor-v1_editor_source_dry.png"
+      ],
+      "observation": "G dry/wet have visible blue-water differences, but gallery subjects are small at 90%. F source wet clearly shows a translucent blue water volume above the stone support, while dry shows the support alone.",
+      "limit": "A four-image spot check does not accept native shape, UV, alpha, motion, every F case, or world projection. Those flags remain false."
+    },
+    {
+      "pack": "t02-face-missing-r26-v1",
+      "raw_images_opened": [
+        "check/t02_ladder_2_editor.png",
+        "check/t02_button_0_editor.png",
+        "button0-diag/t02_button_0_single_pitch80_editor.png",
+        "button0-diag/t02_button_0_single_pitch45_editor.png",
+        "check/t02_rotate_y90_missing_empty.png",
+        "check/t02_rotate_y90_missing_occupied.png",
+        "check/t02_rotate_y90_missing_restored.png"
+      ],
+      "observation": "Ladder face is visible in the editor spot check. Bottom button geometry and thickness are visible in the single-layer diagnostic. The rotated ladder is visible, disappears under controlled occupied, then returns; the stone backing remains visible.",
+      "limit": "The full-scene bottom-button image mainly shows the stone support and does not establish its unobscured attachment. Single-layer visibility establishes geometry existence only. Controlled occupancy does not establish native world blocks, all directions, or full missing matrices."
+    }
+  ],
+  "manual_issues_closed": 0,
+  "manual_acceptance": false,
+  "limits": [
+    "No new MC, RPC, source changes or full-source scan in this review.",
+    "Restore/exit receipts establish the scoped observed states; abnormal game exit is retained and not qualified as a normal shutdown.",
+    "Watcher had no recovery events in these runs, so the fixed helper still has no live-trigger recovery proof from these instances."
+  ],
+  "passed": true
+}

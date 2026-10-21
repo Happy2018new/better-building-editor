@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "offline_only": true,
+  "MC_started": false,
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "exact_known_assertion_allowed_for_watcher",
+      "passed": true
+    },
+    {
+      "name": "unknown_assertion_stops",
+      "passed": true
+    },
+    {
+      "name": "other_pid_untouched",
+      "passed": true
+    },
+    {
+      "name": "disabled_owner_custom_modal_stops",
+      "passed": true
+    },
+    {
+      "name": "ordinary_game_window_allowed",
+      "passed": true
+    },
+    {
+      "name": "missing_status_stops",
+      "passed": true
+    },
+    {
+      "name": "healthy_exact_owner",
+      "passed": true
+    },
+    {
+      "name": "wrong_owner",
+      "passed": true
+    },
+    {
+      "name": "watcher_error",
+      "passed": true
+    },
+    {
+      "name": "other_assertion_recorded",
+      "passed": true
+    },
+    {
+      "name": "stale_status",
+      "passed": true
+    },
+    {
+      "name": "future_status",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Injected Windows readers verify actual modal decisions; no real dialog was opened or dismissed."
+  ]
+}

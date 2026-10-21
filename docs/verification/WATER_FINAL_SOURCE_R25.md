@@ -43,3 +43,27 @@ root随后读取三个已关闭实例的项目及实际生成 `.mcdev.json`。�
 [只读补证索引](../evidence/startup-readonly-r25-v1/index.json)保存完整原日志SHA／字节数、带一基行号的精确片段、三个配置的原SHA、明确的实例字段归一化规则，以及关联的bootstrap／忽略回执。未再次启动游戏，未修改任何原项目、日志、原回执或生产代码。
 
 [独立只读审核](../evidence/startup-readonly-r25-v1/independent-review.json)已确认三份子记录、六份配置原hash、28行水日志及两组各12行控制摘录与原件一致。默认拒绝错误邻近时间先于末次pre-bootstrap采样0.243662秒；HUD创建时间晚于精确忽略回执。审核前后原raw及新包不变，令牌扫描0命中，无新实机或资格。
+
+## 14:27—14:32：v6取得同一冻结来源的候选编辑器证据
+
+这次是新的独立尝试，不替换上面的三次失败记录。仍使用原私有项目 `water-final41-r25-v2`、相同4479源／1391辅助文件与119610822字节source archive，source合同、41源owner、旧qualification及原bootstrap core逐字节未改。41源仍是已审最小增量，不宣称完整传递依赖闭包。新的host在 `.runtime/round-20261021/water-final41-r25-v6`，owner为 `water-r25-final41-editor-v6`，session为 `00a09c6eaa77451f84982abe02c79b1e`。
+
+根代理独立审核后才执行唯一一组调用。host将实际使用的28项外部依赖单独冻结，不用修正后的根工具替换旧项目内的冻结字节。已知皮肤断言watcher在冷启前启动，修正为核对精确game创建身份、断言内容、父窗口和IDIGNORE=5后，只对该按钮发BM_CLICK；未知模态窗口触发普通停止。v6实际未出现已知或未知断言，没有执行恢复点击，因此这次不能证明新的恢复按钮路径已在实机走通。
+
+冷启耗时106.6963秒；工具ready之后，三次只读采样先后看到无bridge、无bridge、bridge出现，Session／HUD均未存在。随后唯一一次bootstrap在9.2527秒host阶段内完成，RPC结果与独立只读marker一致：先取得正常生产入口的预期ValueError拒绝，再由原core完成一次候选构造；构造选择次数为1。core与外层finally均实际返回，原 `production_profile` 函数精确identity已恢复，Session／HUD均存在。结束后又验证原函数identity并删除私有marker。没有重放bootstrap，没有修改或重新颁发qualification。
+
+| 实际范围 | 已取得证据 | 限制 |
+| --- | --- | --- |
+| G编辑器 | gallery湿／干两张1994×1105背景WGC；completed、restored、source_unchanged均true，cleanup_errors为空 | 默认90%相机下40×8×50全览占屏较小。已实际读图，能看到水层差异，不能据此完成逐面视觉验收 |
+| F编辑器缩减集 | `source`、`flow_east`、`wet_oak_fence`、`neighbor_stone`、`transparent_overlap`共5个case；原report中14个不同row标签、30张实图；completed、restored、source_unchanged均true，cleanup_errors为空 | host的finished_rows=13统计的是已跨过的row切换，末个row单独记录为final，原报告实际是14行。保留两个原始计数，不能写成完整19case矩阵通过 |
+| F控制 | 对应case保留湿／干与截面隐藏／恢复；含水栅栏另有liquid_only、water_only、rearless、empty及alpha端点／中间值／默认值控制 | 是冻结动画的编辑器证据，不能替代动画A、世界F、B／R或默认冷启D |
+
+代理已读取原始G湿／干图，以及F的水源、含水栅栏、water_only与透明重叠图；可以确认自绘候选水已进入可见编辑器路径。含水栅栏使用正面视角，其他case视角与gallery大小不同。没有据这些图判定几何、UV、alpha或整体风格合格，原报告的四个accepted标志均保持false。新增用户人工关闭仍为0，水A／D／最终owner及默认产品准入继续开放；本次进展是取得此前缺失的新来源编辑器实图及可核对的控制组。
+
+独立恢复读取确认客户端与世界测试marker为空，投影实体数为0，projection_active、busy、edit_job、io_job、preparing_entity均false，冻结source仍相同。连续guard从starting阶段覆盖至精确身份退出，共254条样本；game／MCDK句柄峰值140119／235，最大相邻样本增长2453／20，未触及250000／10000门槛，也无未知modal breach。6GiB可用commit仍仅在各命令前检查，不是连续内存覆盖。32次捕获均保留前后台身份与背景捕获回执；没有请求前台许可或激活游戏。
+
+首次普通stop返回1，原错误为“Game has not closed”；same-handle observer随后实测game退出码 `0xC0000409`、MCDK退出码0，精确身份均消失，再以普通stop收口registry，返回0、state=stopped。不能把group完成写成引擎正常退出。三个辅助进程也已按精确身份核对：handle watcher与exit observer已自行结束；game／MCDK均消失后，仅对仍空等的指定Python断言watcher核对命令、解释器路径、PID与创建身份，并通过其保留进程句柄结束。此辅助进程回收与游戏的普通关闭分别记账，没有force关闭game／MCDK。
+
+[v6证据索引](../evidence/water-final41-editor-r26-v1/index.json)记录129个原始来源对应项，保留原raw路径／SHA／字节数及派生件SHA；原runtime不改。32张JPEG是全分辨率有损审阅副本，索引保留各自原PNG SHA，不能拿JPEG做精确像素或alpha测量。大JSON先对session token脱敏，再确定性gzip；超过单件上限的gzip按索引derived_parts顺序拼接后解压，可用decoded_sanitized_sha256校验脱敏内容。它们不宣称解码回原raw；原始119MB source archive不入仓。所有仓库单件小于300000字节。
+
+离线证据包含原core48项控制、外层receipt谓词12项、实际wrapper成功／初始化异常／二次选择3种情形、实际modal判断12项；三段真正发送的dispatch／readback／retire在Python2.7.13解释器compile通过。保留的旧10项guard报告只证明相同纯策略，其内旧watcher SHA不作为v6新watcher运行证明；当前host独立绑定与254条实机guard样本才是本次证据。上述离线控制也不替代真实生命周期、IPC或产品视觉资格。

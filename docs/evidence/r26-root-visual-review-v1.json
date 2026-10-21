@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "reviewer": "root",
+  "at": "2026-10-21T06:35:54.127840+00:00",
+  "t02": {
+    "images": [
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_button_0_editor.png",
+        "sha256": "e2c4823b54f3f7615d7e4c65037f37733dfba98dee52cc8eaf1a2bdf51e74cd9",
+        "bytes": 257084,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_button_1_editor.png",
+        "sha256": "f6c959b36941a6c8131ccf33e57a52910d25e9fa2b0e8a1ca77d0ff500487da7",
+        "bytes": 254867,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_ladder_2_editor.png",
+        "sha256": "c4901369b4d8bd81d331b331e76d8a8327430021881ff609230394338e50f09b",
+        "bytes": 251451,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_mirror_y_world_closeup.png",
+        "sha256": "07ee5ad2a3a3a0bd43445589d56f02cfacf9ed8d731fc45624809473a878dae8",
+        "bytes": 340568,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_mirror_y_missing_empty.png",
+        "sha256": "41662d35d98b09b180867a20a1a34b7a98089955a93474725fe5924a11b40354",
+        "bytes": 340434,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_mirror_y_missing_occupied.png",
+        "sha256": "a5046b651cb152dfd2d82bc42c1921c6df226bca643ee2698adbd15f4e5ae9fe",
+        "bytes": 339980,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_mirror_y_missing_restored.png",
+        "sha256": "f442c8c44638defa04bbe07def8cdeef68c7637becadd0d98a261870e55c3022",
+        "bytes": 340458,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_rotate_y90_world_closeup.png",
+        "sha256": "f058801b538919fc46729a42969cb4a4607bf84878cbf5731a194299438d9928",
+        "bytes": 218590,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_rotate_y90_missing_empty.png",
+        "sha256": "7d76ea59ffd24890babad75bceae26c0d3452613aa6ae67953cab151f29210de",
+        "bytes": 310439,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_rotate_y90_missing_occupied.png",
+        "sha256": "f9c2244e3bce84d02b9fa45ef83f7be8388991546f1c7b6aedeae85552f3e0cc",
+        "bytes": 309826,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/t02-face-missing-cold-v1/check/t02_rotate_y90_missing_restored.png",
+        "sha256": "b170021e847b6638985e519d26cad939b832c3e2c60d8eea92519ec4d5792f71",
+        "bytes": 310467,
+        "read_as_original_image": true
+      }
+    ],
+    "observations": [
+      "The rotated representative ladder is visible in full and empty-controlled missing, disappears when its target is marked occupied, and returns in the restored image. The backing stone and other visible reference blocks remain.",
+      "The mirrored representative upper button is a small rectangle in full and empty-controlled missing, absent in occupied and present again in restored.",
+      "The initial ladder_2 editor image has a visible ladder face; button_1 has a discernible upper rectangle. Initial button_0 underside is not clearly established in its complete-scene image and requires the separately requested layer/oblique diagnostic."
+    ],
+    "not_claimed": [
+      "All 28 samples or all button editor faces accepted",
+      "X/Z mirrors visually covered",
+      "Real-world occupancy scanning accepted",
+      "New user manual acceptance"
+    ]
+  },
+  "water": {
+    "images": [
+      {
+        "path": ".runtime/round-20261021/water-final41-r25-v6/product-v2-g-v1_editor_gallery_wet.png",
+        "sha256": "e6936cc78ba1e10ba800822706e1f7cc43a8ca676fc3bb1f98bddae262256298",
+        "bytes": 235111,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/water-final41-r25-v6/product-v2-g-v1_editor_gallery_dry.png",
+        "sha256": "2b59c3776cd93c842e19a80516e6102471ce1307eb5c919f07250f4ad4dd602e",
+        "bytes": 232594,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/water-final41-r25-v6/product-v2-f-editor-v1_editor_source_wet.png",
+        "sha256": "e6d5bfa1ecd82f312df74c9a7c7b5ad319863542fa3fce0fb0c2e321b75167cf",
+        "bytes": 247007,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/water-final41-r25-v6/product-v2-f-editor-v1_editor_source_dry.png",
+        "sha256": "a749ce10b8e50246cc3a850a471e9f84cac805ff849d5888f04e39b052de8f29",
+        "bytes": 235852,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/water-final41-r25-v6/product-v2-f-editor-v1_editor_wet_oak_fence_wet.png",
+        "sha256": "625991fcd5afdcc431853e66065ad85d5180af900084b2374196a2660e11f5ad",
+        "bytes": 226509,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/water-final41-r25-v6/product-v2-f-editor-v1_editor_wet_oak_fence_water_only.png",
+        "sha256": "19dfe63d1ba333f6739cd9f37168b8a5d482378a66577b19b441a8ecbc0fe391",
+        "bytes": 224348,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/water-final41-r25-v6/product-v2-f-editor-v1_editor_flow_east_wet.png",
+        "sha256": "4411dcfb8855187b1bc69bb38802c72c0feddd804426d39604e0420b4c7e824a",
+        "bytes": 272435,
+        "read_as_original_image": true
+      },
+      {
+        "path": ".runtime/round-20261021/water-final41-r25-v6/product-v2-f-editor-v1_editor_transparent_overlap_wet.png",
+        "sha256": "1e31ee615e0cc89342adcbab99ffd2297b0567bec7fc490f1d8745b3772924e2",
+        "bytes": 265960,
+        "read_as_original_image": true
+      }
+    ],
+    "observations": [
+      "Source wet/dry changes the visible translucent water volume while retaining the stone base.",
+      "The east-flow image has a descending water surface and visible side texture; this alone does not establish exact native shape, UV or animation agreement.",
+      "The fence wet and water-only controls differ; the water-only image retains a visible water region over the support.",
+      "Two transparent volumes remain visible in overlap; no numeric alpha/style/native-match acceptance is inferred.",
+      "The 40x8x50 wet/dry gallery occupies a small central area at90% zoom, sufficient for gross presence but insufficient for per-case or per-face visual acceptance."
+    ],
+    "not_claimed": [
+      "Formal animation A",
+      "Full 19-case F matrix",
+      "Production/default qualification or cold D",
+      "User manual acceptance"
+    ]
+  },
+  "manual_issues_closed": 0
+}

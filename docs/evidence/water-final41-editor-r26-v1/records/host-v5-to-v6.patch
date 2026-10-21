@@ -1,0 +1,756 @@
+--- v5/bootstrap_payload.py
++++ v6/bootstrap_payload.py
+@@ -0,0 +1,77 @@
++"""Build a single private invocation and a separately readable runtime receipt."""
++
++
++def dispatch_code(core, binding):
++    tail = '''
++import json,sys,traceback
++import mod.client.extraClientApi as api
++from modern_projection.projection import liquid_deployment as deployment
++from modern_projection.projection import liquid_product_deployment as product
++from modern_projection.projection import liquid_product_qualification_data as qualification
++from modern_projection.projection import liquid_product_owner_data as owners
++system=api.GetSystem('ModernProjection','ModernProjectionClientSystem')
++marker=%r
++if hasattr(sys,marker):
++    raise RuntimeError('Private bootstrap marker already exists; never replay')
++bootstrap_receipt={'adapter_stage':'before_default_check','bootstrap_call_count':0,
++                   'adapter_finally_reached':False}
++saved_original=deployment.production_profile
++setattr(sys,marker,{'receipt':bootstrap_receipt,'original_function':saved_original})
++try:
++    try:
++        product.production_profile(%r)
++    except ValueError as default_error:
++        bootstrap_receipt['default_refusal_before_bootstrap']={
++            'error_type':type(default_error).__name__,'message':str(default_error),
++            'expected':str(default_error)==GATE_ERROR}
++    else:
++        raise RuntimeError('Normal production call unexpectedly admitted new source')
++    if not bootstrap_receipt['default_refusal_before_bootstrap']['expected']:
++        raise RuntimeError('Unexpected default production refusal')
++    bootstrap_receipt['adapter_stage']='calling_original_core'
++    bootstrap_receipt['bootstrap_call_count']=1
++    bootstrap(system,deployment,product,qualification,owners,%r,%r,%r,%r,sys,bootstrap_receipt)
++    bootstrap_receipt['adapter_stage']='original_core_returned'
++except Exception as bootstrap_error:
++    bootstrap_receipt.update(error_type=type(bootstrap_error).__name__,error=str(bootstrap_error),
++                             traceback=traceback.format_exc())
++finally:
++    bootstrap_receipt['adapter_finally_reached']=True
++    bootstrap_receipt['adapter_original_function_restored']=deployment.production_profile is saved_original
++    bootstrap_receipt['session_exists_after']=system is not None and system.session is not None
++    bootstrap_receipt['hud_exists_after']=system is not None and system.hud is not None
++_result=json.dumps(bootstrap_receipt)
++''' % (binding['bootstrap_receipt_marker'], binding['engine_version'],
++       binding['engine_version'], tuple(binding['supported_water_names']),
++       binding['owner_contract_sha256'], binding['old_qualification_implementation_sha256'])
++    return core + tail
++
++
++def readback_code(marker, retire=False):
++    return '''import json,sys
++from modern_projection.projection import liquid_deployment as deployment
++marker=%r
++saved=getattr(sys,marker,None)
++if saved is None:
++    result={'marker_exists':False}
++else:
++    result={'marker_exists':True,'receipt':dict(saved['receipt']),
++            'original_function_identity_now':deployment.production_profile is saved['original_function']}
++    if %r:
++        if not result['receipt'].get('adapter_finally_reached') or not result['original_function_identity_now']:
++            raise RuntimeError('Cannot retire a nonterminal or unrestored private bootstrap receipt')
++        delattr(sys,marker)
++        result['marker_retired']=not hasattr(sys,marker)
++_result=json.dumps(result)
++''' % (marker, retire)
++
++
++def accepted_runtime(readback):
++    receipt = readback.get('receipt') or {}
++    return bool(readback.get('marker_exists') and readback.get('original_function_identity_now')
++                and receipt.get('completed') and receipt.get('adapter_finally_reached')
++                and receipt.get('adapter_original_function_restored')
++                and receipt.get('original_function_restored')
++                and receipt.get('bootstrap_call_count') == 1
++                and receipt.get('default_refusal_before_bootstrap', {}).get('expected')
++                and receipt.get('session_exists_after') and receipt.get('hud_exists_after'))
+--- v5/check_modal_guard.py
++++ v6/check_modal_guard.py
+@@ -0,0 +1,82 @@
++"""Offline controls of actual unknown-modal and watcher-health decisions."""
++from datetime import datetime, timezone, timedelta
++import json
++from pathlib import Path
++import tempfile
++from types import SimpleNamespace as NS
++from unittest.mock import patch
++
++import modal_guard as target
++
++
++class Function:
++    def __init__(self, call):
++        self.call = call
++
++    def __call__(self, *args):
++        return self.call(*args)
++
++
++def main():
++    checks = []
++    known_text = ('The disabled skin popup has been displayed but the level data has no disabled cosmetics '
++                  'DisabledSkinScreenController::onEntered(void) DisabledSkinScreenController.cpp @ 47')
++    windows = [{'hwnd': 10, 'pid': 123}]
++    assertion = {'hwnd': 10, 'pid': 123, 'text': known_text}
++    config = {'class': '#32770', 'owner': 0, 'enabled': True}
++
++    def read_class(hwnd, buffer, capacity):
++        buffer.value = config['class']
++        return len(buffer.value)
++
++    user = NS(GetClassNameW=Function(read_class),
++              GetWindow=Function(lambda *args: config['owner']),
++              IsWindowEnabled=Function(lambda *args: config['enabled']))
++    with patch.object(target.ctypes, 'WinDLL', return_value=user), \
++            patch.object(target._window, '_list_windows_windows', return_value=windows), \
++            patch.object(target, 'assertion_dialogs', return_value=[assertion]):
++        assert not target.unknown_modal_windows(123)
++        checks.append({'name': 'exact_known_assertion_allowed_for_watcher', 'passed': True})
++        assertion['text'] = 'Unrelated engine assertion'
++        assert len(target.unknown_modal_windows(123)) == 1
++        checks.append({'name': 'unknown_assertion_stops', 'passed': True})
++        assert not target.unknown_modal_windows(456)
++        checks.append({'name': 'other_pid_untouched', 'passed': True})
++        config.update({'class': 'UnknownCustomModal', 'owner': 20, 'enabled': False})
++        assert len(target.unknown_modal_windows(123)) == 1
++        checks.append({'name': 'disabled_owner_custom_modal_stops', 'passed': True})
++        config.update({'class': 'MinecraftWindow', 'owner': 0, 'enabled': True})
++        assert not target.unknown_modal_windows(123)
++        checks.append({'name': 'ordinary_game_window_allowed', 'passed': True})
++    with tempfile.TemporaryDirectory(prefix='water-modal-offline-') as temporary:
++        work = Path(temporary)
++        directory = work / 'assert-watch'
++        directory.mkdir()
++        path = directory / 'status.json'
++        base = {'owners': ['exact-owner'], 'errors': [], 'other_assertions': [],
++                'checked_at': datetime.now(timezone.utc).isoformat()}
++        with patch.object(target, 'unknown_modal_windows', return_value=[]):
++            assert target.assertion_status_breach(work, 'exact-owner', 123)
++            checks.append({'name': 'missing_status_stops', 'passed': True})
++            for name, change, accepted in (
++                ('healthy_exact_owner', {}, True),
++                ('wrong_owner', {'owners': ['other-owner']}, False),
++                ('watcher_error', {'errors': ['failed recovery']}, False),
++                ('other_assertion_recorded', {'other_assertions': [{}]}, False),
++                ('stale_status', {'checked_at': (datetime.now(timezone.utc)-timedelta(seconds=9)).isoformat()}, False),
++                ('future_status', {'checked_at': (datetime.now(timezone.utc)+timedelta(seconds=3)).isoformat()}, False),
++            ):
++                path.write_text(json.dumps(dict(base, **change)), encoding='utf-8')
++                assert (target.assertion_status_breach(work, 'exact-owner', 123) is None) == accepted
++                checks.append({'name': name, 'passed': True})
++    result = {'schema': 1, 'offline_only': True, 'MC_started': False,
++              'all_passed': True, 'checks': checks,
++              'limitations': ['Injected Windows readers verify actual modal decisions; no real dialog was opened or dismissed.']}
++    path = Path(__file__).with_name('modal-guard-offline-controls-v1.json')
++    with path.open('x', encoding='utf-8') as stream:
++        json.dump(result, stream, indent=2)
++    print(json.dumps({'passed': True, 'controls': len(checks), 'path': str(path)}))
++
++
++if __name__ == '__main__':
++    main()
+--- v5/check_payload_wrapper.py
++++ v6/check_payload_wrapper.py
+@@ -0,0 +1,80 @@
++"""Exercise the actual retained-receipt payload with fake SDK/module imports."""
++import builtins
++import hashlib
++import json
++from pathlib import Path
++from types import SimpleNamespace as NS
++
++import bootstrap_payload as payload
++import check_candidate_bootstrap as core_controls
++
++
++def exercise(mode):
++    args, original, calls = core_controls.scenario(mode)
++    system, deployment, product, qualification, owners, engine, names, new, old, private_sys = args
++    initialize = system.UiInitFinished
++
++    def initialize_with_hud(unused):
++        initialize(unused)
++        system.hud = NS()
++
++    system.UiInitFinished = initialize_with_hud
++    modules = NS(liquid_deployment=deployment, liquid_product_deployment=product,
++                 liquid_product_qualification_data=qualification, liquid_product_owner_data=owners)
++    api = NS(GetSystem=lambda namespace, name: system)
++    real_import = builtins.__import__
++
++    def fake_import(name, globals=None, locals=None, fromlist=(), level=0):
++        if name == 'sys':
++            return private_sys
++        if name == 'mod.client.extraClientApi':
++            return NS(client=NS(extraClientApi=api))
++        if name == 'modern_projection.projection':
++            return modules
++        return real_import(name, globals, locals, fromlist, level)
++
++    binding = {'bootstrap_receipt_marker': '_offline_unique_receipt', 'engine_version': engine,
++               'supported_water_names': list(names), 'owner_contract_sha256': new,
++               'old_qualification_implementation_sha256': old}
++    core = Path(core_controls.target.__file__).read_text(encoding='utf-8')
++    namespace = {'__builtins__': dict(vars(builtins), __import__=fake_import)}
++    code = payload.dispatch_code(core, binding)
++    exec(compile(code, '<actual-dispatch-payload>', 'exec'), namespace)
++    direct = json.loads(namespace['_result'])
++    assert deployment.production_profile is original
++    assert direct['adapter_finally_reached'] and direct['adapter_original_function_restored']
++    exec(compile(payload.readback_code(binding['bootstrap_receipt_marker']), '<actual-readback>', 'exec'), namespace)
++    observed = json.loads(namespace['_result'])
++    assert payload.accepted_runtime(observed) is (mode == 'success')
++    assert calls == ['UiInitFinished']
++    try:
++        exec(compile(code, '<duplicate-dispatch-refused>', 'exec'), namespace)
++    except RuntimeError as error:
++        assert 'never replay' in str(error)
++    else:
++        raise AssertionError('Existing marker did not reject duplicate dispatch')
++    assert calls == ['UiInitFinished'] and deployment.production_profile is original
++    exec(compile(payload.readback_code(binding['bootstrap_receipt_marker'], retire=True), '<retire-terminal-marker>', 'exec'), namespace)
++    retired = json.loads(namespace['_result'])
++    assert retired['marker_retired'] and not hasattr(private_sys, binding['bootstrap_receipt_marker'])
++    return {'mode': mode, 'passed': True, 'initialization_calls': len(calls),
++            'terminal_readback_accepted': payload.accepted_runtime(observed),
++            'duplicate_dispatch_refused': True, 'original_identity_retained': True,
++            'terminal_marker_retired': True}
++
++
++def main():
++    checks = [exercise('success'), exercise('init_exception'), exercise('second_selection')]
++    result = {'schema': 1, 'offline_only': True, 'MC_started': False, 'checks': checks,
++              'all_passed': True,
++              'original_core_sha256': hashlib.sha256(Path(core_controls.target.__file__).read_bytes()).hexdigest(),
++              'payload_sha256': hashlib.sha256(Path(payload.__file__).read_bytes()).hexdigest(),
++              'limitations': ['Fake SDK control proves wrapper and marker flow, not actual game lifecycle or IPC completion.']}
++    path = Path(__file__).with_name('payload-wrapper-controls-v1.json')
++    with path.open('x', encoding='utf-8') as stream:
++        json.dump(result, stream, indent=2)
++    print(json.dumps(result))
++
++
++if __name__ == '__main__':
++    main()
+--- v5/freeze_prelaunch.py
++++ v6/freeze_prelaunch.py
+@@ -0,0 +1,155 @@
++"""Freeze only new private host inputs and verify immutable original source bytes."""
++import ast
++from datetime import datetime, timezone
++import difflib
++import hashlib
++import json
++from pathlib import Path
++import subprocess
++import sys
++
++ROOT = Path(__file__).resolve().parents[3]
++WORK = Path(__file__).resolve().parent
++
++
++def sha(path):
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def write_new(name, value):
++    with (WORK / name).open('x', encoding='utf-8', newline='\n') as stream:
++        json.dump(value, stream, indent=2)
++        stream.write('\n')
++
++
++def main():
++    binding_path = WORK / 'final-source-binding-v1.json'
++    binding = json.loads(binding_path.read_bytes())
++    project = Path(binding['project'])
++    previous = WORK.with_name('water-final41-r25-v5')
++    assert binding['owner'] == 'water-r25-final41-editor-v6'
++    assert binding['guard_deadline_utc'] == '2026-10-21T06:57:00+00:00'
++    assert not (WORK / 'launch').exists() and not (WORK / 'group-execution-v1.json').exists()
++    source = {name: sha(project / name) for name in binding['source_sha256']}
++    auxiliary = {name: sha(project / name) for name in binding['auxiliary_sha256']}
++    assert source == binding['source_sha256'] and len(source) == 4479
++    assert auxiliary == binding['auxiliary_sha256'] and len(auxiliary) == 1391
++    discovered = [path for folder in ('behavior_pack', 'resource_pack')
++                  for path in (project / folder).rglob('*')
++                  if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc', '.pyo')]
++    discovered += list((project / 'tools').glob('*.py'))
++    discovered += list((project / '.agents/skills/pyreact-debugging/scripts').glob('*.py'))
++    assert {path.relative_to(project).as_posix() for path in discovered} == set(source)
++    digest = hashlib.sha256(json.dumps(source, sort_keys=True, separators=(',', ':')).encode('ascii')).hexdigest()
++    assert digest == binding['source_contract_sha256']
++    assert sha(Path(binding['archive']['path'])) == binding['archive']['sha256']
++    assert sha(project / binding['qualification_path']) == binding['qualification_sha256']
++    assert sha(WORK / 'candidate_bootstrap.py') == binding['bootstrap_sha256']
++    assert (WORK / 'candidate_bootstrap.py').read_bytes() == Path(binding['bootstrap_core_byte_copy_from']).read_bytes()
++    for name in ('source_sha256', 'auxiliary_sha256', 'archive', 'bootstrap_sha256',
++                 'owner_contract_sha256', 'old_qualification_implementation_sha256', 'qualification_sha256'):
++        assert binding[name] == json.loads((previous / 'final-source-binding-v1.json').read_bytes())[name]
++    config = json.loads((project / '.mcdev.json').read_bytes())
++    assert all(config.get(key) is False for key in
++               ('auto_hot_reload_mods', 'auto_hot_reload_ui', 'auto_hot_reload_shaders', 'auto_hot_reload_materials'))
++    gate, owners = {}, {}
++    exec(compile((project / binding['qualification_path']).read_text('ascii'), '<original-qualification>', 'exec'), gate)
++    owner_path = project / 'behavior_pack/modern_projection/projection/liquid_product_owner_data.py'
++    exec(compile(owner_path.read_text('ascii'), '<frozen-41-owner>', 'exec'), owners)
++    assert gate['PRODUCT_QUALIFIED'] is True and gate['QUALIFICATION_STAGE'] == 'product'
++    assert gate['QUALIFICATION_IMPLEMENTATION_CONTRACT_SHA256'] == binding['old_qualification_implementation_sha256']
++    assert owners['IMPLEMENTATION_CONTRACT_SHA256'] == binding['owner_contract_sha256']
++    assert owners['IMPLEMENTATION_CONTRACT_SHA256'] != gate['QUALIFICATION_IMPLEMENTATION_CONTRACT_SHA256']
++    host_files = sorted(WORK.glob('*.py')) + [WORK / 'product-v2-launch-inputs.json', WORK / 'stage-r25.json']
++    for path in WORK.glob('*.py'):
++        ast.parse(path.read_bytes(), filename=str(path))
++    sys.path.insert(0, str(WORK))
++    import bootstrap_payload
++    payload = bootstrap_payload.dispatch_code((WORK / 'candidate_bootstrap.py').read_text('utf-8'), binding)
++    payloads = {'dispatch': payload, 'readback': bootstrap_payload.readback_code(binding['bootstrap_receipt_marker']),
++                'retire': bootstrap_payload.readback_code(binding['bootstrap_receipt_marker'], retire=True)}
++    py2 = Path('D:/Program/Python27/python.exe')
++    py2_check = subprocess.run([str(py2), '-B', '-c',
++        "import json,sys;data=json.load(sys.stdin);[compile(text.encode('utf-8'),name,'exec') for name,text in data.items()];print(json.dumps({'version':sys.version,'compiled':sorted(data)}))"],
++        input=json.dumps(payloads), capture_output=True, text=True, timeout=10)
++    py2_check.check_returncode()
++    external = set()
++    todo = [ROOT / name for name in (
++        'tools/watch_owned_disabled_skin_assert_r20.py', 'tools/dismiss_owned_disabled_skin_assert.py',
++        'tools/check_native_dialogs.py', '.runtime/round-20261019/watch_exact_start.py',
++        '.agents/skills/pyreact-debugging/scripts/instances.py', '.agents/skills/pyreact-debugging/scripts/mcdk.py',
++        '.agents/skills/pyreact-debugging/scripts/_window.py', '.agents/skills/pyreact-debugging/scripts/_session.py')]
++    roots = [ROOT / 'tools', ROOT / '.agents/skills/pyreact-debugging/scripts']
++    while todo:
++        path = todo.pop()
++        if path in external:
++            continue
++        external.add(path)
++        for node in ast.walk(ast.parse(path.read_bytes())):
++            names = ([alias.name for alias in node.names] if isinstance(node, ast.Import) else
++                     [node.module] if isinstance(node, ast.ImportFrom) and node.module else [])
++            for name in names:
++                for base in [path.parent] + roots:
++                    local = base / (name.replace('.', '/') + '.py')
++                    if local.is_file() and local not in external:
++                        todo.append(local)
++    expected_external = {
++        'tools/watch_owned_disabled_skin_assert_r20.py': 'f93e4c5ba1b728fe0b6627ed58c8d4938b18913a6dafa96305237b84198b07df',
++        'tools/dismiss_owned_disabled_skin_assert.py': 'f64b8167c621f71981158bb49ff8abc5cc52f594ada2ef60ae1e9736328151af',
++        '.runtime/mcdk-retry-r11/build-ipc-framing-r11/tools/mcdk/mcdk.exe': 'b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9',
++        'docs/evidence/background-focus-r13-v1/inputs/native_focus_guard.dll': '04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93',
++        '.runtime/worktree-archive-r7/p0-blueprint-qa-r3/files/.runtime/native_wgc/build/Release/native_wgc_capture.exe': 'cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8',
++    }
++    for name, expected in expected_external.items():
++        assert sha(ROOT / name) == expected, name
++        external.add(ROOT / name)
++    external.update(path for path in (ROOT / 'tools/native_wgc').iterdir() if path.is_file())
++    hosts = {'schema': 1, 'revision': 6, 'source_binding_sha256': sha(binding_path),
++             'host_sha256': {path.name: sha(path) for path in host_files},
++             'external_host_sha256': {path.relative_to(ROOT).as_posix(): sha(path) for path in sorted(external)},
++             'previous_failed_host_binding_sha256': sha(previous / 'prelaunch-host-binding-v5.json'),
++             'launch_approved': False, 'MC_started': False, 'manual_closures_added': 0,
++             'foreground_policy': 'MCDEV_ALLOW_USER_FOREGROUND=0 on all execution hosts',
++             'resource_coverage': '6GiB pre-command commit; continuous exact identity/handles/deadline/unknown modal from first game and MCDK discovery',
++             'no_force': True, 'frozen_at_utc': datetime.now(timezone.utc).isoformat()}
++    write_new('prelaunch-host-binding-v6.json', hosts)
++    changes = []
++    for path in sorted(WORK.glob('*.py')):
++        old = previous / path.name
++        changes += list(difflib.unified_diff(old.read_text('utf-8').splitlines(True) if old.exists() else [],
++                        path.read_text('utf-8').splitlines(True), fromfile='v5/' + path.name, tofile='v6/' + path.name))
++    with (WORK / 'host-v5-to-v6.patch').open('x', encoding='utf-8', newline='\n') as stream:
++        stream.write(''.join(changes))
++    controls = {}
++    for name in ('bootstrap-offline-controls-v1.json', 'guard-offline-controls-v1.json',
++                 'payload-offline-controls-v1.json', 'payload-wrapper-controls-v1.json', 'modal-guard-offline-controls-v1.json'):
++        data = json.loads((WORK / name).read_bytes())
++        assert data.get('passed', data.get('all_passed', False)), name
++        controls[name] = {'sha256': sha(WORK / name), 'checks': len(data.get('checks', []))}
++    result = {'schema': 1, 'passed': True, 'offline_only': True, 'MC_started': False,
++              'checked_at_utc': datetime.now(timezone.utc).isoformat(), 'owner': binding['owner'],
++              'source_files_verified': len(source), 'auxiliary_files_verified': len(auxiliary),
++              'source_contract_sha256': digest, 'source_archive_sha256': binding['archive']['sha256'],
++              'original_core_sha256': binding['bootstrap_sha256'], 'source_unchanged_from_v5': True,
++              'old_qualification_preserved': True, 'normal_production_expected_refusal': True,
++              'owner_scope_is_not_transitive_closure': True,
++              'game_payload_python2_compile': {'interpreter': str(py2), 'interpreter_sha256': sha(py2),
++                                               'stdout': py2_check.stdout, 'stderr': py2_check.stderr, 'exit_code': py2_check.returncode},
++              'prelaunch_binding_sha256': sha(WORK / 'prelaunch-host-binding-v6.json'),
++              'diff_sha256': sha(WORK / 'host-v5-to-v6.patch'), 'controls': controls,
++              'scope': {'stages': ['one-shot-bootstrap', 'G-editor', 'narrow-F-editor'],
++                        'F_cases': ['source', 'flow_east', 'wet_oak_fence', 'neighbor_stone', 'transparent_overlap'],
++                        'A_or_D_or_default_qualification': False, 'manual_closures_added': 0},
++              'invoke': ['D:/Program/Python/python.exe', '-B', '-X', 'utf8', str(WORK / 'run_editor_group.py')],
++              'new_long_step_cutoff_utc': '2026-10-21T06:55:00+00:00',
++              'cleanup_deadline_utc': binding['guard_deadline_utc'],
++              'launch_requires_parent_independent_review': True}
++    write_new('prelaunch-review-v6.json', result)
++    print(json.dumps({'passed': True, 'review': str(WORK / 'prelaunch-review-v6.json'),
++                      'review_sha256': sha(WORK / 'prelaunch-review-v6.json'),
++                      'binding_sha256': result['prelaunch_binding_sha256'],
++                      'diff_sha256': result['diff_sha256'], 'external_inputs': len(external)}))
++
++
++if __name__ == '__main__':
++    main()
+--- v5/launch_r25.py
++++ v6/launch_r25.py
+@@ -13,7 +13,7 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r25-final41-editor-v5'
++OWNER = 'water-r25-final41-editor-v6'
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+@@ -50,10 +50,17 @@
+     binding = json.loads(binding_path.read_bytes())
+     assert binding['owner'] == OWNER and Path(binding['project']).resolve() == PROJECT.resolve()
+     assert guard_policy.remaining_seconds(binding['guard_deadline_utc']) > 300, 'No time for cold launch and restore'
+-    host_binding = json.loads((WORK / 'prelaunch-host-binding-v5-r2.json').read_bytes())
++    host_binding = json.loads((WORK / 'prelaunch-host-binding-v6.json').read_bytes())
+     assert hashlib.sha256(binding_path.read_bytes()).hexdigest() == host_binding['source_binding_sha256']
+     for name, expected in host_binding['host_sha256'].items():
+         assert hashlib.sha256((WORK / name).read_bytes()).hexdigest() == expected, name
++    for name, expected in host_binding['external_host_sha256'].items():
++        assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
++    assert hashlib.sha256((WORK / 'candidate_bootstrap.py').read_bytes()).hexdigest() == binding['bootstrap_sha256']
++    watch = json.loads((WORK / 'assert-watch/status.json').read_bytes())
++    assert watch['owners'] == [OWNER] and not watch['errors'] and not watch['other_assertions']
++    assert (datetime.now(timezone.utc) - datetime.fromisoformat(watch['checked_at'])).total_seconds() < 5
++    assert watch['host_sha256'] == host_binding['external_host_sha256']['tools/watch_owned_disabled_skin_assert_r20.py']
+     for name, expected in binding['auxiliary_sha256'].items():
+         assert hashlib.sha256((PROJECT / name).read_bytes()).hexdigest() == expected, name
+     launch_inputs = json.loads((WORK / 'product-v2-launch-inputs.json').read_bytes())
+@@ -151,7 +158,7 @@
+     report['launcher_host_sha256'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+     report['condition_change_sha256'] = hashlib.sha256((WORK / 'stage-r25.json').read_bytes()).hexdigest()
+     save()
+-    assert len(active)<3, 'Root three-instance coordination limit reached'
++    assert len(active)<5, 'Five actual live Minecraft cap reached'
+     with (out / 'stdout.json').open('wb') as stdout, (out / 'stderr.txt').open('wb') as stderr:
+         process = subprocess.Popen(command, cwd=ROOT, env=env, stdin=subprocess.DEVNULL,
+                                    stdout=stdout, stderr=stderr,
+--- v5/modal_guard.py
++++ v6/modal_guard.py
+@@ -0,0 +1,49 @@
++"""Observe owned native modal windows; unknown content is a stop condition."""
++import ctypes
++from ctypes import wintypes
++from datetime import datetime, timezone
++import json
++from pathlib import Path
++import sys
++
++ROOT = Path(__file__).resolve().parents[3]
++sys.path.insert(0, str(ROOT / 'tools'))
++from check_native_dialogs import assertion_dialogs
++from dismiss_owned_disabled_skin_assert import known_disabled_skin_assertion
++import _window
++
++
++def unknown_modal_windows(pid):
++    assertions = {row['hwnd']: row for row in assertion_dialogs() if row['pid'] == pid}
++    user = ctypes.WinDLL('user32', use_last_error=True)
++    user.GetClassNameW.argtypes = (wintypes.HWND, wintypes.LPWSTR, ctypes.c_int)
++    user.GetWindow.argtypes = (wintypes.HWND, wintypes.UINT)
++    user.GetWindow.restype = wintypes.HWND
++    user.IsWindowEnabled.argtypes = (wintypes.HWND,)
++    unknown = []
++    for row in _window._list_windows_windows():
++        if row['pid'] != pid:
++            continue
++        name = ctypes.create_unicode_buffer(256)
++        user.GetClassNameW(row['hwnd'], name, len(name))
++        owner = user.GetWindow(row['hwnd'], 4)
++        modal = name.value == '#32770' or bool(owner and not user.IsWindowEnabled(owner))
++        known = assertions.get(row['hwnd'])
++        if modal and not (known and known_disabled_skin_assertion(known)):
++            unknown.append(dict(row, window_class=name.value, owner_hwnd=int(owner or 0)))
++    return unknown
++
++
++def assertion_status_breach(work, expected_owner, pid):
++    path = Path(work) / 'assert-watch/status.json'
++    try:
++        status = json.loads(path.read_bytes())
++    except (OSError, ValueError) as error:
++        return {'reason': 'assertion_watcher_status_unreadable', 'error': str(error)}
++    age = (datetime.now(timezone.utc) - datetime.fromisoformat(status['checked_at'])).total_seconds()
++    if status['owners'] != [expected_owner] or status['errors'] or status['other_assertions'] or not 0 <= age < 8:
++        return {'reason': 'assertion_watcher_not_healthy', 'status': status, 'age_seconds': age}
++    unknown = unknown_modal_windows(pid)
++    if unknown:
++        return {'reason': 'unknown_owned_native_modal', 'windows': unknown}
++    return None
+--- v5/retire_bootstrap_marker.py
++++ v6/retire_bootstrap_marker.py
+@@ -0,0 +1,32 @@
++"""Retire only the completed private receipt after checks; never initialize."""
++import json
++import os
++from pathlib import Path
++import sys
++
++ROOT = Path(__file__).resolve().parents[3]
++WORK = Path(__file__).resolve().parent
++sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
++from mcdk import Client, return_value
++from bootstrap_payload import readback_code
++
++
++def main():
++    binding = json.loads((WORK / 'final-source-binding-v1.json').read_bytes())
++    launch = json.loads((WORK / 'launch/launch.json').read_bytes())
++    path = WORK / 'bootstrap-marker-retired-v1.json'
++    assert not path.exists()
++    os.environ.update(MCDEV_SESSION_FILE=launch['session_file'], MCDEV_OWNER=binding['owner'],
++                      MCDEV_ALLOW_USER_FOREGROUND='0')
++    with Client(timeout=10) as client:
++        value = return_value(client.call('execute_code', {
++            'code': readback_code(binding['bootstrap_receipt_marker'], retire=True),
++            'is_client': True, 'direct_return': True}))
++    receipt = json.loads(value) if isinstance(value, str) else value
++    path.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
++    assert receipt.get('marker_retired'), receipt
++    print(json.dumps(receipt))
++
++
++if __name__ == '__main__':
++    main()
+--- v5/run_candidate_bootstrap.py
++++ v6/run_candidate_bootstrap.py
+@@ -13,6 +13,7 @@
+ sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
+ from _session import load_session
+ from mcdk import Client, return_value
++from bootstrap_payload import dispatch_code, readback_code, accepted_runtime
+ 
+ 
+ def sha(path):
+@@ -54,23 +55,7 @@
+         'execution_dispatched': False, 'completed': False}
+     with output.open('x', encoding='utf-8') as stream:
+         json.dump(receipt, stream, indent=2)
+-    code = source_path.read_text(encoding='utf-8') + '''
+-import json,sys,traceback
+-import mod.client.extraClientApi as api
+-from modern_projection.projection import liquid_deployment as deployment
+-from modern_projection.projection import liquid_product_deployment as product
+-from modern_projection.projection import liquid_product_qualification_data as qualification
+-from modern_projection.projection import liquid_product_owner_data as owners
+-system=api.GetSystem('ModernProjection','ModernProjectionClientSystem')
+-bootstrap_receipt={}
+-try:
+-    bootstrap(system,deployment,product,qualification,owners,%r,%r,%r,%r,sys,bootstrap_receipt)
+-except Exception as bootstrap_error:
+-    bootstrap_receipt.update(error_type=type(bootstrap_error).__name__,error=str(bootstrap_error),
+-                             traceback=traceback.format_exc())
+-_result=json.dumps(bootstrap_receipt)
+-''' % (binding['engine_version'], tuple(binding['supported_water_names']),
+-       binding['owner_contract_sha256'], binding['old_qualification_implementation_sha256'])
++    code = dispatch_code(source_path.read_text(encoding='utf-8'), binding)
+     try:
+         with Client(timeout=35) as client:
+             state_deadline = time.monotonic() + 20.
+@@ -95,11 +80,21 @@
+                 time.sleep(min(1., max(0., state_deadline - time.monotonic())))
+             client.timeout = 35
+             receipt['execution_dispatched'] = True
++            output.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
++            try:
++                value = return_value(client.call('execute_code', {
++                    'code': code, 'is_client': True, 'direct_return': True}))
++                receipt['rpc_runtime'] = json.loads(value) if isinstance(value, str) else value
++            except Exception as rpc_error:
++                receipt['rpc_error_retained'] = {'type': type(rpc_error).__name__,
++                    'message': str(rpc_error), 'traceback': traceback.format_exc()}
++            # A timed-out mutation is never replayed. This call only reads the retained marker.
++            client.timeout = 8
+             value = return_value(client.call('execute_code', {
+-                'code': code, 'is_client': True, 'direct_return': True}))
+-            runtime = json.loads(value) if isinstance(value, str) else value
+-            receipt['runtime'] = runtime
+-            receipt['completed'] = bool(runtime.get('completed'))
++                'code': readback_code(binding['bootstrap_receipt_marker']),
++                'is_client': True, 'direct_return': True}))
++            receipt['runtime_readback'] = json.loads(value) if isinstance(value, str) else value
++            receipt['completed'] = accepted_runtime(receipt['runtime_readback'])
+     except Exception as error:
+         receipt['host_error'] = {'type': type(error).__name__, 'message': str(error), 'traceback': traceback.format_exc()}
+         raise
+--- v5/run_editor_group.py
++++ v6/run_editor_group.py
+@@ -38,7 +38,7 @@
+     project = Path(binding['project'])
+     output = WORK / 'group-execution-v1.json'
+     assert not output.exists(), 'Retain all previous outcomes'
+-    assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-21T05:20:00+00:00')
++    assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-21T06:55:00+00:00')
+     receipt = {'schema': 1, 'owner': binding['owner'], 'label': 'final41-editor',
+                'source_contract_sha256': binding['source_contract_sha256'],
+                'production_admission_performed': False, 'default_path_evidence': False,
+@@ -51,6 +51,8 @@
+         output.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+ 
+     def command(name, filename, args=()):
++        if name in ('launch', 'bootstrap', 'G', 'F-editor'):
++            assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-21T06:55:00+00:00'), 'No new experiment after 14:55'
+         row = {'name': name, 'started_at': time.time(), 'arguments': [sys.executable, '-B', '-X', 'utf8', str(WORK / filename), *args]}
+         row['memory_preflight'] = {'available_commit_bytes': available_commit(), 'minimum_available_commit_bytes': 6 * 1024 ** 3}
+         receipt['steps'].append(row)
+@@ -80,8 +82,8 @@
+  'projection_active':s.projection_active if s is not None else False,
+  'busy':s.busy if s is not None else False,'edit_job':s.edit_job is not None if s is not None else False,
+  'io_job':s.io_job is not None if s is not None else False,
+- 'world_actors':len(b.projection_entities)+int(bool(b.entity)),
+- 'preparing_entity':bool(b.preparing_entity)})
++ 'world_actors':len(b.projection_entities)+int(bool(b.entity)) if b is not None else 0,
++ 'preparing_entity':bool(b.preparing_entity) if b is not None else False})
+ ''')
+             world = probe.base.run(client, '''import json,sys
+ _result=json.dumps({'markers':[name for name in ('_liquid_pose_world','_context_environment_saved') if hasattr(sys,name)]})
+@@ -97,13 +99,15 @@
+ 
+     save()
+     try:
++        command('assert-watch-start', 'start_assert_watch.py')
+         command('launch', 'launch_r25.py')
+         launch = json.loads((WORK / 'launch/launch.json').read_bytes())
+         command('bootstrap', 'run_candidate_bootstrap.py')
+         command('G', 'run_product_v2_stages.py', ('G',))
+-        assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-21T05:20:00+00:00'), 'Do not start a long batch after cutoff'
++        assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-21T06:55:00+00:00'), 'Do not start a long batch after cutoff'
+         command('F-editor', 'run_product_v2_f_editor.py')
+         read_restore()
++        command('retire-bootstrap-marker', 'retire_bootstrap_marker.py')
+         receipt['completed'] = True
+     except BaseException as error:
+         receipt['error'] = {'type': type(error).__name__, 'message': str(error), 'traceback': traceback.format_exc()}
+--- v5/run_product_v2_f_editor.py
++++ v6/run_product_v2_f_editor.py
+@@ -13,14 +13,11 @@
+ WORK = Path(__file__).resolve().parent
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
+ SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+-OWNER = 'water-r25-final41-editor-v5'
++OWNER = 'water-r25-final41-editor-v6'
+ OUT = WORK / 'product-v2-f-editor-v1.json'
+ HANDLES = WORK / 'product-v2-f-editor-v1-handles.json'
+ RECEIPT = WORK / 'product-v2-f-editor-v1-host.json'
+-CASES = ('source', 'pool', 'falling', 'flow_east', 'flow_south', 'flow_west', 'flow_north',
+-         'low', 'diagonal', 'drop_north', 'wet_oak_fence', 'wet_glass_pane', 'wet_oak_slab',
+-         'wet_oak_stairs', 'neighbor_oak_slab', 'neighbor_oak_stairs', 'neighbor_glass_pane',
+-         'neighbor_stone', 'transparent_overlap')
++CASES = ('source', 'flow_east', 'wet_oak_fence', 'neighbor_stone', 'transparent_overlap')
+ 
+ 
+ def main():
+--- v5/run_product_v2_stages.py
++++ v6/run_product_v2_stages.py
+@@ -13,7 +13,7 @@
+ WORK = Path(__file__).resolve().parent
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
+ SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+-OWNER = 'water-r25-final41-editor-v5'
++OWNER = 'water-r25-final41-editor-v6'
+ STAGE = sys.argv[1] if len(sys.argv) == 2 else None
+ if STAGE not in ('A', 'B', 'R', 'G'):
+     raise ValueError('Pass one stage: A, B, R, or G')
+--- v5/start_assert_watch.py
++++ v6/start_assert_watch.py
+@@ -0,0 +1,47 @@
++"""Start the reviewed exact-owner known-assertion watcher before cold launch."""
++from datetime import datetime, timezone
++import hashlib
++import json
++from pathlib import Path
++import subprocess
++import sys
++import time
++
++ROOT = Path(__file__).resolve().parents[3]
++WORK = Path(__file__).resolve().parent
++
++
++def main():
++    binding = json.loads((WORK / 'final-source-binding-v1.json').read_bytes())
++    hosts = json.loads((WORK / 'prelaunch-host-binding-v6.json').read_bytes())
++    for name, expected in hosts['external_host_sha256'].items():
++        assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
++    assert datetime.now(timezone.utc) < datetime.fromisoformat(binding['guard_deadline_utc'])
++    path = WORK / 'assert-watch-start.json'
++    assert not path.exists() and not (WORK / 'assert-watch').exists()
++    command = [sys.executable, '-B', '-X', 'utf8', str(ROOT / 'tools/watch_owned_disabled_skin_assert_r20.py'),
++               '--owner', binding['owner'], '--until', binding['guard_deadline_utc'],
++               '--output', str(WORK / 'assert-watch'), '--detach']
++    result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=15)
++    result.check_returncode()
++    receipt = json.loads(result.stdout)
++    receipt.update(command=command, external_hosts=hosts['external_host_sha256'],
++                   started_at_utc=datetime.now(timezone.utc).isoformat())
++    path.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
++    deadline = time.monotonic() + 8
++    while True:
++        status_path = WORK / 'assert-watch/status.json'
++        if status_path.exists():
++            status = json.loads(status_path.read_bytes())
++            assert status['owners'] == [binding['owner']]
++            assert not status['errors'] and not status['other_assertions']
++            assert (datetime.now(timezone.utc) - datetime.fromisoformat(status['checked_at'])).total_seconds() < 5
++            print(json.dumps(receipt))
++            return
++        if time.monotonic() >= deadline:
++            raise RuntimeError('Exact assertion watcher did not publish fresh prelaunch status')
++        time.sleep(.1)
++
++
++if __name__ == '__main__':
++    main()
+--- v5/watch_handles.py
++++ v6/watch_handles.py
+@@ -9,6 +9,7 @@
+ import time
+ 
+ import guard_policy
++from modal_guard import assertion_status_breach
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+@@ -70,6 +71,7 @@
+                 if data and data.get('samples'):
+                     assert all(data['samples'][0][kind]['identity_verified'] for kind in ('game', 'mcdk'))
+                     assert not data.get('guard_breach')
++                    assert not data.get('modal_guard_breach')
+                     print(json.dumps(row | {'first_sample_verified': True}))
+                     return
+             if child.poll() is not None:
+@@ -88,6 +90,7 @@
+                    **{kind: sample_process(session[kind + '_pid'], session[kind + '_identity'])
+                       for kind in ('game', 'mcdk')}}
+             receipt['samples'].append(row)
++            receipt['modal_guard_breach'] = assertion_status_breach(WORK, binding['owner'], session['game_pid'])
+             for kind in ('game', 'mcdk'):
+                 current = row[kind]['handles']
+                 prior = previous[kind]['handles'] if previous is not None else None
+@@ -96,7 +99,7 @@
+             live = all(row[kind]['identity_verified'] for kind in ('game', 'mcdk'))
+             expired = time.monotonic() >= deadline
+             receipt.update(deadline_expired=expired, identity_ended=not live)
+-            if receipt['guard_breach'] or expired:
++            if receipt['guard_breach'] or receipt['modal_guard_breach'] or expired:
+                 result = subprocess.run([sys.executable, '-B', '-X', 'utf8',
+                     str(ROOT / '.agents/skills/pyreact-debugging/scripts/instances.py'),
+                     'stop', '--session', launch['session_file'], '--owner', binding['owner']],

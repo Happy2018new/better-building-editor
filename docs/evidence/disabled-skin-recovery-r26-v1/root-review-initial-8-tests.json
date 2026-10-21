@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "reviewed_at": "2026-10-21T06:25:16.672685+00:00",
+  "code_sha256": {
+    "tools/dismiss_owned_disabled_skin_assert.py": "f64b8167c621f71981158bb49ff8abc5cc52f594ada2ef60ae1e9736328151af",
+    "tools/watch_owned_disabled_skin_assert_r20.py": "f93e4c5ba1b728fe0b6627ed58c8d4938b18913a6dafa96305237b84198b07df",
+    "tests/test_disabled_skin_watch_r20.py": "a73e28b2ad195ed7b34d9934b69efca50228b1a87aadf03f7072a292f6075e5c"
+  },
+  "test_exit_code": 0,
+  "tests": 8,
+  "root_code_review": {
+    "wrong_IDNO7_replaced_with_IDIGNORE5": true,
+    "exact_known_assertion_text_checked": true,
+    "owned_game_PID_and_creation_checked": true,
+    "dialog_and_button_class_visibility_parent_and_label_checked": true,
+    "verified_receipt_persisted_before_action": true,
+    "identity_and_target_revalidated_after_receipt": true,
+    "no_foreground_activation": true,
+    "unknown_or_repeated_assertions_not_recovered": true
+  },
+  "live_recovery_observed": false,
+  "limitations": [
+    "Host-boundary tests and code review do not establish the origin or resolution of the native engine assertion.",
+    "One pre-existing test named after-receipt identity actually rejects earlier; reviewer requested an additional receipt-callback identity mutation.",
+    "Current cold runs bind new host bytes separately and preserve prior failures and frozen sources."
+  ],
+  "original_live_ID5_receipt": {
+    "path": ".runtime/round-20261021/water-final41-r25-v5/exact-dialog-ignore-for-close-v1.json",
+    "sha256": "17bfb1555cc44b43df68cd8e14832e23a078914c4364e37496e620cd6b35b1c5",
+    "use": "Observed button identity and action in prior closeout only; not a live pass of the fixed watcher."
+  }
+}

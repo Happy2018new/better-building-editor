@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "original_path": ".runtime/round-20261021/water-final41-r25-v5/exact-dialog-ignore-for-close-v1.json",
+      "original_sha256": "17bfb1555cc44b43df68cd8e14832e23a078914c4364e37496e620cd6b35b1c5",
+      "stored_path": "docs/evidence/disabled-skin-recovery-r26-v1/prior-ID5-close-only.json",
+      "stored_sha256": "17bfb1555cc44b43df68cd8e14832e23a078914c4364e37496e620cd6b35b1c5",
+      "bytes": 522,
+      "redacted_fields": []
+    },
+    {
+      "original_path": ".runtime/round-20261021/disabled-skin-ignore-root-review-v1/root-review.json",
+      "original_sha256": "24de93091c0e3cb20dd03d9d5898a16ff45626db254e40115b337551a20b5927",
+      "stored_path": "docs/evidence/disabled-skin-recovery-r26-v1/root-review-initial-8-tests.json",
+      "stored_sha256": "24de93091c0e3cb20dd03d9d5898a16ff45626db254e40115b337551a20b5927",
+      "bytes": 1733,
+      "redacted_fields": []
+    },
+    {
+      "original_path": ".runtime/round-20261021/disabled-skin-ignore-independent-v1/review.json",
+      "original_sha256": "4786d5240ee82b2280e6523073cc2f125264c054895e70e1e51aceb598441822",
+      "stored_path": "docs/evidence/disabled-skin-recovery-r26-v1/independent-review.json",
+      "stored_sha256": "4786d5240ee82b2280e6523073cc2f125264c054895e70e1e51aceb598441822",
+      "bytes": 3430,
+      "redacted_fields": []
+    }
+  ],
+  "local_records": {
+    "final-tests.log": {
+      "sha256": "01ad51982138bfa297bdde1f24abd1aee4b26efe5470f1bbab055dde633d99f8",
+      "bytes": 1887
+    },
+    "independent-review.json": {
+      "sha256": "4786d5240ee82b2280e6523073cc2f125264c054895e70e1e51aceb598441822",
+      "bytes": 3430
+    },
+    "prior-ID5-close-only.json": {
+      "sha256": "17bfb1555cc44b43df68cd8e14832e23a078914c4364e37496e620cd6b35b1c5",
+      "bytes": 522
+    },
+    "root-review-initial-8-tests.json": {
+      "sha256": "24de93091c0e3cb20dd03d9d5898a16ff45626db254e40115b337551a20b5927",
+      "bytes": 1733
+    },
+    "summary.json": {
+      "sha256": "c4f465e86a50a130513613c136c4e14d28e8c343ecba5de88bbc1112b8346b6e",
+      "bytes": 687
+    }
+  },
+  "scope": "Exact original ID5 close-only receipt, initial 8-test root code review and final independent 9-test review. No live trigger of the fixed watcher is claimed."
+}

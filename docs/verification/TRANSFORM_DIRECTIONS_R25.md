@@ -21,3 +21,28 @@
 两次独立恢复审计通过、源码hash不变。原生相机roll均残差约 `-1.3660377589985728e-05°`，在 `0.0001°` 语义容差内，**exact=false**。game `63648 / 134370328107798494` 最后退出 `0xC0000409`，MCDK退出0，registry为stopped，watcher精确回收，无force；不能记为正常引擎退出。
 
 [冷源证据包](../evidence/t02-normal-cold-r25-v1/index.json)包含5张小JPEG、26份原bytes记录及1份明确脱敏的stop派生件；原PNG与原回执保留在本地 `.runtime/round-20261021/t02-normal-cold-v1/`。index保留原raw SHA，并另列派生解码SHA与脱敏字段，不把二者混称原件。[独立三包复核](../evidence/r25-final-packs-review.json)确认原件／归档hash及token脱敏边界。现有 `tools/verify_transform_runtime_r23.py` CLI仍只允许T01／T04／T05／T08，本次使用独立冻结host，没有声称该CLI已支持T02。新增用户人工关闭数仍为0。
+
+## 14:25—14:39：c531 正常冷源近景及受控 missing 补证
+
+新owner `r26-t02-face-missing-v1` 单独从 `c531b2f4802577e160b26105c6d73cd8322ff89f` 执行 `git archive`，没有向旧900100aa冷源注入新内容。3708个runtime文件及780个诊断host分别绑定；source manifest SHA256为 `6000ea6cec1f9712b4325a3f6db2d6a80156a2726bced1671c9882646533cd9d`。正常来源未赋候选profile、未加书诊断alias，四项自动热重载关闭。冻结生产源码及原host始终不改，后续宿主修正均另立wrapper与派生SHA。公开T02卡及确认回调真实载入60格／28方向样本，不使用Windows鼠标投递、不写世界、玩家、物品栏或持久库。
+
+新独立 `face_plan.py` 明确记录四梯子、六按钮的位置、支撑和外法线：梯子facing=2／3／4／5；按钮facing=0—5。法向顺序为 `(0,-1,0)`、`(0,1,0)`、`(0,0,-1)`、`(0,0,1)`、`(-1,0,0)`、`(1,0,0)`，支撑等于目标位置减外法线。Y镜像独立矩阵为 `(x,7-y,z)`；Y轴90°旋转为 `(31-z,y,x)`，对应法线同步变换。离线预检对初始及两变换的全部10个附件／支撑逐点核对，并检查完整typed文档、撤销／重做／撤销，均通过。
+
+编辑器以 `camera_focus_request` 经mounted OrbitCamera消费后再调用 `camera_view`，沿各外法线拍10张12倍近景。相机须在原目标容差内相邻两次实际pose相同，采图前后实际pose也相同，并保留请求值与实际残差。代理已打开10张原PNG：四梯子均有明确可见面，朝上的button_1能辨认小矩形；button_0及部分侧面按钮在完整场景中被遮挡或不够清楚，**不把10次流程完成解释为六面按钮像素验收通过**。
+
+两项变换均先通过完整文档语义及严格editor状态核对，再拍完整投影与受控missing三阶段，最后各执行真实undo并再次核对。受控观察器只替换本owner临时占用读取，不向世界放方块；每步保持原60格及支撑，检查投影typed snapshot、占用snapshot、source／cache、player和原生相机不变，新状态必须有新commit。
+
+| 代表 | 原位置 → 变换后位置 | 变换后支撑／外法线 | missing观测／commit |
+| --- | --- | --- | --- |
+| Y镜像：button_0 | `(3,3,27)` → `(3,4,27)` | `(3,3,27)`／`(0,1,0)` | `[1]→[2]→[1]`；`0→1→2` |
+| Y轴90°旋转：ladder_2 | `(3,3,23)` → `(8,3,3)` | `(7,3,3)`／`(1,0,0)` | `[1]→[2]→[1]`；`0→1→2` |
+
+代理实际打开两代表的full及missing empty／occupied／restored共8张原图：镜像后的按钮小矩形与旋转后的梯子均在occupied消失、restored重现，石支撑保持可见。该结果仅覆盖这两个受控代表，**没有验证原生世界占用、完整28样本的missing矩阵或X／Z镜像实机**，也没有形成用户三路径人工验收。
+
+为区分button_0完整图不清与模型完全未生成，在同一冷实例另走公开卡回调，使用现有 `Session.layer(3)`、`Session.display_mode('single')` 显示Y3，并拍俯仰-80°／-45°；另保留full模式-45°对照。完整Document、目标 `(3,3,27)` 及原支撑 `(3,4,27)` 的值逐阶段相同，未删除支撑或修改fixture。3张原图已打开：single模式可明确看到小石按钮和厚度，full模式仍无法辨清。因此只能排除“该按钮几何完全未生成”，**完整模式下的遮挡来源与正确贴面仍待确认**，不能仅归因为低对比。诊断完成后恢复原始session及显示模式。
+
+保留两项宿主／打包失败：v2在main执行前因 `tools/mcdk.py` 遮蔽skill的 `scripts/mcdk.py` 而无法导入Client，未进行RPC或游戏变更；v3只额外修正宿主搜索顺序，两个实际文件的SHA和定位另列，未重启MC。首次小包有4份完整UI tree在gzip后仍超过300000字节，大小门拦下；这些冗余树仅留本地raw并在index列SHA，核心语义报告、卡回调、controls和采图回执均归档。原失败及修正记录保留，没有覆写冻结源或旧证据包。
+
+主流程前后有独立只读audit；主流程及追加诊断各有两次恢复audit，诊断后再用独立host对原baseline检查两次，严格字段均无变更、非波动performance字段相同、源码hash不变。原生相机roll残差约 `-1.3660377589985728e-05°`，在0.0001°语义容差内，exact仍为false。资源门持续要求available commit至少6GiB、handles低于250000且单步增长低于10000；本主流程最低余量约9.20GiB。watcher每次RPC前需5秒内新鲜、精确owner／host SHA匹配、无其他assert或错误，清理路径保留恢复能力。
+
+game `35012 / 134370373915982420` 已普通stop并finalize至registry stopped，实际退出 `0xC0000409`；MCDK退出0，**normal_shutdown=false**。watcher `23620 / 134370373686133134` 随后精确回收，无force、无第二次launch。[新小包](../evidence/t02-face-missing-r26-v1/index.json)包含41张JPEG及原PNG SHA、113份gzip记录，单件最大215025字节；112份解码为原bytes，1份stop是明确脱敏派生件，原raw／归档／解码SHA及不等价标志分开列出。4份完整UI tree的原件仍留本地。新增用户人工关闭数保持0；四梯子近景及两项受控missing补证不能关闭其余按钮贴面或完整变换验收。

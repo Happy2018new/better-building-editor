@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "passed": true,
+  "offline_only": true,
+  "MC_started": false,
+  "checked_at_utc": "2026-10-21T06:25:10.288550+00:00",
+  "owner": "water-r25-final41-editor-v6",
+  "source_files_verified": 4479,
+  "auxiliary_files_verified": 1391,
+  "source_contract_sha256": "a564563ecf20f74b786565aaf0516575ab34c448b370a2bb2199319dc6b5c194",
+  "source_archive_sha256": "e276b3eb271ae8d7b562568de2a24e0e0fa4b003afd6f00e47c64a22b3846f3d",
+  "original_core_sha256": "088ae57b8ea713b7881a01b94b4289cb7b04f7e17f791d17fc2bf2be2b49fa26",
+  "source_unchanged_from_v5": true,
+  "old_qualification_preserved": true,
+  "normal_production_expected_refusal": true,
+  "owner_scope_is_not_transitive_closure": true,
+  "game_payload_python2_compile": {
+    "interpreter": "D:\\Program\\Python27\\python.exe",
+    "interpreter_sha256": "0db56ac7ba5f232f5f813109185a3bc885d8d428feb20997d497f586652477f2",
+    "stdout": "{\"compiled\": [\"dispatch\", \"readback\", \"retire\"], \"version\": \"2.7.13 (v2.7.13:a06454b1afa1, Dec 17 2016, 20:53:40) [MSC v.1500 64 bit (AMD64)]\"}\n",
+    "stderr": "",
+    "exit_code": 0
+  },
+  "prelaunch_binding_sha256": "75234d1650ec4aa55942079634481f3af2a13a95281b36a95df694e82c2a7bb2",
+  "diff_sha256": "d1e028ebd47c957b4d55934344b958562423279b7d9525fb9c369a943685d899",
+  "controls": {
+    "bootstrap-offline-controls-v1.json": {
+      "sha256": "f1892ed4929839aae2ba42910441bb8d7717c91e81c3ff62de823856820c5a5d",
+      "checks": 48
+    },
+    "guard-offline-controls-v1.json": {
+      "sha256": "5192f87cf9b7f764cfafbf4853461a5622e9345719aa41d6faa76bb84b234fcf",
+      "checks": 10
+    },
+    "payload-offline-controls-v1.json": {
+      "sha256": "022cc983e70e976d3bb1d47f7582afa4d607af77bb14e4829639cc5e3cf543d0",
+      "checks": 12
+    },
+    "payload-wrapper-controls-v1.json": {
+      "sha256": "710643afb10aff44014e0129d52d61525bb15d782ebe8388d1058421aed7b0b9",
+      "checks": 3
+    },
+    "modal-guard-offline-controls-v1.json": {
+      "sha256": "6e8c3f0c3c5667924dd1066c93ed1551852619343c4af1ce436d93b9977ead4b",
+      "checks": 12
+    }
+  },
+  "scope": {
+    "stages": [
+      "one-shot-bootstrap",
+      "G-editor",
+      "narrow-F-editor"
+    ],
+    "F_cases": [
+      "source",
+      "flow_east",
+      "wet_oak_fence",
+      "neighbor_stone",
+      "transparent_overlap"
+    ],
+    "A_or_D_or_default_qualification": false,
+    "manual_closures_added": 0
+  },
+  "invoke": [
+    "D:/Program/Python/python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-final41-r25-v6\\run_editor_group.py"
+  ],
+  "new_long_step_cutoff_utc": "2026-10-21T06:55:00+00:00",
+  "cleanup_deadline_utc": "2026-10-21T06:57:00+00:00",
+  "launch_requires_parent_independent_review": true
+}

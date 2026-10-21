@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/integration_resume",
+  "started_at_utc": "2026-10-21T06:43:34.459123+00:00",
+  "packs": {
+    "water-final41-editor-r26-v1": {
+      "index_sha256": "90251076a80c1180ebdc4eda67c4fdb6948611a8b71ad6dad8ae518dca641642",
+      "entries": 129,
+      "exact_archives": 96,
+      "gzip_archives": 6,
+      "split_gzip_archives": 3,
+      "part_hashes_verified": 134,
+      "derivatives": [
+        {
+          "path": "records/registry/session.json",
+          "original_raw_sha256": "f154bdc38cf03fcb7a0aec6ab3647344f1669b4c25dc5de3ba242f76df325d35",
+          "decoded_derivative_sha256": "2a3e4b2f9c43e38dd1cad760f8b506320da538103e18387be50010fdbe152553",
+          "changed_string_fields": [
+            "token"
+          ],
+          "known_token_mappings": 1,
+          "only_known_token_substitution": true
+        }
+      ],
+      "images": 32,
+      "images_hash_verified": 32,
+      "unchanged_during_review": true
+    },
+    "t02-face-missing-r26-v1": {
+      "index_sha256": "c21d9603f4cdb267e9253067ee18db8e9e606c02a8785ae7ad8705efebbd0f0a",
+      "records": 113,
+      "exact_archives": 112,
+      "gzip_archives": 113,
+      "derivatives": [
+        {
+          "path": "records/stop__report.redacted.json.gz",
+          "original_raw_sha256": "223494376b388dfedec25bc7cf09066240c8726097789545195faabe54837363",
+          "archive_sha256": "cfa486f6c00495abcef3d0a0b89ff568fea4e177a24bf688d1dd9680fed1dadc",
+          "decoded_derivative_sha256": "c4f50c50fdf958eb264a8ae0ebf1b58a80ecdc825676e9953d12c1b7cfd7bbfa",
+          "changed_string_fields": [
+            "binding.token",
+            "registry_final.token"
+          ],
+          "known_token_mappings": 1,
+          "only_known_token_substitution": true
+        }
+      ],
+      "images": 41,
+      "images_hash_verified": 41,
+      "local_only_raw_ui_trees_hash_verified": 4,
+      "unchanged_during_review": true
+    }
+  },
+  "issues": [],
+  "read_only": true,
+  "manual_issues_closed": 0,
+  "scope": "Indexes, every indexed original/archive/image hash, token-only derivations and credential residue. No MC/RPC/source rescan/visual acceptance.",
+  "token_scan": {
+    "known_raw_value_count": 2,
+    "token_contents_output": false,
+    "known_token_hits": [],
+    "structured_live_field_hits": [],
+    "common_credential_pattern_hits": []
+  },
+  "completed_at_utc": "2026-10-21T06:43:35.857461+00:00",
+  "passed": true
+}

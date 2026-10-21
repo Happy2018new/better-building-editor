@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "offline_only": true,
+  "MC_started": false,
+  "passed": true,
+  "checks": [
+    {
+      "name": "old_expired",
+      "passed": true,
+      "accepted": false,
+      "remaining_seconds": null
+    },
+    {
+      "name": "equal_now",
+      "passed": true,
+      "accepted": false,
+      "remaining_seconds": null
+    },
+    {
+      "name": "naive",
+      "passed": true,
+      "accepted": false,
+      "remaining_seconds": null
+    },
+    {
+      "name": "valid_round_end",
+      "passed": true,
+      "accepted": true,
+      "remaining_seconds": 4200.0
+    },
+    {
+      "name": "below_threshold",
+      "passed": true,
+      "breach": false
+    },
+    {
+      "name": "at_threshold",
+      "passed": true,
+      "breach": true
+    },
+    {
+      "name": "below_growth",
+      "passed": true,
+      "breach": false
+    },
+    {
+      "name": "at_growth",
+      "passed": true,
+      "breach": true
+    },
+    {
+      "name": "no_process",
+      "passed": true,
+      "breach": false
+    },
+    {
+      "name": "first_sample",
+      "passed": true,
+      "breach": false
+    }
+  ],
+  "minimum_available_commit_bytes": 6442450944,
+  "watcher_source_sha256": "029a072ed562440eee42f200531ec50500ce90c5890c59e2bfb74e8647aa2995",
+  "limitations": [
+    "Tests cover pure deadline/threshold policy and static no-force/first-sample requirements; real watcher coverage remains a live prelaunch check."
+  ]
+}
