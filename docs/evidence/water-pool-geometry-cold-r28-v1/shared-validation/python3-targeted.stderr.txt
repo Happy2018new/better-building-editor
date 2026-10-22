@@ -1,0 +1,126 @@
+.......................Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 167, in _publish
+    if self.show(previous, False) is False:
+       ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 61, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 674, in fail_hide
+    raise RuntimeError('First liquid bank hide failed')
+RuntimeError: First liquid bank hide failed
+.Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+ValueError: Could not restore owned liquid skeleton visible: 1
+ValueError: Could not restore owned liquid skeleton visible: 1
+.Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+ValueError: Could not restore owned liquid skeleton visible: 1
+ValueError: Could not restore owned liquid skeleton visible: 1
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 186, in restore_publication
+    restored = self.show(key, value) is not False
+               ~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 61, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 708, in fail_hide_and_restore
+    raise RuntimeError('Old liquid surface restore failed')
+RuntimeError: Old liquid surface restore failed
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 186, in restore_publication
+    restored = self.show(key, value) is not False
+               ~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 61, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 708, in fail_hide_and_restore
+    raise RuntimeError('Old liquid surface restore failed')
+RuntimeError: Old liquid surface restore failed
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+ValueError: Could not restore owned liquid skeleton visible: 1
+ValueError: Could not restore owned liquid skeleton visible: 1
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 186, in restore_publication
+    restored = self.show(key, value) is not False
+               ~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 61, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 708, in fail_hide_and_restore
+    raise RuntimeError('Old liquid surface restore failed')
+RuntimeError: Old liquid surface restore failed
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 186, in restore_publication
+    restored = self.show(key, value) is not False
+               ~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 61, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 708, in fail_hide_and_restore
+    raise RuntimeError('Old liquid surface restore failed')
+RuntimeError: Old liquid surface restore failed
+..Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 164, in _publish
+    raise ValueError('Could not publish liquid skeleton payload')
+ValueError: Could not publish liquid skeleton payload
+ValueError: Could not restore owned liquid skeleton uniform: (0, 100)
+ValueError: Could not restore owned liquid skeleton uniform: (0, 100)
+.Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 164, in _publish
+    raise ValueError('Could not publish liquid skeleton payload')
+ValueError: Could not publish liquid skeleton payload
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 163, in _publish
+    if not self.model_component.SetExtraUniformValue(self.ids[back], 4, value):
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 612, in fail_unmask
+    raise RuntimeError('Incoming native liquid unmask failed')
+RuntimeError: Incoming native liquid unmask failed
+........Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 167, in _publish
+    if self.show(previous, False) is False:
+       ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 61, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 526, in fail_hide
+    raise RuntimeError('Old native liquid surface hide failed')
+RuntimeError: Old native liquid surface hide failed
+.....................
+----------------------------------------------------------------------
+Ran 57 tests in 0.239s
+
+OK

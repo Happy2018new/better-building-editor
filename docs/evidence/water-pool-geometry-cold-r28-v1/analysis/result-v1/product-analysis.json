@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "source_sha256": "ad38db02fd590ba9157328ccc6a40fbf0310de20ed8feb7a6d52ba9ad3708156",
+  "analyzer_sha256": "f3862bda8776c18a308332e9d7ee05d1f0f3acee2305d2812534f867ec03da81",
+  "limits": {
+    "rgb_delta": 8,
+    "minimum_water_pixels": 24,
+    "minimum_mask_iou": 0.8,
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_pixels": 8,
+    "minimum_contribution_fraction": 0.1,
+    "temporal_delta": 2
+  },
+  "completed": true,
+  "restored": true,
+  "cleanup_errors": [],
+  "capture_failures": [],
+  "captures_verified": true,
+  "geometry": {
+    "editor_pool_wet": {
+      "observed": {
+        "pixels": 40631,
+        "bounds": [
+          473,
+          292,
+          767,
+          487
+        ]
+      },
+      "declared": {
+        "pixels": 40885,
+        "bounds": [
+          472,
+          291,
+          767,
+          488
+        ]
+      },
+      "iou": 0.9905254932604024,
+      "maximum_boundary_pixels": 1,
+      "passed": true
+    }
+  },
+  "transparency": {},
+  "animation": {},
+  "alpha_controls": {},
+  "transparency_phase_controlled": true,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "native_alpha_accepted": false,
+  "product_style_accepted": false,
+  "evidence_valid": true,
+  "observed_product_gates": {
+    "geometry": true,
+    "transparency": false,
+    "animation": false
+  },
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison"
+}

@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "source_sha256": "ad38db02fd590ba9157328ccc6a40fbf0310de20ed8feb7a6d52ba9ad3708156",
+  "limits": {
+    "side_correlation": 0.85,
+    "side_rgb_rmse": 8.0,
+    "side_minimum_contrast": 1.0,
+    "restored_rgb_rmse": 2.0,
+    "owner_p95_ms": 5.0,
+    "owner_p99_ms": 16.7,
+    "owner_max_ms": 100.0,
+    "maximum_groups": 256
+  },
+  "evidence_valid": true,
+  "source_unchanged": true,
+  "visibility": {},
+  "side_uv": {
+    "editor_pool_wet_south": {
+      "contrast": 8.570558320299089,
+      "correlation": 0.9543518006566212,
+      "rgb_rmse": 2.9783067292281795,
+      "passed": true,
+      "background_control": "editor_pool_dry",
+      "surface_opacity": 0.45,
+      "opaque_control": null,
+      "oracle": "analytic",
+      "negative_mirrored": {
+        "contrast": 8.570558320299089,
+        "correlation": -0.1048137553284568,
+        "rgb_rmse": 14.303739146166885,
+        "passed": false
+      },
+      "negative_constant": {
+        "contrast": 2.842170943040401e-14,
+        "correlation": -7.895720933230365e-16,
+        "rgb_rmse": 48.63785324986806,
+        "passed": false
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.570558320299089,
+        "correlation": -0.054351809947511154,
+        "rgb_rmse": 14.025426054614051,
+        "passed": false
+      }
+    },
+    "editor_pool_wet_east": {
+      "contrast": 8.59327701852456,
+      "correlation": 0.9553672271300864,
+      "rgb_rmse": 3.070284167872028,
+      "passed": true,
+      "background_control": "editor_pool_dry",
+      "surface_opacity": 0.45,
+      "opaque_control": null,
+      "oracle": "analytic",
+      "negative_mirrored": {
+        "contrast": 8.59327701852456,
+        "correlation": -0.11856693325364374,
+        "rgb_rmse": 14.613871664208585,
+        "passed": false
+      },
+      "negative_constant": {
+        "contrast": 2.842170943040401e-14,
+        "correlation": -1.9740828348388026e-16,
+        "rgb_rmse": 48.78087542251023,
+        "passed": false
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.59327701852456,
+        "correlation": -0.10564876952919833,
+        "rgb_rmse": 14.561758189536576,
+        "passed": false
+      }
+    }
+  },
+  "budgets": {
+    "LiquidControls.update": {
+      "samples": 3528,
+      "p95_ms": 0.9999275207519531,
+      "p99_ms": 1.0001659393310547,
+      "maximum_ms": 4.000186920166016,
+      "passed": true
+    },
+    "LiquidProjection.advance": {
+      "samples": 0,
+      "p95_ms": null,
+      "p99_ms": null,
+      "maximum_ms": null,
+      "passed": false
+    },
+    "LiquidPreview.advance": {
+      "samples": 3528,
+      "p95_ms": 0.0,
+      "p99_ms": 0.0,
+      "maximum_ms": 9.999990463256836,
+      "passed": true
+    },
+    "WorldLiquidRenderer.advance": {
+      "samples": 0,
+      "p95_ms": null,
+      "p99_ms": null,
+      "maximum_ms": null,
+      "passed": false
+    }
+  },
+  "lifecycle": {},
+  "maximum_observed_groups": 8,
+  "passed": false,
+  "scope": "Public isolated pool and partial-solid controls; owner-call elapsed time excludes IPC and screenshots but can include thread scheduling delays",
+  "model_budget_passed": true
+}

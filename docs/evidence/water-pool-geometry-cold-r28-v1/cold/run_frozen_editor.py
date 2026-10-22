@@ -1,0 +1,159 @@
+"""Bound F editor capture using the unchanged product-v2 frozen host tools."""
+from datetime import datetime, timezone
+import ctypes
+from ctypes import wintypes
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import sys
+import time
+
+ROOT = Path(__file__).resolve().parents[3]
+WORK = Path(__file__).resolve().parent
+PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-pool-geometry-v1')
+SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+OWNER = 'water-r28-pool-geometry-v1'
+OUT = WORK / 'product-v2-f-editor-v1.json'
+HANDLES = WORK / 'product-v2-f-editor-v1-handles.json'
+RECEIPT = WORK / 'product-v2-f-editor-v1-host.json'
+CASES = ('pool',)
+
+
+def main():
+    if any(path.exists() for path in (OUT, HANDLES, RECEIPT)):
+        raise ValueError('Use fresh immutable result paths')
+    sys.path.insert(0, str(PROJECT / 'tools'))
+    tool_path = PROJECT / 'tools/probe_product_water.py'
+    spec = importlib.util.spec_from_file_location('product_v2_probe_water', str(tool_path))
+    probe = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(probe)
+    import capture_native_window
+    capture_native_window.ROOT = ROOT
+    os.environ.update(MCDEV_SESSION_FILE=str(SESSION), MCDEV_OWNER=OWNER,
+                      OPENBLAS_NUM_THREADS='1', MCDEV_ALLOW_USER_FOREGROUND='0')
+    from _session import load_session, process_identity
+    binding = load_session(str(SESSION), OWNER, live=True)
+    assert Path(binding['project']).resolve() == PROJECT.resolve()
+    initial = probe.snapshot_sources(PROJECT)
+    launch = json.loads((WORK / 'product-v2-launch-inputs.json').read_bytes())
+    assert initial == launch['source_sha256']
+    assert probe.snapshot_digest(initial) == launch['source_contract_sha256']
+    kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+    kernel.OpenProcess.argtypes = (wintypes.DWORD, wintypes.BOOL, wintypes.DWORD)
+    kernel.OpenProcess.restype = wintypes.HANDLE
+    kernel.GetProcessHandleCount.argtypes = (wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD))
+    kernel.CloseHandle.argtypes = (wintypes.HANDLE,)
+
+    def count_mcdk():
+        assert process_identity(binding['mcdk_pid']) == binding['mcdk_identity']
+        handle = kernel.OpenProcess(0x1000, False, binding['mcdk_pid'])
+        if not handle:
+            raise ctypes.WinError(ctypes.get_last_error())
+        try:
+            count = wintypes.DWORD()
+            if not kernel.GetProcessHandleCount(handle, ctypes.byref(count)):
+                raise ctypes.WinError(ctypes.get_last_error())
+            return count.value
+        finally:
+            kernel.CloseHandle(handle)
+
+    rows = []
+    state = {'row': None, 'finished_rows': 0, 'capture_count': 0}
+    receipt = {'schema': 1, 'stage': 'F', 'route': 'editor', 'cases': CASES,
+               'owner': OWNER, 'session_id': binding['id'],
+               'game_pid': binding['game_pid'], 'game_identity': binding['game_identity'],
+               'mcdk_pid': binding['mcdk_pid'], 'mcdk_identity': binding['mcdk_identity'],
+               'host_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+               'source_contract_sha256': launch['source_contract_sha256'],
+               'production_admission_performed': False, 'qualified_or_default_gate_set': False,
+               'maximum_handles': 250000, 'rapid_step_growth_limit': 10000,
+               'started_at': time.time(), 'completed': False}
+
+    def save():
+        HANDLES.write_text(json.dumps({'schema': 1, 'samples': rows}, indent=2) + '\n', 'utf8')
+        RECEIPT.write_text(json.dumps(receipt, indent=2) + '\n', 'utf8')
+
+    def sample(label, enforce=True):
+        row = dict(probe.workspace.transport.metrics(str(SESSION), OWNER), label=label,
+                   sampled_at=time.strftime('%Y-%m-%dT%H:%M:%S%z'), mcdk_handles=count_mcdk())
+        rows.append(row)
+        save()
+        if enforce and (row['handles'] >= 250000 or
+                        (len(rows) > 1 and row['handles'] - rows[-2]['handles'] >= 10000)):
+            raise RuntimeError('Handle guard reached at ' + label)
+        return row
+
+    from scene_native_layout import read_scene_controls
+    from scene_policy import describe_scene
+    import scene_game
+    geometry = []
+    active_check = [None]
+    receipt['native_geometry_observations'] = geometry
+    original_capture = probe.base.capture
+    original_run = probe.blueprints.BlueprintCheck.run
+
+    def tracked_capture(session, owner, output, executable):
+        assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-22T23:25:00+00:00'), '07:25 capture cutoff'
+        label = Path(output).stem
+        observed = original_run(active_check[0], probe.SCENE_STATE + scene_game.EXTRA_STATE)
+        active = any(bank is not None and bank['declared_visible'] is True
+                     for entry in observed['native_water_controls'] for bank in entry['banks'])
+        verdict = describe_scene(observed, 2, active)
+        native_layout = read_scene_controls(active_check[0], probe.blueprints.walk)
+        geometry.append({'label': label, 'state': observed, 'verdict': verdict, 'actual_scene_controls': native_layout})
+        save()
+        assert verdict['complete'], verdict
+        sample(label + '_before_wgc')
+        captured = original_capture(session, owner, output, executable)
+        sample(label + '_after_wgc')
+        state['capture_count'] += 1
+        return captured
+
+    def tracked_run(check, code):
+        active_check[0] = check
+        is_load = 'identity,control,pose=' in code and 'source_document(identity,control)' in code
+        if is_load and state['row']:
+            row = sample(state['row'] + '_row_complete')
+            state['finished_rows'] += 1
+            print(json.dumps({'row_complete': state['row'], 'row_count': state['finished_rows'],
+                              'captures': state['capture_count'], 'handles': row['handles'],
+                              'mcdk_handles': row['mcdk_handles']}), flush=True)
+        is_scene = code == probe.SCENE_STATE
+        result = original_run(check, code + scene_game.EXTRA_STATE if is_scene else code)
+        if is_load:
+            state['row'] = result['case'] + '_' + result['control']
+            sample(state['row'] + '_row_loaded')
+        return result
+
+    probe.base.capture = tracked_capture
+    probe.blueprints.BlueprintCheck.run = tracked_run
+    capture_exe = ROOT / '.runtime/worktree-archive-r7/p0-blueprint-qa-r3/files/.runtime/native_wgc/build/Release/native_wgc_capture.exe'
+    assert probe.fingerprint(capture_exe) == 'cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8'
+    sys.argv = [str(tool_path), '--session', str(SESSION), '--owner', OWNER,
+                '--capture-exe', str(capture_exe), '--output', str(OUT),
+                '--launch-inputs', str(WORK / 'product-v2-launch-inputs.json'),
+                '--frozen', '--controls', 'all', '--measure-budgets',
+                '--route', 'editor', '--max-seconds', '1800', '--max-handles', '250000']
+    for case in CASES:
+        sys.argv.extend(('--case', case))
+    receipt['arguments'] = sys.argv
+    sample('before_F_editor')
+    try:
+        result = probe.main()
+        receipt['exit_code'] = result
+        receipt['completed'] = result == 0
+        return result
+    finally:
+        if state['row']:
+            sample(state['row'] + '_final_row_and_cleanup_complete', enforce=False)
+        sample('after_F_editor_cleanup', enforce=False)
+        receipt.update(elapsed_seconds=time.time() - receipt['started_at'],
+                       source_unchanged=initial == probe.snapshot_sources(PROJECT),
+                       captured=state['capture_count'], finished_rows=state['finished_rows'])
+        save()
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

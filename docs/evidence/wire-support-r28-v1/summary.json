@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "created_at_utc": "2026-10-22T17:07:00.318579+00:00",
+  "candidate_promoted": false,
+  "GPU_qualified": false,
+  "manual_closures_added": 0,
+  "flat_interior": {
+    "completed": true,
+    "restored": true,
+    "stages": 12
+  },
+  "flat_boundary": {
+    "completed": true,
+    "restored": true,
+    "stages": 12
+  },
+  "ascending": {
+    "completed": false,
+    "restored": true,
+    "stopped_at": "opaque_top_candidate",
+    "reason": "Original strict wire RGB equality failed; mask and 626-pixel count unchanged.",
+    "wire_changed_pixels": 1,
+    "maximum_changed_channel": 64,
+    "whole_ROI_changed_pixels": 10
+  },
+  "remaining_fixtures_not_executed": [
+    "descending",
+    "negative-wet-wire",
+    "negative-wet-support",
+    "negative-two-solid",
+    "negative-stone-support"
+  ],
+  "scope": "Compact outcome records, selected exact PNGs and candidate/host inputs; not a full native-ledger qualification archive.",
+  "faint_dotted_concrete_outline_remains": true,
+  "references": [
+    {
+      "path": ".runtime/round-20261023/wire-v1/project-manifest-r28-v1.json",
+      "bytes": 770827,
+      "sha256": "ee4be33c0755861bc783f2045afa6c2b64deedfdfd4a01897eaf9914de8ea7c1",
+      "included": false,
+      "reason": "Retained local raw provenance, not needed to inspect this non-promoted outcome."
+    },
+    {
+      "path": ".runtime/round-20261023/wire-v1/launch-v1/launch.json",
+      "bytes": 27698,
+      "sha256": "42cbe9fdff0752b1fe8af6509f95c4f49d6f4afe9806424ce44639b80de74fab",
+      "included": false,
+      "reason": "Retained local raw provenance, not needed to inspect this non-promoted outcome."
+    },
+    {
+      "path": ".runtime/round-20261023/wire-v1/flat-interior-v1/gate.json",
+      "bytes": 525063,
+      "sha256": "8c82b20877c479379c063e57b586db5cf4d4985a0729fc64b31e5ce49b0123a5",
+      "included": false,
+      "reason": "Retained local raw provenance, not needed to inspect this non-promoted outcome."
+    },
+    {
+      "path": ".runtime/round-20261023/wire-v1/flat-boundary-v1/gate.json",
+      "bytes": 1678012,
+      "sha256": "a5122a1cb6299643e74026414bf49fdb02bb1d23608d8ccf0b7bc8e454846fb9",
+      "included": false,
+      "reason": "Retained local raw provenance, not needed to inspect this non-promoted outcome."
+    },
+    {
+      "path": ".runtime/round-20261023/wire-v1/ascending-v1/gate.json",
+      "bytes": 148516,
+      "sha256": "674088f9bd61a861ec98f61381e2a002e91a090b9ace129143b1f12f199c4fc3",
+      "included": false,
+      "reason": "Retained local raw provenance, not needed to inspect this non-promoted outcome."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "actual_canvas_and_clip_readback": true,
+  "adjacent_growth_limit": 10000,
+  "auxiliary_files_compared": 1391,
+  "base_archive_reused": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-flow-editor-v1\\private-launch-source-v1.zip",
+    "scope": "Fresh current shared explicit inventory; no diagnostic shaders; not complete transitive closure",
+    "sha256": "d9f196ca951a9f2d83f254b5e4d694868f714096715d376309845141c4c8c4e5",
+    "size_bytes": 119618244
+  },
+  "bootstrap_or_profile_qualification_write": false,
+  "cases": [
+    "pool"
+  ],
+  "controls": [
+    "wet",
+    "dry"
+  ],
+  "estimated_minutes": [
+    4,
+    8
+  ],
+  "exact_source_changes": {
+    "behavior_pack/modern_projection/projection/liquid_product_deployment.py": {
+      "after_sha256": "5f25845e22e1230be87c1da33e864f5799f45358fe370f49d977f5909b88f661",
+      "before_sha256": "5fa49e83b67841f008cf32fc9cbdff48dfd4335227d444e3e414b49af0caefd1"
+    },
+    "behavior_pack/modern_projection/projection/scene.py": {
+      "after_sha256": "72b8f94a3dea9d433a0594c85f7a0249197cb6aac3619f577f28d977ba630813",
+      "before_sha256": "5f150ea6b5c8b06cac44b2f076b70dccc143e6a65e5c1aeea4ce714984ba0d97"
+    }
+  },
+  "expected_PNGs": 2,
+  "explicit_candidate_profile_for_pixels": true,
+  "manual_closures_added": 0,
+  "maximum_handles": 250000,
+  "minimum_available_commit_bytes": 6442450944,
+  "native_gui": 2,
+  "no_unreviewed_expansion_to_F": true,
+  "ordinary_cold_init_required": true,
+  "overlay_archive": {
+    "bytes": 11976,
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-pool-geometry-cold-v1\\source-overlay-v1.zip",
+    "sha256": "f6ca186609ae3ccd2135eeae25f0e572544b87865e343416dc6017a6086ede20"
+  },
+  "owner": "water-r28-pool-geometry-v1",
+  "physical_client_size": [
+    1280,
+    720
+  ],
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-pool-geometry-v1",
+  "restoration_deadline_utc": "2026-10-22T23:40:00+00:00",
+  "route": "editor",
+  "schema": 1,
+  "source_contract_sha256": "684fc8a5b8fb89e9156dcea1a81eb9e6956b5c663b8683dc51a899f31215db09",
+  "source_files_compared": 4482,
+  "stage": "cold_product_geometry_pool_only",
+  "unchanged_retry_allowed": false
+}

@@ -1,0 +1,54 @@
+{
+  "initial_zero_scope_reviews": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "# Python AI Code Review — Summary\nbehavior_pack: D:/Happy2018newの个人文件/GitHub/better-building-editor/behavior_pack\nfiles=0 · parse 0 ok/0 rec/0 fail · config: 内置默认值\nfindings=0 · highest=none\nseverity: warning=0 risk=0 hint=0\n\n(no findings)\n"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "# Python AI Code Review — Summary\nbehavior_pack: D:/Happy2018newの个人文件/GitHub/better-building-editor/behavior_pack\nfiles=0 · parse 0 ok/0 rec/0 fail · config: 内置默认值\nfindings=0 · highest=none\nseverity: warning=0 risk=0 hint=0\n\n(no findings)\n"
+          }
+        ],
+        "isError": false
+      }
+    }
+  ],
+  "actual_nonzero_scope_reviews": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "# Python AI Code Review — Summary\nbehavior_pack: D:/Happy2018newの个人文件/GitHub/better-building-editor/behavior_pack\nfiles=1 · parse 1 ok/0 rec/0 fail · config: 内置默认值\nfindings=0 · highest=none\nseverity: warning=0 risk=0 hint=0\n\n(no findings)\n"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "# Python AI Code Review — Summary\nbehavior_pack: D:/Happy2018newの个人文件/GitHub/better-building-editor/behavior_pack\nfiles=2 · parse 2 ok/0 rec/0 fail · config: 内置默认值\nfindings=3 · highest=warning\nseverity: warning=2 risk=0 hint=1\n\nby rule (severity desc):\n  [warning] logic-blob.large-function  ×2\n  [hint] signature.too-many-params  ×1\n\ntop files:\n  3  modern_projection/projection/scene.py\n\n(用 --format markdown 看定位与建议；--format json 取机读全量)\n"
+          }
+        ],
+        "isError": false
+      }
+    }
+  ]
+}

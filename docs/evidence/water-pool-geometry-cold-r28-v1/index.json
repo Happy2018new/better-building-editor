@@ -1,0 +1,1800 @@
+{
+  "actual_exit_codes": {
+    "game": "0xC0000409",
+    "mcdk": "0x00000000"
+  },
+  "complete_water_product_qualified": false,
+  "created_at_utc": "2026-10-22T17:12:31.461092+00:00",
+  "credential_findings": 0,
+  "entries": [
+    {
+      "decoded_sanitized_bytes": 9990,
+      "decoded_sanitized_sha256": "e0a348c6861bb32ffa312f1fd7503d7de04fcb785c1601a64054cbe93b14b3a3",
+      "derived_parts": [
+        {
+          "bytes": 9990,
+          "path": "analysis/actual-readback-analysis-v1.json",
+          "sha256": "e0a348c6861bb32ffa312f1fd7503d7de04fcb785c1601a64054cbe93b14b3a3"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/actual-readback-analysis-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9990,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-analysis-v1/actual-readback-analysis-v1.json",
+      "original_raw_sha256": "e0a348c6861bb32ffa312f1fd7503d7de04fcb785c1601a64054cbe93b14b3a3",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7330,
+      "decoded_sanitized_sha256": "590246a4e3747dbbe35d4507ac9d50c413d4a7599d326810b56c872d59ce2d00",
+      "derived_parts": [
+        {
+          "bytes": 7330,
+          "path": "analysis/analyze_pool.py",
+          "sha256": "590246a4e3747dbbe35d4507ac9d50c413d4a7599d326810b56c872d59ce2d00"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/analyze_pool.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7330,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-analysis-v1/analyze_pool.py",
+      "original_raw_sha256": "590246a4e3747dbbe35d4507ac9d50c413d4a7599d326810b56c872d59ce2d00",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 6415,
+      "decoded_sanitized_sha256": "1ebaa464faac6c4458201bf512b319f834db12a58c645bd5701a2cc204bda94d",
+      "derived_parts": [
+        {
+          "bytes": 6415,
+          "path": "analysis/check_actual_readback.py",
+          "sha256": "1ebaa464faac6c4458201bf512b319f834db12a58c645bd5701a2cc204bda94d"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/check_actual_readback.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 6415,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-analysis-v1/check_actual_readback.py",
+      "original_raw_sha256": "1ebaa464faac6c4458201bf512b319f834db12a58c645bd5701a2cc204bda94d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 578,
+      "decoded_sanitized_sha256": "a8bb77f8a507f9b02d95143aaf5e472eada4b1622eeb3a5135ebcf5534ef3b9a",
+      "derived_parts": [
+        {
+          "bytes": 578,
+          "path": "analysis/prepare.py",
+          "sha256": "a8bb77f8a507f9b02d95143aaf5e472eada4b1622eeb3a5135ebcf5534ef3b9a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/prepare.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 578,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-analysis-v1/prepare.py",
+      "original_raw_sha256": "a8bb77f8a507f9b02d95143aaf5e472eada4b1622eeb3a5135ebcf5534ef3b9a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1518,
+      "decoded_sanitized_sha256": "c2cff2c0648ecd0dfbc141c74f100828e0e26109b23f7ea94ba372dd8b6c6399",
+      "derived_parts": [
+        {
+          "bytes": 1518,
+          "path": "analysis/result-v1/product-analysis.json",
+          "sha256": "c2cff2c0648ecd0dfbc141c74f100828e0e26109b23f7ea94ba372dd8b6c6399"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/result-v1/product-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1518,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-analysis-v1/result-v1/product-analysis.json",
+      "original_raw_sha256": "c2cff2c0648ecd0dfbc141c74f100828e0e26109b23f7ea94ba372dd8b6c6399",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3241,
+      "decoded_sanitized_sha256": "24b836c091984406bf937a5b72e6bd0d43946896912df63634582f3cf52f611b",
+      "derived_parts": [
+        {
+          "bytes": 3241,
+          "path": "analysis/result-v1/side-visibility-budget-analysis.json",
+          "sha256": "24b836c091984406bf937a5b72e6bd0d43946896912df63634582f3cf52f611b"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/result-v1/side-visibility-budget-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3241,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-analysis-v1/result-v1/side-visibility-budget-analysis.json",
+      "original_raw_sha256": "24b836c091984406bf937a5b72e6bd0d43946896912df63634582f3cf52f611b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2217,
+      "decoded_sanitized_sha256": "ec348cca2189c40f1b530149443abc95ff62810686fbd4fbc431fff081597b82",
+      "derived_parts": [
+        {
+          "bytes": 2217,
+          "path": "analysis/result-v1/summary.json",
+          "sha256": "ec348cca2189c40f1b530149443abc95ff62810686fbd4fbc431fff081597b82"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/result-v1/summary.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2217,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-analysis-v1/result-v1/summary.json",
+      "original_raw_sha256": "ec348cca2189c40f1b530149443abc95ff62810686fbd4fbc431fff081597b82",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cold/F-editor.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/F-editor.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/F-editor.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 176,
+      "decoded_sanitized_sha256": "682ae777ff15796daa8208562cb4382da57b7b9f61a7f23bd544cb73bdb522ae",
+      "derived_parts": [
+        {
+          "bytes": 176,
+          "path": "cold/F-editor.stdout.txt",
+          "sha256": "682ae777ff15796daa8208562cb4382da57b7b9f61a7f23bd544cb73bdb522ae"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/F-editor.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 176,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/F-editor.stdout.txt",
+      "original_raw_sha256": "682ae777ff15796daa8208562cb4382da57b7b9f61a7f23bd544cb73bdb522ae",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7658,
+      "decoded_sanitized_sha256": "5025326b4de8c18e4f78c272feb12557de066920150146b3cdc3cdac175cf3af",
+      "derived_parts": [
+        {
+          "bytes": 7658,
+          "path": "cold/assert-watch-start.json",
+          "sha256": "5025326b4de8c18e4f78c272feb12557de066920150146b3cdc3cdac175cf3af"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/assert-watch-start.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7658,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/assert-watch-start.json",
+      "original_raw_sha256": "5025326b4de8c18e4f78c272feb12557de066920150146b3cdc3cdac175cf3af",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cold/assert-watch-start.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/assert-watch-start.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/assert-watch-start.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7319,
+      "decoded_sanitized_sha256": "7befd35ac60a5ec6f1749d7ed5bd6be230f311b2c74732165d71c943de1e2a0c",
+      "derived_parts": [
+        {
+          "bytes": 7319,
+          "path": "cold/assert-watch-start.stdout.txt",
+          "sha256": "7befd35ac60a5ec6f1749d7ed5bd6be230f311b2c74732165d71c943de1e2a0c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/assert-watch-start.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7319,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/assert-watch-start.stdout.txt",
+      "original_raw_sha256": "7befd35ac60a5ec6f1749d7ed5bd6be230f311b2c74732165d71c943de1e2a0c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8749,
+      "decoded_sanitized_sha256": "140a3f901d5e96e0d8566d14da310df639787f91acca4ae45e215a286cbbbfd2",
+      "derived_parts": [
+        {
+          "bytes": 8749,
+          "path": "cold/cold-default-observation-v1.json",
+          "sha256": "140a3f901d5e96e0d8566d14da310df639787f91acca4ae45e215a286cbbbfd2"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/cold-default-observation-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8749,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/cold-default-observation-v1.json",
+      "original_raw_sha256": "140a3f901d5e96e0d8566d14da310df639787f91acca4ae45e215a286cbbbfd2",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 59,
+      "decoded_sanitized_sha256": "00f1a7fc505eeeec3b95611fcbba498cc512c4dd1317dd93c3be81ec0e3280f1",
+      "derived_parts": [
+        {
+          "bytes": 59,
+          "path": "cold/continuous-handle-guard-process-v1.json",
+          "sha256": "00f1a7fc505eeeec3b95611fcbba498cc512c4dd1317dd93c3be81ec0e3280f1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/continuous-handle-guard-process-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 59,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/continuous-handle-guard-process-v1.json",
+      "original_raw_sha256": "00f1a7fc505eeeec3b95611fcbba498cc512c4dd1317dd93c3be81ec0e3280f1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 77000,
+      "decoded_sanitized_sha256": "45b39f91930d3811ff45997599d280868f6083c52cff90bdd33414386fdd3865",
+      "derived_parts": [
+        {
+          "bytes": 77000,
+          "path": "cold/continuous-handle-guard-v1.json",
+          "sha256": "45b39f91930d3811ff45997599d280868f6083c52cff90bdd33414386fdd3865"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/continuous-handle-guard-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 77000,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/continuous-handle-guard-v1.json",
+      "original_raw_sha256": "45b39f91930d3811ff45997599d280868f6083c52cff90bdd33414386fdd3865",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cold/continuous-handle-guard.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/continuous-handle-guard.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/continuous-handle-guard.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cold/continuous-handle-guard.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/continuous-handle-guard.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/continuous-handle-guard.stdout.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1723121,
+      "decoded_sanitized_sha256": "dd83cf5d5d8dbfa2fd746525b3a4be81ddce63a0974324809b95ce7a55bcc3ae",
+      "derived_parts": [
+        {
+          "bytes": 240000,
+          "path": "cold/final-source-binding-v1.json.gz.001",
+          "sha256": "fc459438fc61d05e68c9a34fb92555c48fd6bf1d1b4755b2c6989ac87da34c05"
+        },
+        {
+          "bytes": 240000,
+          "path": "cold/final-source-binding-v1.json.gz.002",
+          "sha256": "e05c6f01a4252ac54f43f1c86657afe274599abb9f6b63b56b5391b917c68b10"
+        },
+        {
+          "bytes": 30689,
+          "path": "cold/final-source-binding-v1.json.gz.003",
+          "sha256": "c21f2739d5551a84786dccdc54acd25bfbbd2576eff119b4403408ce994ba74d"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "cold/final-source-binding-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1723121,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/final-source-binding-v1.json",
+      "original_raw_sha256": "dd83cf5d5d8dbfa2fd746525b3a4be81ddce63a0974324809b95ce7a55bcc3ae",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1783,
+      "decoded_sanitized_sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4",
+      "derived_parts": [
+        {
+          "bytes": 1783,
+          "path": "cold/flow_restore.py",
+          "sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/flow_restore.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1783,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/flow_restore.py",
+      "original_raw_sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 46678,
+      "decoded_sanitized_sha256": "5510045d254e23ae1c7414561620bb02de15736a0c6c668cb6bdceedcda3426d",
+      "derived_parts": [
+        {
+          "bytes": 46678,
+          "path": "cold/group-execution-v1.json",
+          "sha256": "5510045d254e23ae1c7414561620bb02de15736a0c6c668cb6bdceedcda3426d"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/group-execution-v1.json",
+      "original_bytes_reconstructable": false,
+      "original_raw_bytes": 53625,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/group-execution-v1.json",
+      "original_raw_sha256": "8a085f994d365ad5f491c1f2a6c7740e32cce00ccd21e979cbf2c94d30c88c1b",
+      "redacted_fields": [
+        "$:json.registry_finalize.stdout:json.mcp_url"
+      ]
+    },
+    {
+      "decoded_sanitized_bytes": 779,
+      "decoded_sanitized_sha256": "a58828806979eeb39e2fbb9b4b46ecc6be37561987b75a8ee4a3f671a8732db1",
+      "derived_parts": [
+        {
+          "bytes": 779,
+          "path": "cold/guard_policy.py",
+          "sha256": "a58828806979eeb39e2fbb9b4b46ecc6be37561987b75a8ee4a3f671a8732db1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/guard_policy.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 779,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/guard_policy.py",
+      "original_raw_sha256": "a58828806979eeb39e2fbb9b4b46ecc6be37561987b75a8ee4a3f671a8732db1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 239,
+      "decoded_sanitized_sha256": "d70b2fb7adcf158da4ca018c5035359b45a9238f875679240b13198b991aa571",
+      "derived_parts": [
+        {
+          "bytes": 239,
+          "path": "cold/helper-retirement-v1.json",
+          "sha256": "d70b2fb7adcf158da4ca018c5035359b45a9238f875679240b13198b991aa571"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/helper-retirement-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 239,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/helper-retirement-v1.json",
+      "original_raw_sha256": "d70b2fb7adcf158da4ca018c5035359b45a9238f875679240b13198b991aa571",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2961,
+      "decoded_sanitized_sha256": "e756a4956ffa85fcc3a2a1b8868acdc5cb1e65287d762e096972cc86132b4d00",
+      "derived_parts": [
+        {
+          "bytes": 2961,
+          "path": "cold/independent-restore-v1.json",
+          "sha256": "e756a4956ffa85fcc3a2a1b8868acdc5cb1e65287d762e096972cc86132b4d00"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/independent-restore-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2961,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/independent-restore-v1.json",
+      "original_raw_sha256": "e756a4956ffa85fcc3a2a1b8868acdc5cb1e65287d762e096972cc86132b4d00",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cold/launch.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/launch.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/launch.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 259,
+      "decoded_sanitized_sha256": "93cda81ffbd8aa9f93a3088e8d4ed4689d7818ded3d0b29ddf25958a68249f06",
+      "derived_parts": [
+        {
+          "bytes": 259,
+          "path": "cold/launch.stdout.txt",
+          "sha256": "93cda81ffbd8aa9f93a3088e8d4ed4689d7818ded3d0b29ddf25958a68249f06"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/launch.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 259,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/launch.stdout.txt",
+      "original_raw_sha256": "93cda81ffbd8aa9f93a3088e8d4ed4689d7818ded3d0b29ddf25958a68249f06",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1002,
+      "decoded_sanitized_sha256": "e0c6eb97affaf5c187f935a94f6b18948414d2008f793532cc411ea9fab4561c",
+      "derived_parts": [
+        {
+          "bytes": 1002,
+          "path": "cold/launch/exact-exit.json",
+          "sha256": "e0c6eb97affaf5c187f935a94f6b18948414d2008f793532cc411ea9fab4561c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/launch/exact-exit.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1002,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/launch/exact-exit.json",
+      "original_raw_sha256": "e0c6eb97affaf5c187f935a94f6b18948414d2008f793532cc411ea9fab4561c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 55797,
+      "decoded_sanitized_sha256": "49da29f22aa62bb328acac8d37bd14f770aa94dcf3bdd1546570a0c0b856b936",
+      "derived_parts": [
+        {
+          "bytes": 55797,
+          "path": "cold/launch/launch.json",
+          "sha256": "49da29f22aa62bb328acac8d37bd14f770aa94dcf3bdd1546570a0c0b856b936"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/launch/launch.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 55797,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/launch/launch.json",
+      "original_raw_sha256": "49da29f22aa62bb328acac8d37bd14f770aa94dcf3bdd1546570a0c0b856b936",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 14658,
+      "decoded_sanitized_sha256": "bce5c1a124ee220ea13746bc312c6e48b684910c0466bdc90842060fe0055703",
+      "derived_parts": [
+        {
+          "bytes": 14658,
+          "path": "cold/launch_r25.py",
+          "sha256": "bce5c1a124ee220ea13746bc312c6e48b684910c0466bdc90842060fe0055703"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/launch_r25.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 14658,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/launch_r25.py",
+      "original_raw_sha256": "bce5c1a124ee220ea13746bc312c6e48b684910c0466bdc90842060fe0055703",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2197,
+      "decoded_sanitized_sha256": "7668b59f3bd9fa2d9a22687a7cf0766735e89ea7139adc1b24b1a5b0ad8729ea",
+      "derived_parts": [
+        {
+          "bytes": 2197,
+          "path": "cold/modal_guard.py",
+          "sha256": "7668b59f3bd9fa2d9a22687a7cf0766735e89ea7139adc1b24b1a5b0ad8729ea"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/modal_guard.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2197,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/modal_guard.py",
+      "original_raw_sha256": "7668b59f3bd9fa2d9a22687a7cf0766735e89ea7139adc1b24b1a5b0ad8729ea",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4816,
+      "decoded_sanitized_sha256": "c341cd87bc3ce9e2a1fbbb5abc0874d6cdbb8cc48377f934b6b3d8836fb7c881",
+      "derived_parts": [
+        {
+          "bytes": 4816,
+          "path": "cold/observe_cold_default.py",
+          "sha256": "c341cd87bc3ce9e2a1fbbb5abc0874d6cdbb8cc48377f934b6b3d8836fb7c881"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/observe_cold_default.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4816,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/observe_cold_default.py",
+      "original_raw_sha256": "c341cd87bc3ce9e2a1fbbb5abc0874d6cdbb8cc48377f934b6b3d8836fb7c881",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cold/ordinary-cold-init.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/ordinary-cold-init.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/ordinary-cold-init.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 79,
+      "decoded_sanitized_sha256": "3f4f9b29c39939c33db5acc97fcabe33fe0f76de7380dfef4c48d589c4c91569",
+      "derived_parts": [
+        {
+          "bytes": 79,
+          "path": "cold/ordinary-cold-init.stdout.txt",
+          "sha256": "3f4f9b29c39939c33db5acc97fcabe33fe0f76de7380dfef4c48d589c4c91569"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/ordinary-cold-init.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 79,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/ordinary-cold-init.stdout.txt",
+      "original_raw_sha256": "3f4f9b29c39939c33db5acc97fcabe33fe0f76de7380dfef4c48d589c4c91569",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2441,
+      "decoded_sanitized_sha256": "ccc27b74cb4d5c7358186895d7bcacdfd78e19be39f3dba127965b65d37807f2",
+      "derived_parts": [
+        {
+          "bytes": 2441,
+          "path": "cold/plan-v1.json",
+          "sha256": "ccc27b74cb4d5c7358186895d7bcacdfd78e19be39f3dba127965b65d37807f2"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/plan-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2441,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/plan-v1.json",
+      "original_raw_sha256": "ccc27b74cb4d5c7358186895d7bcacdfd78e19be39f3dba127965b65d37807f2",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9347,
+      "decoded_sanitized_sha256": "de5a0878afca6beb7d3cd5ad993ff2aa188276e2c996bd62e93d3a0f22664f41",
+      "derived_parts": [
+        {
+          "bytes": 9347,
+          "path": "cold/prelaunch-host-binding-v1.json",
+          "sha256": "de5a0878afca6beb7d3cd5ad993ff2aa188276e2c996bd62e93d3a0f22664f41"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/prelaunch-host-binding-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9347,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/prelaunch-host-binding-v1.json",
+      "original_raw_sha256": "de5a0878afca6beb7d3cd5ad993ff2aa188276e2c996bd62e93d3a0f22664f41",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9491,
+      "decoded_sanitized_sha256": "15c79e63ae6704afdb9d073e4155d744537190e56e82f61e87bf4818230f5b9c",
+      "derived_parts": [
+        {
+          "bytes": 9491,
+          "path": "cold/prepare_host.py",
+          "sha256": "15c79e63ae6704afdb9d073e4155d744537190e56e82f61e87bf4818230f5b9c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/prepare_host.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9491,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/prepare_host.py",
+      "original_raw_sha256": "15c79e63ae6704afdb9d073e4155d744537190e56e82f61e87bf4818230f5b9c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4058,
+      "decoded_sanitized_sha256": "e5bf13c1e631272ca006a879397598c1fb25dd944dac6a979d60a72d2decc081",
+      "derived_parts": [
+        {
+          "bytes": 4058,
+          "path": "cold/product-v2-f-editor-v1-handles.json",
+          "sha256": "e5bf13c1e631272ca006a879397598c1fb25dd944dac6a979d60a72d2decc081"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/product-v2-f-editor-v1-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4058,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/product-v2-f-editor-v1-handles.json",
+      "original_raw_sha256": "e5bf13c1e631272ca006a879397598c1fb25dd944dac6a979d60a72d2decc081",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 79885,
+      "decoded_sanitized_sha256": "8349bba286b86da0bcb98df7835471cbf4f8ad06ec535f30b2d07df0ddb86cd3",
+      "derived_parts": [
+        {
+          "bytes": 79885,
+          "path": "cold/product-v2-f-editor-v1-host.json",
+          "sha256": "8349bba286b86da0bcb98df7835471cbf4f8ad06ec535f30b2d07df0ddb86cd3"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/product-v2-f-editor-v1-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 79885,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/product-v2-f-editor-v1-host.json",
+      "original_raw_sha256": "8349bba286b86da0bcb98df7835471cbf4f8ad06ec535f30b2d07df0ddb86cd3",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2141562,
+      "decoded_sanitized_sha256": "ad38db02fd590ba9157328ccc6a40fbf0310de20ed8feb7a6d52ba9ad3708156",
+      "derived_parts": [
+        {
+          "bytes": 240000,
+          "path": "cold/product-v2-f-editor-v1.json.gz.001",
+          "sha256": "a6365c11691fcc24b6ad357d8706c2ccb7013f85f43c541d11002977308dc4ea"
+        },
+        {
+          "bytes": 240000,
+          "path": "cold/product-v2-f-editor-v1.json.gz.002",
+          "sha256": "69406c2716c4fb6f644a7c82d99c332511b0ef96f62530cf9780bc4d8cfafc7e"
+        },
+        {
+          "bytes": 170551,
+          "path": "cold/product-v2-f-editor-v1.json.gz.003",
+          "sha256": "b327e547bcbfd48be19682b9d35a279acafb8c710aec7443111cae59a43b0af8"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "cold/product-v2-f-editor-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2141562,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/product-v2-f-editor-v1.json",
+      "original_raw_sha256": "ad38db02fd590ba9157328ccc6a40fbf0310de20ed8feb7a6d52ba9ad3708156",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2877,
+      "decoded_sanitized_sha256": "bef4c60d209a5ffbbe86a7d6fb0e67cc1270f4d7947498e496fdb13c731ef736",
+      "derived_parts": [
+        {
+          "bytes": 2877,
+          "path": "cold/product-v2-f-editor-v1_editor_pool_dry.capture.json",
+          "sha256": "bef4c60d209a5ffbbe86a7d6fb0e67cc1270f4d7947498e496fdb13c731ef736"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/product-v2-f-editor-v1_editor_pool_dry.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2877,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/product-v2-f-editor-v1_editor_pool_dry.capture.json",
+      "original_raw_sha256": "bef4c60d209a5ffbbe86a7d6fb0e67cc1270f4d7947498e496fdb13c731ef736",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 127095,
+      "decoded_sanitized_sha256": "66c5e2fd4192de6fc8ad7e13079daff6bce967250bd46c5a61cdb43632e2a9cd",
+      "derived_parts": [
+        {
+          "bytes": 127095,
+          "path": "cold/product-v2-f-editor-v1_editor_pool_dry.png",
+          "sha256": "66c5e2fd4192de6fc8ad7e13079daff6bce967250bd46c5a61cdb43632e2a9cd"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "cold/product-v2-f-editor-v1_editor_pool_dry.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 127095,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/product-v2-f-editor-v1_editor_pool_dry.png",
+      "original_raw_sha256": "66c5e2fd4192de6fc8ad7e13079daff6bce967250bd46c5a61cdb43632e2a9cd",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2879,
+      "decoded_sanitized_sha256": "12ff8665a4f5f5a0c0e8aa7b7f2ef4bc0b48e25af0b05225474403d62571d5bb",
+      "derived_parts": [
+        {
+          "bytes": 2879,
+          "path": "cold/product-v2-f-editor-v1_editor_pool_wet.capture.json",
+          "sha256": "12ff8665a4f5f5a0c0e8aa7b7f2ef4bc0b48e25af0b05225474403d62571d5bb"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/product-v2-f-editor-v1_editor_pool_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2879,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/product-v2-f-editor-v1_editor_pool_wet.capture.json",
+      "original_raw_sha256": "12ff8665a4f5f5a0c0e8aa7b7f2ef4bc0b48e25af0b05225474403d62571d5bb",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 146614,
+      "decoded_sanitized_sha256": "4f5998440602b609ae5d54b9d0bdaf9afb6d1515e1460f7b7963987aace65a97",
+      "derived_parts": [
+        {
+          "bytes": 146614,
+          "path": "cold/product-v2-f-editor-v1_editor_pool_wet.png",
+          "sha256": "4f5998440602b609ae5d54b9d0bdaf9afb6d1515e1460f7b7963987aace65a97"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "cold/product-v2-f-editor-v1_editor_pool_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 146614,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/product-v2-f-editor-v1_editor_pool_wet.png",
+      "original_raw_sha256": "4f5998440602b609ae5d54b9d0bdaf9afb6d1515e1460f7b7963987aace65a97",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1508745,
+      "decoded_sanitized_sha256": "cc35541d40159c4846da64a3d10fc48c8164ca54c2d3844e0d2528516cf145e1",
+      "derived_parts": [
+        {
+          "bytes": 240000,
+          "path": "cold/product-v2-launch-inputs.json.gz.001",
+          "sha256": "8056f083d2f14f2249223857b3d7de3aea79f780a9c89415bb4d71f4034f9c52"
+        },
+        {
+          "bytes": 228663,
+          "path": "cold/product-v2-launch-inputs.json.gz.002",
+          "sha256": "11bf6735b0f7c4b9e085544cc9d065d86cfaf3246eb10a63b6ae63379ba5fede"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "cold/product-v2-launch-inputs.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1508745,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/product-v2-launch-inputs.json",
+      "original_raw_sha256": "cc35541d40159c4846da64a3d10fc48c8164ca54c2d3844e0d2528516cf145e1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3665,
+      "decoded_sanitized_sha256": "03715587624b32b720d2447f0ca8c14111b818a577c056556a563252626b6ea9",
+      "derived_parts": [
+        {
+          "bytes": 3665,
+          "path": "cold/resize-background-v1.json",
+          "sha256": "03715587624b32b720d2447f0ca8c14111b818a577c056556a563252626b6ea9"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/resize-background-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3665,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/resize-background-v1.json",
+      "original_raw_sha256": "03715587624b32b720d2447f0ca8c14111b818a577c056556a563252626b6ea9",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cold/resize.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/resize.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/resize.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 49,
+      "decoded_sanitized_sha256": "e54153283c1620c0125893a322b5a8d7cf3237e5b2cf1f55c428d3a86768643e",
+      "derived_parts": [
+        {
+          "bytes": 49,
+          "path": "cold/resize.stdout.txt",
+          "sha256": "e54153283c1620c0125893a322b5a8d7cf3237e5b2cf1f55c428d3a86768643e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/resize.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 49,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/resize.stdout.txt",
+      "original_raw_sha256": "e54153283c1620c0125893a322b5a8d7cf3237e5b2cf1f55c428d3a86768643e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3408,
+      "decoded_sanitized_sha256": "366eaad61d2418e9663a8e3fa1b8857cd5bff065cf0ed8eec27cd377191f82f4",
+      "derived_parts": [
+        {
+          "bytes": 3408,
+          "path": "cold/resize_adapter.py",
+          "sha256": "366eaad61d2418e9663a8e3fa1b8857cd5bff065cf0ed8eec27cd377191f82f4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/resize_adapter.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3408,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/resize_adapter.py",
+      "original_raw_sha256": "366eaad61d2418e9663a8e3fa1b8857cd5bff065cf0ed8eec27cd377191f82f4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2018,
+      "decoded_sanitized_sha256": "7ee32895fbfe004af90faaad4b33f788acfc73a7baba81c20058c4eb1aa0eab1",
+      "derived_parts": [
+        {
+          "bytes": 2018,
+          "path": "cold/resize_background.py",
+          "sha256": "7ee32895fbfe004af90faaad4b33f788acfc73a7baba81c20058c4eb1aa0eab1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/resize_background.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2018,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/resize_background.py",
+      "original_raw_sha256": "7ee32895fbfe004af90faaad4b33f788acfc73a7baba81c20058c4eb1aa0eab1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cold/retire-helpers.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/retire-helpers.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/retire-helpers.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 220,
+      "decoded_sanitized_sha256": "64abf7f9bb331bf4caec6ea205f2ffa32a42ff61d40a2f68adbd19c125582165",
+      "derived_parts": [
+        {
+          "bytes": 220,
+          "path": "cold/retire-helpers.stdout.txt",
+          "sha256": "64abf7f9bb331bf4caec6ea205f2ffa32a42ff61d40a2f68adbd19c125582165"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/retire-helpers.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 220,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/retire-helpers.stdout.txt",
+      "original_raw_sha256": "64abf7f9bb331bf4caec6ea205f2ffa32a42ff61d40a2f68adbd19c125582165",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2438,
+      "decoded_sanitized_sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0",
+      "derived_parts": [
+        {
+          "bytes": 2438,
+          "path": "cold/retire_helpers.py",
+          "sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/retire_helpers.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2438,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/retire_helpers.py",
+      "original_raw_sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 613,
+      "decoded_sanitized_sha256": "7af2277952a76c49c3f4e89d07433f02b00e3a808297b78a99babddb345da52b",
+      "derived_parts": [
+        {
+          "bytes": 613,
+          "path": "cold/root-grant-v1.json",
+          "sha256": "7af2277952a76c49c3f4e89d07433f02b00e3a808297b78a99babddb345da52b"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/root-grant-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 613,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/root-grant-v1.json",
+      "original_raw_sha256": "7af2277952a76c49c3f4e89d07433f02b00e3a808297b78a99babddb345da52b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 773,
+      "decoded_sanitized_sha256": "078bde8c0f76a49fca48baf11abe1bfe1acc6416a7104b5837b5d0be78b8761f",
+      "derived_parts": [
+        {
+          "bytes": 773,
+          "path": "cold/root-grant-v2.json",
+          "sha256": "078bde8c0f76a49fca48baf11abe1bfe1acc6416a7104b5837b5d0be78b8761f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/root-grant-v2.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 773,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/root-grant-v2.json",
+      "original_raw_sha256": "078bde8c0f76a49fca48baf11abe1bfe1acc6416a7104b5837b5d0be78b8761f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7898,
+      "decoded_sanitized_sha256": "45c51f78e5de35e95c52a8ba9a9026da91c7fde0f6cee14b54ee2ea0ddda1158",
+      "derived_parts": [
+        {
+          "bytes": 7898,
+          "path": "cold/run_frozen_editor.py",
+          "sha256": "45c51f78e5de35e95c52a8ba9a9026da91c7fde0f6cee14b54ee2ea0ddda1158"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/run_frozen_editor.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7898,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/run_frozen_editor.py",
+      "original_raw_sha256": "45c51f78e5de35e95c52a8ba9a9026da91c7fde0f6cee14b54ee2ea0ddda1158",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7724,
+      "decoded_sanitized_sha256": "2a40f62ffdb80a855bcc25523f27375e0c40faea95a25d1b14ee3b8eb2716bf4",
+      "derived_parts": [
+        {
+          "bytes": 7724,
+          "path": "cold/run_group.py",
+          "sha256": "2a40f62ffdb80a855bcc25523f27375e0c40faea95a25d1b14ee3b8eb2716bf4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/run_group.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7724,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/run_group.py",
+      "original_raw_sha256": "2a40f62ffdb80a855bcc25523f27375e0c40faea95a25d1b14ee3b8eb2716bf4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4139,
+      "decoded_sanitized_sha256": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd",
+      "derived_parts": [
+        {
+          "bytes": 4139,
+          "path": "cold/scene_game.py",
+          "sha256": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/scene_game.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4139,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/scene_game.py",
+      "original_raw_sha256": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1061,
+      "decoded_sanitized_sha256": "1d909bd2c1caf51cbcb51667ab8b355becc4ffe25aecbb0bdb6ccc2e5838ba28",
+      "derived_parts": [
+        {
+          "bytes": 1061,
+          "path": "cold/scene_native_layout.py",
+          "sha256": "1d909bd2c1caf51cbcb51667ab8b355becc4ffe25aecbb0bdb6ccc2e5838ba28"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/scene_native_layout.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1061,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/scene_native_layout.py",
+      "original_raw_sha256": "1d909bd2c1caf51cbcb51667ab8b355becc4ffe25aecbb0bdb6ccc2e5838ba28",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2021,
+      "decoded_sanitized_sha256": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad",
+      "derived_parts": [
+        {
+          "bytes": 2021,
+          "path": "cold/scene_policy.py",
+          "sha256": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/scene_policy.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2021,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/scene_policy.py",
+      "original_raw_sha256": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1517,
+      "decoded_sanitized_sha256": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e",
+      "derived_parts": [
+        {
+          "bytes": 1517,
+          "path": "cold/scene_restore.py",
+          "sha256": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/scene_restore.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1517,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/scene_restore.py",
+      "original_raw_sha256": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 377,
+      "decoded_sanitized_sha256": "0ab33785db017a8a257082d90357cb1613b290f20d823af669ea6027c248f06f",
+      "derived_parts": [
+        {
+          "bytes": 377,
+          "path": "cold/source-synthesis-v1.json",
+          "sha256": "0ab33785db017a8a257082d90357cb1613b290f20d823af669ea6027c248f06f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/source-synthesis-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 377,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/source-synthesis-v1.json",
+      "original_raw_sha256": "0ab33785db017a8a257082d90357cb1613b290f20d823af669ea6027c248f06f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2142,
+      "decoded_sanitized_sha256": "66ace71c617f8cc0421f46d8a70589ad9d4cf7dcaed41f27cb42d1112b3a8ff5",
+      "derived_parts": [
+        {
+          "bytes": 2142,
+          "path": "cold/source_provenance.py",
+          "sha256": "66ace71c617f8cc0421f46d8a70589ad9d4cf7dcaed41f27cb42d1112b3a8ff5"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/source_provenance.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2142,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/source_provenance.py",
+      "original_raw_sha256": "66ace71c617f8cc0421f46d8a70589ad9d4cf7dcaed41f27cb42d1112b3a8ff5",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 211,
+      "decoded_sanitized_sha256": "fa8e4d5ebd16f18b7d3e3e1c10fe50a5c2988d2fbc22889eb11ac8d617dcf957",
+      "derived_parts": [
+        {
+          "bytes": 211,
+          "path": "cold/stage-r25.json",
+          "sha256": "fa8e4d5ebd16f18b7d3e3e1c10fe50a5c2988d2fbc22889eb11ac8d617dcf957"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/stage-r25.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 211,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/stage-r25.json",
+      "original_raw_sha256": "fa8e4d5ebd16f18b7d3e3e1c10fe50a5c2988d2fbc22889eb11ac8d617dcf957",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2239,
+      "decoded_sanitized_sha256": "3a2d4f071cb77bf15aada19b418ddf0a06fe41cdad4abb8c2f1c4793334417ba",
+      "derived_parts": [
+        {
+          "bytes": 2239,
+          "path": "cold/start_assert_watch.py",
+          "sha256": "3a2d4f071cb77bf15aada19b418ddf0a06fe41cdad4abb8c2f1c4793334417ba"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/start_assert_watch.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2239,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/start_assert_watch.py",
+      "original_raw_sha256": "3a2d4f071cb77bf15aada19b418ddf0a06fe41cdad4abb8c2f1c4793334417ba",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 6835,
+      "decoded_sanitized_sha256": "5074e02be91ff9eb5e3a5b44ebcde6268883bf4d67a3e8f7372743566865f208",
+      "derived_parts": [
+        {
+          "bytes": 6835,
+          "path": "cold/watch_handles.py",
+          "sha256": "5074e02be91ff9eb5e3a5b44ebcde6268883bf4d67a3e8f7372743566865f208"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/watch_handles.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 6835,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/watch_handles.py",
+      "original_raw_sha256": "5074e02be91ff9eb5e3a5b44ebcde6268883bf4d67a3e8f7372743566865f208",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1202,
+      "decoded_sanitized_sha256": "0f636d4a497d3e2a0a4e3d49c64257cc75f4f6edb54d4e5313e4f341791adee1",
+      "derived_parts": [
+        {
+          "bytes": 1202,
+          "path": "cold/world-baseline-v1.json",
+          "sha256": "0f636d4a497d3e2a0a4e3d49c64257cc75f4f6edb54d4e5313e4f341791adee1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/world-baseline-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1202,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/world-baseline-v1.json",
+      "original_raw_sha256": "0f636d4a497d3e2a0a4e3d49c64257cc75f4f6edb54d4e5313e4f341791adee1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cold/world-baseline.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/world-baseline.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/world-baseline.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 48,
+      "decoded_sanitized_sha256": "b56d39bcc73864696cb47c2bacbeee7adf6ade19446c418443465d2e9087626b",
+      "derived_parts": [
+        {
+          "bytes": 48,
+          "path": "cold/world-baseline.stdout.txt",
+          "sha256": "b56d39bcc73864696cb47c2bacbeee7adf6ade19446c418443465d2e9087626b"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/world-baseline.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 48,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/world-baseline.stdout.txt",
+      "original_raw_sha256": "b56d39bcc73864696cb47c2bacbeee7adf6ade19446c418443465d2e9087626b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3911,
+      "decoded_sanitized_sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee",
+      "derived_parts": [
+        {
+          "bytes": 3911,
+          "path": "cold/world_readback.py",
+          "sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cold/world_readback.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3911,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-cold-v1/world_readback.py",
+      "original_raw_sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5302,
+      "decoded_sanitized_sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e",
+      "derived_parts": [
+        {
+          "bytes": 5302,
+          "path": "packaging/original_independent_scanner.py",
+          "sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/original_independent_scanner.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5302,
+      "original_raw_path": ".runtime/round-20261022/root_review_wire_bundle_v3.py",
+      "original_raw_sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7330,
+      "decoded_sanitized_sha256": "b311c08aa20a3323dc3961b552037d822fff492a005456e313d31808a76280ec",
+      "derived_parts": [
+        {
+          "bytes": 7330,
+          "path": "packaging/package.py",
+          "sha256": "b311c08aa20a3323dc3961b552037d822fff492a005456e313d31808a76280ec"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/package.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7330,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-package-v1/package.py",
+      "original_raw_sha256": "b311c08aa20a3323dc3961b552037d822fff492a005456e313d31808a76280ec",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 363,
+      "decoded_sanitized_sha256": "fe00b6deb1afda8b06e8f62e663b0ca32990b4d654cefb7490ef28c8586a92bc",
+      "derived_parts": [
+        {
+          "bytes": 363,
+          "path": "packaging/previous-evidence-reference-v1.json",
+          "sha256": "fe00b6deb1afda8b06e8f62e663b0ca32990b4d654cefb7490ef28c8586a92bc"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/previous-evidence-reference-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 363,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-package-v1/previous-evidence-reference-v1.json",
+      "original_raw_sha256": "fe00b6deb1afda8b06e8f62e663b0ca32990b4d654cefb7490ef28c8586a92bc",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 13624,
+      "decoded_sanitized_sha256": "77638ab78580f78a34e8133f0336dd99257c6d03fe4c4e4db76607bb73cd45ad",
+      "derived_parts": [
+        {
+          "bytes": 13624,
+          "path": "packaging/reviewed_recursive_redactor.py",
+          "sha256": "77638ab78580f78a34e8133f0336dd99257c6d03fe4c4e4db76607bb73cd45ad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/reviewed_recursive_redactor.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 13624,
+      "original_raw_path": ".runtime/round-20261022/water-evidence-redaction-v4/package_v4_optimized.py",
+      "original_raw_sha256": "77638ab78580f78a34e8133f0336dd99257c6d03fe4c4e4db76607bb73cd45ad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 11668,
+      "decoded_sanitized_sha256": "676ab615d5689a03ca7d18460fc4f0d9f76575e30276e6bdac531699c517de78",
+      "derived_parts": [
+        {
+          "bytes": 11668,
+          "path": "preflight/minecraft-py-reviews-v1.json",
+          "sha256": "676ab615d5689a03ca7d18460fc4f0d9f76575e30276e6bdac531699c517de78"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/minecraft-py-reviews-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 11668,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/minecraft-py-reviews-v1.json",
+      "original_raw_sha256": "676ab615d5689a03ca7d18460fc4f0d9f76575e30276e6bdac531699c517de78",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2197,
+      "decoded_sanitized_sha256": "8fdc2f90e043a5e2811cc3361b226fd9528e18f1a105fcd56ecebc86056d4f4b",
+      "derived_parts": [
+        {
+          "bytes": 2197,
+          "path": "preflight/prepare.py",
+          "sha256": "8fdc2f90e043a5e2811cc3361b226fd9528e18f1a105fcd56ecebc86056d4f4b"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/prepare.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2197,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/prepare.py",
+      "original_raw_sha256": "8fdc2f90e043a5e2811cc3361b226fd9528e18f1a105fcd56ecebc86056d4f4b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2337,
+      "decoded_sanitized_sha256": "565a01c695d70f108d3ebfc9602ffc341e98da08848c92ef1c8caa1b4978caef",
+      "derived_parts": [
+        {
+          "bytes": 2337,
+          "path": "preflight/python2-values-payload.py",
+          "sha256": "565a01c695d70f108d3ebfc9602ffc341e98da08848c92ef1c8caa1b4978caef"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/python2-values-payload.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2337,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/python2-values-payload.py",
+      "original_raw_sha256": "565a01c695d70f108d3ebfc9602ffc341e98da08848c92ef1c8caa1b4978caef",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 367,
+      "decoded_sanitized_sha256": "1fc9b2708061af5c63329dc0f0a4170f92231f44f108abd88a193297b9e27774",
+      "derived_parts": [
+        {
+          "bytes": 367,
+          "path": "preflight/python2-values.json",
+          "sha256": "1fc9b2708061af5c63329dc0f0a4170f92231f44f108abd88a193297b9e27774"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/python2-values.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 367,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/python2-values.json",
+      "original_raw_sha256": "1fc9b2708061af5c63329dc0f0a4170f92231f44f108abd88a193297b9e27774",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "preflight/python2-values.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/python2-values.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/python2-values.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 252,
+      "decoded_sanitized_sha256": "989d12c5f6fa1f330981e8e18b72b91b9570800e7609c73a6e241f0de124529a",
+      "derived_parts": [
+        {
+          "bytes": 252,
+          "path": "preflight/python2-values.stdout.txt",
+          "sha256": "989d12c5f6fa1f330981e8e18b72b91b9570800e7609c73a6e241f0de124529a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/python2-values.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 252,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/python2-values.stdout.txt",
+      "original_raw_sha256": "989d12c5f6fa1f330981e8e18b72b91b9570800e7609c73a6e241f0de124529a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 905,
+      "decoded_sanitized_sha256": "4d0dcbd687b48c1fb7f149e73c2eec7fad2a03a117e1265b702340ea972fecf9",
+      "derived_parts": [
+        {
+          "bytes": 905,
+          "path": "preflight/report.json",
+          "sha256": "4d0dcbd687b48c1fb7f149e73c2eec7fad2a03a117e1265b702340ea972fecf9"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/report.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 905,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/report.json",
+      "original_raw_sha256": "4d0dcbd687b48c1fb7f149e73c2eec7fad2a03a117e1265b702340ea972fecf9",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1621,
+      "decoded_sanitized_sha256": "5eb9dde7b1f155ed1a2345292f14d0de3a6823a3c277b0d055fde7c9979d936a",
+      "derived_parts": [
+        {
+          "bytes": 1621,
+          "path": "preflight/resource-readback-v1.json",
+          "sha256": "5eb9dde7b1f155ed1a2345292f14d0de3a6823a3c277b0d055fde7c9979d936a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/resource-readback-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1621,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/resource-readback-v1.json",
+      "original_raw_sha256": "5eb9dde7b1f155ed1a2345292f14d0de3a6823a3c277b0d055fde7c9979d936a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2652,
+      "decoded_sanitized_sha256": "4ff405b44de979947627e2879a31d9a15cf52dfbfbba78e2eae421f0dde31297",
+      "derived_parts": [
+        {
+          "bytes": 2652,
+          "path": "preflight/resource_readback.py",
+          "sha256": "4ff405b44de979947627e2879a31d9a15cf52dfbfbba78e2eae421f0dde31297"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/resource_readback.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2652,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/resource_readback.py",
+      "original_raw_sha256": "4ff405b44de979947627e2879a31d9a15cf52dfbfbba78e2eae421f0dde31297",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8620,
+      "decoded_sanitized_sha256": "516b68b3079d0ca62ddf10c53a7ab31d89c27133a9c0496dea4dbc58ef60d0bb",
+      "derived_parts": [
+        {
+          "bytes": 8620,
+          "path": "preflight/verify.py",
+          "sha256": "516b68b3079d0ca62ddf10c53a7ab31d89c27133a9c0496dea4dbc58ef60d0bb"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preflight/verify.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8620,
+      "original_raw_path": ".runtime/round-20261023/water-pool-geometry-preflight-v1/verify.py",
+      "original_raw_sha256": "516b68b3079d0ca62ddf10c53a7ab31d89c27133a9c0496dea4dbc58ef60d0bb",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3891,
+      "decoded_sanitized_sha256": "5f25845e22e1230be87c1da33e864f5799f45358fe370f49d977f5909b88f661",
+      "derived_parts": [
+        {
+          "bytes": 3891,
+          "path": "private-cold-source/liquid_product_deployment.py",
+          "sha256": "5f25845e22e1230be87c1da33e864f5799f45358fe370f49d977f5909b88f661"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "private-cold-source/liquid_product_deployment.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3891,
+      "original_raw_path": ".runtime/projects/water-r28-pool-geometry-v1/behavior_pack/modern_projection/projection/liquid_product_deployment.py",
+      "original_raw_sha256": "5f25845e22e1230be87c1da33e864f5799f45358fe370f49d977f5909b88f661",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 45756,
+      "decoded_sanitized_sha256": "72b8f94a3dea9d433a0594c85f7a0249197cb6aac3619f577f28d977ba630813",
+      "derived_parts": [
+        {
+          "bytes": 45756,
+          "path": "private-cold-source/scene.py",
+          "sha256": "72b8f94a3dea9d433a0594c85f7a0249197cb6aac3619f577f28d977ba630813"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "private-cold-source/scene.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 45756,
+      "original_raw_path": ".runtime/projects/water-r28-pool-geometry-v1/behavior_pack/modern_projection/projection/scene.py",
+      "original_raw_sha256": "72b8f94a3dea9d433a0594c85f7a0249197cb6aac3619f577f28d977ba630813",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3962,
+      "decoded_sanitized_sha256": "f521f37a4ebdb12b57ea3d805bb653e3e653d51ce64619e122896896d62daaac",
+      "derived_parts": [
+        {
+          "bytes": 3962,
+          "path": "shared-source/behavior_pack/modern_projection/projection/liquid_product_deployment.py",
+          "sha256": "f521f37a4ebdb12b57ea3d805bb653e3e653d51ce64619e122896896d62daaac"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-source/behavior_pack/modern_projection/projection/liquid_product_deployment.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3962,
+      "original_raw_path": "behavior_pack/modern_projection/projection/liquid_product_deployment.py",
+      "original_raw_sha256": "f521f37a4ebdb12b57ea3d805bb653e3e653d51ce64619e122896896d62daaac",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 46764,
+      "decoded_sanitized_sha256": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+      "derived_parts": [
+        {
+          "bytes": 46764,
+          "path": "shared-source/behavior_pack/modern_projection/projection/scene.py",
+          "sha256": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-source/behavior_pack/modern_projection/projection/scene.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 46764,
+      "original_raw_path": "behavior_pack/modern_projection/projection/scene.py",
+      "original_raw_sha256": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7217,
+      "decoded_sanitized_sha256": "b450cc6b5d5388c878fa5dc54b0cd0bd625db616e2772e5fc88e878ece1504e7",
+      "derived_parts": [
+        {
+          "bytes": 7217,
+          "path": "shared-source/tests/test_liquid_product_geometry.py",
+          "sha256": "b450cc6b5d5388c878fa5dc54b0cd0bd625db616e2772e5fc88e878ece1504e7"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-source/tests/test_liquid_product_geometry.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7217,
+      "original_raw_path": "tests/test_liquid_product_geometry.py",
+      "original_raw_sha256": "b450cc6b5d5388c878fa5dc54b0cd0bd625db616e2772e5fc88e878ece1504e7",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7521,
+      "decoded_sanitized_sha256": "db4ecef4f4d4c177d84a33ce8dfa46844cbc8a7703a29899a111261cee4ae19c",
+      "derived_parts": [
+        {
+          "bytes": 7521,
+          "path": "shared-source/tests/test_liquid_product_gui.py",
+          "sha256": "db4ecef4f4d4c177d84a33ce8dfa46844cbc8a7703a29899a111261cee4ae19c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-source/tests/test_liquid_product_gui.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7521,
+      "original_raw_path": "tests/test_liquid_product_gui.py",
+      "original_raw_sha256": "db4ecef4f4d4c177d84a33ce8dfa46844cbc8a7703a29899a111261cee4ae19c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2196,
+      "decoded_sanitized_sha256": "2417e39f2ad940b04ffbe5f4f41f901541fb43bd574db5ffd7b092bd2136e2f8",
+      "derived_parts": [
+        {
+          "bytes": 2196,
+          "path": "shared-validation/minecraft-py-reviews-v1.json",
+          "sha256": "2417e39f2ad940b04ffbe5f4f41f901541fb43bd574db5ffd7b092bd2136e2f8"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-validation/minecraft-py-reviews-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2196,
+      "original_raw_path": ".runtime/round-20261023/water-shared-hook-validation-v1/minecraft-py-reviews-v1.json",
+      "original_raw_sha256": "2417e39f2ad940b04ffbe5f4f41f901541fb43bd574db5ffd7b092bd2136e2f8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 108,
+      "decoded_sanitized_sha256": "5ad33af719f4af2aafa35dc0d095a3ece03507f93768c3e6cd22a6d26c9995be",
+      "derived_parts": [
+        {
+          "bytes": 108,
+          "path": "shared-validation/python2-actual-geometry-and-scene.stderr.txt",
+          "sha256": "5ad33af719f4af2aafa35dc0d095a3ece03507f93768c3e6cd22a6d26c9995be"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-validation/python2-actual-geometry-and-scene.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 108,
+      "original_raw_path": ".runtime/round-20261023/water-shared-hook-validation-v1/python2-actual-geometry-and-scene.stderr.txt",
+      "original_raw_sha256": "5ad33af719f4af2aafa35dc0d095a3ece03507f93768c3e6cd22a6d26c9995be",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "shared-validation/python2-actual-geometry-and-scene.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-validation/python2-actual-geometry-and-scene.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-shared-hook-validation-v1/python2-actual-geometry-and-scene.stdout.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "shared-validation/python2-production-compile.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-validation/python2-production-compile.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-shared-hook-validation-v1/python2-production-compile.stderr.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "shared-validation/python2-production-compile.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-validation/python2-production-compile.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-shared-hook-validation-v1/python2-production-compile.stdout.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9271,
+      "decoded_sanitized_sha256": "15371be616faf6d13b999baf043835a262d9b5289b5cb0424a3a39e944585ff7",
+      "derived_parts": [
+        {
+          "bytes": 9271,
+          "path": "shared-validation/python3-targeted.stderr.txt",
+          "sha256": "15371be616faf6d13b999baf043835a262d9b5289b5cb0424a3a39e944585ff7"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-validation/python3-targeted.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9271,
+      "original_raw_path": ".runtime/round-20261023/water-shared-hook-validation-v1/python3-targeted.stderr.txt",
+      "original_raw_sha256": "15371be616faf6d13b999baf043835a262d9b5289b5cb0424a3a39e944585ff7",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "shared-validation/python3-targeted.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-validation/python3-targeted.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-shared-hook-validation-v1/python3-targeted.stdout.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3729,
+      "decoded_sanitized_sha256": "e59d41cbf8a25259a231ef196b735f41858df5b041c0750775a7c21dba9edb7e",
+      "derived_parts": [
+        {
+          "bytes": 3729,
+          "path": "shared-validation/validate.py",
+          "sha256": "e59d41cbf8a25259a231ef196b735f41858df5b041c0750775a7c21dba9edb7e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-validation/validate.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3729,
+      "original_raw_path": ".runtime/round-20261023/water-shared-hook-validation-v1/validate.py",
+      "original_raw_sha256": "e59d41cbf8a25259a231ef196b735f41858df5b041c0750775a7c21dba9edb7e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2492,
+      "decoded_sanitized_sha256": "49afca6b3fb1bcf067a65069685c508006d906861deed929531ba7065046424b",
+      "derived_parts": [
+        {
+          "bytes": 2492,
+          "path": "shared-validation/validation-v1.json",
+          "sha256": "49afca6b3fb1bcf067a65069685c508006d906861deed929531ba7065046424b"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "shared-validation/validation-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2492,
+      "original_raw_path": ".runtime/round-20261023/water-shared-hook-validation-v1/validation-v1.json",
+      "original_raw_sha256": "49afca6b3fb1bcf067a65069685c508006d906861deed929531ba7065046424b",
+      "redacted_fields": []
+    }
+  ],
+  "entry_count": 97,
+  "full_frozen_matrix_completed": false,
+  "geometry_candidate_native_pool_passed": true,
+  "large_source_archives_included": false,
+  "manual_closures_added": 0,
+  "original_PNG_count": 2,
+  "previous_failure_reference": {
+    "index_path": "docs/evidence/water-A-replay-F-pool-r28-v1/index.json",
+    "index_sha256": "3c9a596cb02e2b8350bed2fc7fa81127b0c4ed8a9f56ea22dbf192a771161180",
+    "old_original_report_sha256": "84a0365844b2a9b7564b2a3b91241f29380e88fcd5ff76f5fb9937f2dc2e53c2",
+    "scope": "Preserved original failure, exact state, reviewed algebra and negative controls."
+  },
+  "private_cold_scene_has_new_book_hook": false,
+  "schema": 3,
+  "scope": "One private cold editor pool geometry candidate, wet/dry and actual canvas/clip; shared minimal hook regressions.",
+  "single_file_limit_bytes": 240000
+}

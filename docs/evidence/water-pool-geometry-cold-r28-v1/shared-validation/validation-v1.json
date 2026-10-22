@@ -1,0 +1,60 @@
+{
+  "MC_started": false,
+  "RPC_dispatched": false,
+  "book_branch_and_all_other_scene_bytes_preserved": true,
+  "commands": {
+    "python2-actual-geometry-and-scene": {
+      "command": [
+        "D:/Program/Python27/python.exe",
+        "-B",
+        "tests/test_liquid_product_geometry.py"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "5ad33af719f4af2aafa35dc0d095a3ece03507f93768c3e6cd22a6d26c9995be",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "python2-production-compile": {
+      "command": [
+        "D:/Program/Python27/python.exe",
+        "-B",
+        "-c",
+        "import sys; [compile(open(p,\"rb\").read(),p,\"exec\") for p in sys.argv[1:]]",
+        "behavior_pack/modern_projection/projection/liquid_product_deployment.py",
+        "behavior_pack/modern_projection/projection/scene.py"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "python3-targeted": {
+      "command": [
+        "D:\\Program\\Python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "tests.test_liquid_product_geometry",
+        "tests.test_liquid_product_gui",
+        "tests.test_book_gui_anchor",
+        "tests.test_liquid_viewport",
+        "tests.test_liquid_product_profile"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "15371be616faf6d13b999baf043835a262d9b5289b5cb0424a3a39e944585ff7",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "passed": true,
+  "product_water_source_matches_private_cold_candidate": true,
+  "python2_actual_geometry_and_scene_tests": 5,
+  "python3_targeted_tests": 57,
+  "qualification_or_owner_data_modified": false,
+  "schema": 1,
+  "source_sha256": {
+    "behavior_pack/modern_projection/projection/liquid_product_deployment.py": "f521f37a4ebdb12b57ea3d805bb653e3e653d51ce64619e122896896d62daaac",
+    "behavior_pack/modern_projection/projection/scene.py": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+    "tests/test_liquid_product_geometry.py": "b450cc6b5d5388c878fa5dc54b0cd0bd625db616e2772e5fc88e878ece1504e7",
+    "tests/test_liquid_product_gui.py": "db4ecef4f4d4c177d84a33ce8dfa46844cbc8a7703a29899a111261cee4ae19c"
+  }
+}

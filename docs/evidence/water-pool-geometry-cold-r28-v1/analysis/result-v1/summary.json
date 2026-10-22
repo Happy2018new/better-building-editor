@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "source_report": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-pool-geometry-cold-v1\\product-v2-f-editor-v1.json",
+  "source_report_sha256": "ad38db02fd590ba9157328ccc6a40fbf0310de20ed8feb7a6d52ba9ad3708156",
+  "source_unchanged": true,
+  "activation": {
+    "version": "SDK_GUI_captured_state_coordinate_adapter_v2",
+    "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-editor-anchor-candidate-v1\\candidate_scene_project.py",
+    "candidate_sha256": "5db34b3a3c0b4d7ffaf90e4e82f1fdd60cc55843743f4eb11b9b5ffbbdf442c2",
+    "bound_state_count": 2,
+    "native_gui": 2,
+    "source_coordinate_formula_unchanged": true,
+    "physical_regions_and_pixel_thresholds_unchanged": true,
+    "image_fit_or_roi_search": false,
+    "original_report_modified": false
+  },
+  "evidence_valid": true,
+  "capture_failures": [],
+  "observed_product_gates": {
+    "geometry": true,
+    "transparency": false,
+    "animation": false
+  },
+  "geometry_rows": 1,
+  "geometry_failed": [],
+  "alpha_failed": [],
+  "transparency_failed": [],
+  "acceptance": {
+    "schema": 1,
+    "source_sha256": "ad38db02fd590ba9157328ccc6a40fbf0310de20ed8feb7a6d52ba9ad3708156",
+    "limits": {
+      "side_correlation": 0.85,
+      "side_rgb_rmse": 8.0,
+      "side_minimum_contrast": 1.0,
+      "restored_rgb_rmse": 2.0,
+      "owner_p95_ms": 5.0,
+      "owner_p99_ms": 16.7,
+      "owner_max_ms": 100.0,
+      "maximum_groups": 256
+    },
+    "evidence_valid": true,
+    "source_unchanged": true,
+    "maximum_observed_groups": 8,
+    "passed": false,
+    "scope": "Public isolated pool and partial-solid controls; owner-call elapsed time excludes IPC and screenshots but can include thread scheduling delays",
+    "model_budget_passed": true
+  },
+  "acceptance_failed": {
+    "visibility": [],
+    "side_uv": [],
+    "budgets": [
+      "LiquidProjection.advance",
+      "WorldLiquidRenderer.advance"
+    ],
+    "lifecycle": []
+  },
+  "MC_started": false,
+  "RPC_dispatched": false,
+  "formal_release_qualification": false
+}

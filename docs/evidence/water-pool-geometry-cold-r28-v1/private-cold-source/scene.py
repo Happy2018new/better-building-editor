@@ -1,0 +1,823 @@
+# -*- coding: utf-8 -*-
+# pylint: disable=unexpected-keyword-arg,E1123
+"""Controlled native block viewport: orbit, inertia, zoom and direct voxel editing."""
+from __future__ import unicode_literals
+import math
+import time
+import mod.client.extraClientApi as clientApi
+from ..pyreact import *
+from ..pyreact.hooks import use_animation_frame
+from .widgets import Theme, S, Doll, Pointer, transparent, use_theme
+from .camera import OrbitCamera, PinchZoom, pick_target, behind_plane, render_bounds
+from .model import bounds
+from .preview import PreviewBuffer
+from .diagnostics import inspect
+from functools import partial
+from .scene_lines import outline_targets, cursor_depth_plane, stroke_width
+from .preview_depth import depth_color, tile_layer
+from .grid_preview import GridPreview, GridView
+from .outline_preview import OutlinePreview
+from .input_mode import is_touch
+from .liquid_preview import LiquidPreview
+from .liquid_viewport import LiquidControls, group_view
+from .liquid_scene import LiquidModels
+from .item_sprite_preview import ItemPreview
+from .item_sprite_render import ItemControls
+from .cauldron_preview import CauldronPreview
+from .portal_preview import PortalPreview
+from .book_preview import BookPreview
+
+
+MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '换材质'),
+         ('erase', '擦除'), ('pick', '吸管'), ('box', '框选')]
+HINTS = {'browse': '拖动自由旋转，滚轮缩放，点击定位单格',
+         'select': '点击选择单个方块，拖动仍可旋转',
+         'place': '彩框预览放置位置，红框不可放置，点击放置',
+         'paint': '仅替换点击格的材质，保持方块位置',
+         'erase': '单格点击擦除，框选后可擦除整个选区，支持撤销',
+         'pick': '点击吸取材质，不改变建筑',
+         'box': '点击两点框选，空白处选择当前 Y 层，拖动旋转'}
+
+
+@Component
+def PreviewTile(identity=None, registry=None, width=400, height=300):
+    dolls = [use_ref(None), use_ref(None)]
+    surfaces = [use_ref(None), use_ref(None)]
+    buffer = use_ref(lambda: PreviewBuffer()).current
+    tint = use_ref(None)
+    buffer.tint = tint
+    layer = tile_layer(identity)
+    def register():
+        entry = (dolls, surfaces, buffer)
+        registry[identity] = entry
+        def cleanup():
+            if registry.get(identity) is entry:
+                registry.pop(identity, None)
+        return cleanup
+    use_effect(register, [identity])
+    return Panel(cacheLayout=True, style=S(position=Position.absolute, width=width, height=height), children=[
+        Image(ref=tint, src='textures/modern_projection/transparent',
+              style=S(position=Position.absolute, width=1, height=1, zIndex=layer-1)),
+    ] + [
+        Panel(ref=surfaces[i], key='surface%d' % i,
+              style=Style(position=Position.absolute, width='100%', height='100%', zIndex=0), children=[
+            Doll(ref=dolls[i], managed=True, renderType=PaperDollRenderType.block_geometry,
+                 style=Style(position=Position.absolute, width='100%', height='100%', zIndex=layer))]) for i in range(2)])
+
+
+@Component
+def PreviewModels(session=None, registry=None, width=400, height=300, keys=()):
+    mounted, set_mounted = use_state(())
+    def prepare():
+        retained = tuple(k for k in mounted if k in keys)
+        missing = tuple(k for k in keys if k not in retained)
+        session.tiles.mounting = bool(missing)
+        if missing or retained != mounted:
+            alive = [True]
+            def step():
+                if alive[0]:
+                    if session.camera_dragging:
+                        session.bridge.later(.1, step)
+                    else:
+                        set_mounted(retained+missing[:4])
+            session.next_frame(step)
+            return lambda: alive.__setitem__(0, False)
+    use_effect(prepare, [keys, mounted])
+    return Panel(cacheLayout=True, style=S(position=Position.absolute,width=width,height=height), children=[
+        PreviewTile(key='tile_%d_%d_%d' % key, identity=key, registry=registry, width=width, height=height)
+        for key in mounted if key in keys])
+
+
+@Component
+def Scene(session=None, revision=0, width=400, height=300, navigation=None, preview_status=None):
+    use_theme()
+    unused, refresh = use_state(0)
+
+    def subscribe():
+        def changed():
+            refresh(lambda previous: previous + 1)
+        return session.subscribe(changed, ('page', 'view', 'preview', 'biome', 'material_browser', 'pending_rename', 'pending_confirm', 'sharing_visibility'))
+    use_effect(subscribe, [session])
+    use_effect(session.bridge.attach_frame_pump, [session])
+    registry = use_ref({}).current
+    liquid_profile = getattr(session, 'liquid_profile', None)
+    liquid_registry = use_ref({}).current
+    liquid = use_memo(lambda: getattr(liquid_profile, 'preview_factory', LiquidPreview)(
+        session, liquid_profile.provider_factory,
+        liquid_profile.models, liquid_profile.max_groups) if liquid_profile is not None else None,
+        [session, liquid_profile])
+    liquid_controls = use_memo(lambda: LiquidControls(liquid_registry,
+        session.bridge.factory.CreateModel(None), request_starts_per_frame=getattr(
+            liquid_profile, 'ui_request_starts_per_frame', None)) if liquid is not None else None, [liquid])
+    def own_liquid():
+        if liquid is None:
+            return
+        session.liquid_preview = liquid
+        session.liquid_controls = liquid_controls
+        def cleanup():
+            liquid_controls.close()
+            liquid.close()
+            if getattr(session, 'liquid_preview', None) is liquid:
+                session.liquid_preview = None
+                session.liquid_controls = None
+                session.liquid_error = ''
+        return cleanup
+    use_effect(own_liquid, [liquid, liquid_controls])
+    item_profile = getattr(session, 'item_profile', None)
+    item_registry = use_ref({}).current
+    items = use_memo(lambda: ItemPreview(session, item_profile)
+                     if item_profile is not None else None, [session, item_profile])
+    item_controls = use_memo(lambda: ItemControls(item_registry,
+        session.bridge.factory.CreateModel(None)) if items is not None else None, [items])
+    def own_items():
+        if items is None:
+            return
+        session.item_preview, session.item_controls = items, item_controls
+        def cleanup():
+            item_controls.close()
+            items.close()
+            if getattr(session, 'item_preview', None) is items:
+                session.item_preview = session.item_controls = None
+                session.item_error = ''
+        return cleanup
+    use_effect(own_items, [items, item_controls])
+    cauldron_profile = getattr(session, 'cauldron_profile', None)
+    cauldron_registry = use_ref({}).current
+    cauldrons = use_memo(lambda: CauldronPreview(session, cauldron_profile)
+                         if cauldron_profile is not None else None, [session, cauldron_profile])
+    cauldron_controls = use_memo(lambda: LiquidControls(cauldron_registry,
+        session.bridge.factory.CreateModel(None)) if cauldrons is not None else None, [cauldrons])
+    def own_cauldrons():
+        if cauldrons is None:
+            return
+        session.cauldron_preview, session.cauldron_controls = cauldrons, cauldron_controls
+        def cleanup():
+            cauldron_controls.close()
+            cauldrons.close()
+            if session.cauldron_preview is cauldrons:
+                session.cauldron_preview = session.cauldron_controls = None
+                session.cauldron_error = ''
+        return cleanup
+    use_effect(own_cauldrons, [cauldrons, cauldron_controls])
+    portal_profile = getattr(session, 'portal_profile', None)
+    portal_registry = use_ref({}).current
+    portals = use_memo(lambda: PortalPreview(session, portal_profile)
+                       if portal_profile is not None else None, [session, portal_profile])
+    portal_controls = use_memo(lambda: LiquidControls(portal_registry,
+        session.bridge.factory.CreateModel(None)) if portals is not None else None, [portals])
+    def own_portals():
+        if portals is None:
+            return
+        session.portal_preview, session.portal_controls = portals, portal_controls
+        def cleanup():
+            portal_controls.close()
+            portals.close()
+            if session.portal_preview is portals:
+                session.portal_preview = session.portal_controls = None
+                session.portal_error = ''
+        return cleanup
+    use_effect(own_portals, [portals, portal_controls])
+    book_profile = getattr(session, 'book_profile', None)
+    book_registry = use_ref({}).current
+    books = use_memo(lambda: BookPreview(session, book_profile)
+                     if book_profile is not None else None, [session, book_profile])
+    book_controls = use_memo(lambda: LiquidControls(book_registry,
+        session.bridge.factory.CreateModel(None)) if books is not None else None, [books])
+    def own_books():
+        if books is None:
+            return
+        session.book_preview, session.book_controls = books, book_controls
+        def cleanup():
+            book_controls.close()
+            books.close()
+            if session.book_preview is books:
+                session.book_preview = session.book_controls = None
+                session.book_error = ''
+        return cleanup
+    use_effect(own_books, [books, book_controls])
+    models_signature = use_ref(None)
+    models_pending = use_ref(True)
+    pointer, canvas = use_ref(None), use_ref(None)
+    clipping = use_ref(None)
+    grid_clipping, edge_clipping, cursor_clipping = use_ref(None), use_ref(None), use_ref(None)
+    clip_geometry = use_ref(None)
+    def create_camera():
+        result = OrbitCamera(*session.camera_pose)
+        result.depth, result.depth_target = session.camera_depth_pose, session.camera_depth
+        result.pivot = session.camera_pivot
+        result.pan = result.pan_target = session.camera_pan
+        return result
+    camera = use_ref(create_camera).current
+    reset_revision = use_ref(session.camera_reset_revision)
+    input_check = use_ref(0.)
+    frame = use_ref(time.time())
+    outline = use_ref(lambda: OutlinePreview()).current
+    cursor_outline = use_ref(lambda: OutlinePreview()).current
+    grid_preview = use_ref(lambda: GridPreview()).current
+    grid_doll, grid_tint = use_ref(None), use_ref(None)
+    spectrum_time = use_ref(0.)
+    dimmer = use_ref(None)
+    dim_alpha = use_ref(None)
+    wheel_time = use_ref(None)
+    drag = use_ref(None)
+    pinch = use_ref(None)
+    mouse = use_ref(lambda: clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())).current
+    hover_preview = use_ref(None)
+    placed_pointer = use_ref(None)
+    pointer_mode = use_ref(session.direct_mode)
+    edge_doll, edge_tint = use_ref(None), use_ref(None)
+    cursor_doll, cursor_tint = use_ref(None), use_ref(None)
+    selected_bounds = use_ref((None, None))
+    active = (session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
+              and not session.material_browser and not session.pending_rename and not session.sharing.opened)
+
+    def reset_cursor():
+        hover_preview.current = None
+        placed_pointer.current = None
+    use_effect(reset_cursor, [session.direct_mode, session.editor.edit_layer, active])
+
+    def clip():
+        if canvas.current:
+            canvas.current.SetClipsChildren(True)
+        for ref in (clipping, grid_clipping, edge_clipping, cursor_clipping):
+            if ref.current:
+                ref.current.SetClipsChildren(True)
+    use_effect(clip, [])
+
+    def restore_view():
+        clip_geometry.current = None
+        models_signature.current = None
+        outline.invalidate()
+        cursor_outline.invalidate()
+        grid_preview.invalidate()
+        if liquid_controls is not None:
+            liquid_controls.invalidate()
+        if item_controls is not None:
+            item_controls.invalidate()
+        if cauldron_controls is not None:
+            cauldron_controls.invalidate()
+        if portal_controls is not None:
+            portal_controls.invalidate()
+        if book_controls is not None:
+            book_controls.invalidate()
+        if active:
+            for dolls, surfaces, preview in registry.values():
+                preview.invalidate()
+                preview.clip_offset = None
+    use_effect(restore_view, [active, width, height, Theme.scale, session.page])
+
+    def aim():
+        if reset_revision.current != session.camera_reset_revision:
+            return
+        if (abs(session.zoom - camera.target[2]) > .00001 and session.camera_focus_request is None
+                and session.camera_pan == camera.pan_target):
+            camera.zoom_at(session.zoom, width / 2., height / 2., width, height)
+            session.camera_pan = camera.pan_target
+        camera.aim(session.camera_yaw, session.camera_pitch, session.zoom)
+    use_effect(aim, [session.camera_yaw, session.camera_pitch, session.zoom, session.camera_revision])
+
+    def unit():
+        # Native PaperDoll is orthographic; calibrated against block face corners.
+        return min(width, height) * Theme.scale * camera.zoom * .72 / max(session.scene_size)
+
+    def hit_at(x, y):
+        origin, direction = camera.ray(x, y, session.scene_size, width * Theme.scale, height * Theme.scale, unit())
+        origin = tuple(origin[i] + session.scene_origin[i] for i in range(3))
+        def visible(pos):
+            return (all(session.scene_origin[i] <= pos[i] < session.scene_origin[i] + session.scene_size[i] for i in range(3)) and
+                    session.visible_layer(pos[1]))
+        layer = session.editor.layer if session.direct_mode in ('place', 'box', 'select', 'browse') else None
+        return pick_target(session.editor.document, origin, direction, visible, layer, session.grid, detailed=True)
+
+    def orbit_anchor(x, y):
+        hit = hit_at(x, y)
+        if hit is None:
+            return
+        origin, direction = camera.ray(x, y, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
+        pos, normal, point = hit
+        axis = next((i for i in range(3) if normal[i]), 1)
+        if abs(direction[axis]) < 1e-8:
+            return
+        face = point[axis] - session.scene_origin[axis]
+        distance = (face-origin[axis]) / direction[axis]
+        point = tuple(origin[i]+distance*direction[i] for i in range(3))
+        camera.set_pivot(point, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
+        session.camera_pivot = camera.pivot
+        session.camera_pan = camera.pan_target
+
+    def tick(now):
+        session.tiles.renderer_active = active
+        session.tiles.last_render = now
+        session.bridge.pump_frame()
+        # Tool switches only change picking policy and outlines. Keep the
+        # native model/grid tree and pointer callbacks out of that UI commit.
+        if pointer_mode.current != session.direct_mode:
+            pointer_mode.current = session.direct_mode
+            reset_cursor()
+        dt = now - frame.current
+        frame.current = now
+        alpha = max(0., min(.8, 1.-session.brightness))
+        if dimmer.current and dim_alpha.current != alpha:
+            dimmer.current.SetAlpha(alpha)
+            dim_alpha.current = alpha
+        if canvas.current and clipping.current:
+            x, y = canvas.current.GetGlobalPosition()
+            cw, ch = canvas.current.GetSize()
+            # The native scissor rounds fractional bottom/right edges differently
+            # from JsonUI. Use integral UI bounds and preserve the model's origin.
+            dx, dy = math.ceil(x) - x, math.ceil(y) - y
+            geometry = (dx, dy, max(0., math.floor(x + cw) - math.ceil(x)),
+                        max(0., math.floor(y + ch) - math.ceil(y)))
+            if geometry != clip_geometry.current:
+                clip_geometry.current = geometry
+                # Models, outlines and the grid must share the
+                # same integral rectangle, including after window motion.
+                for ref in (clipping, grid_clipping, edge_clipping, cursor_clipping):
+                    if ref.current:
+                        ref.current.SetPosition((dx, dy))
+                        ref.current.SetSize(geometry[2:])
+                outline.invalidate()
+                cursor_outline.invalidate()
+                grid_preview.invalidate()
+        if not active:
+            session.cursor_cell = None
+            drag.current = None
+            camera.dragging = False
+            session.camera_dragging = False
+            camera.velocity = (0., 0.)
+            return
+        if now >= input_check.current and drag.current is None:
+            input_check.current = now + .25
+            touch = is_touch()
+            if session.touch_mode != touch:
+                session.touch_mode = touch
+                hover_preview.current = None
+                session.emit('input_mode')
+        if reset_revision.current != session.camera_reset_revision:
+            reset_revision.current = session.camera_reset_revision
+            if session.camera_reset_animated and Theme.motion:
+                camera.set_pivot(None, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
+                camera.dragging = False
+                camera.velocity = (0., 0.)
+                camera.pan_target = (0., 0.)
+            else:
+                camera.reset()
+            camera.aim(session.camera_yaw, session.camera_pitch, session.zoom)
+            drag.current = None
+            session.camera_dragging = False
+            wheel_time.current = None
+            placed_pointer.current = None
+            hover_preview.current = None
+            outline.invalidate()
+        if session.camera_focus_request is not None:
+            point = tuple(session.camera_focus_request[i] - session.scene_origin[i] for i in range(3))
+            session.camera_focus_request = None
+            # A selected voxel has the same useful editing size in a small
+            # draft and a maximum-size building; retain the complete mesh.
+            camera.set_pivot(point, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
+            session.camera_pivot = camera.pivot
+            session.zoom = 20. * max(session.scene_size) / (min(width, height) * .72)
+            camera.aim(camera.yaw, camera.pitch, session.zoom)
+            session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
+            session.camera_pan = (0., 0.)
+            session.emit('view')
+        camera.pan_target = session.camera_pan
+        camera.depth_target = session.camera_depth
+        camera.advance(dt, Theme.motion)
+        session.camera_depth_pose = camera.depth
+        session.camera_pose = (camera.yaw, camera.pitch, camera.zoom)
+        if wheel_time.current is not None and now - wheel_time.current >= .18:
+            wheel_time.current = None
+            # A drag may have started since the last wheel event. Publish its
+            # current pose too, so the delayed UI refresh cannot rewind it.
+            session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
+            session.zoom = camera.target[2]
+            session.emit('view')
+        rendered_yaw, rendered_pitch = camera.render_angles()
+        signature = (session.model_name, rendered_yaw, rendered_pitch, camera.zoom, camera.pan, width, height, Theme.scale,
+                     session.scene_origin, session.scene_size, camera.pivot, camera.depth)
+        pose = (unit() * session.scene_scale / 10., -90. + rendered_pitch, rendered_yaw)
+        toward = camera.basis()[2]
+        plane = camera.depth_plane(session.scene_size)
+        plane_offset = plane[1] if plane else sum(session.scene_size[i]*max(0.,toward[i]) for i in range(3))+.5
+        biome = session.editor.document.biome
+        model_key = (signature, session.tiles.publication, len(registry), biome, clip_geometry.current)
+        update_models = model_key != models_signature.current or models_pending.current
+        models_signature.current = model_key
+        right, up, unused_toward = camera.basis()
+        native_width, native_height, cell_unit = width*Theme.scale, height*Theme.scale, unit()
+        project = camera.projector(session.scene_size, native_width, native_height, cell_unit)
+        for key, controls in list(registry.items()) if update_models else ():
+            dolls, surfaces, preview = controls
+            if not all(ref.current for ref in dolls+surfaces) or not preview.tint.current:
+                continue
+            # Tiles mount over several frames, often after the scissor was
+            # positioned. Each new pair needs the same origin compensation;
+            # updating only existing tiles when the scissor changes leaves
+            # seams of ceil(canvas_origin)-canvas_origin between neighbours.
+            dx, dy = clip_geometry.current[:2] if clip_geometry.current else (0., 0.)
+            clip_offset = (-dx, -dy)
+            if getattr(preview, 'clip_offset', None) != clip_offset:
+                for surface in surfaces:
+                    surface.current.SetPosition(clip_offset)
+                preview.clip_offset = clip_offset
+            if not hasattr(preview, 'native_dolls'):
+                preview.native_dolls = tuple(ref.current.asNeteasePaperDoll() for ref in dolls)
+            part = session.tiles.parts.get(key)
+            if part is None:
+                if not getattr(preview, 'suspended', False):
+                    preview.suspended = True
+                    for slot, surface in enumerate(surfaces):
+                        surface.current.SetVisible(False, False)
+                        preview.visible[slot] = False
+                    preview.invalidate()
+                continue
+            if getattr(preview, 'suspended', False):
+                preview.suspended = False
+                preview.invalidate()
+            if not part['name'] and preview.initialized and not any(preview.names):
+                part['pending'] = False
+                continue
+            center = tuple(part['origin'][i]+part['size'][i]/2.-session.scene_origin[i] for i in range(3))
+            tx, ty = project(center)
+            rx = cell_unit*(sum(part['size'][i]*abs(right[i]) for i in range(3))/2.+2.)
+            ry = cell_unit*(sum(part['size'][i]*abs(up[i]) for i in range(3))/2.+2.)
+            offscreen = tx+rx < 0 or tx-rx > native_width or ty+ry < 0 or ty-ry > native_height
+            distance = sum(center[i]*toward[i] for i in range(3))-plane_offset
+            radius = sum(part['size'][i]*abs(toward[i]) for i in range(3))/2.
+            clipped = offscreen or distance-radius >= 0.
+            if clipped != getattr(preview, 'depth_hidden', False):
+                preview.depth_hidden = clipped
+                for slot, surface in enumerate(surfaces):
+                    shown = not clipped and bool(preview.names[slot]) and (slot == preview.front or preview.pending is not None)
+                    surface.current.SetVisible(shown, False)
+                    preview.visible[slot] = shown
+                if not clipped:
+                    preview.invalidate()
+            if clipped:
+                # Geometry stays exact and retained; an offscreen tile needs
+                # neither a camera submission nor a UI acknowledgement.
+                part['pending'] = False
+                continue
+            layout = getattr(session.bridge, 'model_layouts', {}).get(part['name'])
+            preview_layout = (part['size'][1], part['size'][1]) if layout is None else (layout[0][1], layout[1][2])
+            tint_color = depth_color(distance, biome, preview_layout)
+            if getattr(preview, 'tint_color', None) != tint_color:
+                preview.tint.current.asImage().SetSpriteColor(tint_color)
+                preview.tint_color = tint_color
+            if (getattr(preview, 'scene_signature', None) == signature and not preview.restore and
+                    preview.ready(part['name']) and preview.poses[preview.front] == pose):
+                part['pending'] = False
+                continue
+            preview.scene_signature = signature
+            native_position, native_size = render_bounds(width*Theme.scale, height*Theme.scale,
+                (tx-width*Theme.scale/2., ty-height*Theme.scale/2.))
+            geometry = (native_position, native_size)
+            if getattr(preview, 'geometry', None) != geometry:
+                preview.geometry = geometry
+                for ref in dolls:
+                    ref.current.SetPosition(native_position)
+                    ref.current.SetSize(native_size)
+            def draw(slot, name, pose):
+                result = preview.native_dolls[slot].RenderBlockGeometryModel({
+                    'block_geometry_model_name': name, 'scale': pose[0],
+                    'init_rot_x': pose[1], 'init_rot_y': 0., 'init_rot_z': pose[2]})
+                return result
+            def show(slot, visible, front):
+                visible = visible and not clipped
+                if preview.visible[slot] != visible:
+                    surfaces[slot].current.SetVisible(visible, False)
+                    preview.visible[slot] = visible
+            preview.update(part['name'], pose, now, draw, show)
+            if preview.ready(part['name']):
+                part['pending'] = False
+        if update_models:
+            models_pending.current = any(part['pending'] for part in session.tiles.parts.values())
+        if liquid is not None:
+            liquid.advance()
+            def liquid_view(origin):
+                view = group_view(origin, camera, session.scene_origin, session.scene_size,
+                                  (native_width, native_height), cell_unit)
+                gui_geometry = getattr(liquid_profile, 'ui_geometry_for_gui', None)
+                if gui_geometry is not None:
+                    position, size = gui_geometry(view.position, view.size, Theme.native_gui_scale)
+                    return view._replace(position=position, size=size)
+                gui_offset = getattr(liquid_profile, 'ui_offset_for_gui', None)
+                offset = (gui_offset(view.size, Theme.native_gui_scale) if gui_offset is not None
+                          else liquid_profile.ui_offset(view.size))
+                return view._replace(position=tuple(view.position[axis] + offset[axis] for axis in range(2)))
+            def liquid_pose(view):
+                return liquid_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)
+            liquid_controls.update(liquid.groups, liquid_view, liquid_pose,
+                tuple(-axis for axis in clip_geometry.current[:2]) if clip_geometry.current else (0., 0.), now)
+            error = liquid.error or liquid_controls.error
+            message = '水预览更新失败：%s' % error if error else ''
+            if session.liquid_error != message:
+                session.liquid_error = message
+                session.emit('preview_status')
+        if items is not None:
+            items.advance()
+            def item_view(origin):
+                view = group_view(origin, camera, session.scene_origin, session.scene_size,
+                                  (native_width, native_height), cell_unit)
+                offset = item_profile.ui_offset(view.size)
+                return view._replace(position=tuple(view.position[axis]+offset[axis] for axis in range(2)))
+            def item_pose(view):
+                return item_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)
+            item_controls.update(items.groups, item_view, item_pose,
+                tuple(-axis for axis in clip_geometry.current[:2]) if clip_geometry.current else (0.,0.), now)
+            error = items.error or item_controls.error
+            message = '物品预览更新失败：%s' % error if error else ''
+            if session.item_error != message:
+                session.item_error = message
+                session.emit('preview_status')
+        if cauldrons is not None:
+            cauldrons.advance()
+            def cauldron_view(origin):
+                view = group_view(origin, camera, session.scene_origin, session.scene_size,
+                                  (native_width, native_height), cell_unit)
+                offset = cauldron_profile.ui_offset(view.size)
+                return view._replace(position=tuple(view.position[axis]+offset[axis] for axis in range(2)))
+            def cauldron_pose(view):
+                return cauldron_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)
+            cauldron_controls.update(cauldrons.groups, cauldron_view, cauldron_pose,
+                tuple(-axis for axis in clip_geometry.current[:2]) if clip_geometry.current else (0.,0.), now)
+            error = cauldrons.error or cauldron_controls.error
+            message = '炼药锅预览更新失败：%s' % error if error else ''
+            if session.cauldron_error != message:
+                session.cauldron_error = message
+                session.emit('preview_status')
+        if portals is not None:
+            portals.advance()
+            def portal_view(origin):
+                view = group_view(origin, camera, session.scene_origin, session.scene_size,
+                                  (native_width, native_height), cell_unit)
+                offset = portal_profile.ui_offset(view.size)
+                return view._replace(position=tuple(view.position[axis]+offset[axis] for axis in range(2)))
+            def portal_pose(view):
+                return portal_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)
+            portal_controls.update(portals.groups, portal_view, portal_pose,
+                tuple(-axis for axis in clip_geometry.current[:2]) if clip_geometry.current else (0.,0.), now)
+            error = portals.error or portal_controls.error
+            message = '传送门预览更新失败：%s' % error if error else ''
+            if session.portal_error != message:
+                session.portal_error = message
+                session.emit('preview_status')
+        if books is not None:
+            books.advance()
+            def book_view(origin):
+                view = group_view(origin, camera, session.scene_origin, session.scene_size,
+                                  (native_width, native_height), cell_unit)
+                offset = book_profile.ui_offset(view.size)
+                return view._replace(position=tuple(view.position[axis]+offset[axis] for axis in range(2)))
+            def book_pose(view):
+                return book_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)
+            book_controls.update(books.groups, book_view, book_pose,
+                tuple(-axis for axis in clip_geometry.current[:2]) if clip_geometry.current else (0.,0.), now)
+            error = books.error or book_controls.error
+            message = '书本预览更新失败：%s' % error if error else ''
+            if session.book_error != message:
+                session.book_error = message
+                session.emit('preview_status')
+        e = session.editor
+        selection_key = (id(e), e.selection_revision)
+        if selected_bounds.current[0] != selection_key:
+            selected_bounds.current = (selection_key, bounds(e.selection) if e.selection else None)
+        preview_cell, preview_error = (None, None)
+        if session.touch_mode and drag.current is not None and not drag.current[5]:
+            px, py = pointer.current.GetGlobalPosition()
+            hit = hit_at(drag.current[2]-px, drag.current[3]-py)
+            if hit:
+                preview_cell, preview_error = session.cursor_target(*hit)
+        if not session.touch_mode and (drag.current is None or not drag.current[5]):
+            point = mouse.GetMousePosition()
+            # Native hover-enter may be missing when the UI opens beneath the
+            # mouse. Use the same viewport/navigation hit test as actual clicks.
+            if point is not None and screen_hit(point):
+                # Keep the just-placed result under a stationary mouse. Otherwise
+                # rebuilding the model immediately advances the cursor one cell.
+                if placed_pointer.current is not None and tuple(point) != placed_pointer.current:
+                    placed_pointer.current = None
+                if placed_pointer.current is None:
+                    key = (tuple(point), signature, e.revision, e.layer, e.edit_layer, e.material, e.mask,
+                           e.filter_material, tuple(sorted(e.locked_layers)), session.preview_signature(), session.direct_mode)
+                    if hover_preview.current is None or hover_preview.current[0] != key:
+                        px, py = pointer.current.GetGlobalPosition()
+                        hit = hit_at(point[0] - px, point[1] - py)
+                        target, error = session.cursor_target(*hit) if hit else (None, None)
+                        hover_preview.current = (key, target, error)
+                    unused_key, preview_cell, preview_error = hover_preview.current
+                else:
+                    preview_cell = session.focused
+        session.cursor_cell = preview_cell
+        selected, hovered = outline_targets(selected_bounds.current[1], session.direct_mode,
+                                             session.box_anchor, preview_cell, session.touch_mode)
+        pasting = session.paste_active()
+        if pasting:
+            from .pasting import paste_bounds, paste_error
+            origin = session.paste_origin
+            if not session.paste_pinned and not session.touch_mode and preview_cell is not None:
+                origin = preview_cell
+            selected, hovered = None, paste_bounds(e.clipboard, origin)
+            preview_error = paste_error(e.document, e.clipboard, origin)
+
+        thickness = stroke_width(Theme.scale)
+        hover_plane = cursor_depth_plane(plane, session.direct_mode, session.box_anchor, session.touch_mode, pasting)
+        view = GridView(project, toward, plane_offset, pose, (native_width, native_height),
+                        clip_geometry.current[:2] if clip_geometry.current else (0., 0.), thickness, signature)
+        if grid_doll.current and grid_tint.current:
+            grid_preview.update(session, grid_doll.current, grid_tint.current, view)
+        if edge_doll.current and edge_tint.current:
+            outline.update(session, edge_doll.current, edge_tint.current, view, selected)
+        if hovered is not None and Theme.motion:
+            spectrum_time.current += dt * session.spectrum_speed
+        invalid = bool(preview_error) and (pasting or (not session.touch_mode and session.box_anchor is None))
+        if cursor_doll.current and cursor_tint.current:
+            cursor_outline.update(session, cursor_doll.current, cursor_tint.current, view, hovered,
+                                  hover_plane, spectrum_time.current, invalid)
+
+    def down(args):
+        if not screen_hit((args['TouchPosX'], args['TouchPosY'])):
+            return
+        session.pointer_stats[0] += 1
+        session.touch_mode = args.get('pointerKind') == 'touch' or is_touch()
+        # Taking hold of the scene stops pending wheel/pan motion at its actual
+        # pose, before rebasing the orbit. Otherwise an old zoom target can
+        # continue translating the new pivot after the finger has stopped.
+        camera.velocity = (0., 0.)
+        camera.target = (camera.yaw, camera.pitch, camera.zoom)
+        camera.pan_target = camera.pan
+        session.camera_pan = camera.pan
+        session.camera_yaw, session.camera_pitch, session.zoom = camera.target
+        wheel_time.current = None
+        # At close range rotate about the surface under the hand. The full
+        # building remains rendered; rebasing preserves every screen position.
+        if camera.zoom > 1.2:
+            px, py = pointer.current.GetGlobalPosition()
+            orbit_anchor(args['TouchPosX']-px, args['TouchPosY']-py)
+        camera.dragging = True
+        session.camera_dragging = True
+        drag.current = [args['TouchPosX'], args['TouchPosY'], args['TouchPosX'], args['TouchPosY'], time.time(), False, False]
+
+    def contains(control, point):
+        if control is None:
+            return False
+        x, y = control.GetGlobalPosition()
+        w, h = control.GetSize()
+        return x <= point[0] < x+w and y <= point[1] < y+h
+
+    def screen_hit(point):
+        status_visible = (session.preview_error or session.liquid_error or session.item_error or session.cauldron_error or session.portal_error or session.book_error or session.edit_job is not None or
+                          (session.preview_pending and session.tiles.report_progress))
+        return (active and contains(pointer.current, point) and
+                not (navigation and contains(navigation.current, point)) and
+                not (status_visible and preview_status and contains(preview_status.current, point)))
+
+    def move(args):
+        if drag.current is None:
+            return
+        x, y, last_x, last_y, then, moved, rotated = drag.current
+        now = time.time()
+        nx, ny = args['TouchPosX'], args['TouchPosY']
+        was_moved = moved
+        threshold = 8 if session.touch_mode else 4
+        moved = moved or math.hypot(nx - x, ny - y) > threshold * Theme.scale
+        if moved:
+            sensitivity = min(1., math.sqrt(12.*Theme.scale/max(12.*Theme.scale, unit())))
+            if was_moved or not session.touch_mode:
+                camera.drag((nx - last_x) / Theme.scale, (ny - last_y) / Theme.scale, now - then, sensitivity)
+                rotated = True
+        drag.current = [x, y, nx, ny, now, moved, rotated]
+
+    def cancel(unused):
+        drag.current = None
+        pinch.current = None
+        camera.dragging = False
+        session.camera_dragging = False
+        camera.velocity = (0., 0.)
+
+    def pinch_zoom(args):
+        phase = args['phase']
+        drag.current = None
+        camera.velocity = (0., 0.)
+        wheel_time.current = None
+        if phase == 'end':
+            pinch.current = None
+            camera.dragging = session.camera_dragging = False
+            session.camera_yaw, session.camera_pitch, session.zoom = camera.yaw, camera.pitch, camera.zoom
+            session.camera_pan = camera.pan
+            session.emit('view')
+            return
+        camera.dragging = session.camera_dragging = True
+        if len(args['points']) < 2 or pointer.current is None:
+            pinch.current = None
+            return
+        px, py = pointer.current.GetGlobalPosition()
+        points = tuple((x-px, y-py) for x, y in args['points'])
+        if phase == 'start' or pinch.current is None:
+            pinch.current = PinchZoom(camera, points, width*Theme.scale, height*Theme.scale,
+                                      minimum_distance=max(2., 4.*Theme.scale))
+        else:
+            pinch.current.move(points)
+        session.zoom = camera.zoom
+        session.camera_pan = camera.pan
+
+    def up(args):
+        if drag.current is None:
+            return
+        session.pointer_stats[1] += 1
+        # A dropped native move must never turn a displaced release into an edit.
+        if ('TouchPosX' in args and 'TouchPosY' in args and
+                (args['TouchPosX'], args['TouchPosY']) != tuple(drag.current[2:4])):
+            move(args)
+        x, y, unused_x, unused_y, then, moved, rotated = drag.current
+        drag.current = None
+        camera.dragging = False
+        session.camera_dragging = False
+        if rotated:
+            session.pointer_stats[2] += 1
+            if time.time() - then > .08 or not Theme.motion:
+                camera.velocity = (0., 0.)
+            session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
+            return
+        camera.velocity = (0., 0.)
+        signature = session.preview_signature()
+        if session.tiles.context != signature[:1] + signature[2:] or session.preview_error:
+            session.editor.message = '预览更新中，请稍后点击'
+            session.publish_point_edit(.12)
+            return
+        px, py = pointer.current.GetGlobalPosition()
+        if not moved:
+            x, y = args.get('TouchPosX', x), args.get('TouchPosY', y)
+        x, y = x - px, y - py
+        hit = hit_at(x, y)
+        if hit:
+            before_revision = session.editor.revision
+            session.point_action(*hit)
+            session.pointer_stats[3] += int(session.editor.revision != before_revision)
+            point = mouse.GetMousePosition()
+            placed_pointer.current = (tuple(point) if session.direct_mode == 'place' and point is not None and
+                                      session.editor.revision != before_revision else None)
+        else:
+            session.focused = None
+            session.editor.message = '没有命中可见方块'
+            session.publish_point_edit(.12)
+
+    def leave(unused):
+        hover_preview.current = None
+        if not session.touch_mode:
+            cancel(unused)
+
+    def wheel(args):
+        point = mouse.GetMousePosition() if not session.touch_mode else None
+        if point is not None and screen_hit(point):
+            session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
+            session.zoom = max(.25, camera.target[2] * (1.12 if args['direction'] else 1. / 1.12))
+            if point is not None and pointer.current:
+                px, py = pointer.current.GetGlobalPosition()
+                camera.zoom_at(session.zoom, point[0] - px, point[1] - py, width * Theme.scale, height * Theme.scale)
+                session.camera_pan = camera.pan_target
+            else:
+                camera.aim(camera.yaw, camera.pitch, session.zoom)
+            wheel_time.current = time.time()
+
+    use_event('MouseWheelClientEvent', wheel, active)
+    use_animation_frame(tick)
+    return Panel(ref=canvas, cacheLayout=True, onDebug=partial(inspect, session), style=S(position=Position.absolute, width=width, height=height, zIndex=2), children=[
+        Panel(ref=grid_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=0, visible=active), children=[
+            Image(ref=grid_tint, src='textures/modern_projection/transparent',
+                  style=S(position=Position.absolute, width=1, height=1, zIndex=349)),
+            Doll(ref=grid_doll, managed=True, renderType=PaperDollRenderType.block_geometry,
+                 style=S(position=Position.absolute, width='100%', height='100%', zIndex=350, visible=False)),
+        ]),
+        # A covered PaperDoll can leak a one-pixel viewport-background row
+        # through modal controls at its scissor boundary. Suspend
+        # drawing while inactive; retain the controls and geometry for return.
+        Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%', visible=active), children=[
+            PreviewModels(session=session, registry=registry, width=width, height=height, keys=session.tiles.render_keys),
+            LiquidModels(session=session, registry=liquid_registry, width=width, height=height,
+                         keys=liquid.keys) if liquid is not None else None,
+            LiquidModels(key='item_models', session=session, registry=item_registry, width=width, height=height,
+                         keys=items.keys) if items is not None else None,
+            LiquidModels(key='cauldron_models', session=session, registry=cauldron_registry, width=width, height=height,
+                         keys=cauldrons.keys) if cauldrons is not None else None,
+            LiquidModels(key='portal_models', session=session, registry=portal_registry, width=width, height=height,
+                         keys=portals.keys) if portals is not None else None,
+            LiquidModels(key='book_models', session=session, registry=book_registry, width=width, height=height,
+                         keys=books.keys) if books is not None else None,
+        ]),
+        Panel(ref=edge_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=0, visible=active), children=[
+            Image(ref=edge_tint, src='textures/modern_projection/transparent',
+                  style=S(position=Position.absolute, width=1, height=1, zIndex=369)),
+            Doll(ref=edge_doll, key='edge', managed=True, renderType=PaperDollRenderType.block_geometry,
+                 style=S(position=Position.absolute, width='100%', height='100%', zIndex=370, visible=False))]),
+        Panel(ref=cursor_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=0, visible=active), children=[
+            Image(ref=cursor_tint, src='textures/modern_projection/transparent',
+                  style=S(position=Position.absolute, width=1, height=1, zIndex=371)),
+            Doll(ref=cursor_doll, key='cursor', managed=True, renderType=PaperDollRenderType.block_geometry,
+                 style=S(position=Position.absolute, width='100%', height='100%', zIndex=372, visible=False))]),
+        Image(ref=dimmer, color=Color(0x000000FF), style=S(position=Position.absolute, width='100%', height='100%',
+              zIndex=360, opacity=max(0., 1.-session.brightness), visible=active)),
+        Pointer(ref=pointer, enabled=active, globalCapture=True, screenHit=screen_hit, onDown=down, onMove=move, onUp=up, onCancel=cancel, onLeave=leave, onPinch=pinch_zoom,
+                buttonBuilder=transparent, style=S(position=Position.absolute, width='100%', height='100%', zIndex=380, visible=active)),
+    ])
