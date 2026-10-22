@@ -1,0 +1,149 @@
+{
+  "actual_cache_observations": [
+    {
+      "all_current_nonce_native_calls": 3,
+      "current_matching_tile_native_creates": 1,
+      "document_id": 1990882809560,
+      "editor_id": 1990882808776,
+      "first_nonce": 1,
+      "identity": "test.layers.water_source",
+      "nonce": 1,
+      "path": "current_exact_native_create",
+      "source_read_only_verified": true,
+      "stage": "public_load",
+      "tile_builds_cumulative": 2,
+      "tile_key": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "actual_exit_codes": {
+    "game": 3221226505,
+    "mcdk": 0
+  },
+  "actual_public_load_confirm_pairs": 1,
+  "cards_not_reached": [
+    "test.layers.water_fence",
+    "test.entities.book_enchanting",
+    "test.entities.book_lectern"
+  ],
+  "cleanup_errors": [],
+  "cold_defaults": {
+    "book_instance_gui_override": false,
+    "book_profile_identity": [
+      1,
+      "3.10.0.420447",
+      "native_artwork_idle_book_v1",
+      128
+    ],
+    "book_profile_type": "modern_projection.projection.book_profile.BookProfile",
+    "bootstrap_performed": false,
+    "engine_version": "3.10.0.420447",
+    "profile_assignment_performed": false,
+    "session_id": 1990297142552,
+    "water_default_callbacks_match_source": true,
+    "water_owner_contract_sha256": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+    "water_profile_type": "modern_projection.projection.liquid_product_profile.ProductLiquidProfile",
+    "water_qualification_sha256": "2f827d28f74ee5f70f5301e556e170003314baa1b0927ef46f4f152dd9947625",
+    "water_rules_sha256": "00749b55138a23f8f86f2b9b2ab024ad57dd4478a6520ac25a18e2c32cc4af2c",
+    "water_supported_names": [
+      "minecraft:flowing_water",
+      "minecraft:water"
+    ]
+  },
+  "completed_card_identities": [
+    "test.layers.water_source"
+  ],
+  "completed_main_frames": 1,
+  "count_expression": "sum(bool(frame.completed) for card in report.cards for frame in card.frames)",
+  "dual_original_restore_qualified": true,
+  "exact_owned_processes_released": true,
+  "experiment_completed": false,
+  "failed_card_identity": "test.layers.water_pool",
+  "first_error": {
+    "error": "('layers registry category', [('SegmentChoice', 'layers', '<SegmentChoice:1990831325720>'), ('SegmentChoice', 'layers', '<SegmentChoice:1990839000080>'), ('SegmentChoice', 'layers', '<SegmentChoice:1986632120200>')])",
+    "type": "AssertionError"
+  },
+  "historical_image_count": 0,
+  "images": [
+    {
+      "completed_natural_main_frame": false,
+      "file": "0001_test_layers_water_source_card.png",
+      "metadata": "0001_test_layers_water_source_card.capture.json",
+      "original_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\0001_test_layers_water_source_card.png",
+      "reviewed_original_image": true,
+      "sha256": "3023c0c94221f0c4aa5a21bbdcb0dfa56a2c8a5fe7b00bf64e057acc9c95ee0d"
+    },
+    {
+      "completed_natural_main_frame": false,
+      "file": "0002_test_layers_water_source_editor.png",
+      "metadata": "0002_test_layers_water_source_editor.capture.json",
+      "original_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\0002_test_layers_water_source_editor.png",
+      "reviewed_original_image": true,
+      "sha256": "ae5dd26b52aac299728adf350a87ef7e9a4e384fdfb4fd29b2b9cc577cc976ff"
+    },
+    {
+      "completed_natural_main_frame": true,
+      "file": "0003_water_source_natural.png",
+      "metadata": "0003_water_source_natural.capture.json",
+      "original_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\0003_water_source_natural.png",
+      "reviewed_original_image": true,
+      "sha256": "3c4533a2c458be898ce666ce139dba77b2c02c4189ef98b2b2a27fd2b3d77521"
+    }
+  ],
+  "manual_issues_closed": 0,
+  "normal_shutdown_qualified": false,
+  "original_traceback": "Traceback (most recent call last):\n  File \"D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\run_public_books.py\", line 213, in main\n    row['public_load']=check.load_card(identity)\n                       ~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\public_entry_host.py\", line 140, in load_card\n    row = {'identity': identity, 'category_navigation': self.testing_registry(identity.split('.')[1]),\n                                                        ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\public_entry_host.py\", line 133, in testing_registry\n    segment = one((node for node in walk(tree) if node.get('type') == 'SegmentChoice'\n                   and node.get('props', {}).get('identity') == category), category+' registry category')\n  File \"D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\public_entry_host.py\", line 38, in one\n    assert len(rows) == 1, (label, [(row.get('type'), row.get('key'), row.get('id')) for row in rows])\n           ^^^^^^^^^^^^^^\nAssertionError: ('layers registry category', [('SegmentChoice', 'layers', '<SegmentChoice:1990831325720>'), ('SegmentChoice', 'layers', '<SegmentChoice:1990839000080>'), ('SegmentChoice', 'layers', '<SegmentChoice:1986632120200>')])\n",
+  "owner": "final-r28-public-cold-v3",
+  "raw_original_pins": {
+    "actual_check": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\report.json",
+      "sha256": "213e83da5dbf08b19eaf4b7b79e16fba4cdaf2ba17d6a10cd35e77937e4df882"
+    },
+    "actual_lifecycle": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\lifecycle-sequence\\report.json",
+      "sha256": "00a440ef84858beec70f2791bffef8797ce668962ee3fa707b436cd356255b07"
+    },
+    "actual_stop": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\stop\\report.json",
+      "sha256": "93c810fb6b453ca5ecae9b7fca5ebd4962e7270f9791f09e520d45d85332a831"
+    },
+    "external_binding": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\external-host-binding.json",
+      "sha256": "6d09a82634520394b327082f83444e79a6b8195866fc8ea02197f6216949bc34"
+    },
+    "final_failed_tree": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\rpc\\0029.result.json",
+      "sha256": "f22da026fefafa1ba06615ecc01066a6e79ab85070498c58e5bfc4d18c0da309"
+    },
+    "host_binding": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\host-binding.json",
+      "sha256": "a0b0ef3b8f90efcca1f67b77fbe397d7a812c8c81c866ca5c857c6758980224a"
+    },
+    "independent_release": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\run-closeout.json",
+      "sha256": "f0596667e71b0002baa62d51a61057e4861845ceb75dfeec4408e062099b286d"
+    },
+    "root_grant": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\root-launch-grant-v3.json",
+      "sha256": "26ecb31a7be9803d475aace43f853652f0f961af142d41fc214ab57e8f0b35c0"
+    },
+    "root_review": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\root-offline-review-v3.json",
+      "sha256": "209c386a33eb4ab10b386d3ca9eb7b69ee7310019d18a11d794f385356cbbd7f"
+    },
+    "source_manifest": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\source-manifest.json",
+      "sha256": "9ac042cea359a1fe9412a09f743fc05ecccf71da65d878b7c5c675b4920d58a1"
+    }
+  },
+  "readonly_diagnosis": "The whole-tree identity=layers query matched two inactive retained Inspector controls plus one active TestBlueprints category. The original dump shows exactly one TestBlueprints ancestor. It does not serialize fiber._mounted. No product or V7 I/O failure is inferred.",
+  "restored": true,
+  "runtime_pixels_qualified": false,
+  "same_owner_retry": false,
+  "source_and_hosts_unchanged": true,
+  "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "watcher_retired": true
+}

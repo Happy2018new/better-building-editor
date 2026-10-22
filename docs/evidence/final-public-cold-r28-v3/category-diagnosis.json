@@ -1,0 +1,6402 @@
+{
+  "MC_started": false,
+  "completed_main_frames": 1,
+  "count_expression": "sum(bool(frame.completed) for card in report.cards for frame in card.frames)",
+  "fiber_mounted_or_active_not_serialized": true,
+  "first_error": {
+    "error": "('layers registry category', [('SegmentChoice', 'layers', '<SegmentChoice:1990831325720>'), ('SegmentChoice', 'layers', '<SegmentChoice:1990839000080>'), ('SegmentChoice', 'layers', '<SegmentChoice:1986632120200>')])",
+    "type": "AssertionError"
+  },
+  "limitation": "serialize_fiber did not emit fiber._mounted or host._pyreact_active; no later native read was attempted after ordinary stop. Original opacity/layout/props/ancestry are retained as captured, without filling missing state.",
+  "native_visibility_cannot_be_concluded_from_fiber_presence": true,
+  "original_traceback": "Traceback (most recent call last):\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\run_public_books.py\", line 213, in main\n    row['public_load']=check.load_card(identity)\n                       ~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\public_entry_host.py\", line 140, in load_card\n    row = {'identity': identity, 'category_navigation': self.testing_registry(identity.split('.')[1]),\n                                                        ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\public_entry_host.py\", line 133, in testing_registry\n    segment = one((node for node in walk(tree) if node.get('type') == 'SegmentChoice'\n                   and node.get('props', {}).get('identity') == category), category+' registry category')\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\public_entry_host.py\", line 38, in one\n    assert len(rows) == 1, (label, [(row.get('type'), row.get('key'), row.get('id')) for row in rows])\n           ^^^^^^^^^^^^^^\nAssertionError: ('layers registry category', [('SegmentChoice', 'layers', '<SegmentChoice:1990831325720>'), ('SegmentChoice', 'layers', '<SegmentChoice:1990839000080>'), ('SegmentChoice', 'layers', '<SegmentChoice:1986632120200>')])\n",
+  "owner": "final-r28-public-cold-v3",
+  "product_modified": false,
+  "report_sha256": "213e83da5dbf08b19eaf4b7b79e16fba4cdaf2ba17d6a10cd35e77937e4df882",
+  "same_owner_retry": false,
+  "scope": "Only original captured dump_tree RPC results, no native reconnect",
+  "snapshots": [
+    {
+      "layers_segment_count": 1,
+      "matches": [
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632011000>",
+              "key": "testing",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_179",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<TestBlueprints:1986632011464>",
+              "key": null,
+              "props": {},
+              "type": "TestBlueprints"
+            },
+            {
+              "id": "__pyr_180",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1986632093152>",
+              "key": null,
+              "props": {
+                "value": "manual"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_195",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 371.25,
+                "x": 56.25,
+                "y": 96.75
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_202",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 367.875,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_204",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 52.3125,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1986632120200>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        }
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\rpc\\0006.result.json",
+      "sha256": "a56f1a916c92940f2ec9287baf51a88573529c398550be1904f580c9785b03ed"
+    },
+    {
+      "layers_segment_count": 2,
+      "matches": [
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "header__2145",
+              "key": "header",
+              "layout": {
+                "height": 23.625,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2146",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990712314432>",
+              "key": null,
+              "props": {
+                "value": "params"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_2147",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2154",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_2165",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 39.375,
+                "x": 547.0625,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990831325720>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632011000>",
+              "key": "testing",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_179",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<TestBlueprints:1986632011464>",
+              "key": null,
+              "props": {},
+              "type": "TestBlueprints"
+            },
+            {
+              "id": "__pyr_180",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1986632093152>",
+              "key": null,
+              "props": {
+                "value": "layers"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_195",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 371.25,
+                "x": 56.25,
+                "y": 96.75
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_202",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 367.875,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_204",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 52.3125,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1986632120200>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": true,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        }
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\rpc\\0008.result.json",
+      "sha256": "a59e274a666c32ddf8b2c1aa7711cd7eeb038c707114a0e35546ef53785cb781"
+    },
+    {
+      "layers_segment_count": 3,
+      "matches": [
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "header__2145",
+              "key": "header",
+              "layout": {
+                "height": 23.625,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2146",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990712314432>",
+              "key": null,
+              "props": {
+                "value": "params"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_2147",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2154",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_2165",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 39.375,
+                "x": 547.0625,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990831325720>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "panes__2187",
+              "key": "panes",
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1990836742720>",
+              "key": "layers",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_2685",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Layers:1990844191488>",
+              "key": null,
+              "props": {},
+              "type": "Layers"
+            },
+            {
+              "id": "__pyr_3137",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 129.375,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990844191952>",
+              "key": null,
+              "props": {
+                "value": "appearance"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_3138",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3145",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_3157",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 59.0625,
+                "x": 566.75,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990839000080>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632011000>",
+              "key": "testing",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_179",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<TestBlueprints:1986632011464>",
+              "key": null,
+              "props": {},
+              "type": "TestBlueprints"
+            },
+            {
+              "id": "__pyr_180",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1986632093152>",
+              "key": null,
+              "props": {
+                "value": "layers"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_195",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 371.25,
+                "x": 56.25,
+                "y": 96.75
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_202",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 367.875,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_204",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 52.3125,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1986632120200>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": true,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        }
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\rpc\\0009.result.json",
+      "sha256": "6d7e3ef948b36fc793a139e5e30d2506fb0fbac283eabe4f66b243967c8a2a8b"
+    },
+    {
+      "layers_segment_count": 3,
+      "matches": [
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "header__2145",
+              "key": "header",
+              "layout": {
+                "height": 23.625,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2146",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990712314432>",
+              "key": null,
+              "props": {
+                "value": "params"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_2147",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2154",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_2165",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 39.375,
+                "x": 547.0625,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990831325720>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "panes__2187",
+              "key": "panes",
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1990836742720>",
+              "key": "layers",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_2685",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Layers:1990844191488>",
+              "key": null,
+              "props": {},
+              "type": "Layers"
+            },
+            {
+              "id": "__pyr_3137",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 129.375,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990844191952>",
+              "key": null,
+              "props": {
+                "value": "appearance"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_3138",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3145",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_3157",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 59.0625,
+                "x": 566.75,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990839000080>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632011000>",
+              "key": "testing",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_179",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<TestBlueprints:1986632011464>",
+              "key": null,
+              "props": {},
+              "type": "TestBlueprints"
+            },
+            {
+              "id": "__pyr_180",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1986632093152>",
+              "key": null,
+              "props": {
+                "value": "layers"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_195",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 371.25,
+                "x": 56.25,
+                "y": 96.75
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_202",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 367.875,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_204",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 52.3125,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1986632120200>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": true,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        }
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\rpc\\0012.result.json",
+      "sha256": "f89e89b6facaf944b1b43c9440c166beee6be521158d275a3e7e2ef1ebe2956d"
+    },
+    {
+      "layers_segment_count": 3,
+      "matches": [
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "header__2145",
+              "key": "header",
+              "layout": {
+                "height": 23.625,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2146",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990712314432>",
+              "key": null,
+              "props": {
+                "value": "params"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_2147",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2154",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_2165",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 39.375,
+                "x": 547.0625,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990831325720>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "panes__2187",
+              "key": "panes",
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1990836742720>",
+              "key": "layers",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_2685",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Layers:1990844191488>",
+              "key": null,
+              "props": {},
+              "type": "Layers"
+            },
+            {
+              "id": "__pyr_3137",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 129.375,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990844191952>",
+              "key": null,
+              "props": {
+                "value": "appearance"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_3138",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3145",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_3157",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 59.0625,
+                "x": 566.75,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990839000080>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632011000>",
+              "key": "testing",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_179",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<TestBlueprints:1986632011464>",
+              "key": null,
+              "props": {},
+              "type": "TestBlueprints"
+            },
+            {
+              "id": "__pyr_180",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1986632093152>",
+              "key": null,
+              "props": {
+                "value": "layers"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_195",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 371.25,
+                "x": 56.25,
+                "y": 96.75
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_202",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 367.875,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_204",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 52.3125,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1986632120200>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": true,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        }
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\rpc\\0016.result.json",
+      "sha256": "8eb7e06e1ddfd50f5d1cd6478f557b3e061d07d627cb1da261dcd5b28a102cea"
+    },
+    {
+      "layers_segment_count": 3,
+      "matches": [
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "header__2145",
+              "key": "header",
+              "layout": {
+                "height": 23.625,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2146",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990712314432>",
+              "key": null,
+              "props": {
+                "value": "params"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_2147",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2154",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_2165",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 39.375,
+                "x": 547.0625,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990831325720>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "panes__2187",
+              "key": "panes",
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1990836742720>",
+              "key": "layers",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_2685",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Layers:1990844191488>",
+              "key": null,
+              "props": {},
+              "type": "Layers"
+            },
+            {
+              "id": "__pyr_3137",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 129.375,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990844191952>",
+              "key": null,
+              "props": {
+                "value": "appearance"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_3138",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3145",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_3157",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 59.0625,
+                "x": 566.75,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990839000080>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632011000>",
+              "key": "testing",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_179",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<TestBlueprints:1986632011464>",
+              "key": null,
+              "props": {},
+              "type": "TestBlueprints"
+            },
+            {
+              "id": "__pyr_180",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1986632093152>",
+              "key": null,
+              "props": {
+                "value": "layers"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_195",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 371.25,
+                "x": 56.25,
+                "y": 96.75
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_202",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 367.875,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_204",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 52.3125,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1986632120200>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": true,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        }
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\rpc\\0023.result.json",
+      "sha256": "f396e0824919b376ae02de5f7af27b09185a5d2d9630c4c3c0115ef8935884d3"
+    },
+    {
+      "layers_segment_count": 3,
+      "matches": [
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "header__2145",
+              "key": "header",
+              "layout": {
+                "height": 23.625,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2146",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990712314432>",
+              "key": null,
+              "props": {
+                "value": "params"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_2147",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2154",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_2165",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 39.375,
+                "x": 547.0625,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990831325720>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "panes__2187",
+              "key": "panes",
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1990836742720>",
+              "key": "layers",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_2685",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Layers:1990844191488>",
+              "key": null,
+              "props": {},
+              "type": "Layers"
+            },
+            {
+              "id": "__pyr_3137",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 129.375,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990844191952>",
+              "key": null,
+              "props": {
+                "value": "appearance"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_3138",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3145",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_3157",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 59.0625,
+                "x": 566.75,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990839000080>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632011000>",
+              "key": "testing",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_179",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<TestBlueprints:1986632011464>",
+              "key": null,
+              "props": {},
+              "type": "TestBlueprints"
+            },
+            {
+              "id": "__pyr_180",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1986632093152>",
+              "key": null,
+              "props": {
+                "value": "layers"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_195",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 371.25,
+                "x": 56.25,
+                "y": 96.75
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_202",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 367.875,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_204",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 52.3125,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1986632120200>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": true,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        }
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\rpc\\0025.result.json",
+      "sha256": "04f4a927fc2781aa4037a9f1c00641e5ac7dd7c535fd7244ff2928bfd32a0460"
+    },
+    {
+      "layers_segment_count": 3,
+      "matches": [
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "header__2145",
+              "key": "header",
+              "layout": {
+                "height": 23.625,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2146",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990712314432>",
+              "key": null,
+              "props": {
+                "value": "params"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_2147",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 70.875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2154",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_2165",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 39.375,
+                "x": 547.0625,
+                "y": 72.5625
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990831325720>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632009608>",
+              "key": "editor",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_176",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<EditorPane:1990696669256>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "EditorPane"
+            },
+            {
+              "id": "__pyr_1225",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_1230",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Inspector:1990712313040>",
+              "key": null,
+              "props": {
+                "page": "workspace"
+              },
+              "type": "Inspector"
+            },
+            {
+              "id": "__pyr_2142",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_2144",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 135.0,
+                "x": 499.25000000000006,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "panes__2187",
+              "key": "panes",
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1990836742720>",
+              "key": "layers",
+              "props": {
+                "active": false
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_2685",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Layers:1990844191488>",
+              "key": null,
+              "props": {},
+              "type": "Layers"
+            },
+            {
+              "id": "__pyr_3137",
+              "key": null,
+              "layout": {
+                "height": 211.5,
+                "width": 129.375,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1990844191952>",
+              "key": null,
+              "props": {
+                "value": "appearance"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_3138",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 121.5,
+                "x": 506.00000000000006,
+                "y": 94.5
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3145",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 118.125,
+                "x": 507.68750000000006,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_3157",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 59.0625,
+                "x": 566.75,
+                "y": 96.1875
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1990839000080>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": false,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        },
+        {
+          "ancestors": [
+            {
+              "id": "<Workspace:1990220312264>",
+              "key": null,
+              "props": {},
+              "type": "Workspace"
+            },
+            {
+              "id": "__pyr_1",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "<SafeArea:1986541941272>",
+              "key": null,
+              "props": {},
+              "type": "SafeArea"
+            },
+            {
+              "id": "__pyr_2",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_3",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<WorkspaceMotion:1986541941968>",
+              "key": null,
+              "props": {},
+              "type": "WorkspaceMotion"
+            },
+            {
+              "id": "__pyr_4",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "moving__6",
+              "key": "moving",
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Fade"
+            },
+            {
+              "id": "__pyr_7",
+              "key": null,
+              "layout": {
+                "height": 360.0,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 0.0
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Image"
+            },
+            {
+              "id": "__pyr_131",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 641.0,
+                "x": 0.0,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<PageContent:1986632008912>",
+              "key": null,
+              "props": {},
+              "type": "PageContent"
+            },
+            {
+              "id": "<PageMotion:1986632009144>",
+              "key": null,
+              "props": {
+                "page": "testing"
+              },
+              "type": "PageMotion"
+            },
+            {
+              "id": "__pyr_175",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<RetainedPane:1986632011000>",
+              "key": "testing",
+              "props": {
+                "active": true
+              },
+              "type": "RetainedPane"
+            },
+            {
+              "id": "__pyr_179",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<TestBlueprints:1986632011464>",
+              "key": null,
+              "props": {},
+              "type": "TestBlueprints"
+            },
+            {
+              "id": "__pyr_180",
+              "key": null,
+              "layout": {
+                "height": 273.9375,
+                "width": 584.75,
+                "x": 49.5,
+                "y": 64.125
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "<Segments:1986632093152>",
+              "key": null,
+              "props": {
+                "value": "layers"
+              },
+              "type": "Segments"
+            },
+            {
+              "id": "__pyr_195",
+              "key": null,
+              "layout": {
+                "height": 18.0,
+                "width": 371.25,
+                "x": 56.25,
+                "y": 96.75
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            },
+            {
+              "id": "__pyr_202",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 367.875,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Panel"
+            }
+          ],
+          "button_descendants": [
+            {
+              "id": "__pyr_204",
+              "key": null,
+              "layout": {
+                "height": 14.625,
+                "width": 52.3125,
+                "x": 57.9375,
+                "y": 98.4375
+              },
+              "opacity": 1.0,
+              "props": {},
+              "type": "Button"
+            }
+          ],
+          "node": {
+            "id": "<SegmentChoice:1986632120200>",
+            "key": "layers",
+            "props": {
+              "identity": "layers",
+              "selected": true,
+              "visible": true
+            },
+            "type": "SegmentChoice"
+          },
+          "serialized_node_keys": [
+            "children",
+            "id",
+            "key",
+            "props",
+            "style",
+            "type"
+          ]
+        }
+      ],
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\rpc\\0029.result.json",
+      "sha256": "f22da026fefafa1ba06615ecc01066a6e79ab85070498c58e5bfc4d18c0da309"
+    }
+  ],
+  "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "successful_public_confirms": 1
+}

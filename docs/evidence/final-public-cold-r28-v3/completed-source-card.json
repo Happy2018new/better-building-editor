@@ -1,0 +1,3302 @@
+{
+  "completed": true,
+  "expected_complete_typed_document": {
+    "biome": "plains",
+    "blockCount": 2,
+    "cellVersion": 1,
+    "chunkEncoding": 1,
+    "chunks": [
+      [
+        0,
+        0,
+        0,
+        "1s:eJxjYjBmYmQwZmZiAAACowBx"
+      ]
+    ],
+    "materials": [
+      [
+        "minecraft:air",
+        {}
+      ],
+      [
+        "minecraft:stone",
+        {}
+      ],
+      [
+        "minecraft:water",
+        {
+          "liquid_depth": 0
+        }
+      ]
+    ],
+    "name": "水①·单水格",
+    "palette": [
+      0,
+      1,
+      2
+    ],
+    "registry": {
+      "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+      "version": "NEMC 3.9.0.401155"
+    },
+    "size": [
+      10,
+      8,
+      10
+    ],
+    "version": 6
+  },
+  "frames": [
+    {
+      "after": {
+        "book_group_count": 0,
+        "book_plan_ready": true,
+        "camera_focus_request": null,
+        "camera_pan": [
+          0.0,
+          0.0
+        ],
+        "camera_pivot": [
+          3.5,
+          3.5,
+          3.5
+        ],
+        "camera_pivot_world": [
+          3.5,
+          3.5,
+          3.5
+        ],
+        "camera_pose": [
+          35.0,
+          25.0,
+          0.9780907668231612
+        ],
+        "camera_readback": {
+          "at_target": true,
+          "camera_object_id": 1990699305112,
+          "dragging": false,
+          "pose": [
+            35.0,
+            25.0,
+            0.9780907668231612
+          ],
+          "render_angles": [
+            35,
+            25
+          ],
+          "scene_fiber_id": 1990699356928,
+          "session_matches_scene": true,
+          "source": "actual mounted Scene animation callback closure; read only",
+          "target": [
+            35.0,
+            25.0,
+            0.9780907668231612
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        },
+        "default_water_profile_same_object": true,
+        "document": {
+          "biome": "plains",
+          "blockCount": 2,
+          "cellVersion": 1,
+          "chunkEncoding": 1,
+          "chunks": [
+            [
+              0,
+              0,
+              0,
+              "1s:eJxjYjBmYmIwZmZkAAACpwBx"
+            ]
+          ],
+          "materials": [
+            [
+              "minecraft:air",
+              {}
+            ],
+            [
+              "minecraft:water",
+              {
+                "liquid_depth": 0
+              }
+            ],
+            [
+              "minecraft:stone",
+              {}
+            ]
+          ],
+          "name": "水①·单水格",
+          "palette": [
+            0,
+            1,
+            2
+          ],
+          "registry": {
+            "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+            "version": "NEMC 3.9.0.401155"
+          },
+          "size": [
+            10,
+            8,
+            10
+          ],
+          "version": 6
+        },
+        "document_id": 1990882809560,
+        "editor_id": 1990882808776,
+        "expected_water_groups": [
+          {
+            "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+            "model": "modern_projection_liquid_product_flowing_water_grey",
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "uniforms": [
+              [
+                1983.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                48573.0,
+                48573.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                39686.0,
+                -1.0,
+                4501493.0,
+                1.0
+              ]
+            ]
+          },
+          {
+            "key": "((0, 0, 0), ('still_water_grey', None), 0)",
+            "model": "modern_projection_liquid_product_still_water_grey",
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "uniforms": [
+              [
+                127.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                48573.0,
+                48573.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                39686.0,
+                -1.0,
+                4501493.0,
+                1.0
+              ]
+            ]
+          }
+        ],
+        "host_expected_document_semantic_proof": {
+          "actual_original_wire_sha256": "ea39b5e4031c23ae3a911809c502d4a18b90399b2d96d9182764324c61448526",
+          "comparison": "strict_v6_full_typed_cells_and_declared_tables",
+          "complete_positions_checked": 800,
+          "complete_semantics_sha256": "c52a220baddc48687ce7c41c3bce4e6c03a6af19ac3cfce86ddde38873684153",
+          "exact_header_and_unknown_fields_checked": true,
+          "expected_original_wire_sha256": "08e001495c37d06ddb38325df63a67c1567317e56848d87582a7090d5bd2be43",
+          "full_actor_tag_types_and_extra_layers_checked": true,
+          "nonair_cells": 2,
+          "unused_material_palette_rows_preserved": true,
+          "wire_identical": false
+        },
+        "library_unchanged": true,
+        "liquid_controls_error": "",
+        "liquid_controls_pending": false,
+        "liquid_error": "",
+        "liquid_owned": true,
+        "liquid_plan_ready": true,
+        "liquid_preview_error": "",
+        "native_water_doll_readback": [
+          {
+            "closed": false,
+            "front": 1,
+            "key": "((0, 0, 0), ('still_water_grey', None), 0)",
+            "pending": "None",
+            "slots": [
+              {
+                "cached_model_id": null,
+                "ids_equal": false,
+                "native_model_id": -1,
+                "slot": 0,
+                "uniforms": [
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 1,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 2,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 3,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 4,
+                    "native": null
+                  }
+                ],
+                "visible": false
+              },
+              {
+                "cached_model_id": 2,
+                "ids_equal": true,
+                "native_model_id": 2,
+                "slot": 1,
+                "uniforms": [
+                  {
+                    "cached": [
+                      127.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 1,
+                    "native": [
+                      127.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      48573.0,
+                      48573.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 2,
+                    "native": [
+                      48573.0,
+                      48573.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 3,
+                    "native": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      8173446.0,
+                      -1.0,
+                      4501493.0,
+                      1.0
+                    ],
+                    "equal": true,
+                    "group": 4,
+                    "native": [
+                      8173446.0,
+                      -1.0,
+                      4501493.0,
+                      1.0
+                    ]
+                  }
+                ],
+                "visible": true
+              }
+            ]
+          },
+          {
+            "closed": false,
+            "front": 1,
+            "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+            "pending": "None",
+            "slots": [
+              {
+                "cached_model_id": null,
+                "ids_equal": false,
+                "native_model_id": -1,
+                "slot": 0,
+                "uniforms": [
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 1,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 2,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 3,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 4,
+                    "native": null
+                  }
+                ],
+                "visible": false
+              },
+              {
+                "cached_model_id": 1,
+                "ids_equal": true,
+                "native_model_id": 1,
+                "slot": 1,
+                "uniforms": [
+                  {
+                    "cached": [
+                      1983.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 1,
+                    "native": [
+                      1983.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      48573.0,
+                      48573.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 2,
+                    "native": [
+                      48573.0,
+                      48573.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 3,
+                    "native": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      8173446.0,
+                      -1.0,
+                      4501493.0,
+                      1.0
+                    ],
+                    "equal": true,
+                    "group": 4,
+                    "native": [
+                      8173446.0,
+                      -1.0,
+                      4501493.0,
+                      1.0
+                    ]
+                  }
+                ],
+                "visible": true
+              }
+            ]
+          }
+        ],
+        "owned_water_surface_native_ancestry": [
+          {
+            "front": 1,
+            "key": "((0, 0, 0), ('still_water_grey', None), 0)",
+            "show_closes_exact_owned_surfaces": true,
+            "show_closure_names": [
+              "surfaces"
+            ],
+            "show_function": "show",
+            "slots": [
+              {
+                "ancestors_from_actual_surface": [
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_visible": false,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299/water_bank_0__5300"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.0,
+                      159.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      641.0,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root"
+                  }
+                ],
+                "direct_surface_visible": false,
+                "doll_direct_visible": true,
+                "native_model_id": -1,
+                "renderer_cached_visible": false,
+                "slot": 0,
+                "surface_fiber_key": "'water_bank_0'",
+                "surface_path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299/water_bank_0__5300",
+                "surface_type": "Panel"
+              },
+              {
+                "ancestors_from_actual_surface": [
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299/water_bank_1__5302"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.0,
+                      159.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      641.0,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root"
+                  }
+                ],
+                "direct_surface_visible": true,
+                "doll_direct_visible": true,
+                "native_model_id": 2,
+                "renderer_cached_visible": true,
+                "slot": 1,
+                "surface_fiber_key": "'water_bank_1'",
+                "surface_path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299/water_bank_1__5302",
+                "surface_type": "Panel"
+              }
+            ]
+          },
+          {
+            "front": 1,
+            "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+            "show_closes_exact_owned_surfaces": true,
+            "show_closure_names": [
+              "surfaces"
+            ],
+            "show_function": "show",
+            "slots": [
+              {
+                "ancestors_from_actual_surface": [
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_visible": false,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294/water_bank_0__5295"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.0,
+                      159.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      641.0,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root"
+                  }
+                ],
+                "direct_surface_visible": false,
+                "doll_direct_visible": true,
+                "native_model_id": -1,
+                "renderer_cached_visible": false,
+                "slot": 0,
+                "surface_fiber_key": "'water_bank_0'",
+                "surface_path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294/water_bank_0__5295",
+                "surface_type": "Panel"
+              },
+              {
+                "ancestors_from_actual_surface": [
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294/water_bank_1__5297"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.0,
+                      159.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      641.0,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root"
+                  }
+                ],
+                "direct_surface_visible": true,
+                "doll_direct_visible": true,
+                "native_model_id": 1,
+                "renderer_cached_visible": true,
+                "slot": 1,
+                "surface_fiber_key": "'water_bank_1'",
+                "surface_path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294/water_bank_1__5297",
+                "surface_type": "Panel"
+              }
+            ]
+          }
+        ],
+        "page": "workspace",
+        "preview_error": "",
+        "preview_ready": true,
+        "projection_active": false,
+        "scene_origin": [
+          0,
+          0,
+          0
+        ],
+        "theme_native_gui_scale": 2.0,
+        "water_default_callbacks_match_source": true,
+        "water_groups": [
+          {
+            "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+            "model": "modern_projection_liquid_product_flowing_water_grey",
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "uniforms": [
+              [
+                1983.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                48573.0,
+                48573.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                39686.0,
+                -1.0,
+                4501493.0,
+                1.0
+              ]
+            ]
+          },
+          {
+            "key": "((0, 0, 0), ('still_water_grey', None), 0)",
+            "model": "modern_projection_liquid_product_still_water_grey",
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "uniforms": [
+              [
+                127.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                48573.0,
+                48573.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                39686.0,
+                -1.0,
+                4501493.0,
+                1.0
+              ]
+            ]
+          }
+        ],
+        "workspace": true,
+        "world_actors": 0
+      },
+      "appearance_qualified": false,
+      "before": {
+        "book_group_count": 0,
+        "book_plan_ready": true,
+        "camera_focus_request": null,
+        "camera_pan": [
+          0.0,
+          0.0
+        ],
+        "camera_pivot": [
+          3.5,
+          3.5,
+          3.5
+        ],
+        "camera_pivot_world": [
+          3.5,
+          3.5,
+          3.5
+        ],
+        "camera_pose": [
+          35.0,
+          25.0,
+          0.9780907668231612
+        ],
+        "camera_readback": {
+          "at_target": true,
+          "camera_object_id": 1990699305112,
+          "dragging": false,
+          "pose": [
+            35.0,
+            25.0,
+            0.9780907668231612
+          ],
+          "render_angles": [
+            35,
+            25
+          ],
+          "scene_fiber_id": 1990699356928,
+          "session_matches_scene": true,
+          "source": "actual mounted Scene animation callback closure; read only",
+          "target": [
+            35.0,
+            25.0,
+            0.9780907668231612
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        },
+        "default_water_profile_same_object": true,
+        "document": {
+          "biome": "plains",
+          "blockCount": 2,
+          "cellVersion": 1,
+          "chunkEncoding": 1,
+          "chunks": [
+            [
+              0,
+              0,
+              0,
+              "1s:eJxjYjBmYmIwZmZkAAACpwBx"
+            ]
+          ],
+          "materials": [
+            [
+              "minecraft:air",
+              {}
+            ],
+            [
+              "minecraft:water",
+              {
+                "liquid_depth": 0
+              }
+            ],
+            [
+              "minecraft:stone",
+              {}
+            ]
+          ],
+          "name": "水①·单水格",
+          "palette": [
+            0,
+            1,
+            2
+          ],
+          "registry": {
+            "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+            "version": "NEMC 3.9.0.401155"
+          },
+          "size": [
+            10,
+            8,
+            10
+          ],
+          "version": 6
+        },
+        "document_id": 1990882809560,
+        "editor_id": 1990882808776,
+        "expected_water_groups": [
+          {
+            "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+            "model": "modern_projection_liquid_product_flowing_water_grey",
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "uniforms": [
+              [
+                1983.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                48573.0,
+                48573.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                39686.0,
+                -1.0,
+                4501493.0,
+                1.0
+              ]
+            ]
+          },
+          {
+            "key": "((0, 0, 0), ('still_water_grey', None), 0)",
+            "model": "modern_projection_liquid_product_still_water_grey",
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "uniforms": [
+              [
+                127.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                48573.0,
+                48573.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                39686.0,
+                -1.0,
+                4501493.0,
+                1.0
+              ]
+            ]
+          }
+        ],
+        "host_expected_document_semantic_proof": {
+          "actual_original_wire_sha256": "ea39b5e4031c23ae3a911809c502d4a18b90399b2d96d9182764324c61448526",
+          "comparison": "strict_v6_full_typed_cells_and_declared_tables",
+          "complete_positions_checked": 800,
+          "complete_semantics_sha256": "c52a220baddc48687ce7c41c3bce4e6c03a6af19ac3cfce86ddde38873684153",
+          "exact_header_and_unknown_fields_checked": true,
+          "expected_original_wire_sha256": "08e001495c37d06ddb38325df63a67c1567317e56848d87582a7090d5bd2be43",
+          "full_actor_tag_types_and_extra_layers_checked": true,
+          "nonair_cells": 2,
+          "unused_material_palette_rows_preserved": true,
+          "wire_identical": false
+        },
+        "library_unchanged": true,
+        "liquid_controls_error": "",
+        "liquid_controls_pending": false,
+        "liquid_error": "",
+        "liquid_owned": true,
+        "liquid_plan_ready": true,
+        "liquid_preview_error": "",
+        "native_water_doll_readback": [
+          {
+            "closed": false,
+            "front": 1,
+            "key": "((0, 0, 0), ('still_water_grey', None), 0)",
+            "pending": "None",
+            "slots": [
+              {
+                "cached_model_id": null,
+                "ids_equal": false,
+                "native_model_id": -1,
+                "slot": 0,
+                "uniforms": [
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 1,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 2,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 3,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 4,
+                    "native": null
+                  }
+                ],
+                "visible": false
+              },
+              {
+                "cached_model_id": 2,
+                "ids_equal": true,
+                "native_model_id": 2,
+                "slot": 1,
+                "uniforms": [
+                  {
+                    "cached": [
+                      127.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 1,
+                    "native": [
+                      127.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      48573.0,
+                      48573.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 2,
+                    "native": [
+                      48573.0,
+                      48573.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 3,
+                    "native": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      8173446.0,
+                      -1.0,
+                      4501493.0,
+                      1.0
+                    ],
+                    "equal": true,
+                    "group": 4,
+                    "native": [
+                      8173446.0,
+                      -1.0,
+                      4501493.0,
+                      1.0
+                    ]
+                  }
+                ],
+                "visible": true
+              }
+            ]
+          },
+          {
+            "closed": false,
+            "front": 1,
+            "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+            "pending": "None",
+            "slots": [
+              {
+                "cached_model_id": null,
+                "ids_equal": false,
+                "native_model_id": -1,
+                "slot": 0,
+                "uniforms": [
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 1,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 2,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 3,
+                    "native": null
+                  },
+                  {
+                    "cached": null,
+                    "equal": true,
+                    "group": 4,
+                    "native": null
+                  }
+                ],
+                "visible": false
+              },
+              {
+                "cached_model_id": 1,
+                "ids_equal": true,
+                "native_model_id": 1,
+                "slot": 1,
+                "uniforms": [
+                  {
+                    "cached": [
+                      1983.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 1,
+                    "native": [
+                      1983.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      48573.0,
+                      48573.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 2,
+                    "native": [
+                      48573.0,
+                      48573.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "equal": true,
+                    "group": 3,
+                    "native": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "cached": [
+                      8173446.0,
+                      -1.0,
+                      4501493.0,
+                      1.0
+                    ],
+                    "equal": true,
+                    "group": 4,
+                    "native": [
+                      8173446.0,
+                      -1.0,
+                      4501493.0,
+                      1.0
+                    ]
+                  }
+                ],
+                "visible": true
+              }
+            ]
+          }
+        ],
+        "owned_water_surface_native_ancestry": [
+          {
+            "front": 1,
+            "key": "((0, 0, 0), ('still_water_grey', None), 0)",
+            "show_closes_exact_owned_surfaces": true,
+            "show_closure_names": [
+              "surfaces"
+            ],
+            "show_function": "show",
+            "slots": [
+              {
+                "ancestors_from_actual_surface": [
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_visible": false,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299/water_bank_0__5300"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.0,
+                      159.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      641.0,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root"
+                  }
+                ],
+                "direct_surface_visible": false,
+                "doll_direct_visible": true,
+                "native_model_id": -1,
+                "renderer_cached_visible": false,
+                "slot": 0,
+                "surface_fiber_key": "'water_bank_0'",
+                "surface_path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299/water_bank_0__5300",
+                "surface_type": "Panel"
+              },
+              {
+                "ancestors_from_actual_surface": [
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299/water_bank_1__5302"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.0,
+                      159.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      641.0,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root"
+                  }
+                ],
+                "direct_surface_visible": true,
+                "doll_direct_visible": true,
+                "native_model_id": 2,
+                "renderer_cached_visible": true,
+                "slot": 1,
+                "surface_fiber_key": "'water_bank_1'",
+                "surface_path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5299/water_bank_1__5302",
+                "surface_type": "Panel"
+              }
+            ]
+          },
+          {
+            "front": 1,
+            "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+            "show_closes_exact_owned_surfaces": true,
+            "show_closure_names": [
+              "surfaces"
+            ],
+            "show_function": "show",
+            "slots": [
+              {
+                "ancestors_from_actual_surface": [
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_visible": false,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294/water_bank_0__5295"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.0,
+                      159.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      641.0,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root"
+                  }
+                ],
+                "direct_surface_visible": false,
+                "doll_direct_visible": true,
+                "native_model_id": -1,
+                "renderer_cached_visible": false,
+                "slot": 0,
+                "surface_fiber_key": "'water_bank_0'",
+                "surface_path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294/water_bank_0__5295",
+                "surface_type": "Panel"
+              },
+              {
+                "ancestors_from_actual_surface": [
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294/water_bank_1__5297"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      116.0
+                    ],
+                    "native_size": [
+                      340.0,
+                      159.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      115.875
+                    ],
+                    "native_size": [
+                      340.625,
+                      159.75
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      153.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      340.625,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      49.5,
+                      64.125
+                    ],
+                    "native_size": [
+                      584.75,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      64.125
+                    ],
+                    "native_size": [
+                      641.0,
+                      273.9375
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2/__pyr_3"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1/__pyr_2"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root/__pyr_1"
+                  },
+                  {
+                    "exists": true,
+                    "native_position": [
+                      0.0,
+                      0.0
+                    ],
+                    "native_size": [
+                      641.0,
+                      360.0
+                    ],
+                    "native_visible": true,
+                    "path": "/root"
+                  }
+                ],
+                "direct_surface_visible": true,
+                "doll_direct_visible": true,
+                "native_model_id": 1,
+                "renderer_cached_visible": true,
+                "slot": 1,
+                "surface_fiber_key": "'water_bank_1'",
+                "surface_path": "/root/__pyr_1/__pyr_2/__pyr_3/__pyr_4/moving__6/__pyr_7/__pyr_131/__pyr_175/__pyr_176/__pyr_1225/__pyr_1229/__pyr_1285/__pyr_1287/__pyr_1376/__pyr_1377/__pyr_1381/__pyr_1383/__pyr_5294/water_bank_1__5297",
+                "surface_type": "Panel"
+              }
+            ]
+          }
+        ],
+        "page": "workspace",
+        "preview_error": "",
+        "preview_ready": true,
+        "projection_active": false,
+        "scene_origin": [
+          0,
+          0,
+          0
+        ],
+        "theme_native_gui_scale": 2.0,
+        "water_default_callbacks_match_source": true,
+        "water_groups": [
+          {
+            "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+            "model": "modern_projection_liquid_product_flowing_water_grey",
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "uniforms": [
+              [
+                1983.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                48573.0,
+                48573.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                39686.0,
+                -1.0,
+                4501493.0,
+                1.0
+              ]
+            ]
+          },
+          {
+            "key": "((0, 0, 0), ('still_water_grey', None), 0)",
+            "model": "modern_projection_liquid_product_still_water_grey",
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "uniforms": [
+              [
+                127.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                48573.0,
+                48573.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                39686.0,
+                -1.0,
+                4501493.0,
+                1.0
+              ]
+            ]
+          }
+        ],
+        "workspace": true,
+        "world_actors": 0
+      },
+      "capture": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v3\\check\\0003_water_source_natural.png",
+        "sha256": "3c4533a2c458be898ce666ce139dba77b2c02c4189ef98b2b2a27fd2b3d77521",
+        "size": [
+          1280,
+          720
+        ]
+      },
+      "completed": true,
+      "label": "water_source_natural",
+      "natural_default_models": true
+    }
+  ],
+  "identity": "test.layers.water_source",
+  "manual_issues_closed": 0,
+  "water_FA_matrix_requalified": false
+}
