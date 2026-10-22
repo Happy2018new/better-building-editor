@@ -1,32 +1,30 @@
 # 新对话交接：现代化投影建筑编辑器
 
-## 2026-10-22 R28 已授权接续（本节优先）
+## 2026-10-23 R28 当前接续（本节优先）
 
-**05:35北京时间接续：**当前dev为5ad78cbe，最终游戏运行代码仍b70ce7bf。三水＋两书最终公开冷测V3正在唯一独占槽，owner `final-r28-public-cold-v3`，cutoff22:00Z／watch22:05Z，只有一次attempt；先等双restore、source／host后核、ordinary stop、精确PID+creation退出与watch退休，再授下一槽。V1水比较首败及V2未启动状态保留。root已独立核3712+36 Git源、46宿主／4外部资产，并实际重放完整main正例和WGC失败两个离线场景；其中UI／native／capture／restore是明确假边界，不可称实机或像素通过。V3源／宿主SHA及授权在`.runtime/round-20261023/final-public-cold-v3/`。
+当前开发继续至 **2026-10-23 00:00 UTC＝北京时间10-23 08:00＝New York 10-22 20:00**，届时休眠。07:00停止扩范围，07:30冻结公开入口及长实验，07:45前完成恢复／关闭和交接。任务 `Codex-BBE-R28-Hibernate-20261023` 已再次只读核为Ready／Enabled，trigger08:00+08、shutdown.exe /h、StartWhenAvailable=False；尚不能记作休眠已执行。下方R27“已停止”均是历史状态。
 
-V1首败是host Py3材质索引顺序与native Py2不同，现场原生expected／actual／STATE原wire完全相等。真Py2／3完整800格类型语义摘要相同，各拒12个负控；V3仅改水跨解释器host比较，保留原wire，书严格cache／reload门原样。首败小包和专项页已提交30162115，root独审原始指针及PNG字节并实际查看编辑器图；该轮仍为1对confirm／0主帧、game C0000409／MCDK0，人工0。
+主仓dev最新可审候选提交 `3cb253df`，实际游戏运行源码仍 **`b70ce7bf13ad6a4472f2b089ac812c162b174861`**；之后为宿主、证据或文档。只本地提交，不push、不合main，不清理历史untracked、五用户probe或磁盘垃圾。最多3活动代理、5个实际活MC；当前各实机实验均已结束释放，收尾再做全量精确身份核对。CIM旧零handle／零thread／null-executable墓碑不计活MC，必须核PID＋创建身份＋实际exit state。
 
-植物A4尚未launch即因V5 status截断JSON失败，看护已精确退休；V6 writer-only第13并发控制仍在原Path读侧未知errno13首败。V7使用完整原子发布和94598a69原生共享读，9控制及100发布实跑通过，root独立重放100发布／4857读；原失败不改。所有新host的启动和运行中status读点均需绑定V7，不能只改首启。常用tracked看护工具同步共享read_json／write_json，11项定点通过，提交5ad78cbe。见[专项](verification/WATCHER_STATUS_IO_R28.md)。
+已取得的产品及验证：书GUI锚点 `7c06e23a`；水PaperDoll裁剪 `a6950ece`；公开书卡 `e7f89a2f`、可选伙伴卡 `e733baa9`、三水小卡 `b70ce7bf`。当前显式水合同正式16门和元数据 `179b5255`；CPU全量 `491d77fa` 为3485项／skip1／OK、6310文件前后相同，含历史untracked测试／工具且早于新增小卡。入口新增另有30项定点及Py2／3编译，不能篡改全量来源。变换代表及fresh补查 `f940a322`／`a6afdb60`。见各专项和[周末八组指南](acceptance/2026-10-24-quick-guide.md)。
 
-water_r28离线准备portal V4（b70源、GUI2／3／4×三窗口×A/B/A共18原图，实验最晚07:20／watch07:25），transforms_r28优先具体化T02白支撑6阶段／4模型对照；二者无启动授权。剩余时间不再扩植物矩阵。红石线候选未合入，按钮264弱差异／82较强差异不等于贴面或厚度通过。259模块静态职责图已提交e145958d，约6小时周期重构容量及两库10-31—11-03最小接入不变。下方04:25等为更早检查点，后续结果以本节最新更新及专项为准。
+最终公开五卡 **V4已完成**，记录提交 `730c9934`：当前b70普通Session／默认profile、GUI2，三水各一自然主帧，附魔台／讲台各自然、相反和公开重载主帧；7对load／confirm、9主帧、23次唯一捕获。实际native create增量[1,1,1,1,0,1,0]，累计tile builds[2,3,4,5,5,6,6]，同会话严格新Editor／Document缓存证明通过。root逐张实看9原图并复算原包；双恢复、cleanup空、源及49宿主后核通过。game59924／134371797606449608、MCDK59492／134371797604322788、watch42088／134371797497628121精确释放；game C0000409、MCDK0，未force。V4 release SHA `ca6a59485a5ceaaa085d6b1582f1e5a2a1883c7d01be7414982c01370f35efda`。V1原wire比较首败、V3全树分类定位首败保留（`30162115`／`15f12848`），V2未启动。见[最终冷测](verification/FINAL_PUBLIC_COLD_R28.md)，不授GUI4、全姿态或人工接受。
 
-用户已授权按原计划进入下一轮并在截止时休眠。固定窗口为 **2026-10-22 15:30—2026-10-23 00:00 UTC**，即客户端 America/New_York **10-22 11:30—20:00**，原计划北京时间 **10-22 23:30—10-23 08:00**。07:00（北京时间）停止扩范围，07:30停止长实验并冻结周末入口，07:45前恢复、关闭所属实例和保存交接，08:00休眠。
+末地GUI因果实验V4已完成、提交 `c94aec94`：两族GUI2／3／4共18原图，legacy min(size)/4→同实例min(size)/actualGUI→恢复；实际native slot位置推导与公式最大误差约2.04e-6逻辑像素，缓存的约1e-14不是原生精度。GUI4七组零变化，双恢复及原源后核完成；普通stop1、full grace、game C0000409／MCDK0，无force，精确释放。root打开10张原图并独立复算21组native差值。尚未修产品，不转授星点外观／速度／亮度或新源资格。见[末地记录](verification/PORTAL_GUI_ANCHOR_R28_V4.md)。
 
-一次任务 `Codex-BBE-R28-Hibernate-20261023` 已创建并读回：Ready／Enabled、trigger `2026-10-23T08:00:00+08:00`、`shutdown.exe /h`、StartWhenAvailable=False，电池条件不阻止运行。这是安排就绪，尚非已执行。
+T02支撑对照V3已完成、提交 `83e3d440`：四个实际唯一模型、六阶段，white只替换支撑1083材料及其空states材料key；对应combined相对support-only仅多按钮827未按下facing0。对象ROI固定[577,242,714,452]，按钮石／白／回石改变263／760／263像素，bbox[626,365,665,403]；A/A2与原源恢复对象ROI为零差异。root实看8原图、独立PIL重算10组及解码4组typed模型。仅证明局部贡献与弱对比，厚度／贴面／深度不关。V2真实旧键KeyError为0阶段／0模型，其验证缺口保留。V3双独立审计changed_keys空、60格undo、源／宿主不变；game73044／134371808691939165、MCDK69964／134371808689924043、watch1732／134371808519416084已精确释放，gameC0000409／MCDK0／watch0。release SHA `a24ba360c057f1181af69df8775f480dfc7d04f82292f063e376937d04fa91bf`。见[按钮记录](verification/BUTTON_SUPPORT_CONTRAST_R28.md)，没有后续MC授权占用。
 
-起点 `dev cc96557248c4597830552e323abd3a6f022f54cd`，三个仓库受跟踪工作区干净；981条会话读回无错误，实际活跃MC0／受管活会话0，可用commit约9.97GiB。文档修改前备份在 `.runtime/round-20261023/start-tracked-backup`。不清理历史untracked或五用户probe，不push、不合main。
+下周期最小重构准备已封存，不需从零恢复代理工作：
 
-最多3活动子代理、5个全机实际活跃MC，继续6GiB可用commit及250k句柄／相邻增长10k守门。water_r28负责当前源水的必要正式门与冷启动；transforms_r28负责T02窄诊断和可交付变换代表；books_r28负责书本缺画的可区分原因与窄修；root负责红石线支撑、整合及周末包。每代理最多1MC，错峰启动，水短采保留quiet窗口；共享生产源变更先协调并绑定来源。未定位问题不重复未变条件的实验，不以host修复和截图量当作产品关闭。
+- `9191ed56` 保存[两个原封候选](evidence/next-cycle-candidates-r28-v2/README.md)：末地GUI-aware hook和24行Scene owner helper。根复跑真实Py2／3，58项owner控制及portal实际回调控制通过。原脚本保留.runtime路径假设。
+- `3cb253df` 保存[组合候选](evidence/scene-portal-combination-r28-v1/README.md)，原索引SHA `7ed96ce3492b5dc300d0b474d40e18d69e42f7f5c04da6c4d400712ca2782086`，patch SHA `91d77420ed4b55c2e88381fa89cb7e3df8f8ede92e64af82230fbb72f6b72f4c`。root另目录真实apply后三文件逐字节复现，完整Scene AST只六个允许函数body及helper import变化，组合源Py2／3新控制全过。原CRLF转换和准备失败保留；产品未改、未MC、未授资格。
+- `143b246e`的[资源／owner图](verification/RENDER_BOUNDARY_MAP_R28.md)列四显式合同28声明模型、48直接本地资源、56Git输入及8处共享注册整文件hash差异；own entries匹配，外部父材质／shader include未闭合。39水源只是显式合同，不是全导入或GPU闭包。
 
-本轮在周五08:00前准备10-24／25人工候选，优先实际产品修复及稳定入口；未达准入的水、按钮、书和红石线继续明确阻塞，不派发完整穷举矩阵。11-03镜像／旋转硬门槛、15天发布、每期约6小时重构和10-31—11-03最小接库保持。新增用户人工关闭0；无新账单，不按经过时间、提交数或测试数扣减110小时规划占位。
+正式合入上述组合会改变水39中的Scene并新增实际helper依赖，需按最终源重新生成合同和处理水16门／portal12门及owner真实生命周期。候选不能带入旧资格，也不能把共享Scene移出清单来绕过；既定剩余约4小时实施容量未记完成。书GUI4间歇空白、线OB10上坡严格失败和植物两名称未到target的失败均继续开放；线flat-only与植物候选仍私有，原生水仍不接受。常用watcher共享I/O工具修正 `5ad78cbe` 的11项检查及V7并发证据保留，不扩为原生崩溃根因。
 
-R28北京时间04:25检查点：产品书锚点`7c06e23a`、水控件裁剪`a6950ece`、两张公开书卡`e7f89a2f`均已提交。变换公开流程及fresh补查已分别提交`f940a322`／`a6afdb60`；T02支撑Y+4有限位移诊断已提交`e4b5e5b6`，仍未绘制按钮或关闭厚度问题。水合源F／A及BRG、独立默认D均已完成；root审核原图、恢复、源和精确释放后正式运行共享生成器及原资格器，16门通过，元数据提交`179b5255`，见[最终水资格](verification/WATER_FINAL_QUALIFICATION_R28.md)。D三项非同相位湿栅栏透明度诊断及R／G旧通用几何失败保留，不扩大通过范围。最终CPU3485项／跳过1项／OK，6310文件前后不变，证据提交`491d77fa`；包含历史未跟踪测试／工具，不能写成clean HEAD资格。
+两库仍main renderer `ca1035615410db75aeaffdd7e8f3feb73ae6c0f0`／states `58534dc5956848b4e6e5bcba97ad7112e2802388`，15／12份绑定来源未变；主程序未cutover。10-31—11-03最小接入、每周期约6小时重构、15天发布、11-03镜像旋转必交付不变。周末只给八组30—60分钟代表、全部人工未检查；新增人工关闭0，无新账单，不由测试／提交／并发扣110小时占位。
 
-书公开冷v3真实reload后因旧host要求本次重新Combine而拒绝，原失败保留。v4完整冷测已完成：四次公共load／confirm、六原图已由root逐张查看，匹配tile真实create增量1／0／1／0。双恢复及源复核通过，game70616、MCDK34048、watch70096三原身份已不存在，release SHA `de79a58611aa7169ed747702b3f488733687e0a3777ce87bc2dc5986a2528af3`；game实际ordinary退出仍0xC0000409，不称正常引擎退出。24-file小包经root独立对原report／完整proof digest／PNG／restore／release复核通过，见[书冷测](verification/BOOK_PUBLIC_COLD_R28.md)。离线UI、native factory、WGC和原会话恢复均为显式边界模型，不转授离线像素或恢复结论。v4绑定`48dedf14`，旧GUI4间歇空白及全GUI／姿态仍开。
-
-红石线平面／边界通过、上坡单像素严格失败仍保留，未合入；新的平面保守候选仅作私有离线研究。仙人掌花／红树根A v2在阳性对照因背景噪声拒绝；v3固定预热后在首次正式air的原source封存检查拒绝，未到stone或targets。8条warmup creation原source仍current时没有被旧host观察，真实旧v5 Ledger离线重放同样拒绝；正在准备在预热当场封存的最小新host，不能事后补封或放宽检查。A3已双恢复并精确释放，B3未启动。当前三个代理均为离线准备，没有MC授权占用；下一槽另行授予。
-
-root已提交`b70ce7bf`：三个小水蓝图`test.layers.water_source`／`water_pool`／`water_fence`直接复用既有source_document原格，2／8／3格，水39-source官方检查零差异。18个debug、7个water、5个book既有回归通过；两模块真Py2／3编译、实际Session聚焦／库及Document往返通过。3485项全量在新增入口之前，不能改写其来源。books准备新源三水＋两书公共入口短测；water离线准备legacy末地表面GUI2／3／4锚点因果诊断，不改共享source或星点资格。周末操作见[八组指南](acceptance/2026-10-24-quick-guide.md)，待最终入口冷测冻结。植物与线候选均触及水已资格的39文件边界，不能未经水再资格合入。开发继续至08:00，不能沿用下方R27的“已停止”状态。
+下一允许开发窗口 **10-25周日23:30—10-26周一08:00，北京时间**，先处理周末反馈和发布阻塞，再安排末地／最小Scene边界及共享水新源复验，余量才继续其他候选。当前收尾必须再次核三仓tracked状态、R28全部会话／owned helper精确释放与休眠任务，保存最终回执；到截止执行休眠，若之后恢复只核结果，不自动延长开发。
 
 ## 2026-10-22 07:46最终交接（08:00休眠待执行）
 
