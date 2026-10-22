@@ -1,0 +1,36 @@
+{
+  "label": "actual-v4-start-public-status",
+  "passed": true,
+  "actual_lifecycle_start_executed": true,
+  "actual_assigned_reader_executed": true,
+  "actual_frozen_source_and_helper_preflight_executed": true,
+  "explicit_fake_boundaries": [
+    "Popen (no process started)",
+    "OS process identities/handles/memory/registry",
+    "monotonic time and sleep",
+    "selected native read failures; successful reads use actual native API",
+    "fresh fake watcher status"
+  ],
+  "native_reads": 4,
+  "spawns_recorded": 2,
+  "launcher_spawns": 1,
+  "restarts": 0,
+  "samples_written": 3,
+  "sleeps": [
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25
+  ],
+  "manifest_read_events": [],
+  "report_sha256": "31a33a37d3843c17835f795aa2e4cde0371909753e97b7f1c06503bf6fc3910a",
+  "error": null,
+  "MC_started": false,
+  "MC_connected": false
+}

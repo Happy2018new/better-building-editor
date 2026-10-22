@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "changed_entrypoints": [
+    {
+      "entrypoint": "actual lifecycle.start (initial plus all three monitoring status reads)",
+      "passed": true,
+      "status_native_reads": 4,
+      "actual_atomic_writes": 100,
+      "writer_maximum_attempts": 1,
+      "fake_boundaries": [
+        "Popen (no process started)",
+        "OS process identities/handles/memory/registry",
+        "monotonic time and sleep",
+        "selected native read failures; successful reads use actual native API",
+        "fresh fake watcher status"
+      ],
+      "inherited_fixture_sha256": "2eae51671cbd36b54ab8a230900ea0b76f6176e2f69f57040028c88b4d45ff78",
+      "fixture_source_changes": [
+        "watcher external-binding key V5 to V7",
+        "fresh output directory v1 to v2"
+      ],
+      "actual_lifecycle_module_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v4\\lifecycle.py",
+      "raw_status_reads_preserved_in_fixture": false,
+      "fixture_receipt": {
+        "label": "actual-v4-start-public-status",
+        "passed": true,
+        "actual_lifecycle_start_executed": true,
+        "actual_assigned_reader_executed": true,
+        "actual_frozen_source_and_helper_preflight_executed": true,
+        "explicit_fake_boundaries": [
+          "Popen (no process started)",
+          "OS process identities/handles/memory/registry",
+          "monotonic time and sleep",
+          "selected native read failures; successful reads use actual native API",
+          "fresh fake watcher status"
+        ],
+        "native_reads": 4,
+        "spawns_recorded": 2,
+        "launcher_spawns": 1,
+        "restarts": 0,
+        "samples_written": 3,
+        "sleeps": [
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "manifest_read_events": [],
+        "report_sha256": "31a33a37d3843c17835f795aa2e4cde0371909753e97b7f1c06503bf6fc3910a",
+        "error": null,
+        "MC_started": false,
+        "MC_connected": false
+      },
+      "errors": []
+    },
+    {
+      "entrypoint": "actual resource_gate.snapshot_boundary + unchanged validate_boundary",
+      "passed": true,
+      "actual_atomic_writes": 100,
+      "actual_status_reads": 3681,
+      "observed_sequence_range": [
+        0,
+        100
+      ],
+      "payload_characters": 131074,
+      "writer_maximum_attempts": 3,
+      "validation_negatives": [
+        {
+          "case": "owner",
+          "rejected": true,
+          "fresh_status_read": true
+        },
+        {
+          "case": "host-sha",
+          "rejected": true,
+          "fresh_status_read": true
+        },
+        {
+          "case": "errors",
+          "rejected": true,
+          "fresh_status_read": true
+        },
+        {
+          "case": "stale",
+          "rejected": true,
+          "fresh_status_read": true
+        },
+        {
+          "case": "malformed-json",
+          "rejected": true,
+          "no_stale_fallback": true
+        }
+      ],
+      "errors": [],
+      "fake_boundaries": [
+        "memory measurement only; no game/session/process requested"
+      ]
+    }
+  ],
+  "reader_byte_exact_sealed_V7": true,
+  "no_cache_fallback_or_validation_retry_added": true,
+  "unchanged_business_and_assigned_read_controls_inherited": true,
+  "MC_started": false,
+  "watcher_started": false
+}

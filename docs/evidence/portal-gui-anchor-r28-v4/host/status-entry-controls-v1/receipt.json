@@ -1,0 +1,43 @@
+{
+  "entrypoint": "actual resource_gate.snapshot_boundary + unchanged validate_boundary",
+  "passed": true,
+  "actual_atomic_writes": 100,
+  "actual_status_reads": 3681,
+  "observed_sequence_range": [
+    0,
+    100
+  ],
+  "payload_characters": 131074,
+  "writer_maximum_attempts": 3,
+  "validation_negatives": [
+    {
+      "case": "owner",
+      "rejected": true,
+      "fresh_status_read": true
+    },
+    {
+      "case": "host-sha",
+      "rejected": true,
+      "fresh_status_read": true
+    },
+    {
+      "case": "errors",
+      "rejected": true,
+      "fresh_status_read": true
+    },
+    {
+      "case": "stale",
+      "rejected": true,
+      "fresh_status_read": true
+    },
+    {
+      "case": "malformed-json",
+      "rejected": true,
+      "no_stale_fallback": true
+    }
+  ],
+  "errors": [],
+  "fake_boundaries": [
+    "memory measurement only; no game/session/process requested"
+  ]
+}

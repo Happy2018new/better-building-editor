@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "scope": "offline integration harness, no MC or watcher",
+  "error": "FileNotFoundError while fixture attempted to read its launch report after an earlier preflight failure",
+  "reason": "Importing the inherited V3 verifier inserted its own V3 directory before importing lifecycle, selecting V3 lifecycle instead of V4. The V4 fixture then failed V3 ownership preflight before any launcher call or launch report.",
+  "repair": "Pre-import actual V4 lifecycle and assigned reader and assert the selected module path; preserve this directory, rerun into fresh lifecycle-controls-v2.",
+  "production_changed": false,
+  "MC_started": false,
+  "watcher_started": false
+}

@@ -1,0 +1,125 @@
+{
+  "passed": true,
+  "at_utc": "2026-10-22T21:35:40.412098+00:00",
+  "initial_root_harness_failure": "Initial root-only adaptation also renamed external-host-binding.json, which does not have a -final variant; failed before source or process checks, then corrected the filename.",
+  "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "runtime_files": 3712,
+  "helpers": 36,
+  "host_objects": 25,
+  "all_runtime_and_helpers_match_git": true,
+  "all_control_and_external_host_hashes_match": true,
+  "preflight": {
+    "at_utc": "2026-10-22T21:35:39.554311+00:00",
+    "memory": {
+      "committed_bytes": 33665257472,
+      "limit_bytes": 46100955136,
+      "headroom_bytes": 12435697664
+    },
+    "minecraft_enumeration": [
+      {
+        "pid": 8428,
+        "identity": null
+      },
+      {
+        "pid": 8956,
+        "identity": null
+      },
+      {
+        "pid": 12336,
+        "identity": null
+      },
+      {
+        "pid": 16644,
+        "identity": null
+      },
+      {
+        "pid": 16756,
+        "identity": null
+      },
+      {
+        "pid": 16972,
+        "identity": null
+      },
+      {
+        "pid": 21316,
+        "identity": null
+      },
+      {
+        "pid": 22972,
+        "identity": null
+      },
+      {
+        "pid": 23116,
+        "identity": null
+      },
+      {
+        "pid": 38708,
+        "identity": null
+      },
+      {
+        "pid": 40884,
+        "identity": null
+      },
+      {
+        "pid": 42116,
+        "identity": null
+      },
+      {
+        "pid": 50592,
+        "identity": null
+      },
+      {
+        "pid": 50672,
+        "identity": null
+      },
+      {
+        "pid": 52244,
+        "identity": null
+      },
+      {
+        "pid": 54552,
+        "identity": null
+      },
+      {
+        "pid": 55512,
+        "identity": null
+      },
+      {
+        "pid": 58052,
+        "identity": null
+      },
+      {
+        "pid": 58636,
+        "identity": null
+      },
+      {
+        "pid": 59324,
+        "identity": null
+      },
+      {
+        "pid": 66888,
+        "identity": null
+      },
+      {
+        "pid": 69008,
+        "identity": null
+      },
+      {
+        "pid": 69672,
+        "identity": null
+      },
+      {
+        "pid": 71856,
+        "identity": "134371784093532040"
+      }
+    ]
+  },
+  "lifecycle_review": {
+    "ordinary_stop_grace_seconds": 45,
+    "exact_identity_and_STILL_ACTIVE_checked_before_fallback": true,
+    "fallback_force_requires_explicit_disclosure_and_no_normal_exit_claim": true
+  },
+  "MC_started": false,
+  "launch_granted": false,
+  "manual_issues_closed": 0
+}

@@ -1,0 +1,123 @@
+{
+  "scope": "OFFLINE_V7_STATUS_INTERFACE_SEAL",
+  "passed_focused_controls": true,
+  "cases": 9,
+  "actual_concurrent_writes": 100,
+  "actual_concurrent_reads": 6074,
+  "files": {
+    "atomic_json_writer.py": {
+      "bytes": 1441,
+      "sha256": "6963c790087c4703469c231a9ffe55ec89d5357cb6e210adc2a3615dc6db857a"
+    },
+    "derivation.json": {
+      "bytes": 1228,
+      "sha256": "ac335d30085561f35492f2fbd40d0f4008aa7604a0dd5e6564c7cf9c0eb0ff09"
+    },
+    "external-host-binding.v7.json": {
+      "bytes": 1129,
+      "sha256": "6d09a82634520394b327082f83444e79a6b8195866fc8ea02197f6216949bc34"
+    },
+    "README.md": {
+      "bytes": 4189,
+      "sha256": "b7e771d53d7084e953ebda0ab0614fb5ab08ccb19e915166f95e9cde5763b2fb"
+    },
+    "start-watch-derivation.json": {
+      "bytes": 1012,
+      "sha256": "8674c7be904c436f9b2e56eced3e2542e71f79df1168f2213c7f950c7116fa47"
+    },
+    "start-watch.books-v3.patch": {
+      "bytes": 1677,
+      "sha256": "411793dcd43e208534b69b01c07b39e0bd1fbe3164e79cc589290c9438454c44"
+    },
+    "start_watch.books_v3.py": {
+      "bytes": 2624,
+      "sha256": "62d69df6f77319c285da035984577f7547f488fe23b1de8ef927a766293b99a1"
+    },
+    "status_reader.py": {
+      "bytes": 2900,
+      "sha256": "c9383d0aedfaabdff98a52afcfe1c0d3619291d6d48138495e87f283d958e908"
+    },
+    "verify_status_io.py": {
+      "bytes": 8754,
+      "sha256": "a2f9d0180d44ced152514e7df0b594427c98c090eb408a9fe65bc3dfc06448e1"
+    },
+    "watch_owned_disabled_skin_assert_r28_v7.py": {
+      "bytes": 7899,
+      "sha256": "9a3a4e4ca624c22459f8387877f2cff565b65f1a467b2917eb4feccaec516799"
+    },
+    "windows_manifest_reader.py": {
+      "bytes": 3247,
+      "sha256": "2ae4d46fc4fc63249b1b10d8cc6e7028009f4fa1941ea64f88452871a89eb28d"
+    },
+    "offline-status-controls-v1/01-actual_old_direct_writer_JSON_failure_not_retried.json": {
+      "bytes": 280,
+      "sha256": "2f0dd30cdd0dc09a63cb4dbdcde5264f9174df89b0c19019f723446dd72db3e5"
+    },
+    "offline-status-controls-v1/02-reader_transient_win32_then_complete.json": {
+      "bytes": 151,
+      "sha256": "f80c0ab729ee5fd926a3e0ee1e1996c3af565458220c2b8c5824390be28049fb"
+    },
+    "offline-status-controls-v1/03-reader_transient_win33_then_complete.json": {
+      "bytes": 151,
+      "sha256": "885899a09e82ab4183312e6b29e2ea4cafc37231c5f2c957c95fbfbdd5d0227e"
+    },
+    "offline-status-controls-v1/04-actual_native_exclusive_handle_reader_win32_five_attempt_bound.json": {
+      "bytes": 296,
+      "sha256": "2058d26091e4e0c21eb3cd90c6aae1f449521deadf87a0a4dc4d0dd1aae53bff"
+    },
+    "offline-status-controls-v1/05-reader_Win5_immediate_failure.json": {
+      "bytes": 130,
+      "sha256": "c74546b1c348f3b9d519e06c041fd987cc6ea61dabd60fa217a47e5f8fec7151"
+    },
+    "offline-status-controls-v1/06-reader_unknown_errno13_immediate_failure.json": {
+      "bytes": 141,
+      "sha256": "9a042a9c98f20bb56da3f157306e0ecaa9f6b199840009b5e85bb35212aba1f8"
+    },
+    "offline-status-controls-v1/07-reader_invalid_JSON_immediate_failure.json": {
+      "bytes": 121,
+      "sha256": "8d83398af441dc89f7d675d216aecbb2ea4f136c9c660cbdefd5e7592a25532a"
+    },
+    "offline-status-controls-v1/08-reader_invalid_UTF8_immediate_failure.json": {
+      "bytes": 121,
+      "sha256": "b90c8fcd919c6140aefe2aab447549bbfb020a5bd7b93476a6a8a5748d8b50a9"
+    },
+    "offline-status-controls-v1/09-actual_100_atomic_publications_native_share7_reader.json": {
+      "bytes": 278,
+      "sha256": "ea5b2a3377a51ab485082b7065da31fd1849c85715eddf8d5553ecd77f7a3d09"
+    },
+    "offline-status-controls-v1/concurrent-status.json": {
+      "bytes": 131118,
+      "sha256": "9fde42af37da53539e8d34dc3a3f385415749c46026bb00bf56f995feedcf253"
+    },
+    "offline-status-controls-v1/invalid-JSON.json": {
+      "bytes": 1,
+      "sha256": "021fb596db81e6d02bf3d2586ee3981fe519f275c0ac9ca76bbcf2ebb4097d96"
+    },
+    "offline-status-controls-v1/invalid-UTF8.json": {
+      "bytes": 1,
+      "sha256": "a8100ae6aa1940d0b663bb31cd466142ebbdbd5187131b92d93818987832eb89"
+    },
+    "offline-status-controls-v1/locked-status.json": {
+      "bytes": 15,
+      "sha256": "d391127f5d93e2f81bdafb51e9c3670cb7641168bc8862f493599e5e0e7b8c5d"
+    },
+    "offline-status-controls-v1/result.json": {
+      "bytes": 2461,
+      "sha256": "ff7934a8524f7486169109bd2c24086b1c5ee43b0d404a325e3b80b21dbb1347"
+    },
+    "offline-status-controls-v1/old-direct/status.json": {
+      "bytes": 18,
+      "sha256": "5f13187a33f202a8e711072610ef96aabfc4906f846beba6e67f8ce44056f56e"
+    }
+  },
+  "V6_preserved_failure_sha256": "a9e4669d7bfbb9a3c4218d062a54073ad17d18491a5d4f01aed6b55d3d925d00",
+  "V6_preserved_temp": {
+    "name": ".concurrent-status.json._cbex9f7.tmp",
+    "bytes": 4128,
+    "sha256": "f4c1a05802d2ea7c41b8fdc128604b54c51a5ad72b21ba2cf91791d8315f9dc5"
+  },
+  "watcher_started": false,
+  "MC_started": false,
+  "new_owner_and_root_grant_still_required": true,
+  "manual_closures": 0
+}

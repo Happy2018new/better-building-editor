@@ -1,0 +1,148 @@
+{
+  "MC_started": false,
+  "V3_modified": false,
+  "modules": [
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\assigned_manifest_read.py",
+      "source_sha256": "3d1ffd28a304513c9d8117cac1fb0078b73f526d5d390aab29898bf65854ecfe",
+      "target": "assigned_manifest_read.py",
+      "target_sha256": "d376a6d727d53d2e9d7f46475e653d675775f9b887fe92c746b1dcad0a593b21"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\windows_manifest_reader.py",
+      "source_sha256": "2ae4d46fc4fc63249b1b10d8cc6e7028009f4fa1941ea64f88452871a89eb28d",
+      "target": "windows_manifest_reader.py",
+      "target_sha256": "c74afa98ed5565c3170bc2395b4e10d60a86c17cf5daf52a32fe1ae961e934c9"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\camera_gate.py",
+      "source_sha256": "cb613e0f1ebd6fcc9d2d42cec6ed979eaf34873d0fa5a754e18c5900fa86fc54",
+      "target": "camera_gate.py",
+      "target_sha256": "cb613e0f1ebd6fcc9d2d42cec6ed979eaf34873d0fa5a754e18c5900fa86fc54"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\camera_readback.py",
+      "source_sha256": "240f9aea7b6638c86d5bd81da4169cd12d9d5604cb15dbc0c89307e7076714a0",
+      "target": "camera_readback.py",
+      "target_sha256": "240f9aea7b6638c86d5bd81da4169cd12d9d5604cb15dbc0c89307e7076714a0"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\lifecycle_helpers.py",
+      "source_sha256": "643d510498e357059cac7e1b896bcaf023856c70826e391f57b0b9a23ef11470",
+      "target": "lifecycle_helpers.py",
+      "target_sha256": "643d510498e357059cac7e1b896bcaf023856c70826e391f57b0b9a23ef11470"
+    },
+    {
+      "declared_replacements": [
+        [
+          "import time\n",
+          "import time\nfrom status_reader import read_json as read_status_json\n"
+        ],
+        [
+          "json.loads((HERE / 'assert-watch/status.json').read_bytes())",
+          "read_status_json(HERE / 'assert-watch/status.json')"
+        ],
+        [
+          ".runtime/round-20261022/water-anchor-watcher-v5/watch_owned_disabled_skin_assert_r27_v5.py",
+          ".runtime/round-20261023/water-anchor-watcher-v7/watch_owned_disabled_skin_assert_r28_v7.py"
+        ]
+      ],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\lifecycle.py",
+      "source_sha256": "1fad332fa3558445182830dc67068b5b13d8bba3b8193bb8b9e560cc104b3240",
+      "target": "lifecycle.py",
+      "target_sha256": "a0e6965bb3ae75be6bcc0b9189385931083d44dd4839b54481e1a9da2778afa5"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\native_owned_ancestry.py",
+      "source_sha256": "294cbcf9bffcb89bd48e709b1eb72c16f399150154ccdf00119f5589a14d5f3c",
+      "target": "native_owned_ancestry.py",
+      "target_sha256": "294cbcf9bffcb89bd48e709b1eb72c16f399150154ccdf00119f5589a14d5f3c"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\native_ui_readback.py",
+      "source_sha256": "4f7d4d3fcc2b3f9d72e4bf304e4c03f43bd34fcf88b4fa04be91b66a728551b5",
+      "target": "native_ui_readback.py",
+      "target_sha256": "4f7d4d3fcc2b3f9d72e4bf304e4c03f43bd34fcf88b4fa04be91b66a728551b5"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\portal_payloads.py",
+      "source_sha256": "b7e5165f77bedb1575d117845ceb7587fdb15de3df7d0253da57430da618642c",
+      "target": "portal_payloads.py",
+      "target_sha256": "b7e5165f77bedb1575d117845ceb7587fdb15de3df7d0253da57430da618642c"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\protocol.py",
+      "source_sha256": "1d9cc0222476387b205d0c48c72658c0e955e20d175a55e1d1b3bfe2666a312c",
+      "target": "protocol.py",
+      "target_sha256": "1d9cc0222476387b205d0c48c72658c0e955e20d175a55e1d1b3bfe2666a312c"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\resize_adapter.py",
+      "source_sha256": "7d521a1f68edac5735a7ac38b83c22c7303b740162ae7879a1b477612e0daccc",
+      "target": "resize_adapter.py",
+      "target_sha256": "99f49a16627f09f2447ad5c3c545bf59c18069233d0b3245f9c7968cb588fdce"
+    },
+    {
+      "declared_replacements": [
+        [
+          "from pathlib import Path\n",
+          "from pathlib import Path\nfrom status_reader import read_json as read_status_json\n"
+        ],
+        [
+          "json.loads(Path(watcher_path).read_bytes())",
+          "read_status_json(watcher_path)"
+        ]
+      ],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\resource_gate.py",
+      "source_sha256": "d573e94f7b674ec2c5c4a3bc5a2befdaaf59b82112f1915fa9df634150ed12b9",
+      "target": "resource_gate.py",
+      "target_sha256": "8c32560246d8fa483b03725c6a90acf112a441121fe6177cb404cd8f2bea296a"
+    },
+    {
+      "declared_replacements": [],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\run_anchor.py",
+      "source_sha256": "d41531dc94c182ec25e0b60287cf30a017ee77dd83ca89107ae1b476858b2f66",
+      "target": "run_anchor.py",
+      "target_sha256": "f25eaaad500b8c82bf0ee6382b0ef47f08aad7d29ece2a5e857d9865113de03f"
+    },
+    {
+      "declared_replacements": [
+        [
+          ".runtime/round-20261022/water-anchor-watcher-v5/watch_owned_disabled_skin_assert_r27_v5.py",
+          ".runtime/round-20261023/water-anchor-watcher-v7/watch_owned_disabled_skin_assert_r28_v7.py"
+        ]
+      ],
+      "owner_project_adaptation": true,
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-gui-anchor-v3\\start_watch.py",
+      "source_sha256": "92892323bc3266a800db049ad90fd9df32b3786c7d94acc9a147451dda49d912",
+      "target": "start_watch.py",
+      "target_sha256": "752c827f0097353e4bdbb909e04dacb09f70212b3683b68729db183dbcbbeb93"
+    }
+  ],
+  "runtime_and_36_helpers_byte_exact_b70": true,
+  "source_binding_sha256": "0f308d26da9fbb1194b8dfaabbdef5712734b7b6549155270ac319395837dc62",
+  "watcher_started": false
+}

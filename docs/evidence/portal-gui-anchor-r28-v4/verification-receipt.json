@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "passed": true,
+  "mode": "offline",
+  "index_sha256": "0c04458acee68c24667c5362e2e5b196dd27f3aee096d5d5a33f7587bc26566b",
+  "original_entries": 92,
+  "derived_entries": 4,
+  "original_PNGs": 18,
+  "original_PNG_bytes": 3668791,
+  "report_original_sha256": "51c566cf095528f24c1a2878db9cac26fa48ac9262f31a9e6e40ccd6081d1513",
+  "source_counts": {
+    "v3": {
+      "runtime": 3712,
+      "historical_helpers": 36
+    },
+    "v4": {
+      "runtime": 3712,
+      "historical_helpers": 36
+    }
+  },
+  "bound_host_objects": 25,
+  "bound_offline_controls": 4,
+  "protocol_before_after_checks": 36,
+  "capture_stability_checks": 18,
+  "triplets": [
+    {
+      "family": "end_gateway",
+      "gui": 2,
+      "groups": 3,
+      "max_cached_prediction_error": 0.0,
+      "max_native_prediction_error": 1.750412437218074e-06,
+      "max_native_position_vs_cached_error": 3.500824874436148e-06,
+      "A_return_all_native_slots_equal": true
+    },
+    {
+      "family": "end_gateway",
+      "gui": 3,
+      "groups": 3,
+      "max_cached_prediction_error": 1.0658141036401503e-14,
+      "max_native_prediction_error": 2.0392697166471407e-06,
+      "max_native_position_vs_cached_error": 1.5115853955194325e-06,
+      "A_return_all_native_slots_equal": true
+    },
+    {
+      "family": "end_gateway",
+      "gui": 4,
+      "groups": 3,
+      "max_cached_prediction_error": 0.0,
+      "max_native_prediction_error": 0.0,
+      "max_native_position_vs_cached_error": 2.1555224662961336e-06,
+      "A_return_all_native_slots_equal": true
+    },
+    {
+      "family": "end_portal",
+      "gui": 2,
+      "groups": 4,
+      "max_cached_prediction_error": 0.0,
+      "max_native_prediction_error": 1.750412437218074e-06,
+      "max_native_position_vs_cached_error": 5.288618808663159e-06,
+      "A_return_all_native_slots_equal": true
+    },
+    {
+      "family": "end_portal",
+      "gui": 3,
+      "groups": 4,
+      "max_cached_prediction_error": 3.552713678800501e-15,
+      "max_native_prediction_error": 2.0392697166471407e-06,
+      "max_native_position_vs_cached_error": 2.506799887669331e-06,
+      "A_return_all_native_slots_equal": true
+    },
+    {
+      "family": "end_portal",
+      "gui": 4,
+      "groups": 4,
+      "max_cached_prediction_error": 0.0,
+      "max_native_prediction_error": 0.0,
+      "max_native_position_vs_cached_error": 2.841876636239249e-06,
+      "A_return_all_native_slots_equal": true
+    }
+  ],
+  "native_groups_total": 21,
+  "restore_audits": 2,
+  "ordinary_stop_returncode": 1,
+  "game_exit": "0xC0000409",
+  "game_exit_abnormal": true,
+  "force_executed": false,
+  "text_inputs_scanned": 79,
+  "credential_findings": 0,
+  "root_visual_review_PNGs": 10,
+  "manual_issues_closed": 0,
+  "production_modified": false,
+  "qualification_changed": false,
+  "pixels_or_animation_accepted": false,
+  "runtime_source_guard_scope": "Original live closeout guard receipt and byte-exact manifests preserved; no new live runtime requalification"
+}
