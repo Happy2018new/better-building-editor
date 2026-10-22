@@ -20,6 +20,8 @@ R28后半段已补[静态依赖准备](verification/RENDER_BOUNDARY_MAP_R28.md)�
 
 已保存[两项最小私有候选](evidence/next-cycle-candidates-r28-v2/README.md)：末地编辑器按实际GUI倍率计算锚点；Scene五owner只抽登记／cleanup，构造、hook和异常传播保持。root核对全部原封候选来源及实际Git基准，并用真Python2／3分别重跑portal回调控制和Scene58项实际函数控制。两项均未合入，没有真实引擎或水资格转授；Scene helper仍应留主仓。正式接入需以最终组合源重新绑定Scene及新增helper等真实依赖，再处理受影响水16门、末地冷启及生命周期，不能从39项合同中删共享源来绕过复验。
 
+两份补丁另已在b70原字节的私有目录顺序真实check／apply，并形成[三文件组合候选](evidence/scene-portal-combination-r28-v1/README.md)。root在另一私有目录重放组合patch，三文件逐原字节等于代理结果；完整Scene AST仅五owner、helper import及末地callback变化，组合源真Python2／3的新owner58例和portal控制均通过。默认Git的LF／CRLF转换分别记录，没有将换行差异当代码变化，也未改写原封候选。组合候选仍未合入或原生验证。
+
 这些补丁用于减少下一窗口准备与评审成本，没有将既定剩余约4小时实施／真实验证容量记为完成。两库的10-31—11-03固定版本最小接入、每周期约6小时重构及原预算保持；植物／红石线候选仍各自保留，不能随机械抽取夹带合入。
 
 ## 2026-10-21 R25 恢复：海带与箱体边界来源续接

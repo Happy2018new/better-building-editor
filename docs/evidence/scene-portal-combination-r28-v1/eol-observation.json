@@ -1,0 +1,32 @@
+{
+  "actual_git_config_stdout": "file:D:/Program/Git/etc/gitconfig\ttrue\n",
+  "files": [
+    {
+      "path": "behavior_pack/modern_projection/projection/portal_profile.py",
+      "sealed_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\portal-anchor-candidate-v1\\candidate\\behavior_pack\\modern_projection\\projection\\portal_profile.py",
+      "sealed_sha256": "d356b0951f0c36e72f111c37bdbe4f58f8e2040b8b1eadd85e75c8cd45e9eaa9",
+      "actual_sha256": "26c4c084fb4834434741b6f9983ee31b82555496b2b0970f093de115da0c2cfb",
+      "raw_byte_equal": false,
+      "LF_normalized_equal": true,
+      "AST_identical": true,
+      "sealed_CRLF_count": 0,
+      "actual_CRLF_count": 123,
+      "actual_bytes_retained": true
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/scene_owner.py",
+      "sealed_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\scene-owner-minimal-v2\\scene_owner.py",
+      "sealed_sha256": "cf8f500261d6f1a96d9f0625b62eb277484d2b5034cc614a04b00bc3f4204569",
+      "actual_sha256": "e902d7514ff5ffa6a77e033607b2af701ca43635bd0357185c0b904dcece2ccb",
+      "raw_byte_equal": false,
+      "LF_normalized_equal": true,
+      "AST_identical": true,
+      "sealed_CRLF_count": 0,
+      "actual_CRLF_count": 24,
+      "actual_bytes_retained": true
+    }
+  ],
+  "patches_not_altered": true,
+  "no_force_or_relaxed_apply": true,
+  "explanation": "Default Git core.autocrlf=true converts newly written helper and portal profile to CRLF; actual output is retained."
+}

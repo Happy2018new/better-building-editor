@@ -1,0 +1,129 @@
+--- a/behavior_pack/modern_projection/projection/scene.py
++++ b/behavior_pack/modern_projection/projection/scene.py
+@@ -26,6 +26,7 @@
+ from .cauldron_preview import CauldronPreview
+ from .portal_preview import PortalPreview
+ from .book_preview import BookPreview
++from .scene_owner import own_preview
+ 
+ 
+ MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '换材质'),
+@@ -110,18 +111,7 @@
+         session.bridge.factory.CreateModel(None), request_starts_per_frame=getattr(
+             liquid_profile, 'ui_request_starts_per_frame', None)) if liquid is not None else None, [liquid])
+     def own_liquid():
+-        if liquid is None:
+-            return
+-        session.liquid_preview = liquid
+-        session.liquid_controls = liquid_controls
+-        def cleanup():
+-            liquid_controls.close()
+-            liquid.close()
+-            if getattr(session, 'liquid_preview', None) is liquid:
+-                session.liquid_preview = None
+-                session.liquid_controls = None
+-                session.liquid_error = ''
+-        return cleanup
++        return own_preview(session, liquid, liquid_controls, 'liquid', missing_ok=True)
+     use_effect(own_liquid, [liquid, liquid_controls])
+     item_profile = getattr(session, 'item_profile', None)
+     item_registry = use_ref({}).current
+@@ -130,16 +120,7 @@
+     item_controls = use_memo(lambda: ItemControls(item_registry,
+         session.bridge.factory.CreateModel(None)) if items is not None else None, [items])
+     def own_items():
+-        if items is None:
+-            return
+-        session.item_preview, session.item_controls = items, item_controls
+-        def cleanup():
+-            item_controls.close()
+-            items.close()
+-            if getattr(session, 'item_preview', None) is items:
+-                session.item_preview = session.item_controls = None
+-                session.item_error = ''
+-        return cleanup
++        return own_preview(session, items, item_controls, 'item', missing_ok=True)
+     use_effect(own_items, [items, item_controls])
+     cauldron_profile = getattr(session, 'cauldron_profile', None)
+     cauldron_registry = use_ref({}).current
+@@ -148,16 +129,7 @@
+     cauldron_controls = use_memo(lambda: LiquidControls(cauldron_registry,
+         session.bridge.factory.CreateModel(None)) if cauldrons is not None else None, [cauldrons])
+     def own_cauldrons():
+-        if cauldrons is None:
+-            return
+-        session.cauldron_preview, session.cauldron_controls = cauldrons, cauldron_controls
+-        def cleanup():
+-            cauldron_controls.close()
+-            cauldrons.close()
+-            if session.cauldron_preview is cauldrons:
+-                session.cauldron_preview = session.cauldron_controls = None
+-                session.cauldron_error = ''
+-        return cleanup
++        return own_preview(session, cauldrons, cauldron_controls, 'cauldron')
+     use_effect(own_cauldrons, [cauldrons, cauldron_controls])
+     portal_profile = getattr(session, 'portal_profile', None)
+     portal_registry = use_ref({}).current
+@@ -166,16 +138,7 @@
+     portal_controls = use_memo(lambda: LiquidControls(portal_registry,
+         session.bridge.factory.CreateModel(None)) if portals is not None else None, [portals])
+     def own_portals():
+-        if portals is None:
+-            return
+-        session.portal_preview, session.portal_controls = portals, portal_controls
+-        def cleanup():
+-            portal_controls.close()
+-            portals.close()
+-            if session.portal_preview is portals:
+-                session.portal_preview = session.portal_controls = None
+-                session.portal_error = ''
+-        return cleanup
++        return own_preview(session, portals, portal_controls, 'portal')
+     use_effect(own_portals, [portals, portal_controls])
+     book_profile = getattr(session, 'book_profile', None)
+     book_registry = use_ref({}).current
+@@ -184,16 +147,7 @@
+     book_controls = use_memo(lambda: LiquidControls(book_registry,
+         session.bridge.factory.CreateModel(None)) if books is not None else None, [books])
+     def own_books():
+-        if books is None:
+-            return
+-        session.book_preview, session.book_controls = books, book_controls
+-        def cleanup():
+-            book_controls.close()
+-            books.close()
+-            if session.book_preview is books:
+-                session.book_preview = session.book_controls = None
+-                session.book_error = ''
+-        return cleanup
++        return own_preview(session, books, book_controls, 'book')
+     use_effect(own_books, [books, book_controls])
+     models_signature = use_ref(None)
+     models_pending = use_ref(True)
+--- /dev/null
++++ b/behavior_pack/modern_projection/projection/scene_owner.py
+@@ -0,0 +1,24 @@
++# -*- coding: utf-8 -*-
++"""Register and close one Scene preview owner; preserve existing failure semantics."""
++from __future__ import unicode_literals
++
++
++def own_preview(session, preview, controls, family, missing_ok=False):
++    if preview is None:
++        return
++    preview_field = family + '_preview'
++    controls_field = family + '_controls'
++    error_field = family + '_error'
++    setattr(session, preview_field, preview)
++    setattr(session, controls_field, controls)
++
++    def cleanup():
++        controls.close()
++        preview.close()
++        current = (getattr(session, preview_field, None) if missing_ok
++                   else getattr(session, preview_field))
++        if current is preview:
++            setattr(session, preview_field, None)
++            setattr(session, controls_field, None)
++            setattr(session, error_field, '')
++    return cleanup

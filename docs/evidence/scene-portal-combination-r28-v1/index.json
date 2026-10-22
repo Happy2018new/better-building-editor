@@ -1,0 +1,284 @@
+{
+  "schema": 1,
+  "base_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "purpose": "Private five-owner plus portal-anchor combination feasibility only",
+  "entries": [
+    {
+      "path": "ast-and-apply.json",
+      "bytes": 2011,
+      "sha256": "fdfface1fecb7df3801e6922aeaac475eb5e44fd3e1a2fba13f0065d641039aa"
+    },
+    {
+      "path": "baseline/behavior_pack/modern_projection/projection/portal_profile.py",
+      "bytes": 5063,
+      "sha256": "6af026febda0793b296e3e2a5af93cfa6e40854da9cd862fb25ee5d43cc85ed8"
+    },
+    {
+      "path": "baseline/behavior_pack/modern_projection/projection/scene.py",
+      "bytes": 46764,
+      "sha256": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9"
+    },
+    {
+      "path": "combined/behavior_pack/modern_projection/projection/portal_profile.py",
+      "bytes": 5605,
+      "sha256": "26c4c084fb4834434741b6f9983ee31b82555496b2b0970f093de115da0c2cfb"
+    },
+    {
+      "path": "combined/behavior_pack/modern_projection/projection/scene.py",
+      "bytes": 45272,
+      "sha256": "5f6751fddd73251f9647f79d8571f74d066cd3db4f31eab13af123ae3cdd63e9"
+    },
+    {
+      "path": "combined/behavior_pack/modern_projection/projection/scene_owner.py",
+      "bytes": 891,
+      "sha256": "e902d7514ff5ffa6a77e033607b2af701ca43635bd0357185c0b904dcece2ccb"
+    },
+    {
+      "path": "combined.patch",
+      "bytes": 7462,
+      "sha256": "91d77420ed4b55c2e88381fa89cb7e3df8f8ede92e64af82230fbb72f6b72f4c"
+    },
+    {
+      "path": "driver-adaptations.json",
+      "bytes": 4095,
+      "sha256": "6ac195672cd2003ed6b2d1f97f3625458c511055146f37ddc0e594da92bb672a"
+    },
+    {
+      "path": "eol-observation.json",
+      "bytes": 1631,
+      "sha256": "3c492b8057baf8ca4d13f8af6ca9423ef6ceebba727baa27d94c75d396bc87fa"
+    },
+    {
+      "path": "git-application-invocations.json",
+      "bytes": 73094,
+      "sha256": "31d0aa77f4fc7d9aa3ee94735e25fc449a6408156d20b59ee355452d32acb8f2"
+    },
+    {
+      "path": "input-sources.json",
+      "bytes": 1924,
+      "sha256": "7164c2e6b3a9c95057970acece51ad194307ffec370d3c716b96127671c50b06"
+    },
+    {
+      "path": "inputs/five-owner.patch",
+      "bytes": 5868,
+      "sha256": "d177c25437889efaa5faa0641f2bf464266a7ba83c55f35b66121791f17f89c2"
+    },
+    {
+      "path": "inputs/owner-ready-index.json",
+      "bytes": 2256,
+      "sha256": "dab6301625661123426e8e42b2369b623f3cf537694b904bd61ba6ad79fa89c9"
+    },
+    {
+      "path": "inputs/portal-anchor.patch",
+      "bytes": 1745,
+      "sha256": "c453591beac157944e7ec80e9db7d7d0541d515eda92cbb7f7ef2b4cf0cb6ec7"
+    },
+    {
+      "path": "inputs/portal-index.json",
+      "bytes": 4327,
+      "sha256": "4dbe14c85741f389e168ecdb47ca9950003710243e50eb7b1596ddf803695009"
+    },
+    {
+      "path": "inputs/scene.portal-only.py",
+      "bytes": 46951,
+      "sha256": "3e1aa6d7586eecac33483690e90c7d76a7c8a18eafd0285c4a5393a798e78668"
+    },
+    {
+      "path": "intermediate/scene.owner-only.py",
+      "bytes": 45085,
+      "sha256": "9ae698aa0232748d92eb4c1deac5bf786764e517c1e63009fc2146d17cad93cb"
+    },
+    {
+      "path": "owner-controls-py2.json",
+      "bytes": 20833,
+      "sha256": "3ab3fd562d4bcd32edd4ef64faac56d4d37340c661fab885216f8ecfedda4aac"
+    },
+    {
+      "path": "owner-controls-py3.json",
+      "bytes": 20388,
+      "sha256": "b6c15d0dd2af0736a105801350fdcbd8d2f84b6152da2f12be3b429617d99c06"
+    },
+    {
+      "path": "portal-controls-py2-v2.json",
+      "bytes": 11534,
+      "sha256": "478f25dc122b97c01e1ac2d90df4e6dc1c34bf0f0850b6a7ed11cc2acb4f0f2d"
+    },
+    {
+      "path": "portal-controls-py3-v2.json",
+      "bytes": 11242,
+      "sha256": "49c097d990dda4892dbe1d4869dc9fe0d3a809f5c9b521c268f92cc8ff665dd6"
+    },
+    {
+      "path": "portal-controls-py3.json",
+      "bytes": 11242,
+      "sha256": "49c097d990dda4892dbe1d4869dc9fe0d3a809f5c9b521c268f92cc8ff665dd6"
+    },
+    {
+      "path": "portal-driver-preparation-history.json",
+      "bytes": 980,
+      "sha256": "cbcceb5f8639fe559eaa93f41ea8b00fa51e3303ddbdb535a148884c2b3ca676"
+    },
+    {
+      "path": "preparation-history.json",
+      "bytes": 752,
+      "sha256": "339835f7a4626e3cd531c776fbd934e6dd8dcda2ed51014a0ecb6b11bf542832"
+    },
+    {
+      "path": "preparation-tools/finish_scene_portal_combination_v1.py",
+      "bytes": 12748,
+      "sha256": "e238dae093fc9065d97e83f6e23aad732813fba52af780872550ab602b51a833"
+    },
+    {
+      "path": "preparation-tools/prepare_scene_portal_combination_v1.py",
+      "bytes": 8282,
+      "sha256": "bcfbb963f5b4bb81ddd0fcf7397ce7bdb07056320804ce044b7af85d1fc44a70"
+    },
+    {
+      "path": "preparation-tools/repair_combined_portal_driver_v2.py",
+      "bytes": 1557,
+      "sha256": "4ba1d48e92965fe53decbc36d2e9975050a94b49f8b89367ac83991a59fcc94d"
+    },
+    {
+      "path": "preparation-tools/seal_scene_portal_combination_v1.py",
+      "bytes": 6697,
+      "sha256": "b73769dc56ac47ad2d2f85fa0d3a1f9ba65a060b1ef4cea7c4651433e10ee2f5"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 885,
+      "sha256": "f7ca1fded7c75bbdb9ed2b099c9afc0f2c0483581699cc87bd05fc667949e5ff"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5487,
+      "sha256": "dd43b7187861a8a0d2a00416fec0b5cba464bad4240c8c27418d3106f29b3cf9"
+    },
+    {
+      "path": "replay/behavior_pack/modern_projection/projection/portal_profile.py",
+      "bytes": 5605,
+      "sha256": "26c4c084fb4834434741b6f9983ee31b82555496b2b0970f093de115da0c2cfb"
+    },
+    {
+      "path": "replay/behavior_pack/modern_projection/projection/scene.py",
+      "bytes": 45272,
+      "sha256": "5f6751fddd73251f9647f79d8571f74d066cd3db4f31eab13af123ae3cdd63e9"
+    },
+    {
+      "path": "replay/behavior_pack/modern_projection/projection/scene_owner.py",
+      "bytes": 891,
+      "sha256": "e902d7514ff5ffa6a77e033607b2af701ca43635bd0357185c0b904dcece2ccb"
+    },
+    {
+      "path": "review-baseline-v2.json",
+      "bytes": 3263,
+      "sha256": "04e6224f796ee8f940d7217cf2b9d967b06b3c70833ed4cc0ae70b6b38669a90"
+    },
+    {
+      "path": "review-combined-v2.json",
+      "bytes": 3263,
+      "sha256": "9a01fb74d8470b2bb55e5c960eb914072189dccf36d1cbae7f64a6d17ed0c5de"
+    },
+    {
+      "path": "review-first-zero-scan.json",
+      "bytes": 771,
+      "sha256": "e4d1edc3e8d476ca256fd0464139a10634acaa9b13385a1d588fa13c5632af0b"
+    },
+    {
+      "path": "sealed-source-guards.json",
+      "bytes": 7143,
+      "sha256": "c9c63ec08b797895bc445f37ebb2f45584007ca73313dc75eaa570d117cf30d4"
+    },
+    {
+      "path": "support/cell.py",
+      "bytes": 13705,
+      "sha256": "4e138901f73353a50afbbefd72c3ea7425ce6234eee10c03ed3adde3f8f3883d"
+    },
+    {
+      "path": "validation-invocations-v1.json",
+      "bytes": 3021,
+      "sha256": "c39ec4f80ceeef43a016e6c815f34c0983cc970036a7f2ca22b6e2e55f0b328c"
+    },
+    {
+      "path": "validation-invocations-v2.json",
+      "bytes": 1399,
+      "sha256": "c163ae1a8adaf6c8ddd92bcce50094b3756e9cd20e4189938fab195b85fcea35"
+    },
+    {
+      "path": "verify_combined_owner_controls.py",
+      "bytes": 17275,
+      "sha256": "df7d5389b1688f80e09bd8c262650d62aaa9e2f4412a0b09d5d7a7e15c2f3440"
+    },
+    {
+      "path": "verify_combined_portal_controls.py",
+      "bytes": 12497,
+      "sha256": "3708cc28e9bf886a5621c162dccdb9267e553229e8446b7f0ad286f68554a3eb"
+    },
+    {
+      "path": "verify_combined_portal_controls_v2.py",
+      "bytes": 12490,
+      "sha256": "1117761c5db2239c55db2821ccd47bafb9f9f06430c615fde44e3d63e99f0a5d"
+    }
+  ],
+  "bound_files": 43,
+  "bound_bytes": 539266,
+  "excluded_private_scratch_metadata": [
+    "combined/.git/**",
+    "replay/.git/**"
+  ],
+  "actual_default_git_apply_order": [
+    "sealed five-owner candidate.patch",
+    "sealed portal-anchor candidate.patch"
+  ],
+  "both_patches_applied_without_conflict": true,
+  "combined_patch_replay_byte_identical": true,
+  "combined_patch_sha256": "91d77420ed4b55c2e88381fa89cb7e3df8f8ede92e64af82230fbb72f6b72f4c",
+  "actual_combined_sources": {
+    "behavior_pack/modern_projection/projection/scene.py": {
+      "sha256": "5f6751fddd73251f9647f79d8571f74d066cd3db4f31eab13af123ae3cdd63e9",
+      "bytes": 45272
+    },
+    "behavior_pack/modern_projection/projection/portal_profile.py": {
+      "sha256": "26c4c084fb4834434741b6f9983ee31b82555496b2b0970f093de115da0c2cfb",
+      "bytes": 5605
+    },
+    "behavior_pack/modern_projection/projection/scene_owner.py": {
+      "sha256": "e902d7514ff5ffa6a77e033607b2af701ca43635bd0357185c0b904dcece2ccb",
+      "bytes": 891
+    }
+  },
+  "actual_Py2_version": [
+    2,
+    7,
+    13
+  ],
+  "actual_Py3_version": [
+    3,
+    13,
+    13
+  ],
+  "owner_controls_each_interpreter": 58,
+  "portal_formula_rows_each_interpreter": 8,
+  "portal_dispatch_rows_each_interpreter": 9,
+  "portal_invalid_GUI_rows_each_interpreter": 12,
+  "portal_historical_formula_rows_each_interpreter": 21,
+  "same_callback_GUI_switch_forwarded": [
+    2,
+    3,
+    4,
+    2
+  ],
+  "paired_interpreter_control_results_identical": true,
+  "Scene_entire_AST_same_outside_approved_owner_import_portal_regions": true,
+  "Git_default_EOL_transformation_retained_and_recorded": true,
+  "old_three_Scene_review_findings_retained_no_new": true,
+  "production_protected_files_unchanged": 45,
+  "sealed_candidates_unchanged": true,
+  "main_product_written": false,
+  "stage_commit_push_performed": false,
+  "MC_started": false,
+  "native_qualification": false,
+  "water39_qualification_transferred": false,
+  "manual_closed": 0,
+  "this_round_merge": false,
+  "additional_implementation_hours_counted": 0
+}

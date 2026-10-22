@@ -1,0 +1,17 @@
+{
+  "first_driver": "verify_combined_portal_controls.py",
+  "first_driver_sha256": "3708cc28e9bf886a5621c162dccdb9267e553229e8446b7f0ad286f68554a3eb",
+  "second_driver": "verify_combined_portal_controls_v2.py",
+  "second_driver_sha256": "1117761c5db2239c55db2821ccd47bafb9f9f06430c615fde44e3d63e99f0a5d",
+  "actual_first_Py2_exit_code": 1,
+  "first_failure": "UnicodeEncodeError at compile(raw(relative), module.__file__, 'exec')",
+  "only_change": {
+    "old": "eval(compile(raw(relative), module.__file__, 'exec'), module.__dict__)",
+    "new": "eval(compile(raw(relative), relative, 'exec'), module.__dict__)"
+  },
+  "why": "Py2 compile coerces a Unicode absolute filename through ASCII. Use the exact ASCII relative source label; filesystem I/O still resolves actual combined paths.",
+  "candidate_or_product_sources_modified": false,
+  "control_expectations_modified": false,
+  "first_Py3_driver_succeeded": true,
+  "fresh_Py2_and_Py3_runs_required": true
+}

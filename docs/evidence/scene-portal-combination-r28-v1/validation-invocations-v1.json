@@ -1,0 +1,50 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "label": "owner-py2",
+      "cmd": "& 'D:/Program/Python27/python.exe' -B '.runtime/round-20261023/scene-portal-combination-v1/verify_combined_owner_controls.py' '.runtime/round-20261023/scene-portal-combination-v1/owner-controls-py2.json'",
+      "chunk_id": "f516c1",
+      "wall_time_seconds": 1.0037152,
+      "exit_code": 0,
+      "original_token_count": 39,
+      "output": "{\"construction_hook_cases\": 8, \"MC_started\": false, \"python\": [2, 7, 13], \"product_written\": false, \"actual_owner_closure_cases\": 50, \"completed\": true}\r\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "label": "owner-py3",
+      "cmd": "python -B -X utf8 '.runtime/round-20261023/scene-portal-combination-v1/verify_combined_owner_controls.py' '.runtime/round-20261023/scene-portal-combination-v1/owner-controls-py3.json'",
+      "chunk_id": "272752",
+      "wall_time_seconds": 0.8891918,
+      "exit_code": 0,
+      "original_token_count": 39,
+      "output": "{\"completed\": true, \"construction_hook_cases\": 8, \"actual_owner_closure_cases\": 50, \"python\": [3, 13, 13], \"product_written\": false, \"MC_started\": false}\r\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "label": "portal-py2",
+      "cmd": "& 'D:/Program/Python27/python.exe' -B '.runtime/round-20261023/scene-portal-combination-v1/verify_combined_portal_controls.py' --output '.runtime/round-20261023/scene-portal-combination-v1/portal-controls-py2.json'",
+      "chunk_id": "eaa8f4",
+      "wall_time_seconds": 0.7768284,
+      "exit_code": 1,
+      "original_token_count": 162,
+      "output": "Traceback (most recent call last):\r\n  File \".runtime/round-20261023/scene-portal-combination-v1/verify_combined_portal_controls.py\", line 261, in <module>\r\n    main(parser.parse_args())\r\n  File \".runtime/round-20261023/scene-portal-combination-v1/verify_combined_portal_controls.py\", line 110, in main\r\n    baseline = load_profile('baseline')\r\n  File \".runtime/round-20261023/scene-portal-combination-v1/verify_combined_portal_controls.py\", line 66, in load_profile\r\n    eval(compile(raw(relative), module.__file__, 'exec'), module.__dict__)\r\nUnicodeEncodeError: 'ascii' codec can't encode characters in position 15-19: ordinal not in range(128)\r\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "label": "portal-py3",
+      "cmd": "python -B -X utf8 '.runtime/round-20261023/scene-portal-combination-v1/verify_combined_portal_controls.py' --output '.runtime/round-20261023/scene-portal-combination-v1/portal-controls-py3.json'",
+      "chunk_id": "df12c4",
+      "wall_time_seconds": 0.9195932,
+      "exit_code": 0,
+      "original_token_count": 56,
+      "output": "{\"passed\": true, \"python\": [3, 13, 13], \"compiled_actual_files\": 4, \"formula_rows\": 8, \"dispatch_rows\": 9, \"historical_V4_formula_rows\": 21, \"invalid_GUI_rejected\": 12, \"MC_started\": false, \"candidate_cold_tested\": false}\r\n"
+    }
+  }
+]

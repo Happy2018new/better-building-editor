@@ -1,0 +1,54 @@
+{
+  "MC_started": false,
+  "base_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "completed": true,
+  "manual_issues_closed": 0,
+  "new_root_real_Py2_Py3_controls": [
+    "combined-root-owner-py2-v1.json",
+    "combined-root-owner-py3-v1.json",
+    "combined-root-portal-py2-v1.json",
+    "combined-root-portal-py3-v1.json"
+  ],
+  "root_actual_check_apply": [
+    {
+      "args": [
+        "git",
+        "apply",
+        "--check",
+        "--directory=.runtime/round-20261023/root-combined-replay-v1",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\scene-portal-combination-v1\\combined.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "args": [
+        "git",
+        "apply",
+        "--directory=.runtime/round-20261023/root-combined-replay-v1",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\scene-portal-combination-v1\\combined.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "runtime_written": false,
+  "three_replayed_files_exact_agent_combination": {
+    "portal_profile.py": {
+      "bytes": 5605,
+      "sha256": "26c4c084fb4834434741b6f9983ee31b82555496b2b0970f093de115da0c2cfb"
+    },
+    "scene.py": {
+      "bytes": 45272,
+      "sha256": "5f6751fddd73251f9647f79d8571f74d066cd3db4f31eab13af123ae3cdd63e9"
+    },
+    "scene_owner.py": {
+      "bytes": 891,
+      "sha256": "e902d7514ff5ffa6a77e033607b2af701ca43635bd0357185c0b904dcece2ccb"
+    }
+  },
+  "water_qualification_transferred": false,
+  "whole_Scene_AST_identical_except_six_authorized_bodies_and_import": true
+}

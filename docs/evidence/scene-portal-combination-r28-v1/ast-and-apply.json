@@ -1,0 +1,45 @@
+{
+  "both_patches_applied": true,
+  "composition_patch_replayed_byte_exactly": true,
+  "actual_application_order": [
+    "five-owner",
+    "portal-anchor"
+  ],
+  "Scene_AST_identical_except": [
+    "five original owner bodies",
+    "sole scene_owner own_preview import",
+    "portal_view optional GUI-offset hook with legacy fallback"
+  ],
+  "five_owner_AST_matches_sealed_candidate": true,
+  "portal_view_AST_matches_sealed_candidate": true,
+  "portal_profile_and_helper_AST_and_LF_normalized_bytes_match_sealed": true,
+  "actual_EOL_differences_explicitly_recorded": true,
+  "source_files": {
+    "behavior_pack/modern_projection/projection/scene.py": {
+      "sha256": "5f6751fddd73251f9647f79d8571f74d066cd3db4f31eab13af123ae3cdd63e9",
+      "bytes": 45272
+    },
+    "behavior_pack/modern_projection/projection/portal_profile.py": {
+      "sha256": "26c4c084fb4834434741b6f9983ee31b82555496b2b0970f093de115da0c2cfb",
+      "bytes": 5605
+    },
+    "behavior_pack/modern_projection/projection/scene_owner.py": {
+      "sha256": "e902d7514ff5ffa6a77e033607b2af701ca43635bd0357185c0b904dcece2ccb",
+      "bytes": 891
+    }
+  },
+  "combined_patch_sha256": "91d77420ed4b55c2e88381fa89cb7e3df8f8ede92e64af82230fbb72f6b72f4c",
+  "product_before": {
+    "behavior_pack/modern_projection/projection/scene.py": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+    "behavior_pack/modern_projection/projection/portal_profile.py": "6af026febda0793b296e3e2a5af93cfa6e40854da9cd862fb25ee5d43cc85ed8"
+  },
+  "product_after": {
+    "behavior_pack/modern_projection/projection/scene.py": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+    "behavior_pack/modern_projection/projection/portal_profile.py": "6af026febda0793b296e3e2a5af93cfa6e40854da9cd862fb25ee5d43cc85ed8"
+  },
+  "MC_started": false,
+  "source_qualification_transferred": false,
+  "native_qualified": false,
+  "manual_closed": 0,
+  "main_repository_product_mutated": false
+}

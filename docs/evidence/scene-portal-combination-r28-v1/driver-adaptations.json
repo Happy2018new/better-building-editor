@@ -1,0 +1,62 @@
+{
+  "owner_original_sha256": "677bec6f0922c14f538f4729ce077aab1e163d20fe284e397edae12de74a7e2b",
+  "portal_original_sha256": "0ab7510cff25379378cbd76551cd1d1b12ca61e107a00df11927ebc80babe601",
+  "adaptations": [
+    {
+      "label": "Resolve original and combined actual source files",
+      "old": "def raw(name):\n    with open(os.path.join(HERE, name), 'rb') as source:",
+      "new": "SOURCE_PATHS = {'scene.original.py': 'baseline/behavior_pack/modern_projection/projection/scene.py',\n                'scene.candidate.py': 'combined/behavior_pack/modern_projection/projection/scene.py',\n                'scene_owner.py': 'combined/behavior_pack/modern_projection/projection/scene_owner.py',\n                'scene.portal-only.py': 'inputs/scene.portal-only.py'}\n\ndef raw(name):\n    with open(os.path.join(HERE, SOURCE_PATHS.get(name, name)), 'rb') as source:"
+    },
+    {
+      "label": "Normalize exact sealed portal callback before whole-module AST comparison",
+      "old": "assert ast.dump(restored) == ast.dump(original_ast), 'Change escaped five owner bodies/helper import'",
+      "new": "def unique_function(tree, name):\n    nodes = [node for node in ast.walk(tree) if isinstance(node, ast.FunctionDef) and node.name == name]\n    assert len(nodes) == 1\n    return nodes[0]\nportal_only = parsed('scene.portal-only.py')\nassert ast.dump(unique_function(candidate_ast, 'portal_view')) == ast.dump(unique_function(portal_only, 'portal_view'))\nunique_function(restored, 'portal_view').body = copy.deepcopy(unique_function(original_ast, 'portal_view').body)\nassert ast.dump(restored) == ast.dump(original_ast), 'Combined Scene escaped five owner bodies/import and sealed portal hook'"
+    },
+    {
+      "label": "Explicit combined-source receipt boundary",
+      "old": "'whole_module_AST_identical_except_five_owner_bodies_and_helper_import': True,",
+      "new": "'whole_module_AST_identical_except_five_owner_bodies_helper_import_and_sealed_portal_hook': True,\n    'executed_source': 'combined private source, not sealed owner-only candidate',\n    'source_path_bindings': SOURCE_PATHS,"
+    },
+    {
+      "label": "Label execution scope",
+      "old": "'scope': 'Original and private candidate actual Scene prefix",
+      "new": "'scope': 'Exact b70 and combined private source actual Scene prefix"
+    },
+    {
+      "label": "Py2 Unicode filesystem path",
+      "old": "HERE = os.path.dirname(os.path.abspath(__file__))",
+      "new": "HERE = os.path.dirname(os.path.abspath(__file__))\nif sys.version_info[0] < 3:\n    HERE = HERE.decode(sys.getfilesystemencoding() or 'mbcs')"
+    },
+    {
+      "label": "Compile actual combined paths",
+      "old": "for variant in ('baseline', 'candidate'):",
+      "new": "for variant in ('baseline', 'combined'):"
+    },
+    {
+      "label": "Execute actual combined profile module",
+      "old": "candidate = load_profile('candidate')",
+      "new": "candidate = load_profile('combined')"
+    },
+    {
+      "label": "Extract actual combined callback",
+      "old": "changed_scene = source_function(raw('candidate/' + PREFIX + 'scene.py'), 'portal_view')",
+      "new": "changed_scene = source_function(raw('combined/' + PREFIX + 'scene.py'), 'portal_view')"
+    },
+    {
+      "label": "Inspect actual combined profile AST",
+      "old": "changed_tree = ast.parse(raw('candidate/' + PREFIX + 'portal_profile.py'))",
+      "new": "changed_tree = ast.parse(raw('combined/' + PREFIX + 'portal_profile.py'))"
+    },
+    {
+      "label": "Bind composition patch",
+      "old": "raw('candidate.patch')",
+      "new": "raw('combined.patch')"
+    },
+    {
+      "label": "Label combined-source portal receipt",
+      "old": "'passed': True, 'python': list(sys.version_info[:3]),",
+      "new": "'passed': True, 'executed_source': 'combined private source, not sealed portal-only candidate',\n        'composition_base': 'b70ce7bf13ad6a4472f2b089ac812c162b174861', 'python': list(sys.version_info[:3]),"
+    }
+  ],
+  "lifecycle_or_formula_expectations_modified": false
+}

@@ -1,0 +1,444 @@
+{
+  "executed_source": "combined private source, not sealed portal-only candidate", 
+  "composition_base": "b70ce7bf13ad6a4472f2b089ac812c162b174861", 
+  "Scene_hook_matches_existing_book_AST": true, 
+  "candidate_cold_tested": false, 
+  "interpreter": "D:\\Program\\Python27\\python.exe", 
+  "profile_metadata_AST_unchanged": true, 
+  "production_modified": false, 
+  "interpreter_sha256": "0db56ac7ba5f232f5f813109185a3bc885d8d428feb20997d497f586652477f2", 
+  "dispatch_rows": [
+    {
+      "profile": "Legacy", 
+      "position": [
+        24.0, 
+        40.0
+      ], 
+      "gui": 2, 
+      "hook_calls": 0, 
+      "legacy_calls": 1
+    }, 
+    {
+      "profile": "ExplicitNone", 
+      "position": [
+        24.0, 
+        40.0
+      ], 
+      "gui": 2, 
+      "hook_calls": 0, 
+      "legacy_calls": 1
+    }, 
+    {
+      "profile": "Hook", 
+      "position": [
+        40.0, 
+        54.0
+      ], 
+      "gui": 2, 
+      "hook_calls": 1, 
+      "legacy_calls": 0
+    }, 
+    {
+      "profile": "Legacy", 
+      "position": [
+        24.0, 
+        40.0
+      ], 
+      "gui": 3, 
+      "hook_calls": 0, 
+      "legacy_calls": 1
+    }, 
+    {
+      "profile": "ExplicitNone", 
+      "position": [
+        24.0, 
+        40.0
+      ], 
+      "gui": 3, 
+      "hook_calls": 0, 
+      "legacy_calls": 1
+    }, 
+    {
+      "profile": "Hook", 
+      "position": [
+        40.0, 
+        54.0
+      ], 
+      "gui": 3, 
+      "hook_calls": 1, 
+      "legacy_calls": 0
+    }, 
+    {
+      "profile": "Legacy", 
+      "position": [
+        24.0, 
+        40.0
+      ], 
+      "gui": 4, 
+      "hook_calls": 0, 
+      "legacy_calls": 1
+    }, 
+    {
+      "profile": "ExplicitNone", 
+      "position": [
+        24.0, 
+        40.0
+      ], 
+      "gui": 4, 
+      "hook_calls": 0, 
+      "legacy_calls": 1
+    }, 
+    {
+      "profile": "Hook", 
+      "position": [
+        40.0, 
+        54.0
+      ], 
+      "gui": 4, 
+      "hook_calls": 1, 
+      "legacy_calls": 0
+    }
+  ], 
+  "actual_files_compiled": [
+    {
+      "path": "baseline/behavior_pack/modern_projection/projection/portal_profile.py", 
+      "sha256": "6af026febda0793b296e3e2a5af93cfa6e40854da9cd862fb25ee5d43cc85ed8"
+    }, 
+    {
+      "path": "baseline/behavior_pack/modern_projection/projection/scene.py", 
+      "sha256": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9"
+    }, 
+    {
+      "path": "combined/behavior_pack/modern_projection/projection/portal_profile.py", 
+      "sha256": "26c4c084fb4834434741b6f9983ee31b82555496b2b0970f093de115da0c2cfb"
+    }, 
+    {
+      "path": "combined/behavior_pack/modern_projection/projection/scene.py", 
+      "sha256": "5f6751fddd73251f9647f79d8571f74d066cd3db4f31eab13af123ae3cdd63e9"
+    }
+  ], 
+  "manual_issues_closed": 0, 
+  "passed": true, 
+  "MC_connected": false, 
+  "python": [
+    2, 
+    7, 
+    13
+  ], 
+  "fake_boundaries": [
+    "group_view return data", 
+    "camera/session closure objects", 
+    "Theme.native_gui_scale"
+  ], 
+  "native_slot_or_GPU_called": false, 
+  "same_callback_GUI_changes_forwarded": [
+    2, 
+    3, 
+    4, 
+    2
+  ], 
+  "invalid_GUI_rejected": [
+    "true", 
+    "false", 
+    "zero", 
+    "negative", 
+    "fraction", 
+    "inf", 
+    "negative_inf", 
+    "nan", 
+    "text", 
+    "none", 
+    "list", 
+    "dict"
+  ], 
+  "actual_Scene_module_imported": false, 
+  "MC_started": false, 
+  "actual_portal_view_extracted_and_called": true, 
+  "formula_rows": [
+    {
+      "gui": 1, 
+      "Scene_called": true, 
+      "expected_y_delta": 121.5, 
+      "GUI4_equal": false, 
+      "candidate_offset": [
+        0.0, 
+        162.0
+      ], 
+      "legacy_offset": [
+        0.0, 
+        40.5
+      ]
+    }, 
+    {
+      "gui": 2, 
+      "Scene_called": true, 
+      "expected_y_delta": 40.5, 
+      "GUI4_equal": false, 
+      "candidate_offset": [
+        0.0, 
+        81.0
+      ], 
+      "legacy_offset": [
+        0.0, 
+        40.5
+      ]
+    }, 
+    {
+      "gui": 3, 
+      "Scene_called": true, 
+      "expected_y_delta": 13.499999999999996, 
+      "GUI4_equal": false, 
+      "candidate_offset": [
+        0.0, 
+        54.0
+      ], 
+      "legacy_offset": [
+        0.0, 
+        40.5
+      ]
+    }, 
+    {
+      "gui": 4, 
+      "Scene_called": true, 
+      "expected_y_delta": 0.0, 
+      "GUI4_equal": true, 
+      "candidate_offset": [
+        0.0, 
+        40.5
+      ], 
+      "legacy_offset": [
+        0.0, 
+        40.5
+      ]
+    }, 
+    {
+      "gui": 5, 
+      "Scene_called": true, 
+      "expected_y_delta": -8.099999999999998, 
+      "GUI4_equal": false, 
+      "candidate_offset": [
+        0.0, 
+        32.4
+      ], 
+      "legacy_offset": [
+        0.0, 
+        40.5
+      ]
+    }, 
+    {
+      "gui": 2.0, 
+      "Scene_called": true, 
+      "expected_y_delta": 40.5, 
+      "GUI4_equal": false, 
+      "candidate_offset": [
+        0.0, 
+        81.0
+      ], 
+      "legacy_offset": [
+        0.0, 
+        40.5
+      ]
+    }, 
+    {
+      "gui": 3.0, 
+      "Scene_called": true, 
+      "expected_y_delta": 13.499999999999996, 
+      "GUI4_equal": false, 
+      "candidate_offset": [
+        0.0, 
+        54.0
+      ], 
+      "legacy_offset": [
+        0.0, 
+        40.5
+      ]
+    }, 
+    {
+      "gui": 4.0, 
+      "Scene_called": true, 
+      "expected_y_delta": 0.0, 
+      "GUI4_equal": true, 
+      "candidate_offset": [
+        0.0, 
+        40.5
+      ], 
+      "legacy_offset": [
+        0.0, 
+        40.5
+      ]
+    }
+  ], 
+  "historical_V4_formula_rows": [
+    {
+      "family": "end_gateway", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 2, 
+      "key": "((0, 0, 0), ('portal', u'end_gateway', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_gateway", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 2, 
+      "key": "((0, 4, 0), ('portal', u'end_gateway', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_gateway", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 2, 
+      "key": "((4, 0, 0), ('portal', u'end_gateway', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_gateway", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 3, 
+      "key": "((0, 0, 0), ('portal', u'end_gateway', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_gateway", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 3, 
+      "key": "((0, 4, 0), ('portal', u'end_gateway', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_gateway", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 3, 
+      "key": "((4, 0, 0), ('portal', u'end_gateway', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_gateway", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 4, 
+      "key": "((0, 0, 0), ('portal', u'end_gateway', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_gateway", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 4, 
+      "key": "((0, 4, 0), ('portal', u'end_gateway', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_gateway", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 4, 
+      "key": "((4, 0, 0), ('portal', u'end_gateway', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 2, 
+      "key": "((0, 0, 0), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 2, 
+      "key": "((0, 0, 4), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 2, 
+      "key": "((4, 0, 0), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 2, 
+      "key": "((4, 0, 4), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 3, 
+      "key": "((0, 0, 0), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 3, 
+      "key": "((0, 0, 4), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 3, 
+      "key": "((4, 0, 0), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 3, 
+      "key": "((4, 0, 4), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 4, 
+      "key": "((0, 0, 0), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 4, 
+      "key": "((0, 0, 4), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 4, 
+      "key": "((4, 0, 0), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }, 
+    {
+      "family": "end_portal", 
+      "Scene_cache_formula_residual": 0.0, 
+      "gui": 4, 
+      "key": "((4, 0, 4), ('portal', u'end_portal', 1.0), 0)", 
+      "formula_matches_recorded_B_offset": true, 
+      "candidate_native_tested": false
+    }
+  ], 
+  "actual_baseline_candidate_profiles_executed": true, 
+  "pure_cell_compiled_and_executed": true, 
+  "qualification_awarded": false
+}

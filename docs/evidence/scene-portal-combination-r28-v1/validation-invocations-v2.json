@@ -1,0 +1,26 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "label": "portal-py2-v2",
+      "cmd": "& 'D:/Program/Python27/python.exe' -B '.runtime/round-20261023/scene-portal-combination-v1/verify_combined_portal_controls_v2.py' --output '.runtime/round-20261023/scene-portal-combination-v1/portal-controls-py2-v2.json'",
+      "chunk_id": "8a6ce1",
+      "wall_time_seconds": 0.7402687,
+      "exit_code": 0,
+      "original_token_count": 56,
+      "output": "{\"historical_V4_formula_rows\": 21, \"formula_rows\": 8, \"MC_started\": false, \"passed\": true, \"python\": [2, 7, 13], \"candidate_cold_tested\": false, \"dispatch_rows\": 9, \"invalid_GUI_rejected\": 12, \"compiled_actual_files\": 4}\r\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "label": "portal-py3-v2",
+      "cmd": "python -B -X utf8 '.runtime/round-20261023/scene-portal-combination-v1/verify_combined_portal_controls_v2.py' --output '.runtime/round-20261023/scene-portal-combination-v1/portal-controls-py3-v2.json'",
+      "chunk_id": "36e4dc",
+      "wall_time_seconds": 0.6399,
+      "exit_code": 0,
+      "original_token_count": 56,
+      "output": "{\"passed\": true, \"python\": [3, 13, 13], \"compiled_actual_files\": 4, \"formula_rows\": 8, \"dispatch_rows\": 9, \"historical_V4_formula_rows\": 21, \"invalid_GUI_rejected\": 12, \"MC_started\": false, \"candidate_cold_tested\": false}\r\n"
+    }
+  }
+]

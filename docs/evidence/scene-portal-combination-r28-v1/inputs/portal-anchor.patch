@@ -1,0 +1,30 @@
+--- a/behavior_pack/modern_projection/projection/portal_profile.py
++++ b/behavior_pack/modern_projection/projection/portal_profile.py
+@@ -31,6 +31,14 @@
+     @staticmethod
+     def ui_offset(size):
+         return 0., min(size) / 4.
++
++    @staticmethod
++    def ui_offset_for_gui(size, gui):
++        """Compensate the native skeleton anchor at the actual GUI scale."""
++        if (isinstance(gui, bool) or not isinstance(gui, integer_types + (float,))
++                or not 1. <= gui < float('inf') or gui != round(gui)):
++            raise ValueError('Portal preview needs a positive integer native GUI scale')
++        return 0., min(size) / float(gui)
+ 
+     def __init__(self, max_groups=128, prefix=PREFIX, style=STYLE, world_prefix=None):
+         if (type(max_groups) is bool or not isinstance(max_groups, integer_types) or
+--- a/behavior_pack/modern_projection/projection/scene.py
++++ b/behavior_pack/modern_projection/projection/scene.py
+@@ -552,7 +552,9 @@
+             def portal_view(origin):
+                 view = group_view(origin, camera, session.scene_origin, session.scene_size,
+                                   (native_width, native_height), cell_unit)
+-                offset = portal_profile.ui_offset(view.size)
++                gui_offset = getattr(portal_profile, 'ui_offset_for_gui', None)
++                offset = (gui_offset(view.size, Theme.native_gui_scale) if gui_offset is not None
++                          else portal_profile.ui_offset(view.size))
+                 return view._replace(position=tuple(view.position[axis]+offset[axis] for axis in range(2)))
+             def portal_pose(view):
+                 return portal_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)
