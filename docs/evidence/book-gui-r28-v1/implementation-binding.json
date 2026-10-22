@@ -1,0 +1,50 @@
+{
+  "candidate": {
+    "schema": 1,
+    "changed": {
+      "behavior_pack/modern_projection/projection/book_profile.py": {
+        "base_sha256": "14d3cb65fb5f6ba45dfc237cd818019d213a2ba01bbab74ed49e32e43450c830",
+        "candidate_sha256": "f56a9bfa35a8d961392c4b49b11149eea511d026d3badbacb261828562c35a5e"
+      },
+      "behavior_pack/modern_projection/projection/scene.py": {
+        "base_sha256": "5f150ea6b5c8b06cac44b2f076b70dccc143e6a65e5c1aeea4ce714984ba0d97",
+        "candidate_sha256": "5f349249fd36f30100acc06bc9656d64f66ff35c978b076c2581ee1365c33048"
+      }
+    },
+    "source_tree_modified": false,
+    "MC_started": false,
+    "qualification_changed": false,
+    "production_default_verified": false,
+    "real_py2_compiled": 2,
+    "py3_compiled": 2,
+    "scope": "BookProfile callback and Scene book_view only"
+  },
+  "production_at_merge": {
+    "book_profile.py": {
+      "production_sha256": "f56a9bfa35a8d961392c4b49b11149eea511d026d3badbacb261828562c35a5e",
+      "candidate_sha256": "f56a9bfa35a8d961392c4b49b11149eea511d026d3badbacb261828562c35a5e",
+      "bytes_identical": true,
+      "real_py2_compile_returncode": 0,
+      "stderr_hex": ""
+    },
+    "scene.py": {
+      "production_sha256": "5f349249fd36f30100acc06bc9656d64f66ff35c978b076c2581ee1365c33048",
+      "candidate_sha256": "5f349249fd36f30100acc06bc9656d64f66ff35c978b076c2581ee1365c33048",
+      "bytes_identical": true,
+      "real_py2_compile_returncode": 0,
+      "stderr_hex": ""
+    }
+  },
+  "runtime_control_module_sha256": "7482bb12c32411e3d703df1907ebcaac811c559024e0425e02da34f5652a1550",
+  "runtime_B_payload_sha256": "411dfc50df8dea52f98f2d4e5a17be22acd108a2956ffb35b6031c57d02db2e0",
+  "runtime_vs_production": "Same min(size)/native-GUI arithmetic; runtime replaced ui_offset on the same profile object. Production adds an optional method and reads it from the real book_view closure.",
+  "tests": {
+    "book_tests_passed": 57,
+    "gui_boundary_tests_included": 5,
+    "real_py2_compiled_files": 2,
+    "py3_compiled_files": 2,
+    "MCP_book": "files=1 findings=0",
+    "MCP_scene": "files=2; only existing two large-function warnings and one parameter hint"
+  },
+  "earlier_payload_validation_failure": "payload-controls-v1 failed in fake SDK setup; preserved. v2 four restoration cases passed real Python2 with fake SDK."
+}

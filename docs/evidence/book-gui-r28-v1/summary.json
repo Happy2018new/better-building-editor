@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "owner": "books-r28-gui-v1",
+  "source_commit": "582e53517f949d1e2e351d40c531217a5b1e39f3",
+  "source_manifest_sha256": "0392ad9f72b277818f455846c969e6af4b16b48749625ecc540bae6a615b0033",
+  "runtime_files": 3714,
+  "host_sha256": "00c19a5110ae1604d0015b61df7063e17abc78045d76ff8b5cb6c616c2859b59",
+  "compiled_templates_real_py2": 40,
+  "completed": true,
+  "restored": true,
+  "source_unchanged": true,
+  "cleanup_errors": [],
+  "capture_count": 21,
+  "gui_stage_count": 9,
+  "comparisons": [
+    {
+      "gui": 2,
+      "displacement_logical": 46.02810225253425,
+      "displacement_physical_pixels": 92.0562045050685,
+      "expected_logical": 46.02810225253425,
+      "exact_geometry_A_return": true,
+      "active_id_uniforms_request_unchanged": true,
+      "visible_result": "GUI2 B book attached to lectern top; A-return restores A."
+    },
+    {
+      "gui": 3,
+      "displacement_logical": 12.78558395903729,
+      "displacement_physical_pixels": 38.35675187711187,
+      "expected_logical": 12.78558395903729,
+      "exact_geometry_A_return": true,
+      "active_id_uniforms_request_unchanged": true,
+      "visible_result": "GUI3 B book attached to lectern top; A-return restores A."
+    },
+    {
+      "gui": 4,
+      "displacement_logical": 0.0,
+      "displacement_physical_pixels": 0.0,
+      "expected_logical": 0.0,
+      "exact_geometry_A_return": true,
+      "active_id_uniforms_request_unchanged": true,
+      "visible_result": "GUI4 A/B/A all show the same attached book."
+    }
+  ],
+  "independent_restoration": {
+    "actor_count": 0,
+    "fields_equal": true,
+    "document_id": 2260643909472,
+    "workspace": false,
+    "factory_class": "EngineCompFactoryClient",
+    "editor_id": 2260643907792,
+    "profile_same_object": true,
+    "restored": true,
+    "preview_ready": true
+  },
+  "original_profile_instance_method_restored": true,
+  "window_size_restored": true,
+  "foreground_preserved_during_resizes": true,
+  "diagnostic_model_alias_selected": false,
+  "formal_qualification_changed": false,
+  "manual_issues_closed": 0,
+  "resource_boundaries": {
+    "count": 22,
+    "max_owned_handles": 851,
+    "max_adjacent_handle_growth": 6,
+    "minimum_commit_headroom_gib": 13.134567260742188
+  },
+  "stop": {
+    "ordinary_returncode": 1,
+    "ordinary_error": "[instances] Game has not closed; inspect it or explicitly use stop --force\n",
+    "force_executed": false,
+    "registry_finalize_returncode": 0,
+    "independent_final_active_identity": {
+      "game": null,
+      "mcdk": null
+    },
+    "exact_exit": {
+      "schema": 1,
+      "session": "cb22f50f067a4003a8a45cb6a7f59fe3",
+      "owner": "books-r28-gui-v1",
+      "opened_at": "2026-10-22T16:03:36.629536+00:00",
+      "processes": {
+        "game": {
+          "pid": 15728,
+          "identity": "134371586077295701",
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+          "state": "exited",
+          "exit_code": 3221226505,
+          "exit_code_hex": "0xC0000409",
+          "observed_at": "2026-10-22T16:12:37.850610+00:00"
+        },
+        "mcdk": {
+          "pid": 69664,
+          "identity": "134371586075078400",
+          "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+          "state": "exited",
+          "exit_code": 0,
+          "exit_code_hex": "0x00000000",
+          "observed_at": "2026-10-22T16:12:37.851579+00:00"
+        }
+      },
+      "process_or_window_mutation": false,
+      "completed": true
+    }
+  },
+  "watcher": {
+    "owners": [
+      "books-r28-gui-v1"
+    ],
+    "known_assert_recoveries": [],
+    "other_assertions": [],
+    "errors": []
+  },
+  "watcher_retired": true,
+  "normal_engine_exit_qualified": false,
+  "limits": [
+    "Old R25 GUI4 intermittent natural blank remains open.",
+    "This run selected the default book resource but replaced only the existing profile instance ui_offset in B.",
+    "The final two-file production callback was not cold-launched in this session.",
+    "Actual book geometry intersects the surface in every stage; this does not qualify arbitrary panned/clipped scenes.",
+    "Lectern A/B/A validates the shared anchor; enchanting table currently has only GUI2 natural baseline evidence."
+  ]
+}

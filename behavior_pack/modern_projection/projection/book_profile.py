@@ -23,6 +23,14 @@ class BookProfile(object):
     def ui_offset(size):
         return 0.,min(size)/4.
 
+    @staticmethod
+    def ui_offset_for_gui(size,gui):
+        """Compensate the native skeleton anchor at the actual GUI scale."""
+        if (isinstance(gui,bool) or not isinstance(gui,integer_types+(float,))
+                or not 1.<=gui<float('inf') or gui!=round(gui)):
+            raise ValueError('Book preview needs a positive integer native GUI scale')
+        return 0.,min(size)/float(gui)
+
     def __init__(self,max_groups=128):
         if type(max_groups) is bool or not isinstance(max_groups,integer_types) or max_groups<1:
             raise ValueError('Book companion needs a positive owned model budget')
