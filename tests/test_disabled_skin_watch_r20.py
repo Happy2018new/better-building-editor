@@ -1,12 +1,20 @@
 """The unattended recovery must reject other dialogs and unrelated processes."""
+import ctypes
+from datetime import datetime, timedelta, timezone
+import json
+import os
 from pathlib import Path
 import sys
+import tempfile
+import threading
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from dismiss_owned_disabled_skin_assert import known_disabled_skin_assertion, post_owned_ignore
 from watch_owned_disabled_skin_assert_r20 import assigned, eligible
+import watch_owned_disabled_skin_assert_r20 as watcher
 
 
 class IgnoreDialog:
@@ -186,6 +194,83 @@ class DisabledSkinWatchTests(unittest.TestCase):
                        {'game_identity': 'game-reused'}, {'mcdk_identity': 'old-mcdk'},
                        {'game_pid': None}):
             self.assertFalse(check(dict(record, **change)), change)
+
+    @unittest.skipUnless(os.name == 'nt', 'Actual Windows manifest sharing conflict')
+    def test_once_watch_reads_a_temporarily_locked_registry_and_publishes_complete_status(self):
+        from ctypes import wintypes
+        kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+        kernel.CreateFileW.argtypes = [wintypes.LPCWSTR, wintypes.DWORD, wintypes.DWORD,
+                                      ctypes.c_void_p, wintypes.DWORD, wintypes.DWORD, wintypes.HANDLE]
+        kernel.CreateFileW.restype = wintypes.HANDLE
+        kernel.CloseHandle.argtypes = [wintypes.HANDLE]
+        with tempfile.TemporaryDirectory() as folder:
+            registry = Path(folder) / 'registry'
+            manifest = registry / 'unrelated' / 'session.json'
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text('{"owner":"unrelated-user"}', encoding='utf8')
+            output = Path(folder) / 'watch'
+            handle = kernel.CreateFileW(str(manifest), 0x80000000, 0, None, 3, 0, None)
+            self.assertNotIn(handle, (None, ctypes.c_void_p(-1).value))
+            released = threading.Event()
+
+            def release():
+                kernel.CloseHandle(handle)
+                released.set()
+
+            timer = threading.Timer(.08, release)
+            timer.start()
+            replacements = []
+            real_replace = os.replace
+
+            def observe_publish(source, target):
+                self.assertEqual(output / 'status.json', target)
+                self.assertFalse(target.exists())
+                value = json.loads(Path(source).read_bytes())
+                self.assertEqual(['test-owner'], value['owners'])
+                self.assertEqual([], value['errors'])
+                self.assertIn('checked_at', value)
+                replacements.append(value)
+                return real_replace(source, target)
+
+            until = (datetime.now(timezone.utc) + timedelta(seconds=10)).isoformat()
+            arguments = ['watcher', '--owner', 'test-owner', '--until', until,
+                         '--output', str(output), '--once']
+            try:
+                with patch.object(sys, 'argv', arguments), \
+                        patch.object(watcher, 'registry_dir', return_value=registry), \
+                        patch.object(watcher, 'assertion_dialogs', return_value=[]), \
+                        patch.object(watcher, 'load_session') as load, \
+                        patch.object(os, 'replace', side_effect=observe_publish), \
+                        self.assertLogs('_session', level='WARNING'):
+                    self.assertEqual(0, watcher.main())
+                load.assert_not_called()
+                self.assertEqual(1, len(replacements))
+                self.assertEqual(replacements[0], watcher.read_json(output / 'status.json'))
+                self.assertEqual([], list(output.glob('*.tmp')))
+            finally:
+                timer.join()
+                self.assertTrue(released.is_set())
+
+    def test_once_watch_preserves_malformed_manifest_as_a_recorded_error(self):
+        with tempfile.TemporaryDirectory() as folder:
+            registry = Path(folder) / 'registry'
+            manifest = registry / 'broken' / 'session.json'
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text('{"owner":', encoding='utf8')
+            output = Path(folder) / 'watch'
+            until = (datetime.now(timezone.utc) + timedelta(seconds=10)).isoformat()
+            arguments = ['watcher', '--owner', 'test-owner', '--until', until,
+                         '--output', str(output), '--once']
+            with patch.object(sys, 'argv', arguments), \
+                    patch.object(watcher, 'registry_dir', return_value=registry), \
+                    patch.object(watcher, 'assertion_dialogs', return_value=[]), \
+                    patch.object(watcher, 'load_session') as load:
+                self.assertEqual(1, watcher.main())
+            load.assert_not_called()
+            status = watcher.read_json(output / 'status.json')
+            self.assertEqual(1, len(status['errors']))
+            self.assertIn(str(manifest), status['errors'][0])
+            self.assertEqual([], status['eligible_sessions'])
 
 
 if __name__ == '__main__':

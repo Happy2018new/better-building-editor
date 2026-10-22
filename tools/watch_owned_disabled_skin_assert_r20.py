@@ -13,7 +13,7 @@ from dismiss_owned_disabled_skin_assert import known_disabled_skin_assertion, po
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
-from _session import load_session, process_identity, registry_dir
+from _session import load_session, process_identity, read_json, registry_dir, write_json
 
 
 def assigned(owner, owners):
@@ -91,7 +91,7 @@ def main():
         sessions = {}
         for manifest in registry_dir().glob('*/session.json'):
             try:
-                data = json.loads(manifest.read_bytes())
+                data = read_json(manifest)
                 if not assigned(data.get('owner'), args.owner):
                     continue
                 data = load_session(str(manifest), data['owner'])
@@ -124,7 +124,7 @@ def main():
         status['checked_at'] = datetime.now().astimezone().isoformat()
         status['eligible_sessions'] = [{'id': value['id'], 'owner': value['owner'],
                                         'game_pid': value['game_pid']} for value in sessions.values()]
-        (args.output / 'status.json').write_text(json.dumps(status, indent=2) + '\n', encoding='ascii')
+        write_json(args.output / 'status.json', status)
         if args.once:
             break
         time.sleep(1.)
