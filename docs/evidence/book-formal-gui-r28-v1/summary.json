@@ -1,0 +1,1077 @@
+{
+  "schema": 1,
+  "owner": "books-r28-formal-gui-v1",
+  "production_base_commit": "a6950ece68c1ae15176119e86043eb1989f79229",
+  "source_manifest_sha256": "c6997654b7d9e9c253272196d23817e27c7d516a0481381159799d4c30fe99b7",
+  "full_pure_Git_HEAD_snapshot": false,
+  "source_closure": {
+    "Git_runtime_blobs": 3710,
+    "frozen_files": 3714,
+    "exact_bytes": 1730,
+    "CRLF_only": 1978,
+    "substantive_overlay_paths": [
+      "resource_pack/materials/entity.material",
+      "resource_pack/models/netease_models.json",
+      "behavior_pack/loot_tables/modern_projection/r21_signed_book.json",
+      "resource_pack/shaders/glsl/peony_r25_book_fragment_diag.fragment",
+      "resource_pack/shaders/glsl/peony_r25_book_raw_z_enchanting_table.vertex",
+      "resource_pack/shaders/glsl/peony_r25_book_raw_z_lectern.vertex"
+    ],
+    "default_entries_changed": false,
+    "selected_diagnostic_alias": false
+  },
+  "runs": {
+    "enchanting": {
+      "completed": true,
+      "restored": true,
+      "source_unchanged": true,
+      "cleanup_errors": [],
+      "capture_count": 14,
+      "capture_labels": [
+        "native",
+        "full",
+        "missing",
+        "occupied",
+        "unoccupied",
+        "hidden",
+        "shown",
+        "scene_full",
+        "gui2_scene_full",
+        "gui3_scene_full",
+        "gui4_scene_full",
+        "scene_hidden",
+        "scene_shown",
+        "neighbors_full"
+      ],
+      "elapsed_seconds": 212.90981119999196,
+      "formal_gui_scales": [
+        2,
+        3,
+        4
+      ],
+      "natural_visible": 3,
+      "body_setters": 0,
+      "diagnostic_alias_switches": 0,
+      "production_profile_replaced": false,
+      "independent_restoration": {
+        "actor_count": 0,
+        "fields_equal": true,
+        "document_id": 1537386397424,
+        "workspace": false,
+        "factory_class": "EngineCompFactoryClient",
+        "editor_id": 1537386397648,
+        "profile_same_object": true,
+        "restored": true,
+        "preview_ready": true
+      },
+      "native_fixture": {
+        "cellVersion": 1,
+        "palette": [
+          0,
+          1,
+          [
+            2,
+            0,
+            [
+              "dict",
+              [
+                [
+                  [
+                    "text",
+                    "__modern_projection_actor__"
+                  ],
+                  [
+                    "int",
+                    "1"
+                  ]
+                ],
+                [
+                  [
+                    "text",
+                    "nbt"
+                  ],
+                  [
+                    "dict",
+                    [
+                      [
+                        [
+                          "bytes",
+                          "aWQ="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "8"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "bytes",
+                                "RW5jaGFudFRhYmxl"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "aXNNb3ZhYmxl"
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "cm90dA=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "5"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "float",
+                                "0x1.07ae0a0000000p+1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "eA=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "3"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "eQ=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "3"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "eg=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "3"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    "text",
+                    "render"
+                  ],
+                  [
+                    "dict",
+                    []
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjYhBkYGQQZGRiAAAA9wAp"
+          ]
+        ],
+        "size": [
+          3,
+          3,
+          3
+        ],
+        "biome": "plains",
+        "blockCount": 2,
+        "name": "\u672a\u547d\u540d\u5efa\u7b51",
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:cyan_concrete",
+            {}
+          ],
+          [
+            "minecraft:enchanting_table",
+            {}
+          ]
+        ],
+        "version": 6,
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        }
+      },
+      "resource_boundaries": {
+        "count": 15,
+        "max_owned_handles": 872,
+        "max_adjacent_handle_growth": 1,
+        "minimum_commit_headroom_gib": 12.761512756347656
+      }
+    },
+    "lectern": {
+      "completed": true,
+      "restored": true,
+      "source_unchanged": true,
+      "cleanup_errors": [],
+      "capture_count": 13,
+      "capture_labels": [
+        "native_empty",
+        "native_authored",
+        "full",
+        "missing",
+        "occupied",
+        "unoccupied",
+        "hidden",
+        "shown",
+        "scene_full",
+        "gui2_scene_full",
+        "scene_hidden",
+        "scene_shown",
+        "neighbors_full"
+      ],
+      "elapsed_seconds": 108.73979580000741,
+      "formal_gui_scales": [
+        2
+      ],
+      "natural_visible": 1,
+      "body_setters": 0,
+      "diagnostic_alias_switches": 0,
+      "production_profile_replaced": false,
+      "independent_restoration": {
+        "actor_count": 0,
+        "fields_equal": true,
+        "document_id": 1537386397424,
+        "workspace": false,
+        "factory_class": "EngineCompFactoryClient",
+        "editor_id": 1537386397648,
+        "profile_same_object": true,
+        "restored": true,
+        "preview_ready": true
+      },
+      "native_fixture": {
+        "cellVersion": 1,
+        "palette": [
+          0,
+          1,
+          [
+            2,
+            0,
+            [
+              "dict",
+              [
+                [
+                  [
+                    "text",
+                    "__modern_projection_actor__"
+                  ],
+                  [
+                    "int",
+                    "1"
+                  ]
+                ],
+                [
+                  [
+                    "text",
+                    "nbt"
+                  ],
+                  [
+                    "dict",
+                    [
+                      [
+                        [
+                          "bytes",
+                          "Ym9vaw=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "Q291bnQ="
+                              ],
+                              [
+                                "dict",
+                                [
+                                  [
+                                    [
+                                      "bytes",
+                                      "X190eXBlX18="
+                                    ],
+                                    [
+                                      "int",
+                                      "1"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "bytes",
+                                      "X192YWx1ZV9f"
+                                    ],
+                                    [
+                                      "int",
+                                      "1"
+                                    ]
+                                  ]
+                                ]
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "RGFtYWdl"
+                              ],
+                              [
+                                "dict",
+                                [
+                                  [
+                                    [
+                                      "bytes",
+                                      "X190eXBlX18="
+                                    ],
+                                    [
+                                      "int",
+                                      "2"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "bytes",
+                                      "X192YWx1ZV9f"
+                                    ],
+                                    [
+                                      "int",
+                                      "0"
+                                    ]
+                                  ]
+                                ]
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "TmFtZQ=="
+                              ],
+                              [
+                                "dict",
+                                [
+                                  [
+                                    [
+                                      "bytes",
+                                      "X190eXBlX18="
+                                    ],
+                                    [
+                                      "int",
+                                      "8"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "bytes",
+                                      "X192YWx1ZV9f"
+                                    ],
+                                    [
+                                      "bytes",
+                                      "bWluZWNyYWZ0OndyaXR0ZW5fYm9vaw=="
+                                    ]
+                                  ]
+                                ]
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "V2FzUGlja2VkVXA="
+                              ],
+                              [
+                                "dict",
+                                [
+                                  [
+                                    [
+                                      "bytes",
+                                      "X190eXBlX18="
+                                    ],
+                                    [
+                                      "int",
+                                      "1"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "bytes",
+                                      "X192YWx1ZV9f"
+                                    ],
+                                    [
+                                      "int",
+                                      "0"
+                                    ]
+                                  ]
+                                ]
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "dGFn"
+                              ],
+                              [
+                                "dict",
+                                [
+                                  [
+                                    [
+                                      "bytes",
+                                      "YXV0aG9y"
+                                    ],
+                                    [
+                                      "dict",
+                                      [
+                                        [
+                                          [
+                                            "bytes",
+                                            "X190eXBlX18="
+                                          ],
+                                          [
+                                            "int",
+                                            "8"
+                                          ]
+                                        ],
+                                        [
+                                          [
+                                            "bytes",
+                                            "X192YWx1ZV9f"
+                                          ],
+                                          [
+                                            "bytes",
+                                            "UjIxIE5hdGl2ZSBMb290"
+                                          ]
+                                        ]
+                                      ]
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "bytes",
+                                      "cGFnZXM="
+                                    ],
+                                    [
+                                      "list",
+                                      [
+                                        [
+                                          "dict",
+                                          [
+                                            [
+                                              [
+                                                "bytes",
+                                                "dGV4dA=="
+                                              ],
+                                              [
+                                                "dict",
+                                                [
+                                                  [
+                                                    [
+                                                      "bytes",
+                                                      "X190eXBlX18="
+                                                    ],
+                                                    [
+                                                      "int",
+                                                      "8"
+                                                    ]
+                                                  ],
+                                                  [
+                                                    [
+                                                      "bytes",
+                                                      "X192YWx1ZV9f"
+                                                    ],
+                                                    [
+                                                      "bytes",
+                                                      "Rmlyc3QgYXV0aG9yZWQgY29udHJvbC4="
+                                                    ]
+                                                  ]
+                                                ]
+                                              ]
+                                            ]
+                                          ]
+                                        ],
+                                        [
+                                          "dict",
+                                          [
+                                            [
+                                              [
+                                                "bytes",
+                                                "dGV4dA=="
+                                              ],
+                                              [
+                                                "dict",
+                                                [
+                                                  [
+                                                    [
+                                                      "bytes",
+                                                      "X190eXBlX18="
+                                                    ],
+                                                    [
+                                                      "int",
+                                                      "8"
+                                                    ]
+                                                  ],
+                                                  [
+                                                    [
+                                                      "bytes",
+                                                      "X192YWx1ZV9f"
+                                                    ],
+                                                    [
+                                                      "bytes",
+                                                      "U2Vjb25kIGF1dGhvcmVkIGNvbnRyb2wu"
+                                                    ]
+                                                  ]
+                                                ]
+                                              ]
+                                            ]
+                                          ]
+                                        ]
+                                      ]
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "bytes",
+                                      "dGl0bGU="
+                                    ],
+                                    [
+                                      "dict",
+                                      [
+                                        [
+                                          [
+                                            "bytes",
+                                            "X190eXBlX18="
+                                          ],
+                                          [
+                                            "int",
+                                            "8"
+                                          ]
+                                        ],
+                                        [
+                                          [
+                                            "bytes",
+                                            "X192YWx1ZV9f"
+                                          ],
+                                          [
+                                            "bytes",
+                                            "UjIxIEJvb2sgQQ=="
+                                          ]
+                                        ]
+                                      ]
+                                    ]
+                                  ]
+                                ]
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "aGFzQm9vaw=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "aWQ="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "8"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "bytes",
+                                "TGVjdGVybg=="
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "aXNNb3ZhYmxl"
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "cGFnZQ=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "3"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "0"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "dG90YWxQYWdlcw=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "3"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "2"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "eA=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "3"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "eQ=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "3"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ],
+                      [
+                        [
+                          "bytes",
+                          "eg=="
+                        ],
+                        [
+                          "dict",
+                          [
+                            [
+                              [
+                                "bytes",
+                                "X190eXBlX18="
+                              ],
+                              [
+                                "int",
+                                "3"
+                              ]
+                            ],
+                            [
+                              [
+                                "bytes",
+                                "X192YWx1ZV9f"
+                              ],
+                              [
+                                "int",
+                                "1"
+                              ]
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    "text",
+                    "render"
+                  ],
+                  [
+                    "dict",
+                    []
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ],
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1s:eJxjYhBkYGQQZGRiAAAA9wAp"
+          ]
+        ],
+        "size": [
+          3,
+          3,
+          3
+        ],
+        "biome": "plains",
+        "blockCount": 2,
+        "name": "\u672a\u547d\u540d\u5efa\u7b51",
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:cyan_concrete",
+            {}
+          ],
+          [
+            "minecraft:lectern",
+            {
+              "powered_bit": false,
+              "minecraft:cardinal_direction": "north"
+            }
+          ]
+        ],
+        "version": 6,
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        }
+      },
+      "resource_boundaries": {
+        "count": 14,
+        "max_owned_handles": 829,
+        "max_adjacent_handle_growth": 1,
+        "minimum_commit_headroom_gib": 12.779544830322266
+      }
+    }
+  },
+  "old_frozen_source_unchanged": true,
+  "formal_GUI_anchor_confirmed": true,
+  "old_GUI4_blank_closed": false,
+  "manual_issues_closed": 0,
+  "qualification_changed": false,
+  "normal_engine_exit_qualified": false,
+  "exact_exit": {
+    "schema": 1,
+    "session": "289af1471aa7441b9f6e36ebf728c940",
+    "owner": "books-r28-formal-gui-v1",
+    "opened_at": "2026-10-22T17:15:47.525732+00:00",
+    "processes": {
+      "game": {
+        "pid": 67812,
+        "identity": "134371629389283336",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-22T17:29:10.839051+00:00"
+      },
+      "mcdk": {
+        "pid": 46460,
+        "identity": "134371629386908929",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-22T17:29:10.840094+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "stop": {
+    "ordinary_returncode": 1,
+    "ordinary_error": "[instances] Game has not closed; inspect it or explicitly use stop --force\n",
+    "force_executed": false,
+    "registry_finalize_returncode": 0,
+    "independent_final_active_identity": {
+      "game": null,
+      "mcdk": null
+    }
+  },
+  "watcher": {
+    "owners": [
+      "books-r28-formal-gui-v1"
+    ],
+    "known_assert_recoveries": [],
+    "other_assertions": [],
+    "errors": []
+  },
+  "watcher_retired": true,
+  "limits": [
+    "Same cold instance: enchanting GUI2/3/4 then lectern GUI2; not independent cold samples.",
+    "Production default methods were not patched, but four extra diagnostic/fixture files and two registry append overlays remained registered.",
+    "1978 legacy text files differ from Git only in CRLF/LF line endings.",
+    "All four book images are natural positives; no new negative was localized.",
+    "Does not qualify arbitrary clipping/panning or every book pose/artwork.",
+    "Liquid source closure was checked; this book fixture does not count as a fluid visual test."
+  ]
+}

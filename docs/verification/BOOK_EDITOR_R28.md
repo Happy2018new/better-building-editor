@@ -29,3 +29,20 @@ GUI2是单独的定位缺陷线索：实际书Doll短边约184.0797 logical，�
 GUI实例owner为`books-r28-gui-v1`，冻结来源manifest SHA256为`0392ad9f72b277818f455846c969e6af4b16b48749625ecc540bae6a615b0033`，3714文件运行后逐字核对未变。22个资源边界最低commit余量13.135GiB，所属game最多851 handles，相邻最多增长6。finally恢复原editor／document／profile、data、fields、factory，workspace关闭、投影actor0、原preview ready。普通stop首次CLI仍返回1，45秒内自行退出且force=false；exact game退出`0xC0000409`、MCDK退出0，registry finalize返回0，两创建身份absent，watcher精确回收exit0。普通关闭完成与正常引擎退出资格分别记录。
 
 本补充关闭了GUI2／3书锚点错位的原因调查并合入窄修；新增用户人工关闭仍为0，旧GUI4间歇空白继续开放。精简[GUI汇总](../evidence/book-gui-r28-v1/summary.json)、[九阶段实际读回](../evidence/book-gui-r28-v1/gui-native-readback.json)、[实现与实测边界](../evidence/book-gui-r28-v1/implementation-binding.json)和[原图索引](../evidence/book-gui-r28-v1/evidence-index.json)共22文件，9原PNG与捕获回执原字节保留，单文件最大248219字节；完整报告、源码manifest及原始退出失败记录保留在runtime，不复制session token。
+
+2026-10-23 01:32正式默认源补充：以`a6950ece68c1ae15176119e86043eb1989f79229`的已合并生产runtime增量冻结3714文件，manifest SHA256为`c6997654b7d9e9c253272196d23817e27c7d516a0481381159799d4c30fe99b7`。同一冷启实例先执行附魔台GUI2／3／4，再执行讲台GUI2；这次没有实例方法替换，正式Scene的book_view调用新增接口。附魔台14图、讲台13图，两份报告completed、restored、source unchanged均为true，cleanup errors为空。两runner各46份实际payload真实Python2／Python3编译通过。
+
+| 正式默认Scene | 实际GUI | 实际前台模型ID | Doll与所属surface交集（logical宽×高） | 原图结果 |
+| --- | ---: | ---: | --- | --- |
+| 附魔台 | 2 | 5 | 340.625 × 92.056213 | 书位于台面上方、完整可见，无先前顶缘错位 |
+| 附魔台 | 3 | 6 | 282.6875 × 102.284668 | 自然可见，未出现高位脱离 |
+| 附魔台 | 4 | 5 | 267.878113 × 106.248199 | 自然可见；不据此关闭旧间歇空白 |
+| 讲台 | 2 | 13 | 339.625 × 92.056213 | 打开的书贴在讲台斜面，完整可见 |
+
+四张正式GUI原图及两个原生参考均已实际打开检查；四阶段捕获前后几何逐值稳定，真实前台ID与四组uniform读回匹配，实际surface祖先均visible，交集为正。原生canvas分别保留四元组、逻辑screen保留二元组，不把canvas取整误差推成分数GUI。profile始终为原同一默认对象，identity为`(1, 3.10.0.420447, native_artwork_idle_book_v1, 128)`，无实例ui_offset／ui_offset_for_gui覆盖。实际资源选择为`modern_projection_book_enchanting_table`或`modern_projection_book_lectern`，四次自然正例均按约定跳过body及原z控制。此次完成了正式接线的有限GUI验证，仍不覆盖任意平移裁切、所有姿态或书表面像素资格。
+
+**来源边界更正：该冷源不是完整纯Git HEAD字节副本。** 它继承6项已声明overlay：额外的`behavior_pack/loot_tables/modern_projection/r21_signed_book.json`、诊断fragment、两份raw-z vertex，以及`entity.material`／`netease_models.json`的诊断注册追加。完整Git blob审计核对3710个Git运行时文件：1730文件逐字节相同，1978文件仅CRLF／LF行尾不同；两个注册表各仅新增4个`peony_r25_book_*` alias，0个既有entry修改或删除；另有上述4个额外文件，无缺失文件。默认book和product liquid模型／材质entry与Git解析值相同，其他生产文件没有实质内容差异。没有选择peony诊断alias；liquid这里只核对来源闭包，不计流体实图验证。首版原字节closure因行尾差异而拒绝的失败记录完整保留，分类后没有修改live副本；原始副本、manifest与报告均保留。后续报告不得把本次写成无overlay的纯Git冷测。
+
+全部29个采集资源边界最低commit余量12.762GiB，附魔台game最高872 handles，讲台最高829，相邻最大增长均为1。两个夹具finally均恢复原editor／document／profile对象、data、fields与factory，workspace关闭、投影actor0、原preview ready，窗口恢复1280×720；原旧冻结3714文件也逐项复核未变。普通stop首次CLI为1，45秒内自行退出、无force；exact game退出仍为`0xC0000409`，MCDK为0，registry finalize为0，两个创建身份absent，watcher精确回收exit0。恢复完成、进程释放与正常引擎退出资格分别记录，旧GUI4间歇空白继续开放，新增人工关闭0。
+
+本次精简[正式GUI汇总](../evidence/book-formal-gui-r28-v1/summary.json)、[四阶段原生读回](../evidence/book-formal-gui-r28-v1/formal-gui-readback.json)、[完整来源闭包](../evidence/book-formal-gui-r28-v1/source-closure.json)和[原始证据索引](../evidence/book-formal-gui-r28-v1/evidence-index.json)共20文件，单文件最大238032字节。四张正式GUI及两个原生参考PNG／回执保持原字节，四份视觉判定绑定原图SHA；完整27图和两份报告留在`.runtime/round-20261023/books-formal-gui-v1/`，未复制session token。
