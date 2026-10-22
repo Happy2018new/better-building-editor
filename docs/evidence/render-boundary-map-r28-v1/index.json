@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "scope": "Static syntactic dependency preparation only; not executable closure, resource graph, completed refactor or qualification",
+  "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "entries": [
+    {
+      "path": "summary.json",
+      "origin": ".runtime/round-20261023/render-boundary-map-v2/summary.json",
+      "original_sha256": "f8e794566efe988df75f44b0e0ff8256dd6d4cc2c048532e7c40fb738970ace9",
+      "original_bytes": 16923,
+      "stored_sha256": "f8e794566efe988df75f44b0e0ff8256dd6d4cc2c048532e7c40fb738970ace9",
+      "stored_bytes": 16923,
+      "compression": null
+    },
+    {
+      "path": "module-imports.json.xz",
+      "origin": ".runtime/round-20261023/render-boundary-map-v2/module-imports.json",
+      "original_sha256": "5e987cf89c59ec7428a648862d12d6d90b1a24c4356b8c8d804c4803298cee0e",
+      "original_bytes": 494693,
+      "stored_sha256": "a1c4da874060d3104bd4ee31923b6b40696134062dbb8f56a71659620bb9aba0",
+      "stored_bytes": 44472,
+      "compression": "xz"
+    },
+    {
+      "path": "parsed-py2.json.xz",
+      "origin": ".runtime/round-20261023/render-boundary-map-v2/parsed-py2.json",
+      "original_sha256": "422820b3ae226981a7580310e2ebfb600aeaac4979a6e1b2257c0c6ce2a07e27",
+      "original_bytes": 282221,
+      "stored_sha256": "8d3f33d77efc4d057e6af41f0c32e91114e96194c4bc55601279247bb96d6054",
+      "stored_bytes": 27456,
+      "compression": "xz"
+    },
+    {
+      "path": "parse_imports_py2.py",
+      "origin": ".runtime/round-20261023/render-boundary-map-v2/parse_imports_py2.py",
+      "original_sha256": "5d9908e6aca8e4603db6b496e11d7f383a638a6c3a9142da1778e5853da08184",
+      "original_bytes": 1050,
+      "stored_sha256": "5d9908e6aca8e4603db6b496e11d7f383a638a6c3a9142da1778e5853da08184",
+      "stored_bytes": 1050,
+      "compression": null
+    },
+    {
+      "path": "audit_render_boundaries_py2_v2.py",
+      "origin": ".runtime/round-20261023/audit_render_boundaries_py2_v2.py",
+      "original_sha256": "3facd16aba967defa0bccd1b5fdc76c436fac81a092005f8237279ac2a3e0982",
+      "original_bytes": 6628,
+      "stored_sha256": "3facd16aba967defa0bccd1b5fdc76c436fac81a092005f8237279ac2a3e0982",
+      "stored_bytes": 6628,
+      "compression": null
+    }
+  ],
+  "actual_py2_parser_used": true,
+  "modules": 259,
+  "py3_import_parity_modules": 258,
+  "MC_started": false,
+  "source_files_changed": false,
+  "manual_issues_closed": 0
+}
