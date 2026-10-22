@@ -1,0 +1,70 @@
+{
+  "owner": "books-r28-public-cold-v2",
+  "source_commit": "48dedf14f2025f289a8d138382dc47b62b7a6f06",
+  "completed": false,
+  "failure_stage": "First card public reload, before its load/confirm dispatch",
+  "cause": "Fixed identity-derived capture path reused; original helper refused existing PNG.",
+  "first_error_type": "AssertionError",
+  "first_error_original_report_sha256": "11df2d0a64ee2bf466b866ea6c0cbc1f08993fc57ba0fea4730bee3bce1e2c6c",
+  "natural_opposite_exact_frames_completed": true,
+  "reloaded_and_lectern_executed": false,
+  "camera_gate_failed": false,
+  "same_owner_retried": false,
+  "original_frames": [
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\books-public-cold-v2\\check\\book_enchanting_natural.png",
+      "sha256": "8010fd6b0f2ef2202a58317ffdec2cf6b279c7900f39fd84ea93f0627a19a79c",
+      "agent_viewed": true,
+      "book_visible": true
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\books-public-cold-v2\\check\\book_enchanting_opposite.png",
+      "sha256": "2017c09b505f2a3e9b54369d47c2ab59871455c1cb0ebed814d10dcc60a30485",
+      "agent_viewed": true,
+      "book_visible": true
+    }
+  ],
+  "restore_audits": [
+    {
+      "fields_equal": true,
+      "original_library_same_object": true,
+      "editor_id": 2840896873472,
+      "document_id": 2840896873248,
+      "preview_ready": true,
+      "profiles_same": true,
+      "original_undo_redo_selection_equal": true,
+      "actor_count": 0,
+      "library_semantics_equal": true,
+      "workspace": false,
+      "stored_library_equal": true,
+      "restored": true
+    },
+    {
+      "fields_equal": true,
+      "original_library_same_object": true,
+      "editor_id": 2840896873472,
+      "document_id": 2840896873248,
+      "preview_ready": true,
+      "profiles_same": true,
+      "original_undo_redo_selection_equal": true,
+      "actor_count": 0,
+      "library_semantics_equal": true,
+      "workspace": false,
+      "stored_library_equal": true,
+      "restored": true
+    }
+  ],
+  "restored": true,
+  "source_unchanged": true,
+  "cleanup_errors": [],
+  "stop_completed": true,
+  "registry_state": "stopped",
+  "actual_exit_codes": {
+    "game": 3221226505,
+    "mcdk": 0
+  },
+  "normal_shutdown_qualified": false,
+  "watcher_retired": true,
+  "manual_issues_closed": 0,
+  "runtime_pixels_qualified": false
+}

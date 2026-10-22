@@ -1,0 +1,75 @@
+{
+  "owner": "books-r28-public-cold-v3",
+  "source_commit": "48dedf14f2025f289a8d138382dc47b62b7a6f06",
+  "completed": false,
+  "first_error_type": "MCDKError",
+  "first_error_payload": "check/rpc/0049.py",
+  "first_error_payload_sha256": "fa342143ec4204d590d2b5fa1c5f9c299c5ebe76cff30b53ba858a0ac9b1073c",
+  "first_error_line": 32,
+  "first_error_assertion": "assert part['name'] in names",
+  "natural_opposite_exact_frames_completed": true,
+  "second_real_load_confirm_completed": true,
+  "reload_document_changed": true,
+  "reload_new_native_calls": 0,
+  "reload_and_lectern_integration_completed": false,
+  "restore_audits": [
+    {
+      "fields_equal": true,
+      "original_library_same_object": true,
+      "editor_id": 2969792050232,
+      "document_id": 2969792050008,
+      "preview_ready": true,
+      "profiles_same": true,
+      "original_undo_redo_selection_equal": true,
+      "actor_count": 0,
+      "library_semantics_equal": true,
+      "workspace": false,
+      "stored_library_equal": true,
+      "restored": true
+    },
+    {
+      "fields_equal": true,
+      "original_library_same_object": true,
+      "editor_id": 2969792050232,
+      "document_id": 2969792050008,
+      "preview_ready": true,
+      "profiles_same": true,
+      "original_undo_redo_selection_equal": true,
+      "actor_count": 0,
+      "library_semantics_equal": true,
+      "workspace": false,
+      "stored_library_equal": true,
+      "restored": true
+    }
+  ],
+  "restored": true,
+  "source_unchanged": true,
+  "cleanup_errors": [],
+  "processes": {
+    "game": {
+      "pid": 42564,
+      "creation_identity": "134371707045642043"
+    },
+    "mcdk": {
+      "pid": 52348,
+      "creation_identity": "134371707043635878"
+    }
+  },
+  "stop_completed": true,
+  "registry_state": "stopped",
+  "actual_exit_codes": {
+    "game": 3221226505,
+    "mcdk": 0
+  },
+  "normal_shutdown_qualified": false,
+  "force_executed": false,
+  "watcher_retired": true,
+  "finished_at": "2026-10-22T19:28:17.373180+00:00",
+  "manual_issues_closed": 0,
+  "runtime_pixels_qualified": false,
+  "raw_report_pins": {
+    "check": "ff8fdcbf4a230082aedab8c57b30c76e66fd682fb7e8d19bd2997b5d5292084c",
+    "stop": "179da084bedd25e96a378a113cc203f30deb97092a4cb27ac27db19846c37dfe",
+    "lifecycle": "744959a6790863c12d1dda2edf93c2582db326a43206f3c4fab8f0b89a1f98cd"
+  }
+}

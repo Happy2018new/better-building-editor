@@ -14,9 +14,11 @@
 
 R28北京时间04:25检查点：产品书锚点`7c06e23a`、水控件裁剪`a6950ece`、两张公开书卡`e7f89a2f`均已提交。变换公开流程及fresh补查已分别提交`f940a322`／`a6afdb60`；T02支撑Y+4有限位移诊断已提交`e4b5e5b6`，仍未绘制按钮或关闭厚度问题。水合源F／A及BRG、独立默认D均已完成；root审核原图、恢复、源和精确释放后正式运行共享生成器及原资格器，16门通过，元数据提交`179b5255`，见[最终水资格](verification/WATER_FINAL_QUALIFICATION_R28.md)。D三项非同相位湿栅栏透明度诊断及R／G旧通用几何失败保留，不扩大通过范围。最终CPU3485项／跳过1项／OK，6310文件前后不变，证据提交`491d77fa`；包含历史未跟踪测试／工具，不能写成clean HEAD资格。
 
-书公开冷v3真实reload后因旧host要求本次重新Combine而拒绝，原失败保留。v4的完整同会话缓存证明经root／独立审核及root新完整main离线回放通过；首次create、第二次真实cache reuse，source／data／typed document／full halo／原native create等严格绑定。离线UI、native factory、WGC和原会话恢复均为显式边界模型，实际资格由当前冷启动取得；不转授离线像素或恢复结论。
+书公开冷v3真实reload后因旧host要求本次重新Combine而拒绝，原失败保留。v4完整冷测已完成：四次公共load／confirm、六原图已由root逐张查看，匹配tile真实create增量1／0／1／0。双恢复及源复核通过，game70616、MCDK34048、watch70096三原身份已不存在，release SHA `de79a58611aa7169ed747702b3f488733687e0a3777ce87bc2dc5986a2528af3`；game实际ordinary退出仍0xC0000409，不称正常引擎退出。24-file小包经root独立对原report／完整proof digest／PNG／restore／release复核通过，见[书冷测](verification/BOOK_PUBLIC_COLD_R28.md)。离线UI、native factory、WGC和原会话恢复均为显式边界模型，不转授离线像素或恢复结论。v4绑定`48dedf14`，旧GUI4间歇空白及全GUI／姿态仍开。
 
-红石线平面／边界通过、上坡单像素严格失败仍保留，未合入；新的平面保守候选仅作私有离线研究。仙人掌花／红树根A v2在阳性对照因背景噪声拒绝，目标未运行，B未启动；v3只增加一次固定三视角预热及8秒等待，尚未实机。活动代理books_r28／water_r28／transforms_r28；仅books已获v4唯一MC槽，cutoff20:50Z、watch20:55Z，释放前不得转授。水槽已精确释放。植物与线候选均触及水已资格的39文件边界，不能未经水再资格合入。周末八组30—60分钟页待书最终结果冻结，水三个代表已就绪。开发继续至08:00，不能沿用下方R27的“已停止”状态。
+红石线平面／边界通过、上坡单像素严格失败仍保留，未合入；新的平面保守候选仅作私有离线研究。仙人掌花／红树根A v2在阳性对照因背景噪声拒绝；v3固定预热后在首次正式air的原source封存检查拒绝，未到stone或targets。8条warmup creation原source仍current时没有被旧host观察，真实旧v5 Ledger离线重放同样拒绝；正在准备在预热当场封存的最小新host，不能事后补封或放宽检查。A3已双恢复并精确释放，B3未启动。当前三个代理均为离线准备，没有MC授权占用；下一槽另行授予。
+
+root已提交`b70ce7bf`：三个小水蓝图`test.layers.water_source`／`water_pool`／`water_fence`直接复用既有source_document原格，2／8／3格，水39-source官方检查零差异。18个debug、7个water、5个book既有回归通过；两模块真Py2／3编译、实际Session聚焦／库及Document往返通过。3485项全量在新增入口之前，不能改写其来源。books准备新源三水＋两书公共入口短测；water离线准备legacy末地表面GUI2／3／4锚点因果诊断，不改共享source或星点资格。周末操作见[八组指南](acceptance/2026-10-24-quick-guide.md)，待最终入口冷测冻结。植物与线候选均触及水已资格的39文件边界，不能未经水再资格合入。开发继续至08:00，不能沿用下方R27的“已停止”状态。
 
 ## 2026-10-22 07:46最终交接（08:00休眠待执行）
 

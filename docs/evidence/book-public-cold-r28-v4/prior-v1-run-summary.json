@@ -1,0 +1,99 @@
+{
+  "owner": "books-r28-public-cold-v1",
+  "source_commit": "48dedf14f2025f289a8d138382dc47b62b7a6f06",
+  "host_binding_sha256": "896b8accb851e78c68b1f6b396bb19564324969505f9eca4969e3d3f2d0076a9",
+  "completed": false,
+  "first_error": {
+    "type": "AssertionError",
+    "error": ""
+  },
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\books-public-cold-v1\\run_public_books.py\", line 164, in main\n    frame(check,row,label+'_opposite',identity,expected,opposite_state)\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\books-public-cold-v1\\run_public_books.py\", line 137, in frame\n    assert before['camera_pose']==after['camera_pose']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "first_card": "test.entities.book_enchanting",
+  "other_card_and_reload_executed": false,
+  "camera_before_after_failed_values_recorded": false,
+  "failure_analysis": "Source-derived host gate contradiction reproduced with exact frozen OrbitCamera.advance: old .03 opposite readiness can pass before actual camera snaps at .0001; exact frame comparison then rejects. No failed actual pose delta is invented.",
+  "original_frames": [
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\books-public-cold-v1\\check\\book_enchanting_natural.png",
+      "sha256": "6fa7ff85dc4893cd79ff07110433b53feea62c08125268bab6d7788ed1f6d511",
+      "width": 1280,
+      "height": 720,
+      "reliable": true,
+      "window": {
+        "hwnd": 41554356,
+        "pid": 61788,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1280, 720) Minecraft",
+        "x": 427,
+        "y": 305,
+        "width": 853,
+        "height": 480,
+        "minimized": false
+      },
+      "agent_viewed": true,
+      "observation": "Book is visible in the natural original image; views face opposite directions. This does not complete the requested two-card/reload integration."
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\books-public-cold-v1\\check\\book_enchanting_opposite.png",
+      "sha256": "d31a5245a0f223abba6f6f2d0555c03ed3348b4fc07c155bdffe3d755c3166aa",
+      "width": 1280,
+      "height": 720,
+      "reliable": true,
+      "window": {
+        "hwnd": 41554356,
+        "pid": 61788,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1280, 720) Minecraft",
+        "x": 427,
+        "y": 305,
+        "width": 853,
+        "height": 480,
+        "minimized": false
+      },
+      "agent_viewed": true,
+      "observation": "Book is visible in the natural original image; views face opposite directions. This does not complete the requested two-card/reload integration."
+    }
+  ],
+  "restore_audits": [
+    {
+      "fields_equal": true,
+      "original_library_same_object": true,
+      "editor_id": 2398086169264,
+      "document_id": 2398086169040,
+      "preview_ready": true,
+      "profiles_same": true,
+      "original_undo_redo_selection_equal": true,
+      "actor_count": 0,
+      "library_semantics_equal": true,
+      "workspace": false,
+      "stored_library_equal": true,
+      "restored": true
+    },
+    {
+      "fields_equal": true,
+      "original_library_same_object": true,
+      "editor_id": 2398086169264,
+      "document_id": 2398086169040,
+      "preview_ready": true,
+      "profiles_same": true,
+      "original_undo_redo_selection_equal": true,
+      "actor_count": 0,
+      "library_semantics_equal": true,
+      "workspace": false,
+      "stored_library_equal": true,
+      "restored": true
+    }
+  ],
+  "source_unchanged": true,
+  "restored": true,
+  "stop_completed": true,
+  "registry_state": "stopped",
+  "actual_exit_codes": {
+    "game": 3221226505,
+    "mcdk": 0
+  },
+  "normal_shutdown_qualified": false,
+  "watcher_retired": true,
+  "manual_issues_closed": 0,
+  "runtime_pixels_qualified": false
+}
