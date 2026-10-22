@@ -1,0 +1,211 @@
+{
+  "scope": "OFFLINE_NARROW_COMPARISON_OF_EXISTING_ORIGINALS",
+  "source_commit_R28_shift": "2ab5a29a",
+  "ROI": [
+    577,
+    242,
+    714,
+    452
+  ],
+  "input_sha256": {
+    ".runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_full_baseline.png": "4d1dd3b9e0b17bec8bd776aab5961bc5b512054e62b45c18ef40f5ae9208ef5b",
+    ".runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_before.png": "1ffbfac7d4c5a8d089049952d74147e8a5fdb522d064948e7fe07c01c91f58a3",
+    ".runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_after.png": "fbe822ea96fad68131615d8edfcf47aecbd6a5e1fc78f11e872569afec99132c",
+    ".runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_original_source_restored.png": "906b2af7ff5d3e3276ba15f3d319a5ab1a7e00b063ade29abd91955689243fa8",
+    ".runtime\\round-20261022\\transforms-lineage-runtime-v4\\check\\pair_B_single_y3.png": "a5ef91a370d15b9ce3eecbe33e79ce1e4e370a229cd3c4b63619235b010fd9c0"
+  },
+  "combined_vs_support": {
+    "nonzero_pixels": 264,
+    "pixels_gt12": 82,
+    "maximum_channel_difference": 22,
+    "all_nonzero_bbox": [
+      626,
+      365,
+      665,
+      403
+    ],
+    "all_gt12_inside_R27_single_silhouette": true,
+    "R27_single_silhouette_pixels": 758,
+    "R27_single_silhouette_bbox": [
+      626,
+      365,
+      665,
+      402
+    ]
+  },
+  "repeatability_controls": {
+    "combined_equals_original_restored_exact_ROI": true,
+    "support_before_equals_support_after_exact_ROI": true,
+    "restored_vs_after_has_identical_difference": true
+  },
+  "R27_actual_same_volume_and_indices": [
+    {
+      "label": "A_full",
+      "actual_button": {
+        "part": [
+          0,
+          0,
+          1
+        ],
+        "name": "modern_projection_chunk_0_0_0_1_1",
+        "local": [
+          3,
+          3,
+          11
+        ],
+        "native_volume": [
+          16,
+          16,
+          10
+        ],
+        "native_index": 827,
+        "material": [
+          "minecraft:stone_button",
+          0
+        ],
+        "creation_serial": 60,
+        "native_serialization_sha256": "fb3b7ef4750c7c11ee9ca17e11fee6d7257eb77ab0006cf80072d3d9e6ef5771"
+      },
+      "actual_support": {
+        "part": [
+          0,
+          0,
+          1
+        ],
+        "name": "modern_projection_chunk_0_0_0_1_1",
+        "local": [
+          3,
+          4,
+          11
+        ],
+        "native_volume": [
+          16,
+          16,
+          10
+        ],
+        "native_index": 1083,
+        "material": [
+          "minecraft:stone",
+          0
+        ],
+        "creation_serial": 60,
+        "native_serialization_sha256": "fb3b7ef4750c7c11ee9ca17e11fee6d7257eb77ab0006cf80072d3d9e6ef5771"
+      }
+    },
+    {
+      "label": "B_single_y3",
+      "actual_button": {
+        "part": [
+          0,
+          0,
+          1
+        ],
+        "name": "modern_projection_chunk_0_0_0_1_0",
+        "local": [
+          3,
+          3,
+          11
+        ],
+        "native_volume": [
+          16,
+          16,
+          10
+        ],
+        "native_index": 827,
+        "material": [
+          "minecraft:stone_button",
+          0
+        ],
+        "creation_serial": 61,
+        "native_serialization_sha256": "14d2084b29284a6981ed79729922d61e629f71ded564bea803f07e6fd8b54023"
+      },
+      "actual_support": {
+        "part": [
+          0,
+          0,
+          1
+        ],
+        "name": "modern_projection_chunk_0_0_0_1_0",
+        "local": [
+          3,
+          4,
+          11
+        ],
+        "native_volume": [
+          16,
+          16,
+          10
+        ],
+        "native_index": 1083,
+        "material": null,
+        "creation_serial": 61,
+        "native_serialization_sha256": "14d2084b29284a6981ed79729922d61e629f71ded564bea803f07e6fd8b54023"
+      }
+    },
+    {
+      "label": "A2_full",
+      "actual_button": {
+        "part": [
+          0,
+          0,
+          1
+        ],
+        "name": "modern_projection_chunk_0_0_0_1_1",
+        "local": [
+          3,
+          3,
+          11
+        ],
+        "native_volume": [
+          16,
+          16,
+          10
+        ],
+        "native_index": 827,
+        "material": [
+          "minecraft:stone_button",
+          0
+        ],
+        "creation_serial": 60,
+        "native_serialization_sha256": "fb3b7ef4750c7c11ee9ca17e11fee6d7257eb77ab0006cf80072d3d9e6ef5771"
+      },
+      "actual_support": {
+        "part": [
+          0,
+          0,
+          1
+        ],
+        "name": "modern_projection_chunk_0_0_0_1_1",
+        "local": [
+          3,
+          4,
+          11
+        ],
+        "native_volume": [
+          16,
+          16,
+          10
+        ],
+        "native_index": 1083,
+        "material": [
+          "minecraft:stone",
+          0
+        ],
+        "creation_serial": 60,
+        "native_serialization_sha256": "fb3b7ef4750c7c11ee9ca17e11fee6d7257eb77ab0006cf80072d3d9e6ef5771"
+      }
+    }
+  ],
+  "conclusion": "Combined rendering has a repeatable low-contrast contribution at the prior single-button silhouette. Complete absence of button output is not supported by these originals. Correct mounting, depth, thickness and expected vanilla appearance remain unqualified.",
+  "not_a_new_acceptance_gate": true,
+  "manual_issues_closed": 0,
+  "MC_started": false,
+  "native_mesh_qualified": false,
+  "native_attachment_qualified": false,
+  "proposal_only": {
+    "minimum_discriminating_input": "Change support at native index1083 from minecraft:stone aux0 to fully opaque minecraft:white_concrete aux0; leave stone_button index827/aux0, volume(16,16,10), flags, native pose, slot, layout, source and original captures fixed.",
+    "contrast_control": "Compare combined versus support-only for each support material. The sole material axis is support color; original button data never changes. A clearer complete button against white weakens the visual-absence claim and isolates low contrast from continued combined-model depth/culling investigation.",
+    "avoid_redundancy": "Do not repeat same-volume button-only vs combined as a new discovery: R27 already submitted the same volume and button index in full/single/full. Do not repeat support-only shift as a button-rendered shift: R28 explicitly did not draw the button there.",
+    "limits": "Different native support material may also affect native lighting/culling. This is a bounded discriminator, not by itself proof of exact vanilla geometry. Root must review and grant any future MC run separately."
+  }
+}
