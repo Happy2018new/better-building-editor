@@ -48,6 +48,8 @@ from .debug_ordinary_plant_blueprints import (METADATA as ORDINARY_PLANT_METADAT
 
 from .debug_coral_blueprints import (METADATA as CORAL_REVIEW_METADATA,
                                       VISUAL_CASES as CORAL_REVIEW_VISUAL_CASES)
+from .debug_book_blueprints import (METADATA as BOOK_METADATA,
+                                     VISUAL_CASES as BOOK_VISUAL_CASES)
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -91,7 +93,7 @@ BLUEPRINTS = (
     CORAL_METADATA,
     PEONY_METADATA,
     KELP_METADATA,
-) + CORAL_REVIEW_METADATA + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA + TRANSFORM_ACCEPTANCE_METADATA
+) + CORAL_REVIEW_METADATA + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA + TRANSFORM_ACCEPTANCE_METADATA + BOOK_METADATA
 BLUEPRINTS += ORDINARY_METADATA + context_metadata(BLUEPRINTS)
 VISUAL_CASES = {
     'barrier_visibility': BARRIER_VISUAL_CASE,
@@ -184,6 +186,7 @@ VISUAL_CASES.update(COMPATIBILITY_VISUAL_CASES)
 VISUAL_CASES.update(ITEM_CATALOGUE_VISUAL_CASES)
 VISUAL_CASES.update(TRANSFORM_ACCEPTANCE_VISUAL_CASES)
 VISUAL_CASES.update(CORAL_REVIEW_VISUAL_CASES)
+VISUAL_CASES.update(BOOK_VISUAL_CASES)
 
 
 def entries(category=None):
@@ -374,6 +377,9 @@ def build(identity):
         document.name = metadata[2]
         return document
     fixture = Fixture(metadata)
+    if identity in BOOK_VISUAL_CASES:
+        from .debug_book_blueprints import populate
+        return populate(fixture, identity)
     if identity in CORAL_REVIEW_VISUAL_CASES:
         from .debug_coral_blueprints import populate
         return populate(fixture, identity)
@@ -496,3 +502,5 @@ def open_blueprint(session, identity):
         session.camera_focus_request = tuple(axis + .5 for axis in row['focus'])
     else:
         session.editor.message = '已载入测试蓝图'
+        if identity in BOOK_VISUAL_CASES:
+            session.camera_focus_request = BOOK_VISUAL_CASES[identity]['focus']
