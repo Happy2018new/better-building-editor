@@ -1,0 +1,113 @@
+{
+  "A": {
+    "burst_duration_ms": 3200,
+    "bursts": 15,
+    "cases": [
+      "flow_east",
+      "flow_south",
+      "flow_west",
+      "flow_north",
+      "falling"
+    ],
+    "maximum_source_gap_ms": 150,
+    "routes": [
+      "editor",
+      "full",
+      "missing"
+    ],
+    "static_PNGs": 30
+  },
+  "B": {
+    "cases": [
+      "wet_oak_fence",
+      "pool"
+    ],
+    "extras": true,
+    "frozen": true,
+    "routes": [
+      "editor",
+      "full",
+      "missing"
+    ]
+  },
+  "F": {
+    "alpha_controls": true,
+    "cases": 19,
+    "controls": "all",
+    "measure_budgets": true,
+    "opaque_side_controls": true,
+    "routes": [
+      "editor",
+      "full",
+      "missing"
+    ],
+    "visibility_controls": true
+  },
+  "F_world_per_capture_cutoff_utc": "2026-10-22T23:25:00+00:00",
+  "G": {
+    "cases": [
+      "gallery"
+    ],
+    "editor_zoom": 0.9,
+    "routes": [
+      "editor"
+    ]
+  },
+  "R": {
+    "cases": [
+      "neighbor_oak_slab",
+      "neighbor_oak_stairs",
+      "neighbor_glass_pane",
+      "neighbor_stone",
+      "transparent_overlap"
+    ],
+    "reverse": true,
+    "routes": [
+      "editor",
+      "full",
+      "missing"
+    ]
+  },
+  "adjacent_growth_limit": 10000,
+  "auxiliary_files": 1391,
+  "base_archive_reused": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-flow-editor-v1\\private-launch-source-v1.zip",
+    "scope": "Fresh current shared explicit inventory; no diagnostic shaders; not complete transitive closure",
+    "sha256": "d9f196ca951a9f2d83f254b5e4d694868f714096715d376309845141c4c8c4e5",
+    "size_bytes": 119618244
+  },
+  "created_at_utc": "2026-10-22T17:43:04.615488+00:00",
+  "estimated_minutes": [
+    90,
+    180
+  ],
+  "explicit_bootstrap_performed": false,
+  "host_extension_version": 2,
+  "manual_closures_added": 0,
+  "maximum_handles": 250000,
+  "minimum_available_commit_bytes": 6442450944,
+  "native_gui": 2,
+  "no_new_capture_after_utc": "2026-10-22T23:25:00+00:00",
+  "ordinary_cold_init_required": true,
+  "overlay_archive": {
+    "bytes": 53063,
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\source-overlay-v1.zip",
+    "sha256": "760b35d633e40117846c77a738c8a6850587be3dd84c45e88c16c580ac072f65"
+  },
+  "owner": "water-r28-final-matrix-v1",
+  "physical_client_size": [
+    1280,
+    720
+  ],
+  "previous_plan_sha256": "f5346b216c05db5ace06f8f3d711c0b431c51b35daf38005a425f851f652927a",
+  "production_admission_performed": false,
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-matrix-v1",
+  "restoration_deadline_utc": "2026-10-22T23:40:00+00:00",
+  "root_head": "d6b4626cfc4397b23374e3cffdb479ae95bb8129",
+  "schema": 1,
+  "source_and_previous_frozen_hosts_unchanged": true,
+  "source_contract_sha256": "4e4eb7fff2b3dd8d6519ce70c7290c911f6c54ff2c9dbd0e7d3cf160a6b54749",
+  "source_files": 4483,
+  "stage": "formal_current_source_FABRG",
+  "unchanged_retry_allowed": false
+}

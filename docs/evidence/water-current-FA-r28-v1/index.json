@@ -1,0 +1,1583 @@
+{
+  "B_capture_started": false,
+  "actual_exit_codes": {
+    "game": "0xC0000409",
+    "mcdk": "0x00000000"
+  },
+  "all_static_PNG_count": 378,
+  "auxiliary_files": 1391,
+  "burst_PNGs_referenced_only": 660,
+  "complete_water_product_qualified": false,
+  "created_at_utc": "2026-10-22T18:38:08.740447+00:00",
+  "credential_findings": 0,
+  "current_source_A_passed": true,
+  "current_source_F_passed": true,
+  "entries": [
+    {
+      "decoded_sanitized_bytes": 4766,
+      "decoded_sanitized_sha256": "0ea192ba032c0e747e0e5b8a5f83743f07d358027587a7a8b48178729eeec2ab",
+      "derived_parts": [
+        {
+          "bytes": 4766,
+          "path": "BRG-static-only/host-changes-v3.patch",
+          "sha256": "0ea192ba032c0e747e0e5b8a5f83743f07d358027587a7a8b48178729eeec2ab"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG-static-only/host-changes-v3.patch",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4766,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/host-changes-v3.patch",
+      "original_raw_sha256": "0ea192ba032c0e747e0e5b8a5f83743f07d358027587a7a8b48178729eeec2ab",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2978,
+      "decoded_sanitized_sha256": "f0475253b5ecfb76ca1ddacc5ababa2720c3a10673d93a55c9889bc6188b5f97",
+      "derived_parts": [
+        {
+          "bytes": 2978,
+          "path": "BRG-static-only/plan-v3.json",
+          "sha256": "f0475253b5ecfb76ca1ddacc5ababa2720c3a10673d93a55c9889bc6188b5f97"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG-static-only/plan-v3.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2978,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/plan-v3.json",
+      "original_raw_sha256": "f0475253b5ecfb76ca1ddacc5ababa2720c3a10673d93a55c9889bc6188b5f97",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 10638,
+      "decoded_sanitized_sha256": "39887f59c13122d184361eaebfd81b7e2e9c4cbf050b480516f6b9347c9ff89a",
+      "derived_parts": [
+        {
+          "bytes": 10638,
+          "path": "BRG-static-only/prepare_brg.py",
+          "sha256": "39887f59c13122d184361eaebfd81b7e2e9c4cbf050b480516f6b9347c9ff89a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG-static-only/prepare_brg.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 10638,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/prepare_brg.py",
+      "original_raw_sha256": "39887f59c13122d184361eaebfd81b7e2e9c4cbf050b480516f6b9347c9ff89a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1838,
+      "decoded_sanitized_sha256": "0d60bb9fa25a8ab2370cfe1a8e8077466f56536583f5f22a741c187c0ba8993f",
+      "derived_parts": [
+        {
+          "bytes": 1838,
+          "path": "BRG-static-only/stage-mapping-preflight-v3.json",
+          "sha256": "0d60bb9fa25a8ab2370cfe1a8e8077466f56536583f5f22a741c187c0ba8993f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG-static-only/stage-mapping-preflight-v3.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1838,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/stage-mapping-preflight-v3.json",
+      "original_raw_sha256": "0d60bb9fa25a8ab2370cfe1a8e8077466f56536583f5f22a741c187c0ba8993f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 555809,
+      "decoded_sanitized_sha256": "63588e391fa3647ba2cddf5b944ada2c9353c515b77349d494efc63cf6cb87e8",
+      "derived_parts": [
+        {
+          "bytes": 55343,
+          "path": "analysis/A-flow-analysis.json.gz",
+          "sha256": "e60bcf43fc539f627b13227ebca7a7c31a89e284c5f1c5d569607c4670d74edf"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "analysis/A-flow-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 555809,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/A-flow-analysis.json",
+      "original_raw_sha256": "63588e391fa3647ba2cddf5b944ada2c9353c515b77349d494efc63cf6cb87e8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 10467,
+      "decoded_sanitized_sha256": "16ea7bff83ed4286ec0cb5c091823ef78241ee1a4e6eb2c4e7406b0009185e40",
+      "derived_parts": [
+        {
+          "bytes": 10467,
+          "path": "analysis/A-product-analysis.json",
+          "sha256": "16ea7bff83ed4286ec0cb5c091823ef78241ee1a4e6eb2c4e7406b0009185e40"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/A-product-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 10467,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/A-product-analysis.json",
+      "original_raw_sha256": "16ea7bff83ed4286ec0cb5c091823ef78241ee1a4e6eb2c4e7406b0009185e40",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 28438,
+      "decoded_sanitized_sha256": "c70f532ef6c784ef9963d8c1981caa7540b14b94158f14d6a82392b82559820e",
+      "derived_parts": [
+        {
+          "bytes": 28438,
+          "path": "analysis/F-combined-frozen-matrix.json",
+          "sha256": "c70f532ef6c784ef9963d8c1981caa7540b14b94158f14d6a82392b82559820e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/F-combined-frozen-matrix.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 28438,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/F-combined-frozen-matrix.json",
+      "original_raw_sha256": "c70f532ef6c784ef9963d8c1981caa7540b14b94158f14d6a82392b82559820e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 15869,
+      "decoded_sanitized_sha256": "4d4918b136305c514c0ff058855ab70a5bfd53041cb59edfc757d9707044c32f",
+      "derived_parts": [
+        {
+          "bytes": 15869,
+          "path": "analysis/F-editor-product-analysis.json",
+          "sha256": "4d4918b136305c514c0ff058855ab70a5bfd53041cb59edfc757d9707044c32f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/F-editor-product-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 15869,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/F-editor-product-analysis.json",
+      "original_raw_sha256": "4d4918b136305c514c0ff058855ab70a5bfd53041cb59edfc757d9707044c32f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9142,
+      "decoded_sanitized_sha256": "2a994d687865ff056a73c2b09f13e9569ce85659633b8dfb75ea6744494033f8",
+      "derived_parts": [
+        {
+          "bytes": 9142,
+          "path": "analysis/F-editor-side-visibility-analysis.json",
+          "sha256": "2a994d687865ff056a73c2b09f13e9569ce85659633b8dfb75ea6744494033f8"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/F-editor-side-visibility-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9142,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/F-editor-side-visibility-analysis.json",
+      "original_raw_sha256": "2a994d687865ff056a73c2b09f13e9569ce85659633b8dfb75ea6744494033f8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 34693,
+      "decoded_sanitized_sha256": "09e1eab4326c00a9e5ea4ccf0f5324ca234a4d0219b78023cd569d67f3e8a2b8",
+      "derived_parts": [
+        {
+          "bytes": 34693,
+          "path": "analysis/F-full-product-analysis.json",
+          "sha256": "09e1eab4326c00a9e5ea4ccf0f5324ca234a4d0219b78023cd569d67f3e8a2b8"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/F-full-product-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 34693,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/F-full-product-analysis.json",
+      "original_raw_sha256": "09e1eab4326c00a9e5ea4ccf0f5324ca234a4d0219b78023cd569d67f3e8a2b8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 13025,
+      "decoded_sanitized_sha256": "58d2b312666c17566f58d6c915970bcdaf847977964d00a4117f5bb22c6e5319",
+      "derived_parts": [
+        {
+          "bytes": 13025,
+          "path": "analysis/F-full-side-visibility-analysis.json",
+          "sha256": "58d2b312666c17566f58d6c915970bcdaf847977964d00a4117f5bb22c6e5319"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/F-full-side-visibility-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 13025,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/F-full-side-visibility-analysis.json",
+      "original_raw_sha256": "58d2b312666c17566f58d6c915970bcdaf847977964d00a4117f5bb22c6e5319",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 34813,
+      "decoded_sanitized_sha256": "4a7cfab1315cc52ef1e5622087bada79b0387c5bd0f232fe0505a761ccc007c7",
+      "derived_parts": [
+        {
+          "bytes": 34813,
+          "path": "analysis/F-missing-product-analysis.json",
+          "sha256": "4a7cfab1315cc52ef1e5622087bada79b0387c5bd0f232fe0505a761ccc007c7"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/F-missing-product-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 34813,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/F-missing-product-analysis.json",
+      "original_raw_sha256": "4a7cfab1315cc52ef1e5622087bada79b0387c5bd0f232fe0505a761ccc007c7",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 13275,
+      "decoded_sanitized_sha256": "81b10b5726f9e2598696beb77e93d39a1345d6cc1df30d13ca6ee209131dcf9e",
+      "derived_parts": [
+        {
+          "bytes": 13275,
+          "path": "analysis/F-missing-side-visibility-analysis.json",
+          "sha256": "81b10b5726f9e2598696beb77e93d39a1345d6cc1df30d13ca6ee209131dcf9e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/F-missing-side-visibility-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 13275,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/F-missing-side-visibility-analysis.json",
+      "original_raw_sha256": "81b10b5726f9e2598696beb77e93d39a1345d6cc1df30d13ca6ee209131dcf9e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 6490,
+      "decoded_sanitized_sha256": "a7198961984ea9dcd19de6e89ca7d09793034709f54ec3b6a9163d2133bc7a6f",
+      "derived_parts": [
+        {
+          "bytes": 6490,
+          "path": "analysis/summary.json",
+          "sha256": "a7198961984ea9dcd19de6e89ca7d09793034709f54ec3b6a9163d2133bc7a6f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "analysis/summary.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 6490,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-F-A-v3/summary.json",
+      "original_raw_sha256": "a7198961984ea9dcd19de6e89ca7d09793034709f54ec3b6a9163d2133bc7a6f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 50273,
+      "decoded_sanitized_sha256": "a92a037fbe5dbe843b763c36a3cc4b4e2d14a802f190e396ad0c73f409cd58b5",
+      "derived_parts": [
+        {
+          "bytes": 50273,
+          "path": "captures/product-v2-a-v1-handles.json",
+          "sha256": "a92a037fbe5dbe843b763c36a3cc4b4e2d14a802f190e396ad0c73f409cd58b5"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "captures/product-v2-a-v1-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 50273,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-a-v1-handles.json",
+      "original_raw_sha256": "a92a037fbe5dbe843b763c36a3cc4b4e2d14a802f190e396ad0c73f409cd58b5",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 630283,
+      "decoded_sanitized_sha256": "333352b3849f49a96262823b04dfc1a967e6bc67e6227b333984413f3d73aaa5",
+      "derived_parts": [
+        {
+          "bytes": 51592,
+          "path": "captures/product-v2-a-v1-host.json.gz",
+          "sha256": "6d599341d6eabfa3f3bd2c82d1cc0e8dd18969e836292566210fdafa71a4c803"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "captures/product-v2-a-v1-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 630283,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-a-v1-host.json",
+      "original_raw_sha256": "333352b3849f49a96262823b04dfc1a967e6bc67e6227b333984413f3d73aaa5",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 10115139,
+      "decoded_sanitized_sha256": "7b0c8e3deae7b03c03737d71cc15e75e2b17055889f3a927d75c1fe2b08f1271",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-a-v1.json.gz.001",
+          "sha256": "56b0d14b65a8a0bca936d0dab8917e18d9776aef2b56979e26daa8337c8c6a2a"
+        },
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-a-v1.json.gz.002",
+          "sha256": "b3e871babd52287947f60579d24b5af91989c66aa3de13685f169c7feab8850f"
+        },
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-a-v1.json.gz.003",
+          "sha256": "63fec330a8bfe5dbf6f53871623ffe0ee6d65ddfe9cc4196cef41012f93efe8c"
+        },
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-a-v1.json.gz.004",
+          "sha256": "da26305f6a8989b3cce3df4adabda40a08ced8de95b19528e2a849c65cde036d"
+        },
+        {
+          "bytes": 142992,
+          "path": "captures/product-v2-a-v1.json.gz.005",
+          "sha256": "d58f3a5a398f48f0bac6a86eadb7d87cc84d36c01d8327af28623d916882fabf"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "captures/product-v2-a-v1.json",
+      "original_bytes_reconstructable": false,
+      "original_raw_bytes": 17861240,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-a-v1.json",
+      "original_raw_sha256": "eeb6b5fb80488df3e01a1dbcbcb1e358262369b52f62219f83ceabd0f45b36d9",
+      "redacted_fields": [
+        "$:json.flow_bursts.editor_flow_east_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.editor_flow_east_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.editor_flow_east_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.editor_flow_south_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.editor_flow_south_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.editor_flow_south_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.editor_flow_west_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.editor_flow_west_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.editor_flow_west_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.editor_flow_north_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.editor_flow_north_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.editor_flow_north_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.editor_falling_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.editor_falling_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.editor_falling_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.full_flow_east_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.full_flow_east_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.full_flow_east_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.full_flow_south_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.full_flow_south_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.full_flow_south_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.full_flow_west_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.full_flow_west_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.full_flow_west_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.full_flow_north_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.full_flow_north_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.full_flow_north_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.full_falling_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.full_falling_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.full_falling_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.missing_flow_east_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.missing_flow_east_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.missing_flow_east_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.missing_flow_south_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.missing_flow_south_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.missing_flow_south_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.missing_flow_west_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.missing_flow_west_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.missing_flow_west_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.missing_flow_north_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.missing_flow_north_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.missing_flow_north_wet.capture.instance_final.mcp_url",
+        "$:json.flow_bursts.missing_falling_wet.capture.instance.mcp_url",
+        "$:json.flow_bursts.missing_falling_wet.capture.instance_after.mcp_url",
+        "$:json.flow_bursts.missing_falling_wet.capture.instance_final.mcp_url"
+      ]
+    },
+    {
+      "decoded_sanitized_bytes": 144134,
+      "decoded_sanitized_sha256": "dc5d010666db636452cd3765fd23cf1648e998e49ccbd7c62f1c5f9698d38047",
+      "derived_parts": [
+        {
+          "bytes": 7759,
+          "path": "captures/product-v2-f-editor-v1-handles.json.gz",
+          "sha256": "87aa5229ef4fc221bd225146bd21e7acb706abdcd99431e9ae49e112ac5683d1"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "captures/product-v2-f-editor-v1-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 144134,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-editor-v1-handles.json",
+      "original_raw_sha256": "dc5d010666db636452cd3765fd23cf1648e998e49ccbd7c62f1c5f9698d38047",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2844339,
+      "decoded_sanitized_sha256": "1a8782bffd996141595b9fab2a5531b3581f4c0072cda783740eff043f3a6b4b",
+      "derived_parts": [
+        {
+          "bytes": 106539,
+          "path": "captures/product-v2-f-editor-v1-host.json.gz",
+          "sha256": "378af56b60ff72270692b2e8469ee4fa9359ceca84ed941e02354739804112b8"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "captures/product-v2-f-editor-v1-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2844339,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-editor-v1-host.json",
+      "original_raw_sha256": "1a8782bffd996141595b9fab2a5531b3581f4c0072cda783740eff043f3a6b4b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 14737390,
+      "decoded_sanitized_sha256": "81e63ef7f82cbc52c71f86f1d3d70591f21fabaa71f3492cea90b7b8af31f587",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-f-editor-v1.json.gz.001",
+          "sha256": "a6eb4498199e122e2c0578cb49d0c9f700c19022a0fa2b6ead25fad1605a2b11"
+        },
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-f-editor-v1.json.gz.002",
+          "sha256": "92947f46fc20a5a2189852428199eb72120157405b141914461301a0ae58ebf5"
+        },
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-f-editor-v1.json.gz.003",
+          "sha256": "0d44fa27c3e32de4ef22041df0a20d06ea75d47b075e2b883c2e7353dac9cd1b"
+        },
+        {
+          "bytes": 172967,
+          "path": "captures/product-v2-f-editor-v1.json.gz.004",
+          "sha256": "ded43c168f939ce6514f6153edcb73f34dedd628260b14b6e4eb294e356c52c3"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "captures/product-v2-f-editor-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 14737390,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-editor-v1.json",
+      "original_raw_sha256": "81e63ef7f82cbc52c71f86f1d3d70591f21fabaa71f3492cea90b7b8af31f587",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 142890,
+      "decoded_sanitized_sha256": "69095f17c662a63c4dbfc23ae759847eaf6c8fa873038822f1687c45a49114ff",
+      "derived_parts": [
+        {
+          "bytes": 7835,
+          "path": "captures/product-v2-f-full-v2-handles.json.gz",
+          "sha256": "1bd394ae189dc21f998b83b4cfd040375131bc4ce1717bb3dcdc1a373d9c9281"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "captures/product-v2-f-full-v2-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 142890,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-full-v2-handles.json",
+      "original_raw_sha256": "69095f17c662a63c4dbfc23ae759847eaf6c8fa873038822f1687c45a49114ff",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5223,
+      "decoded_sanitized_sha256": "f1c2ac1d8c07dee53d3fd2a98a6576b2c0815b3337195948bcd59ae07213fbf1",
+      "derived_parts": [
+        {
+          "bytes": 5223,
+          "path": "captures/product-v2-f-full-v2-host.json",
+          "sha256": "f1c2ac1d8c07dee53d3fd2a98a6576b2c0815b3337195948bcd59ae07213fbf1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "captures/product-v2-f-full-v2-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5223,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-full-v2-host.json",
+      "original_raw_sha256": "f1c2ac1d8c07dee53d3fd2a98a6576b2c0815b3337195948bcd59ae07213fbf1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 22871210,
+      "decoded_sanitized_sha256": "804e2d7d34742e5bfadce52de35116cb68c36cc8755f22df2b28acf0975df49a",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-f-full-v2.json.gz.001",
+          "sha256": "4196a3dce996264dd9b3563b15b8c67c8561a6ffc0bb95de0797b66c872b8003"
+        },
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-f-full-v2.json.gz.002",
+          "sha256": "db83922c48052e30eb0f56557773d1927f418c1d2f857245d5653a9dcf42501c"
+        },
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-f-full-v2.json.gz.003",
+          "sha256": "65a3789564a6b117e8f84d7ef22ce35ed7db6e023fdcb9354ce3bfd393c1e513"
+        },
+        {
+          "bytes": 113852,
+          "path": "captures/product-v2-f-full-v2.json.gz.004",
+          "sha256": "41d09b82ff0c0cb8c83baace1b43d374a6134f269c99299f8642f761ebce4ff4"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "captures/product-v2-f-full-v2.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 22871210,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-full-v2.json",
+      "original_raw_sha256": "804e2d7d34742e5bfadce52de35116cb68c36cc8755f22df2b28acf0975df49a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 144266,
+      "decoded_sanitized_sha256": "92ef64e284e5896905097e5c6d06734b786ccf8b4b5cb79d5f86c4425844de56",
+      "derived_parts": [
+        {
+          "bytes": 7756,
+          "path": "captures/product-v2-f-missing-v2-handles.json.gz",
+          "sha256": "1a3ee4794dedfae15151c98da4fcbec575997be7a5e7b96a479b65b31f2c571e"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "captures/product-v2-f-missing-v2-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 144266,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-missing-v2-handles.json",
+      "original_raw_sha256": "92ef64e284e5896905097e5c6d06734b786ccf8b4b5cb79d5f86c4425844de56",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5233,
+      "decoded_sanitized_sha256": "de80b0e87002512dbd96e5843b93f89f221e9fede44ac822ad7c1dc8f3ee540c",
+      "derived_parts": [
+        {
+          "bytes": 5233,
+          "path": "captures/product-v2-f-missing-v2-host.json",
+          "sha256": "de80b0e87002512dbd96e5843b93f89f221e9fede44ac822ad7c1dc8f3ee540c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "captures/product-v2-f-missing-v2-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5233,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-missing-v2-host.json",
+      "original_raw_sha256": "de80b0e87002512dbd96e5843b93f89f221e9fede44ac822ad7c1dc8f3ee540c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 22375611,
+      "decoded_sanitized_sha256": "e8aa04f2757d3cd5bad22d9e192880d482d88fb9813c2171039b6c98336a538d",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-f-missing-v2.json.gz.001",
+          "sha256": "e8156707e96088eb7bc6478a9ad52660e4cf6e714a6b99dfdd2fef7db15f7748"
+        },
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-f-missing-v2.json.gz.002",
+          "sha256": "b4791dfeeef17323f0d10f7d99cb22fc3936a095ba86f51d549896d00e9d22ce"
+        },
+        {
+          "bytes": 239000,
+          "path": "captures/product-v2-f-missing-v2.json.gz.003",
+          "sha256": "b7d1d6a875b4b8fa2f377719091295b2f8def64ad6518cc46675645f8383d155"
+        },
+        {
+          "bytes": 113222,
+          "path": "captures/product-v2-f-missing-v2.json.gz.004",
+          "sha256": "a25f56c8fef404e415e71a0d4c37e134830f0c9d3ff14045f55400c67a54d9cd"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "captures/product-v2-f-missing-v2.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 22375611,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-missing-v2.json",
+      "original_raw_sha256": "e8aa04f2757d3cd5bad22d9e192880d482d88fb9813c2171039b6c98336a538d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 498,
+      "decoded_sanitized_sha256": "3130ab36e7f5d18fd7afc58ebe7109b10a50a9f0a3aa5fb0bafd92b8abaa86cc",
+      "derived_parts": [
+        {
+          "bytes": 498,
+          "path": "cohort/B.stderr.txt",
+          "sha256": "3130ab36e7f5d18fd7afc58ebe7109b10a50a9f0a3aa5fb0bafd92b8abaa86cc"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/B.stderr.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 498,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/B.stderr.txt",
+      "original_raw_sha256": "3130ab36e7f5d18fd7afc58ebe7109b10a50a9f0a3aa5fb0bafd92b8abaa86cc",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 0,
+      "decoded_sanitized_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "derived_parts": [
+        {
+          "bytes": 0,
+          "path": "cohort/B.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/B.stdout.txt",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 0,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/B.stdout.txt",
+      "original_raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 11054,
+      "decoded_sanitized_sha256": "30538ab8b3cd8ab071c0e5b1c330c57d066b1c324129ace07c27ff6aa6b22dba",
+      "derived_parts": [
+        {
+          "bytes": 11054,
+          "path": "cohort/cold-default-observation-v1.json",
+          "sha256": "30538ab8b3cd8ab071c0e5b1c330c57d066b1c324129ace07c27ff6aa6b22dba"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/cold-default-observation-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 11054,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/cold-default-observation-v1.json",
+      "original_raw_sha256": "30538ab8b3cd8ab071c0e5b1c330c57d066b1c324129ace07c27ff6aa6b22dba",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 907266,
+      "decoded_sanitized_sha256": "abb2761c24a0b34b554566fadfcf9db2cfc8086c5ab96fdcb40b50be092a3ee5",
+      "derived_parts": [
+        {
+          "bytes": 17231,
+          "path": "cohort/continuous-handle-guard-v1.json.gz",
+          "sha256": "7c88652562d96d065473d7486571a3fa31fa88afe94c4ee0d32be2c5aad69942"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "cohort/continuous-handle-guard-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 907266,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/continuous-handle-guard-v1.json",
+      "original_raw_sha256": "abb2761c24a0b34b554566fadfcf9db2cfc8086c5ab96fdcb40b50be092a3ee5",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1719485,
+      "decoded_sanitized_sha256": "eeb9801dc358039d44130b30333bcdb11efbe9b389149acd11d45e2fd7b64c84",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "cohort/final-source-binding-v1.json.gz.001",
+          "sha256": "1261a76b0b1a762b2c7cbfdf961cbd1e47abd4f4e18b00dcb495c96fdd2f92c5"
+        },
+        {
+          "bytes": 239000,
+          "path": "cohort/final-source-binding-v1.json.gz.002",
+          "sha256": "d893bcfa8f8dac94678229df1d4dba2073408ef80166cb6ee84c02a6b32cf785"
+        },
+        {
+          "bytes": 35285,
+          "path": "cohort/final-source-binding-v1.json.gz.003",
+          "sha256": "f8f1ab7fbc3f4a728f3a87fa04a1a048a1ac521040ed3b1819bca3645d206d41"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "cohort/final-source-binding-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1719485,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/final-source-binding-v1.json",
+      "original_raw_sha256": "eeb9801dc358039d44130b30333bcdb11efbe9b389149acd11d45e2fd7b64c84",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 49052,
+      "decoded_sanitized_sha256": "62c365ec15e45097c9b6917dd071f301f3768e27c05e5e405b0bf2721e481567",
+      "derived_parts": [
+        {
+          "bytes": 49052,
+          "path": "cohort/group-execution-v1.json",
+          "sha256": "62c365ec15e45097c9b6917dd071f301f3768e27c05e5e405b0bf2721e481567"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/group-execution-v1.json",
+      "original_bytes_reconstructable": false,
+      "original_raw_bytes": 56676,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/group-execution-v1.json",
+      "original_raw_sha256": "26d06a71d80046765b9392d60e825516d1e85ab26986e75404f1df79fcb81db8",
+      "redacted_fields": [
+        "$:json.registry_finalize.stdout:json.mcp_url"
+      ]
+    },
+    {
+      "decoded_sanitized_bytes": 239,
+      "decoded_sanitized_sha256": "aaf7f055e120d0459a50fe47ddf6d6736cb5389f51e86a884190f8228495d30e",
+      "derived_parts": [
+        {
+          "bytes": 239,
+          "path": "cohort/helper-retirement-v1.json",
+          "sha256": "aaf7f055e120d0459a50fe47ddf6d6736cb5389f51e86a884190f8228495d30e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/helper-retirement-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 239,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/helper-retirement-v1.json",
+      "original_raw_sha256": "aaf7f055e120d0459a50fe47ddf6d6736cb5389f51e86a884190f8228495d30e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2193,
+      "decoded_sanitized_sha256": "8bffb11894e8e7531bbad7bc67156500fcf38768490d530c4bda378cc7075833",
+      "derived_parts": [
+        {
+          "bytes": 2193,
+          "path": "cohort/host-transform-preflight-v1.json",
+          "sha256": "8bffb11894e8e7531bbad7bc67156500fcf38768490d530c4bda378cc7075833"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/host-transform-preflight-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2193,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/host-transform-preflight-v1.json",
+      "original_raw_sha256": "8bffb11894e8e7531bbad7bc67156500fcf38768490d530c4bda378cc7075833",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2979,
+      "decoded_sanitized_sha256": "065e7f52ea3eca603e87d6f6cd97aa130149c50dc35c3a7862ddf1547177f42d",
+      "derived_parts": [
+        {
+          "bytes": 2979,
+          "path": "cohort/independent-restore-after-A.json",
+          "sha256": "065e7f52ea3eca603e87d6f6cd97aa130149c50dc35c3a7862ddf1547177f42d"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/independent-restore-after-A.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2979,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/independent-restore-after-A.json",
+      "original_raw_sha256": "065e7f52ea3eca603e87d6f6cd97aa130149c50dc35c3a7862ddf1547177f42d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2980,
+      "decoded_sanitized_sha256": "9e4aaa6134cc043b43ac0da9d4b53561054813164d3009b42ccd55b7fdad1da5",
+      "derived_parts": [
+        {
+          "bytes": 2980,
+          "path": "cohort/independent-restore-after-F-editor.json",
+          "sha256": "9e4aaa6134cc043b43ac0da9d4b53561054813164d3009b42ccd55b7fdad1da5"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/independent-restore-after-F-editor.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2980,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/independent-restore-after-F-editor.json",
+      "original_raw_sha256": "9e4aaa6134cc043b43ac0da9d4b53561054813164d3009b42ccd55b7fdad1da5",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2980,
+      "decoded_sanitized_sha256": "9b36428ac1c9cf04195382e85a58b2dc64757e7b304c2ad6f7133fd9227fe486",
+      "derived_parts": [
+        {
+          "bytes": 2980,
+          "path": "cohort/independent-restore-after-F-full.json",
+          "sha256": "9b36428ac1c9cf04195382e85a58b2dc64757e7b304c2ad6f7133fd9227fe486"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/independent-restore-after-F-full.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2980,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/independent-restore-after-F-full.json",
+      "original_raw_sha256": "9b36428ac1c9cf04195382e85a58b2dc64757e7b304c2ad6f7133fd9227fe486",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2979,
+      "decoded_sanitized_sha256": "9d9a7e0d4356e1be01fe5cbb5cae23aae90f1da690009dd58960731c3170b551",
+      "derived_parts": [
+        {
+          "bytes": 2979,
+          "path": "cohort/independent-restore-after-F-missing.json",
+          "sha256": "9d9a7e0d4356e1be01fe5cbb5cae23aae90f1da690009dd58960731c3170b551"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/independent-restore-after-F-missing.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2979,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/independent-restore-after-F-missing.json",
+      "original_raw_sha256": "9d9a7e0d4356e1be01fe5cbb5cae23aae90f1da690009dd58960731c3170b551",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2980,
+      "decoded_sanitized_sha256": "98f7584bc7c7f47d3ff329b554e7b26d65b7bb189af3ed1156aba6ff59976655",
+      "derived_parts": [
+        {
+          "bytes": 2980,
+          "path": "cohort/independent-restore-after-camera.json",
+          "sha256": "98f7584bc7c7f47d3ff329b554e7b26d65b7bb189af3ed1156aba6ff59976655"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/independent-restore-after-camera.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2980,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/independent-restore-after-camera.json",
+      "original_raw_sha256": "98f7584bc7c7f47d3ff329b554e7b26d65b7bb189af3ed1156aba6ff59976655",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2980,
+      "decoded_sanitized_sha256": "64141ae9b26b5f70d3c22b6549fb41bbef07f2b116ed92dd6e0cf3257c42c75c",
+      "derived_parts": [
+        {
+          "bytes": 2980,
+          "path": "cohort/independent-restore-v1.json",
+          "sha256": "64141ae9b26b5f70d3c22b6549fb41bbef07f2b116ed92dd6e0cf3257c42c75c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/independent-restore-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2980,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/independent-restore-v1.json",
+      "original_raw_sha256": "64141ae9b26b5f70d3c22b6549fb41bbef07f2b116ed92dd6e0cf3257c42c75c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1001,
+      "decoded_sanitized_sha256": "6e132313c6c9a8535ecc5d571a0330aa1ef8f0cdc06807489af97e594d057707",
+      "derived_parts": [
+        {
+          "bytes": 1001,
+          "path": "cohort/launch/exact-exit.json",
+          "sha256": "6e132313c6c9a8535ecc5d571a0330aa1ef8f0cdc06807489af97e594d057707"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/launch/exact-exit.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1001,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/launch/exact-exit.json",
+      "original_raw_sha256": "6e132313c6c9a8535ecc5d571a0330aa1ef8f0cdc06807489af97e594d057707",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 54394,
+      "decoded_sanitized_sha256": "ba6200c707632f136c7437980a641101be1464da5cc5e9db256ef28e752c2f13",
+      "derived_parts": [
+        {
+          "bytes": 54394,
+          "path": "cohort/launch/launch.json",
+          "sha256": "ba6200c707632f136c7437980a641101be1464da5cc5e9db256ef28e752c2f13"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/launch/launch.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 54394,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/launch/launch.json",
+      "original_raw_sha256": "ba6200c707632f136c7437980a641101be1464da5cc5e9db256ef28e752c2f13",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3228,
+      "decoded_sanitized_sha256": "709c8b4c5463d08ba27b78d4e5afea5b15ee03787191a72f59f6804e06de4c96",
+      "derived_parts": [
+        {
+          "bytes": 3228,
+          "path": "cohort/plan-v2.json",
+          "sha256": "709c8b4c5463d08ba27b78d4e5afea5b15ee03787191a72f59f6804e06de4c96"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/plan-v2.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3228,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/plan-v2.json",
+      "original_raw_sha256": "709c8b4c5463d08ba27b78d4e5afea5b15ee03787191a72f59f6804e06de4c96",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2283,
+      "decoded_sanitized_sha256": "3d4f0f79ef3ac3d05557c0e30a7f51acfa3ec2fe1a57f39328fb968294c4baee",
+      "derived_parts": [
+        {
+          "bytes": 2283,
+          "path": "cohort/precise-release-audit-v1.json",
+          "sha256": "3d4f0f79ef3ac3d05557c0e30a7f51acfa3ec2fe1a57f39328fb968294c4baee"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/precise-release-audit-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2283,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/precise-release-audit-v1.json",
+      "original_raw_sha256": "3d4f0f79ef3ac3d05557c0e30a7f51acfa3ec2fe1a57f39328fb968294c4baee",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2704,
+      "decoded_sanitized_sha256": "398f305e39203089a370f8940c1087e45e3277986feade89bc1d28ff51970eda",
+      "derived_parts": [
+        {
+          "bytes": 2704,
+          "path": "cohort/precise-release-audit-v2.json",
+          "sha256": "398f305e39203089a370f8940c1087e45e3277986feade89bc1d28ff51970eda"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/precise-release-audit-v2.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2704,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/precise-release-audit-v2.json",
+      "original_raw_sha256": "398f305e39203089a370f8940c1087e45e3277986feade89bc1d28ff51970eda",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9840,
+      "decoded_sanitized_sha256": "cc73014deaff32873571c7d00aea6985699b1251a8dc6be184f26878ef38bd31",
+      "derived_parts": [
+        {
+          "bytes": 9840,
+          "path": "cohort/prelaunch-host-binding-v1.json",
+          "sha256": "cc73014deaff32873571c7d00aea6985699b1251a8dc6be184f26878ef38bd31"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/prelaunch-host-binding-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9840,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/prelaunch-host-binding-v1.json",
+      "original_raw_sha256": "cc73014deaff32873571c7d00aea6985699b1251a8dc6be184f26878ef38bd31",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 656,
+      "decoded_sanitized_sha256": "acb1a173544d234273d326d42907f8c8d0866814ba8a646725723472fa99ab07",
+      "derived_parts": [
+        {
+          "bytes": 656,
+          "path": "cohort/prelaunch-host-extension-v2.json",
+          "sha256": "acb1a173544d234273d326d42907f8c8d0866814ba8a646725723472fa99ab07"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/prelaunch-host-extension-v2.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 656,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/prelaunch-host-extension-v2.json",
+      "original_raw_sha256": "acb1a173544d234273d326d42907f8c8d0866814ba8a646725723472fa99ab07",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 83893,
+      "decoded_sanitized_sha256": "eab4e6489a51c940f5c7fcc502dcc4ada101046889a61397173ea5f7e80a1592",
+      "derived_parts": [
+        {
+          "bytes": 83893,
+          "path": "cohort/product-v2-camera-seam-v1.json",
+          "sha256": "eab4e6489a51c940f5c7fcc502dcc4ada101046889a61397173ea5f7e80a1592"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/product-v2-camera-seam-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 83893,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-camera-seam-v1.json",
+      "original_raw_sha256": "eab4e6489a51c940f5c7fcc502dcc4ada101046889a61397173ea5f7e80a1592",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3664,
+      "decoded_sanitized_sha256": "4673512a98183ec723a4404ddc4ab69d78fc08830310306f2b0aab37c2f1fd2e",
+      "derived_parts": [
+        {
+          "bytes": 3664,
+          "path": "cohort/resize-background-v1.json",
+          "sha256": "4673512a98183ec723a4404ddc4ab69d78fc08830310306f2b0aab37c2f1fd2e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/resize-background-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3664,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/resize-background-v1.json",
+      "original_raw_sha256": "4673512a98183ec723a4404ddc4ab69d78fc08830310306f2b0aab37c2f1fd2e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 413,
+      "decoded_sanitized_sha256": "c5b5c391ec1273d32d58c2ec87e43946219aa6162891c082763aba535a9bf597",
+      "derived_parts": [
+        {
+          "bytes": 413,
+          "path": "cohort/root-grant-v1.json",
+          "sha256": "c5b5c391ec1273d32d58c2ec87e43946219aa6162891c082763aba535a9bf597"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/root-grant-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 413,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/root-grant-v1.json",
+      "original_raw_sha256": "c5b5c391ec1273d32d58c2ec87e43946219aa6162891c082763aba535a9bf597",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 926,
+      "decoded_sanitized_sha256": "3287940e1d0aa1072f6e509736b26218f34b678e29d2b8a59855292efb6adfee",
+      "derived_parts": [
+        {
+          "bytes": 926,
+          "path": "cohort/source-synthesis-v1.json",
+          "sha256": "3287940e1d0aa1072f6e509736b26218f34b678e29d2b8a59855292efb6adfee"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/source-synthesis-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 926,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/source-synthesis-v1.json",
+      "original_raw_sha256": "3287940e1d0aa1072f6e509736b26218f34b678e29d2b8a59855292efb6adfee",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1200,
+      "decoded_sanitized_sha256": "33d7282d612ec1fb68e4cdcb4ca008148d522eae1febb7b6445d6f1ac455e084",
+      "derived_parts": [
+        {
+          "bytes": 1200,
+          "path": "cohort/world-baseline-v1.json",
+          "sha256": "33d7282d612ec1fb68e4cdcb4ca008148d522eae1febb7b6445d6f1ac455e084"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "cohort/world-baseline-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1200,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/world-baseline-v1.json",
+      "original_raw_sha256": "33d7282d612ec1fb68e4cdcb4ca008148d522eae1febb7b6445d6f1ac455e084",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5608,
+      "decoded_sanitized_sha256": "0bedd101da8854c6f16894507bd64d14f766fa62422f44b3987d404b178c15a2",
+      "derived_parts": [
+        {
+          "bytes": 5608,
+          "path": "hosts/analyze_matrix.py",
+          "sha256": "0bedd101da8854c6f16894507bd64d14f766fa62422f44b3987d404b178c15a2"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/analyze_matrix.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5608,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analyze_matrix.py",
+      "original_raw_sha256": "0bedd101da8854c6f16894507bd64d14f766fa62422f44b3987d404b178c15a2",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8892,
+      "decoded_sanitized_sha256": "c0bb8cf67bc3edc9808f4afceefcbe3de7fcc5ede974a1b626e594ce27c42ff2",
+      "derived_parts": [
+        {
+          "bytes": 8892,
+          "path": "hosts/analyze_matrix_v2.py",
+          "sha256": "c0bb8cf67bc3edc9808f4afceefcbe3de7fcc5ede974a1b626e594ce27c42ff2"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/analyze_matrix_v2.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8892,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analyze_matrix_v2.py",
+      "original_raw_sha256": "c0bb8cf67bc3edc9808f4afceefcbe3de7fcc5ede974a1b626e594ce27c42ff2",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3893,
+      "decoded_sanitized_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+      "derived_parts": [
+        {
+          "bytes": 3893,
+          "path": "hosts/calibration_host.py",
+          "sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/calibration_host.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3893,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/calibration_host.py",
+      "original_raw_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1783,
+      "decoded_sanitized_sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4",
+      "derived_parts": [
+        {
+          "bytes": 1783,
+          "path": "hosts/flow_restore.py",
+          "sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/flow_restore.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1783,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/flow_restore.py",
+      "original_raw_sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9894,
+      "decoded_sanitized_sha256": "809f1e7fecaea94500a4e697e621099e66762f6c9f271b326b1cdaf695e3240c",
+      "derived_parts": [
+        {
+          "bytes": 9894,
+          "path": "hosts/run_camera.py",
+          "sha256": "809f1e7fecaea94500a4e697e621099e66762f6c9f271b326b1cdaf695e3240c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/run_camera.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9894,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/run_camera.py",
+      "original_raw_sha256": "809f1e7fecaea94500a4e697e621099e66762f6c9f271b326b1cdaf695e3240c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 764,
+      "decoded_sanitized_sha256": "7bfed1e47231457d4a924484e6bf6f3636cf3489c1639c9b7f45ec4f77becbad",
+      "derived_parts": [
+        {
+          "bytes": 764,
+          "path": "hosts/run_f_world_cutoff_v2.py",
+          "sha256": "7bfed1e47231457d4a924484e6bf6f3636cf3489c1639c9b7f45ec4f77becbad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/run_f_world_cutoff_v2.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 764,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/run_f_world_cutoff_v2.py",
+      "original_raw_sha256": "7bfed1e47231457d4a924484e6bf6f3636cf3489c1639c9b7f45ec4f77becbad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 12068,
+      "decoded_sanitized_sha256": "01c07e80b9f3fa95921507aefa8e90db579b45edf972f3122b5ba0041ee1a6ad",
+      "derived_parts": [
+        {
+          "bytes": 12068,
+          "path": "hosts/run_flow.py",
+          "sha256": "01c07e80b9f3fa95921507aefa8e90db579b45edf972f3122b5ba0041ee1a6ad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/run_flow.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 12068,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/run_flow.py",
+      "original_raw_sha256": "01c07e80b9f3fa95921507aefa8e90db579b45edf972f3122b5ba0041ee1a6ad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8265,
+      "decoded_sanitized_sha256": "40d03276ff6fcfef3a7e4cdbf8f7360600e6514b0cb7392936d21e383a6ed5e4",
+      "derived_parts": [
+        {
+          "bytes": 8265,
+          "path": "hosts/run_frozen_editor.py",
+          "sha256": "40d03276ff6fcfef3a7e4cdbf8f7360600e6514b0cb7392936d21e383a6ed5e4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/run_frozen_editor.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8265,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/run_frozen_editor.py",
+      "original_raw_sha256": "40d03276ff6fcfef3a7e4cdbf8f7360600e6514b0cb7392936d21e383a6ed5e4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8739,
+      "decoded_sanitized_sha256": "bef889588dc8c5ff51ed60f00b4ecba6cc54ddfa8f4ff94a380b295c1108c0ad",
+      "derived_parts": [
+        {
+          "bytes": 8739,
+          "path": "hosts/run_group_v2.py",
+          "sha256": "bef889588dc8c5ff51ed60f00b4ecba6cc54ddfa8f4ff94a380b295c1108c0ad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/run_group_v2.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8739,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/run_group_v2.py",
+      "original_raw_sha256": "bef889588dc8c5ff51ed60f00b4ecba6cc54ddfa8f4ff94a380b295c1108c0ad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9312,
+      "decoded_sanitized_sha256": "d81d0af32234fcb0f3b8b8f407d910abd20a6ca19937105e8d4c59956d05b099",
+      "derived_parts": [
+        {
+          "bytes": 9312,
+          "path": "hosts/run_product_v2_f_world_v2.py",
+          "sha256": "d81d0af32234fcb0f3b8b8f407d910abd20a6ca19937105e8d4c59956d05b099"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/run_product_v2_f_world_v2.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9312,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/run_product_v2_f_world_v2.py",
+      "original_raw_sha256": "d81d0af32234fcb0f3b8b8f407d910abd20a6ca19937105e8d4c59956d05b099",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2378,
+      "decoded_sanitized_sha256": "4a7535d0cb885b890023262d85b351b9f1a7ff5cb4a1bc3ecf6e27bed18db51f",
+      "derived_parts": [
+        {
+          "bytes": 2378,
+          "path": "hosts/source_provenance.py",
+          "sha256": "4a7535d0cb885b890023262d85b351b9f1a7ff5cb4a1bc3ecf6e27bed18db51f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/source_provenance.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2378,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/source_provenance.py",
+      "original_raw_sha256": "4a7535d0cb885b890023262d85b351b9f1a7ff5cb4a1bc3ecf6e27bed18db51f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3911,
+      "decoded_sanitized_sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee",
+      "derived_parts": [
+        {
+          "bytes": 3911,
+          "path": "hosts/world_readback.py",
+          "sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "hosts/world_readback.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3911,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/world_readback.py",
+      "original_raw_sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5302,
+      "decoded_sanitized_sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e",
+      "derived_parts": [
+        {
+          "bytes": 5302,
+          "path": "packaging/original_independent_scanner.py",
+          "sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/original_independent_scanner.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5302,
+      "original_raw_path": ".runtime/round-20261022/root_review_wire_bundle_v3.py",
+      "original_raw_sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 12526,
+      "decoded_sanitized_sha256": "e6d9684de753e94ffbe50cf6e5eecddd23ef8f020faa4039ab4236d226199891",
+      "derived_parts": [
+        {
+          "bytes": 12526,
+          "path": "packaging/package.py",
+          "sha256": "e6d9684de753e94ffbe50cf6e5eecddd23ef8f020faa4039ab4236d226199891"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/package.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 12526,
+      "original_raw_path": ".runtime/round-20261023/water-final-FA-package-v1/package.py",
+      "original_raw_sha256": "e6d9684de753e94ffbe50cf6e5eecddd23ef8f020faa4039ab4236d226199891",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 13624,
+      "decoded_sanitized_sha256": "77638ab78580f78a34e8133f0336dd99257c6d03fe4c4e4db76607bb73cd45ad",
+      "derived_parts": [
+        {
+          "bytes": 13624,
+          "path": "packaging/reviewed_recursive_redactor.py",
+          "sha256": "77638ab78580f78a34e8133f0336dd99257c6d03fe4c4e4db76607bb73cd45ad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/reviewed_recursive_redactor.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 13624,
+      "original_raw_path": ".runtime/round-20261022/water-evidence-redaction-v4/package_v4_optimized.py",
+      "original_raw_sha256": "77638ab78580f78a34e8133f0336dd99257c6d03fe4c4e4db76607bb73cd45ad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2597,
+      "decoded_sanitized_sha256": "2a52bfb7f1120e87f934511c85bb04fd94681030ff578b16d5122f0018725cdd",
+      "derived_parts": [
+        {
+          "bytes": 2597,
+          "path": "preserved-refusal/analysis-after-F-full-v1-summary.json",
+          "sha256": "2a52bfb7f1120e87f934511c85bb04fd94681030ff578b16d5122f0018725cdd"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "preserved-refusal/analysis-after-F-full-v1-summary.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2597,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/analysis-after-F-full-v1/summary.json",
+      "original_raw_sha256": "2a52bfb7f1120e87f934511c85bb04fd94681030ff578b16d5122f0018725cdd",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 608969,
+      "decoded_sanitized_sha256": "7ba91e3b070c06a2817d3622b9ad6bfc40651c896ee96eb0489e0b2682a5c472",
+      "derived_parts": [
+        {
+          "bytes": 102682,
+          "path": "references/runtime-artifact-index-v1.json.gz",
+          "sha256": "680c87aa27bc42baf341dacbc667c5752815688d1086c973339b6c7f88a3c0f0"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "references/runtime-artifact-index-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 608969,
+      "original_raw_path": ".runtime/round-20261023/water-final-FA-package-v1/runtime-artifact-index-v1.json",
+      "original_raw_sha256": "7ba91e3b070c06a2817d3622b9ad6bfc40651c896ee96eb0489e0b2682a5c472",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2869,
+      "decoded_sanitized_sha256": "8103c0597769575be92d938e30b52536d834c74df77107fd81af2a3509ec610d",
+      "derived_parts": [
+        {
+          "bytes": 2869,
+          "path": "selected-original-PNG/editor_flow_east_wet.capture.json",
+          "sha256": "8103c0597769575be92d938e30b52536d834c74df77107fd81af2a3509ec610d"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/editor_flow_east_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2869,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-a-v1_editor_flow_east_wet.capture.json",
+      "original_raw_sha256": "8103c0597769575be92d938e30b52536d834c74df77107fd81af2a3509ec610d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 143492,
+      "decoded_sanitized_sha256": "7434564e0ce96eb1d3a5be72e281198f5b11ae759786a13498d0e92b92a6ba21",
+      "derived_parts": [
+        {
+          "bytes": 143492,
+          "path": "selected-original-PNG/editor_flow_east_wet.png",
+          "sha256": "7434564e0ce96eb1d3a5be72e281198f5b11ae759786a13498d0e92b92a6ba21"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/editor_flow_east_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 143492,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-a-v1_editor_flow_east_wet.png",
+      "original_raw_sha256": "7434564e0ce96eb1d3a5be72e281198f5b11ae759786a13498d0e92b92a6ba21",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2870,
+      "decoded_sanitized_sha256": "f72e32d934699cdd17d2726dcd1db6e4629a87104d08668fb9fe7f1da63f4e51",
+      "derived_parts": [
+        {
+          "bytes": 2870,
+          "path": "selected-original-PNG/editor_pool_wet.capture.json",
+          "sha256": "f72e32d934699cdd17d2726dcd1db6e4629a87104d08668fb9fe7f1da63f4e51"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/editor_pool_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2870,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-editor-v1_editor_pool_wet.capture.json",
+      "original_raw_sha256": "f72e32d934699cdd17d2726dcd1db6e4629a87104d08668fb9fe7f1da63f4e51",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 146573,
+      "decoded_sanitized_sha256": "c7116242e545eaed4b58dac22cb8e50aa2ad1eb4deadadf5004ade1780a306ba",
+      "derived_parts": [
+        {
+          "bytes": 146573,
+          "path": "selected-original-PNG/editor_pool_wet.png",
+          "sha256": "c7116242e545eaed4b58dac22cb8e50aa2ad1eb4deadadf5004ade1780a306ba"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/editor_pool_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 146573,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-editor-v1_editor_pool_wet.png",
+      "original_raw_sha256": "c7116242e545eaed4b58dac22cb8e50aa2ad1eb4deadadf5004ade1780a306ba",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2873,
+      "decoded_sanitized_sha256": "e95682295ea3ae3624587cc7ecb5588367e5d24abeda16066c62cece253bd131",
+      "derived_parts": [
+        {
+          "bytes": 2873,
+          "path": "selected-original-PNG/editor_source_wet.capture.json",
+          "sha256": "e95682295ea3ae3624587cc7ecb5588367e5d24abeda16066c62cece253bd131"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/editor_source_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2873,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-editor-v1_editor_source_wet.capture.json",
+      "original_raw_sha256": "e95682295ea3ae3624587cc7ecb5588367e5d24abeda16066c62cece253bd131",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 126701,
+      "decoded_sanitized_sha256": "1547105f903be1027e8e9247b6bb85782ba940b6783306125c2510c0a1280800",
+      "derived_parts": [
+        {
+          "bytes": 126701,
+          "path": "selected-original-PNG/editor_source_wet.png",
+          "sha256": "1547105f903be1027e8e9247b6bb85782ba940b6783306125c2510c0a1280800"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/editor_source_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 126701,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-editor-v1_editor_source_wet.png",
+      "original_raw_sha256": "1547105f903be1027e8e9247b6bb85782ba940b6783306125c2510c0a1280800",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2867,
+      "decoded_sanitized_sha256": "d1610744640e3cf2f5940694c88398c902590115195df534638f35833758de4d",
+      "derived_parts": [
+        {
+          "bytes": 2867,
+          "path": "selected-original-PNG/full_source_wet.capture.json",
+          "sha256": "d1610744640e3cf2f5940694c88398c902590115195df534638f35833758de4d"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/full_source_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2867,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-full-v2_full_source_wet.capture.json",
+      "original_raw_sha256": "d1610744640e3cf2f5940694c88398c902590115195df534638f35833758de4d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 458134,
+      "decoded_sanitized_sha256": "c03a11e4d44d8ec1721096910ca428b0d72ae3677e4c19084245f8c53cd9339c",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/full_source_wet.png.001",
+          "sha256": "40bc3232f193be5e7e54474b1767cc47acce5c372cea12bfe14770d88e407b37"
+        },
+        {
+          "bytes": 219134,
+          "path": "selected-original-PNG/full_source_wet.png.002",
+          "sha256": "ad3d97dddbaf8bb7b7608dcdbf3b503a1a7925518eef58e552354474da374f2b"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/full_source_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 458134,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-full-v2_full_source_wet.png",
+      "original_raw_sha256": "c03a11e4d44d8ec1721096910ca428b0d72ae3677e4c19084245f8c53cd9339c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2872,
+      "decoded_sanitized_sha256": "d085b5931d1ab9dc9cf086c3ea5072ce41fae111337dabbda76c23a82d82fc9e",
+      "derived_parts": [
+        {
+          "bytes": 2872,
+          "path": "selected-original-PNG/missing_pool_wet.capture.json",
+          "sha256": "d085b5931d1ab9dc9cf086c3ea5072ce41fae111337dabbda76c23a82d82fc9e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/missing_pool_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2872,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-missing-v2_missing_pool_wet.capture.json",
+      "original_raw_sha256": "d085b5931d1ab9dc9cf086c3ea5072ce41fae111337dabbda76c23a82d82fc9e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 451573,
+      "decoded_sanitized_sha256": "f414770e14e5030b9a4e35e82538eafb2179ea3eb852d9cc6884bd0b206f1b5b",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/missing_pool_wet.png.001",
+          "sha256": "fdb68db2f812dbe858fa54ee6885fa145148f47c5ac3ca2efd139532649964f0"
+        },
+        {
+          "bytes": 212573,
+          "path": "selected-original-PNG/missing_pool_wet.png.002",
+          "sha256": "62db992b3a6f029bee127e4c33fd146d69f9cf3083f0dcbb0d06f9c30fc4d749"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/missing_pool_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 451573,
+      "original_raw_path": ".runtime/round-20261023/water-final-matrix-v1/product-v2-f-missing-v2_missing_pool_wet.png",
+      "original_raw_sha256": "f414770e14e5030b9a4e35e82538eafb2179ea3eb852d9cc6884bd0b206f1b5b",
+      "redacted_fields": []
+    }
+  ],
+  "entry_count": 79,
+  "large_source_archives_included": false,
+  "manual_closures_added": 0,
+  "original_PNG_count": 5,
+  "production_admission_performed": false,
+  "root_head": "d6b4626cfc4397b23374e3cffdb479ae95bb8129",
+  "schema": 3,
+  "scope": "Current shared-source three-route F and A; first B host-path refusal and exact release. BRG is static preparation only.",
+  "single_file_limit_bytes": 239000,
+  "source_contract_sha256": "4e4eb7fff2b3dd8d6519ce70c7290c911f6c54ff2c9dbd0e7d3cf160a6b54749",
+  "source_files": 4483
+}

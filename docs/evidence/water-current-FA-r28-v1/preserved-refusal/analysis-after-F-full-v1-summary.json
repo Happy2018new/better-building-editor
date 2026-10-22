@@ -1,0 +1,20 @@
+{
+  "MC_started": false,
+  "complete_capture_set_available": false,
+  "errors": [
+    {
+      "message": "Invalid native world water evidence; no analytic fallback: [{\"native_world_geometry\": \"Native camera API hull disagrees with visible stone pixels\"}]",
+      "stage": "F-full",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\analyze_matrix.py\", line 67, in main\n    row, analysis = qualifier.collect(path, project, contract,\n                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n                                       native_world_geometry=True, native_editor_gui=True)\n                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-matrix-v1\\tools\\qualify_water_product_r16.py\", line 135, in collect\n    report, measured = analyze_report(path, native_world_geometry, native_editor_gui)\n                       ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-matrix-v1\\tools\\qualify_water_product_r16.py\", line 113, in analyze_report\n    require(measured['evidence_valid'],\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            'Invalid native world water evidence; no analytic fallback: ' +\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            json.dumps(measured.get('capture_failures', ()), sort_keys=True))\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-matrix-v1\\tools\\qualify_water_product_r16.py\", line 51, in require\n    raise ValueError(message)\nValueError: Invalid native world water evidence; no analytic fallback: [{\"native_world_geometry\": \"Native camera API hull disagrees with visible stone pixels\"}]\n",
+      "type": "ValueError"
+    }
+  ],
+  "manual_closures_added": 0,
+  "native_editor_gui_requested": true,
+  "native_world_geometry_requested": true,
+  "qualification_or_owner_changed": false,
+  "reports": {},
+  "root_head": "d6b4626cfc4397b23374e3cffdb479ae95bb8129",
+  "schema": 1,
+  "source_contract_sha256": "4e4eb7fff2b3dd8d6519ce70c7290c911f6c54ff2c9dbd0e7d3cf160a6b54749"
+}

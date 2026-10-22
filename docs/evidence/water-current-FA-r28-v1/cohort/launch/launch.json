@@ -1,0 +1,1878 @@
+{
+  "schema": 1,
+  "owner": "water-r28-final-matrix-v1",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-matrix-v1",
+  "launch_inputs_sha256": "1b72936bd08b5ac507814d6601e8510c94bae6a2725609d47d669db1dcfbb6e3",
+  "source_archive_sha256": "d9f196ca951a9f2d83f254b5e4d694868f714096715d376309845141c4c8c4e5",
+  "source_synthesis": {
+    "passed": true,
+    "base_SHA_verified": true,
+    "overlay_SHA_verified": true,
+    "base_files_compared": 5873,
+    "synthesized_files_compared": 5874,
+    "exact_changed_files": [
+      "behavior_pack/modern_projection/projection/book_profile.py",
+      "behavior_pack/modern_projection/projection/debug_blueprints.py",
+      "behavior_pack/modern_projection/projection/debug_transform_acceptance.py",
+      "behavior_pack/modern_projection/projection/liquid_product_deployment.py",
+      "behavior_pack/modern_projection/projection/scene.py",
+      "tools/analyze_product_water.py",
+      "tools/analyze_product_water_biome.py",
+      "tools/analyze_product_water_flow.py",
+      "tools/analyze_water_acceptance_r16.py",
+      "tools/qualify_water_product_r16.py"
+    ],
+    "exact_added_files": [
+      "behavior_pack/modern_projection/projection/debug_book_blueprints.py"
+    ],
+    "exact_deleted_files": [],
+    "new_large_source_archive_created": false
+  },
+  "command": [
+    "D:\\Program\\Python\\python.exe",
+    "-X",
+    "utf8",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+    "start",
+    "--project",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-matrix-v1",
+    "--owner",
+    "water-r28-final-matrix-v1",
+    "--name",
+    "water-r28-final-matrix-v1",
+    "--preset",
+    "ui",
+    "--wait",
+    "180",
+    "--mcdk",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+    "--noactivate-dll",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\background-focus-r13-v1\\inputs\\native_focus_guard.dll",
+    "--noactivate-sha256",
+    "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93",
+    "--noactivate-mcdk-sha256",
+    "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+  ],
+  "started_at": "2026-10-22T17:44:43.885016+00:00",
+  "samples": [
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:46.652433+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": null,
+        "identity_verified": false
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:47.664648+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": null,
+        "identity_verified": false
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:48.674855+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": null,
+        "identity_verified": false
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:49.688123+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 178
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:50.704909+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 178
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:51.717131+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 177
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:52.726984+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 177
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:53.740029+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 177
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:54.753475+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 177
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:55.765261+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 177
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:56.778602+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 177
+      }
+    },
+    {
+      "stage": "mcdk_started",
+      "sampled_at": "2026-10-22T17:44:57.790384+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": null,
+        "identity_verified": false
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 177
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:44:58.803485+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 657
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 194
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:00.033232+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 670
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 214
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:01.047267+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 664
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:02.061594+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 668
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:03.074679+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 669
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:04.088757+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 665
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:05.103745+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 667
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:06.118204+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 665
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:07.134555+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 667
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:08.149426+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 664
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 231
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:09.164627+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 665
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:10.178419+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 668
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:11.196205+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 669
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:12.212720+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 669
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:13.227443+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 668
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:14.241392+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 669
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:15.255491+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 671
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:16.269755+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 667
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 231
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:17.283899+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 671
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:18.297597+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 668
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:19.310543+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 667
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:20.325079+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 671
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:21.344525+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 670
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:22.366845+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 666
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:23.383600+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 666
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:24.404419+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 670
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:25.426655+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 666
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:26.451871+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 666
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:27.476397+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 671
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:28.501856+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 668
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:29.518272+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 668
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:30.533604+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 669
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:31.551728+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 668
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:32.566326+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 669
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:33.581870+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 664
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:34.602374+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 670
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:35.616975+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 666
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:36.629989+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 666
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:37.648404+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 669
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:38.664392+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 667
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:39.680171+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 665
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:40.694367+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 668
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:41.711615+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 664
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:42.726780+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 667
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:43.743954+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 671
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:44.779549+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 666
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:45.807233+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 667
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:46.826738+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 669
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:47.850039+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 670
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:48.866999+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 670
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:49.890453+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 664
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:50.908231+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 664
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:51.929366+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 662
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:52.946300+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 662
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:53.961301+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 662
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:54.980723+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 662
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:55.996119+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 662
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:57.008883+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 662
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 231
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:58.029794+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 681
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:45:59.044235+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 688
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:00.057013+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 689
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:01.070653+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 688
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:02.091903+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 688
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:03.109601+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 688
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:04.126822+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 688
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:05.141221+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 709
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:06.156762+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 709
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:07.173075+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 706
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:08.194799+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 706
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:09.218180+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 705
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:10.238155+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 705
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:11.266666+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 782
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:12.292003+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 842
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:13.308395+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 844
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 231
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:14.321391+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 844
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:15.337341+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 846
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:16.355512+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 846
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:17.375867+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 851
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 230
+      }
+    },
+    {
+      "stage": "game_started",
+      "sampled_at": "2026-10-22T17:46:18.403478+00:00",
+      "owner": "water-r28-final-matrix-v1",
+      "session_id": "d37b4f5201f24e8ba1f9e1ecea5905bf",
+      "session_state": "starting",
+      "game": {
+        "pid": 21100,
+        "identity": "134371646894467158",
+        "identity_verified": true,
+        "handles": 853
+      },
+      "mcdk": {
+        "pid": 26716,
+        "identity": "134371646892416003",
+        "identity_verified": true,
+        "handles": 234
+      }
+    }
+  ],
+  "manifest_read_events": [],
+  "memory_preflight": {
+    "available_commit_bytes": 16338755584,
+    "minimum_available_commit_bytes": 6442450944,
+    "api": "GlobalMemoryStatusEx"
+  },
+  "single_instance_preflight": {
+    "at": "2026-10-22T17:44:44.734414+00:00",
+    "process_observations": [
+      {
+        "pid": 8428,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 8956,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 12336,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 16644,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 16756,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 16972,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 21316,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 22972,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 23116,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 38708,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 40884,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 42116,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 50592,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 50672,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 52244,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 54552,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 55512,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 58052,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 58636,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 59324,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 69008,
+        "live_creation_identity": null
+      },
+      {
+        "pid": 69672,
+        "live_creation_identity": null
+      }
+    ],
+    "active_minecraft_count": 0
+  },
+  "launcher_host_sha256": "1023268a4f2a0bfed3a2ebf5adfe5f57eaf364773d48c56577794a4277adfaee",
+  "condition_change_sha256": "0ae426f6487f850538d15543ae3bd3d34458d87222597fb83cd08f612faa4773",
+  "launcher_pid": 49108,
+  "launcher_identity": "134371646847391688",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d37b4f5201f24e8ba1f9e1ecea5905bf\\session.json",
+  "mcdk_pid": 26716,
+  "mcdk_identity": "134371646892416003",
+  "game_pid": 21100,
+  "game_identity": "134371646894467158",
+  "observer_pid": 53692,
+  "observer_identity": "134371646988111035",
+  "continuous_guard_start": {
+    "exit_code": 0,
+    "stdout": "{\"pid\": 35196, \"identity\": \"134371646991473927\", \"first_sample_verified\": true}\n",
+    "stderr": "",
+    "launch_state_at_start": "starting"
+  },
+  "launcher_exit_code": 0,
+  "state": "ready",
+  "ready": true
+}

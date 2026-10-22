@@ -1,0 +1,411 @@
+{
+  "analytic_side_uv_diagnostic": {
+    "missing_pool_wet_east": {
+      "background_control": "missing_pool_dry",
+      "contrast": 8.247173820165301,
+      "correlation": 0.4109800817551427,
+      "negative_constant": {
+        "contrast": 2.842170943040401e-14,
+        "correlation": 2.7193324954538086e-16,
+        "passed": false,
+        "rgb_rmse": 48.211272723114305
+      },
+      "negative_mirrored": {
+        "contrast": 8.247173820165301,
+        "correlation": 0.12430117560791469,
+        "passed": false,
+        "rgb_rmse": 11.974990509820593
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.247173820165301,
+        "correlation": -0.11602841888896594,
+        "passed": false,
+        "rgb_rmse": 13.53936333635755
+      },
+      "opaque_control": "missing_pool_wet_side_opaque",
+      "oracle": "analytic",
+      "passed": false,
+      "rgb_rmse": 9.83967841146621,
+      "surface_opacity": 1.0
+    },
+    "missing_pool_wet_south": {
+      "background_control": "missing_pool_dry",
+      "contrast": 8.223608787806409,
+      "correlation": 0.6361764716575695,
+      "negative_constant": {
+        "contrast": 2.842170943040401e-14,
+        "correlation": -2.1737844560092047e-15,
+        "passed": false,
+        "rgb_rmse": 48.204757122215014
+      },
+      "negative_mirrored": {
+        "contrast": 8.223608787806409,
+        "correlation": 0.04621269302505915,
+        "passed": false,
+        "rgb_rmse": 12.722324056391116
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.223608787806409,
+        "correlation": 0.016371606975068072,
+        "passed": false,
+        "rgb_rmse": 12.931259576923175
+      },
+      "opaque_control": "missing_pool_wet_side_opaque",
+      "oracle": "analytic",
+      "passed": false,
+      "rgb_rmse": 7.904347651856506,
+      "surface_opacity": 1.0
+    }
+  },
+  "budgets": {
+    "LiquidControls.update": {
+      "maximum_ms": null,
+      "p95_ms": null,
+      "p99_ms": null,
+      "passed": false,
+      "samples": 0
+    },
+    "LiquidPreview.advance": {
+      "maximum_ms": null,
+      "p95_ms": null,
+      "p99_ms": null,
+      "passed": false,
+      "samples": 0
+    },
+    "LiquidProjection.advance": {
+      "maximum_ms": 3.999948501586914,
+      "p95_ms": 0.0,
+      "p99_ms": 0.0,
+      "passed": true,
+      "samples": 738004
+    },
+    "WorldLiquidRenderer.advance": {
+      "maximum_ms": 3.000020980834961,
+      "p95_ms": 0.0,
+      "p99_ms": 0.0,
+      "passed": true,
+      "samples": 737993
+    }
+  },
+  "editor_geometry_oracle": {
+    "image_fit_or_roi_search": false,
+    "kind": "captured_sdk_integer_gui_anchor",
+    "legacy_default_gui": 4.0,
+    "native_gui_scales": [],
+    "states_verified": 0
+  },
+  "evidence_valid": true,
+  "lifecycle": {
+    "missing_diagonal_dry": true,
+    "missing_diagonal_wet": true,
+    "missing_drop_north_dry": true,
+    "missing_drop_north_wet": true,
+    "missing_falling_dry": true,
+    "missing_falling_wet": true,
+    "missing_flow_east_dry": true,
+    "missing_flow_east_wet": true,
+    "missing_flow_north_dry": true,
+    "missing_flow_north_wet": true,
+    "missing_flow_south_dry": true,
+    "missing_flow_south_wet": true,
+    "missing_flow_west_dry": true,
+    "missing_flow_west_wet": true,
+    "missing_low_dry": true,
+    "missing_low_wet": true,
+    "missing_neighbor_glass_pane_dry": true,
+    "missing_neighbor_glass_pane_wet": true,
+    "missing_neighbor_oak_slab_dry": true,
+    "missing_neighbor_oak_slab_wet": true,
+    "missing_neighbor_oak_stairs_dry": true,
+    "missing_neighbor_oak_stairs_wet": true,
+    "missing_neighbor_stone_dry": true,
+    "missing_neighbor_stone_wet": true,
+    "missing_pool_dry": true,
+    "missing_pool_wet": true,
+    "missing_source_dry": true,
+    "missing_source_wet": true,
+    "missing_transparent_overlap_dry": true,
+    "missing_transparent_overlap_wet": true,
+    "missing_wet_glass_pane_dry": true,
+    "missing_wet_glass_pane_empty": true,
+    "missing_wet_glass_pane_liquid_only": true,
+    "missing_wet_glass_pane_rearless": true,
+    "missing_wet_glass_pane_water_only": true,
+    "missing_wet_glass_pane_wet": true,
+    "missing_wet_oak_fence_dry": true,
+    "missing_wet_oak_fence_empty": true,
+    "missing_wet_oak_fence_liquid_only": true,
+    "missing_wet_oak_fence_rearless": true,
+    "missing_wet_oak_fence_water_only": true,
+    "missing_wet_oak_fence_wet": true,
+    "missing_wet_oak_slab_dry": true,
+    "missing_wet_oak_slab_empty": true,
+    "missing_wet_oak_slab_liquid_only": true,
+    "missing_wet_oak_slab_rearless": true,
+    "missing_wet_oak_slab_water_only": true,
+    "missing_wet_oak_slab_wet": true,
+    "missing_wet_oak_stairs_dry": true,
+    "missing_wet_oak_stairs_empty": true,
+    "missing_wet_oak_stairs_liquid_only": true,
+    "missing_wet_oak_stairs_rearless": true,
+    "missing_wet_oak_stairs_water_only": true,
+    "missing_wet_oak_stairs_wet": true
+  },
+  "limits": {
+    "maximum_groups": 256,
+    "owner_max_ms": 100.0,
+    "owner_p95_ms": 5.0,
+    "owner_p99_ms": 16.7,
+    "restored_rgb_rmse": 2.0,
+    "side_correlation": 0.85,
+    "side_minimum_contrast": 1.0,
+    "side_rgb_rmse": 8.0
+  },
+  "maximum_observed_groups": 8,
+  "model_budget_passed": true,
+  "passed": false,
+  "schema": 1,
+  "scope": "Public isolated pool and partial-solid controls; owner-call elapsed time excludes IPC and screenshots but can include thread scheduling delays",
+  "side_uv": {
+    "missing_pool_wet_east": {
+      "background_control": "missing_pool_dry",
+      "contrast": 8.340893015260079,
+      "correlation": 0.9333008033627608,
+      "negative_constant": {
+        "contrast": 2.842170943040401e-14,
+        "correlation": -2.8395949708667374e-16,
+        "passed": false,
+        "rgb_rmse": 48.38852854676377
+      },
+      "negative_mirrored": {
+        "contrast": 8.340893015260079,
+        "correlation": -0.14806429070499014,
+        "passed": false,
+        "rgb_rmse": 13.851235687535668
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.340893015260079,
+        "correlation": -0.055508787128693435,
+        "passed": false,
+        "rgb_rmse": 13.291823730254364
+      },
+      "opaque_control": "missing_pool_wet_side_opaque",
+      "oracle": "native_api",
+      "passed": true,
+      "rgb_rmse": 3.3476221576912373,
+      "surface_opacity": 1.0
+    },
+    "missing_pool_wet_south": {
+      "background_control": "missing_pool_dry",
+      "contrast": 8.453789234140622,
+      "correlation": 0.9604176269080007,
+      "negative_constant": {
+        "contrast": 1.4210854715202004e-14,
+        "correlation": 1.1740346386106692e-15,
+        "passed": false,
+        "rgb_rmse": 48.37291524094127
+      },
+      "negative_mirrored": {
+        "contrast": 8.453789234140622,
+        "correlation": -0.15603144348966214,
+        "passed": false,
+        "rgb_rmse": 14.075816401352395
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.453789234140622,
+        "correlation": -0.07612304252076181,
+        "passed": false,
+        "rgb_rmse": 13.597370444709593
+      },
+      "opaque_control": "missing_pool_wet_side_opaque",
+      "oracle": "native_api",
+      "passed": true,
+      "rgb_rmse": 2.6114304755659834,
+      "surface_opacity": 1.0
+    }
+  },
+  "source_sha256": "e8aa04f2757d3cd5bad22d9e192880d482d88fb9813c2171039b6c98336a538d",
+  "source_unchanged": true,
+  "visibility": {
+    "missing_diagonal_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 10301,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 10301
+    },
+    "missing_falling_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 37664,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 5,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 37664
+    },
+    "missing_flow_east_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 24977,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 24977
+    },
+    "missing_flow_north_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 23023,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 23023
+    },
+    "missing_flow_south_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 24092,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 24092
+    },
+    "missing_flow_west_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 23798,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 23798
+    },
+    "missing_low_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 6550,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 6550
+    },
+    "missing_neighbor_glass_pane_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 12326,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 12326
+    },
+    "missing_neighbor_oak_slab_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 9464,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 9464
+    },
+    "missing_neighbor_oak_stairs_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 6123,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 6123
+    },
+    "missing_neighbor_stone_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 5970,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 5970
+    },
+    "missing_pool_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 48240,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 8,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 48240
+    },
+    "missing_source_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 13038,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 13038
+    },
+    "missing_transparent_overlap_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 38144,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 38144
+    },
+    "missing_wet_glass_pane_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 8079,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 8079
+    },
+    "missing_wet_oak_fence_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 8019,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 8019
+    },
+    "missing_wet_oak_slab_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 8557,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 8557
+    },
+    "missing_wet_oak_stairs_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 7584,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 7584
+    }
+  }
+}

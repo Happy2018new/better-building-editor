@@ -1,0 +1,870 @@
+{
+  "budgets": {
+    "LiquidControls.update": {
+      "maximum_ms": 9.000062942504883,
+      "p95_ms": 0.0,
+      "p99_ms": 1.0001659393310547,
+      "passed": true,
+      "samples": 334044
+    },
+    "LiquidPreview.advance": {
+      "maximum_ms": 7.999897003173828,
+      "p95_ms": 0.0,
+      "p99_ms": 0.0,
+      "passed": true,
+      "samples": 334044
+    },
+    "LiquidProjection.advance": {
+      "maximum_ms": 11.999845504760742,
+      "p95_ms": 0.0,
+      "p99_ms": 0.0,
+      "passed": true,
+      "samples": 1497824
+    },
+    "WorldLiquidRenderer.advance": {
+      "maximum_ms": 11.999845504760742,
+      "p95_ms": 0.0,
+      "p99_ms": 0.0,
+      "passed": true,
+      "samples": 1497805
+    }
+  },
+  "lifecycle": {
+    "full_diagonal_dry": true,
+    "full_diagonal_wet": true,
+    "full_drop_north_dry": true,
+    "full_drop_north_wet": true,
+    "full_falling_dry": true,
+    "full_falling_wet": true,
+    "full_flow_east_dry": true,
+    "full_flow_east_wet": true,
+    "full_flow_north_dry": true,
+    "full_flow_north_wet": true,
+    "full_flow_south_dry": true,
+    "full_flow_south_wet": true,
+    "full_flow_west_dry": true,
+    "full_flow_west_wet": true,
+    "full_low_dry": true,
+    "full_low_wet": true,
+    "full_neighbor_glass_pane_dry": true,
+    "full_neighbor_glass_pane_wet": true,
+    "full_neighbor_oak_slab_dry": true,
+    "full_neighbor_oak_slab_wet": true,
+    "full_neighbor_oak_stairs_dry": true,
+    "full_neighbor_oak_stairs_wet": true,
+    "full_neighbor_stone_dry": true,
+    "full_neighbor_stone_wet": true,
+    "full_pool_dry": true,
+    "full_pool_wet": true,
+    "full_source_dry": true,
+    "full_source_wet": true,
+    "full_transparent_overlap_dry": true,
+    "full_transparent_overlap_wet": true,
+    "full_wet_glass_pane_dry": true,
+    "full_wet_glass_pane_empty": true,
+    "full_wet_glass_pane_liquid_only": true,
+    "full_wet_glass_pane_rearless": true,
+    "full_wet_glass_pane_water_only": true,
+    "full_wet_glass_pane_wet": true,
+    "full_wet_oak_fence_dry": true,
+    "full_wet_oak_fence_empty": true,
+    "full_wet_oak_fence_liquid_only": true,
+    "full_wet_oak_fence_rearless": true,
+    "full_wet_oak_fence_water_only": true,
+    "full_wet_oak_fence_wet": true,
+    "full_wet_oak_slab_dry": true,
+    "full_wet_oak_slab_empty": true,
+    "full_wet_oak_slab_liquid_only": true,
+    "full_wet_oak_slab_rearless": true,
+    "full_wet_oak_slab_water_only": true,
+    "full_wet_oak_slab_wet": true,
+    "full_wet_oak_stairs_dry": true,
+    "full_wet_oak_stairs_empty": true,
+    "full_wet_oak_stairs_liquid_only": true,
+    "full_wet_oak_stairs_rearless": true,
+    "full_wet_oak_stairs_water_only": true,
+    "full_wet_oak_stairs_wet": true,
+    "missing_diagonal_dry": true,
+    "missing_diagonal_wet": true,
+    "missing_drop_north_dry": true,
+    "missing_drop_north_wet": true,
+    "missing_falling_dry": true,
+    "missing_falling_wet": true,
+    "missing_flow_east_dry": true,
+    "missing_flow_east_wet": true,
+    "missing_flow_north_dry": true,
+    "missing_flow_north_wet": true,
+    "missing_flow_south_dry": true,
+    "missing_flow_south_wet": true,
+    "missing_flow_west_dry": true,
+    "missing_flow_west_wet": true,
+    "missing_low_dry": true,
+    "missing_low_wet": true,
+    "missing_neighbor_glass_pane_dry": true,
+    "missing_neighbor_glass_pane_wet": true,
+    "missing_neighbor_oak_slab_dry": true,
+    "missing_neighbor_oak_slab_wet": true,
+    "missing_neighbor_oak_stairs_dry": true,
+    "missing_neighbor_oak_stairs_wet": true,
+    "missing_neighbor_stone_dry": true,
+    "missing_neighbor_stone_wet": true,
+    "missing_pool_dry": true,
+    "missing_pool_wet": true,
+    "missing_source_dry": true,
+    "missing_source_wet": true,
+    "missing_transparent_overlap_dry": true,
+    "missing_transparent_overlap_wet": true,
+    "missing_wet_glass_pane_dry": true,
+    "missing_wet_glass_pane_empty": true,
+    "missing_wet_glass_pane_liquid_only": true,
+    "missing_wet_glass_pane_rearless": true,
+    "missing_wet_glass_pane_water_only": true,
+    "missing_wet_glass_pane_wet": true,
+    "missing_wet_oak_fence_dry": true,
+    "missing_wet_oak_fence_empty": true,
+    "missing_wet_oak_fence_liquid_only": true,
+    "missing_wet_oak_fence_rearless": true,
+    "missing_wet_oak_fence_water_only": true,
+    "missing_wet_oak_fence_wet": true,
+    "missing_wet_oak_slab_dry": true,
+    "missing_wet_oak_slab_empty": true,
+    "missing_wet_oak_slab_liquid_only": true,
+    "missing_wet_oak_slab_rearless": true,
+    "missing_wet_oak_slab_water_only": true,
+    "missing_wet_oak_slab_wet": true,
+    "missing_wet_oak_stairs_dry": true,
+    "missing_wet_oak_stairs_empty": true,
+    "missing_wet_oak_stairs_liquid_only": true,
+    "missing_wet_oak_stairs_rearless": true,
+    "missing_wet_oak_stairs_water_only": true,
+    "missing_wet_oak_stairs_wet": true
+  },
+  "maximum_observed_groups": 8,
+  "passed": true,
+  "reports": [
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-f-editor-v1.json",
+      "sha256": "81e63ef7f82cbc52c71f86f1d3d70591f21fabaa71f3492cea90b7b8af31f587"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-f-full-v2.json",
+      "sha256": "804e2d7d34742e5bfadce52de35116cb68c36cc8755f22df2b28acf0975df49a"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-f-missing-v2.json",
+      "sha256": "e8aa04f2757d3cd5bad22d9e192880d482d88fb9813c2171039b6c98336a538d"
+    }
+  ],
+  "side_uv": {
+    "editor_pool_wet_east": {
+      "background_control": "editor_pool_dry",
+      "contrast": 8.69344262377922,
+      "correlation": 0.9565374304743504,
+      "negative_constant": {
+        "contrast": 0.0,
+        "correlation": null,
+        "passed": false,
+        "rgb_rmse": 48.7778666250934
+      },
+      "negative_mirrored": {
+        "contrast": 8.69344262377922,
+        "correlation": -0.11860178526993495,
+        "passed": false,
+        "rgb_rmse": 14.655808192891643
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.69344262377922,
+        "correlation": -0.10344024811216475,
+        "passed": false,
+        "rgb_rmse": 14.573739432910127
+      },
+      "opaque_control": "editor_pool_wet_side_opaque",
+      "oracle": "analytic",
+      "passed": true,
+      "rgb_rmse": 2.965034937980833,
+      "surface_opacity": 1.0
+    },
+    "editor_pool_wet_south": {
+      "background_control": "editor_pool_dry",
+      "contrast": 8.680604766979597,
+      "correlation": 0.9562005121077773,
+      "negative_constant": {
+        "contrast": 2.842170943040401e-14,
+        "correlation": 6.626280976067595e-16,
+        "passed": false,
+        "rgb_rmse": 48.62917121137432
+      },
+      "negative_mirrored": {
+        "contrast": 8.680604766979597,
+        "correlation": -0.11216648140693025,
+        "passed": false,
+        "rgb_rmse": 14.436873210959593
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.680604766979597,
+        "correlation": -0.05725618965282807,
+        "passed": false,
+        "rgb_rmse": 14.088867477478033
+      },
+      "opaque_control": "editor_pool_wet_side_opaque",
+      "oracle": "analytic",
+      "passed": true,
+      "rgb_rmse": 2.89458236421576,
+      "surface_opacity": 1.0
+    },
+    "full_pool_wet_east": {
+      "background_control": "full_pool_dry",
+      "contrast": 8.340893015260079,
+      "correlation": 0.9333008033627608,
+      "negative_constant": {
+        "contrast": 2.842170943040401e-14,
+        "correlation": -2.8395949708667374e-16,
+        "passed": false,
+        "rgb_rmse": 48.38852854676377
+      },
+      "negative_mirrored": {
+        "contrast": 8.340893015260079,
+        "correlation": -0.14806429070499014,
+        "passed": false,
+        "rgb_rmse": 13.851235687535668
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.340893015260079,
+        "correlation": -0.055508787128693435,
+        "passed": false,
+        "rgb_rmse": 13.291823730254364
+      },
+      "opaque_control": "full_pool_wet_side_opaque",
+      "oracle": "native_api",
+      "passed": true,
+      "rgb_rmse": 3.3476221576912373,
+      "surface_opacity": 1.0
+    },
+    "full_pool_wet_south": {
+      "background_control": "full_pool_dry",
+      "contrast": 8.453789234140622,
+      "correlation": 0.9604176269080007,
+      "negative_constant": {
+        "contrast": 1.4210854715202004e-14,
+        "correlation": 1.1740346386106692e-15,
+        "passed": false,
+        "rgb_rmse": 48.37291524094127
+      },
+      "negative_mirrored": {
+        "contrast": 8.453789234140622,
+        "correlation": -0.15603144348966214,
+        "passed": false,
+        "rgb_rmse": 14.075816401352395
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.453789234140622,
+        "correlation": -0.07612304252076181,
+        "passed": false,
+        "rgb_rmse": 13.597370444709593
+      },
+      "opaque_control": "full_pool_wet_side_opaque",
+      "oracle": "native_api",
+      "passed": true,
+      "rgb_rmse": 2.6114304755659834,
+      "surface_opacity": 1.0
+    },
+    "missing_pool_wet_east": {
+      "background_control": "missing_pool_dry",
+      "contrast": 8.340893015260079,
+      "correlation": 0.9333008033627608,
+      "negative_constant": {
+        "contrast": 2.842170943040401e-14,
+        "correlation": -2.8395949708667374e-16,
+        "passed": false,
+        "rgb_rmse": 48.38852854676377
+      },
+      "negative_mirrored": {
+        "contrast": 8.340893015260079,
+        "correlation": -0.14806429070499014,
+        "passed": false,
+        "rgb_rmse": 13.851235687535668
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.340893015260079,
+        "correlation": -0.055508787128693435,
+        "passed": false,
+        "rgb_rmse": 13.291823730254364
+      },
+      "opaque_control": "missing_pool_wet_side_opaque",
+      "oracle": "native_api",
+      "passed": true,
+      "rgb_rmse": 3.3476221576912373,
+      "surface_opacity": 1.0
+    },
+    "missing_pool_wet_south": {
+      "background_control": "missing_pool_dry",
+      "contrast": 8.453789234140622,
+      "correlation": 0.9604176269080007,
+      "negative_constant": {
+        "contrast": 1.4210854715202004e-14,
+        "correlation": 1.1740346386106692e-15,
+        "passed": false,
+        "rgb_rmse": 48.37291524094127
+      },
+      "negative_mirrored": {
+        "contrast": 8.453789234140622,
+        "correlation": -0.15603144348966214,
+        "passed": false,
+        "rgb_rmse": 14.075816401352395
+      },
+      "negative_wrong_phase": {
+        "contrast": 8.453789234140622,
+        "correlation": -0.07612304252076181,
+        "passed": false,
+        "rgb_rmse": 13.597370444709593
+      },
+      "opaque_control": "missing_pool_wet_side_opaque",
+      "oracle": "native_api",
+      "passed": true,
+      "rgb_rmse": 2.6114304755659834,
+      "surface_opacity": 1.0
+    }
+  },
+  "visibility": {
+    "editor_diagonal_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 13964,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 13964
+    },
+    "editor_falling_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 16418,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 5,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 16418
+    },
+    "editor_flow_east_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 28764,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 28764
+    },
+    "editor_flow_north_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 21672,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 21672
+    },
+    "editor_flow_south_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 27466,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 27466
+    },
+    "editor_flow_west_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 24732,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 24732
+    },
+    "editor_low_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 7135,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 7135
+    },
+    "editor_neighbor_glass_pane_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 13579,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 13579
+    },
+    "editor_neighbor_oak_slab_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 10809,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 10809
+    },
+    "editor_neighbor_oak_stairs_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 7513,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 7513
+    },
+    "editor_neighbor_stone_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 7099,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 7099
+    },
+    "editor_pool_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 40564,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 8,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 40564
+    },
+    "editor_source_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 14997,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 14997
+    },
+    "editor_transparent_overlap_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 29688,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 29688
+    },
+    "editor_wet_glass_pane_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 3450,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 3450
+    },
+    "editor_wet_oak_fence_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 3450,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 3450
+    },
+    "editor_wet_oak_slab_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 11396,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 11396
+    },
+    "editor_wet_oak_stairs_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 10443,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 10443
+    },
+    "full_diagonal_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 10301,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 10301
+    },
+    "full_falling_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 37664,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 5,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 37664
+    },
+    "full_flow_east_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 24977,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 24977
+    },
+    "full_flow_north_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 23023,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 23023
+    },
+    "full_flow_south_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 24092,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 24092
+    },
+    "full_flow_west_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 23798,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 23798
+    },
+    "full_low_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 6550,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 6550
+    },
+    "full_neighbor_glass_pane_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 12326,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 12326
+    },
+    "full_neighbor_oak_slab_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 9464,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 9464
+    },
+    "full_neighbor_oak_stairs_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 6123,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 6123
+    },
+    "full_neighbor_stone_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 5970,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 5970
+    },
+    "full_pool_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 48240,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 8,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 48240
+    },
+    "full_source_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 13038,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 13038
+    },
+    "full_transparent_overlap_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 38144,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 38144
+    },
+    "full_wet_glass_pane_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 8079,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 8079
+    },
+    "full_wet_oak_fence_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 8019,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 8019
+    },
+    "full_wet_oak_slab_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 8557,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 8557
+    },
+    "full_wet_oak_stairs_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 7584,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 7584
+    },
+    "missing_diagonal_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 10301,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 10301
+    },
+    "missing_falling_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 37664,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 5,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 37664
+    },
+    "missing_flow_east_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 24977,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 24977
+    },
+    "missing_flow_north_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 23023,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 23023
+    },
+    "missing_flow_south_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 24092,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 24092
+    },
+    "missing_flow_west_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 23798,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 23798
+    },
+    "missing_low_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 6550,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 6550
+    },
+    "missing_neighbor_glass_pane_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 12326,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 12326
+    },
+    "missing_neighbor_oak_slab_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 9464,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 9464
+    },
+    "missing_neighbor_oak_stairs_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 6123,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 6123
+    },
+    "missing_neighbor_stone_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 5970,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 5970
+    },
+    "missing_pool_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 48240,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 8,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 48240
+    },
+    "missing_source_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 13038,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 13038
+    },
+    "missing_transparent_overlap_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 38144,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 4,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 38144
+    },
+    "missing_wet_glass_pane_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 8079,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 8079
+    },
+    "missing_wet_oak_fence_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 8019,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 8019
+    },
+    "missing_wet_oak_slab_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 8557,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 8557
+    },
+    "missing_wet_oak_stairs_wet": {
+      "complete": true,
+      "hidden_groups": 0,
+      "independently_visible_water_pixels": 7584,
+      "logical_cells_preserved": true,
+      "passed": true,
+      "restored_groups": 2,
+      "restored_rgb_rmse": 0.0,
+      "visible_water_pixels_removed": 7584
+    }
+  }
+}
