@@ -121,6 +121,11 @@ class TransformAcceptanceTests(unittest.TestCase):
                 before = state(editor)[:4]
                 editor.run('rotate_y90')
                 after = state(editor)[:4]
+                if before[:3] == after[:3]:
+                    self.assertEqual(before, after)
+                    self.assertFalse(editor.undo_stack)
+                    self.assertFalse(editor.undo())
+                    continue
                 self.assertEqual(1, len(editor.undo_stack))
                 self.assertTrue(editor.undo())
                 self.assertEqual(before, state(editor)[:4])
@@ -242,9 +247,10 @@ class TransformAcceptanceTests(unittest.TestCase):
         pairs = (((4, 3, 4), (4, 2, 4)),
                  ((4, 2, 11), (4, 2, 10)),
                  ((4, 3, 17), (4, 2, 17)))
-        public = editor_for(PREFIX + 't03_half')
-        self.assertEqual({pairs[0][0], pairs[0][1]}, set(public.selection))
-        self.assertEqual(CASES[PREFIX + 't03_half']['selection'], (public.start, public.end))
+        for short, pair in zip(('t03_half', 't03_half_bed', 't03_half_plant'), pairs):
+            public = editor_for(PREFIX + short)
+            self.assertEqual(set(pair), set(public.selection))
+            self.assertEqual(CASES[PREFIX + short]['selection'], (public.start, public.end))
         for half, partner in pairs:
             for operation in OPERATIONS:
                 with self.subTest(half=half, operation=operation):

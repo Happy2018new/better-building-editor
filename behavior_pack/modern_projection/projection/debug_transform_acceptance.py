@@ -13,6 +13,10 @@ METADATA = (
      (32, 10, 32), 'minecraft:wooden_door'),
     (PREFIX + 't03_half', 'transforms', 'T03 · 只框门上半的伙伴边界',
      (32, 10, 32), 'minecraft:wooden_door'),
+    (PREFIX + 't03_half_bed', 'transforms', 'T03 · 只框床头的伙伴边界',
+     (32, 10, 32), 'minecraft:bed'),
+    (PREFIX + 't03_half_plant', 'transforms', 'T03 · 只框高草上半的伙伴边界',
+     (32, 10, 32), 'minecraft:tall_grass'),
     (PREFIX + 't04', 'transforms', 'T04 · 跨格双箱与内容保真',
      (32, 10, 24), 'minecraft:chest'),
     (PREFIX + 't05', 'transforms', 'T05 · 四种铁轨与坡顶连接',
@@ -54,6 +58,18 @@ CASES = {
         'partial_targets': ((4, 3, 4), (4, 2, 11), (4, 3, 17)),
         'message': 'T03伙伴边界：只请求门上半(4,3,4)，现有规则已补选下半。旋转后整门应保持完整，撤销恢复；其他门床植物不应变化。',
         'actions': ('rotate_y90', 'undo', 'mirror_x', 'undo', 'mirror_y', 'undo'),
+    },
+    PREFIX + 't03_half_bed': {
+        'requested_selection': ((4, 2, 11), (4, 2, 11)),
+        'selection': ((4, 2, 10), (4, 2, 11)), 'focus': (4, 2, 11),
+        'message': 'T03伙伴边界：只请求床头(4,2,11)，现有规则已补选床尾。旋转后床头尾应配对，撤销恢复；其他门床植物不应变化。',
+        'actions': ('rotate_y90', 'undo', 'mirror_x', 'undo', 'mirror_z', 'undo'),
+    },
+    PREFIX + 't03_half_plant': {
+        'requested_selection': ((4, 3, 17), (4, 3, 17)),
+        'selection': ((4, 2, 17), (4, 3, 17)), 'focus': (4, 3, 17),
+        'message': 'T03伙伴边界：只请求高草上半(4,3,17)，现有规则已补选下半。旋转或镜像后上下应完整，撤销恢复；其他门床植物不应变化。',
+        'actions': ('rotate_y90', 'undo', 'mirror_x', 'undo', 'mirror_z', 'undo'),
     },
     PREFIX + 't04': {
         'selection': ((14, 1, 3), (18, 5, 8)), 'focus': (16, 3, 5),
@@ -316,7 +332,8 @@ def _layers(fixture, row):
 def populate(fixture, identity):
     row = CASES[identity]
     builders = {'t01': _asymmetric, 't02': _directions, 't03': _parts,
-                't03_half': _parts, 't04': _chests, 't05': _rails,
+                't03_half': _parts, 't03_half_bed': _parts,
+                't03_half_plant': _parts, 't04': _chests, 't05': _rails,
                 't06': _connections, 't07': _layers, 't08': _boundary}
     builders[identity[len(PREFIX):]](fixture, row)
     return fixture.finish(reconnect=identity == PREFIX + 't06')

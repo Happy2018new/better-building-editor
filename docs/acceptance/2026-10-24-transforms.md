@@ -6,6 +6,10 @@
 
 同日调整：本周测试包同时包含现有渲染／NBT修复，镜像／旋转以已有实现的核验为主。T01—T08保留为变换完整检查清单，默认人工先看T01、T04、T05、T08四项；其余通过自动预检并视具体改动抽查，未人工检查不标为人工通过。另从下方R01—R04及普通／NBT有效候选中选约四项，合计约八项，避免占满用户时间。
 
+R28补充了两个**可选的T03聚焦入口**：“只框床头的伙伴边界” `test.transforms.acceptance.t03_half_bed` 和“只框高草上半的伙伴边界” `test.transforms.acceptance.t03_half_plant`。载入后分别请求床头／高草上半一格，再由现有规则补选其伙伴，并直接聚焦相应位置；沿用原30格对照场景，其他28格不参与变换。不增加本周主验收项数量，不要求自行搭结构或精确框选。19项正式离线业务测试通过；真Python2／3各对三个单半入口完成六操作、完整单元保存载回和历史检查，结果语义一致。新增两入口尚未完成冷启动UI确认和像素复验，不能记为实机就绪或人工通过。
+
+检查伙伴例时，先确认两格均已选中，再做指定操作。单列高草以及部分轴对称的两格结构可能在变换后保持原样；这种有效的无变化操作不产生新的撤销记录。需要回原例时，撤销实际发生变化的操作，或重新载入同一测试蓝图。重新载入会替换当前草稿，沿用已有确认流程。
+
 ## 移交信息（10-19 自动预检进展，发布候选仍待冻结）
 
 | 项目 | 当前记录 |
@@ -52,7 +56,7 @@
 | --- | --- | --- | --- |
 | T01 | `test.transforms.acceptance.t01` | 人工未检查 | v5、v8 数据旋转／撤销／重做往返通过；v8 主材质受控 missing 的 empty→occupied→restored 观察值为 1→2→1，紫色目标格隐藏并恢复，六张 missing shown/hidden 原图已读，独立恢复读回通过。真实世界占用、save_reload 与其他操作外观仍待查 |
 | T02 | `test.transforms.acceptance.t02` | 人工未检查；两代表三路径窄补及原生双模型诊断已补，按钮贴面仍待 | 60格／28方向样本、原八步数据、四梯子／六按钮近景和两代表受控missing结果保留。R27在2ab5a29a冷源追加3模型／10阶段：combined对support-only有261个变化像素，与button-only footprint对应；四组双Doll固定ROI原字节相同，按钮轮廓主观不明显，不能记为完全未绘制。原生低对比／俯仰、Combine／depth／居中归因仍开，不判六面按钮或全部28样本通过；真实占用、X／Z仍待。最终诊断两次内部与独立恢复相机exact=true、来源不变，游戏退出0xC0000409，正常退出资格为false；此前exact=false历史保留。见[方向记录](../verification/TRANSFORM_DIRECTIONS_R25.md)、[十阶段诊断](../verification/BUTTON_PAIR_R27.md) |
-| T03 | `test.transforms.acceptance.t03`；边界补充`test.transforms.acceptance.t03_half` | 人工未检查；公开卡及代表预检已准备 | 整组旋转的7015c9c4结果保留。后续87327491冷源补齐半门镜像的公开确认、typed变换／撤销、编辑器／full与四阶段受控missing；严格来源链证明未变模型的复用，原false signature保留。部分床被界面裁挡，四向床、双格植物全部外观／全部矩阵仍未关闭。见[代表记录](../verification/TRANSFORM_REPRESENTATIVES_R27.md) |
+| T03 | `test.transforms.acceptance.t03`；单半补充 `t03_half`／`t03_half_bed`／`t03_half_plant`，均使用同一前缀 | 人工未检查；整组／半门代表已有实机，新增两可选入口离线通过、冷UI与像素待验 | 整组旋转的7015c9c4结果保留。后续87327491冷源补齐半门镜像的公开确认、typed变换／撤销、编辑器／full与四阶段受控missing；严格来源链证明未变模型的复用，原false signature保留。R28只增加半床／半高草的直接载入和聚焦，未改变换算法。部分床被界面裁挡，四向床、双格植物全部外观／全部矩阵仍未关闭。见[代表记录](../verification/TRANSFORM_REPRESENTATIVES_R27.md) |
 | T04 | `test.transforms.acceptance.t04` | 人工未检查；箱纹窄修复共同冷验通过 | 原支撑箱纹失败保留。修复先有A／B／A支持，后在7c7c32f0共同冷源无context补丁复查：镜像前后编辑器、完整投影及单半／双半受控missing与恢复共7张原图已独立读取，红支撑干净、蓝对照保持、双箱恢复，来源不变、独立恢复通过。见[箱归属记录](../verification/CHEST_CONTEXT_R25.md)。先前实际SDK内联save_reload仍绑定原来源；真实占用及跨客户端重启持久性待验 |
 | T05 | `test.transforms.acceptance.t05` | 人工未检查 | 10-21默认材质冷源代表旋转／typed状态通过，编辑器和完整投影四排坡道及闭环均入画；普通坡轨近景接头可见，受控单格／双格missing消隐恢复符合预期。全部轨态、连接和纹理像素仍分别记录，save_reload与最终共同源尚待 |
 | T06 | `test.transforms.acceptance.t06` | 人工未检查；公开卡与代表预检已准备 | R27的7015c9c4冷源已补旋转／撤销、编辑器／full及中心pane受控missing；48格typed数据保持。概览裁掉部分楼梯，正倒内外角全部像素和镜像矩阵仍待，不能以注册卡代替外观通过。见[代表记录](../verification/TRANSFORM_REPRESENTATIVES_R27.md) |
