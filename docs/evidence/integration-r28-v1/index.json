@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "tests": 3485,
+  "skipped": 1,
+  "passed": true,
+  "tested_files": 6310,
+  "tested_bytes": 259329021,
+  "source_changes_during_run": [],
+  "credential_findings": 0,
+  "scope": "Tracked and historical nonignored untracked files in behavior/resource/tests/tools; final water metadata was present in the tested worktree",
+  "manual_closures_added": 0,
+  "entries": [
+    {
+      "name": "unittest-summary.json",
+      "encoding": "gzip",
+      "bytes": 1124,
+      "sha256": "d2d13533ac2d9ac42aa3f879497a8f67580f00d57747dfbeaa8b46dac53ee146",
+      "original_path": ".runtime/round-20261023/integration-v1/unittest-summary.json",
+      "parts": [
+        {
+          "path": "unittest-summary.json.gz.001",
+          "bytes": 610,
+          "sha256": "96ae5d283712a71bebc9fcef94c84f05ed6ff6230f45a294764f86bc57ce4cdd"
+        }
+      ]
+    },
+    {
+      "name": "unittest-discover.log",
+      "encoding": "gzip",
+      "bytes": 28221,
+      "sha256": "0cbd6312e85ee4941d1a950209573c0c3fbe3e34870d1ac574788fb3e2c4f679",
+      "original_path": ".runtime/round-20261023/integration-v1/unittest-discover.log",
+      "parts": [
+        {
+          "path": "unittest-discover.log.gz.001",
+          "bytes": 3239,
+          "sha256": "193b73ab26ee4a81cde5c4b361af1b196a20b9818cc6d4e6eee4454230624965"
+        }
+      ]
+    },
+    {
+      "name": "source-before.json",
+      "encoding": "gzip",
+      "bytes": 1209111,
+      "sha256": "6481a2defaf0307415516437124014f3df95752ac09a3e546e89402107d8c754",
+      "original_path": ".runtime/round-20261023/integration-v1/source-before.json",
+      "parts": [
+        {
+          "path": "source-before.json.gz.001",
+          "bytes": 239000,
+          "sha256": "166fcb40e213f50f8489ba5bb8469d76720f0219acfd9907d8845ca713ce6d05"
+        },
+        {
+          "path": "source-before.json.gz.002",
+          "bytes": 57576,
+          "sha256": "d85ba5755a8d5a836db1ea114308eed37db7387f210b31b7220100c017c31390"
+        }
+      ]
+    },
+    {
+      "name": "source-after.json",
+      "encoding": "gzip",
+      "bytes": 1209111,
+      "sha256": "d64fb9bcea783597d214e7a87b687841046d70274726d6460d99fabbb92bbf0b",
+      "original_path": ".runtime/round-20261023/integration-v1/source-after.json",
+      "parts": [
+        {
+          "path": "source-after.json.gz.001",
+          "bytes": 239000,
+          "sha256": "7edfbaa88131569ad702428fba88559c189ede52f7d5d5f27ab686141f9d1e9c"
+        },
+        {
+          "path": "source-after.json.gz.002",
+          "bytes": 57576,
+          "sha256": "395798bfe6b74ce10fc9573e059e7913503324537777f27594517a91b85d047c"
+        }
+      ]
+    }
+  ]
+}
