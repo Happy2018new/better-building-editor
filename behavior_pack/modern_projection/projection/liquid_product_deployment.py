@@ -1,4 +1,6 @@
 """Select explicitly accepted water visuals without claiming native parity."""
+import math
+
 from . import liquid_product_qualification_data as qualification
 from .liquid_render_target_data import TARGET_ENGINE_VERSION
 from .storage import integer_types
@@ -17,6 +19,21 @@ def ui_offset_for_gui(size, gui):
     return 0., min(size) / float(gui)
 
 
+def ui_geometry_for_gui(position, size, gui):
+    if (isinstance(gui, bool) or not isinstance(gui, integer_types + (float,))
+            or not 1. <= gui < float('inf') or gui != round(gui)):
+        raise ValueError('Product water needs a positive integer native GUI scale')
+    if (len(position) != 2 or len(size) != 2
+            or any(isinstance(value, bool) or not isinstance(value, integer_types + (float,))
+                   or math.isnan(value) or math.isinf(value) for value in tuple(position) + tuple(size))
+            or min(size) <= 0.):
+        raise ValueError('Product water needs finite UI geometry and positive dimensions')
+    width, height = size
+    expanded_height = max(width, height + 2. * width / float(gui))
+    return ((position[0], position[1] + (height - expanded_height) / 2. + width / float(gui)),
+            (width, expanded_height))
+
+
 def candidate_profile(frozen=False):
     """Explicit diagnostic entry; it never changes the production acceptance data."""
     from .liquid_deployment import ui_pose, ui_offset
@@ -27,6 +44,7 @@ def candidate_profile(frozen=False):
         selected['models'] = resources.FROZEN_PRODUCT_MODELS
     profile = ProductLiquidProfile(selected, ui_pose, ui_offset)
     profile.ui_offset_for_gui = ui_offset_for_gui
+    profile.ui_geometry_for_gui = ui_geometry_for_gui
     return profile
 
 

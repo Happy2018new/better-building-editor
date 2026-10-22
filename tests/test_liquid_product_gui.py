@@ -77,6 +77,7 @@ class ProductWaterGuiTests(unittest.TestCase):
         for frozen in (False, True):
             profile = deployment.candidate_profile(frozen=frozen)
             self.assertIs(deployment.ui_offset_for_gui, profile.ui_offset_for_gui)
+            self.assertIs(deployment.ui_geometry_for_gui, profile.ui_geometry_for_gui)
             self.assertIs(liquid_deployment.ui_offset, profile.ui_offset)
             self.assertEqual((0., 75.), profile.ui_offset((400., 300.)))
 
@@ -91,15 +92,26 @@ class ProductWaterGuiTests(unittest.TestCase):
                      'group_view': lambda *unused: view}
         liquid_view = actual_definition('scene.py', ast.FunctionDef, 'liquid_view', namespace)
         before = list(game.reads)
-        for gui, expected_y in ((4., 99.), (3., 124.), (2., 174.)):
+        for gui, expected_height in ((4., 500.), (3., 566.6666666666667), (2., 700.)):
             theme.native_gui_scale = gui
             for unused in range(100):
-                self.assertEqual(view._replace(position=(12., expected_y)), liquid_view((0, 0, 0)))
+                result = liquid_view((0, 0, 0))
+                self.assertEqual(view.distance, result.distance)
+                self.assertEqual(view.clipped, result.clipped)
+                self.assertAlmostEqual(12., result.position[0])
+                self.assertAlmostEqual(24., result.position[1])
+                self.assertEqual(400., result.size[0])
+                self.assertAlmostEqual(expected_height, result.size[1])
         self.assertEqual(before, game.reads)
         theme.native_gui_scale = None
         with self.assertRaises(ValueError):
             liquid_view((0, 0, 0))
+        namespace['liquid_profile'] = SimpleNamespace(
+            ui_offset_for_gui=deployment.ui_offset_for_gui, ui_offset=liquid_deployment.ui_offset)
+        theme.native_gui_scale = 2.
+        self.assertEqual(view._replace(position=(12., 174.)), liquid_view((0, 0, 0)))
         namespace['liquid_profile'] = SimpleNamespace(ui_offset=liquid_deployment.ui_offset)
+        namespace['Theme'] = object()
         self.assertEqual(view._replace(position=(12., 99.)), liquid_view((0, 0, 0)))
 
     def test_same_ready_request_still_moves_native_geometry_without_resubmitting(self):
