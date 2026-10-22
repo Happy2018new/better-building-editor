@@ -40,4 +40,6 @@ v4 observer 的 `relevant` 明确定义为区域本体加六向一格邻域。�
 
 原 `owned-release.json` 的 manifest 字段为 null；它保持原字节，以单独补充记录关联实际 manifest，不覆盖原证据。全包原件在 `.runtime/round-20261023/transforms-public-final-v1/`，v5 候选与控制在相邻 `transforms-cache-lineage-v5/`。
 
+后续独立新实例的 T08 与两张半组合卡结果另见 [R28 新实例补查](TRANSFORM_PUBLIC_COMPLETION_R28.md)；本节原运行的时间、拒绝和未执行范围保持不变。
+
 [精简原件索引](../evidence/transform-public-r28-v1/index.json) SHA-256 为 `3a35fea685cd8698f035a87cba487433f9e040a0a880be813aea80c081eccd81`：115 个逻辑记录、38 个文件、8,377,830 B，单件最多 240,000 B。26 份 raw、25 份原证书、冻结源／host 绑定、恢复退出、真实 Py2 重建及 v5 离线证明按有序 gzip tar 分片保留；10 张重点原 PNG 按原始字节分片，全部 37 张原 PNG 有本地路径与 SHA。独立解包器核对全部原件与 archive SHA，并确认 4156 个完整 wire 未被脱敏修改，失败的 `0026.certificate.json` 仍不存在。对象、数组、内嵌 JSON 字符串和其他文字中的 token／凭据及转义变体递归清理，原件与衍生 SHA 分开。脱敏 raw 无法重算原配置的封印；完整原件保持在本地 ignored 目录。结构复核和精简包不替代实机或人工像素验收。
