@@ -1,0 +1,31 @@
+{
+  "checks": [
+    {
+      "kind": "game",
+      "pid": 30696,
+      "expected_identity": "134371576592288754",
+      "current_identity": null,
+      "actual_exit_code": 3221226505,
+      "same_identity_live": false
+    },
+    {
+      "kind": "mcdk",
+      "pid": 29848,
+      "expected_identity": "134371576590319113",
+      "current_identity": null,
+      "actual_exit_code": 0,
+      "same_identity_live": false
+    }
+  ],
+  "watcher_exact_exit": 0,
+  "commit_after_release": {
+    "committed_bytes": 28601954304,
+    "limit_bytes": 46100955136,
+    "headroom_bytes": 17499000832
+  },
+  "diagnostic_models_created": 0,
+  "diagnostic_stages": 0,
+  "audit_before_RPC_attempted": false,
+  "resources_released": true,
+  "force_game_executed": false
+}

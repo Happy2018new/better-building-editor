@@ -1,0 +1,18 @@
+{
+  "launch_memory_record": {
+    "observed_at": "2026-10-22T15:47:30.311745+00:00",
+    "commit_total_bytes": 37536247808,
+    "commit_limit_bytes": 46100955136,
+    "commit_available_bytes": 8564707328,
+    "physical_available_bytes": 430895104
+  },
+  "release_memory_record": {
+    "committed_bytes": 28601954304,
+    "limit_bytes": 46100955136,
+    "headroom_bytes": 17499000832
+  },
+  "audit_before_numeric_value_retained": false,
+  "audit_before_rejected_headroom_less_than_bytes": 6442450944,
+  "note": "audit_restore.py computed mem then asserted before constructing/writing face-restore-before.json; value not retained in original stderr. Do not reconstruct it from after-release values.",
+  "launch_time": "2026-10-22T15:47:33.083934+00:00"
+}

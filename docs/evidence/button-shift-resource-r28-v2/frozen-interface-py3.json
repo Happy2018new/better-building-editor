@@ -1,0 +1,77 @@
+{
+  "python": [
+    3,
+    13,
+    13
+  ],
+  "exact_frozen_Theme_class": true,
+  "frozen_widgets_sha256": "23b5e306840b660ad89af45268cbfbf322a465f42d1b5d06fb6152b0b6520dbe",
+  "old_reader_sha256": "fd02914a57fda4dfd0063479c4482f0e2144b56780f9662945588d068e29433d",
+  "old_missing_field_reproduced": true,
+  "positive": [
+    {
+      "logical": [
+        1280.0,
+        720.0
+      ],
+      "physical": [
+        1280.0,
+        720.0,
+        0.0,
+        0.0
+      ],
+      "gui": 1.0
+    },
+    {
+      "logical": [
+        640.0,
+        360.0
+      ],
+      "physical": [
+        1280.0,
+        720.0,
+        0.0,
+        0.0
+      ],
+      "gui": 2.0
+    },
+    {
+      "logical": [
+        533.0,
+        300.0
+      ],
+      "physical": [
+        1602.0,
+        900.0,
+        0.0,
+        0.0
+      ],
+      "gui": 3.0
+    },
+    {
+      "logical": [
+        400.0,
+        225.0
+      ],
+      "physical": [
+        1600.0,
+        900.0,
+        0.0,
+        0.0
+      ],
+      "gui": 4.0
+    }
+  ],
+  "negative_rejected": [
+    "old_wrong_dictionary_fake",
+    "two_member_view_tuple",
+    "list_instead_of_documented_tuple",
+    "nonfinite_physical",
+    "nonfinite_logical",
+    "zero_logical",
+    "zero_physical"
+  ],
+  "fake_native_only": true,
+  "MC_started": false,
+  "pixel_or_product_qualification": false
+}

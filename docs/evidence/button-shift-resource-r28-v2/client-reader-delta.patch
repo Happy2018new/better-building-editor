@@ -1,0 +1,35 @@
+--- .runtime/round-20261022/button-shift-diagnostic-v1/client_diagnostic.py
++++ .runtime/round-20261023/button-shift-diagnostic-v2/client_diagnostic.py
+@@ -7,6 +7,7 @@
+ from __future__ import unicode_literals
+ import copy
+ import re
++import math
+ import sys
+ import time
+ 
+@@ -181,7 +182,13 @@
+         game = self.strict_saved['factory'].CreateGame(self.bridge.level)
+         logical_screen = tuple(game.GetScreenSize())
+         physical_screen_info = game.GetScreenViewInfo()
++        assert type(physical_screen_info) is tuple and len(physical_screen_info) == 4
+         assert len(logical_screen) == 2 and min(logical_screen) > 0
++        assert all(isinstance(value, (int, float)) and not math.isnan(value) and not math.isinf(value)
++                   for value in logical_screen + physical_screen_info)
++        assert min(physical_screen_info[:2]) > 0
++        # Exact formula from frozen widgets.Theme.configure; old Theme has no cache.
++        native_gui_scale = max(1., round(float(physical_screen_info[0]) / logical_screen[0]))
+         canvas, clipping = rectangle(values['canvas']), rectangle(values['clipping'])
+         assert canvas['visible'] and clipping['visible']
+         assert unit > 0 and self.session.scene_scale > 0
+@@ -192,7 +199,9 @@
+         assert projection_key == expected_key
+         return {'logical_screen': logical_screen, 'physical_screen_info': physical_screen_info,
+                 'scene_props': (values['width'], values['height']), 'theme_scale': Theme.scale,
+-                'native_gui_scale': Theme.native_gui_scale, 'cell_unit': unit,
++                'native_gui_scale': native_gui_scale,
++                'native_gui_scale_source': 'frozen_Theme_configure_formula_from_actual_Game_tuples',
++                'Theme_has_native_gui_scale': hasattr(Theme, 'native_gui_scale'), 'cell_unit': unit,
+                 'scene_scale': self.session.scene_scale, 'native_pose': self.pose,
+                 'canvas': canvas, 'clipping': clipping,
+                 'clip_geometry': tuple(values['clip_geometry'].current),

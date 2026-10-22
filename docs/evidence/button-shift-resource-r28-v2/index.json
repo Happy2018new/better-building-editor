@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "scope": "R28 one cold owner stopped at independent pre-RPC commit guard; no diagnostic model/stage/PNG",
+  "owner": "r28-button-shift-v2",
+  "production_commit": "2ab5a29a21f68bac607637b10d4afb42ac9caaa6",
+  "source_manifest_sha256": "87b9e3956b48e8709f115c152b6d4d84d7afadd57df9d3c0aa90a996f494d720",
+  "files": [
+    {
+      "path": "audit-before-stderr.txt",
+      "bytes": 314,
+      "sha256": "36899c114ac269462d5f5aab517b7ba2bff96f3cb6675ad05eba562c9be8f7cd",
+      "original_path": ".runtime/round-20261023/button-shift-lifecycle-v2/audit-before-stderr.txt",
+      "kind": "exact original bytes"
+    },
+    {
+      "path": "memory-boundary-comparison.json",
+      "bytes": 771,
+      "sha256": "b291e89a8300153f0e681a42b471f8db75ad386a3dda1e8a8906e7c9ce540622",
+      "original_path": ".runtime/round-20261023/button-shift-lifecycle-v2/memory-boundary-comparison.json",
+      "kind": "exact original bytes"
+    },
+    {
+      "path": "owned-release-verification.json",
+      "bytes": 782,
+      "sha256": "46994ab534de4eff891746c27a8f528cd415c8bae23c3ffecf44ee5391a2fbbf",
+      "original_path": ".runtime/round-20261023/button-shift-lifecycle-v2/owned-release-verification.json",
+      "kind": "exact original bytes"
+    },
+    {
+      "path": "ordinary-stop-stdout.txt",
+      "bytes": 111,
+      "sha256": "1f7778957bf5aec033fa1c1393fad5f116653f146bdb4daab5eb06c5e7b4b560",
+      "original_path": ".runtime/round-20261023/button-shift-lifecycle-v2/ordinary-stop-stdout.txt",
+      "kind": "exact original bytes"
+    },
+    {
+      "path": "watcher-close-stdout.txt",
+      "bytes": 761,
+      "sha256": "9b861da1b03a9346405a75d861257f8c3337c960cd60445f5b00586f55037502",
+      "original_path": ".runtime/round-20261023/button-shift-lifecycle-v2/watcher-close-stdout.txt",
+      "kind": "exact original bytes"
+    },
+    {
+      "path": "frozen-interface-py2.json",
+      "bytes": 1452,
+      "sha256": "b394469ec2e65874be7ab9300d3558eaa57289a5848be191913f17de05e450d9",
+      "original_path": ".runtime/round-20261023/button-shift-diagnostic-v2/frozen-interface-py2.json",
+      "kind": "exact original bytes"
+    },
+    {
+      "path": "frozen-interface-py3.json",
+      "bytes": 1409,
+      "sha256": "ee7e39eede5248bc2263e45e33649e4fe0d6fff6413d7b809e3f73a16fdef1f2",
+      "original_path": ".runtime/round-20261023/button-shift-diagnostic-v2/frozen-interface-py3.json",
+      "kind": "exact original bytes"
+    },
+    {
+      "path": "client-reader-delta.patch",
+      "bytes": 2096,
+      "sha256": "1bbe35665b72acd8cad836ddf18e67bf7d6ff47e64cb628cf8b04ff2133cc73d",
+      "original_path": ".runtime/round-20261023/button-shift-diagnostic-v2/client_diagnostic.py.r27-delta.patch",
+      "kind": "exact original bytes"
+    }
+  ],
+  "source_tree_written": false,
+  "native_diagnostic_model_creations": 0,
+  "diagnostic_stages": 0,
+  "audit_before_game_RPC_dispatched": false,
+  "before_exact_headroom_value_retained": false,
+  "before_rejected_headroom_less_than_bytes": 6442450944,
+  "game_actual_exit": 3221226505,
+  "mcdk_actual_exit": 0,
+  "watcher_actual_exit": 0,
+  "normal_shutdown_qualified": false,
+  "same_identity_live_after_close": false,
+  "world_or_session_configuration_copied": false,
+  "manual_issues_closed": 0
+}
