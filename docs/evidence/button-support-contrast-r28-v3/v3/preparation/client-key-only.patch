@@ -1,0 +1,11 @@
+--- failed-v2/client_diagnostic.py
++++ v3/client_diagnostic.py
+@@ -228,7 +228,7 @@
+ 
+     def guard(self):
+         assert sys._strict_cache_r27 is self.strict_saved
+-        validate_source(self.strict_saved, self.source_link, self.native_inputs['combined'], self.wire,
++        validate_source(self.strict_saved, self.source_link, self.native_inputs['combined_stone'], self.wire,
+                         sys._blueprint_qa_nonce, sys._blueprint_qa_identity)
+         assert self.frozen and self.hook['callback'] is self.frozen_callback
+         assert self.hook.get('_registration_id') == self.registration_id

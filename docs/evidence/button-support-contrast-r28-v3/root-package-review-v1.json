@@ -1,0 +1,145 @@
+{
+  "PIL_independent_original_ROI_measurements": {
+    "a2_combined_stone__vs__a2_support_stone": {
+      "ROI_changed_pixels": 263,
+      "bbox_in_original": [
+        626,
+        365,
+        665,
+        403
+      ],
+      "max_RGB_delta": 22,
+      "sum_RGB_delta": 7743
+    },
+    "a2_combined_stone__vs__original_source_restored": {
+      "ROI_changed_pixels": 0,
+      "bbox_in_original": null,
+      "max_RGB_delta": 0,
+      "sum_RGB_delta": 0
+    },
+    "a_combined_stone__vs__a2_combined_stone": {
+      "ROI_changed_pixels": 0,
+      "bbox_in_original": null,
+      "max_RGB_delta": 0,
+      "sum_RGB_delta": 0
+    },
+    "a_combined_stone__vs__a_support_stone": {
+      "ROI_changed_pixels": 263,
+      "bbox_in_original": [
+        626,
+        365,
+        665,
+        403
+      ],
+      "max_RGB_delta": 22,
+      "sum_RGB_delta": 7743
+    },
+    "a_combined_stone__vs__b_combined_white": {
+      "ROI_changed_pixels": 8362,
+      "bbox_in_original": [
+        586,
+        309,
+        706,
+        442
+      ],
+      "max_RGB_delta": 85,
+      "sum_RGB_delta": 1261337
+    },
+    "a_support_stone__vs__a2_support_stone": {
+      "ROI_changed_pixels": 0,
+      "bbox_in_original": null,
+      "max_RGB_delta": 0,
+      "sum_RGB_delta": 0
+    },
+    "a_support_stone__vs__b_support_white": {
+      "ROI_changed_pixels": 9122,
+      "bbox_in_original": [
+        586,
+        309,
+        706,
+        442
+      ],
+      "max_RGB_delta": 85,
+      "sum_RGB_delta": 1365233
+    },
+    "b_combined_white__vs__b_support_white": {
+      "ROI_changed_pixels": 760,
+      "bbox_in_original": [
+        626,
+        365,
+        665,
+        403
+      ],
+      "max_RGB_delta": 61,
+      "sum_RGB_delta": 102081
+    },
+    "full_baseline__vs__a_combined_stone": {
+      "ROI_changed_pixels": 0,
+      "bbox_in_original": null,
+      "max_RGB_delta": 0,
+      "sum_RGB_delta": 0
+    },
+    "full_baseline__vs__original_source_restored": {
+      "ROI_changed_pixels": 0,
+      "bbox_in_original": null,
+      "max_RGB_delta": 0,
+      "sum_RGB_delta": 0
+    }
+  },
+  "actual_typed_native_inputs_and_Serialize_independently_decoded": 4,
+  "all_original_archive_sources_rehashed": {
+    "files": 104,
+    "raw_unchanged": 74,
+    "reassembled_JSON": 1,
+    "sanitized_whole_JSON": 24
+  },
+  "at": "2026-10-22T22:31:24.535798+00:00",
+  "completed": true,
+  "correct_thickness_contact_or_native_UV_or_GPU_path_qualified": false,
+  "exact_owned_release_rechecked": [
+    {
+      "current": null,
+      "expected": "134371808691939165",
+      "kind": "game",
+      "pid": 73044
+    },
+    {
+      "current": null,
+      "expected": "134371808689924043",
+      "kind": "mcdk",
+      "pid": 69964
+    },
+    {
+      "current": null,
+      "expected": "134371808519416084",
+      "kind": "watcher",
+      "pid": 1732
+    }
+  ],
+  "manual_issues_closed": 0,
+  "nested_V2_sources_rehashed": {
+    "files": 15,
+    "raw_unchanged": 6,
+    "reassembled_JSON": 0,
+    "sanitized_whole_JSON": 9
+  },
+  "original_object_ROI_only_not_full_screenshot_RGB_identity": true,
+  "package_index_sha256": "b404655516aeb0170a850fe7dfbb930f3fc35fe1649772a9d410f95921630f26",
+  "root_original_images_visually_opened": [
+    "full_baseline",
+    "a_combined_stone",
+    "a_support_stone",
+    "b_combined_white",
+    "b_support_white",
+    "a2_combined_stone",
+    "a2_support_stone",
+    "original_source_restored"
+  ],
+  "root_preparation_notes": [
+    "Nested V2 index uses original-package-index.json and sanitized_content_sha256, not the V3 schema.",
+    "V2 also redacted diagnostic host_run_token nonces; V3 preserves those non-credential source nonces.",
+    "Initial A/B comparison changed common but omitted the corresponding empty states material key; corrected the independent decoder assertion, not candidate or original native input."
+  ],
+  "six_actual_Render_calls_and_settle_gates_checked": true,
+  "support_material_change_renames_common_key_and_corresponding_empty_states_key": true
+}

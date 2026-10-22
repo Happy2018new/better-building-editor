@@ -1,0 +1,237 @@
+{
+  "scope": "ACTUAL_T02_V2_FAILED_AND_V3_SINGLE_ATTEMPT_CLOSEOUT",
+  "at": "2026-10-22T22:26:27.229412+00:00",
+  "owner": "r28-button-support-contrast-v3",
+  "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "source_manifest_sha256": "9a9ea6acba8482fbb5a5ee41ac2aa42cd7b9a94f1fb51ab565f4ec5390554d13",
+  "prelaunch_config_sha256": "aeb22562a52bdb8a85dc67940a0e7a6dd04b64409d760f36618616535172ff07",
+  "actual_report_sha256": "af08b3c6e3e44338ded7b5afa289807e24b4a8ec64646b7c425ce21d1a91409f",
+  "release_sha256": "a24ba360c057f1181af69df8775f480dfc7d04f82292f063e376937d04fa91bf",
+  "V2_preserved_failure": {
+    "completed_stages": 0,
+    "private_models_created": 0,
+    "first_failure": "KeyError combined in actual freeze/guard",
+    "old_release_sha256": "0b3f565351d44a0a53431d69aaaabd673842ebf8385c6621f6b168d92d336a9f",
+    "old_game_exit_code": 3221226505,
+    "normal_shutdown_qualified": false,
+    "no_white_result_exists": true
+  },
+  "V3_actual": {
+    "completed": true,
+    "models_created": 4,
+    "stages_completed": 6,
+    "single_new_owner_attempt": true,
+    "actual_Render_calls_bound_to_unique_model_names": true,
+    "native_Deserialize_inputs_equal_Serialize_results": true,
+    "only_client_change": "combined -> combined_stone key in guard",
+    "source_and_hosts_unchanged": true,
+    "original_seal_145_files_unchanged": true,
+    "local_restore_passed": true,
+    "local_restore_errors": [],
+    "original_native_submissions_restored": 2,
+    "original_two_cell_source_recertified": true,
+    "all60_undo_restored": true,
+    "global_restore_passed": true,
+    "global_restore_audits": 2,
+    "independent_restore_audits": {
+      "after1": {
+        "completed": true,
+        "changed_keys": [],
+        "source_unchanged": true
+      },
+      "after2": {
+        "completed": true,
+        "changed_keys": [],
+        "source_unchanged": true
+      }
+    },
+    "release": {
+      "at": "2026-10-22T22:18:10.774813+00:00",
+      "completed": true,
+      "owner": "r28-button-support-contrast-v3",
+      "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+      "source_manifest_sha256": "9a9ea6acba8482fbb5a5ee41ac2aa42cd7b9a94f1fb51ab565f4ec5390554d13",
+      "source_unchanged": true,
+      "registry_state": "stopped",
+      "independent_identities": {
+        "game": {
+          "pid": 73044,
+          "expected": "134371808691939165",
+          "current": null
+        },
+        "mcdk": {
+          "pid": 69964,
+          "expected": "134371808689924043",
+          "current": null
+        },
+        "watcher": {
+          "pid": 1732,
+          "expected": "134371808519416084",
+          "current": null
+        }
+      },
+      "actual_exit_codes": {
+        "game": 3221226505,
+        "mcdk": 0
+      },
+      "normal_shutdown_qualified": false,
+      "force_game_executed": false,
+      "watcher_exit_code": 0,
+      "independent_restore_audits": [
+        "after1",
+        "after2"
+      ],
+      "manual_issues_closed": 0
+    }
+  },
+  "pixel_analysis": {
+    "ROI": [
+      577,
+      242,
+      714,
+      452
+    ],
+    "comparisons": {
+      "a_combined_stone__vs__a_support_stone": {
+        "changed_pixels": 263,
+        "changed_bbox_in_original_image": [
+          626,
+          365,
+          665,
+          403
+        ],
+        "maximum_channel_delta": 22,
+        "sum_absolute_channel_delta": 7743,
+        "mean_absolute_channel_delta_over_whole_ROI": 0.08971150503997219
+      },
+      "b_combined_white__vs__b_support_white": {
+        "changed_pixels": 760,
+        "changed_bbox_in_original_image": [
+          626,
+          365,
+          665,
+          403
+        ],
+        "maximum_channel_delta": 61,
+        "sum_absolute_channel_delta": 102081,
+        "mean_absolute_channel_delta_over_whole_ROI": 1.1827250608272506
+      },
+      "a2_combined_stone__vs__a2_support_stone": {
+        "changed_pixels": 263,
+        "changed_bbox_in_original_image": [
+          626,
+          365,
+          665,
+          403
+        ],
+        "maximum_channel_delta": 22,
+        "sum_absolute_channel_delta": 7743,
+        "mean_absolute_channel_delta_over_whole_ROI": 0.08971150503997219
+      },
+      "a_combined_stone__vs__b_combined_white": {
+        "changed_pixels": 8362,
+        "changed_bbox_in_original_image": [
+          586,
+          309,
+          706,
+          442
+        ],
+        "maximum_channel_delta": 85,
+        "sum_absolute_channel_delta": 1261337,
+        "mean_absolute_channel_delta_over_whole_ROI": 14.614030819140309
+      },
+      "a_support_stone__vs__b_support_white": {
+        "changed_pixels": 9122,
+        "changed_bbox_in_original_image": [
+          586,
+          309,
+          706,
+          442
+        ],
+        "maximum_channel_delta": 85,
+        "sum_absolute_channel_delta": 1365233,
+        "mean_absolute_channel_delta_over_whole_ROI": 15.817784729463561
+      },
+      "a_combined_stone__vs__a2_combined_stone": {
+        "changed_pixels": 0,
+        "changed_bbox_in_original_image": null,
+        "maximum_channel_delta": 0,
+        "sum_absolute_channel_delta": 0,
+        "mean_absolute_channel_delta_over_whole_ROI": 0.0
+      },
+      "a_support_stone__vs__a2_support_stone": {
+        "changed_pixels": 0,
+        "changed_bbox_in_original_image": null,
+        "maximum_channel_delta": 0,
+        "sum_absolute_channel_delta": 0,
+        "mean_absolute_channel_delta_over_whole_ROI": 0.0
+      },
+      "full_baseline__vs__original_source_restored": {
+        "changed_pixels": 0,
+        "changed_bbox_in_original_image": null,
+        "maximum_channel_delta": 0,
+        "sum_absolute_channel_delta": 0,
+        "mean_absolute_channel_delta_over_whole_ROI": 0.0
+      },
+      "full_baseline__vs__a_combined_stone": {
+        "changed_pixels": 0,
+        "changed_bbox_in_original_image": null,
+        "maximum_channel_delta": 0,
+        "sum_absolute_channel_delta": 0,
+        "mean_absolute_channel_delta_over_whole_ROI": 0.0
+      },
+      "a2_combined_stone__vs__original_source_restored": {
+        "changed_pixels": 0,
+        "changed_bbox_in_original_image": null,
+        "maximum_channel_delta": 0,
+        "sum_absolute_channel_delta": 0,
+        "mean_absolute_channel_delta_over_whole_ROI": 0.0
+      }
+    },
+    "button_net_contribution_visible_in_one_fixed_view": true,
+    "white_combined_stone_texture_is_local_button_rectangle_not_full_support": true,
+    "native_material_UV_vertex_or_GPU_tint_readback": false
+  },
+  "earlier_visual_wording_correction": "B combined still has stone texture means its local button rectangle; quantitative A/B support shows support material did change",
+  "same_owner_retry_performed": false,
+  "further_MC_started": false,
+  "production_changed": false,
+  "pixels_qualified": false,
+  "manual_issues_closed": 0,
+  "canonical_docs_changed": false,
+  "MC_slot_explicitly_released": true,
+  "credential_fields_redacted": [
+    "v3/records/actual-report.json/button_separate/diagnostic_restore/restore/token",
+    "v3/records/actual-report.json/button_separate/stages/0/after_png/token",
+    "v3/records/actual-report.json/button_separate/stages/0/before_png/token",
+    "v3/records/actual-report.json/button_separate/stages/0/latest_state/token",
+    "v3/records/actual-report.json/button_separate/stages/1/after_png/token",
+    "v3/records/actual-report.json/button_separate/stages/1/before_png/token",
+    "v3/records/actual-report.json/button_separate/stages/1/latest_state/token",
+    "v3/records/actual-report.json/button_separate/stages/2/after_png/token",
+    "v3/records/actual-report.json/button_separate/stages/2/before_png/token",
+    "v3/records/actual-report.json/button_separate/stages/2/latest_state/token",
+    "v3/records/actual-report.json/button_separate/stages/3/after_png/token",
+    "v3/records/actual-report.json/button_separate/stages/3/before_png/token",
+    "v3/records/actual-report.json/button_separate/stages/3/latest_state/token",
+    "v3/records/actual-report.json/button_separate/stages/4/after_png/token",
+    "v3/records/actual-report.json/button_separate/stages/4/before_png/token",
+    "v3/records/actual-report.json/button_separate/stages/4/latest_state/token",
+    "v3/records/actual-report.json/button_separate/stages/5/after_png/token",
+    "v3/records/actual-report.json/button_separate/stages/5/before_png/token",
+    "v3/records/actual-report.json/button_separate/stages/5/latest_state/token",
+    "v3/records/ordinary-stop.json/binding/mcp_url",
+    "v3/records/ordinary-stop.json/binding/token",
+    "v3/records/ordinary-stop.json/registry_final/mcp_url",
+    "v3/records/ordinary-stop.json/registry_final/token"
+  ],
+  "typed_native_wire_values_unchanged": true,
+  "archive_candidate": "candidate-evidence/index.json",
+  "limitations": [
+    "Difference isolates the net image contribution of adding the button under this one controlled view",
+    "No native mesh vertices, face material IDs, UVs or GPU tint uniform were read back",
+    "Does not establish correct button thickness, contact, all faces or all poses",
+    "Gray-white pixels alone do not identify the native material or shader path",
+    "No direct change to product rendering, rotations or mirrors is qualified by this diagnostic"
+  ]
+}
