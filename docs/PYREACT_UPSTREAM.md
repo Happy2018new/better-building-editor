@@ -74,3 +74,13 @@ python -X utf8 tools/run_live_check.py --session $instance.session_file --owner 
 本地 `_session.write_json` 现在只重试同一个已完整写入的 UUID 临时文件的原子替换。仅 Windows `PermissionError.winerror` 为 5、32、33 时允许最多 5 次尝试，间隔为 0.05、0.1、0.2、0.4 秒，共 0.75 秒；每次可重试失败均记录 warning。不会重放调用方或再次创建进程。其他权限错误立即抛出，最终仍失败时保留旧清单与包含新绑定的完整临时文件，供明确身份后的恢复使用。
 
 `tests/test_mcdk_session_atomic_write.py` 的 4 项回归通过：同一完整写入的临时共享失败、达到上限后保留恢复信息、无关权限错误不重试，以及真实 Windows `CreateFileW` 读者未开放 `FILE_SHARE_DELETE`、解除占用后替换成功。真实共享测试证明这种 OS 条件能触发并解除失败；未证明原启动时的占用者身份。原始冻结 host 不追改，后续冷启动使用独立 retry-host 版本并另记 helper SHA。本补丁只属于宿主实例工具，不更改游戏业务或 Pyreact 运行时。
+
+## 实例清单读取补丁（2026-10-23，R28）
+
+末地 GUI 诊断的冻结启动监督器直接读取已分配 `session.json` 时发生 `PermissionError(errno=13)`，尚未进入实际采样。原异常没有 Win32 错误码，不能追认为已证实的共享冲突；该轮失败、恢复及异常引擎退出记录继续保留。本补丁不追改它的冻结文件，也不改变游戏渲染或水的 39 份来源合同。
+
+本地 `_session.read_json` 在 Windows 使用 `CreateFileW`，开放 read／write／delete sharing，并始终通过同一个 retained handle 读完各个 64 KiB 数据块；`load_session` 改用该入口。原生 API 保留真实 Win32 失败码，只有读操作的 **32（共享冲突）和 33（锁冲突）**允许最多五次尝试，四次间隔合计 0.75 秒。每次可重试失败记录 warning；5（拒绝访问）、没有原生码的 errno13、其他 OS 错误、JSON／UTF-8 内容错误均立即失败。schema、清单路径、owner、ready 状态和实际进程创建身份验证仍在读取后执行，不重试验证，不使用旧清单，不重放启动或游戏 RPC。
+
+真实 Windows 测试额外确认了一项限制：即使 reader 开放 `FILE_SHARE_DELETE`，本机 `os.replace(new, open_target)` 仍会返回 WinError5。因此没有承诺开放共享就保证替换成功，既有写端有界重试继续保留。首个过强的替换测试失败后，分别验证了共享打开的旧文件可 rename-away、在原路径发布新文件后当前 handle 仍完整读到旧快照，以及真实并发 `write_json` 在 reader 关闭后完成原子替换。读取内容不会混合两版；下一次读取看到新版本。
+
+新增 `tests/test_mcdk_session_read.py` 九项测试覆盖真实共享／字节锁的 32／33、解除锁后的恢复、持续冲突上限、未知权限码和内容错误不重试、owner／schema／路径／状态／进程身份不放宽、UTF-8 大文件跨块读取，以及上述两种文件替换时序。连同旧写端、IPC 和执行前身份守门，`python -B -X utf8 -m unittest discover -s tests -p test_mcdk*.py -v` 本次实际运行 **38 项，全部通过**。这些是宿主文件／协议测试，不是新的 MC 画面或正常引擎退出资格；尚未替换其他历史监督器中各自直接读取 JSON 的代码。
