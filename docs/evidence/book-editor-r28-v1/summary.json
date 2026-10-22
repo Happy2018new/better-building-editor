@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "owner": "books-r28-editor-v1",
+  "source_commit": "582e53517f949d1e2e351d40c531217a5b1e39f3",
+  "source_manifest_sha256": "727b3c23589ed20d4faf6561a45dc16219239f41cdb1afcaece558dc1c47c1a8",
+  "runtime_files": 3714,
+  "tracked_runtime_delta": [
+    "behavior_pack/modern_projection/projection/debug_blueprints.py",
+    "behavior_pack/modern_projection/projection/debug_concrete_blueprints.py",
+    "behavior_pack/modern_projection/projection/debug_dripleaf_blueprints.py",
+    "behavior_pack/modern_projection/projection/debug_transform_acceptance.py",
+    "behavior_pack/modern_projection/projection/liquid_product_deployment.py",
+    "behavior_pack/modern_projection/projection/render_context.py",
+    "behavior_pack/modern_projection/projection/scene.py",
+    "behavior_pack/modern_projection/projection/widgets.py"
+  ],
+  "overlay_paths": [
+    "behavior_pack/loot_tables/modern_projection/r21_signed_book.json",
+    "resource_pack/materials/entity.material",
+    "resource_pack/models/netease_models.json",
+    "resource_pack/shaders/glsl/peony_r25_book_fragment_diag.fragment",
+    "resource_pack/shaders/glsl/peony_r25_book_raw_z_enchanting_table.vertex",
+    "resource_pack/shaders/glsl/peony_r25_book_raw_z_lectern.vertex"
+  ],
+  "completed": true,
+  "restored": true,
+  "source_unchanged": true,
+  "cleanup_errors": [],
+  "elapsed_seconds": 130.32302180002443,
+  "capture_labels": [
+    "native",
+    "full",
+    "missing",
+    "occupied",
+    "unoccupied",
+    "hidden",
+    "shown",
+    "scene_full",
+    "scene_hidden",
+    "scene_shown",
+    "neighbors_full"
+  ],
+  "independent_restoration": {
+    "actor_count": 0,
+    "fields_equal": true,
+    "document_id": 1551621640656,
+    "workspace": false,
+    "factory_class": "EngineCompFactoryClient",
+    "editor_id": 1551621640880,
+    "profile_same_object": true,
+    "restored": true,
+    "preview_ready": true
+  },
+  "natural_visibility": "Book artwork visible, partly clipped at the top of the editor scene.",
+  "control_skipped": "Default editor book already visible; no native setter or alias switch.",
+  "private_body_setters": 0,
+  "private_alias_switches": 0,
+  "GUI2_A_gui_A_executed": false,
+  "formal_qualification_changed": false,
+  "production_modified": false,
+  "manual_issues_closed": 0,
+  "normal_engine_exit_qualified": false,
+  "exit": {
+    "schema": 1,
+    "session": "476c344444914e31a4973ec9e74684b7",
+    "owner": "books-r28-editor-v1",
+    "opened_at": "2026-10-22T15:39:13.951564+00:00",
+    "processes": {
+      "game": {
+        "pid": 65556,
+        "identity": "134371571345482371",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-22T15:44:58.733284+00:00"
+      },
+      "mcdk": {
+        "pid": 72288,
+        "identity": "134371571343532757",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-22T15:44:58.737026+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "watcher": {
+    "owners": [
+      "books-r28-editor-v1"
+    ],
+    "known_assert_recoveries": [],
+    "other_assertions": [],
+    "errors": []
+  },
+  "watcher_retired": true,
+  "stop": {
+    "ordinary_returncode": 1,
+    "ordinary_error": "[instances] Game has not closed; inspect it or explicitly use stop --force\n",
+    "force_executed": false,
+    "registry_finalize_returncode": 0,
+    "registry_final_state": "stopped",
+    "independent_final_active_identity": {
+      "game": null,
+      "mcdk": null
+    }
+  },
+  "limits": [
+    "Does not explain the old GUI4 natural blank observations.",
+    "The default profile instance, native IDs and uniforms are not proof of GPU correctness.",
+    "GUI2 alignment is a separate reproducible defect; its A/B/A was not run in this session."
+  ]
+}
