@@ -15,7 +15,7 @@ import sys
 import numpy as np
 
 import analyze_product_water as product_analysis
-from analyze_product_water import analyze, expected_mask, rgb
+from analyze_product_water import analyze, bind_native_editor_gui, expected_mask, rgb
 from analyze_product_water_biome import biome_analysis
 from analyze_product_water_flow import analyze_flow
 from analyze_water_acceptance_r16 import LIMITS, budget_checks, replay
@@ -80,12 +80,13 @@ def source_closure(project, report, contract):
         require(launch.get('source_sha256') == captured, 'Launch archive differs from the capture')
 
 
-def analysis_oracles(report, native_world_geometry=False):
+def analysis_oracles(report, native_world_geometry=False, native_editor_gui=False):
     """Declare the separate geometric and sampling contracts; never infer a mode."""
     world = bool(set(report.get('routes', ())) & {'full', 'missing'})
     masks = NATIVE_GEOMETRY_ORACLE if world and native_world_geometry else 'analytic_camera'
     return {
-        'editor_masks': 'captured_paperdoll_layout',
+        'editor_masks': ('captured_paperdoll_layout_with_sdk_integer_gui' if native_editor_gui
+                         else 'captured_paperdoll_layout'),
         'world_geometry_alpha_transparency_masks': masks if world else None,
         'world_animation_visibility_masks': masks if world else None,
         'qualifier_world_visibility_masks': masks if world else None,
@@ -98,13 +99,17 @@ def analysis_oracles(report, native_world_geometry=False):
     }
 
 
-def analyze_report(path, native_world_geometry=False):
+def analyze_report(path, native_world_geometry=False, native_editor_gui=False):
     """Keep raw JSON unchanged and share only an independently validated oracle."""
     report = json.loads(path.read_bytes())
+    editor_options = {'native_editor_gui': True} if native_editor_gui else {}
     use_native = native_world_geometry and bool(set(report.get('routes', ())) & {'full', 'missing'})
     if not use_native:
-        return report, analyze(path)
-    measured = analyze(path, native_world_geometry=True)
+        measured = analyze(path, **editor_options)
+        if native_editor_gui and measured['evidence_valid']:
+            bind_native_editor_gui(report)
+        return report, measured
+    measured = analyze(path, native_world_geometry=True, **editor_options)
     require(measured['evidence_valid'],
             'Invalid native world water evidence; no analytic fallback: ' +
             json.dumps(measured.get('capture_failures', ()), sort_keys=True))
@@ -120,12 +125,14 @@ def analyze_report(path, native_world_geometry=False):
     # model already checked by analyze(), including the native stone PNGs and
     # readbacks; serialized model fields never select an oracle on their own.
     report[product_analysis._NATIVE_WORLD_GEOMETRY] = model
-    measured['analytic_geometry_diagnostic'] = analyze(path)
+    if native_editor_gui:
+        bind_native_editor_gui(report)
+    measured['analytic_geometry_diagnostic'] = analyze(path, **editor_options)
     return report, measured
 
 
-def collect(path, project, contract, native_world_geometry=False):
-    report, measured = analyze_report(path, native_world_geometry)
+def collect(path, project, contract, native_world_geometry=False, native_editor_gui=False):
+    report, measured = analyze_report(path, native_world_geometry, native_editor_gui)
     require(measured['evidence_valid'], 'Invalid water capture/cleanup/source binding: ' + str(path))
     require(not report.get('owned_native_assertions') and
             report.get('owned_native_assertion_checks', 0) >= len(report['captures']),
@@ -215,12 +222,12 @@ def default_path(report, measured):
     occupancy(report)
 
 
-def frozen_matrix(paths, reports):
+def frozen_matrix(paths, reports, native_editor_gui=False):
     result = {'visibility': {}, 'side_uv': {}, 'lifecycle': {}, 'budgets': {},
               'maximum_observed_groups': 0, 'reports': [], 'passed': False}
     samples = {}
     for path, report in zip(paths, reports):
-        measured = replay(path)
+        measured = replay(path, native_editor_gui=True) if native_editor_gui else replay(path)
         require(measured['evidence_valid'], 'Invalid completed frozen water report: ' + str(path))
         result['reports'].append({'path': str(path.resolve()), 'sha256': sha(path)})
         for field in ('visibility', 'side_uv', 'lifecycle'):
@@ -291,25 +298,26 @@ def qualify(args):
             'Regenerate the current water owner contract before qualification')
     reports, analyses, provenance = {}, {}, {}
     native_world_geometry = getattr(args, 'native_world_geometry', False)
+    native_editor_gui = getattr(args, 'native_editor_gui', False)
     reports['frozen'], analyses['frozen'], provenance['frozen'] = [], [], []
     for path in args.frozen_report:
-        report, measured = collect(path, project, contract, native_world_geometry)
+        report, measured = collect(path, project, contract, native_world_geometry, native_editor_gui)
         reports['frozen'].append(report)
         analyses['frozen'].append(measured)
         provenance['frozen'].append({'path': str(path.resolve()), 'sha256': sha(path),
             'source_contract_sha256': report['source_contract_sha256'],
-            'analysis_oracles': analysis_oracles(report, native_world_geometry)})
+            'analysis_oracles': analysis_oracles(report, native_world_geometry, native_editor_gui)})
     for name in ('animated', 'biome', 'reverse', 'gallery', 'default'):
         path = getattr(args, name + '_report')
         if path is None:
             continue
-        reports[name], analyses[name] = collect(path, project, contract, native_world_geometry)
+        reports[name], analyses[name] = collect(path, project, contract, native_world_geometry, native_editor_gui)
         provenance[name] = {'path': str(path.resolve()), 'sha256': sha(path),
             'source_contract_sha256': reports[name]['source_contract_sha256'],
-            'analysis_oracles': analysis_oracles(reports[name], native_world_geometry)}
+            'analysis_oracles': analysis_oracles(reports[name], native_world_geometry, native_editor_gui)}
     frozen_reports = reports['frozen']
     frozen_coverage(frozen_reports)
-    acceptance = frozen_matrix(args.frozen_report, frozen_reports)
+    acceptance = frozen_matrix(args.frozen_report, frozen_reports, native_editor_gui)
     require(acceptance['passed'], 'Water side/visibility/budget/lifecycle matrix failed')
     geometry = {label: row for measured in analyses['frozen'] for label, row in measured['geometry'].items()}
     transparency = {label: row for measured in analyses['frozen'] for label, row in measured['transparency'].items()}
@@ -323,9 +331,11 @@ def qualify(args):
     require(animated.get('frozen') is False and set(animated['routes']) == ROUTES and
             FLOW_CASES <= set(animated['cases']), 'Animated water omits directions or routes')
     require(analyses['animated']['observed_product_gates']['animation'], 'Water animation lacks visible pixels')
-    flow = analyze_flow(args.animated_report)
+    flow = (analyze_flow(args.animated_report, native_editor_gui=True) if native_editor_gui
+            else analyze_flow(args.animated_report))
     require(flow['passed'], 'Physical water flow direction failed')
-    biome = biome_analysis(args.biome_report)
+    biome = (biome_analysis(args.biome_report, native_editor_gui=True) if native_editor_gui
+             else biome_analysis(args.biome_report))
     require(biome['passed'] and set(reports['biome']['routes']) == ROUTES, 'Frozen water biome controls failed')
     occupancy(reports['biome'])
     reverse = reports['reverse']
@@ -357,6 +367,7 @@ def qualify(args):
         'implementation_contract_sha256': sha(project / OWNER),
         'implementation_sha256': {name: sha(project / name) for name in SOURCES},
         'native_world_geometry_requested': native_world_geometry,
+        'native_editor_gui_requested': native_editor_gui,
         'qualifier_sha256': sha(Path(__file__)),
         'evidence': provenance, 'gates': {name: name != 'default_path' or 'default' in reports
                                         for name in sorted(REQUIRED_GATES)},
@@ -388,6 +399,8 @@ def main():
     parser.add_argument('--accept-reviewed', action='store_true')
     parser.add_argument('--native-world-geometry', action='store_true',
                         help='Explicitly use same-session native stone geometry for world geometry/alpha/transparency/animation and qualifier visibility masks; retain analytic diagnostics and the existing independent sampler contracts')
+    parser.add_argument('--native-editor-gui', action='store_true',
+                        help='Explicitly use captured SDK integer GUI/cache agreement across editor analyzers')
     manifest = qualify(parser.parse_args())
     print(json.dumps({'stage': manifest['stage'], 'gates': manifest['gates']}))
 

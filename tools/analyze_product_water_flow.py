@@ -14,7 +14,7 @@ import numpy as np
 from PIL import Image
 from scipy.ndimage import map_coordinates
 
-from analyze_product_water import analyze, project
+from analyze_product_water import analyze, bind_native_editor_gui, project
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
@@ -203,9 +203,9 @@ def burst_frames(capture):
     return images, times
 
 
-def analyze_flow(source_path, partial_diagnostics=False):
+def analyze_flow(source_path, partial_diagnostics=False, native_editor_gui=False):
     source = json.loads(source_path.read_bytes())
-    base = analyze(source_path)
+    base = analyze(source_path, native_editor_gui=True) if native_editor_gui else analyze(source_path)
     result = {'schema': 1, 'source_sha256': sha(source_path), 'analyzer_sha256': sha(__file__),
               'limits': LIMITS, 'evidence_valid': base['evidence_valid'], 'rows': {},
               'capture_failures': base['capture_failures'], 'passed': False,
@@ -217,6 +217,12 @@ def analyze_flow(source_path, partial_diagnostics=False):
     if ((not base['evidence_valid'] and not (partial_diagnostics and restored_source))
             or source.get('frozen')):
         return result
+    if native_editor_gui:
+        try:
+            result['editor_geometry_oracle'] = bind_native_editor_gui(source)
+        except (ValueError, KeyError, TypeError) as error:
+            result['capture_failures'] = result['capture_failures'] + [{'native_editor_gui': str(error)}]
+            return result
     result['atlas'] = atlas_motion(ROOT / 'resource_pack/textures/models/modern_projection/liquid/flowing_water_grey.png')
     for label, burst in source.get('flow_bursts', {}).items():
         row = burst['row']
@@ -269,10 +275,12 @@ def main():
     parser.add_argument('output', type=Path)
     parser.add_argument('--partial-diagnostics', action='store_true',
                         help='Inspect individually complete bursts without qualifying the failed batch')
+    parser.add_argument('--native-editor-gui', action='store_true',
+                        help='Use captured SDK integer GUI/cache agreement for physical editor samples')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose fresh flow-direction evidence')
-    result = analyze_flow(args.source, args.partial_diagnostics)
+    result = analyze_flow(args.source, args.partial_diagnostics, native_editor_gui=args.native_editor_gui)
     args.output.write_text(json.dumps(result, indent=2) + '\n', encoding='ascii')
     print(json.dumps({'passed': result['passed'], 'rows': {label: row['passed']
                        for label, row in result['rows'].items()}}))

@@ -34,6 +34,7 @@ PARTIAL_BODY_REGIONS = {
 FACE_INDICES = ((4, 5, 6, 7), (0, 1, 5, 4), (2, 3, 7, 6),
                 (3, 0, 4, 7), (1, 2, 6, 5), (3, 2, 1, 0))
 _NATIVE_WORLD_GEOMETRY = object()
+_NATIVE_EDITOR_GUI = object()
 
 
 def water_polygons(shapes):
@@ -48,7 +49,45 @@ def water_polygons(shapes):
                 yield shape, tuple(points[index] for index in corners)
 
 
-def scene_project(points, shape, state):
+def recorded_editor_gui(state):
+    """Use the captured SDK integer and cache agreement, never an image fit."""
+    if not isinstance(state, dict):
+        raise ValueError('Captured editor state is missing')
+    cache = state.get('gui_cache')
+    if not isinstance(cache, dict):
+        raise ValueError('Captured editor SDK GUI cache is missing')
+    gui = cache.get('sdk_integer_gui')
+    cached = cache.get('cached_gui')
+    if (isinstance(gui, bool) or not isinstance(gui, (int, float))
+            or not 1. <= gui < float('inf') or gui != round(gui)
+            or isinstance(cached, bool) or not isinstance(cached, (int, float)) or cached != gui):
+        raise ValueError('Captured editor SDK GUI scale is invalid or differs from its cache')
+    return float(gui)
+
+
+def bind_native_editor_gui(source):
+    """Opt in per parsed report; raw JSON fields cannot select this oracle."""
+    states = []
+    for collection in (source['rows'], source.get('extra_rows', {})):
+        states.extend(row['ready'] for label, row in collection.items()
+                      if label.startswith('editor_'))
+    for label, holdout in source.get('alpha_controls', {}).items():
+        if label.startswith('editor_'):
+            states.append(holdout['baseline'])
+            states.extend(phase['ready'] for phase in holdout['phases'].values())
+    states.extend(burst['row']['ready'] for burst in source.get('flow_bursts', {}).values()
+                  if burst['row']['route'] == 'editor')
+    guis = sorted(set(recorded_editor_gui(state) for state in states))
+    source[_NATIVE_EDITOR_GUI] = True
+    return {'kind': 'captured_sdk_integer_gui_anchor', 'states_verified': len(states),
+            'native_gui_scales': guis, 'image_fit_or_roi_search': False,
+            'legacy_default_gui': 4.}
+
+
+def scene_project(points, shape, state, native_gui=4.):
+    if (isinstance(native_gui, bool) or not isinstance(native_gui, (int, float))
+            or not 1. <= native_gui < float('inf') or native_gui != round(native_gui)):
+        raise ValueError('Editor projection needs a positive integer native GUI scale')
     origin = tuple(axis // 4 * 4 for axis in shape['position'])
     groups = state['liquid_groups']
     identities = {row['key'] for row in groups if tuple(row['origin']) == origin}
@@ -60,7 +99,7 @@ def scene_project(points, shape, state):
     slot = row['visible'].index(True)
     position, size, pose = row['doll_positions'][slot], row['doll_sizes'][slot], row['poses'][slot]
     unit = pose[0] * min(size)
-    center = (position[0] + size[0] / 2., position[1] + size[1] / 2. - min(size) / 4.)
+    center = (position[0] + size[0] / 2., position[1] + size[1] / 2. - min(size) / float(native_gui))
     camera = OrbitCamera(*state['camera_pose'])
     right, up, unused = camera.basis()
     result = []
@@ -73,7 +112,10 @@ def scene_project(points, shape, state):
 
 def project(points, shape, row, source, size):
     if row['route'] == 'editor':
-        points = scene_project(points, shape, row['ready'])
+        if source.get(_NATIVE_EDITOR_GUI) is True:
+            points = scene_project(points, shape, row['ready'], native_gui=recorded_editor_gui(row['ready']))
+        else:
+            points = scene_project(points, shape, row['ready'])
         engine = row['ready']['screen_size']
         return [(point[0] * size[0] / engine[0], point[1] * size[1] / engine[1]) for point in points]
     camera = row['camera']
@@ -232,10 +274,16 @@ def fixed_alpha_regions(images, regions):
     return {'regions': result, 'passed': bool(result) and all(row['passed'] for row in result.values())}
 
 
-def analyze(path, native_world_geometry=False):
+def analyze(path, native_world_geometry=False, native_editor_gui=False):
     source = json.loads(path.read_bytes())
     failures = capture_failures(source['captures'], source['session_binding'])
     oracle = None
+    editor_oracle = None
+    if native_editor_gui:
+        try:
+            editor_oracle = bind_native_editor_gui(source)
+        except (ValueError, KeyError, TypeError) as exc:
+            failures.append({'native_editor_gui': str(exc)})
     if native_world_geometry:
         try:
             from water_native_projection import stone_camera_model
@@ -331,6 +379,8 @@ def analyze(path, native_world_geometry=False):
               'scope': 'Declared Java-style geometry and independent body/rear contribution; no native RGB comparison'}
     if native_world_geometry:
         output['geometry_oracle'] = oracle
+    if native_editor_gui:
+        output['editor_geometry_oracle'] = editor_oracle
     if not evidence_valid:
         return output
     images = {label: rgb(row['path']) for label, row in source['captures'].items()}
@@ -403,10 +453,13 @@ def main():
     parser.add_argument('output', type=Path)
     parser.add_argument('--native-world-geometry', action='store_true',
                         help='Use independently calibrated native stone coordinates and opaque falling supports')
+    parser.add_argument('--native-editor-gui', action='store_true',
+                        help='Use captured SDK integer GUI/cache agreement; default retains legacy GUI4 coordinates')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh analysis')
-    result = analyze(args.source, native_world_geometry=args.native_world_geometry)
+    result = analyze(args.source, native_world_geometry=args.native_world_geometry,
+                     native_editor_gui=args.native_editor_gui)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + '\n', encoding='ascii')
     print(json.dumps(result['observed_product_gates']))
 

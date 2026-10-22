@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
 
-from analyze_product_water import (TRANSPARENCY_REGIONS, analyze, contribution, expected_mask,
+from analyze_product_water import (TRANSPARENCY_REGIONS, analyze, bind_native_editor_gui, contribution, expected_mask,
                                    region_mask, rgb, scene_capture_state)
 
 BIOMES = ('plains', 'swampland', 'mangrove_swamp')
@@ -22,9 +22,9 @@ def color_change(first, second, selected):
     return result
 
 
-def biome_analysis(path, contact_path=None):
+def biome_analysis(path, contact_path=None, native_editor_gui=False):
     source = json.loads(path.read_bytes())
-    base = analyze(path)
+    base = analyze(path, native_editor_gui=True) if native_editor_gui else analyze(path)
     result = {'schema': 1, 'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
               'analyzer_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'source_contract_sha256': source.get('source_contract_sha256'),
@@ -35,6 +35,8 @@ def biome_analysis(path, contact_path=None):
               'scope': 'Visible preset changes with unchanged blocks, water geometry and camera'}
     if not result['evidence_valid'] or result['frozen'] is not True:
         return result
+    if native_editor_gui:
+        result['editor_geometry_oracle'] = bind_native_editor_gui(source)
     sheet = Image.new('RGB', (720, 720), 'white')
     draw = ImageDraw.Draw(sheet)
     for route_index, route in enumerate(source['routes']):
@@ -99,10 +101,12 @@ def main():
     parser.add_argument('source', type=Path)
     parser.add_argument('output', type=Path)
     parser.add_argument('--contact', type=Path)
+    parser.add_argument('--native-editor-gui', action='store_true',
+                        help='Use captured SDK integer GUI/cache agreement for editor biome regions')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose fresh analysis evidence')
-    result = biome_analysis(args.source, args.contact)
+    result = biome_analysis(args.source, args.contact, native_editor_gui=args.native_editor_gui)
     args.output.write_text(json.dumps(result, indent=2) + '\n', encoding='ascii')
     print(json.dumps({'passed': result['passed'], 'routes': {
         name: row['passed'] for name, row in result['rows'].items()}}))

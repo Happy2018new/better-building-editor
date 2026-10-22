@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 from scipy.ndimage import map_coordinates
 
-from analyze_product_water import analyze, expected_mask, project, rgb
+from analyze_product_water import analyze, bind_native_editor_gui, expected_mask, project, rgb
 
 LIMITS = {'side_correlation': .85, 'side_rgb_rmse': 8.,
           'side_minimum_contrast': 1., 'restored_rgb_rmse': 2.,
@@ -155,9 +155,9 @@ def visibility_pixels(original, dry, hidden, restored, mask):
             'independently_visible_water_pixels': count}
 
 
-def replay(path):
+def replay(path, native_editor_gui=False):
     source = json.loads(path.read_bytes())
-    base = analyze(path)
+    base = analyze(path, native_editor_gui=True) if native_editor_gui else analyze(path)
     result = {'schema': 1, 'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
               'limits': LIMITS, 'evidence_valid': base['evidence_valid'],
               'source_unchanged': source.get('source_unchanged'),
@@ -168,6 +168,8 @@ def replay(path):
     if not base['evidence_valid']:
         result['capture_failures'] = base['capture_failures']
         return result
+    if native_editor_gui:
+        result['editor_geometry_oracle'] = bind_native_editor_gui(source)
     images = {label: rgb(row['path']) for label, row in source['captures'].items()}
     if source.get('visibility_controls_requested'):
         for label, row in source['rows'].items():
@@ -220,10 +222,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source', type=Path)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--native-editor-gui', action='store_true',
+                        help='Use captured SDK integer GUI/cache agreement for editor samples')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh analysis')
-    result = replay(args.source)
+    result = replay(args.source, native_editor_gui=args.native_editor_gui)
     args.output.write_text(json.dumps(result, sort_keys=True, indent=2) + '\n', encoding='ascii')
     print(json.dumps(result))
     return 0 if result['passed'] else 1
