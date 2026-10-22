@@ -4,7 +4,7 @@
 
 当前开发继续至 **2026-10-23 00:00 UTC＝北京时间10-23 08:00＝New York 10-22 20:00**，届时休眠。07:00停止扩范围，07:30冻结公开入口及长实验，07:45前完成恢复／关闭和交接。任务 `Codex-BBE-R28-Hibernate-20261023` 已再次只读核为Ready／Enabled，trigger08:00+08、shutdown.exe /h、StartWhenAvailable=False；尚不能记作休眠已执行。下方R27“已停止”均是历史状态。
 
-主仓dev最新可审候选提交 `3cb253df`，实际游戏运行源码仍 **`b70ce7bf13ad6a4472f2b089ac812c162b174861`**；之后为宿主、证据或文档。只本地提交，不push、不合main，不清理历史untracked、五用户probe或磁盘垃圾。最多3活动代理、5个实际活MC；当前各实机实验均已结束释放，收尾再做全量精确身份核对。CIM旧零handle／零thread／null-executable墓碑不计活MC，必须核PID＋创建身份＋实际exit state。
+主仓dev的组合候选保存于 `3cb253df`，实际游戏运行源码仍 **`b70ce7bf13ad6a4472f2b089ac812c162b174861`**；之后为宿主、证据或文档。只本地提交，不push、不合main，不清理历史untracked、五用户probe或磁盘垃圾。最多3活动代理、5个实际活MC；当前各实机实验均已结束释放，收尾再做全量精确身份核对。CIM旧零handle／零thread／null-executable墓碑不计活MC，必须核PID＋创建身份＋实际exit state。
 
 已取得的产品及验证：书GUI锚点 `7c06e23a`；水PaperDoll裁剪 `a6950ece`；公开书卡 `e7f89a2f`、可选伙伴卡 `e733baa9`、三水小卡 `b70ce7bf`。当前显式水合同正式16门和元数据 `179b5255`；CPU全量 `491d77fa` 为3485项／skip1／OK、6310文件前后相同，含历史untracked测试／工具且早于新增小卡。入口新增另有30项定点及Py2／3编译，不能篡改全量来源。变换代表及fresh补查 `f940a322`／`a6afdb60`。见各专项和[周末八组指南](acceptance/2026-10-24-quick-guide.md)。
 
@@ -21,6 +21,8 @@ T02支撑对照V3已完成、提交 `83e3d440`：四个实际唯一模型、六�
 - `143b246e`的[资源／owner图](verification/RENDER_BOUNDARY_MAP_R28.md)列四显式合同28声明模型、48直接本地资源、56Git输入及8处共享注册整文件hash差异；own entries匹配，外部父材质／shader include未闭合。39水源只是显式合同，不是全导入或GPU闭包。
 
 正式合入上述组合会改变水39中的Scene并新增实际helper依赖，需按最终源重新生成合同和处理水16门／portal12门及owner真实生命周期。候选不能带入旧资格，也不能把共享Scene移出清单来绕过；既定剩余约4小时实施容量未记完成。书GUI4间歇空白、线OB10上坡严格失败和植物两名称未到target的失败均继续开放；线flat-only与植物候选仍私有，原生水仍不接受。常用watcher共享I/O工具修正 `5ad78cbe` 的11项检查及V7并发证据保留，不扩为原生崩溃根因。
+
+下一窗口的[helper合同准备](evidence/water-helper-contract-r28-v1/README.md)已封存：正式水生成器只需在显式清单新增scene_owner，由39项扩为40项，schema仍为1。14次真实Python3 CLI控制保留了旧清单漏检helper和新清单拒绝helper改动／缺失的结果；root另核整个生成器AST仅该清单变化、40项实际源及生成器hash，并复跑两项只读check。这只是私有工具补丁，未改产品、未运行qualifier，新源水16门仍全部待处理。末地probe的SOURCES和书probe的OWNER_SOURCES也各自缺helper，须独立补齐后再取得对应资格；水40项不会自动覆盖它们。历史ZIP／报告没有捕获helper，后续审计只能标记历史不可用，不能补写为通过。
 
 两库仍main renderer `ca1035615410db75aeaffdd7e8f3feb73ae6c0f0`／states `58534dc5956848b4e6e5bcba97ad7112e2802388`，15／12份绑定来源未变；主程序未cutover。10-31—11-03最小接入、每周期约6小时重构、15天发布、11-03镜像旋转必交付不变。周末只给八组30—60分钟代表、全部人工未检查；新增人工关闭0，无新账单，不由测试／提交／并发扣110小时占位。
 

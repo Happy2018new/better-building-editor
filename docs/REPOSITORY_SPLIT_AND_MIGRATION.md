@@ -22,6 +22,8 @@ R28后半段已补[静态依赖准备](verification/RENDER_BOUNDARY_MAP_R28.md)�
 
 两份补丁另已在b70原字节的私有目录顺序真实check／apply，并形成[三文件组合候选](evidence/scene-portal-combination-r28-v1/README.md)。root在另一私有目录重放组合patch，三文件逐原字节等于代理结果；完整Scene AST仅五owner、helper import及末地callback变化，组合源真Python2／3的新owner58例和portal控制均通过。默认Git的LF／CRLF转换分别记录，没有将换行差异当代码变化，也未改写原封候选。组合候选仍未合入或原生验证。
 
+下一窗口的[helper合同准备](evidence/water-helper-contract-r28-v1/README.md)已封存：正式水生成器只需在显式清单新增scene_owner，由39项扩为40项，schema仍为1。14次真实Python3 CLI控制保留了旧清单漏检helper和新清单拒绝helper改动／缺失的结果；root另核整个生成器AST仅该清单变化、40项实际源及生成器hash，并复跑两项只读check。这只是私有工具补丁，未改产品、未运行qualifier，新源水16门仍全部待处理。末地probe的SOURCES和书probe的OWNER_SOURCES也各自缺helper，须独立补齐后再取得对应资格；水40项不会自动覆盖它们。历史ZIP／报告没有捕获helper，后续审计只能标记历史不可用，不能补写为通过。
+
 这些补丁用于减少下一窗口准备与评审成本，没有将既定剩余约4小时实施／真实验证容量记为完成。两库的10-31—11-03固定版本最小接入、每周期约6小时重构及原预算保持；植物／红石线候选仍各自保留，不能随机械抽取夹带合入。
 
 ## 2026-10-21 R25 恢复：海带与箱体边界来源续接

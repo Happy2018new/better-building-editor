@@ -1,0 +1,33 @@
+{
+  "MC_started": false,
+  "all_39_previous_hashes_unchanged": true,
+  "all_40_actual_candidate_sources_and_generator_independently_hashed": true,
+  "candidate_contract_sha256": "33f455ee6d334b13b4262eb991d44ca779f26654551533f0c983dba66a59d050",
+  "completed": true,
+  "exact_original_files": 112,
+  "explicit_sources": 40,
+  "independent_portal_and_book_source_lists_still_require_helper": true,
+  "manual_issues_closed": 0,
+  "merged": false,
+  "new_water_gates_awarded": 0,
+  "original_agent_index_sha256": "b4fb8ed6f4aa08383b9f1c48194ac7c6ba63082da34e91cd2741a50b00462405",
+  "qualifier_called": false,
+  "root_actual_positive_CLI_replays": [
+    {
+      "args": [
+        "--check"
+      ],
+      "returncode": 0,
+      "script": "candidate40/tools/generate_liquid_product_owner_contract.py"
+    },
+    {
+      "args": [
+        "--check"
+      ],
+      "returncode": 0,
+      "script": "candidate40/tools/check_liquid_product_owner_contract.py"
+    }
+  ],
+  "root_preparation_correction": "Initial literal_eval rejected the tuple generator before output creation; preserved failed script, then extracted only the exact reviewed AST construction without executing it.",
+  "whole_generator_AST_only_one_source_added": true
+}

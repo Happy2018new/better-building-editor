@@ -19,6 +19,8 @@
 
 [职责与资源准备](verification/RENDER_BOUNDARY_MAP_R28.md)已定位五Scene owner和四份声明合同：28声明模型、48直接本地资源，含诊断变体；不是完整资源／GPU闭包。已保存[两个原封候选](evidence/next-cycle-candidates-r28-v2/README.md)和[三文件组合候选](evidence/scene-portal-combination-r28-v1/README.md)，真Py2／3控制、完整允许区域AST和真实patch重放通过。它们均未合入或冷测；Scene与新增helper须留在实际受影响来源中，不能删依赖转授水39资格。生命周期异常语义保持，改善异常行为留后续独立批次。
 
+下一窗口的[helper合同准备](evidence/water-helper-contract-r28-v1/README.md)已封存：正式水生成器只需在显式清单新增scene_owner，由39项扩为40项，schema仍为1。14次真实Python3 CLI控制保留了旧清单漏检helper和新清单拒绝helper改动／缺失的结果；root另核整个生成器AST仅该清单变化、40项实际源及生成器hash，并复跑两项只读check。这只是私有工具补丁，未改产品、未运行qualifier，新源水16门仍全部待处理。末地probe的SOURCES和书probe的OWNER_SOURCES也各自缺helper，须独立补齐后再取得对应资格；水40项不会自动覆盖它们。历史ZIP／报告没有捕获helper，后续审计只能标记历史不可用，不能补写为通过。
+
 两库运行依赖尚未接入；renderer main `ca1035615410db75aeaffdd7e8f3feb73ae6c0f0`，states main `58534dc5956848b4e6e5bcba97ad7112e2802388`，15／12份既有来源绑定无变化。10-31—11-03最小接库、每周期约6小时重构容量及原预算不变。物品／展示架／特殊物品、其他NBT和未列普通组合按下方既有待办保留，不因本表聚焦而从范围删除。
 
 本轮继续至北京时间08:00并休眠，07:00／07:30／07:45收尾线保持。周末交[八组30—60分钟代表](acceptance/2026-10-24-quick-guide.md)，全部人工未检查；下一允许开发窗口10-25周日23:30，先处理反馈。无新用量账单，不由时间或代理并发扣预算；所有普通stop返回值与实际异常退出分开记录，最终所有权在收尾再次核对。

@@ -1,0 +1,17 @@
+{
+  "label": "baseline-checker-helper-drift-not-detected",
+  "command": [
+    "D:\\Program\\Python\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-owner-helper-contract-v1\\projects\\baseline39\\tools\\check_liquid_product_owner_contract.py",
+    "--check"
+  ],
+  "cwd": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-owner-helper-contract-v1\\projects\\baseline39",
+  "returncode": 0,
+  "expected_returncode": 0,
+  "stdout": "{\n  \"artifact_differences\": [],\n  \"checked\": true,\n  \"contract_sha256\": \"28785a63a1c6083c747418cbd8e254d4be72c3a9a197edf4a3e40ca049df11b7\",\n  \"errors\": [],\n  \"generator_difference\": null,\n  \"passed\": true,\n  \"scope\": \"Explicit SOURCES and generator only; not a transitive dependency closure or a runtime/GPU qualification. Unlisted helper changes are not detected.\",\n  \"source_differences\": [],\n  \"sources\": 39\n}\n",
+  "stderr": "",
+  "at_utc": "2026-10-22T22:42:56.271742+00:00"
+}

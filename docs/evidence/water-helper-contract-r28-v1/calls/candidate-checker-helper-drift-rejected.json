@@ -1,0 +1,17 @@
+{
+  "label": "candidate-checker-helper-drift-rejected",
+  "command": [
+    "D:\\Program\\Python\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-owner-helper-contract-v1\\projects\\candidate40\\tools\\check_liquid_product_owner_contract.py",
+    "--check"
+  ],
+  "cwd": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-owner-helper-contract-v1\\projects\\candidate40",
+  "returncode": 1,
+  "expected_returncode": 1,
+  "stdout": "{\n  \"artifact_differences\": [\n    {\n      \"actual_sha256\": \"33f455ee6d334b13b4262eb991d44ca779f26654551533f0c983dba66a59d050\",\n      \"expected_sha256\": \"bf464ea6a366d880945f03b368fa0f8825c7e11dac5f5ced86663c8343ab6708\",\n      \"path\": \"tools/data/liquid_product_owner_contract_v1.json\",\n      \"status\": \"changed\"\n    },\n    {\n      \"actual_sha256\": \"e54ed995e4e9395bb206a20124a9530c716c799835ce93ab834d781f633efe39\",\n      \"expected_sha256\": \"e5c1dc6930c268af569b46ef563d06d16f24c30ded363a256d4af888dc4f3456\",\n      \"path\": \"behavior_pack/modern_projection/projection/liquid_product_owner_data.py\",\n      \"status\": \"changed\"\n    }\n  ],\n  \"checked\": true,\n  \"contract_sha256\": \"bf464ea6a366d880945f03b368fa0f8825c7e11dac5f5ced86663c8343ab6708\",\n  \"errors\": [],\n  \"generator_difference\": null,\n  \"passed\": false,\n  \"scope\": \"Explicit SOURCES and generator only; not a transitive dependency closure or a runtime/GPU qualification. Unlisted helper changes are not detected.\",\n  \"source_differences\": [\n    {\n      \"actual_sha256\": \"66eef2b284f89a5a8920a679a4228d386ddd348ee235aab27b538042aeb7b476\",\n      \"expected_sha256\": \"cf8f500261d6f1a96d9f0625b62eb277484d2b5034cc614a04b00bc3f4204569\",\n      \"path\": \"behavior_pack/modern_projection/projection/scene_owner.py\",\n      \"status\": \"changed\"\n    }\n  ],\n  \"sources\": 40\n}\n",
+  "stderr": "",
+  "at_utc": "2026-10-22T22:42:57.365593+00:00"
+}

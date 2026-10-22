@@ -1,0 +1,71 @@
+"""Select explicitly accepted water visuals without claiming native parity."""
+import math
+
+from . import liquid_product_qualification_data as qualification
+from .liquid_render_target_data import TARGET_ENGINE_VERSION
+from .storage import integer_types
+
+REQUIRED_GATES = frozenset(('editor', 'projection_full', 'projection_missing', 'transparency',
+                            'geometry', 'animation', 'biome', 'lifecycle', 'side_uv',
+                            'visibility', 'neighbors', 'occupancy', 'budgets', 'default_path',
+                            'transparent_overlap', 'public_gallery'))
+
+
+def ui_offset_for_gui(size, gui):
+    """Place only the explicit product-water candidate at the native GUI anchor."""
+    if (isinstance(gui, bool) or not isinstance(gui, integer_types + (float,))
+            or not 1. <= gui < float('inf') or gui != round(gui)):
+        raise ValueError('Product water needs a positive integer native GUI scale')
+    return 0., min(size) / float(gui)
+
+
+def ui_geometry_for_gui(position, size, gui):
+    if (isinstance(gui, bool) or not isinstance(gui, integer_types + (float,))
+            or not 1. <= gui < float('inf') or gui != round(gui)):
+        raise ValueError('Product water needs a positive integer native GUI scale')
+    if (len(position) != 2 or len(size) != 2
+            or any(isinstance(value, bool) or not isinstance(value, integer_types + (float,))
+                   or math.isnan(value) or math.isinf(value) for value in tuple(position) + tuple(size))
+            or min(size) <= 0.):
+        raise ValueError('Product water needs finite UI geometry and positive dimensions')
+    width, height = size
+    expanded_height = max(width, height + 2. * width / float(gui))
+    return ((position[0], position[1] + (height - expanded_height) / 2. + width / float(gui)),
+            (width, expanded_height))
+
+
+def candidate_profile(frozen=False):
+    """Explicit diagnostic entry; it never changes the production acceptance data."""
+    from .liquid_deployment import ui_pose, ui_offset
+    from .liquid_product_profile import ProductLiquidProfile
+    from . import liquid_product_resource_data as resources
+    selected = dict(resources.PRODUCT_RESOURCES)
+    if frozen:
+        selected['models'] = resources.FROZEN_PRODUCT_MODELS
+    profile = ProductLiquidProfile(selected, ui_pose, ui_offset)
+    profile.ui_offset_for_gui = ui_offset_for_gui
+    profile.ui_geometry_for_gui = ui_geometry_for_gui
+    return profile
+
+
+def production_profile(engine_version=None):
+    if not qualification.PRODUCT_QUALIFIED:
+        return None
+    if engine_version != TARGET_ENGINE_VERSION:
+        return None
+    from . import liquid_product_resource_data as resources, liquid_product_shape_data as rules
+    from . import liquid_product_owner_data as owners
+    evidence = qualification.QUALIFICATION_SHA256
+    if (qualification.SCHEMA_VERSION != 2
+            or qualification.QUALIFICATION_ENGINE_VERSION != TARGET_ENGINE_VERSION
+            or not isinstance(evidence, str) or len(evidence) != 64
+            or any(value not in '0123456789abcdef' for value in evidence)
+            or qualification.QUALIFICATION_RESOURCE_CONTRACT_SHA256 != resources.PRODUCT_RESOURCE_CONTRACT_SHA256
+            or qualification.QUALIFICATION_RULES_SHA256 != rules.PRODUCT_RULES_SHA256
+            or qualification.QUALIFICATION_STYLE_VERSION != rules.PRODUCT_STYLE_VERSION
+            or owners.SCHEMA_VERSION != 1
+            or qualification.QUALIFICATION_IMPLEMENTATION_CONTRACT_SHA256 != owners.IMPLEMENTATION_CONTRACT_SHA256
+            or not isinstance(qualification.GATES, dict) or set(qualification.GATES) != REQUIRED_GATES
+            or any(value is not True for value in qualification.GATES.values())):
+        raise ValueError('Product water needs complete visible acceptance for these exact rules and resources')
+    return candidate_profile()
