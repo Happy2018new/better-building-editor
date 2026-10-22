@@ -1,0 +1,436 @@
+{
+  "actual_readback_rows": 8,
+  "actual_sdk_gui": 2.0,
+  "candidate_sha256": "7e2d5999c8f90fc720172ed087fcaf8604c6213301ca43507d7f837743425604",
+  "effective_pixel_unit_invariant": true,
+  "invalid_gui_rejections": [
+    "True",
+    "False",
+    "0.0",
+    "-1.0",
+    "0.5",
+    "1.5",
+    "nan",
+    "inf",
+    "-inf",
+    "'2'",
+    "None"
+  ],
+  "native_success_claimed": false,
+  "negative_controls": {
+    "expansion_without_center_compensation_moves_projection": true,
+    "height_change_without_pose_recalc_changes_pixels": true,
+    "old_offset_loses_original_rectangle": true,
+    "wrong_gui_moves_projection": true
+  },
+  "passed": true,
+  "projected_points": 216,
+  "raw_scale_invariant_claimed": false,
+  "rows": [
+    {
+      "actual_shifted_geometry": [
+        [
+          -77.95925373306204,
+          82.35316668510404
+        ],
+        [
+          418.5842537330621,
+          164.70633337020809
+        ]
+      ],
+      "base_geometry": [
+        [
+          -77.95925373306204,
+          0.0
+        ],
+        [
+          418.5842537330621,
+          164.70633337020809
+        ]
+      ],
+      "checks": {
+        "contains_base_rect": true,
+        "effective_unit_preserved": true,
+        "minimum_is_width": true,
+        "native_anchor_preserved": true
+      },
+      "effective_unit": 52.909199999999984,
+      "key": "((0, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+      "native_model_ids": [
+        -1,
+        16
+      ],
+      "new_scale": 0.1264003591347252,
+      "new_viewport_intersection_pixels": 54414.84374999999,
+      "old_scale": 0.3212335489314593,
+      "old_viewport_intersection_pixels": 26363.29634788643,
+      "proposed_geometry": [
+        [
+          -77.95925373306204,
+          2.842170943040401e-14
+        ],
+        [
+          418.5842537330621,
+          583.2905871032701
+        ]
+      ],
+      "renderer_error": null
+    },
+    {
+      "actual_shifted_geometry": [
+        [
+          -77.95925373306204,
+          82.35316668510404
+        ],
+        [
+          418.5842537330621,
+          164.70633337020809
+        ]
+      ],
+      "base_geometry": [
+        [
+          -77.95925373306204,
+          0.0
+        ],
+        [
+          418.5842537330621,
+          164.70633337020809
+        ]
+      ],
+      "checks": {
+        "contains_base_rect": true,
+        "effective_unit_preserved": true,
+        "minimum_is_width": true,
+        "native_anchor_preserved": true
+      },
+      "effective_unit": 52.909199999999984,
+      "key": "((0, 0, 0), ('still_water_grey', None), 0)",
+      "native_model_ids": [
+        -1,
+        17
+      ],
+      "new_scale": 0.1264003591347252,
+      "new_viewport_intersection_pixels": 54414.84374999999,
+      "old_scale": 0.3212335489314593,
+      "old_viewport_intersection_pixels": 26363.29634788643,
+      "proposed_geometry": [
+        [
+          -77.95925373306204,
+          2.842170943040401e-14
+        ],
+        [
+          418.5842537330621,
+          583.2905871032701
+        ]
+      ],
+      "renderer_error": null
+    },
+    {
+      "actual_shifted_geometry": [
+        [
+          -320.7390168225401,
+          155.61941694929698
+        ],
+        [
+          661.3640168225402,
+          311.23883389859395
+        ]
+      ],
+      "base_geometry": [
+        [
+          -320.7390168225401,
+          0.0
+        ],
+        [
+          661.3640168225402,
+          311.23883389859395
+        ]
+      ],
+      "checks": {
+        "contains_base_rect": true,
+        "effective_unit_preserved": true,
+        "minimum_is_width": true,
+        "native_anchor_preserved": true
+      },
+      "effective_unit": 52.909199999999984,
+      "key": "((0, 0, 4), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+      "native_model_ids": [
+        -1,
+        18
+      ],
+      "new_scale": 0.08000011892723942,
+      "new_viewport_intersection_pixels": 54414.84375,
+      "old_scale": 0.16999549618296847,
+      "old_viewport_intersection_pixels": 1406.979851645708,
+      "proposed_geometry": [
+        [
+          -320.7390168225401,
+          0.0
+        ],
+        [
+          661.3640168225402,
+          972.6028507211341
+        ]
+      ],
+      "renderer_error": null
+    },
+    {
+      "actual_shifted_geometry": [
+        [
+          -320.7390168225401,
+          155.61941694929698
+        ],
+        [
+          661.3640168225402,
+          311.23883389859395
+        ]
+      ],
+      "base_geometry": [
+        [
+          -320.7390168225401,
+          0.0
+        ],
+        [
+          661.3640168225402,
+          311.23883389859395
+        ]
+      ],
+      "checks": {
+        "contains_base_rect": true,
+        "effective_unit_preserved": true,
+        "minimum_is_width": true,
+        "native_anchor_preserved": true
+      },
+      "effective_unit": 52.909199999999984,
+      "key": "((0, 0, 4), ('still_water_grey', None), 0)",
+      "native_model_ids": [
+        -1,
+        19
+      ],
+      "new_scale": 0.08000011892723942,
+      "new_viewport_intersection_pixels": 54414.84375,
+      "old_scale": 0.16999549618296847,
+      "old_viewport_intersection_pixels": 1406.979851645708,
+      "proposed_geometry": [
+        [
+          -320.7390168225401,
+          0.0
+        ],
+        [
+          661.3640168225402,
+          972.6028507211341
+        ]
+      ],
+      "renderer_error": null
+    },
+    {
+      "actual_shifted_geometry": [
+        [
+          0.0,
+          133.65474741645104
+        ],
+        [
+          609.3911810004989,
+          267.3094948329021
+        ]
+      ],
+      "base_geometry": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          609.3911810004989,
+          267.3094948329021
+        ]
+      ],
+      "checks": {
+        "contains_base_rect": true,
+        "effective_unit_preserved": true,
+        "minimum_is_width": true,
+        "native_anchor_preserved": true
+      },
+      "effective_unit": 52.909199999999984,
+      "key": "((4, 0, 0), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+      "native_model_ids": [
+        -1,
+        20
+      ],
+      "new_scale": 0.08682304839583273,
+      "new_viewport_intersection_pixels": 54414.84374999998,
+      "old_scale": 0.19793236313238358,
+      "old_viewport_intersection_pixels": 8888.695411271354,
+      "proposed_geometry": [
+        [
+          0.0,
+          5.684341886080802e-14
+        ],
+        [
+          609.3911810004989,
+          876.700675833401
+        ]
+      ],
+      "renderer_error": null
+    },
+    {
+      "actual_shifted_geometry": [
+        [
+          0.0,
+          133.65474741645104
+        ],
+        [
+          609.3911810004989,
+          267.3094948329021
+        ]
+      ],
+      "base_geometry": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          609.3911810004989,
+          267.3094948329021
+        ]
+      ],
+      "checks": {
+        "contains_base_rect": true,
+        "effective_unit_preserved": true,
+        "minimum_is_width": true,
+        "native_anchor_preserved": true
+      },
+      "effective_unit": 52.909199999999984,
+      "key": "((4, 0, 0), ('still_water_grey', None), 0)",
+      "native_model_ids": [
+        -1,
+        21
+      ],
+      "new_scale": 0.08682304839583273,
+      "new_viewport_intersection_pixels": 54414.84374999998,
+      "old_scale": 0.19793236313238358,
+      "old_viewport_intersection_pixels": 8888.695411271354,
+      "proposed_geometry": [
+        [
+          0.0,
+          5.684341886080802e-14
+        ],
+        [
+          609.3911810004989,
+          876.700675833401
+        ]
+      ],
+      "renderer_error": null
+    },
+    {
+      "actual_shifted_geometry": [
+        [
+          0.0,
+          183.30570895551045
+        ],
+        [
+          366.6114179110209,
+          413.8419953612879
+        ]
+      ],
+      "base_geometry": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          366.6114179110209,
+          413.8419953612879
+        ]
+      ],
+      "checks": {
+        "contains_base_rect": true,
+        "effective_unit_preserved": true,
+        "minimum_is_width": true,
+        "native_anchor_preserved": true
+      },
+      "effective_unit": 52.909199999999984,
+      "key": "((4, 0, 4), ('flowing_water_grey', 'native_water_side_nw_bottom_edges_v1'), 0)",
+      "native_model_ids": [
+        -1,
+        -1
+      ],
+      "new_scale": 0.1443195640263485,
+      "new_viewport_intersection_pixels": 54414.84375,
+      "old_scale": 0.1443195640263485,
+      "old_viewport_intersection_pixels": 0.0,
+      "proposed_geometry": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          366.6114179110209,
+          780.4534132723088
+        ]
+      ],
+      "renderer_error": "Liquid skeleton model ID did not become ready"
+    },
+    {
+      "actual_shifted_geometry": [
+        [
+          0.0,
+          183.30570895551045
+        ],
+        [
+          366.6114179110209,
+          413.8419953612879
+        ]
+      ],
+      "base_geometry": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          366.6114179110209,
+          413.8419953612879
+        ]
+      ],
+      "checks": {
+        "contains_base_rect": true,
+        "effective_unit_preserved": true,
+        "minimum_is_width": true,
+        "native_anchor_preserved": true
+      },
+      "effective_unit": 52.909199999999984,
+      "key": "((4, 0, 4), ('still_water_grey', None), 0)",
+      "native_model_ids": [
+        -1,
+        -1
+      ],
+      "new_scale": 0.1443195640263485,
+      "new_viewport_intersection_pixels": 54414.84375,
+      "old_scale": 0.1443195640263485,
+      "old_viewport_intersection_pixels": 0.0,
+      "proposed_geometry": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          366.6114179110209,
+          780.4534132723088
+        ]
+      ],
+      "renderer_error": "Liquid skeleton model ID did not become ready"
+    }
+  ],
+  "schema": 1,
+  "shared_source_changed": false,
+  "source_derived_viewport": [
+    340.62500000000006,
+    159.74999999999997
+  ],
+  "source_sha256": {
+    "behavior_pack/modern_projection/projection/camera.py": "38cd20f3bfae44b9e48d5c0853faf5e965b7812472f87f5e342668ac28c30178",
+    "behavior_pack/modern_projection/projection/liquid_deployment.py": "e84cb77ee5f741a810ea53dd25bf627589246191e8e91ee7704f381541492e53",
+    "behavior_pack/modern_projection/projection/scene.py": "5f150ea6b5c8b06cac44b2f076b70dccc143e6a65e5c1aeea4ce714984ba0d97"
+  },
+  "stress_rows": 3500,
+  "viewport_provenance": "Derived, not directly read back: exact frozen Scene.unit() and render_bounds(), with actual pose/size/position/zoom/scene-size."
+}

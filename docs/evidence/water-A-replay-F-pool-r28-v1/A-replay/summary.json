@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "source_report": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\product-v2-a-v1.json",
+  "source_report_sha256": "b38ae6262e6b98679bd5f15f5a66179c75bbc003b320fe5e39ba9fe609dbd0ba",
+  "product_analysis_sha256": "12ac7f1be48b1cc11f133cb23530692df036ded7672e4d6f029b28637467ba62",
+  "flow_analysis_sha256": "8792412bc92c364d3bafe9177c1ee8073c0e9fc3186089951366cfdc6deeb44f",
+  "product_evidence_valid": true,
+  "animation_rows": 15,
+  "animation_failed": [],
+  "visible_animation_passed": true,
+  "physical_flow_passed": true,
+  "physical_flow_rows": 15,
+  "existing_A_capture_and_direction_and_visibility_passed": true,
+  "source_unchanged": true,
+  "anchor_activation": {
+    "schema": 1,
+    "version": "editor-product-GUI-anchor-host-v1",
+    "host_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-editor-anchor-candidate-v1\\analysis_anchor_host.py",
+    "host_sha256": "0ceecf6190a97f6d9215c0e510a78fd08c0a936a50e50279fd449078b1ab7a83",
+    "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-editor-anchor-candidate-v1\\candidate_scene_project.py",
+    "candidate_sha256": "5db34b3a3c0b4d7ffaf90e4e82f1fdd60cc55843743f4eb11b9b5ffbbdf442c2",
+    "bound_reports": {
+      "product-v2-a-v1.json": "b38ae6262e6b98679bd5f15f5a66179c75bbc003b320fe5e39ba9fe609dbd0ba",
+      "product-v2-a-v1-host.json": "5692b38296118ff9ee82352c04756617769942363d7242ef4d73d7922b8ca81b",
+      "final-source-binding-v1.json": "3d6c304ecd1fecc6b38649f7fb3ab2d792eec1583daf21ac0fd91fd388551796"
+    },
+    "editor_states": [
+      {
+        "label": "editor_flow_east_wet",
+        "state_sha256": "4d8d32115a14474481d0692b09b3ebe55aaca65c2b77ece47a9d942771ca94e2",
+        "actual_sdk_gui": 2.0,
+        "sdk_observation_labels": [
+          "product-v2-a-v1_editor_flow_east_wet_before_wgc",
+          "product-v2-a-v1_editor_flow_east_wet_burst_before_burst",
+          "product-v2-a-v1_editor_flow_east_wet_later_before_wgc"
+        ]
+      },
+      {
+        "label": "editor_flow_south_wet",
+        "state_sha256": "276fa2c89078ecdf53a026b3b0250429e2d3f05aa5d2fe8216a4a52120547e2c",
+        "actual_sdk_gui": 2.0,
+        "sdk_observation_labels": [
+          "product-v2-a-v1_editor_flow_south_wet_before_wgc",
+          "product-v2-a-v1_editor_flow_south_wet_burst_before_burst",
+          "product-v2-a-v1_editor_flow_south_wet_later_before_wgc"
+        ]
+      },
+      {
+        "label": "editor_flow_west_wet",
+        "state_sha256": "2f74e650e60f07b2eaea922c977c8e10d115fd1c59b5ec5ed12eebef7f6dc4f2",
+        "actual_sdk_gui": 2.0,
+        "sdk_observation_labels": [
+          "product-v2-a-v1_editor_flow_west_wet_before_wgc",
+          "product-v2-a-v1_editor_flow_west_wet_burst_before_burst",
+          "product-v2-a-v1_editor_flow_west_wet_later_before_wgc"
+        ]
+      },
+      {
+        "label": "editor_flow_north_wet",
+        "state_sha256": "48c619c904bd2060f30fd9cb51fe8525b5c2a8133f79cb9d3495c24e124c367a",
+        "actual_sdk_gui": 2.0,
+        "sdk_observation_labels": [
+          "product-v2-a-v1_editor_flow_north_wet_before_wgc",
+          "product-v2-a-v1_editor_flow_north_wet_burst_before_burst",
+          "product-v2-a-v1_editor_flow_north_wet_later_before_wgc"
+        ]
+      },
+      {
+        "label": "editor_falling_wet",
+        "state_sha256": "5a00d5c30c961e6eb379161b923973173233657662d754d0c6bd03a428845f93",
+        "actual_sdk_gui": 2.0,
+        "sdk_observation_labels": [
+          "product-v2-a-v1_editor_falling_wet_before_wgc",
+          "product-v2-a-v1_editor_falling_wet_burst_before_burst",
+          "product-v2-a-v1_editor_falling_wet_later_before_wgc"
+        ]
+      }
+    ],
+    "frozen_sources": {
+      "tools/analyze_product_water.py": "f3862bda8776c18a308332e9d7ee05d1f0f3acee2305d2812534f867ec03da81",
+      "tools/analyze_product_water_flow.py": "3cdc9597170a2fd53254539961a5bb8d51e278eeed279bb580d22a668971179f",
+      "behavior_pack/modern_projection/projection/camera.py": "38cd20f3bfae44b9e48d5c0853faf5e965b7812472f87f5e342668ac28c30178",
+      "behavior_pack/modern_projection/projection/liquid_product_deployment.py": "5fa49e83b67841f008cf32fc9cbdff48dfd4335227d444e3e414b49af0caefd1",
+      "behavior_pack/modern_projection/projection/liquid_deployment.py": "e84cb77ee5f741a810ea53dd25bf627589246191e8e91ee7704f381541492e53",
+      "behavior_pack/modern_projection/projection/liquid_viewport.py": "9f20eaafb50b612b895736294d317501eeda002aa88a7e920cb92f3b6bdccca5",
+      "behavior_pack/modern_projection/projection/scene.py": "5f150ea6b5c8b06cac44b2f076b70dccc143e6a65e5c1aeea4ce714984ba0d97"
+    },
+    "change": "Invert existing product ui_offset_for_gui using actual SDK GUI instead of legacy /4.",
+    "physical_points_or_thresholds_changed": false,
+    "world_projection_changed": false,
+    "image_fit_performed": false,
+    "original_failed_report_modified": false,
+    "project_or_analyzer_source_bytes_modified": false,
+    "MC_started": false,
+    "formal_A_accepted": false,
+    "production_admission_performed": false,
+    "manual_closures_added": 0
+  },
+  "calibration_activation": {
+    "schema": 1,
+    "version": "single_stone_actual_one_pixel_antialias_seam_v1",
+    "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-camera-extractor-seam-candidate-v1\\candidate_extractor.py",
+    "candidate_sha256": "3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f",
+    "host_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-merged-fullA-v2\\calibration_host.py",
+    "host_sha256": "7b6c6afd91f9fca7fb254c1b38a3da8eda3f8094d97d7541c0fdf894ab0a0c50",
+    "project_source_bytes_modified": false,
+    "new_calibration_host_evidence": true,
+    "old_failed_report_revised": false,
+    "production_qualification_modified": false,
+    "expected_silhouette_used_to_build_mask": false
+  },
+  "calibration_report": {
+    "version": "single_stone_actual_one_pixel_antialias_seam_v1",
+    "actual_fixture_observations": 12,
+    "camera_report_sha256": "17d697caac263fd770ea0dc1b94147d07a5788a4f06c748fec86f55334d042c6"
+  },
+  "speed_magnitude_measured": false,
+  "native_RGB_parity_claimed": false,
+  "new_MC_started": false,
+  "RPC_dispatched": false,
+  "complete_current_source_release_qualified": false
+}

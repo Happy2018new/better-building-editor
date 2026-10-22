@@ -1,0 +1,105 @@
+--- R27/launch_r25.py
++++ R28/launch_r25.py
+@@ -13,7 +13,7 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r27-merged-fullA-v2'
++OWNER = 'water-r28-formal-f-editor-v2'
+ PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-merged-flow-editor-v1')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+--- R27/run_group.py
++++ R28/run_group.py
+@@ -31,7 +31,7 @@
+     assert grant['owner']==binding['owner'] and grant['plan_sha256']==sha(WORK/'plan-v1.json')
+     assert grant['schema']==1
+     assert grant['begin']<=time.time()<grant['until']-300
+-    assert datetime.now(timezone.utc)<datetime.fromisoformat('2026-10-21T23:20:00+00:00'),'Insufficient time before 07:25 capture cutoff'
++    assert datetime.now(timezone.utc)<datetime.fromisoformat('2026-10-22T23:20:00+00:00'),'Insufficient time before 07:25 capture cutoff'
+     output=WORK/'group-execution-v1.json'
+     assert not output.exists()
+     row={'schema':1,'owner':binding['owner'],'completed':False,'started_at':time.time(),'steps':[],
+@@ -91,9 +91,7 @@
+         command('ordinary-cold-init','observe_cold_default.py')
+         command('resize','resize_background.py')
+         command('world-baseline','world_readback.py')
+-        command('camera','run_camera.py',('camera',),timeout=480)
+-        independent_restore('after-camera')
+-        command('A','run_flow.py',('A',),timeout=1800)
++        command('F-editor','run_frozen_editor.py',timeout=1800)
+         row['completed']=True
+     except BaseException as error:
+         row['error']={'type':type(error).__name__,'message':str(error),'traceback':traceback.format_exc()}
+--- R26/run_product_v2_f_editor.py
++++ R28/run_frozen_editor.py
+@@ -1,4 +1,5 @@
+ """Bound F editor capture using the unchanged product-v2 frozen host tools."""
++from datetime import datetime, timezone
+ import ctypes
+ from ctypes import wintypes
+ import hashlib
+@@ -11,13 +12,17 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r25-final41-v2')
++PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r27-merged-flow-editor-v1')
+ SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+-OWNER = 'water-r25-final41-editor-v6'
++OWNER = 'water-r28-formal-f-editor-v2'
+ OUT = WORK / 'product-v2-f-editor-v1.json'
+ HANDLES = WORK / 'product-v2-f-editor-v1-handles.json'
+ RECEIPT = WORK / 'product-v2-f-editor-v1-host.json'
+-CASES = ('source', 'flow_east', 'wet_oak_fence', 'neighbor_stone', 'transparent_overlap')
++CASES = ('source', 'low', 'diagonal', 'drop_north', 'pool', 'falling',
++         'flow_east', 'flow_south', 'flow_west', 'flow_north',
++         'wet_oak_fence', 'wet_glass_pane', 'wet_oak_slab', 'wet_oak_stairs',
++         'neighbor_oak_slab', 'neighbor_oak_stairs', 'neighbor_glass_pane',
++         'neighbor_stone', 'transparent_overlap')
+ 
+ 
+ def main():
+@@ -84,11 +89,24 @@
+             raise RuntimeError('Handle guard reached at ' + label)
+         return row
+ 
++    from scene_policy import describe_scene
++    import scene_game
++    geometry = []
++    active_check = [None]
++    receipt['native_geometry_observations'] = geometry
+     original_capture = probe.base.capture
+     original_run = probe.blueprints.BlueprintCheck.run
+ 
+     def tracked_capture(session, owner, output, executable):
++        assert datetime.now(timezone.utc) < datetime.fromisoformat('2026-10-22T23:25:00+00:00'), '07:25 capture cutoff'
+         label = Path(output).stem
++        observed = original_run(active_check[0], probe.SCENE_STATE + scene_game.EXTRA_STATE)
++        active = any(bank is not None and bank['declared_visible'] is True
++                     for entry in observed['native_water_controls'] for bank in entry['banks'])
++        verdict = describe_scene(observed, 2, active)
++        geometry.append({'label': label, 'state': observed, 'verdict': verdict})
++        save()
++        assert verdict['complete'], verdict
+         sample(label + '_before_wgc')
+         captured = original_capture(session, owner, output, executable)
+         sample(label + '_after_wgc')
+@@ -96,6 +114,7 @@
+         return captured
+ 
+     def tracked_run(check, code):
++        active_check[0] = check
+         is_load = 'identity,control,pose=' in code and 'source_document(identity,control)' in code
+         if is_load and state['row']:
+             row = sample(state['row'] + '_row_complete')
+@@ -103,7 +122,8 @@
+             print(json.dumps({'row_complete': state['row'], 'row_count': state['finished_rows'],
+                               'captures': state['capture_count'], 'handles': row['handles'],
+                               'mcdk_handles': row['mcdk_handles']}), flush=True)
+-        result = original_run(check, code)
++        is_scene = code == probe.SCENE_STATE
++        result = original_run(check, code + scene_game.EXTRA_STATE if is_scene else code)
+         if is_load:
+             state['row'] = result['case'] + '_' + result['control']
+             sample(state['row'] + '_row_loaded')

@@ -1,0 +1,52 @@
+--- a/behavior_pack/modern_projection/projection/liquid_product_deployment.py
++++ b/behavior_pack/modern_projection/projection/liquid_product_deployment.py
+@@ -1,4 +1,6 @@
+ """Select explicitly accepted water visuals without claiming native parity."""
++import math
++
+ from . import liquid_product_qualification_data as qualification
+ from .liquid_render_target_data import TARGET_ENGINE_VERSION
+ from .storage import integer_types
+@@ -17,6 +19,21 @@
+     return 0., min(size) / float(gui)
+ 
+ 
++def ui_geometry_for_gui(position, size, gui):
++    if (isinstance(gui, bool) or not isinstance(gui, integer_types + (float,))
++            or not 1. <= gui < float('inf') or gui != round(gui)):
++        raise ValueError('Product water needs a positive integer native GUI scale')
++    if (len(position) != 2 or len(size) != 2
++            or any(isinstance(value, bool) or not isinstance(value, integer_types + (float,))
++                   or math.isnan(value) or math.isinf(value) for value in tuple(position) + tuple(size))
++            or min(size) <= 0.):
++        raise ValueError('Product water needs finite UI geometry and positive dimensions')
++    width, height = size
++    expanded_height = max(width, height + 2. * width / float(gui))
++    return ((position[0], position[1] + (height - expanded_height) / 2. + width / float(gui)),
++            (width, expanded_height))
++
++
+ def candidate_profile(frozen=False):
+     """Explicit diagnostic entry; it never changes the production acceptance data."""
+     from .liquid_deployment import ui_pose, ui_offset
+@@ -27,6 +44,7 @@
+         selected['models'] = resources.FROZEN_PRODUCT_MODELS
+     profile = ProductLiquidProfile(selected, ui_pose, ui_offset)
+     profile.ui_offset_for_gui = ui_offset_for_gui
++    profile.ui_geometry_for_gui = ui_geometry_for_gui
+     return profile
+ 
+ 
+--- a/behavior_pack/modern_projection/projection/scene.py
++++ b/behavior_pack/modern_projection/projection/scene.py
+@@ -498,6 +498,10 @@
+             def liquid_view(origin):
+                 view = group_view(origin, camera, session.scene_origin, session.scene_size,
+                                   (native_width, native_height), cell_unit)
++                gui_geometry = getattr(liquid_profile, 'ui_geometry_for_gui', None)
++                if gui_geometry is not None:
++                    position, size = gui_geometry(view.position, view.size, Theme.native_gui_scale)
++                    return view._replace(position=position, size=size)
+                 gui_offset = getattr(liquid_profile, 'ui_offset_for_gui', None)
+                 offset = (gui_offset(view.size, Theme.native_gui_scale) if gui_offset is not None
+                           else liquid_profile.ui_offset(view.size))

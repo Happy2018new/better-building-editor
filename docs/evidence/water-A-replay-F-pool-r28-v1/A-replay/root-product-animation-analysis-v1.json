@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "source_sha256": "b38ae6262e6b98679bd5f15f5a66179c75bbc003b320fe5e39ba9fe609dbd0ba",
+  "analyzer_sha256": "f3862bda8776c18a308332e9d7ee05d1f0f3acee2305d2812534f867ec03da81",
+  "limits": {
+    "rgb_delta": 8,
+    "minimum_water_pixels": 24,
+    "minimum_mask_iou": 0.8,
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_pixels": 8,
+    "minimum_contribution_fraction": 0.1,
+    "temporal_delta": 2
+  },
+  "completed": true,
+  "restored": true,
+  "cleanup_errors": [],
+  "capture_failures": [],
+  "captures_verified": true,
+  "geometry": {},
+  "transparency": {},
+  "animation": {
+    "editor_flow_east_wet": {
+      "eligible_pixels": 27264,
+      "contribution_pixels": 19031,
+      "rgb_delta": 2,
+      "fraction": 0.6980267018779343,
+      "passed": true
+    },
+    "editor_flow_south_wet": {
+      "eligible_pixels": 26034,
+      "contribution_pixels": 6572,
+      "rgb_delta": 2,
+      "fraction": 0.25243911807636166,
+      "passed": true
+    },
+    "editor_flow_west_wet": {
+      "eligible_pixels": 23353,
+      "contribution_pixels": 16325,
+      "rgb_delta": 2,
+      "fraction": 0.6990536547766882,
+      "passed": true
+    },
+    "editor_flow_north_wet": {
+      "eligible_pixels": 20442,
+      "contribution_pixels": 13399,
+      "rgb_delta": 2,
+      "fraction": 0.6554642402895998,
+      "passed": true
+    },
+    "editor_falling_wet": {
+      "eligible_pixels": 15522,
+      "contribution_pixels": 9865,
+      "rgb_delta": 2,
+      "fraction": 0.6355495425847185,
+      "passed": true
+    },
+    "full_flow_east_wet": {
+      "eligible_pixels": 22831,
+      "contribution_pixels": 15417,
+      "rgb_delta": 2,
+      "fraction": 0.6752660855853883,
+      "passed": true
+    },
+    "full_flow_south_wet": {
+      "eligible_pixels": 22040,
+      "contribution_pixels": 14189,
+      "rgb_delta": 2,
+      "fraction": 0.6437840290381125,
+      "passed": true
+    },
+    "full_flow_west_wet": {
+      "eligible_pixels": 21887,
+      "contribution_pixels": 14263,
+      "rgb_delta": 2,
+      "fraction": 0.6516653721387125,
+      "passed": true
+    },
+    "full_flow_north_wet": {
+      "eligible_pixels": 21171,
+      "contribution_pixels": 14466,
+      "rgb_delta": 2,
+      "fraction": 0.6832931840725521,
+      "passed": true
+    },
+    "full_falling_wet": {
+      "eligible_pixels": 82465,
+      "contribution_pixels": 45207,
+      "rgb_delta": 2,
+      "fraction": 0.5481962044503729,
+      "passed": true
+    },
+    "missing_flow_east_wet": {
+      "eligible_pixels": 22831,
+      "contribution_pixels": 15828,
+      "rgb_delta": 2,
+      "fraction": 0.6932679251894354,
+      "passed": true
+    },
+    "missing_flow_south_wet": {
+      "eligible_pixels": 22040,
+      "contribution_pixels": 14244,
+      "rgb_delta": 2,
+      "fraction": 0.6462794918330309,
+      "passed": true
+    },
+    "missing_flow_west_wet": {
+      "eligible_pixels": 21887,
+      "contribution_pixels": 15929,
+      "rgb_delta": 2,
+      "fraction": 0.7277836158450222,
+      "passed": true
+    },
+    "missing_flow_north_wet": {
+      "eligible_pixels": 21171,
+      "contribution_pixels": 14688,
+      "rgb_delta": 2,
+      "fraction": 0.6937792263001276,
+      "passed": true
+    },
+    "missing_falling_wet": {
+      "eligible_pixels": 82465,
+      "contribution_pixels": 45607,
+      "rgb_delta": 2,
+      "fraction": 0.5530467471048324,
+      "passed": true
+    }
+  },
+  "alpha_controls": {},
+  "transparency_phase_controlled": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "native_alpha_accepted": false,
+  "product_style_accepted": false,
+  "evidence_valid": true,
+  "observed_product_gates": {
+    "geometry": false,
+    "transparency": false,
+    "animation": true
+  },
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison"
+}
