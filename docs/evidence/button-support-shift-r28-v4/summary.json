@@ -1,0 +1,3253 @@
+{
+  "owner": "r28-button-shift-v4",
+  "source_commit": "2ab5a29a21f68bac607637b10d4afb42ac9caaa6",
+  "source_manifest_sha256": "4dffc1da86a0f26e1de6db076f2b6118136edbe019e98e59d8d39520b56d3f2e",
+  "source_archive_sha256": "99047ecf32ac7f2c12af4a7834eb169a174e623e0a2720448d43cda33d185171",
+  "runtime_files": 3710,
+  "frozen_git_helpers": 781,
+  "diagnostic_completed": true,
+  "actual_public_card_callbacks": true,
+  "plan": {
+    "identity": "test.transforms.acceptance.t02",
+    "points": [
+      [
+        3,
+        3,
+        27
+      ],
+      [
+        3,
+        4,
+        27
+      ]
+    ],
+    "yaw": 35.0,
+    "pitch": -80.0,
+    "zoom": 12.0,
+    "native_volume": [
+      16,
+      16,
+      10
+    ],
+    "button_index": 827,
+    "support_index": 1083,
+    "shifted_support_index": 2107,
+    "logical_translation": [
+      0,
+      4,
+      0
+    ],
+    "stage_labels": [
+      "support_before",
+      "support_yplus4",
+      "support_after"
+    ],
+    "stage_count": 3,
+    "model_count": 4,
+    "minimum_frames": 6,
+    "minimum_seconds": 0.25,
+    "maximum_wait_seconds": 2.0,
+    "world_write_performed": false,
+    "production_certificate_during_diagnostic": false
+  },
+  "fixed_document": {
+    "document": {
+      "cellVersion": 1,
+      "palette": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33
+      ],
+      "chunkEncoding": 1,
+      "chunks": [
+        [
+          0,
+          0,
+          1,
+          "1s:eJxjYtjMLMGwmYWRAQAJNQGJ"
+        ]
+      ],
+      "size": [
+        32,
+        10,
+        32
+      ],
+      "biome": "plains",
+      "blockCount": 2,
+      "name": "T02 · 楼梯、半砖与附着方向",
+      "materials": [
+        [
+          "minecraft:air",
+          {}
+        ],
+        [
+          "minecraft:stone",
+          {}
+        ],
+        [
+          "minecraft:oak_stairs",
+          {
+            "weirdo_direction": 0,
+            "upside_down_bit": false
+          }
+        ],
+        [
+          "minecraft:oak_stairs",
+          {
+            "weirdo_direction": 0,
+            "upside_down_bit": true
+          }
+        ],
+        [
+          "minecraft:trapdoor",
+          {
+            "open_bit": false,
+            "direction": 0,
+            "upside_down_bit": false
+          }
+        ],
+        [
+          "minecraft:trapdoor",
+          {
+            "open_bit": true,
+            "direction": 0,
+            "upside_down_bit": false
+          }
+        ],
+        [
+          "minecraft:ladder",
+          {
+            "facing_direction": 2
+          }
+        ],
+        [
+          "minecraft:oak_stairs",
+          {
+            "weirdo_direction": 1,
+            "upside_down_bit": false
+          }
+        ],
+        [
+          "minecraft:oak_stairs",
+          {
+            "weirdo_direction": 1,
+            "upside_down_bit": true
+          }
+        ],
+        [
+          "minecraft:trapdoor",
+          {
+            "open_bit": false,
+            "direction": 1,
+            "upside_down_bit": true
+          }
+        ],
+        [
+          "minecraft:trapdoor",
+          {
+            "open_bit": true,
+            "direction": 1,
+            "upside_down_bit": true
+          }
+        ],
+        [
+          "minecraft:ladder",
+          {
+            "facing_direction": 3
+          }
+        ],
+        [
+          "minecraft:oak_stairs",
+          {
+            "weirdo_direction": 2,
+            "upside_down_bit": false
+          }
+        ],
+        [
+          "minecraft:oak_stairs",
+          {
+            "weirdo_direction": 2,
+            "upside_down_bit": true
+          }
+        ],
+        [
+          "minecraft:trapdoor",
+          {
+            "open_bit": false,
+            "direction": 2,
+            "upside_down_bit": false
+          }
+        ],
+        [
+          "minecraft:trapdoor",
+          {
+            "open_bit": true,
+            "direction": 2,
+            "upside_down_bit": false
+          }
+        ],
+        [
+          "minecraft:ladder",
+          {
+            "facing_direction": 4
+          }
+        ],
+        [
+          "minecraft:oak_stairs",
+          {
+            "weirdo_direction": 3,
+            "upside_down_bit": false
+          }
+        ],
+        [
+          "minecraft:oak_stairs",
+          {
+            "weirdo_direction": 3,
+            "upside_down_bit": true
+          }
+        ],
+        [
+          "minecraft:trapdoor",
+          {
+            "open_bit": false,
+            "direction": 3,
+            "upside_down_bit": true
+          }
+        ],
+        [
+          "minecraft:trapdoor",
+          {
+            "open_bit": true,
+            "direction": 3,
+            "upside_down_bit": true
+          }
+        ],
+        [
+          "minecraft:ladder",
+          {
+            "facing_direction": 5
+          }
+        ],
+        [
+          "minecraft:oak_slab",
+          {
+            "minecraft:vertical_half": "bottom"
+          }
+        ],
+        [
+          "minecraft:oak_slab",
+          {
+            "minecraft:vertical_half": "top"
+          }
+        ],
+        [
+          "minecraft:stone_button",
+          {
+            "facing_direction": 0,
+            "button_pressed_bit": false
+          }
+        ],
+        [
+          "minecraft:stone_button",
+          {
+            "facing_direction": 1,
+            "button_pressed_bit": false
+          }
+        ],
+        [
+          "minecraft:stone_button",
+          {
+            "facing_direction": 2,
+            "button_pressed_bit": false
+          }
+        ],
+        [
+          "minecraft:stone_button",
+          {
+            "facing_direction": 3,
+            "button_pressed_bit": false
+          }
+        ],
+        [
+          "minecraft:stone_button",
+          {
+            "facing_direction": 4,
+            "button_pressed_bit": false
+          }
+        ],
+        [
+          "minecraft:stone_button",
+          {
+            "facing_direction": 5,
+            "button_pressed_bit": false
+          }
+        ],
+        [
+          "minecraft:red_concrete",
+          {}
+        ],
+        [
+          "minecraft:lime_concrete",
+          {}
+        ],
+        [
+          "minecraft:blue_concrete",
+          {}
+        ],
+        [
+          "minecraft:magenta_concrete",
+          {}
+        ]
+      ],
+      "version": 6,
+      "registry": {
+        "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "version": "NEMC 3.9.0.401155"
+      }
+    },
+    "editor_id": 2306539613152,
+    "document_id": 2306539610968
+  },
+  "source_link": {
+    "owner": "r28-button-shift-v4",
+    "observer_config": {
+      "owner": "r28-button-shift-v4",
+      "source_manifest_sha256": "4dffc1da86a0f26e1de6db076f2b6118136edbe019e98e59d8d39520b56d3f2e",
+      "host_assets": {
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-cache-lineage-v4\\observer_client.py": "1e136d2edcd01b881877597b94e50aed7b2ca05d5abf78ee85b3ef0f2791b2c8",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-cache-lineage-v4\\lineage_host.py": "af750c9088aac64f1b099c2f1041ae79ed504657cb343988714b1e0f0933d595",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-cache-lineage-v4\\runtime_adapter.py": "eea03dc3296506bf434667e62654e25402a75d4242375b140e0b91247ab4e451",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-cache-lineage-v4\\run_lineage_runtime.py": "364a31fc29395ba9d3d040f24abfa3c7092a2c7bc40847726617b6ffdeba6800",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-cache-lineage-v4\\representative_steps.py": "180b20665de30d5f9765b9615d8723a4b8efc2a9d153459bb35efc6c2ef17db9",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-cache-lineage-v4\\representative-derivation.json": "241d590a548e9251d1a96e14cabe9484e0732e5029e4a8a00e8b9544412c3842",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-runtime-v1\\public_entry_host.py": "082c2e34f475ce4f8fb4cffc09e8dfe44c3da8a2016a6cbd4ecffebd83667ba9",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-runtime-v1\\payloads.py": "833adc291ce833c5c333699f004159fa65b4fe4deddf820e3b772910260e4e98",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-runtime-v1\\lifecycle_helpers.py": "643d510498e357059cac7e1b896bcaf023856c70826e391f57b0b9a23ef11470",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\r27-ordinary-public-v1\\tools\\verify_debug_blueprints.py": "d9922aff8136fac0693c3a944d91e168c2ab1b2311e78357327b95ecd7d41f57",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\r27-ordinary-public-v1\\tools\\verify_transform_runtime_r23.py": "edf296b0f81ad2dd715db526bc0e88a3a490ca6bf90e9b9c89ab444ad8056485",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\r27-ordinary-public-v1\\tools\\verify_debug_visuals.py": "d5f4f27a716a6390f2abd490709367c76efd9cb63962df37820a8b7ef3d1bf67",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\r27-ordinary-public-v1\\tools\\verify_sign_visuals.py": "efa1b1537b50b9bbe13c40e6c7f7be45d75452acf2aa584cce8925cde3d15e8b",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\r27-ordinary-public-v1\\tools\\transform_missing_r23.py": "91580ce08169e340fac6afc27ac5ffb4fe2607a0257e8ad7bf9f2bcbe94905e0",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\r27-ordinary-public-v1\\tools\\capture_native_window.py": "d4b260037600609914c6191e864945712550cbe65f737cad26dfd6c9723b0b87",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-watcher-v5\\watch_owned_disabled_skin_assert_r27_v5.py": "804aab25fa70ab91c63cffc3eb5db170dbd5800e3c4450da5b52c5a897e49565",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-anchor-watcher-v5\\windows_manifest_reader.py": "2ae4d46fc4fc63249b1b10d8cc6e7028009f4fa1941ea64f88452871a89eb28d",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\ordinary-public-runtime-v3\\run_ordinary_runtime.py": "c7396a51cac5bd0da37380a1638a73e434521e8be3599272af0fa0fd120c8c8d",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-diagnostic-v4\\run_pair.py": "ef3862d841794e46f23fad665252822d28efee1a2dabc339b565ef10258c1964",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-diagnostic-v4\\PLAN.md": "198bc379c01a312b8718e38df30e93c32c65b517f2f83881b4171b6a824c13ac",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-diagnostic-v4\\calibration_host.py": "c5164b141f8f8960bd5caffdfb60b2d19108d6b3cf0097112bac5fcb679c9e9f",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-diagnostic-v4\\client_diagnostic.py": "5c21362ba7ccb86b9fdd994edb7b4bc1410efdd761b1f9de04f9a9de42ee89ac",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-diagnostic-v4\\host_binding.py": "32cd4d8212f4736e15f9574044bcb30c1b5870b476b2f0d74569eda1318eb18d",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-diagnostic-v4\\mcp-api-references.json": "97227a66592f8f83fb60d7606372fe5e1fc84e9479b910130ed3d7b5d42fe88e",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-diagnostic-v4\\protocol.py": "f5ede00ae49e3da433d54cfc327de3c0f1a87d0a4bd30d8be6d885c0ad3a2039",
+        "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261022\\transforms-cache-lineage-v4\\configure.py": "51be82a3b43ac0e225a22a8f2044af37a6f6ab538f9961821fef1a448bb344fe"
+      },
+      "session_id": "6b52d441bf284b10a55d5aff03f936d6",
+      "game_identity": "134371713006819645",
+      "mcdk_identity": "134371713004953982",
+      "observer_sha256": "1e136d2edcd01b881877597b94e50aed7b2ca05d5abf78ee85b3ef0f2791b2c8",
+      "host_sha256": "c7396a51cac5bd0da37380a1638a73e434521e8be3599272af0fa0fd120c8c8d",
+      "host_run_token": "5ead6bb23502436085d2e455cde95501"
+    },
+    "raw_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\lineage\\0006.json",
+    "raw_sha256": "e87cdf3dd154dc4e56f94fd9ef5735c17c42c5ec5190c865c89a33f85d820fd5",
+    "certificate_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\lineage\\0006.certificate.json",
+    "certificate_sha256": "eb81600bc4b08507fd1f2b6e02e0178471eb61bfef2a6d2c3213bb3e52d628d5",
+    "fixture": "test.transforms.acceptance.t02",
+    "nonce": 1,
+    "editor_id": 2306539613152,
+    "document_id": 2306539610968,
+    "owner_key": [
+      0,
+      0,
+      1
+    ],
+    "origin": [
+      0,
+      0,
+      16
+    ],
+    "native_name": "modern_projection_chunk_0_0_0_1_1",
+    "creation_serial": 6,
+    "creation_record_sha256": "508a4460620ef0092312ce33f999f59f718914854ed729d8a872595c5550a50c",
+    "actual_native_serialization_sha256": "fb3b7ef4750c7c11ee9ca17e11fee6d7257eb77ab0006cf80072d3d9e6ef5771",
+    "native_serialized": {
+      "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzEwODMnKSwpKSksICgodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25OMGIyNWxYMkoxZEhSdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpLCAodSdsaXN0JywgKCh1J2ludCcsICc4MjcnKSwpKSkpKSksICgodSdieXRlcycsIHUnWVdOMGIzST0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnWld4cGJXbHVZWFJsUVdseScpLCAodSdib29sJywgVHJ1ZSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUU9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUZUZEdGMFpYTT0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnYzNSaGRHVnonKSwgKHUnZGljdCcsICgoKHUndHVwbGUnLCAoKHUnYnl0ZXMnLCB1J2JXbHVaV055WVdaME9uTjBiMjVsJyksICh1J2ludCcsICcwJykpKSwgKHUnZGljdCcsICgpKSksICgodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25OMGIyNWxYMkoxZEhSdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpLCAodSdkaWN0JywgKCgodSdieXRlcycsIHUnWW5WMGRHOXVYM0J5WlhOelpXUmZZbWwwJyksICh1J2Jvb2wnLCBGYWxzZSkpLCAoKHUnYnl0ZXMnLCB1J1ptRmphVzVuWDJScGNtVmpkR2x2Ymc9PScpLCAodSdpbnQnLCAnMCcpKSkpKSkpKSwgKCh1J2J5dGVzJywgdSdkbTlwWkE9PScpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdkbTlzZFcxbCcpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzE2JyksICh1J2ludCcsICcxMCcpKSkpKSk=",
+      "codec": "cell.freeze-repr-utf8-base64",
+      "bytes": 917
+    },
+    "deserialize_input": {
+      "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzEwODMnKSwpKSksICgodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25OMGIyNWxYMkoxZEhSdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpLCAodSdsaXN0JywgKCh1J2ludCcsICc4MjcnKSwpKSkpKSksICgodSdieXRlcycsIHUnWVdOMGIzST0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnWld4cGJXbHVZWFJsUVdseScpLCAodSdib29sJywgVHJ1ZSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUU9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUZUZEdGMFpYTT0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnYzNSaGRHVnonKSwgKHUnZGljdCcsICgoKHUndHVwbGUnLCAoKHUnYnl0ZXMnLCB1J2JXbHVaV055WVdaME9uTjBiMjVsJyksICh1J2ludCcsICcwJykpKSwgKHUnZGljdCcsICgpKSksICgodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25OMGIyNWxYMkoxZEhSdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpLCAodSdkaWN0JywgKCgodSdieXRlcycsIHUnWW5WMGRHOXVYM0J5WlhOelpXUmZZbWwwJyksICh1J2Jvb2wnLCBGYWxzZSkpLCAoKHUnYnl0ZXMnLCB1J1ptRmphVzVuWDJScGNtVmpkR2x2Ymc9PScpLCAodSdpbnQnLCAnMCcpKSkpKSkpKSwgKCh1J2J5dGVzJywgdSdkbTlwWkE9PScpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdkbTlzZFcxbCcpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzE2JyksICh1J2ludCcsICcxMCcpKSkpKSk=",
+      "codec": "cell.freeze-repr-utf8-base64",
+      "bytes": 917
+    },
+    "signature": {
+      "base64": "KHUndHVwbGUnLCAoKHUnaW50JywgJzIzMDY1Mzk2MTMxNTInKSwgKHUnaW50JywgJzEnKSwgKHUndHVwbGUnLCAoKSksICh1J2Jvb2wnLCBGYWxzZSksICh1J2ludCcsICctMScpLCAodSdib29sJywgRmFsc2UpLCAodSdpbnQnLCAnMTQwNjk2ODIyNzc5OTI4JyksICh1J3R1cGxlJywgKCh1J2ludCcsICczJyksICh1J2J5dGVzJywgdSdNeTR4TUM0d0xqUXlNRFEwTnc9PScpLCAodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT21Ob1pYTjAnKSwgKHUnYnl0ZXMnLCB1J2JXbHVaV055WVdaME9tTnZjSEJsY2w5amFHVnpkQT09JyksICh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbVZ1WkdWeVgyTm9aWE4wJyksICh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wWVc1a2FXNW5YMkpoYm01bGNnPT0nKSwgKHUnYnl0ZXMnLCB1J2JXbHVaV055WVdaME9uZGhiR3hmWW1GdWJtVnknKSkpLCAodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT21ac2IzZGxjbDl3YjNRPScpLCkpLCAodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT21ac2IzZGxjbDl3YjNRPScpLCAodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25OMFlXNWthVzVuWDJKaGJtNWxjZz09JyksICh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbmRoYkd4ZlltRnVibVZ5JykpKSwgKHUndHVwbGUnLCAoKHUnaW50JywgJzEnKSwgKHUnYnl0ZXMnLCB1J015NHhNQzR3TGpReU1EUTBOdz09JyksICh1J2Zsb2F0JywgJzB4MS5jMjAwMDAwMDAwMDAwcCs4JyksICh1J2Zsb2F0JywgJzB4MS40N2FlMTQ3YWUxNDdicC0xJyksICh1J2J5dGVzJywgdSdNMk15T0RFMk1UWmtPVGhtWWpFNFl6Z3hORGMxWlRobE0yTTFaR1ZqTW1SaU5HRTNZVGN4TkRJd05XWmlZekk1TkRrM01UWm1ZVEkzTW1JelltUm1NZz09JyksICh1J2J5dGVzJywgdSdOVEU0WWpKaU1tRTBPVE5rWmpneVlXWTVNMlZoTlRWbFptRTJOREUwTjJNM01USTVObUZqT0RFek16a3hNRGszTmpnME5qWTNaalptT0RBNE5qZzNNdz09JyksICh1J2J5dGVzJywgdSdOR05rWVRoaU1qRmhZbUV4WVdZMU5qa3dNalV5TW1abFkyVmtOakppTWpCbE1EaGtOR0ZoTmpjMlpXUTNOekl4TUdJME9UTTFNVEJpTXpWa1lUUmxZZz09JyksICh1J2Jvb2wnLCBUcnVlKSkpKSksICh1J3R1cGxlJywgKCh1J2ludCcsICcxJyksICh1J2J5dGVzJywgdSdNeTR4TUM0d0xqUXlNRFEwTnc9PScpLCAodSdieXRlcycsIHUnTXpOa05tUXpaVFEzTmpGbU1XTTVOV014TlRKaU1HRXhNVEZoTW1VME1XSmxORGN3TVdZNE5tRTJORE01T1RrM05XRTROakExWWpRMk1tTmxZVEZrT0E9PScpLCAodSdieXRlcycsIHUnWWpRMU9ETTRaamsyWkRFMllqUTROR1l4Wm1JM01EUTRNRGxsTWpVNU1Ea3lOamszTTJWaVl6bGlOVEJsTnpWbU5HUmtaV1kzWkRZM01XTmpNamd3Tmc9PScpLCAodSdieXRlcycsIHUnWlRnellUVXdNMk15TWpBNU0yTXpaVGsyTmpsa1lURmxZVGhsWWpsaU5UWXlPV05pWm1Jd05EVXhOR1l4TkdRM09UbGlOelJoWm1Rd01tWmhNV0kwWXc9PScpLCAodSdieXRlcycsIHUnTW1NeE16SXlOVEUwWWpKaVkyUmxaVGRpTlRJMVpqUTVOalV3TWpCaFpUSmxaalV5WkdZME1tSTRNalExWlRNMVlUSTNPR1poTkdObE4yWTRPV0U1WlE9PScpLCAodSdieXRlcycsIHUnWm1Zek1qaGpZakkwTWpsbE9EVTBZakEwTldKaU1EZGtNVGRtTnpRM1kyTm1OR0kzWldaaVpUUmhPV014WVdReU9EUmhaR0V4WkRRMU4ySTNZbUl4WkE9PScpKSksICh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbVpzYjNkcGJtZGZkMkYwWlhJPScpLCAodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25kaGRHVnknKSkpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMScpLCAodSdieXRlcycsIHUnTXk0eE1DNHdMalF5TURRME53PT0nKSwgKHUnYnl0ZXMnLCB1J1pqY3pPR0kxTjJFMVpURTRaRFE1TmpKa09EVXdOV00wTnpobE5UaGhPR0k0WldWaE5EbGtNelJpWVRka056Rm1PR1V6TmpkaU56RmxaR1ExWlRWbE9RPT0nKSwgKHUnYnl0ZXMnLCB1J09Ea3paakZqWm1Gak1qa3hNamsxWXpNMVpUbGtPREUwT1RBNFl6aGtNakpoWkdNd1pESTVaRFJrWkdGa09HUmlPR1F4TkdVeVpXTXdNekkyTkdSa09BPT0nKSkpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMScpLCAodSdieXRlcycsIHUnTXk0eE1DNHdMalF5TURRME53PT0nKSwgKHUnYnl0ZXMnLCB1J2JtRjBhWFpsWDJGeWRIZHZjbXRmYkdGNVpYSmxaRjl6ZEdGeVptbGxiR1JmZGpFPScpLCAodSdpbnQnLCAnMTI4JykpKSkp",
+      "codec": "cell.freeze-repr-utf8-base64",
+      "bytes": 2262
+    },
+    "pixels_qualified": false
+  },
+  "creations": [
+    {
+      "name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_combined",
+      "native_serialized": {
+        "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzEwODMnKSwpKSksICgodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25OMGIyNWxYMkoxZEhSdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpLCAodSdsaXN0JywgKCh1J2ludCcsICc4MjcnKSwpKSkpKSksICgodSdieXRlcycsIHUnWVdOMGIzST0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnWld4cGJXbHVZWFJsUVdseScpLCAodSdib29sJywgVHJ1ZSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUU9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUZUZEdGMFpYTT0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnYzNSaGRHVnonKSwgKHUnZGljdCcsICgoKHUndHVwbGUnLCAoKHUnYnl0ZXMnLCB1J2JXbHVaV055WVdaME9uTjBiMjVsJyksICh1J2ludCcsICcwJykpKSwgKHUnZGljdCcsICgpKSksICgodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25OMGIyNWxYMkoxZEhSdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpLCAodSdkaWN0JywgKCgodSdieXRlcycsIHUnWW5WMGRHOXVYM0J5WlhOelpXUmZZbWwwJyksICh1J2Jvb2wnLCBGYWxzZSkpLCAoKHUnYnl0ZXMnLCB1J1ptRmphVzVuWDJScGNtVmpkR2x2Ymc9PScpLCAodSdpbnQnLCAnMCcpKSkpKSkpKSwgKCh1J2J5dGVzJywgdSdkbTlwWkE9PScpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdkbTlzZFcxbCcpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzE2JyksICh1J2ludCcsICcxMCcpKSkpKSk=",
+        "codec": "cell.freeze-repr-utf8-base64",
+        "bytes": 917
+      },
+      "label": "combined",
+      "unsupported_mode": 0,
+      "result": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_combined",
+      "deserialize_input": {
+        "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzEwODMnKSwpKSksICgodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25OMGIyNWxYMkoxZEhSdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpLCAodSdsaXN0JywgKCh1J2ludCcsICc4MjcnKSwpKSkpKSksICgodSdieXRlcycsIHUnWVdOMGIzST0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnWld4cGJXbHVZWFJsUVdseScpLCAodSdib29sJywgVHJ1ZSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUU9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUZUZEdGMFpYTT0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnYzNSaGRHVnonKSwgKHUnZGljdCcsICgoKHUndHVwbGUnLCAoKHUnYnl0ZXMnLCB1J2JXbHVaV055WVdaME9uTjBiMjVsJyksICh1J2ludCcsICcwJykpKSwgKHUnZGljdCcsICgpKSksICgodSd0dXBsZScsICgodSdieXRlcycsIHUnYldsdVpXTnlZV1owT25OMGIyNWxYMkoxZEhSdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpLCAodSdkaWN0JywgKCgodSdieXRlcycsIHUnWW5WMGRHOXVYM0J5WlhOelpXUmZZbWwwJyksICh1J2Jvb2wnLCBGYWxzZSkpLCAoKHUnYnl0ZXMnLCB1J1ptRmphVzVuWDJScGNtVmpkR2x2Ymc9PScpLCAodSdpbnQnLCAnMCcpKSkpKSkpKSwgKCh1J2J5dGVzJywgdSdkbTlwWkE9PScpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdkbTlzZFcxbCcpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzE2JyksICh1J2ludCcsICcxMCcpKSkpKSk=",
+        "codec": "cell.freeze-repr-utf8-base64",
+        "bytes": 917
+      }
+    },
+    {
+      "name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_button",
+      "native_serialized": {
+        "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bFgySjFkSFJ2Ymc9PScpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzgyNycpLCkpKSwpKSksICgodSdieXRlcycsIHUnWVdOMGIzST0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnWld4cGJXbHVZWFJsUVdseScpLCAodSdib29sJywgVHJ1ZSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUU9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUZUZEdGMFpYTT0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnYzNSaGRHVnonKSwgKHUnZGljdCcsICgoKHUndHVwbGUnLCAoKHUnYnl0ZXMnLCB1J2JXbHVaV055WVdaME9uTjBiMjVsWDJKMWRIUnZiZz09JyksICh1J2ludCcsICcwJykpKSwgKHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1luVjBkRzl1WDNCeVpYTnpaV1JmWW1sMCcpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdabUZqYVc1blgyUnBjbVZqZEdsdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpKSksKSkpLCAoKHUnYnl0ZXMnLCB1J2RtOXBaQT09JyksICh1J2Jvb2wnLCBGYWxzZSkpLCAoKHUnYnl0ZXMnLCB1J2RtOXNkVzFsJyksICh1J3R1cGxlJywgKCh1J2ludCcsICcxNicpLCAodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzEwJykpKSkpKQ==",
+        "codec": "cell.freeze-repr-utf8-base64",
+        "bytes": 736
+      },
+      "label": "button",
+      "unsupported_mode": 0,
+      "result": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_button",
+      "deserialize_input": {
+        "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bFgySjFkSFJ2Ymc9PScpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzgyNycpLCkpKSwpKSksICgodSdieXRlcycsIHUnWVdOMGIzST0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnWld4cGJXbHVZWFJsUVdseScpLCAodSdib29sJywgVHJ1ZSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUU9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pYaDBjbUZUZEdGMFpYTT0nKSwgKHUnZGljdCcsICgpKSksICgodSdieXRlcycsIHUnYzNSaGRHVnonKSwgKHUnZGljdCcsICgoKHUndHVwbGUnLCAoKHUnYnl0ZXMnLCB1J2JXbHVaV055WVdaME9uTjBiMjVsWDJKMWRIUnZiZz09JyksICh1J2ludCcsICcwJykpKSwgKHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1luVjBkRzl1WDNCeVpYTnpaV1JmWW1sMCcpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdabUZqYVc1blgyUnBjbVZqZEdsdmJnPT0nKSwgKHUnaW50JywgJzAnKSkpKSksKSkpLCAoKHUnYnl0ZXMnLCB1J2RtOXBaQT09JyksICh1J2Jvb2wnLCBGYWxzZSkpLCAoKHUnYnl0ZXMnLCB1J2RtOXNkVzFsJyksICh1J3R1cGxlJywgKCh1J2ludCcsICcxNicpLCAodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzEwJykpKSkpKQ==",
+        "codec": "cell.freeze-repr-utf8-base64",
+        "bytes": 736
+      }
+    },
+    {
+      "name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support",
+      "native_serialized": {
+        "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzEwODMnKSwpKSksKSkpLCAoKHUnYnl0ZXMnLCB1J1lXTjBiM0k9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pXeHBiV2x1WVhSbFFXbHknKSwgKHUnYm9vbCcsIFRydWUpKSwgKCh1J2J5dGVzJywgdSdaWGgwY21FPScpLCAodSdkaWN0JywgKCkpKSwgKCh1J2J5dGVzJywgdSdaWGgwY21GVGRHRjBaWE09JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J2MzUmhkR1Z6JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2RpY3QnLCAoKSkpLCkpKSwgKCh1J2J5dGVzJywgdSdkbTlwWkE9PScpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdkbTlzZFcxbCcpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzE2JyksICh1J2ludCcsICcxMCcpKSkpKSk=",
+        "codec": "cell.freeze-repr-utf8-base64",
+        "bytes": 596
+      },
+      "label": "support",
+      "unsupported_mode": 0,
+      "result": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support",
+      "deserialize_input": {
+        "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzEwODMnKSwpKSksKSkpLCAoKHUnYnl0ZXMnLCB1J1lXTjBiM0k9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pXeHBiV2x1WVhSbFFXbHknKSwgKHUnYm9vbCcsIFRydWUpKSwgKCh1J2J5dGVzJywgdSdaWGgwY21FPScpLCAodSdkaWN0JywgKCkpKSwgKCh1J2J5dGVzJywgdSdaWGgwY21GVGRHRjBaWE09JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J2MzUmhkR1Z6JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2RpY3QnLCAoKSkpLCkpKSwgKCh1J2J5dGVzJywgdSdkbTlwWkE9PScpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdkbTlzZFcxbCcpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzE2JyksICh1J2ludCcsICcxMCcpKSkpKSk=",
+        "codec": "cell.freeze-repr-utf8-base64",
+        "bytes": 596
+      }
+    },
+    {
+      "name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support_yplus4",
+      "native_serialized": {
+        "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzIxMDcnKSwpKSksKSkpLCAoKHUnYnl0ZXMnLCB1J1lXTjBiM0k9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pXeHBiV2x1WVhSbFFXbHknKSwgKHUnYm9vbCcsIFRydWUpKSwgKCh1J2J5dGVzJywgdSdaWGgwY21FPScpLCAodSdkaWN0JywgKCkpKSwgKCh1J2J5dGVzJywgdSdaWGgwY21GVGRHRjBaWE09JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J2MzUmhkR1Z6JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2RpY3QnLCAoKSkpLCkpKSwgKCh1J2J5dGVzJywgdSdkbTlwWkE9PScpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdkbTlzZFcxbCcpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzE2JyksICh1J2ludCcsICcxMCcpKSkpKSk=",
+        "codec": "cell.freeze-repr-utf8-base64",
+        "bytes": 596
+      },
+      "label": "support_yplus4",
+      "unsupported_mode": 0,
+      "result": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support_yplus4",
+      "deserialize_input": {
+        "base64": "KHUnZGljdCcsICgoKHUnYnl0ZXMnLCB1J1kyOXRiVzl1JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2xpc3QnLCAoKHUnaW50JywgJzIxMDcnKSwpKSksKSkpLCAoKHUnYnl0ZXMnLCB1J1lXTjBiM0k9JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J1pXeHBiV2x1WVhSbFFXbHknKSwgKHUnYm9vbCcsIFRydWUpKSwgKCh1J2J5dGVzJywgdSdaWGgwY21FPScpLCAodSdkaWN0JywgKCkpKSwgKCh1J2J5dGVzJywgdSdaWGgwY21GVGRHRjBaWE09JyksICh1J2RpY3QnLCAoKSkpLCAoKHUnYnl0ZXMnLCB1J2MzUmhkR1Z6JyksICh1J2RpY3QnLCAoKCh1J3R1cGxlJywgKCh1J2J5dGVzJywgdSdiV2x1WldOeVlXWjBPbk4wYjI1bCcpLCAodSdpbnQnLCAnMCcpKSksICh1J2RpY3QnLCAoKSkpLCkpKSwgKCh1J2J5dGVzJywgdSdkbTlwWkE9PScpLCAodSdib29sJywgRmFsc2UpKSwgKCh1J2J5dGVzJywgdSdkbTlzZFcxbCcpLCAodSd0dXBsZScsICgodSdpbnQnLCAnMTYnKSwgKHUnaW50JywgJzE2JyksICh1J2ludCcsICcxMCcpKSkpKSk=",
+        "codec": "cell.freeze-repr-utf8-base64",
+        "bytes": 596
+      }
+    }
+  ],
+  "stages": [
+    {
+      "label": "support_before",
+      "path": "button_pair_support_before.png",
+      "sha256": "1ffbfac7d4c5a8d089049952d74147e8a5fdb522d064948e7fe07c01c91f58a3",
+      "original_image_viewed": true,
+      "latest_state": {
+        "surface_visibility": [
+          true,
+          false
+        ],
+        "doll_visibility": [
+          true,
+          true
+        ],
+        "camera": [
+          [
+            35.0,
+            -80.0,
+            12.0
+          ],
+          [
+            3.5,
+            3.5,
+            27.5
+          ],
+          [
+            -0.0005440017395528199,
+            0.00019122369260360036
+          ],
+          0.0,
+          0.0,
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            32,
+            10,
+            32
+          ]
+        ],
+        "native_layout": [
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              153.0,
+              115.875
+            ],
+            [
+              831.4215698242188,
+              161.6331787109375
+            ]
+          ],
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              153.0,
+              115.875
+            ],
+            [
+              831.4215698242188,
+              161.6331787109375
+            ]
+          ]
+        ],
+        "source_tint_setter_value": [
+          0.8205882352941176,
+          7.62939453125e-05,
+          0.4912567138671875
+        ],
+        "frame_opportunities": 51,
+        "age": 0.3039999008178711,
+        "settled_gate": true,
+        "editor_id": 2306539613152,
+        "document_id": 2306539610968,
+        "stage": {
+          "pixels_qualified": false,
+          "start_frame": 82,
+          "production_certificate": false,
+          "started": 1792697843.364,
+          "requested_surface_visibility": [
+            true,
+            false
+          ],
+          "label": "support_before",
+          "drawings": [
+            {
+              "slot": 0,
+              "params": {
+                "init_rot_z": 35,
+                "block_geometry_model_name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support",
+                "init_rot_x": -170.0,
+                "init_rot_y": 0.0,
+                "scale": 4.31325
+              },
+              "result": true,
+              "model_label": "support"
+            }
+          ]
+        },
+        "token": "0fc387a46ad14a6e978b6304eac4f9d3",
+        "production_certificate": false,
+        "shared_tint_control_id": 2306410964864,
+        "native_mesh_vertices_readback": false,
+        "native_tint_uniform_readback": false
+      },
+      "fixed_document_unchanged": true,
+      "capture_calibration": {
+        "capture_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_before.png",
+        "capture_sha256": "1ffbfac7d4c5a8d089049952d74147e8a5fdb522d064948e7fe07c01c91f58a3",
+        "capture_metadata_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_before.capture.json",
+        "capture_metadata_sha256": "42180fdfa29a443bb5560506d7577a27a1c7f8ff72c6964eb31a8376f19372d5",
+        "actual_frame_pixels": [
+          1280,
+          720
+        ],
+        "logical_screen": [
+          641.0,
+          360.0
+        ],
+        "UI_to_frame_ratio_xy": [
+          1.9968798751950079,
+          2.0
+        ],
+        "window_metadata": {
+          "hwnd": 27136000,
+          "pid": 40720,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1280, 720) Minecraft",
+          "x": 427,
+          "y": 305,
+          "width": 853,
+          "height": 480,
+          "minimized": false
+        },
+        "physical_screen_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "scene_props": [
+          605.5555555555557,
+          284.0
+        ],
+        "theme_scale": 0.5625,
+        "cell_unit": 43.1325,
+        "native_gui_scale": 2.0,
+        "native_pose": [
+          4.31325,
+          -170.0,
+          35
+        ],
+        "scene_scale": 1,
+        "canvas_UI": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "global": [
+            153.0,
+            115.875
+          ],
+          "visible": true,
+          "size": [
+            340.625,
+            159.75
+          ]
+        },
+        "scissor_UI": [
+          153.0,
+          116.0,
+          493.0,
+          275.0
+        ],
+        "scissor_frame_pixels": [
+          305.52262090483623,
+          232.0,
+          984.4617784711389,
+          550.0
+        ],
+        "projected_support_bounds_frame_pixels": {
+          "original_support": [
+            585.2680562857764,
+            309.9322212611564,
+            705.2243469640047,
+            443.2304505855409
+          ],
+          "derived_support_yplus4": [
+            585.2680562857764,
+            250.01318107540556,
+            705.2243469640047,
+            383.31141039979
+          ]
+        },
+        "expected_delta_UI": [
+          0.0,
+          -29.959520092875504
+        ],
+        "expected_delta_frame_pixels": [
+          0.0,
+          -59.91904018575101
+        ],
+        "calibration_basis": "Actual mounted Camera cache, UI control geometry and owned saved WGC frame dimensions.",
+        "GPU_matrix_or_scissor_readback": false,
+        "occupied_bounds_hypothesis_qualified": false,
+        "pixels_qualified": false
+      }
+    },
+    {
+      "label": "support_yplus4",
+      "path": "button_pair_support_yplus4.png",
+      "sha256": "5d946f0d4e4168aa419ea7735aa8bb13a290decaaec3e6c102b622188b758d2d",
+      "original_image_viewed": true,
+      "latest_state": {
+        "surface_visibility": [
+          true,
+          false
+        ],
+        "doll_visibility": [
+          true,
+          true
+        ],
+        "camera": [
+          [
+            35.0,
+            -80.0,
+            12.0
+          ],
+          [
+            3.5,
+            3.5,
+            27.5
+          ],
+          [
+            -0.0005440017395528199,
+            0.00019122369260360036
+          ],
+          0.0,
+          0.0,
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            32,
+            10,
+            32
+          ]
+        ],
+        "native_layout": [
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              153.0,
+              115.875
+            ],
+            [
+              831.4215698242188,
+              161.6331787109375
+            ]
+          ],
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              153.0,
+              115.875
+            ],
+            [
+              831.4215698242188,
+              161.6331787109375
+            ]
+          ]
+        ],
+        "source_tint_setter_value": [
+          0.8205882352941176,
+          7.62939453125e-05,
+          0.4912567138671875
+        ],
+        "frame_opportunities": 126,
+        "age": 0.5950000286102295,
+        "settled_gate": true,
+        "editor_id": 2306539613152,
+        "document_id": 2306539610968,
+        "stage": {
+          "pixels_qualified": false,
+          "start_frame": 420,
+          "production_certificate": false,
+          "started": 1792697845.419,
+          "requested_surface_visibility": [
+            true,
+            false
+          ],
+          "label": "support_yplus4",
+          "drawings": [
+            {
+              "slot": 0,
+              "params": {
+                "init_rot_z": 35,
+                "block_geometry_model_name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support_yplus4",
+                "init_rot_x": -170.0,
+                "init_rot_y": 0.0,
+                "scale": 4.31325
+              },
+              "result": true,
+              "model_label": "support_yplus4"
+            }
+          ]
+        },
+        "token": "0fc387a46ad14a6e978b6304eac4f9d3",
+        "production_certificate": false,
+        "shared_tint_control_id": 2306410964864,
+        "native_mesh_vertices_readback": false,
+        "native_tint_uniform_readback": false
+      },
+      "fixed_document_unchanged": true,
+      "capture_calibration": {
+        "capture_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_yplus4.png",
+        "capture_sha256": "5d946f0d4e4168aa419ea7735aa8bb13a290decaaec3e6c102b622188b758d2d",
+        "capture_metadata_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_yplus4.capture.json",
+        "capture_metadata_sha256": "b495c61f2d37340e1c74b58ac0db0d55fe3230ce59d85ab1247a0a6d0b1cab9b",
+        "actual_frame_pixels": [
+          1280,
+          720
+        ],
+        "logical_screen": [
+          641.0,
+          360.0
+        ],
+        "UI_to_frame_ratio_xy": [
+          1.9968798751950079,
+          2.0
+        ],
+        "window_metadata": {
+          "hwnd": 27136000,
+          "pid": 40720,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1280, 720) Minecraft",
+          "x": 427,
+          "y": 305,
+          "width": 853,
+          "height": 480,
+          "minimized": false
+        },
+        "physical_screen_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "scene_props": [
+          605.5555555555557,
+          284.0
+        ],
+        "theme_scale": 0.5625,
+        "cell_unit": 43.1325,
+        "native_gui_scale": 2.0,
+        "native_pose": [
+          4.31325,
+          -170.0,
+          35
+        ],
+        "scene_scale": 1,
+        "canvas_UI": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "global": [
+            153.0,
+            115.875
+          ],
+          "visible": true,
+          "size": [
+            340.625,
+            159.75
+          ]
+        },
+        "scissor_UI": [
+          153.0,
+          116.0,
+          493.0,
+          275.0
+        ],
+        "scissor_frame_pixels": [
+          305.52262090483623,
+          232.0,
+          984.4617784711389,
+          550.0
+        ],
+        "projected_support_bounds_frame_pixels": {
+          "original_support": [
+            585.2680562857764,
+            309.9322212611564,
+            705.2243469640047,
+            443.2304505855409
+          ],
+          "derived_support_yplus4": [
+            585.2680562857764,
+            250.01318107540556,
+            705.2243469640047,
+            383.31141039979
+          ]
+        },
+        "expected_delta_UI": [
+          0.0,
+          -29.959520092875504
+        ],
+        "expected_delta_frame_pixels": [
+          0.0,
+          -59.91904018575101
+        ],
+        "calibration_basis": "Actual mounted Camera cache, UI control geometry and owned saved WGC frame dimensions.",
+        "GPU_matrix_or_scissor_readback": false,
+        "occupied_bounds_hypothesis_qualified": false,
+        "pixels_qualified": false
+      }
+    },
+    {
+      "label": "support_after",
+      "path": "button_pair_support_after.png",
+      "sha256": "fbe822ea96fad68131615d8edfcf47aecbd6a5e1fc78f11e872569afec99132c",
+      "original_image_viewed": true,
+      "latest_state": {
+        "surface_visibility": [
+          true,
+          false
+        ],
+        "doll_visibility": [
+          true,
+          true
+        ],
+        "camera": [
+          [
+            35.0,
+            -80.0,
+            12.0
+          ],
+          [
+            3.5,
+            3.5,
+            27.5
+          ],
+          [
+            -0.0005440017395528199,
+            0.00019122369260360036
+          ],
+          0.0,
+          0.0,
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            32,
+            10,
+            32
+          ]
+        ],
+        "native_layout": [
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              153.0,
+              115.875
+            ],
+            [
+              831.4215698242188,
+              161.6331787109375
+            ]
+          ],
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              153.0,
+              115.875
+            ],
+            [
+              831.4215698242188,
+              161.6331787109375
+            ]
+          ]
+        ],
+        "source_tint_setter_value": [
+          0.8205882352941176,
+          7.62939453125e-05,
+          0.4912567138671875
+        ],
+        "frame_opportunities": 68,
+        "age": 0.2999999523162842,
+        "settled_gate": true,
+        "editor_id": 2306539613152,
+        "document_id": 2306539610968,
+        "stage": {
+          "pixels_qualified": false,
+          "start_frame": 862,
+          "production_certificate": false,
+          "started": 1792697847.566,
+          "requested_surface_visibility": [
+            true,
+            false
+          ],
+          "label": "support_after",
+          "drawings": [
+            {
+              "slot": 0,
+              "params": {
+                "init_rot_z": 35,
+                "block_geometry_model_name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support",
+                "init_rot_x": -170.0,
+                "init_rot_y": 0.0,
+                "scale": 4.31325
+              },
+              "result": true,
+              "model_label": "support"
+            }
+          ]
+        },
+        "token": "0fc387a46ad14a6e978b6304eac4f9d3",
+        "production_certificate": false,
+        "shared_tint_control_id": 2306410964864,
+        "native_mesh_vertices_readback": false,
+        "native_tint_uniform_readback": false
+      },
+      "fixed_document_unchanged": true,
+      "capture_calibration": {
+        "capture_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_after.png",
+        "capture_sha256": "fbe822ea96fad68131615d8edfcf47aecbd6a5e1fc78f11e872569afec99132c",
+        "capture_metadata_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_after.capture.json",
+        "capture_metadata_sha256": "0b0d2eb8dd4318668683aa7ab2533bcba3745f5904f32303783d1715da0d1643",
+        "actual_frame_pixels": [
+          1280,
+          720
+        ],
+        "logical_screen": [
+          641.0,
+          360.0
+        ],
+        "UI_to_frame_ratio_xy": [
+          1.9968798751950079,
+          2.0
+        ],
+        "window_metadata": {
+          "hwnd": 27136000,
+          "pid": 40720,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1280, 720) Minecraft",
+          "x": 427,
+          "y": 305,
+          "width": 853,
+          "height": 480,
+          "minimized": false
+        },
+        "physical_screen_info": [
+          1281.0,
+          720.0,
+          0.0,
+          0.0
+        ],
+        "scene_props": [
+          605.5555555555557,
+          284.0
+        ],
+        "theme_scale": 0.5625,
+        "cell_unit": 43.1325,
+        "native_gui_scale": 2.0,
+        "native_pose": [
+          4.31325,
+          -170.0,
+          35
+        ],
+        "scene_scale": 1,
+        "canvas_UI": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "global": [
+            153.0,
+            115.875
+          ],
+          "visible": true,
+          "size": [
+            340.625,
+            159.75
+          ]
+        },
+        "scissor_UI": [
+          153.0,
+          116.0,
+          493.0,
+          275.0
+        ],
+        "scissor_frame_pixels": [
+          305.52262090483623,
+          232.0,
+          984.4617784711389,
+          550.0
+        ],
+        "projected_support_bounds_frame_pixels": {
+          "original_support": [
+            585.2680562857764,
+            309.9322212611564,
+            705.2243469640047,
+            443.2304505855409
+          ],
+          "derived_support_yplus4": [
+            585.2680562857764,
+            250.01318107540556,
+            705.2243469640047,
+            383.31141039979
+          ]
+        },
+        "expected_delta_UI": [
+          0.0,
+          -29.959520092875504
+        ],
+        "expected_delta_frame_pixels": [
+          0.0,
+          -59.91904018575101
+        ],
+        "calibration_basis": "Actual mounted Camera cache, UI control geometry and owned saved WGC frame dimensions.",
+        "GPU_matrix_or_scissor_readback": false,
+        "occupied_bounds_hypothesis_qualified": false,
+        "pixels_qualified": false
+      }
+    }
+  ],
+  "source_and_host_unchanged": true,
+  "diagnostic_native_restored": {
+    "manual_issues_closed": 0,
+    "token": "0fc387a46ad14a6e978b6304eac4f9d3",
+    "errors": [],
+    "normal_shutdown_qualified": false,
+    "original_native_submissions": [
+      {
+        "slot": 0,
+        "pose": [
+          4.31325,
+          -170.0,
+          35
+        ],
+        "name": "modern_projection_chunk_0_0_0_1_1",
+        "result": true
+      },
+      {
+        "slot": 1,
+        "pose": [
+          1.125,
+          -65.0,
+          35
+        ],
+        "name": "modern_projection_chunk_0_0_0_1_0",
+        "result": true
+      }
+    ],
+    "callback_was_owned": true,
+    "needs_independent_source_snapshot": true,
+    "restored": true
+  },
+  "all60_restored": {
+    "document_background_cells": 0,
+    "current_source": true,
+    "expected_document_id": 2306539610968,
+    "native_calls": [
+      {
+        "nonce": 1,
+        "volume": [
+          16,
+          16,
+          10
+        ],
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_0_0_0_0",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 23,
+        "extra_cells": 0,
+        "states": 13,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 13,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              979
+            ],
+            "material": [
+              "minecraft:oak_stairs",
+              2
+            ]
+          },
+          {
+            "indices": [
+              827
+            ],
+            "material": [
+              "minecraft:oak_slab",
+              0
+            ]
+          },
+          {
+            "indices": [
+              273
+            ],
+            "material": [
+              "minecraft:red_concrete",
+              0
+            ]
+          },
+          {
+            "indices": [
+              563,
+              567,
+              571,
+              643,
+              647,
+              651,
+              723,
+              727,
+              815,
+              927,
+              990
+            ],
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          },
+          {
+            "indices": [
+              831
+            ],
+            "material": [
+              "minecraft:trapdoor",
+              0
+            ]
+          },
+          {
+            "indices": [
+              823
+            ],
+            "material": [
+              "minecraft:oak_stairs",
+              4
+            ]
+          },
+          {
+            "indices": [
+              991
+            ],
+            "material": [
+              "minecraft:trapdoor",
+              2
+            ]
+          },
+          {
+            "indices": [
+              903
+            ],
+            "material": [
+              "minecraft:oak_stairs",
+              5
+            ]
+          },
+          {
+            "indices": [
+              911
+            ],
+            "material": [
+              "minecraft:trapdoor",
+              5
+            ]
+          },
+          {
+            "indices": [
+              983
+            ],
+            "material": [
+              "minecraft:oak_stairs",
+              6
+            ]
+          },
+          {
+            "indices": [
+              907
+            ],
+            "material": [
+              "minecraft:oak_slab",
+              1
+            ]
+          },
+          {
+            "indices": [
+              819
+            ],
+            "material": [
+              "minecraft:oak_stairs",
+              0
+            ]
+          },
+          {
+            "indices": [
+              899
+            ],
+            "material": [
+              "minecraft:oak_stairs",
+              1
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "modern_projection_chunk_0_0_0_0_0"
+      },
+      {
+        "nonce": 1,
+        "volume": [
+          2,
+          2,
+          2
+        ],
+        "actor_cells": 0,
+        "name": "modern_projection_0",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 1,
+        "extra_cells": 0,
+        "states": 1,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 1,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              0
+            ],
+            "material": [
+              "modern_projection:preview_grid",
+              0
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "modern_projection_0"
+      },
+      {
+        "nonce": 1,
+        "volume": [
+          2,
+          2,
+          2
+        ],
+        "actor_cells": 0,
+        "name": "modern_projection_1",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 1,
+        "extra_cells": 0,
+        "states": 1,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 1,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              0
+            ],
+            "material": [
+              "modern_projection:preview_outline",
+              0
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "modern_projection_1"
+      },
+      {
+        "nonce": 1,
+        "volume": [
+          16,
+          16,
+          10
+        ],
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_0_0_1_0",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 23,
+        "extra_cells": 0,
+        "states": 13,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 13,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              286
+            ],
+            "material": [
+              "minecraft:blue_concrete",
+              0
+            ]
+          },
+          {
+            "indices": [
+              909
+            ],
+            "material": [
+              "minecraft:stone_button",
+              5
+            ]
+          },
+          {
+            "indices": [
+              651,
+              803,
+              824,
+              845,
+              893,
+              902,
+              915,
+              978,
+              988,
+              999,
+              1083
+            ],
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          },
+          {
+            "indices": [
+              827
+            ],
+            "material": [
+              "minecraft:stone_button",
+              0
+            ]
+          },
+          {
+            "indices": [
+              903
+            ],
+            "material": [
+              "minecraft:ladder",
+              3
+            ]
+          },
+          {
+            "indices": [
+              907
+            ],
+            "material": [
+              "minecraft:stone_button",
+              1
+            ]
+          },
+          {
+            "indices": [
+              987
+            ],
+            "material": [
+              "minecraft:stone_button",
+              2
+            ]
+          },
+          {
+            "indices": [
+              819
+            ],
+            "material": [
+              "minecraft:trapdoor",
+              8
+            ]
+          },
+          {
+            "indices": [
+              823
+            ],
+            "material": [
+              "minecraft:ladder",
+              2
+            ]
+          },
+          {
+            "indices": [
+              979
+            ],
+            "material": [
+              "minecraft:trapdoor",
+              10
+            ]
+          },
+          {
+            "indices": [
+              899
+            ],
+            "material": [
+              "minecraft:trapdoor",
+              13
+            ]
+          },
+          {
+            "indices": [
+              983
+            ],
+            "material": [
+              "minecraft:ladder",
+              4
+            ]
+          },
+          {
+            "indices": [
+              829
+            ],
+            "material": [
+              "minecraft:stone_button",
+              4
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "modern_projection_chunk_0_0_0_1_0"
+      },
+      {
+        "nonce": 1,
+        "volume": [
+          32,
+          16,
+          10
+        ],
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_1_0_0_0",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 14,
+        "extra_cells": 0,
+        "states": 9,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 9,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              1619
+            ],
+            "material": [
+              "minecraft:trapdoor",
+              15
+            ]
+          },
+          {
+            "indices": [
+              3262
+            ],
+            "material": [
+              "minecraft:magenta_concrete",
+              0
+            ]
+          },
+          {
+            "indices": [
+              1603
+            ],
+            "material": [
+              "minecraft:oak_stairs",
+              3
+            ]
+          },
+          {
+            "indices": [
+              1091,
+              1095,
+              1591,
+              1616,
+              1620,
+              1626
+            ],
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          },
+          {
+            "indices": [
+              673
+            ],
+            "material": [
+              "minecraft:lime_concrete",
+              0
+            ]
+          },
+          {
+            "indices": [
+              1627
+            ],
+            "material": [
+              "minecraft:stone_button",
+              3
+            ]
+          },
+          {
+            "indices": [
+              1607
+            ],
+            "material": [
+              "minecraft:oak_stairs",
+              7
+            ]
+          },
+          {
+            "indices": [
+              1615
+            ],
+            "material": [
+              "minecraft:trapdoor",
+              7
+            ]
+          },
+          {
+            "indices": [
+              1623
+            ],
+            "material": [
+              "minecraft:ladder",
+              5
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "modern_projection_chunk_0_1_0_0_0"
+      },
+      {
+        "nonce": 1,
+        "volume": [
+          16,
+          16,
+          10
+        ],
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_0_0_1_1",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 2,
+        "extra_cells": 0,
+        "states": 2,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 2,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              1083
+            ],
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          },
+          {
+            "indices": [
+              827
+            ],
+            "material": [
+              "minecraft:stone_button",
+              0
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "modern_projection_chunk_0_0_0_1_1"
+      },
+      {
+        "nonce": 1,
+        "volume": [
+          16,
+          16,
+          10
+        ],
+        "actor_cells": 0,
+        "name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_combined",
+        "frame_materials": [],
+        "seconds": 0.0010001659393310547,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 2,
+        "extra_cells": 0,
+        "states": 2,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 2,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              1083
+            ],
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          },
+          {
+            "indices": [
+              827
+            ],
+            "material": [
+              "minecraft:stone_button",
+              0
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_combined"
+      },
+      {
+        "nonce": 1,
+        "volume": [
+          16,
+          16,
+          10
+        ],
+        "actor_cells": 0,
+        "name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_button",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 1,
+        "extra_cells": 0,
+        "states": 1,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 1,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              827
+            ],
+            "material": [
+              "minecraft:stone_button",
+              0
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_button"
+      },
+      {
+        "nonce": 1,
+        "volume": [
+          16,
+          16,
+          10
+        ],
+        "actor_cells": 0,
+        "name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 1,
+        "extra_cells": 0,
+        "states": 1,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 1,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              1083
+            ],
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support"
+      },
+      {
+        "nonce": 1,
+        "volume": [
+          16,
+          16,
+          10
+        ],
+        "actor_cells": 0,
+        "name": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support_yplus4",
+        "frame_materials": [],
+        "seconds": 0.0,
+        "editor_id": 2306539613152,
+        "fixture": "test.transforms.acceptance.t02",
+        "common_cells": 1,
+        "extra_cells": 0,
+        "states": 1,
+        "document_id": 2306539610968,
+        "extra_states": 0,
+        "common_materials": 1,
+        "mode": 0,
+        "actor_names": [],
+        "submitted_materials": [
+          {
+            "indices": [
+              2107
+            ],
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          }
+        ],
+        "extra_materials": 0,
+        "result": "r27_button_shift_0fc387a46ad14a6e978b6304eac4f9d3_support_yplus4"
+      }
+    ],
+    "document_render_actor_cells": 0,
+    "edit_active": false,
+    "size": [
+      32,
+      10,
+      32
+    ],
+    "io_active": false,
+    "mounting": false,
+    "parts": [
+      {
+        "render_layout": [
+          [
+            16,
+            10,
+            16
+          ],
+          [
+            16,
+            16,
+            10
+          ]
+        ],
+        "count": 23,
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_0_0_0_0",
+        "empty_source_current": false,
+        "current_signature": true,
+        "cache_current": true,
+        "key": [
+          0,
+          0,
+          0
+        ],
+        "common_cells": 23,
+        "ready": true,
+        "extra_cells": 0,
+        "signature": [
+          2306539613152,
+          2,
+          [],
+          false,
+          -1,
+          false,
+          140696822779928,
+          [
+            3,
+            "3.10.0.420447",
+            [
+              "minecraft:chest",
+              "minecraft:copper_chest",
+              "minecraft:ender_chest",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              "minecraft:flower_pot"
+            ],
+            [
+              "minecraft:flower_pot",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              450.0,
+              0.64,
+              "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+              "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+              "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+              true
+            ]
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+            "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+            "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+            "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+            "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+          ],
+          [
+            "minecraft:flowing_water",
+            "minecraft:water"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+            "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "native_artwork_layered_starfield_v1",
+            128
+          ]
+        ],
+        "pending": false,
+        "size": [
+          16,
+          10,
+          16
+        ]
+      },
+      {
+        "render_layout": [
+          [
+            16,
+            10,
+            16
+          ],
+          [
+            16,
+            16,
+            10
+          ]
+        ],
+        "count": 23,
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_0_0_1_0",
+        "empty_source_current": false,
+        "current_signature": true,
+        "cache_current": true,
+        "key": [
+          0,
+          0,
+          1
+        ],
+        "common_cells": 23,
+        "ready": true,
+        "extra_cells": 0,
+        "signature": [
+          2306539613152,
+          2,
+          [],
+          false,
+          -1,
+          false,
+          140696822779928,
+          [
+            3,
+            "3.10.0.420447",
+            [
+              "minecraft:chest",
+              "minecraft:copper_chest",
+              "minecraft:ender_chest",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              "minecraft:flower_pot"
+            ],
+            [
+              "minecraft:flower_pot",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              450.0,
+              0.64,
+              "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+              "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+              "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+              true
+            ]
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+            "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+            "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+            "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+            "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+          ],
+          [
+            "minecraft:flowing_water",
+            "minecraft:water"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+            "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "native_artwork_layered_starfield_v1",
+            128
+          ]
+        ],
+        "pending": false,
+        "size": [
+          16,
+          10,
+          16
+        ]
+      },
+      {
+        "render_layout": [
+          [
+            16,
+            10,
+            32
+          ],
+          [
+            32,
+            16,
+            10
+          ]
+        ],
+        "count": 14,
+        "actor_cells": 0,
+        "name": "modern_projection_chunk_0_1_0_0_0",
+        "empty_source_current": false,
+        "current_signature": true,
+        "cache_current": true,
+        "key": [
+          1,
+          0,
+          0
+        ],
+        "common_cells": 14,
+        "ready": true,
+        "extra_cells": 0,
+        "signature": [
+          2306539613152,
+          2,
+          [],
+          false,
+          -1,
+          false,
+          140696822779928,
+          [
+            3,
+            "3.10.0.420447",
+            [
+              "minecraft:chest",
+              "minecraft:copper_chest",
+              "minecraft:ender_chest",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              "minecraft:flower_pot"
+            ],
+            [
+              "minecraft:flower_pot",
+              "minecraft:standing_banner",
+              "minecraft:wall_banner"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              450.0,
+              0.64,
+              "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+              "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+              "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+              true
+            ]
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+            "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+            "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+            "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+            "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+          ],
+          [
+            "minecraft:flowing_water",
+            "minecraft:water"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+            "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+          ],
+          [
+            1,
+            "3.10.0.420447",
+            "native_artwork_layered_starfield_v1",
+            128
+          ]
+        ],
+        "pending": false,
+        "size": [
+          16,
+          10,
+          32
+        ]
+      }
+    ],
+    "renderer_active": true,
+    "preview_error": "",
+    "expected_metadata": {
+      "blocks": 60,
+      "name": "T02 · 楼梯、半砖与附着方向",
+      "size": [
+        32,
+        10,
+        32
+      ]
+    },
+    "metadata": {
+      "blocks": 60,
+      "name": "T02 · 楼梯、半砖与附着方向",
+      "size": [
+        32,
+        10,
+        32
+      ]
+    },
+    "blocks": 60,
+    "expected_editor_id": 2306539613152,
+    "renderer_age": 0.006999969482421875,
+    "document_actor_cells": 0,
+    "model_revision_current": true,
+    "running": false,
+    "preview_pending": false,
+    "editor_id": 2306539613152,
+    "document_id": 2306539610968,
+    "name": "T02 · 楼梯、半砖与附着方向",
+    "liquid": {
+      "controls_pending": false,
+      "enabled": true,
+      "owned": true,
+      "groups": 0,
+      "error": "",
+      "plan_ready": true
+    },
+    "tile_builds": 5,
+    "all_parts_current": true,
+    "page": "workspace",
+    "world_actors": 0,
+    "dirty": 0,
+    "all_parts_ready": true,
+    "model_name": "modern_projection_chunk_0_0_0_0_0",
+    "strict_lineage": {
+      "qualified": true,
+      "poll": 10,
+      "parts": [
+        {
+          "key": [
+            0,
+            0,
+            0
+          ],
+          "model": "modern_projection_chunk_0_0_0_0_0",
+          "classification": "retained_geometry_full_lineage",
+          "signature_current": true,
+          "part_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "ui_classification": "visible_current_native_front",
+          "model_visibility_qualified": true,
+          "pixels_qualified": false,
+          "current_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "creation_serial": 1,
+          "creation_nonce": 1,
+          "current_nonce": 1,
+          "creation_record_sha256": "1dc4bf8cb8491f4ae413042b2c6931693aec7a8c546e1c6e5a1d4efcee444a16",
+          "creation_first_poll": 1,
+          "creation_first_stage": "actual card test.transforms.acceptance.t02",
+          "actual_native_serialization_sha256": "1b583606b881d8fcdc729d479e238083d0e5c6bfe33fe80d4b08e2665d5be256",
+          "original_actual_deserialize_sha256": "1b583606b881d8fcdc729d479e238083d0e5c6bfe33fe80d4b08e2665d5be256",
+          "original_full_source_snapshot_sha256": "7676e11a11fc3d6c06e9586444d8c2c1a668df50aa0701874b0b4e504cd75d25",
+          "current_full_source_snapshot_sha256": "7676e11a11fc3d6c06e9586444d8c2c1a668df50aa0701874b0b4e504cd75d25",
+          "current_relevant_source_sha256": "120a9cebde43e12bca8bc4bc4f770c78161b2fd8be03fa3d939423d641602d5b",
+          "current_prepared_native_sha256": "1b583606b881d8fcdc729d479e238083d0e5c6bfe33fe80d4b08e2665d5be256"
+        },
+        {
+          "key": [
+            0,
+            0,
+            1
+          ],
+          "model": "modern_projection_chunk_0_0_0_1_0",
+          "classification": "retained_geometry_full_lineage",
+          "signature_current": true,
+          "part_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "ui_classification": "visible_current_native_front",
+          "model_visibility_qualified": true,
+          "pixels_qualified": false,
+          "current_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "creation_serial": 4,
+          "creation_nonce": 1,
+          "current_nonce": 1,
+          "creation_record_sha256": "ba4eea45c4afabde86ecf0dce1577bd48d6ec9cf6eee236225462af2aa225286",
+          "creation_first_poll": 1,
+          "creation_first_stage": "actual card test.transforms.acceptance.t02",
+          "actual_native_serialization_sha256": "5f3e395dbc152dd16b33337fbab73a628eaf41e35c970bcf8a4166960b955d8c",
+          "original_actual_deserialize_sha256": "5f3e395dbc152dd16b33337fbab73a628eaf41e35c970bcf8a4166960b955d8c",
+          "original_full_source_snapshot_sha256": "d5ef31847db32e57dfce5769e6cfce3f4c8001bfce68d58c9fecf21ee4761fd9",
+          "current_full_source_snapshot_sha256": "d5ef31847db32e57dfce5769e6cfce3f4c8001bfce68d58c9fecf21ee4761fd9",
+          "current_relevant_source_sha256": "0c9718db2a2062f5c877aa06bae55b40af0b09b0199494b6c7b229c42ca2dd75",
+          "current_prepared_native_sha256": "5f3e395dbc152dd16b33337fbab73a628eaf41e35c970bcf8a4166960b955d8c"
+        },
+        {
+          "key": [
+            1,
+            0,
+            0
+          ],
+          "model": "modern_projection_chunk_0_1_0_0_0",
+          "classification": "retained_geometry_full_lineage",
+          "signature_current": true,
+          "part_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "ui_classification": "source_proven_offscreen_or_depth_hidden",
+          "model_visibility_qualified": false,
+          "pixels_qualified": false,
+          "current_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "creation_serial": 5,
+          "creation_nonce": 1,
+          "current_nonce": 1,
+          "creation_record_sha256": "cb2578ee88bbd5334675bae018fc17c956a96dcf7c74e3773e1525946aa8ad80",
+          "creation_first_poll": 1,
+          "creation_first_stage": "actual card test.transforms.acceptance.t02",
+          "actual_native_serialization_sha256": "0a1e6658f7bb0d6af73e9a6b101db9f784560af29ff2a808d4953212feaf5976",
+          "original_actual_deserialize_sha256": "0a1e6658f7bb0d6af73e9a6b101db9f784560af29ff2a808d4953212feaf5976",
+          "original_full_source_snapshot_sha256": "a6c5a0056aff1113933542086906c350be8b6c77df397bcc168d50ed327ffda7",
+          "current_full_source_snapshot_sha256": "a6c5a0056aff1113933542086906c350be8b6c77df397bcc168d50ed327ffda7",
+          "current_relevant_source_sha256": "3a24075ffdfd23fc4d00f70aed95fad1a6ff5acdd842ee99ab08511a5232f233",
+          "current_prepared_native_sha256": "0a1e6658f7bb0d6af73e9a6b101db9f784560af29ff2a808d4953212feaf5976"
+        }
+      ],
+      "qualified_scope": "complete source/native/cache lineage; actual visible fronts individually marked",
+      "pixels_qualified": false,
+      "creation_records": 6,
+      "config_sha256": "85a6e0550b8d3e38f606499fef4b0f98b49d5c63e560becba230c24d94aacf9a",
+      "strict_original_signature_flags": [
+        true,
+        true,
+        true
+      ],
+      "verified_nonowner_empty_slots": 1,
+      "native_serialization_note": "SHA256 of complete typed serialization exported from API result; not SDK memory."
+    },
+    "strict_lineage_raw_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\lineage\\0010.json",
+    "strict_lineage_raw_sha256": "37be72a5af8acb8b781398ea4ae6e737bd086f6289e7a06939bec723f2bbbbd3",
+    "strict_lineage_first_certificate": {
+      "qualified": true,
+      "poll": 9,
+      "parts": [
+        {
+          "key": [
+            0,
+            0,
+            0
+          ],
+          "model": "modern_projection_chunk_0_0_0_0_0",
+          "classification": "retained_geometry_full_lineage",
+          "signature_current": true,
+          "part_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "ui_classification": "visible_current_native_front",
+          "model_visibility_qualified": true,
+          "pixels_qualified": false,
+          "current_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "creation_serial": 1,
+          "creation_nonce": 1,
+          "current_nonce": 1,
+          "creation_record_sha256": "1dc4bf8cb8491f4ae413042b2c6931693aec7a8c546e1c6e5a1d4efcee444a16",
+          "creation_first_poll": 1,
+          "creation_first_stage": "actual card test.transforms.acceptance.t02",
+          "actual_native_serialization_sha256": "1b583606b881d8fcdc729d479e238083d0e5c6bfe33fe80d4b08e2665d5be256",
+          "original_actual_deserialize_sha256": "1b583606b881d8fcdc729d479e238083d0e5c6bfe33fe80d4b08e2665d5be256",
+          "original_full_source_snapshot_sha256": "7676e11a11fc3d6c06e9586444d8c2c1a668df50aa0701874b0b4e504cd75d25",
+          "current_full_source_snapshot_sha256": "7676e11a11fc3d6c06e9586444d8c2c1a668df50aa0701874b0b4e504cd75d25",
+          "current_relevant_source_sha256": "120a9cebde43e12bca8bc4bc4f770c78161b2fd8be03fa3d939423d641602d5b",
+          "current_prepared_native_sha256": "1b583606b881d8fcdc729d479e238083d0e5c6bfe33fe80d4b08e2665d5be256"
+        },
+        {
+          "key": [
+            0,
+            0,
+            1
+          ],
+          "model": "modern_projection_chunk_0_0_0_1_0",
+          "classification": "retained_geometry_full_lineage",
+          "signature_current": true,
+          "part_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "ui_classification": "visible_current_native_front",
+          "model_visibility_qualified": true,
+          "pixels_qualified": false,
+          "current_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "creation_serial": 4,
+          "creation_nonce": 1,
+          "current_nonce": 1,
+          "creation_record_sha256": "ba4eea45c4afabde86ecf0dce1577bd48d6ec9cf6eee236225462af2aa225286",
+          "creation_first_poll": 1,
+          "creation_first_stage": "actual card test.transforms.acceptance.t02",
+          "actual_native_serialization_sha256": "5f3e395dbc152dd16b33337fbab73a628eaf41e35c970bcf8a4166960b955d8c",
+          "original_actual_deserialize_sha256": "5f3e395dbc152dd16b33337fbab73a628eaf41e35c970bcf8a4166960b955d8c",
+          "original_full_source_snapshot_sha256": "d5ef31847db32e57dfce5769e6cfce3f4c8001bfce68d58c9fecf21ee4761fd9",
+          "current_full_source_snapshot_sha256": "d5ef31847db32e57dfce5769e6cfce3f4c8001bfce68d58c9fecf21ee4761fd9",
+          "current_relevant_source_sha256": "0c9718db2a2062f5c877aa06bae55b40af0b09b0199494b6c7b229c42ca2dd75",
+          "current_prepared_native_sha256": "5f3e395dbc152dd16b33337fbab73a628eaf41e35c970bcf8a4166960b955d8c"
+        },
+        {
+          "key": [
+            1,
+            0,
+            0
+          ],
+          "model": "modern_projection_chunk_0_1_0_0_0",
+          "classification": "retained_geometry_full_lineage",
+          "signature_current": true,
+          "part_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "ui_classification": "source_proven_offscreen_or_depth_hidden",
+          "model_visibility_qualified": false,
+          "pixels_qualified": false,
+          "current_signature": [
+            2306539613152,
+            2,
+            [],
+            false,
+            -1,
+            false,
+            140696822779928,
+            [
+              3,
+              "3.10.0.420447",
+              [
+                "minecraft:chest",
+                "minecraft:copper_chest",
+                "minecraft:ender_chest",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                "minecraft:flower_pot"
+              ],
+              [
+                "minecraft:flower_pot",
+                "minecraft:standing_banner",
+                "minecraft:wall_banner"
+              ],
+              [
+                1,
+                "3.10.0.420447",
+                450.0,
+                0.64,
+                "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+                "518b2b2a493df82af93ea55efa64147c71296ac813391097684667f6f8086873",
+                "4cda8b21aba1af56902522feced62b20e08d4aa676ed77210b493510b35da4eb",
+                true
+              ]
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "33d6d3e4761f1c95c152b0a111a2e41be4701f86a64399975a8605b462cea1d8",
+              "b45838f96d16b484f1fb704809e2590926973ebc9b50e75f4ddef7d671cc2806",
+              "e83a503c22093c3e9669da1ea8eb9b5629cbfb04514f14d799b74afd02fa1b4c",
+              "2c1322514b2bcdee7b525f4965020ae2ef52df42b8245e35a278fa4ce7f89a9e",
+              "ff328cb2429e854b045bb07d17f747ccf4b7efbe4a9c1ad284ada1d457b7bb1d"
+            ],
+            [
+              "minecraft:flowing_water",
+              "minecraft:water"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "f738b57a5e18d4962d8505c478e58a8b8eea49d34ba7d71f8e367b71edd5e5e9",
+              "893f1cfac291295c35e9d814908c8d22adc0d29d4ddad8db8d14e2ec03264dd8"
+            ],
+            [
+              1,
+              "3.10.0.420447",
+              "native_artwork_layered_starfield_v1",
+              128
+            ]
+          ],
+          "creation_serial": 5,
+          "creation_nonce": 1,
+          "current_nonce": 1,
+          "creation_record_sha256": "cb2578ee88bbd5334675bae018fc17c956a96dcf7c74e3773e1525946aa8ad80",
+          "creation_first_poll": 1,
+          "creation_first_stage": "actual card test.transforms.acceptance.t02",
+          "actual_native_serialization_sha256": "0a1e6658f7bb0d6af73e9a6b101db9f784560af29ff2a808d4953212feaf5976",
+          "original_actual_deserialize_sha256": "0a1e6658f7bb0d6af73e9a6b101db9f784560af29ff2a808d4953212feaf5976",
+          "original_full_source_snapshot_sha256": "a6c5a0056aff1113933542086906c350be8b6c77df397bcc168d50ed327ffda7",
+          "current_full_source_snapshot_sha256": "a6c5a0056aff1113933542086906c350be8b6c77df397bcc168d50ed327ffda7",
+          "current_relevant_source_sha256": "3a24075ffdfd23fc4d00f70aed95fad1a6ff5acdd842ee99ab08511a5232f233",
+          "current_prepared_native_sha256": "0a1e6658f7bb0d6af73e9a6b101db9f784560af29ff2a808d4953212feaf5976"
+        }
+      ],
+      "qualified_scope": "complete source/native/cache lineage; actual visible fronts individually marked",
+      "pixels_qualified": false,
+      "creation_records": 6,
+      "config_sha256": "85a6e0550b8d3e38f606499fef4b0f98b49d5c63e560becba230c24d94aacf9a",
+      "strict_original_signature_flags": [
+        true,
+        true,
+        true
+      ],
+      "verified_nonowner_empty_slots": 1,
+      "native_serialization_note": "SHA256 of complete typed serialization exported from API result; not SDK memory."
+    }
+  },
+  "original_restored": true,
+  "independent_restore_audits": [
+    "face-restore-after1.json",
+    "face-restore-after2.json"
+  ],
+  "actual_exit_codes": {
+    "game": 3221226505,
+    "mcdk": 0
+  },
+  "normal_shutdown_qualified": false,
+  "stop_completed": true,
+  "registry_state": "stopped",
+  "force_executed": false,
+  "watcher_retired": true,
+  "processes": {
+    "game": {
+      "pid": 40720,
+      "creation_identity": "134371713006819645"
+    },
+    "mcdk": {
+      "pid": 69080,
+      "creation_identity": "134371713004953982"
+    }
+  },
+  "silhouette_measurement": {
+    "scope": "Bounded stone support silhouette in saved original PNGs only",
+    "sources": [
+      {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_before.png",
+        "sha256": "1ffbfac7d4c5a8d089049952d74147e8a5fdb522d064948e7fe07c01c91f58a3"
+      },
+      {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_yplus4.png",
+        "sha256": "5d946f0d4e4168aa419ea7735aa8bb13a290decaaec3e6c102b622188b758d2d"
+      },
+      {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\button-shift-lifecycle-v4\\check\\button_pair_support_after.png",
+        "sha256": "fbe822ea96fad68131615d8edfcf47aecbd6a5e1fc78f11e872569afec99132c"
+      }
+    ],
+    "ROI_frame_pixels": [
+      577,
+      242,
+      714,
+      452
+    ],
+    "background_RGB": [
+      247,
+      249,
+      252
+    ],
+    "silhouette_threshold": 20,
+    "silhouette_bounds": [
+      [
+        586,
+        309,
+        706,
+        442
+      ],
+      [
+        586,
+        249,
+        706,
+        382
+      ],
+      [
+        586,
+        309,
+        706,
+        442
+      ]
+    ],
+    "expected_delta_frame_pixels": [
+      0.0,
+      -59.91904018575101
+    ],
+    "measured_bbox_center_delta": [
+      0.0,
+      -60.0
+    ],
+    "prediction_error_pixels": [
+      0.0,
+      -0.08095981424899179
+    ],
+    "A_endpoints_exact_ROI_RGB": true,
+    "diagnostic_only": true,
+    "button_attachment_or_depth_qualified": false,
+    "GPU_vertices_or_matrix_readback": false,
+    "manual_issues_closed": 0
+  },
+  "world_write_performed": false,
+  "manual_issues_closed": 0,
+  "button_attachment_or_depth_qualified": false,
+  "runtime_pixels_qualified": false,
+  "limits": [
+    "The private stages render stone support only; no button is rendered.",
+    "The source-linked support model Y+4 displacement matches the saved-image bounded prediction.",
+    "No native GPU vertices, matrix or tint uniform readback, no button attachment/depth acceptance.",
+    "Ordinary-close game exit is 0xC0000409, not a qualified normal engine shutdown."
+  ],
+  "raw_report_pins": {
+    "check/report.json": "20a76f2f6fd6d78ac20fefdcd34867e6eb4aa0ad79316d94fdecb9f2bb1eb3df",
+    "check/button-separate-report.json": "5f7d36123bb98360108a5bd5f05d15a82be624e8203210c0ecad3b02a76711f3",
+    "stop/report.json": "34afdca685de808b83e50f91d2e90002b3bfb1f59d8222c529bc4553a70856ec",
+    "sequence-receipt.json": "6d5f44bc965616b034056726e54bfebf5122240de822d9aeb5de435b61a0b8d9",
+    "root-grant-preflight.json": "6b088525f7a9c36953b8a7cbab7ac888173216ba308204156a260fb8aa5ef591"
+  }
+}
