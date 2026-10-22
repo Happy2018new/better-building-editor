@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "checked_at": 1792695579.3017967,
+  "owner": "water-r28-final-brg-v3",
+  "group_completed": true,
+  "processes": {
+    "game": {
+      "pid": 59196,
+      "identity": "134371686569971408",
+      "current_identity": null,
+      "exact_identity_absent": true
+    },
+    "mcdk": {
+      "pid": 64000,
+      "identity": "134371686567884939",
+      "current_identity": null,
+      "exact_identity_absent": true
+    },
+    "observer": {
+      "pid": 44916,
+      "identity": "134371686648379028",
+      "current_identity": null,
+      "exact_identity_absent": true
+    },
+    "launcher": {
+      "pid": 17716,
+      "identity": "134371686523718516",
+      "current_identity": null,
+      "exact_identity_absent": true
+    },
+    "continuous_guard": {
+      "pid": 69748,
+      "identity": "134371686650286244",
+      "current_identity": null,
+      "exact_identity_absent": true
+    },
+    "assert_watch": {
+      "pid": 71324,
+      "identity": "134371686420460353",
+      "current_identity": null,
+      "exact_identity_absent": true
+    }
+  },
+  "all_exact_identities_absent": true,
+  "independent_restored": true,
+  "all_source_and_auxiliary_unchanged": true,
+  "registry_finalize_exit_code": 0,
+  "retire_helpers_exit_code": 0,
+  "final_same_handle_exit": {
+    "schema": 1,
+    "session": "93fbd1817c774163ba321dd24e75bc41",
+    "owner": "water-r28-final-brg-v3",
+    "opened_at": "2026-10-22T18:51:05.267931+00:00",
+    "processes": {
+      "game": {
+        "pid": 59196,
+        "identity": "134371686569971408",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "state": "exited",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "observed_at": "2026-10-22T18:58:34.445528+00:00"
+      },
+      "mcdk": {
+        "pid": 64000,
+        "identity": "134371686567884939",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "state": "exited",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "observed_at": "2026-10-22T18:58:35.451140+00:00"
+      }
+    },
+    "process_or_window_mutation": false,
+    "completed": true
+  },
+  "group_original_snapshot_preserved": true,
+  "group_same_handle_snapshot_completed": false,
+  "MC_started": false,
+  "qualification_or_owner_changed": false,
+  "files_sha256": {
+    "group-execution-v1.json": "5572c9c42d65154e5f72fb3bd0875d972ab3342b37e78138589c12920d15d1a3",
+    "independent-restore-v1.json": "57c8c867fce1c7e1423cf0644ca21a27505c8773cc10d4d685a861272804df00",
+    "helper-retirement-v1.json": "fe23f38050ffc6cc9744d78a0630c7c6c1bace126c76918fe7e226302e8223f1",
+    "launch/exact-exit.json": "eae7593651a81077d4f50287a1427a401fba236455885b1d10717833dc6e3086",
+    "product-v2-camera-seam-v1.json": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333",
+    "product-v2-b-v1.json": "3d89ca9136299e314b9dd3eb2517856f1944845709553c241016c9e970f38cef",
+    "product-v2-r-v1.json": "357bb4d8da35c995b9984776c6fa5eb18678082a9eabcc997cfff5864343413c",
+    "product-v2-g-v1.json": "1e4be6a60b321795c41658b431a7fa87067196ae128c7d369e88c76ed214d79b"
+  }
+}

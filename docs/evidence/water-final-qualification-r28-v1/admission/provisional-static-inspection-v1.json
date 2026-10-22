@@ -1,0 +1,116 @@
+{
+  "MC_started": false,
+  "RPC_dispatched": false,
+  "actual_before_metadata_changes": {
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py": {
+      "after": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+      "before": "5259bd983e90c5cb5de6fe6e25fbfb527b5d6c8ee3adba9f220b772b9ab50187"
+    },
+    "tools/data/liquid_product_owner_contract_v1.json": {
+      "after": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+      "before": "ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872"
+    }
+  },
+  "all_seven_source_closures_passed": true,
+  "created_at_utc": "2026-10-22T19:27:31.219465+00:00",
+  "host_sha256": "b86e2ae69705c7f78f49f2a75ae019a861d2960bb0c8a5a8539a23f99dc0ee62",
+  "manual_closures_added": 0,
+  "mode": "inspect_only",
+  "owner_or_qualification_changed": false,
+  "preparation_sha256": "905f375e09ae884691bcf0582285cfc5b10add72c071fa059a02f1fb671db61f",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-default-v1",
+  "provisional_executed": false,
+  "reviewed_host_activation": {
+    "algorithms_thresholds_or_ROIs_changed": false,
+    "calibration_cohorts": [
+      {
+        "activation": {
+          "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-camera-extractor-seam-candidate-v1\\candidate_extractor.py",
+          "candidate_sha256": "3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f",
+          "expected_silhouette_used_to_build_mask": false,
+          "host_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\calibration_host.py",
+          "host_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+          "new_calibration_host_evidence": true,
+          "old_failed_report_revised": false,
+          "production_qualification_modified": false,
+          "project_source_bytes_modified": false,
+          "schema": 1,
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "cohort": "FA",
+        "reference": {
+          "actual_fixture_observations": 12,
+          "camera_report_sha256": "eab4e6489a51c940f5c7fcc502dcc4ada101046889a61397173ea5f7e80a1592",
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "report_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-camera-seam-v1.json",
+        "report_sha256": "eab4e6489a51c940f5c7fcc502dcc4ada101046889a61397173ea5f7e80a1592"
+      },
+      {
+        "activation": {
+          "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-camera-extractor-seam-candidate-v1\\candidate_extractor.py",
+          "candidate_sha256": "3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f",
+          "expected_silhouette_used_to_build_mask": false,
+          "host_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-brg-v3\\calibration_host.py",
+          "host_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+          "new_calibration_host_evidence": true,
+          "old_failed_report_revised": false,
+          "production_qualification_modified": false,
+          "project_source_bytes_modified": false,
+          "schema": 1,
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "cohort": "BRG",
+        "reference": {
+          "actual_fixture_observations": 12,
+          "camera_report_sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333",
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "report_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-brg-v3\\product-v2-camera-seam-v1.json",
+        "report_sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333"
+      }
+    ],
+    "external_dependencies_checked": 49,
+    "private_session_modules": [
+      {
+        "module": "_session",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-brg-v3\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+        "sha256": "6960a3e5e6fdc8ccfac828aa3ebb0cab4a748d2d85488eeceb91fa77b0c899e6"
+      },
+      {
+        "module": "_window",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-brg-v3\\.agents\\skills\\pyreact-debugging\\scripts\\_window.py",
+        "sha256": "9fdb52e92aeb9930d8faffb81ab2023aaec68383b71b6fab9172643270e0826e"
+      }
+    ],
+    "seam_controls_sha256": "418aa0076a15767dc4fd05fa40b5d8e6dd1cfbac706a144a71370dd6d701dc7d",
+    "source_bytes_modified": false,
+    "startup_contract_sha256": "bef28f515f9274c0d9a9926537825e04a5a425ed8601acfa61d364bf9e8dca7a",
+    "startup_validator_modules": [
+      {
+        "module": "capture_native_burst",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\candidate\\tools\\capture_native_burst.py",
+        "sha256": "0f51cf602263358c42950ded96eaa4859458846be67c810a14de27b4ffac6045"
+      },
+      {
+        "module": "capture_native_burst_deferred",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\candidate\\tools\\capture_native_burst_deferred.py",
+        "sha256": "6421e443747dde4a33cead714aed25adac57c9acf0e67afe45373506c321034a"
+      },
+      {
+        "module": "capture_native_burst_startup",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\candidate\\tools\\capture_native_burst_startup.py",
+        "sha256": "10c330f79e5348e7f06ebd26eb33984969419f7b8656cbcc5cd9aeec5fa4a3fc"
+      }
+    ]
+  },
+  "root_scope_draft_sha256": "cde7e8a22eff023e479222ffe9573375f9d94035d4496d853c697ee06299126d",
+  "schema": 1,
+  "shared_generator_ROOT": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+  "shared_generator_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_liquid_product_owner_contract.py",
+  "shared_generator_sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85",
+  "shared_metadata_unchanged": true,
+  "shared_qualifier_ROOT": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+  "shared_qualifier_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\qualify_water_product_r16.py",
+  "shared_qualifier_sha256": "c1249a31bd5da4e470c4a413e6641c5ae8bee420b593285957d79d23deaef381"
+}

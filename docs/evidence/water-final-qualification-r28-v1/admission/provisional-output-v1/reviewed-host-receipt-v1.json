@@ -1,0 +1,651 @@
+{
+  "MC_started": false,
+  "RPC_dispatched": false,
+  "actual_after_metadata_changes": {
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py": {
+      "after": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+      "before": "5259bd983e90c5cb5de6fe6e25fbfb527b5d6c8ee3adba9f220b772b9ab50187"
+    },
+    "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py": {
+      "after": "e2fb1199961aaa1000019a0e3aec6a645ba2428ab20946af98b02ff1764821a3",
+      "before": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14"
+    },
+    "tools/data/liquid_product_owner_contract_v1.json": {
+      "after": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+      "before": "ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872"
+    }
+  },
+  "actual_before_metadata_changes": {
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py": {
+      "after": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+      "before": "5259bd983e90c5cb5de6fe6e25fbfb527b5d6c8ee3adba9f220b772b9ab50187"
+    },
+    "tools/data/liquid_product_owner_contract_v1.json": {
+      "after": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+      "before": "ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872"
+    }
+  },
+  "all_seven_source_closures_passed": true,
+  "created_at_utc": "2026-10-22T19:32:35.804298+00:00",
+  "host_sha256": "38e34bc80fbdc44dd2c291a92b6fac545c5746269647885368d074dd542917b6",
+  "manifest_default_path": false,
+  "manifest_sha256": "d97be345b75824e6bcccd995fed9b5caf93ec8231eb2a1d1bb10abfb8b0669d2",
+  "manual_closures_added": 0,
+  "mode": "execute_provisional",
+  "preparation_sha256": "905f375e09ae884691bcf0582285cfc5b10add72c071fa059a02f1fb671db61f",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-default-v1",
+  "provisional_executed": true,
+  "reviewed_host_activation": {
+    "algorithms_thresholds_or_ROIs_changed": false,
+    "calibration_cohorts": [
+      {
+        "activation": {
+          "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-camera-extractor-seam-candidate-v1\\candidate_extractor.py",
+          "candidate_sha256": "3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f",
+          "expected_silhouette_used_to_build_mask": false,
+          "host_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\calibration_host.py",
+          "host_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+          "new_calibration_host_evidence": true,
+          "old_failed_report_revised": false,
+          "production_qualification_modified": false,
+          "project_source_bytes_modified": false,
+          "schema": 1,
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "cohort": "FA",
+        "reference": {
+          "actual_fixture_observations": 12,
+          "camera_report_sha256": "eab4e6489a51c940f5c7fcc502dcc4ada101046889a61397173ea5f7e80a1592",
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "report_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-camera-seam-v1.json",
+        "report_sha256": "eab4e6489a51c940f5c7fcc502dcc4ada101046889a61397173ea5f7e80a1592"
+      },
+      {
+        "activation": {
+          "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-camera-extractor-seam-candidate-v1\\candidate_extractor.py",
+          "candidate_sha256": "3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f",
+          "expected_silhouette_used_to_build_mask": false,
+          "host_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-brg-v3\\calibration_host.py",
+          "host_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+          "new_calibration_host_evidence": true,
+          "old_failed_report_revised": false,
+          "production_qualification_modified": false,
+          "project_source_bytes_modified": false,
+          "schema": 1,
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "cohort": "BRG",
+        "reference": {
+          "actual_fixture_observations": 12,
+          "camera_report_sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333",
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "report_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-brg-v3\\product-v2-camera-seam-v1.json",
+        "report_sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333"
+      }
+    ],
+    "external_dependencies_checked": 49,
+    "private_session_modules": [
+      {
+        "module": "_session",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-brg-v3\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+        "sha256": "6960a3e5e6fdc8ccfac828aa3ebb0cab4a748d2d85488eeceb91fa77b0c899e6"
+      },
+      {
+        "module": "_window",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-brg-v3\\.agents\\skills\\pyreact-debugging\\scripts\\_window.py",
+        "sha256": "9fdb52e92aeb9930d8faffb81ab2023aaec68383b71b6fab9172643270e0826e"
+      }
+    ],
+    "seam_controls_sha256": "418aa0076a15767dc4fd05fa40b5d8e6dd1cfbac706a144a71370dd6d701dc7d",
+    "source_bytes_modified": false,
+    "startup_contract_sha256": "bef28f515f9274c0d9a9926537825e04a5a425ed8601acfa61d364bf9e8dca7a",
+    "startup_validator_modules": [
+      {
+        "module": "capture_native_burst",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\candidate\\tools\\capture_native_burst.py",
+        "sha256": "0f51cf602263358c42950ded96eaa4859458846be67c810a14de27b4ffac6045"
+      },
+      {
+        "module": "capture_native_burst_deferred",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\candidate\\tools\\capture_native_burst_deferred.py",
+        "sha256": "6421e443747dde4a33cead714aed25adac57c9acf0e67afe45373506c321034a"
+      },
+      {
+        "module": "capture_native_burst_startup",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\candidate\\tools\\capture_native_burst_startup.py",
+        "sha256": "10c330f79e5348e7f06ebd26eb33984969419f7b8656cbcc5cd9aeec5fa4a3fc"
+      }
+    ]
+  },
+  "root_review_path": ".runtime\\round-20261023\\water-default-admission-v1\\root-scope-review-confirmed-v1.json",
+  "root_review_sha256": "bf003d8b3e486bf0736a8341f5b65b4e80672f726739ff1d0aedb9000d966b64",
+  "root_scope_draft_sha256": "cde7e8a22eff023e479222ffe9573375f9d94035d4496d853c697ee06299126d",
+  "schema": 1,
+  "shared_dependencies_exactly_match_frozen_capture": {
+    "analyze_liquid_workspace": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\analyze_liquid_workspace.py",
+      "relative": "tools/analyze_liquid_workspace.py",
+      "sha256": "c0fead0d55dcfe84477403c26d775beba35e92529ae6d4dbc4bc4490e9948e64"
+    },
+    "analyze_product_water": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\analyze_product_water.py",
+      "relative": "tools/analyze_product_water.py",
+      "sha256": "81ee980256fd6d679d20e1526a66b4bc576cd4a33ccf0266cd4361d5f306a635"
+    },
+    "analyze_product_water_biome": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\analyze_product_water_biome.py",
+      "relative": "tools/analyze_product_water_biome.py",
+      "sha256": "eb100031cefe60f74aed270c224b1338b5772fe372b3d7fd3fff8113bc4f0bba"
+    },
+    "analyze_product_water_flow": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\analyze_product_water_flow.py",
+      "relative": "tools/analyze_product_water_flow.py",
+      "sha256": "60f9b8dc6e1488870c12df3730d69f822a324e6e0604b540955569b79a183c0b"
+    },
+    "analyze_water_acceptance_r16": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\analyze_water_acceptance_r16.py",
+      "relative": "tools/analyze_water_acceptance_r16.py",
+      "sha256": "5f6857ce2b3ec61cc93b79cce12eee3d47ad930b967d3ac0cfb7a0c8f4a4cc52"
+    },
+    "camera_projection": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\camera_projection.py",
+      "relative": "tools/camera_projection.py",
+      "sha256": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c"
+    },
+    "context_test_environment": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\context_test_environment.py",
+      "relative": "tools/context_test_environment.py",
+      "sha256": "cc9db3ced04f380e254850f57de172a07e52d04c2f8d88ca8cb4c67fcf61ba57"
+    },
+    "generate_liquid_face_textures": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_liquid_face_textures.py",
+      "relative": "tools/generate_liquid_face_textures.py",
+      "sha256": "54d8bb522ac32112043b6693ae9724b2783c1ea314da3d3551c81bba04134cbe"
+    },
+    "generate_liquid_payload_poc": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_liquid_payload_poc.py",
+      "relative": "tools/generate_liquid_payload_poc.py",
+      "sha256": "996756d438a2c1ab871d3c960b22e8ea5dd9d0dc910340212294d42b100d4163"
+    },
+    "generate_liquid_product_owner_contract": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_liquid_product_owner_contract.py",
+      "relative": "tools/generate_liquid_product_owner_contract.py",
+      "sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85"
+    },
+    "generate_liquid_product_resources": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_liquid_product_resources.py",
+      "relative": "tools/generate_liquid_product_resources.py",
+      "sha256": "89bc07bdfb26e933ddec259518ce5cffd73f2d6a08e80605aad58827543af9b7"
+    },
+    "generate_liquid_skeleton_resources": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_liquid_skeleton_resources.py",
+      "relative": "tools/generate_liquid_skeleton_resources.py",
+      "sha256": "153a5b6cd6c1189b9af809cd3200240e77e4c8fb9d2d52f9a971cf6cb56f6970"
+    },
+    "generate_shulker_proxies": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_shulker_proxies.py",
+      "relative": "tools/generate_shulker_proxies.py",
+      "sha256": "3655cf8a4513439ba205617cc427a204e54ae5b1bfa0be066f1b3e6defa1be87"
+    },
+    "liquid_payload_poc": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\liquid_payload_poc.py",
+      "relative": "tools/liquid_payload_poc.py",
+      "sha256": "93adac7eef6f4e42112120ff4efb417c761a3f057ba49de8fc7cd9de81ede312"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "relative": ".agents/skills/pyreact-debugging/scripts/mcdk.py",
+      "sha256": "347e01d51324924a84a05cf08c342b46d6e1fab589d446705eadde2cd8a587d3"
+    },
+    "projection": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\__init__.py",
+      "relative": "behavior_pack/modern_projection/projection/__init__.py",
+      "sha256": "a2e875531e037f12857911031b0a4ab9afd695c48e34ba5314b9466af020750f"
+    },
+    "projection.banner_fixture_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\banner_fixture_data.py",
+      "relative": "behavior_pack/modern_projection/projection/banner_fixture_data.py",
+      "sha256": "708be74bb7a29e6ec8bbda287bb6fcd78030a213f1678710566d07e7d3e390ba"
+    },
+    "projection.banner_render_contract": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\banner_render_contract.py",
+      "relative": "behavior_pack/modern_projection/projection/banner_render_contract.py",
+      "sha256": "ecefa6c4da2e7fb7854dfadba30aca93533f8f6c47b5c572b4abe7cf04f512c3"
+    },
+    "projection.biomes": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\biomes.py",
+      "relative": "behavior_pack/modern_projection/projection/biomes.py",
+      "sha256": "899968dd2748847ac178d5a43a3b284de6cba6589474e2a082e4b2f17b1bf9ef"
+    },
+    "projection.block_groups": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\block_groups.py",
+      "relative": "behavior_pack/modern_projection/projection/block_groups.py",
+      "sha256": "25d82ed827b798cd319cab006f3df331dc3ca47a6f1b56cd15e1d30e3a70e747"
+    },
+    "projection.block_registry": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\block_registry.py",
+      "relative": "behavior_pack/modern_projection/projection/block_registry.py",
+      "sha256": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a"
+    },
+    "projection.block_registry_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+      "relative": "behavior_pack/modern_projection/projection/block_registry_data.py",
+      "sha256": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1"
+    },
+    "projection.block_traits": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\block_traits.py",
+      "relative": "behavior_pack/modern_projection/projection/block_traits.py",
+      "sha256": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c"
+    },
+    "projection.block_traits_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\block_traits_data.py",
+      "relative": "behavior_pack/modern_projection/projection/block_traits_data.py",
+      "sha256": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6"
+    },
+    "projection.camera": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\camera.py",
+      "relative": "behavior_pack/modern_projection/projection/camera.py",
+      "sha256": "38cd20f3bfae44b9e48d5c0853faf5e965b7812472f87f5e342668ac28c30178"
+    },
+    "projection.catalog": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\catalog.py",
+      "relative": "behavior_pack/modern_projection/projection/catalog.py",
+      "sha256": "ee843813ff3d7c336d6e497b7ead40ed72d6b58ca110e7f8875fbb31cba8065c"
+    },
+    "projection.cell": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\cell.py",
+      "relative": "behavior_pack/modern_projection/projection/cell.py",
+      "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6"
+    },
+    "projection.debug_action_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_action_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_action_blueprints.py",
+      "sha256": "8967d0b53c96a0eff852e866ba5d615d01c237cda1e237fb3edbe7aaad091b2f"
+    },
+    "projection.debug_banner_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_banner_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_banner_blueprints.py",
+      "sha256": "11612ec4b9fdaec3234e891894d9ca4c9045fb931c9f8f7aff63e07f09b24b21"
+    },
+    "projection.debug_barrier_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_barrier_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_barrier_blueprints.py",
+      "sha256": "a2230d597ed4f740d7df1c1a8e00c8f7fbea78b51f6150cde95f386398bca1e0"
+    },
+    "projection.debug_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_blueprints.py",
+      "sha256": "a9a1edf4732729c25ca94b02b624b4da1854efedb0aec6dfe6943630e645d506"
+    },
+    "projection.debug_book_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_book_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_book_blueprints.py",
+      "sha256": "230c3d882e31284bcb2a3c8e425fbe384414668224575a0721bf336bc4fb2542"
+    },
+    "projection.debug_botanical_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_botanical_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_botanical_blueprints.py",
+      "sha256": "eca8df4c98d451849e8110ccfe7894ed842029f79404d31468683418c777be38"
+    },
+    "projection.debug_cauldron_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_cauldron_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_cauldron_blueprints.py",
+      "sha256": "67821ef6d9781765b81deb424e9b5cb206add45a5879902d6b2e40e17ac31992"
+    },
+    "projection.debug_compatibility_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_compatibility_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_compatibility_blueprints.py",
+      "sha256": "1fdc7234db7fd5707341b0d2c8474b219812eb74d7cde250e9927ca5133828be"
+    },
+    "projection.debug_concrete_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_concrete_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_concrete_blueprints.py",
+      "sha256": "0841dc245947276c781cbeadfc2eff932353f34d1441ad1185d3c815d2a6d0e7"
+    },
+    "projection.debug_connection_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_connection_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_connection_blueprints.py",
+      "sha256": "00d16732c8d3a8416544461d6bf31ab69edea331736671a8caa4f87055905800"
+    },
+    "projection.debug_coral_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_coral_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_coral_blueprints.py",
+      "sha256": "60c490983bb94a117b67f0263a75098906f67be8603fc3c32b764abe37e8c06d"
+    },
+    "projection.debug_dripleaf_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_dripleaf_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_dripleaf_blueprints.py",
+      "sha256": "eaca929247e7b3c532c1f1e5abca8a0309d50fbb6c6b98351212a8039e9188a1"
+    },
+    "projection.debug_dripstone_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_dripstone_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_dripstone_blueprints.py",
+      "sha256": "00445d51d6f363fc8d24be6f26cc2d44e0ff43808a1674698a5f9b90ffe3871c"
+    },
+    "projection.debug_item_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_item_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_item_blueprints.py",
+      "sha256": "adbd3cab7b4475e889d7fa573c4ee23a34b1127fd3ec310a8b1b51f348525c0b"
+    },
+    "projection.debug_liquid_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_liquid_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_liquid_blueprints.py",
+      "sha256": "e439f64ff9d1d72023651d99343e4870c3a38ec6919a875aca60cabe3d7b59c9"
+    },
+    "projection.debug_neighborhood_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_neighborhood_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_neighborhood_blueprints.py",
+      "sha256": "2199be544d04933c1152d611be296387260fe1848f20649b7f6c16893ca71874"
+    },
+    "projection.debug_ordinary_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_ordinary_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_ordinary_blueprints.py",
+      "sha256": "1cce33e3647b093095f365ce670026cad4492203a59f86121d5fa29776b21ff2"
+    },
+    "projection.debug_ordinary_plant_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_ordinary_plant_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_ordinary_plant_blueprints.py",
+      "sha256": "64a133c36aa0aa4e422f89eca7b1929ad7a75503a9b2663d2844baf622902b4e"
+    },
+    "projection.debug_portal_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_portal_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_portal_blueprints.py",
+      "sha256": "b606e96709d75b53a6f619a93c381f248cd040e0ac294c0371889d0196b5df53"
+    },
+    "projection.debug_pot_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_pot_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_pot_blueprints.py",
+      "sha256": "2179237903d1c8e1986009cfd74c373252f686bab9657fddcf2604dc7d0653b3"
+    },
+    "projection.debug_pressure_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_pressure_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_pressure_blueprints.py",
+      "sha256": "b7b05ce610f43d70949929b33d7046eeac570d544417b9d10fe60a7c8daaee16"
+    },
+    "projection.debug_product_connections": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_product_connections.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_product_connections.py",
+      "sha256": "12240ece814e044d2eb71b5cfd6b06f56a169752c2992972647bb097bc5727e9"
+    },
+    "projection.debug_product_water_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_product_water_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_product_water_blueprints.py",
+      "sha256": "347946630e7dd73f8c8b87546c4b0021b550451a52beab2c5e6b8d901996c636"
+    },
+    "projection.debug_sign_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_sign_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_sign_blueprints.py",
+      "sha256": "c01324f53add969f71333590c175d439fb8e5593f9ef3c46b898f6d099db0b46"
+    },
+    "projection.debug_slab_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_slab_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_slab_blueprints.py",
+      "sha256": "f27289fa1a16cbc7c9e64f52f7aa43a77e0d4651504838f5031c149736c97d2f"
+    },
+    "projection.debug_snow_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_snow_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_snow_blueprints.py",
+      "sha256": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de"
+    },
+    "projection.debug_spawner_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_spawner_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_spawner_blueprints.py",
+      "sha256": "ffd387912ad786fba3b0b32aadcbce9898a15ed8761322cec319d8afe6006464"
+    },
+    "projection.debug_transform_acceptance": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_transform_acceptance.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_transform_acceptance.py",
+      "sha256": "b864741dd79d0dc0ac9d81c6802d72456e12b753ff6d7c59efe52e5d9bc51090"
+    },
+    "projection.debug_water_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\debug_water_blueprints.py",
+      "relative": "behavior_pack/modern_projection/projection/debug_water_blueprints.py",
+      "sha256": "5aa889e2cee250dc88ce5676c2be3433c5706ea3e587dce0e6f67d297f16f11e"
+    },
+    "projection.entity_defaults": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\entity_defaults.py",
+      "relative": "behavior_pack/modern_projection/projection/entity_defaults.py",
+      "sha256": "26d94ace4b843dbf154dcae3c2ef3af906d8a72468656e68c0fb1517bae833e0"
+    },
+    "projection.entity_defaults_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\entity_defaults_data.py",
+      "relative": "behavior_pack/modern_projection/projection/entity_defaults_data.py",
+      "sha256": "5ee014684757737c4dd78949bdfcf98b9110b2d70bb35b8cc5e3c852992b6dbf"
+    },
+    "projection.entity_render": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\entity_render.py",
+      "relative": "behavior_pack/modern_projection/projection/entity_render.py",
+      "sha256": "a2cd09aa502b590429955e2adabd1523e05c619167d8b26f50c0f438a3d86722"
+    },
+    "projection.item_contents_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\item_contents_data.py",
+      "relative": "behavior_pack/modern_projection/projection/item_contents_data.py",
+      "sha256": "667996410248920efd051c88c448945fa6d7d9678ea53a8dacfcab5eef117151"
+    },
+    "projection.item_icon_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\item_icon_data.py",
+      "relative": "behavior_pack/modern_projection/projection/item_icon_data.py",
+      "sha256": "680eb674267c34bebecedac2f75cd74048754d0886a6e87b64d94c4dfb8ed41e"
+    },
+    "projection.liquid_native_shapes": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\liquid_native_shapes.py",
+      "relative": "behavior_pack/modern_projection/projection/liquid_native_shapes.py",
+      "sha256": "d2ffc451a814478335482143b6294c44651ed65e799f7a28e1ea0905cd15b8f6"
+    },
+    "projection.liquid_product_deployment": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\liquid_product_deployment.py",
+      "relative": "behavior_pack/modern_projection/projection/liquid_product_deployment.py",
+      "sha256": "f521f37a4ebdb12b57ea3d805bb653e3e653d51ce64619e122896896d62daaac"
+    },
+    "projection.liquid_product_qualification_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\liquid_product_qualification_data.py",
+      "relative": "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py",
+      "sha256": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14"
+    },
+    "projection.liquid_render_plan": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\liquid_render_plan.py",
+      "relative": "behavior_pack/modern_projection/projection/liquid_render_plan.py",
+      "sha256": "4c702b4e8ad7ca77d25d8547262617042b724c9267979d0d1e39e8761aa8fd03"
+    },
+    "projection.liquid_render_target_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\liquid_render_target_data.py",
+      "relative": "behavior_pack/modern_projection/projection/liquid_render_target_data.py",
+      "sha256": "e8a26f5458bdda971577c28c3e83757bee912771eebfd707200bc01815cfdda3"
+    },
+    "projection.liquid_shape": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\liquid_shape.py",
+      "relative": "behavior_pack/modern_projection/projection/liquid_shape.py",
+      "sha256": "6340e8e409b621f844b85975adfcd86ff9eab89206a9f8e3af85bfad8dae03ef"
+    },
+    "projection.liquid_shape_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\liquid_shape_data.py",
+      "relative": "behavior_pack/modern_projection/projection/liquid_shape_data.py",
+      "sha256": "3bd1e54a97cf941938a5bc980c6a3f6bd7ff28a63cb070b4cf1391ae83e253e5"
+    },
+    "projection.liquid_transport": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\liquid_transport.py",
+      "relative": "behavior_pack/modern_projection/projection/liquid_transport.py",
+      "sha256": "b259a3f097015a8b841ee0e483c260262277d4866dbaf0cf6c22e84ccd14b65b"
+    },
+    "projection.model": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\model.py",
+      "relative": "behavior_pack/modern_projection/projection/model.py",
+      "sha256": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2"
+    },
+    "projection.native_appearance": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\native_appearance.py",
+      "relative": "behavior_pack/modern_projection/projection/native_appearance.py",
+      "sha256": "8ee814d221249492773382cbdd7dfe390e43a12a0b366425e83db2eb633c632c"
+    },
+    "projection.native_render_profile": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\native_render_profile.py",
+      "relative": "behavior_pack/modern_projection/projection/native_render_profile.py",
+      "sha256": "b8ddee769323cae4e861f49bf9ae4d6ce5813948d9f09c186441dccf122f220d"
+    },
+    "projection.native_sign_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\native_sign_data.py",
+      "relative": "behavior_pack/modern_projection/projection/native_sign_data.py",
+      "sha256": "f1c0e6c65fde69f687d79688eb5204eedf353a1de0ba17fb4392c5be0672b785"
+    },
+    "projection.nbt_spatial": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\nbt_spatial.py",
+      "relative": "behavior_pack/modern_projection/projection/nbt_spatial.py",
+      "sha256": "aac80300547ce5e99c332e8e43a83df320fca89493ef543f41c113d402f3a3fe"
+    },
+    "projection.packed": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\packed.py",
+      "relative": "behavior_pack/modern_projection/projection/packed.py",
+      "sha256": "b4adc3092a3a16862203c1d42e2f766257cee2e5876114eea4d9124d05e54346"
+    },
+    "projection.spawner_marker_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\spawner_marker_data.py",
+      "relative": "behavior_pack/modern_projection/projection/spawner_marker_data.py",
+      "sha256": "12ebc8083bed690a1e0c24b884c4eb27d3f8008c3e618e6589e19c62b8245d6e"
+    },
+    "projection.static_bed": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\static_bed.py",
+      "relative": "behavior_pack/modern_projection/projection/static_bed.py",
+      "sha256": "aa778092f10ee23365af0612a05d022ae313ce61208edb201d737e111071caf8"
+    },
+    "projection.static_bed_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\static_bed_data.py",
+      "relative": "behavior_pack/modern_projection/projection/static_bed_data.py",
+      "sha256": "31d3035bc837520a73daf67174eaac17180ee33a63999d45db2ffd5011fae952"
+    },
+    "projection.static_chest_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\static_chest_data.py",
+      "relative": "behavior_pack/modern_projection/projection/static_chest_data.py",
+      "sha256": "61fbe07103371b129ae55721d509f59d8c294efc56fda83aa627b18d530cc13a"
+    },
+    "projection.static_shulker_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\static_shulker_data.py",
+      "relative": "behavior_pack/modern_projection/projection/static_shulker_data.py",
+      "sha256": "76c525990c415da76cbbd8c17c11ed410b50e8deccf619f989a94c7550fdce28"
+    },
+    "projection.static_skull": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\static_skull.py",
+      "relative": "behavior_pack/modern_projection/projection/static_skull.py",
+      "sha256": "44b25884017a45b249cc7e938043da00e9c323398a61f7a2207b0eca8ebd6a41"
+    },
+    "projection.static_skull_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\static_skull_data.py",
+      "relative": "behavior_pack/modern_projection/projection/static_skull_data.py",
+      "sha256": "321ee9d2ebbe8d4ea27bfd7fa7de9cc0bda89260a6ea78e7ee817076ff719ad9"
+    },
+    "projection.static_table": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\static_table.py",
+      "relative": "behavior_pack/modern_projection/projection/static_table.py",
+      "sha256": "7db6db88876cd6f093fd813724f6c5baa2e82391b69d49b8f3bed31cbc8b6ea0"
+    },
+    "projection.static_table_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\static_table_data.py",
+      "relative": "behavior_pack/modern_projection/projection/static_table_data.py",
+      "sha256": "a857060dc1faabd9591aba6d504b502e9e6edc124423940f7aba8310f9e89445"
+    },
+    "projection.storage": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\storage.py",
+      "relative": "behavior_pack/modern_projection/projection/storage.py",
+      "sha256": "ae82f1c80715ff35a905081889ef4e155e9d3d59f29ff6f2ccc6d83a4961354e"
+    },
+    "projection.visible_actor": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\visible_actor.py",
+      "relative": "behavior_pack/modern_projection/projection/visible_actor.py",
+      "sha256": "06a45742aa05787c19a63757d69785a124a2241a3eb93e2637f9234d6b4880e7"
+    },
+    "projection.water_interaction_data": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\behavior_pack\\modern_projection\\projection\\water_interaction_data.py",
+      "relative": "behavior_pack/modern_projection/projection/water_interaction_data.py",
+      "sha256": "0762950329b6f48fe7feaaa3c718f8bb62ca2fc6762d8fcb77f49287ae9ae5e7"
+    },
+    "qualify_water_product_r16": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\qualify_water_product_r16.py",
+      "relative": "tools/qualify_water_product_r16.py",
+      "sha256": "c1249a31bd5da4e470c4a413e6641c5ae8bee420b593285957d79d23deaef381"
+    },
+    "shulker_pixels": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\shulker_pixels.py",
+      "relative": "tools/shulker_pixels.py",
+      "sha256": "a134286c29b26a433448e78f9e825e88faeead4718be5af6ac0fe8fa71f64ca5"
+    },
+    "sign_panel_oracle": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\sign_panel_oracle.py",
+      "relative": "tools/sign_panel_oracle.py",
+      "sha256": "b7472e2fd901bfedc403bc02622c27fdeda910c8e15760713775eeb0ccb99f44"
+    },
+    "verify_camera_projection": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_camera_projection.py",
+      "relative": "tools/verify_camera_projection.py",
+      "sha256": "20b702496787cf34d85102d600399f103733b260cc08ecc153067d6caf519eb8"
+    },
+    "verify_context_batch_visuals": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_context_batch_visuals.py",
+      "relative": "tools/verify_context_batch_visuals.py",
+      "sha256": "92eaa22743e360a85dea04e868ba5633eb29651486231c83e49c2574c237f0ef"
+    },
+    "verify_debug_blueprints": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_debug_blueprints.py",
+      "relative": "tools/verify_debug_blueprints.py",
+      "sha256": "d9922aff8136fac0693c3a944d91e168c2ab1b2311e78357327b95ecd7d41f57"
+    },
+    "verify_debug_visuals": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_debug_visuals.py",
+      "relative": "tools/verify_debug_visuals.py",
+      "sha256": "d5f4f27a716a6390f2abd490709367c76efd9cb63962df37820a8b7ef3d1bf67"
+    },
+    "verify_missing_neighbor_visuals": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_missing_neighbor_visuals.py",
+      "relative": "tools/verify_missing_neighbor_visuals.py",
+      "sha256": "edca326910919c1a8a0e50fbd0318f68252a8377116152584aafd950413c949a"
+    },
+    "verify_native_entity_appearances": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_native_entity_appearances.py",
+      "relative": "tools/verify_native_entity_appearances.py",
+      "sha256": "d2d19437e25f6b7f5362f923ea027ad70b634d6d652efe6a30b395cdc513592d"
+    },
+    "verify_native_sign_fields": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_native_sign_fields.py",
+      "relative": "tools/verify_native_sign_fields.py",
+      "sha256": "0b205cebbd41abc01fbbee3525eddbe442d03a54b4abb39a7b39a30ada23b8b5"
+    },
+    "verify_neighbor_world_visuals": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_neighbor_world_visuals.py",
+      "relative": "tools/verify_neighbor_world_visuals.py",
+      "sha256": "7c948a91dd1f03dd3307b96ead989e8f3e0e2828f1ab5e0484211c5c0eb73258"
+    },
+    "verify_shulker_orientations": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_shulker_orientations.py",
+      "relative": "tools/verify_shulker_orientations.py",
+      "sha256": "0745199a433f82adaf5cb98298bd35b0037cd5a3226268aac318ea16c6ed90d1"
+    },
+    "verify_sign_visuals": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\verify_sign_visuals.py",
+      "relative": "tools/verify_sign_visuals.py",
+      "sha256": "efa1b1537b50b9bbe13c40e6c7f7be45d75452acf2aa584cce8925cde3d15e8b"
+    },
+    "visual_environment": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\visual_environment.py",
+      "relative": "tools/visual_environment.py",
+      "sha256": "1a71b530c88dc22dc66cb9f9c68f56b2a039741c058c6a0de2ec6cb419500519"
+    },
+    "water_capture_contract": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\water_capture_contract.py",
+      "relative": "tools/water_capture_contract.py",
+      "sha256": "1548fb691139be132a1b3f823b400068253e3493cf9b17bb0673677e1da98f66"
+    },
+    "water_native_projection": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\water_native_projection.py",
+      "relative": "tools/water_native_projection.py",
+      "sha256": "bef9e23e3d10ff763fb0e36df9eff7432a6b926219d04866509fa0cd9e168816"
+    }
+  },
+  "shared_generator_ROOT": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+  "shared_generator_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_liquid_product_owner_contract.py",
+  "shared_generator_sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85",
+  "shared_metadata_unchanged": true,
+  "shared_production_qualified": false,
+  "shared_qualifier_ROOT": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+  "shared_qualifier_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\qualify_water_product_r16.py",
+  "shared_qualifier_sha256": "c1249a31bd5da4e470c4a413e6641c5ae8bee420b593285957d79d23deaef381"
+}

@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "owner": "water-r28-final-brg-v3",
+  "plan_sha256": "f0475253b5ecfb76ca1ddacc5ababa2720c3a10673d93a55c9889bc6188b5f97",
+  "begin": 1792694960.4537034,
+  "until": 1792698265.4537034,
+  "host_binding_sha256": "650ccf133e74a3950f40e9d6a2a0897ca2386a7a404d10097ac75a550dcd51ef",
+  "allowed_stages": [
+    "camera",
+    "B",
+    "R",
+    "G"
+  ],
+  "exclusive_slot": true,
+  "required_fixed_resource_gates": true,
+  "ordinary_stop_and_precise_release_required": true,
+  "no_retry_same_owner": true,
+  "production_admission_authorized": false
+}

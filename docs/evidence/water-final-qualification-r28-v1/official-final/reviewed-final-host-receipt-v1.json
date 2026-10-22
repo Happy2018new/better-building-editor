@@ -1,0 +1,686 @@
+{
+  "MC_started": false,
+  "RPC_dispatched": false,
+  "R_or_G_exact_per_case_geometry_accepted": false,
+  "accepted_scope": {
+    "A": "visible animation and physical flow direction under the existing animated protocol",
+    "B": "biome controls and exact occupancy/remove-one/restore-four",
+    "D": "cold ordinary initialization, no profile assignment, three routes and three visible cases, visible animation and exact remove-one/restore-four occupancy",
+    "F": "exact geometry, independent alpha and transparency under the existing frozen protocol",
+    "G": "complete 81-cell public gallery loaded in editor and aggregate water visibility",
+    "R": "three routes and five opposite-angle cases, unchanged cells/shapes and independent visibility"
+  },
+  "algorithms_thresholds_or_ROIs_changed": false,
+  "all_eight_source_closures_passed": true,
+  "created_at_utc": "2026-10-22T19:58:07.684482+00:00",
+  "default_analysis_sha256": "afde0a2381418e9bfe6576eed39d01e2187a57be02985d48f8221079ec67ad27",
+  "disposable_metadata_before": {
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+    "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py": "e2fb1199961aaa1000019a0e3aec6a645ba2428ab20946af98b02ff1764821a3",
+    "tools/data/liquid_product_owner_contract_v1.json": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684"
+  },
+  "disposable_metadata_unchanged": true,
+  "expected_shared_module_sha256": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+  "expected_shared_owner_sha256": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+  "host_sha256": "02bc7ca0055ab283c7117d69d18b68860a13b5f681735e51df58814ce6b763fc",
+  "inspection_sha256": "0dbfdb21dd2a25a3debded4ece8bbe88c933636d936a4fdb0e3c7e91f7df6502",
+  "manifest_sha256": "2f827d28f74ee5f70f5301e556e170003314baa1b0927ef46f4f152dd9947625",
+  "manual_closures_added": 0,
+  "mode": "execute_final",
+  "official_generator_commands": [
+    {
+      "argv": [
+        "D:\\Program\\Python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_liquid_product_owner_contract.py"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"checked\": false, \"sources\": 39, \"contract_sha256\": \"f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684\"}\n"
+    },
+    {
+      "argv": [
+        "D:\\Program\\Python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\tools\\generate_liquid_product_owner_contract.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"checked\": true, \"sources\": 39, \"contract_sha256\": \"f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684\"}\n"
+    }
+  ],
+  "old_failed_reports_regraded": false,
+  "original_source_contracts_preserved": true,
+  "precise_release_sha256": "ec66cca915a5c135712402e123a0a304a115d6214570b6de4d2df601ae9bfa71",
+  "preserved_FA_BRG_source_contract_sha256": "4e4eb7fff2b3dd8d6519ce70c7290c911f6c54ff2c9dbd0e7d3cf160a6b54749",
+  "preserved_generic_geometry_failures": {
+    "G": [
+      "editor_gallery_wet"
+    ],
+    "R": [
+      "editor_neighbor_oak_slab_wet",
+      "editor_neighbor_oak_stairs_wet",
+      "editor_neighbor_glass_pane_wet",
+      "editor_neighbor_stone_wet",
+      "editor_transparent_overlap_wet"
+    ]
+  },
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-default-v1",
+  "reports": {
+    "A": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-a-v1.json",
+      "sha256": "eeb6b5fb80488df3e01a1dbcbcb1e358262369b52f62219f83ceabd0f45b36d9"
+    },
+    "B": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-brg-v3\\product-v2-b-v1.json",
+      "sha256": "3d89ca9136299e314b9dd3eb2517856f1944845709553c241016c9e970f38cef"
+    },
+    "D": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-default-final-v1\\default-r28-d.json",
+      "sha256": "826bdc8446b63a1cc69792c5abec8b0d0ed7b947dc3535f9f910d3225463b8a4"
+    },
+    "F-editor": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-f-editor-v1.json",
+      "sha256": "81e63ef7f82cbc52c71f86f1d3d70591f21fabaa71f3492cea90b7b8af31f587"
+    },
+    "F-full": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-f-full-v2.json",
+      "sha256": "804e2d7d34742e5bfadce52de35116cb68c36cc8755f22df2b28acf0975df49a"
+    },
+    "F-missing": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-f-missing-v2.json",
+      "sha256": "e8aa04f2757d3cd5bad22d9e192880d482d88fb9813c2171039b6c98336a538d"
+    },
+    "G": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-brg-v3\\product-v2-g-v1.json",
+      "sha256": "1e4be6a60b321795c41658b431a7fa87067196ae128c7d369e88c76ed214d79b"
+    },
+    "R": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-brg-v3\\product-v2-r-v1.json",
+      "sha256": "357bb4d8da35c995b9984776c6fa5eb18678082a9eabcc997cfff5864343413c"
+    }
+  },
+  "reviewed_D_camera_activation": {
+    "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-camera-extractor-seam-candidate-v1\\candidate_extractor.py",
+    "candidate_sha256": "3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f",
+    "expected_silhouette_used_to_build_mask": false,
+    "host_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-default-final-v1\\calibration_host.py",
+    "host_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+    "new_calibration_host_evidence": true,
+    "old_failed_report_revised": false,
+    "production_qualification_modified": false,
+    "project_source_bytes_modified": false,
+    "schema": 1,
+    "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+  },
+  "reviewed_D_camera_reference": {
+    "actual_fixture_observations": 12,
+    "camera_report_sha256": "6194e6cc7d2453775db7a7b72b14f71e41c464ce140f349b7bc3afb973f69cc0",
+    "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+  },
+  "reviewed_host_activation": {
+    "algorithms_thresholds_or_ROIs_changed": false,
+    "calibration_cohorts": [
+      {
+        "activation": {
+          "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-camera-extractor-seam-candidate-v1\\candidate_extractor.py",
+          "candidate_sha256": "3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f",
+          "expected_silhouette_used_to_build_mask": false,
+          "host_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\calibration_host.py",
+          "host_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+          "new_calibration_host_evidence": true,
+          "old_failed_report_revised": false,
+          "production_qualification_modified": false,
+          "project_source_bytes_modified": false,
+          "schema": 1,
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "cohort": "FA",
+        "reference": {
+          "actual_fixture_observations": 12,
+          "camera_report_sha256": "eab4e6489a51c940f5c7fcc502dcc4ada101046889a61397173ea5f7e80a1592",
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "report_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-matrix-v1\\product-v2-camera-seam-v1.json",
+        "report_sha256": "eab4e6489a51c940f5c7fcc502dcc4ada101046889a61397173ea5f7e80a1592"
+      },
+      {
+        "activation": {
+          "candidate_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261022\\water-camera-extractor-seam-candidate-v1\\candidate_extractor.py",
+          "candidate_sha256": "3626da674b63219e8ea9094217ef1a6d9ec0de9b795dd42573c89d318a95225f",
+          "expected_silhouette_used_to_build_mask": false,
+          "host_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-brg-v3\\calibration_host.py",
+          "host_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+          "new_calibration_host_evidence": true,
+          "old_failed_report_revised": false,
+          "production_qualification_modified": false,
+          "project_source_bytes_modified": false,
+          "schema": 1,
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "cohort": "BRG",
+        "reference": {
+          "actual_fixture_observations": 12,
+          "camera_report_sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333",
+          "version": "single_stone_actual_one_pixel_antialias_seam_v1"
+        },
+        "report_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261023\\water-final-brg-v3\\product-v2-camera-seam-v1.json",
+        "report_sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333"
+      }
+    ],
+    "external_dependencies_checked": 49,
+    "private_session_modules": [
+      {
+        "module": "_session",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-brg-v3\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+        "sha256": "6960a3e5e6fdc8ccfac828aa3ebb0cab4a748d2d85488eeceb91fa77b0c899e6"
+      },
+      {
+        "module": "_window",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-brg-v3\\.agents\\skills\\pyreact-debugging\\scripts\\_window.py",
+        "sha256": "9fdb52e92aeb9930d8faffb81ab2023aaec68383b71b6fab9172643270e0826e"
+      }
+    ],
+    "seam_controls_sha256": "418aa0076a15767dc4fd05fa40b5d8e6dd1cfbac706a144a71370dd6d701dc7d",
+    "source_bytes_modified": false,
+    "startup_contract_sha256": "bef28f515f9274c0d9a9926537825e04a5a425ed8601acfa61d364bf9e8dca7a",
+    "startup_validator_modules": [
+      {
+        "module": "capture_native_burst",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\candidate\\tools\\capture_native_burst.py",
+        "sha256": "0f51cf602263358c42950ded96eaa4859458846be67c810a14de27b4ffac6045"
+      },
+      {
+        "module": "capture_native_burst_deferred",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\candidate\\tools\\capture_native_burst_deferred.py",
+        "sha256": "6421e443747dde4a33cead714aed25adac57c9acf0e67afe45373506c321034a"
+      },
+      {
+        "module": "capture_native_burst_startup",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\round-20261021\\water-startup-protocol-v2\\candidate\\tools\\capture_native_burst_startup.py",
+        "sha256": "10c330f79e5348e7f06ebd26eb33984969419f7b8656cbcc5cd9aeec5fa4a3fc"
+      }
+    ]
+  },
+  "root_review_sha256": "15b9c67e58d9a1d6db9bbca343d71fdf6ef617174bb2ef8cfc935fef2a2b4707",
+  "same_handle_exit_sha256": "90005610d83055857c469b11e2f273f81f047fdb019ffafaeb966412d8639584",
+  "schema": 1,
+  "scope_receipt_sha256": "bf003d8b3e486bf0736a8341f5b65b4e80672f726739ff1d0aedb9000d966b64",
+  "shared_admission_performed": true,
+  "shared_dependencies": {
+    "analyze_liquid_workspace": {
+      "relative": "tools/analyze_liquid_workspace.py",
+      "sha256": "c0fead0d55dcfe84477403c26d775beba35e92529ae6d4dbc4bc4490e9948e64"
+    },
+    "analyze_product_water": {
+      "relative": "tools/analyze_product_water.py",
+      "sha256": "81ee980256fd6d679d20e1526a66b4bc576cd4a33ccf0266cd4361d5f306a635"
+    },
+    "analyze_product_water_biome": {
+      "relative": "tools/analyze_product_water_biome.py",
+      "sha256": "eb100031cefe60f74aed270c224b1338b5772fe372b3d7fd3fff8113bc4f0bba"
+    },
+    "analyze_product_water_flow": {
+      "relative": "tools/analyze_product_water_flow.py",
+      "sha256": "60f9b8dc6e1488870c12df3730d69f822a324e6e0604b540955569b79a183c0b"
+    },
+    "analyze_water_acceptance_r16": {
+      "relative": "tools/analyze_water_acceptance_r16.py",
+      "sha256": "5f6857ce2b3ec61cc93b79cce12eee3d47ad930b967d3ac0cfb7a0c8f4a4cc52"
+    },
+    "camera_projection": {
+      "relative": "tools/camera_projection.py",
+      "sha256": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c"
+    },
+    "context_test_environment": {
+      "relative": "tools/context_test_environment.py",
+      "sha256": "cc9db3ced04f380e254850f57de172a07e52d04c2f8d88ca8cb4c67fcf61ba57"
+    },
+    "generate_liquid_face_textures": {
+      "relative": "tools/generate_liquid_face_textures.py",
+      "sha256": "54d8bb522ac32112043b6693ae9724b2783c1ea314da3d3551c81bba04134cbe"
+    },
+    "generate_liquid_payload_poc": {
+      "relative": "tools/generate_liquid_payload_poc.py",
+      "sha256": "996756d438a2c1ab871d3c960b22e8ea5dd9d0dc910340212294d42b100d4163"
+    },
+    "generate_liquid_product_owner_contract": {
+      "relative": "tools/generate_liquid_product_owner_contract.py",
+      "sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85"
+    },
+    "generate_liquid_product_resources": {
+      "relative": "tools/generate_liquid_product_resources.py",
+      "sha256": "89bc07bdfb26e933ddec259518ce5cffd73f2d6a08e80605aad58827543af9b7"
+    },
+    "generate_liquid_skeleton_resources": {
+      "relative": "tools/generate_liquid_skeleton_resources.py",
+      "sha256": "153a5b6cd6c1189b9af809cd3200240e77e4c8fb9d2d52f9a971cf6cb56f6970"
+    },
+    "generate_shulker_proxies": {
+      "relative": "tools/generate_shulker_proxies.py",
+      "sha256": "3655cf8a4513439ba205617cc427a204e54ae5b1bfa0be066f1b3e6defa1be87"
+    },
+    "liquid_payload_poc": {
+      "relative": "tools/liquid_payload_poc.py",
+      "sha256": "93adac7eef6f4e42112120ff4efb417c761a3f057ba49de8fc7cd9de81ede312"
+    },
+    "mcdk": {
+      "relative": ".agents/skills/pyreact-debugging/scripts/mcdk.py",
+      "sha256": "347e01d51324924a84a05cf08c342b46d6e1fab589d446705eadde2cd8a587d3"
+    },
+    "projection": {
+      "relative": "behavior_pack/modern_projection/projection/__init__.py",
+      "sha256": "a2e875531e037f12857911031b0a4ab9afd695c48e34ba5314b9466af020750f"
+    },
+    "projection.banner_fixture_data": {
+      "relative": "behavior_pack/modern_projection/projection/banner_fixture_data.py",
+      "sha256": "708be74bb7a29e6ec8bbda287bb6fcd78030a213f1678710566d07e7d3e390ba"
+    },
+    "projection.banner_render_contract": {
+      "relative": "behavior_pack/modern_projection/projection/banner_render_contract.py",
+      "sha256": "ecefa6c4da2e7fb7854dfadba30aca93533f8f6c47b5c572b4abe7cf04f512c3"
+    },
+    "projection.biomes": {
+      "relative": "behavior_pack/modern_projection/projection/biomes.py",
+      "sha256": "899968dd2748847ac178d5a43a3b284de6cba6589474e2a082e4b2f17b1bf9ef"
+    },
+    "projection.block_groups": {
+      "relative": "behavior_pack/modern_projection/projection/block_groups.py",
+      "sha256": "25d82ed827b798cd319cab006f3df331dc3ca47a6f1b56cd15e1d30e3a70e747"
+    },
+    "projection.block_registry": {
+      "relative": "behavior_pack/modern_projection/projection/block_registry.py",
+      "sha256": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a"
+    },
+    "projection.block_registry_data": {
+      "relative": "behavior_pack/modern_projection/projection/block_registry_data.py",
+      "sha256": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1"
+    },
+    "projection.block_traits": {
+      "relative": "behavior_pack/modern_projection/projection/block_traits.py",
+      "sha256": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c"
+    },
+    "projection.block_traits_data": {
+      "relative": "behavior_pack/modern_projection/projection/block_traits_data.py",
+      "sha256": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6"
+    },
+    "projection.camera": {
+      "relative": "behavior_pack/modern_projection/projection/camera.py",
+      "sha256": "38cd20f3bfae44b9e48d5c0853faf5e965b7812472f87f5e342668ac28c30178"
+    },
+    "projection.catalog": {
+      "relative": "behavior_pack/modern_projection/projection/catalog.py",
+      "sha256": "ee843813ff3d7c336d6e497b7ead40ed72d6b58ca110e7f8875fbb31cba8065c"
+    },
+    "projection.cell": {
+      "relative": "behavior_pack/modern_projection/projection/cell.py",
+      "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6"
+    },
+    "projection.debug_action_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_action_blueprints.py",
+      "sha256": "8967d0b53c96a0eff852e866ba5d615d01c237cda1e237fb3edbe7aaad091b2f"
+    },
+    "projection.debug_banner_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_banner_blueprints.py",
+      "sha256": "11612ec4b9fdaec3234e891894d9ca4c9045fb931c9f8f7aff63e07f09b24b21"
+    },
+    "projection.debug_barrier_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_barrier_blueprints.py",
+      "sha256": "a2230d597ed4f740d7df1c1a8e00c8f7fbea78b51f6150cde95f386398bca1e0"
+    },
+    "projection.debug_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_blueprints.py",
+      "sha256": "a9a1edf4732729c25ca94b02b624b4da1854efedb0aec6dfe6943630e645d506"
+    },
+    "projection.debug_book_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_book_blueprints.py",
+      "sha256": "230c3d882e31284bcb2a3c8e425fbe384414668224575a0721bf336bc4fb2542"
+    },
+    "projection.debug_botanical_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_botanical_blueprints.py",
+      "sha256": "eca8df4c98d451849e8110ccfe7894ed842029f79404d31468683418c777be38"
+    },
+    "projection.debug_cauldron_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_cauldron_blueprints.py",
+      "sha256": "67821ef6d9781765b81deb424e9b5cb206add45a5879902d6b2e40e17ac31992"
+    },
+    "projection.debug_compatibility_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_compatibility_blueprints.py",
+      "sha256": "1fdc7234db7fd5707341b0d2c8474b219812eb74d7cde250e9927ca5133828be"
+    },
+    "projection.debug_concrete_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_concrete_blueprints.py",
+      "sha256": "0841dc245947276c781cbeadfc2eff932353f34d1441ad1185d3c815d2a6d0e7"
+    },
+    "projection.debug_connection_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_connection_blueprints.py",
+      "sha256": "00d16732c8d3a8416544461d6bf31ab69edea331736671a8caa4f87055905800"
+    },
+    "projection.debug_coral_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_coral_blueprints.py",
+      "sha256": "60c490983bb94a117b67f0263a75098906f67be8603fc3c32b764abe37e8c06d"
+    },
+    "projection.debug_dripleaf_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_dripleaf_blueprints.py",
+      "sha256": "eaca929247e7b3c532c1f1e5abca8a0309d50fbb6c6b98351212a8039e9188a1"
+    },
+    "projection.debug_dripstone_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_dripstone_blueprints.py",
+      "sha256": "00445d51d6f363fc8d24be6f26cc2d44e0ff43808a1674698a5f9b90ffe3871c"
+    },
+    "projection.debug_item_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_item_blueprints.py",
+      "sha256": "adbd3cab7b4475e889d7fa573c4ee23a34b1127fd3ec310a8b1b51f348525c0b"
+    },
+    "projection.debug_liquid_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_liquid_blueprints.py",
+      "sha256": "e439f64ff9d1d72023651d99343e4870c3a38ec6919a875aca60cabe3d7b59c9"
+    },
+    "projection.debug_neighborhood_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_neighborhood_blueprints.py",
+      "sha256": "2199be544d04933c1152d611be296387260fe1848f20649b7f6c16893ca71874"
+    },
+    "projection.debug_ordinary_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_ordinary_blueprints.py",
+      "sha256": "1cce33e3647b093095f365ce670026cad4492203a59f86121d5fa29776b21ff2"
+    },
+    "projection.debug_ordinary_plant_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_ordinary_plant_blueprints.py",
+      "sha256": "64a133c36aa0aa4e422f89eca7b1929ad7a75503a9b2663d2844baf622902b4e"
+    },
+    "projection.debug_portal_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_portal_blueprints.py",
+      "sha256": "b606e96709d75b53a6f619a93c381f248cd040e0ac294c0371889d0196b5df53"
+    },
+    "projection.debug_pot_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_pot_blueprints.py",
+      "sha256": "2179237903d1c8e1986009cfd74c373252f686bab9657fddcf2604dc7d0653b3"
+    },
+    "projection.debug_pressure_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_pressure_blueprints.py",
+      "sha256": "b7b05ce610f43d70949929b33d7046eeac570d544417b9d10fe60a7c8daaee16"
+    },
+    "projection.debug_product_connections": {
+      "relative": "behavior_pack/modern_projection/projection/debug_product_connections.py",
+      "sha256": "12240ece814e044d2eb71b5cfd6b06f56a169752c2992972647bb097bc5727e9"
+    },
+    "projection.debug_product_water_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_product_water_blueprints.py",
+      "sha256": "347946630e7dd73f8c8b87546c4b0021b550451a52beab2c5e6b8d901996c636"
+    },
+    "projection.debug_sign_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_sign_blueprints.py",
+      "sha256": "c01324f53add969f71333590c175d439fb8e5593f9ef3c46b898f6d099db0b46"
+    },
+    "projection.debug_slab_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_slab_blueprints.py",
+      "sha256": "f27289fa1a16cbc7c9e64f52f7aa43a77e0d4651504838f5031c149736c97d2f"
+    },
+    "projection.debug_snow_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_snow_blueprints.py",
+      "sha256": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de"
+    },
+    "projection.debug_spawner_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_spawner_blueprints.py",
+      "sha256": "ffd387912ad786fba3b0b32aadcbce9898a15ed8761322cec319d8afe6006464"
+    },
+    "projection.debug_transform_acceptance": {
+      "relative": "behavior_pack/modern_projection/projection/debug_transform_acceptance.py",
+      "sha256": "b864741dd79d0dc0ac9d81c6802d72456e12b753ff6d7c59efe52e5d9bc51090"
+    },
+    "projection.debug_water_blueprints": {
+      "relative": "behavior_pack/modern_projection/projection/debug_water_blueprints.py",
+      "sha256": "5aa889e2cee250dc88ce5676c2be3433c5706ea3e587dce0e6f67d297f16f11e"
+    },
+    "projection.entity_defaults": {
+      "relative": "behavior_pack/modern_projection/projection/entity_defaults.py",
+      "sha256": "26d94ace4b843dbf154dcae3c2ef3af906d8a72468656e68c0fb1517bae833e0"
+    },
+    "projection.entity_defaults_data": {
+      "relative": "behavior_pack/modern_projection/projection/entity_defaults_data.py",
+      "sha256": "5ee014684757737c4dd78949bdfcf98b9110b2d70bb35b8cc5e3c852992b6dbf"
+    },
+    "projection.entity_render": {
+      "relative": "behavior_pack/modern_projection/projection/entity_render.py",
+      "sha256": "a2cd09aa502b590429955e2adabd1523e05c619167d8b26f50c0f438a3d86722"
+    },
+    "projection.item_contents_data": {
+      "relative": "behavior_pack/modern_projection/projection/item_contents_data.py",
+      "sha256": "667996410248920efd051c88c448945fa6d7d9678ea53a8dacfcab5eef117151"
+    },
+    "projection.item_icon_data": {
+      "relative": "behavior_pack/modern_projection/projection/item_icon_data.py",
+      "sha256": "680eb674267c34bebecedac2f75cd74048754d0886a6e87b64d94c4dfb8ed41e"
+    },
+    "projection.liquid_native_shapes": {
+      "relative": "behavior_pack/modern_projection/projection/liquid_native_shapes.py",
+      "sha256": "d2ffc451a814478335482143b6294c44651ed65e799f7a28e1ea0905cd15b8f6"
+    },
+    "projection.liquid_product_deployment": {
+      "relative": "behavior_pack/modern_projection/projection/liquid_product_deployment.py",
+      "sha256": "f521f37a4ebdb12b57ea3d805bb653e3e653d51ce64619e122896896d62daaac"
+    },
+    "projection.liquid_product_qualification_data": {
+      "relative": "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py",
+      "sha256": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14"
+    },
+    "projection.liquid_render_plan": {
+      "relative": "behavior_pack/modern_projection/projection/liquid_render_plan.py",
+      "sha256": "4c702b4e8ad7ca77d25d8547262617042b724c9267979d0d1e39e8761aa8fd03"
+    },
+    "projection.liquid_render_target_data": {
+      "relative": "behavior_pack/modern_projection/projection/liquid_render_target_data.py",
+      "sha256": "e8a26f5458bdda971577c28c3e83757bee912771eebfd707200bc01815cfdda3"
+    },
+    "projection.liquid_shape": {
+      "relative": "behavior_pack/modern_projection/projection/liquid_shape.py",
+      "sha256": "6340e8e409b621f844b85975adfcd86ff9eab89206a9f8e3af85bfad8dae03ef"
+    },
+    "projection.liquid_shape_data": {
+      "relative": "behavior_pack/modern_projection/projection/liquid_shape_data.py",
+      "sha256": "3bd1e54a97cf941938a5bc980c6a3f6bd7ff28a63cb070b4cf1391ae83e253e5"
+    },
+    "projection.liquid_transport": {
+      "relative": "behavior_pack/modern_projection/projection/liquid_transport.py",
+      "sha256": "b259a3f097015a8b841ee0e483c260262277d4866dbaf0cf6c22e84ccd14b65b"
+    },
+    "projection.model": {
+      "relative": "behavior_pack/modern_projection/projection/model.py",
+      "sha256": "ba0477225230638760890fecafb54584f306b0ccfb618f430bfea5e428e0a0e2"
+    },
+    "projection.native_appearance": {
+      "relative": "behavior_pack/modern_projection/projection/native_appearance.py",
+      "sha256": "8ee814d221249492773382cbdd7dfe390e43a12a0b366425e83db2eb633c632c"
+    },
+    "projection.native_render_profile": {
+      "relative": "behavior_pack/modern_projection/projection/native_render_profile.py",
+      "sha256": "b8ddee769323cae4e861f49bf9ae4d6ce5813948d9f09c186441dccf122f220d"
+    },
+    "projection.native_sign_data": {
+      "relative": "behavior_pack/modern_projection/projection/native_sign_data.py",
+      "sha256": "f1c0e6c65fde69f687d79688eb5204eedf353a1de0ba17fb4392c5be0672b785"
+    },
+    "projection.nbt_spatial": {
+      "relative": "behavior_pack/modern_projection/projection/nbt_spatial.py",
+      "sha256": "aac80300547ce5e99c332e8e43a83df320fca89493ef543f41c113d402f3a3fe"
+    },
+    "projection.packed": {
+      "relative": "behavior_pack/modern_projection/projection/packed.py",
+      "sha256": "b4adc3092a3a16862203c1d42e2f766257cee2e5876114eea4d9124d05e54346"
+    },
+    "projection.spawner_marker_data": {
+      "relative": "behavior_pack/modern_projection/projection/spawner_marker_data.py",
+      "sha256": "12ebc8083bed690a1e0c24b884c4eb27d3f8008c3e618e6589e19c62b8245d6e"
+    },
+    "projection.static_bed": {
+      "relative": "behavior_pack/modern_projection/projection/static_bed.py",
+      "sha256": "aa778092f10ee23365af0612a05d022ae313ce61208edb201d737e111071caf8"
+    },
+    "projection.static_bed_data": {
+      "relative": "behavior_pack/modern_projection/projection/static_bed_data.py",
+      "sha256": "31d3035bc837520a73daf67174eaac17180ee33a63999d45db2ffd5011fae952"
+    },
+    "projection.static_chest_data": {
+      "relative": "behavior_pack/modern_projection/projection/static_chest_data.py",
+      "sha256": "61fbe07103371b129ae55721d509f59d8c294efc56fda83aa627b18d530cc13a"
+    },
+    "projection.static_shulker_data": {
+      "relative": "behavior_pack/modern_projection/projection/static_shulker_data.py",
+      "sha256": "76c525990c415da76cbbd8c17c11ed410b50e8deccf619f989a94c7550fdce28"
+    },
+    "projection.static_skull": {
+      "relative": "behavior_pack/modern_projection/projection/static_skull.py",
+      "sha256": "44b25884017a45b249cc7e938043da00e9c323398a61f7a2207b0eca8ebd6a41"
+    },
+    "projection.static_skull_data": {
+      "relative": "behavior_pack/modern_projection/projection/static_skull_data.py",
+      "sha256": "321ee9d2ebbe8d4ea27bfd7fa7de9cc0bda89260a6ea78e7ee817076ff719ad9"
+    },
+    "projection.static_table": {
+      "relative": "behavior_pack/modern_projection/projection/static_table.py",
+      "sha256": "7db6db88876cd6f093fd813724f6c5baa2e82391b69d49b8f3bed31cbc8b6ea0"
+    },
+    "projection.static_table_data": {
+      "relative": "behavior_pack/modern_projection/projection/static_table_data.py",
+      "sha256": "a857060dc1faabd9591aba6d504b502e9e6edc124423940f7aba8310f9e89445"
+    },
+    "projection.storage": {
+      "relative": "behavior_pack/modern_projection/projection/storage.py",
+      "sha256": "ae82f1c80715ff35a905081889ef4e155e9d3d59f29ff6f2ccc6d83a4961354e"
+    },
+    "projection.visible_actor": {
+      "relative": "behavior_pack/modern_projection/projection/visible_actor.py",
+      "sha256": "06a45742aa05787c19a63757d69785a124a2241a3eb93e2637f9234d6b4880e7"
+    },
+    "projection.water_interaction_data": {
+      "relative": "behavior_pack/modern_projection/projection/water_interaction_data.py",
+      "sha256": "0762950329b6f48fe7feaaa3c718f8bb62ca2fc6762d8fcb77f49287ae9ae5e7"
+    },
+    "qualify_water_product_r16": {
+      "relative": "tools/qualify_water_product_r16.py",
+      "sha256": "c1249a31bd5da4e470c4a413e6641c5ae8bee420b593285957d79d23deaef381"
+    },
+    "shulker_pixels": {
+      "relative": "tools/shulker_pixels.py",
+      "sha256": "a134286c29b26a433448e78f9e825e88faeead4718be5af6ac0fe8fa71f64ca5"
+    },
+    "sign_panel_oracle": {
+      "relative": "tools/sign_panel_oracle.py",
+      "sha256": "b7472e2fd901bfedc403bc02622c27fdeda910c8e15760713775eeb0ccb99f44"
+    },
+    "verify_camera_projection": {
+      "relative": "tools/verify_camera_projection.py",
+      "sha256": "20b702496787cf34d85102d600399f103733b260cc08ecc153067d6caf519eb8"
+    },
+    "verify_context_batch_visuals": {
+      "relative": "tools/verify_context_batch_visuals.py",
+      "sha256": "92eaa22743e360a85dea04e868ba5633eb29651486231c83e49c2574c237f0ef"
+    },
+    "verify_debug_blueprints": {
+      "relative": "tools/verify_debug_blueprints.py",
+      "sha256": "d9922aff8136fac0693c3a944d91e168c2ab1b2311e78357327b95ecd7d41f57"
+    },
+    "verify_debug_visuals": {
+      "relative": "tools/verify_debug_visuals.py",
+      "sha256": "d5f4f27a716a6390f2abd490709367c76efd9cb63962df37820a8b7ef3d1bf67"
+    },
+    "verify_missing_neighbor_visuals": {
+      "relative": "tools/verify_missing_neighbor_visuals.py",
+      "sha256": "edca326910919c1a8a0e50fbd0318f68252a8377116152584aafd950413c949a"
+    },
+    "verify_native_entity_appearances": {
+      "relative": "tools/verify_native_entity_appearances.py",
+      "sha256": "d2d19437e25f6b7f5362f923ea027ad70b634d6d652efe6a30b395cdc513592d"
+    },
+    "verify_native_sign_fields": {
+      "relative": "tools/verify_native_sign_fields.py",
+      "sha256": "0b205cebbd41abc01fbbee3525eddbe442d03a54b4abb39a7b39a30ada23b8b5"
+    },
+    "verify_neighbor_world_visuals": {
+      "relative": "tools/verify_neighbor_world_visuals.py",
+      "sha256": "7c948a91dd1f03dd3307b96ead989e8f3e0e2828f1ab5e0484211c5c0eb73258"
+    },
+    "verify_shulker_orientations": {
+      "relative": "tools/verify_shulker_orientations.py",
+      "sha256": "0745199a433f82adaf5cb98298bd35b0037cd5a3226268aac318ea16c6ed90d1"
+    },
+    "verify_sign_visuals": {
+      "relative": "tools/verify_sign_visuals.py",
+      "sha256": "efa1b1537b50b9bbe13c40e6c7f7be45d75452acf2aa584cce8925cde3d15e8b"
+    },
+    "visual_environment": {
+      "relative": "tools/visual_environment.py",
+      "sha256": "1a71b530c88dc22dc66cb9f9c68f56b2a039741c058c6a0de2ec6cb419500519"
+    },
+    "water_capture_contract": {
+      "relative": "tools/water_capture_contract.py",
+      "sha256": "1548fb691139be132a1b3f823b400068253e3493cf9b17bb0673677e1da98f66"
+    },
+    "water_native_projection": {
+      "relative": "tools/water_native_projection.py",
+      "sha256": "bef9e23e3d10ff763fb0e36df9eff7432a6b926219d04866509fa0cd9e168816"
+    }
+  },
+  "shared_generator_ROOT": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+  "shared_generator_sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85",
+  "shared_metadata_after": {
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+    "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py": "f27e2351c83fb35fa7bade5879375ed388eb328cd78ac5591d7bdd48764bbc0d",
+    "tools/data/liquid_product_owner_contract_v1.json": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684"
+  },
+  "shared_metadata_before": {
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py": "5259bd983e90c5cb5de6fe6e25fbfb527b5d6c8ee3adba9f220b772b9ab50187",
+    "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14",
+    "tools/data/liquid_product_owner_contract_v1.json": "ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872"
+  },
+  "shared_production_39": {
+    "behavior_pack/modern_projection/projection/biome_water_data.py": "9ab33c1491c4317105a08289be57820be5174174ee748d96693cd243892fc652",
+    "behavior_pack/modern_projection/projection/biomes.py": "899968dd2748847ac178d5a43a3b284de6cba6589474e2a082e4b2f17b1bf9ef",
+    "behavior_pack/modern_projection/projection/block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+    "behavior_pack/modern_projection/projection/block_registry_data.py": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1",
+    "behavior_pack/modern_projection/projection/block_traits.py": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c",
+    "behavior_pack/modern_projection/projection/block_traits_data.py": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6",
+    "behavior_pack/modern_projection/projection/bridge.py": "d48d8bfd4676e5f06d3b891c54f68f5a8a0cbc726a0bb2474a2373370cb36a0b",
+    "behavior_pack/modern_projection/projection/debug_product_water_blueprints.py": "347946630e7dd73f8c8b87546c4b0021b550451a52beab2c5e6b8d901996c636",
+    "behavior_pack/modern_projection/projection/geometry_palette.py": "e723057a0d873e754e5b52f62c49967cd642ff32c268f9f93ca5b58eb7d74a3e",
+    "behavior_pack/modern_projection/projection/liquid_deployment.py": "e84cb77ee5f741a810ea53dd25bf627589246191e8e91ee7704f381541492e53",
+    "behavior_pack/modern_projection/projection/liquid_face_texture_data.py": "ebe99975fc03959336537a99a7149ece54c625fad867e1e9ec228f2682fd4f73",
+    "behavior_pack/modern_projection/projection/liquid_face_textures.py": "d94fae2f4def62affdf11ab8346cbfdcce7207a944d58a7e890ab28e2a21a472",
+    "behavior_pack/modern_projection/projection/liquid_native_shapes.py": "d2ffc451a814478335482143b6294c44651ed65e799f7a28e1ea0905cd15b8f6",
+    "behavior_pack/modern_projection/projection/liquid_preview.py": "bbb8e7327dd842b42c153b9337c6c56464f5b1ca53b0bb7f8379b79b4e1856b6",
+    "behavior_pack/modern_projection/projection/liquid_product_deployment.py": "f521f37a4ebdb12b57ea3d805bb653e3e653d51ce64619e122896896d62daaac",
+    "behavior_pack/modern_projection/projection/liquid_product_flow_top.py": "572c558336afcb77a35a84f14b336b5ef1bf6a61355d1177bd1afe8e0918bc3f",
+    "behavior_pack/modern_projection/projection/liquid_product_plan.py": "c3a79dec934da02ce080d6c678327d5fd5012cdf950133fa4e04f187a187331b",
+    "behavior_pack/modern_projection/projection/liquid_product_preview.py": "d2a7b45b0e348c97762bdaf6f3b424e38bd2b9512834a70cf13099e6a673584c",
+    "behavior_pack/modern_projection/projection/liquid_product_profile.py": "354b002be69972976c0e45f429edc0fef665e484523749f0673cf4fe5dc50b71",
+    "behavior_pack/modern_projection/projection/liquid_product_projection.py": "a65e92a83310c5f680d1320dd549885d73b1285f4d86aefe3b9f476f04e853c8",
+    "behavior_pack/modern_projection/projection/liquid_product_render.py": "ab2b1a56beefa680a32fa66eb2c2b64b78c0bbfce79872249a8f8edfecf6fe61",
+    "behavior_pack/modern_projection/projection/liquid_product_shape_data.py": "9014bf5e624af3dff2b55238dac6110016a82ca67263f4296cd4676092a40ec5",
+    "behavior_pack/modern_projection/projection/liquid_projection.py": "2816a12c5c02f3cfe1394752946022891caed287b5a45f5b16623bd202a78b8e",
+    "behavior_pack/modern_projection/projection/liquid_render.py": "aeca6258c953419452c9ef06260382f0c6eac9f02e0cfc3f64597f0706a93a86",
+    "behavior_pack/modern_projection/projection/liquid_render_ownership.py": "b68bf8f59343ad6b1895f7a67381828ce87cecfc11b5ad7787cc92aeda7d00db",
+    "behavior_pack/modern_projection/projection/liquid_render_plan.py": "4c702b4e8ad7ca77d25d8547262617042b724c9267979d0d1e39e8761aa8fd03",
+    "behavior_pack/modern_projection/projection/liquid_render_target_data.py": "e8a26f5458bdda971577c28c3e83757bee912771eebfd707200bc01815cfdda3",
+    "behavior_pack/modern_projection/projection/liquid_scene.py": "56b4cb733080b529fb95269b8954b101fdb7d26b28f84229cb549dbbca7bbd1f",
+    "behavior_pack/modern_projection/projection/liquid_shape.py": "6340e8e409b621f844b85975adfcd86ff9eab89206a9f8e3af85bfad8dae03ef",
+    "behavior_pack/modern_projection/projection/liquid_transport.py": "b259a3f097015a8b841ee0e483c260262277d4866dbaf0cf6c22e84ccd14b65b",
+    "behavior_pack/modern_projection/projection/liquid_viewport.py": "9f20eaafb50b612b895736294d317501eeda002aa88a7e920cb92f3b6bdccca5",
+    "behavior_pack/modern_projection/projection/occupancy.py": "6a4faf759be27d6d98382473641d477a7762d91c990c516d17da5d3d047aed6c",
+    "behavior_pack/modern_projection/projection/projection_companions.py": "828026f5d432b6cab1a201a20c609e7310b3498a84477974332db70cba062f1e",
+    "behavior_pack/modern_projection/projection/render_context.py": "966e2f35cba67d7810854fdcde7aed970dc2cea7c35ed1e26c497376ac17a1c0",
+    "behavior_pack/modern_projection/projection/scene.py": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+    "behavior_pack/modern_projection/projection/session.py": "76eac3818a3033746854168762cca3e498cb5a954b134b5bd6f82074a0c70287",
+    "behavior_pack/modern_projection/projection/tiles.py": "6b9b107c02515892a64a35cd6740fa71a2faf2e1374123fda2f687c41cc7cdfc",
+    "behavior_pack/modern_projection/projection/ui.py": "b502a54c25e5ed7cfea7f45db5945994083dd59bc6fa205e26b9ee2c8279d7ef",
+    "behavior_pack/modern_projection/projection/world_projection.py": "4b3585aa58c7c5067bc1e85be1e55511afb64d64530ed823e93d0f6b24cb1af4"
+  },
+  "shared_qualifier_ROOT": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor",
+  "shared_qualifier_sha256": "c1249a31bd5da4e470c4a413e6641c5ae8bee420b593285957d79d23deaef381",
+  "source_binding_sha256": "875c3f380825012f0fd3a548152d9b689a50ea6a5055357c48abfdcb6991acbf",
+  "source_contract_sha256": "18d36ac18162771addcd9e23ac3692ab3e86e94c9f0944de3a75f413f64f016f"
+}

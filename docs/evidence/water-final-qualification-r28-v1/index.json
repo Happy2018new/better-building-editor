@@ -1,0 +1,3486 @@
+{
+  "D_source_contract_sha256": "18d36ac18162771addcd9e23ac3692ab3e86e94c9f0944de3a75f413f64f016f",
+  "FA_BRG_source_contract_sha256": "4e4eb7fff2b3dd8d6519ce70c7290c911f6c54ff2c9dbd0e7d3cf160a6b54749",
+  "R_or_G_exact_per_case_geometry_accepted": false,
+  "actual_exit_codes": {
+    "BRG": {
+      "game": "0xC0000409",
+      "mcdk": "0x00000000"
+    },
+    "D": {
+      "game": "0xC0000409",
+      "mcdk": "0x00000000"
+    }
+  },
+  "all_burst_PNGs_retained_in_prior_FA_runtime_only": true,
+  "all_static_PNG_count": 138,
+  "complete_water_product_qualified": true,
+  "created_at_utc": "2026-10-22T20:01:13.508885+00:00",
+  "credential_findings": 0,
+  "entries": [
+    {
+      "decoded_sanitized_bytes": 12310,
+      "decoded_sanitized_sha256": "8eec0e6b646edc7a2855e3f81545537c9dd03c1e465cde63cd268b570b81e9a7",
+      "derived_parts": [
+        {
+          "bytes": 12310,
+          "path": "BRG/analysis/B-biome-analysis.json",
+          "sha256": "8eec0e6b646edc7a2855e3f81545537c9dd03c1e465cde63cd268b570b81e9a7"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/analysis/B-biome-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 12310,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/analysis-BRG-v1/B-biome-analysis.json",
+      "original_raw_sha256": "8eec0e6b646edc7a2855e3f81545537c9dd03c1e465cde63cd268b570b81e9a7",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4462,
+      "decoded_sanitized_sha256": "8ef0006256e4dc1e3fb52b35eac5f415e4b52b658e48d47574df7cc7732927d6",
+      "derived_parts": [
+        {
+          "bytes": 4462,
+          "path": "BRG/analysis/B-product-analysis.json",
+          "sha256": "8ef0006256e4dc1e3fb52b35eac5f415e4b52b658e48d47574df7cc7732927d6"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/analysis/B-product-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4462,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/analysis-BRG-v1/B-product-analysis.json",
+      "original_raw_sha256": "8ef0006256e4dc1e3fb52b35eac5f415e4b52b658e48d47574df7cc7732927d6",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1750,
+      "decoded_sanitized_sha256": "331aaa9d026a6c4f1b3384f6c65f3a30985a2a1dc279965ef594d2fddd7d0278",
+      "derived_parts": [
+        {
+          "bytes": 1750,
+          "path": "BRG/analysis/G-product-analysis.json",
+          "sha256": "331aaa9d026a6c4f1b3384f6c65f3a30985a2a1dc279965ef594d2fddd7d0278"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/analysis/G-product-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1750,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/analysis-BRG-v1/G-product-analysis.json",
+      "original_raw_sha256": "331aaa9d026a6c4f1b3384f6c65f3a30985a2a1dc279965ef594d2fddd7d0278",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 18500,
+      "decoded_sanitized_sha256": "109848058fd5a7353c1443d5f81d9281101109093229dcd9ccec021d72c17f15",
+      "derived_parts": [
+        {
+          "bytes": 18500,
+          "path": "BRG/analysis/R-product-analysis.json",
+          "sha256": "109848058fd5a7353c1443d5f81d9281101109093229dcd9ccec021d72c17f15"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/analysis/R-product-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 18500,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/analysis-BRG-v1/R-product-analysis.json",
+      "original_raw_sha256": "109848058fd5a7353c1443d5f81d9281101109093229dcd9ccec021d72c17f15",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5995,
+      "decoded_sanitized_sha256": "5b8a7e9ab964ec9d57f02cfdcd8f251381543caf8181fe5c66961041a6425aad",
+      "derived_parts": [
+        {
+          "bytes": 5995,
+          "path": "BRG/analysis/summary.json",
+          "sha256": "5b8a7e9ab964ec9d57f02cfdcd8f251381543caf8181fe5c66961041a6425aad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/analysis/summary.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5995,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/analysis-BRG-v1/summary.json",
+      "original_raw_sha256": "5b8a7e9ab964ec9d57f02cfdcd8f251381543caf8181fe5c66961041a6425aad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8892,
+      "decoded_sanitized_sha256": "c0bb8cf67bc3edc9808f4afceefcbe3de7fcc5ede974a1b626e594ce27c42ff2",
+      "derived_parts": [
+        {
+          "bytes": 8892,
+          "path": "BRG/bound-hosts/analyze_matrix_v2.py",
+          "sha256": "c0bb8cf67bc3edc9808f4afceefcbe3de7fcc5ede974a1b626e594ce27c42ff2"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/analyze_matrix_v2.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8892,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/analyze_matrix_v2.py",
+      "original_raw_sha256": "c0bb8cf67bc3edc9808f4afceefcbe3de7fcc5ede974a1b626e594ce27c42ff2",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3893,
+      "decoded_sanitized_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+      "derived_parts": [
+        {
+          "bytes": 3893,
+          "path": "BRG/bound-hosts/calibration_host.py",
+          "sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/calibration_host.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3893,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/calibration_host.py",
+      "original_raw_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1783,
+      "decoded_sanitized_sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4",
+      "derived_parts": [
+        {
+          "bytes": 1783,
+          "path": "BRG/bound-hosts/flow_restore.py",
+          "sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/flow_restore.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1783,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/flow_restore.py",
+      "original_raw_sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 779,
+      "decoded_sanitized_sha256": "a58828806979eeb39e2fbb9b4b46ecc6be37561987b75a8ee4a3f671a8732db1",
+      "derived_parts": [
+        {
+          "bytes": 779,
+          "path": "BRG/bound-hosts/guard_policy.py",
+          "sha256": "a58828806979eeb39e2fbb9b4b46ecc6be37561987b75a8ee4a3f671a8732db1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/guard_policy.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 779,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/guard_policy.py",
+      "original_raw_sha256": "a58828806979eeb39e2fbb9b4b46ecc6be37561987b75a8ee4a3f671a8732db1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4766,
+      "decoded_sanitized_sha256": "0ea192ba032c0e747e0e5b8a5f83743f07d358027587a7a8b48178729eeec2ab",
+      "derived_parts": [
+        {
+          "bytes": 4766,
+          "path": "BRG/bound-hosts/host-changes-v3.patch",
+          "sha256": "0ea192ba032c0e747e0e5b8a5f83743f07d358027587a7a8b48178729eeec2ab"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/host-changes-v3.patch",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4766,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/host-changes-v3.patch",
+      "original_raw_sha256": "0ea192ba032c0e747e0e5b8a5f83743f07d358027587a7a8b48178729eeec2ab",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 14650,
+      "decoded_sanitized_sha256": "74349ee277e362151ddc3b3d08776131beb7b314ec4f178f5511715284c37494",
+      "derived_parts": [
+        {
+          "bytes": 14650,
+          "path": "BRG/bound-hosts/launch_r25.py",
+          "sha256": "74349ee277e362151ddc3b3d08776131beb7b314ec4f178f5511715284c37494"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/launch_r25.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 14650,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/launch_r25.py",
+      "original_raw_sha256": "74349ee277e362151ddc3b3d08776131beb7b314ec4f178f5511715284c37494",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2197,
+      "decoded_sanitized_sha256": "7668b59f3bd9fa2d9a22687a7cf0766735e89ea7139adc1b24b1a5b0ad8729ea",
+      "derived_parts": [
+        {
+          "bytes": 2197,
+          "path": "BRG/bound-hosts/modal_guard.py",
+          "sha256": "7668b59f3bd9fa2d9a22687a7cf0766735e89ea7139adc1b24b1a5b0ad8729ea"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/modal_guard.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2197,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/modal_guard.py",
+      "original_raw_sha256": "7668b59f3bd9fa2d9a22687a7cf0766735e89ea7139adc1b24b1a5b0ad8729ea",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4816,
+      "decoded_sanitized_sha256": "c341cd87bc3ce9e2a1fbbb5abc0874d6cdbb8cc48377f934b6b3d8836fb7c881",
+      "derived_parts": [
+        {
+          "bytes": 4816,
+          "path": "BRG/bound-hosts/observe_cold_default.py",
+          "sha256": "c341cd87bc3ce9e2a1fbbb5abc0874d6cdbb8cc48377f934b6b3d8836fb7c881"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/observe_cold_default.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4816,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/observe_cold_default.py",
+      "original_raw_sha256": "c341cd87bc3ce9e2a1fbbb5abc0874d6cdbb8cc48377f934b6b3d8836fb7c881",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2978,
+      "decoded_sanitized_sha256": "f0475253b5ecfb76ca1ddacc5ababa2720c3a10673d93a55c9889bc6188b5f97",
+      "derived_parts": [
+        {
+          "bytes": 2978,
+          "path": "BRG/bound-hosts/plan-v3.json",
+          "sha256": "f0475253b5ecfb76ca1ddacc5ababa2720c3a10673d93a55c9889bc6188b5f97"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/plan-v3.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2978,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/plan-v3.json",
+      "original_raw_sha256": "f0475253b5ecfb76ca1ddacc5ababa2720c3a10673d93a55c9889bc6188b5f97",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 10638,
+      "decoded_sanitized_sha256": "39887f59c13122d184361eaebfd81b7e2e9c4cbf050b480516f6b9347c9ff89a",
+      "derived_parts": [
+        {
+          "bytes": 10638,
+          "path": "BRG/bound-hosts/prepare_brg.py",
+          "sha256": "39887f59c13122d184361eaebfd81b7e2e9c4cbf050b480516f6b9347c9ff89a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/prepare_brg.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 10638,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/prepare_brg.py",
+      "original_raw_sha256": "39887f59c13122d184361eaebfd81b7e2e9c4cbf050b480516f6b9347c9ff89a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1500656,
+      "decoded_sanitized_sha256": "bbb05d4eeb39652be1ddd87545ee7e3def2645d9b6c4512c4212585450fc9eb1",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "BRG/bound-hosts/product-v2-launch-inputs.json.gz.001",
+          "sha256": "02dc7cd431775f90a3df0a68af6c4d58dc72ccc7b4570ff4f5ef99609f5fa80f"
+        },
+        {
+          "bytes": 230259,
+          "path": "BRG/bound-hosts/product-v2-launch-inputs.json.gz.002",
+          "sha256": "4a6699bb1eecb7b4f0293df7f6c10d6a2f0177cff3e56538547bced9a54309bb"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "BRG/bound-hosts/product-v2-launch-inputs.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1500656,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-launch-inputs.json",
+      "original_raw_sha256": "bbb05d4eeb39652be1ddd87545ee7e3def2645d9b6c4512c4212585450fc9eb1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3408,
+      "decoded_sanitized_sha256": "366eaad61d2418e9663a8e3fa1b8857cd5bff065cf0ed8eec27cd377191f82f4",
+      "derived_parts": [
+        {
+          "bytes": 3408,
+          "path": "BRG/bound-hosts/resize_adapter.py",
+          "sha256": "366eaad61d2418e9663a8e3fa1b8857cd5bff065cf0ed8eec27cd377191f82f4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/resize_adapter.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3408,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/resize_adapter.py",
+      "original_raw_sha256": "366eaad61d2418e9663a8e3fa1b8857cd5bff065cf0ed8eec27cd377191f82f4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2018,
+      "decoded_sanitized_sha256": "7ee32895fbfe004af90faaad4b33f788acfc73a7baba81c20058c4eb1aa0eab1",
+      "derived_parts": [
+        {
+          "bytes": 2018,
+          "path": "BRG/bound-hosts/resize_background.py",
+          "sha256": "7ee32895fbfe004af90faaad4b33f788acfc73a7baba81c20058c4eb1aa0eab1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/resize_background.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2018,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/resize_background.py",
+      "original_raw_sha256": "7ee32895fbfe004af90faaad4b33f788acfc73a7baba81c20058c4eb1aa0eab1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2438,
+      "decoded_sanitized_sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0",
+      "derived_parts": [
+        {
+          "bytes": 2438,
+          "path": "BRG/bound-hosts/retire_helpers.py",
+          "sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/retire_helpers.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2438,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/retire_helpers.py",
+      "original_raw_sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9888,
+      "decoded_sanitized_sha256": "443f324d45765db21ffdffc27f7974d1966b01fce5ddbc71dc4fb0376e808b94",
+      "derived_parts": [
+        {
+          "bytes": 9888,
+          "path": "BRG/bound-hosts/run_camera.py",
+          "sha256": "443f324d45765db21ffdffc27f7974d1966b01fce5ddbc71dc4fb0376e808b94"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/run_camera.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9888,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/run_camera.py",
+      "original_raw_sha256": "443f324d45765db21ffdffc27f7974d1966b01fce5ddbc71dc4fb0376e808b94",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 12117,
+      "decoded_sanitized_sha256": "0da714b230f13368f4ce4c6a998b8c5d45c7b4df33e99aa944bd8291814472bf",
+      "derived_parts": [
+        {
+          "bytes": 12117,
+          "path": "BRG/bound-hosts/run_flow.py",
+          "sha256": "0da714b230f13368f4ce4c6a998b8c5d45c7b4df33e99aa944bd8291814472bf"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/run_flow.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 12117,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/run_flow.py",
+      "original_raw_sha256": "0da714b230f13368f4ce4c6a998b8c5d45c7b4df33e99aa944bd8291814472bf",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8193,
+      "decoded_sanitized_sha256": "14b7fc3be0bb9570398499be68bd2dd29e86707c57c4eb85f952bfbeabe8e25c",
+      "derived_parts": [
+        {
+          "bytes": 8193,
+          "path": "BRG/bound-hosts/run_group_v2.py",
+          "sha256": "14b7fc3be0bb9570398499be68bd2dd29e86707c57c4eb85f952bfbeabe8e25c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/run_group_v2.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8193,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/run_group_v2.py",
+      "original_raw_sha256": "14b7fc3be0bb9570398499be68bd2dd29e86707c57c4eb85f952bfbeabe8e25c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4139,
+      "decoded_sanitized_sha256": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd",
+      "derived_parts": [
+        {
+          "bytes": 4139,
+          "path": "BRG/bound-hosts/scene_game.py",
+          "sha256": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/scene_game.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4139,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/scene_game.py",
+      "original_raw_sha256": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1061,
+      "decoded_sanitized_sha256": "1d909bd2c1caf51cbcb51667ab8b355becc4ffe25aecbb0bdb6ccc2e5838ba28",
+      "derived_parts": [
+        {
+          "bytes": 1061,
+          "path": "BRG/bound-hosts/scene_native_layout.py",
+          "sha256": "1d909bd2c1caf51cbcb51667ab8b355becc4ffe25aecbb0bdb6ccc2e5838ba28"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/scene_native_layout.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1061,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/scene_native_layout.py",
+      "original_raw_sha256": "1d909bd2c1caf51cbcb51667ab8b355becc4ffe25aecbb0bdb6ccc2e5838ba28",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2021,
+      "decoded_sanitized_sha256": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad",
+      "derived_parts": [
+        {
+          "bytes": 2021,
+          "path": "BRG/bound-hosts/scene_policy.py",
+          "sha256": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/scene_policy.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2021,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/scene_policy.py",
+      "original_raw_sha256": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1517,
+      "decoded_sanitized_sha256": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e",
+      "derived_parts": [
+        {
+          "bytes": 1517,
+          "path": "BRG/bound-hosts/scene_restore.py",
+          "sha256": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/scene_restore.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1517,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/scene_restore.py",
+      "original_raw_sha256": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 926,
+      "decoded_sanitized_sha256": "3287940e1d0aa1072f6e509736b26218f34b678e29d2b8a59855292efb6adfee",
+      "derived_parts": [
+        {
+          "bytes": 926,
+          "path": "BRG/bound-hosts/source-synthesis-v1.json",
+          "sha256": "3287940e1d0aa1072f6e509736b26218f34b678e29d2b8a59855292efb6adfee"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/source-synthesis-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 926,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/source-synthesis-v1.json",
+      "original_raw_sha256": "3287940e1d0aa1072f6e509736b26218f34b678e29d2b8a59855292efb6adfee",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2378,
+      "decoded_sanitized_sha256": "4a7535d0cb885b890023262d85b351b9f1a7ff5cb4a1bc3ecf6e27bed18db51f",
+      "derived_parts": [
+        {
+          "bytes": 2378,
+          "path": "BRG/bound-hosts/source_provenance.py",
+          "sha256": "4a7535d0cb885b890023262d85b351b9f1a7ff5cb4a1bc3ecf6e27bed18db51f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/source_provenance.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2378,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/source_provenance.py",
+      "original_raw_sha256": "4a7535d0cb885b890023262d85b351b9f1a7ff5cb4a1bc3ecf6e27bed18db51f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1838,
+      "decoded_sanitized_sha256": "0d60bb9fa25a8ab2370cfe1a8e8077466f56536583f5f22a741c187c0ba8993f",
+      "derived_parts": [
+        {
+          "bytes": 1838,
+          "path": "BRG/bound-hosts/stage-mapping-preflight-v3.json",
+          "sha256": "0d60bb9fa25a8ab2370cfe1a8e8077466f56536583f5f22a741c187c0ba8993f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/stage-mapping-preflight-v3.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1838,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/stage-mapping-preflight-v3.json",
+      "original_raw_sha256": "0d60bb9fa25a8ab2370cfe1a8e8077466f56536583f5f22a741c187c0ba8993f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 231,
+      "decoded_sanitized_sha256": "8eca7cd8976cb5f027470b6b50ee4ccefd52abe2d173e202867264d323a6e94a",
+      "derived_parts": [
+        {
+          "bytes": 231,
+          "path": "BRG/bound-hosts/stage-r25.json",
+          "sha256": "8eca7cd8976cb5f027470b6b50ee4ccefd52abe2d173e202867264d323a6e94a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/stage-r25.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 231,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/stage-r25.json",
+      "original_raw_sha256": "8eca7cd8976cb5f027470b6b50ee4ccefd52abe2d173e202867264d323a6e94a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2239,
+      "decoded_sanitized_sha256": "3a2d4f071cb77bf15aada19b418ddf0a06fe41cdad4abb8c2f1c4793334417ba",
+      "derived_parts": [
+        {
+          "bytes": 2239,
+          "path": "BRG/bound-hosts/start_assert_watch.py",
+          "sha256": "3a2d4f071cb77bf15aada19b418ddf0a06fe41cdad4abb8c2f1c4793334417ba"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/start_assert_watch.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2239,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/start_assert_watch.py",
+      "original_raw_sha256": "3a2d4f071cb77bf15aada19b418ddf0a06fe41cdad4abb8c2f1c4793334417ba",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 6835,
+      "decoded_sanitized_sha256": "5074e02be91ff9eb5e3a5b44ebcde6268883bf4d67a3e8f7372743566865f208",
+      "derived_parts": [
+        {
+          "bytes": 6835,
+          "path": "BRG/bound-hosts/watch_handles.py",
+          "sha256": "5074e02be91ff9eb5e3a5b44ebcde6268883bf4d67a3e8f7372743566865f208"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/watch_handles.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 6835,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/watch_handles.py",
+      "original_raw_sha256": "5074e02be91ff9eb5e3a5b44ebcde6268883bf4d67a3e8f7372743566865f208",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3911,
+      "decoded_sanitized_sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee",
+      "derived_parts": [
+        {
+          "bytes": 3911,
+          "path": "BRG/bound-hosts/world_readback.py",
+          "sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/bound-hosts/world_readback.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3911,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/world_readback.py",
+      "original_raw_sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 25078,
+      "decoded_sanitized_sha256": "9e628bc4ab11e65549a922d9bcc525d62ba404f9216ce15268fe3f6ff4dc70e2",
+      "derived_parts": [
+        {
+          "bytes": 25078,
+          "path": "BRG/captures/product-v2-b-v1-handles.json",
+          "sha256": "9e628bc4ab11e65549a922d9bcc525d62ba404f9216ce15268fe3f6ff4dc70e2"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/captures/product-v2-b-v1-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 25078,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-b-v1-handles.json",
+      "original_raw_sha256": "9e628bc4ab11e65549a922d9bcc525d62ba404f9216ce15268fe3f6ff4dc70e2",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 257492,
+      "decoded_sanitized_sha256": "54bc12602a5c55a90ebe19a0d5828b4c6c45702be2eb6f1f5091a7a2600b0620",
+      "derived_parts": [
+        {
+          "bytes": 14248,
+          "path": "BRG/captures/product-v2-b-v1-host.json.gz",
+          "sha256": "8520903b28894dd588b33032e1e72aa8ec426484bfbcb833bdb61395512afcf8"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "BRG/captures/product-v2-b-v1-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 257492,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-b-v1-host.json",
+      "original_raw_sha256": "54bc12602a5c55a90ebe19a0d5828b4c6c45702be2eb6f1f5091a7a2600b0620",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2597967,
+      "decoded_sanitized_sha256": "3d89ca9136299e314b9dd3eb2517856f1944845709553c241016c9e970f38cef",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "BRG/captures/product-v2-b-v1.json.gz.001",
+          "sha256": "0a3ce2059d6232307591e0eb6a0da2a539f4c2b44a8f63ca4620f25c5bcb32a4"
+        },
+        {
+          "bytes": 239000,
+          "path": "BRG/captures/product-v2-b-v1.json.gz.002",
+          "sha256": "0ce7fcdcf621d05ea0a92949f91369b0e2c21b8909ef6dca04a2cdcbf7b691c5"
+        },
+        {
+          "bytes": 204367,
+          "path": "BRG/captures/product-v2-b-v1.json.gz.003",
+          "sha256": "dccfec6721c1c64265d3140cd8ad3b678d9cffb2da785b8e331281870e937b2c"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "BRG/captures/product-v2-b-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2597967,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-b-v1.json",
+      "original_raw_sha256": "3d89ca9136299e314b9dd3eb2517856f1944845709553c241016c9e970f38cef",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4042,
+      "decoded_sanitized_sha256": "3a1860f1c7cae2eb994ddfc3eb38af9483bd58c495e92c62d6665fe0dc305d65",
+      "derived_parts": [
+        {
+          "bytes": 4042,
+          "path": "BRG/captures/product-v2-g-v1-handles.json",
+          "sha256": "3a1860f1c7cae2eb994ddfc3eb38af9483bd58c495e92c62d6665fe0dc305d65"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/captures/product-v2-g-v1-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4042,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-g-v1-handles.json",
+      "original_raw_sha256": "3a1860f1c7cae2eb994ddfc3eb38af9483bd58c495e92c62d6665fe0dc305d65",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 446283,
+      "decoded_sanitized_sha256": "ecea54513fd42901f5b351db65e43c4f23aa422f3e7076bfec701be0ccd93320",
+      "derived_parts": [
+        {
+          "bytes": 20323,
+          "path": "BRG/captures/product-v2-g-v1-host.json.gz",
+          "sha256": "596f21e10132f891f9183215355143c940961901922b75481a5729516447cfdd"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "BRG/captures/product-v2-g-v1-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 446283,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-g-v1-host.json",
+      "original_raw_sha256": "ecea54513fd42901f5b351db65e43c4f23aa422f3e7076bfec701be0ccd93320",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2618998,
+      "decoded_sanitized_sha256": "1e4be6a60b321795c41658b431a7fa87067196ae128c7d369e88c76ed214d79b",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "BRG/captures/product-v2-g-v1.json.gz.001",
+          "sha256": "d20e1d3a495f16ab797a88bf0fa6210163a087c711ae0bc27b784c68603196cb"
+        },
+        {
+          "bytes": 239000,
+          "path": "BRG/captures/product-v2-g-v1.json.gz.002",
+          "sha256": "b33fe0f88da7d5a49c6fb208fee2bda97f45a7018fa866d5ff4f0c48ba70ed89"
+        },
+        {
+          "bytes": 196430,
+          "path": "BRG/captures/product-v2-g-v1.json.gz.003",
+          "sha256": "3bd054b25dfaad3ac982c186f63920cdab4e0e29c2fb506710c2e4c06104c496"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "BRG/captures/product-v2-g-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2618998,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-g-v1.json",
+      "original_raw_sha256": "1e4be6a60b321795c41658b431a7fa87067196ae128c7d369e88c76ed214d79b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 50370,
+      "decoded_sanitized_sha256": "6074163f92ee6fec8da0df027999ddf82410208500204a7ac99c22460c583ba4",
+      "derived_parts": [
+        {
+          "bytes": 50370,
+          "path": "BRG/captures/product-v2-r-v1-handles.json",
+          "sha256": "6074163f92ee6fec8da0df027999ddf82410208500204a7ac99c22460c583ba4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/captures/product-v2-r-v1-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 50370,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-r-v1-handles.json",
+      "original_raw_sha256": "6074163f92ee6fec8da0df027999ddf82410208500204a7ac99c22460c583ba4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 193154,
+      "decoded_sanitized_sha256": "c318393ab74d018d95f085ec1cb08fc4ea78669c9610fa6482d9d2ce93d456a2",
+      "derived_parts": [
+        {
+          "bytes": 10423,
+          "path": "BRG/captures/product-v2-r-v1-host.json.gz",
+          "sha256": "2547a5a61a42a700180bcd6d4195201c5f0c4eea5a74a47ab593b52f927d56b9"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "BRG/captures/product-v2-r-v1-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 193154,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-r-v1-host.json",
+      "original_raw_sha256": "c318393ab74d018d95f085ec1cb08fc4ea78669c9610fa6482d9d2ce93d456a2",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2516751,
+      "decoded_sanitized_sha256": "357bb4d8da35c995b9984776c6fa5eb18678082a9eabcc997cfff5864343413c",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "BRG/captures/product-v2-r-v1.json.gz.001",
+          "sha256": "adb4fc1cf629580f60b9239d59d78952a79ae06522fa29110b29372ad77c1c7f"
+        },
+        {
+          "bytes": 239000,
+          "path": "BRG/captures/product-v2-r-v1.json.gz.002",
+          "sha256": "b8b067e85aa70800a3dabf027fda364c9424e860fbf963d5cce80144bcb5904a"
+        },
+        {
+          "bytes": 186880,
+          "path": "BRG/captures/product-v2-r-v1.json.gz.003",
+          "sha256": "949bd704870895a3278257bfa0c94ef81412af66131f151b861880359024b6a2"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "BRG/captures/product-v2-r-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2516751,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-r-v1.json",
+      "original_raw_sha256": "357bb4d8da35c995b9984776c6fa5eb18678082a9eabcc997cfff5864343413c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 12204,
+      "decoded_sanitized_sha256": "9edd7de0c9d0f362e5e494e71dcca532dcfcc27cfe2796ddeb754a1b14a84aa0",
+      "derived_parts": [
+        {
+          "bytes": 12204,
+          "path": "BRG/cohort/cold-default-observation-v1.json",
+          "sha256": "9edd7de0c9d0f362e5e494e71dcca532dcfcc27cfe2796ddeb754a1b14a84aa0"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/cold-default-observation-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 12204,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/cold-default-observation-v1.json",
+      "original_raw_sha256": "9edd7de0c9d0f362e5e494e71dcca532dcfcc27cfe2796ddeb754a1b14a84aa0",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 218881,
+      "decoded_sanitized_sha256": "21adb32eb9713b7bbbd85ee7b3739250f9bd5890d1bef84078ab32515e2f49d8",
+      "derived_parts": [
+        {
+          "bytes": 4639,
+          "path": "BRG/cohort/continuous-handle-guard-v1.json.gz",
+          "sha256": "6af9a136b54329b469db514c506570c982136251606c624e493027ab4965fc95"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "BRG/cohort/continuous-handle-guard-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 218881,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/continuous-handle-guard-v1.json",
+      "original_raw_sha256": "21adb32eb9713b7bbbd85ee7b3739250f9bd5890d1bef84078ab32515e2f49d8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1719764,
+      "decoded_sanitized_sha256": "61d9d94c00a4debdeb52b591fdaccea79dd628096d9191d842a2657316ebeade",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "BRG/cohort/final-source-binding-v1.json.gz.001",
+          "sha256": "0077ae6dbd5d2385f919d84e488e5d149d043cd1f691f59f665503d2e0bc093f"
+        },
+        {
+          "bytes": 239000,
+          "path": "BRG/cohort/final-source-binding-v1.json.gz.002",
+          "sha256": "b4277fb5f8200887a223ee2ff8d9604254c85d597ec07ef15823c3997afa5fe4"
+        },
+        {
+          "bytes": 35420,
+          "path": "BRG/cohort/final-source-binding-v1.json.gz.003",
+          "sha256": "c78e864639b1a01b9a0dc3b3cfd6f5d0a1388996f44bfb1fbf0e7a4a6e768af1"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "BRG/cohort/final-source-binding-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1719764,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/final-source-binding-v1.json",
+      "original_raw_sha256": "61d9d94c00a4debdeb52b591fdaccea79dd628096d9191d842a2657316ebeade",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 45005,
+      "decoded_sanitized_sha256": "52992d6b6ac11add9a01159cae26c4f59489f972508aecac6a9feba248f14a64",
+      "derived_parts": [
+        {
+          "bytes": 45005,
+          "path": "BRG/cohort/group-execution-v1.json",
+          "sha256": "52992d6b6ac11add9a01159cae26c4f59489f972508aecac6a9feba248f14a64"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/group-execution-v1.json",
+      "original_bytes_reconstructable": false,
+      "original_raw_bytes": 52024,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/group-execution-v1.json",
+      "original_raw_sha256": "5572c9c42d65154e5f72fb3bd0875d972ab3342b37e78138589c12920d15d1a3",
+      "redacted_fields": [
+        "$:json.registry_finalize.stdout:json.mcp_url"
+      ]
+    },
+    {
+      "decoded_sanitized_bytes": 239,
+      "decoded_sanitized_sha256": "fe23f38050ffc6cc9744d78a0630c7c6c1bace126c76918fe7e226302e8223f1",
+      "derived_parts": [
+        {
+          "bytes": 239,
+          "path": "BRG/cohort/helper-retirement-v1.json",
+          "sha256": "fe23f38050ffc6cc9744d78a0630c7c6c1bace126c76918fe7e226302e8223f1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/helper-retirement-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 239,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/helper-retirement-v1.json",
+      "original_raw_sha256": "fe23f38050ffc6cc9744d78a0630c7c6c1bace126c76918fe7e226302e8223f1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2977,
+      "decoded_sanitized_sha256": "25f67b9d7812d4fbae69a175b067ac324534fa037b68e718db3aabbab13db11e",
+      "derived_parts": [
+        {
+          "bytes": 2977,
+          "path": "BRG/cohort/independent-restore-after-camera.json",
+          "sha256": "25f67b9d7812d4fbae69a175b067ac324534fa037b68e718db3aabbab13db11e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/independent-restore-after-camera.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2977,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/independent-restore-after-camera.json",
+      "original_raw_sha256": "25f67b9d7812d4fbae69a175b067ac324534fa037b68e718db3aabbab13db11e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2977,
+      "decoded_sanitized_sha256": "57c8c867fce1c7e1423cf0644ca21a27505c8773cc10d4d685a861272804df00",
+      "derived_parts": [
+        {
+          "bytes": 2977,
+          "path": "BRG/cohort/independent-restore-v1.json",
+          "sha256": "57c8c867fce1c7e1423cf0644ca21a27505c8773cc10d4d685a861272804df00"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/independent-restore-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2977,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/independent-restore-v1.json",
+      "original_raw_sha256": "57c8c867fce1c7e1423cf0644ca21a27505c8773cc10d4d685a861272804df00",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 998,
+      "decoded_sanitized_sha256": "eae7593651a81077d4f50287a1427a401fba236455885b1d10717833dc6e3086",
+      "derived_parts": [
+        {
+          "bytes": 998,
+          "path": "BRG/cohort/launch/exact-exit.json",
+          "sha256": "eae7593651a81077d4f50287a1427a401fba236455885b1d10717833dc6e3086"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/launch/exact-exit.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 998,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/launch/exact-exit.json",
+      "original_raw_sha256": "eae7593651a81077d4f50287a1427a401fba236455885b1d10717833dc6e3086",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 50380,
+      "decoded_sanitized_sha256": "85e87f8ba694db3e3f39c04cc89e404e7b410d83d95db47b137cc2ac0882e2b5",
+      "derived_parts": [
+        {
+          "bytes": 50380,
+          "path": "BRG/cohort/launch/launch.json",
+          "sha256": "85e87f8ba694db3e3f39c04cc89e404e7b410d83d95db47b137cc2ac0882e2b5"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/launch/launch.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 50380,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/launch/launch.json",
+      "original_raw_sha256": "85e87f8ba694db3e3f39c04cc89e404e7b410d83d95db47b137cc2ac0882e2b5",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3368,
+      "decoded_sanitized_sha256": "e7317f93920dd19ff6dd50aafc46b95f91a0fa5a58338189ef35b192a28c7676",
+      "derived_parts": [
+        {
+          "bytes": 3368,
+          "path": "BRG/cohort/precise-release-audit-v1.json",
+          "sha256": "e7317f93920dd19ff6dd50aafc46b95f91a0fa5a58338189ef35b192a28c7676"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/precise-release-audit-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3368,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/precise-release-audit-v1.json",
+      "original_raw_sha256": "e7317f93920dd19ff6dd50aafc46b95f91a0fa5a58338189ef35b192a28c7676",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9748,
+      "decoded_sanitized_sha256": "650ccf133e74a3950f40e9d6a2a0897ca2386a7a404d10097ac75a550dcd51ef",
+      "derived_parts": [
+        {
+          "bytes": 9748,
+          "path": "BRG/cohort/prelaunch-host-binding-v1.json",
+          "sha256": "650ccf133e74a3950f40e9d6a2a0897ca2386a7a404d10097ac75a550dcd51ef"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/prelaunch-host-binding-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9748,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/prelaunch-host-binding-v1.json",
+      "original_raw_sha256": "650ccf133e74a3950f40e9d6a2a0897ca2386a7a404d10097ac75a550dcd51ef",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5814,
+      "decoded_sanitized_sha256": "9bb0c1497481f41440994f5105f178ee816c4f34cb2350ab3a7f86775132e873",
+      "derived_parts": [
+        {
+          "bytes": 5814,
+          "path": "BRG/cohort/product-v2-camera-seam-v1-handles.json",
+          "sha256": "9bb0c1497481f41440994f5105f178ee816c4f34cb2350ab3a7f86775132e873"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/product-v2-camera-seam-v1-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5814,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-camera-seam-v1-handles.json",
+      "original_raw_sha256": "9bb0c1497481f41440994f5105f178ee816c4f34cb2350ab3a7f86775132e873",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 17907,
+      "decoded_sanitized_sha256": "2ce0b192482f2a84579c1106b979542cd19553b537176d648bf03cfe2171a806",
+      "derived_parts": [
+        {
+          "bytes": 17907,
+          "path": "BRG/cohort/product-v2-camera-seam-v1-host.json",
+          "sha256": "2ce0b192482f2a84579c1106b979542cd19553b537176d648bf03cfe2171a806"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/product-v2-camera-seam-v1-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 17907,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-camera-seam-v1-host.json",
+      "original_raw_sha256": "2ce0b192482f2a84579c1106b979542cd19553b537176d648bf03cfe2171a806",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 83834,
+      "decoded_sanitized_sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333",
+      "derived_parts": [
+        {
+          "bytes": 83834,
+          "path": "BRG/cohort/product-v2-camera-seam-v1.json",
+          "sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/product-v2-camera-seam-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 83834,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-camera-seam-v1.json",
+      "original_raw_sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3661,
+      "decoded_sanitized_sha256": "836b80637baddf8a1f2b4b18e4d3fc9aff4fb4bb069b4549dc75ed19251c636b",
+      "derived_parts": [
+        {
+          "bytes": 3661,
+          "path": "BRG/cohort/resize-background-v1.json",
+          "sha256": "836b80637baddf8a1f2b4b18e4d3fc9aff4fb4bb069b4549dc75ed19251c636b"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/resize-background-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3661,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/resize-background-v1.json",
+      "original_raw_sha256": "836b80637baddf8a1f2b4b18e4d3fc9aff4fb4bb069b4549dc75ed19251c636b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1197,
+      "decoded_sanitized_sha256": "ad2db2713db657f51d45fe05cae2f69832e90219e96458b0993b27bb871774a1",
+      "derived_parts": [
+        {
+          "bytes": 1197,
+          "path": "BRG/cohort/world-baseline-v1.json",
+          "sha256": "ad2db2713db657f51d45fe05cae2f69832e90219e96458b0993b27bb871774a1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/cohort/world-baseline-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1197,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/world-baseline-v1.json",
+      "original_raw_sha256": "ad2db2713db657f51d45fe05cae2f69832e90219e96458b0993b27bb871774a1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8892,
+      "decoded_sanitized_sha256": "c0bb8cf67bc3edc9808f4afceefcbe3de7fcc5ede974a1b626e594ce27c42ff2",
+      "derived_parts": [
+        {
+          "bytes": 8892,
+          "path": "BRG/results/analyze_matrix_v2.py",
+          "sha256": "c0bb8cf67bc3edc9808f4afceefcbe3de7fcc5ede974a1b626e594ce27c42ff2"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/analyze_matrix_v2.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8892,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/analyze_matrix_v2.py",
+      "original_raw_sha256": "c0bb8cf67bc3edc9808f4afceefcbe3de7fcc5ede974a1b626e594ce27c42ff2",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 27910,
+      "decoded_sanitized_sha256": "742145034bf1cfa06839bf69990a9cf02149363b9dc821af8e1387da6826a858",
+      "derived_parts": [
+        {
+          "bytes": 27910,
+          "path": "BRG/results/editor-geometry-diagnosis-v1.json",
+          "sha256": "742145034bf1cfa06839bf69990a9cf02149363b9dc821af8e1387da6826a858"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/editor-geometry-diagnosis-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 27910,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/editor-geometry-diagnosis-v1.json",
+      "original_raw_sha256": "742145034bf1cfa06839bf69990a9cf02149363b9dc821af8e1387da6826a858",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 10616,
+      "decoded_sanitized_sha256": "0329a48910efb2e1df849156f43fbf3025622027aed547d926b8ca666b9a2d51",
+      "derived_parts": [
+        {
+          "bytes": 10616,
+          "path": "BRG/results/gallery-F-shape-comparison-v1.json",
+          "sha256": "0329a48910efb2e1df849156f43fbf3025622027aed547d926b8ca666b9a2d51"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/gallery-F-shape-comparison-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 10616,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/gallery-F-shape-comparison-v1.json",
+      "original_raw_sha256": "0329a48910efb2e1df849156f43fbf3025622027aed547d926b8ca666b9a2d51",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2977,
+      "decoded_sanitized_sha256": "fb22895ce0ef6bcd484fc0ebb059e504da5d3d7c7f7178f8943ce8f8bfc974d4",
+      "derived_parts": [
+        {
+          "bytes": 2977,
+          "path": "BRG/results/independent-restore-after-B.json",
+          "sha256": "fb22895ce0ef6bcd484fc0ebb059e504da5d3d7c7f7178f8943ce8f8bfc974d4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/independent-restore-after-B.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2977,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/independent-restore-after-B.json",
+      "original_raw_sha256": "fb22895ce0ef6bcd484fc0ebb059e504da5d3d7c7f7178f8943ce8f8bfc974d4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2977,
+      "decoded_sanitized_sha256": "5711a092ff0a06a685fc4a585578b6660f134e02e075f967d8403d9526943fe8",
+      "derived_parts": [
+        {
+          "bytes": 2977,
+          "path": "BRG/results/independent-restore-after-R.json",
+          "sha256": "5711a092ff0a06a685fc4a585578b6660f134e02e075f967d8403d9526943fe8"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/independent-restore-after-R.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2977,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/independent-restore-after-R.json",
+      "original_raw_sha256": "5711a092ff0a06a685fc4a585578b6660f134e02e075f967d8403d9526943fe8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5137,
+      "decoded_sanitized_sha256": "690d29998b9ef98a4f645ca3769d979c90ee7eb585839a7f58c248d14d0106df",
+      "derived_parts": [
+        {
+          "bytes": 5137,
+          "path": "BRG/results/inspect_original_brg_gates_v1.py",
+          "sha256": "690d29998b9ef98a4f645ca3769d979c90ee7eb585839a7f58c248d14d0106df"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/inspect_original_brg_gates_v1.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5137,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/inspect_original_brg_gates_v1.py",
+      "original_raw_sha256": "690d29998b9ef98a4f645ca3769d979c90ee7eb585839a7f58c248d14d0106df",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7357,
+      "decoded_sanitized_sha256": "adb96e34f8ea0a2b15a783cfbab32bb478ea92da55a07904f1665f3f3eec7e4e",
+      "derived_parts": [
+        {
+          "bytes": 7357,
+          "path": "BRG/results/offline-centering-controls-v1.json",
+          "sha256": "adb96e34f8ea0a2b15a783cfbab32bb478ea92da55a07904f1665f3f3eec7e4e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/offline-centering-controls-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7357,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/offline-centering-controls-v1.json",
+      "original_raw_sha256": "adb96e34f8ea0a2b15a783cfbab32bb478ea92da55a07904f1665f3f3eec7e4e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 13354,
+      "decoded_sanitized_sha256": "2a15b1b29fc75126da4a9837273ad1c097cce3278e03b89cca01668ca7df91a1",
+      "derived_parts": [
+        {
+          "bytes": 13354,
+          "path": "BRG/results/original-brg-gates-v1.json",
+          "sha256": "2a15b1b29fc75126da4a9837273ad1c097cce3278e03b89cca01668ca7df91a1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/original-brg-gates-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 13354,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/original-brg-gates-v1.json",
+      "original_raw_sha256": "2a15b1b29fc75126da4a9837273ad1c097cce3278e03b89cca01668ca7df91a1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 577,
+      "decoded_sanitized_sha256": "87491c70d3e311b214a728e852d4619cab298a9d0fdc4c20adce473ea9579237",
+      "derived_parts": [
+        {
+          "bytes": 577,
+          "path": "BRG/results/root-grant-brg-v1.json",
+          "sha256": "87491c70d3e311b214a728e852d4619cab298a9d0fdc4c20adce473ea9579237"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/root-grant-brg-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 577,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/root-grant-brg-v1.json",
+      "original_raw_sha256": "87491c70d3e311b214a728e852d4619cab298a9d0fdc4c20adce473ea9579237",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 385,
+      "decoded_sanitized_sha256": "b925ccc5061543b6ae1f93629288873ba6fd5b582968605c91dd4e76eb339841",
+      "derived_parts": [
+        {
+          "bytes": 385,
+          "path": "BRG/results/root-static-review-v1.json",
+          "sha256": "b925ccc5061543b6ae1f93629288873ba6fd5b582968605c91dd4e76eb339841"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "BRG/results/root-static-review-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 385,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/root-static-review-v1.json",
+      "original_raw_sha256": "b925ccc5061543b6ae1f93629288873ba6fd5b582968605c91dd4e76eb339841",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 17349,
+      "decoded_sanitized_sha256": "3e4d1cdb08849333a84f2dd904b230a3432e06246b39c51a70ebe4856e0ebf4d",
+      "derived_parts": [
+        {
+          "bytes": 17349,
+          "path": "D/analysis/default-product-analysis.json",
+          "sha256": "3e4d1cdb08849333a84f2dd904b230a3432e06246b39c51a70ebe4856e0ebf4d"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/analysis/default-product-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 17349,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/default-analysis-v1/default-product-analysis.json",
+      "original_raw_sha256": "3e4d1cdb08849333a84f2dd904b230a3432e06246b39c51a70ebe4856e0ebf4d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 10173,
+      "decoded_sanitized_sha256": "afde0a2381418e9bfe6576eed39d01e2187a57be02985d48f8221079ec67ad27",
+      "derived_parts": [
+        {
+          "bytes": 10173,
+          "path": "D/analysis/summary.json",
+          "sha256": "afde0a2381418e9bfe6576eed39d01e2187a57be02985d48f8221079ec67ad27"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/analysis/summary.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 10173,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/default-analysis-v1/summary.json",
+      "original_raw_sha256": "afde0a2381418e9bfe6576eed39d01e2187a57be02985d48f8221079ec67ad27",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3893,
+      "decoded_sanitized_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+      "derived_parts": [
+        {
+          "bytes": 3893,
+          "path": "D/bound-hosts/calibration_host.py",
+          "sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/calibration_host.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3893,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/calibration_host.py",
+      "original_raw_sha256": "438e8c013df233a30c28014ab052a56d5582e493625257315a5d5868fec733bb",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1783,
+      "decoded_sanitized_sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4",
+      "derived_parts": [
+        {
+          "bytes": 1783,
+          "path": "D/bound-hosts/flow_restore.py",
+          "sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/flow_restore.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1783,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/flow_restore.py",
+      "original_raw_sha256": "e77bd9ecab126c1949ce923e58c362577181e068ab433aa9d6a0f707af9d7fc4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 779,
+      "decoded_sanitized_sha256": "a58828806979eeb39e2fbb9b4b46ecc6be37561987b75a8ee4a3f671a8732db1",
+      "derived_parts": [
+        {
+          "bytes": 779,
+          "path": "D/bound-hosts/guard_policy.py",
+          "sha256": "a58828806979eeb39e2fbb9b4b46ecc6be37561987b75a8ee4a3f671a8732db1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/guard_policy.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 779,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/guard_policy.py",
+      "original_raw_sha256": "a58828806979eeb39e2fbb9b4b46ecc6be37561987b75a8ee4a3f671a8732db1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 14646,
+      "decoded_sanitized_sha256": "48516984dd3711d5ef4e7aa1f3a0045483a1e0b6b1dccea478a33c05cbb71678",
+      "derived_parts": [
+        {
+          "bytes": 14646,
+          "path": "D/bound-hosts/launch_r25.py",
+          "sha256": "48516984dd3711d5ef4e7aa1f3a0045483a1e0b6b1dccea478a33c05cbb71678"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/launch_r25.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 14646,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/launch_r25.py",
+      "original_raw_sha256": "48516984dd3711d5ef4e7aa1f3a0045483a1e0b6b1dccea478a33c05cbb71678",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2197,
+      "decoded_sanitized_sha256": "7668b59f3bd9fa2d9a22687a7cf0766735e89ea7139adc1b24b1a5b0ad8729ea",
+      "derived_parts": [
+        {
+          "bytes": 2197,
+          "path": "D/bound-hosts/modal_guard.py",
+          "sha256": "7668b59f3bd9fa2d9a22687a7cf0766735e89ea7139adc1b24b1a5b0ad8729ea"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/modal_guard.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2197,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/modal_guard.py",
+      "original_raw_sha256": "7668b59f3bd9fa2d9a22687a7cf0766735e89ea7139adc1b24b1a5b0ad8729ea",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4816,
+      "decoded_sanitized_sha256": "c341cd87bc3ce9e2a1fbbb5abc0874d6cdbb8cc48377f934b6b3d8836fb7c881",
+      "derived_parts": [
+        {
+          "bytes": 4816,
+          "path": "D/bound-hosts/observe_cold_default.py",
+          "sha256": "c341cd87bc3ce9e2a1fbbb5abc0874d6cdbb8cc48377f934b6b3d8836fb7c881"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/observe_cold_default.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4816,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/observe_cold_default.py",
+      "original_raw_sha256": "c341cd87bc3ce9e2a1fbbb5abc0874d6cdbb8cc48377f934b6b3d8836fb7c881",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4135,
+      "decoded_sanitized_sha256": "f3cb48b38fe023f438612cb32b445d0da87a7127807d8177e1b0b491633e81fb",
+      "derived_parts": [
+        {
+          "bytes": 4135,
+          "path": "D/bound-hosts/plan-v1.json",
+          "sha256": "f3cb48b38fe023f438612cb32b445d0da87a7127807d8177e1b0b491633e81fb"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/plan-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4135,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/plan-v1.json",
+      "original_raw_sha256": "f3cb48b38fe023f438612cb32b445d0da87a7127807d8177e1b0b491633e81fb",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1509665,
+      "decoded_sanitized_sha256": "8d7d2479d9a5ba21deb4a15326bc283d94974db2b8e501f316ee5eddbe3a0f35",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "D/bound-hosts/product-v2-launch-inputs.json.gz.001",
+          "sha256": "3c3efbbbc95e0b8bee99f05d109c27a6a9cb8c5c5b66bf1eff345681c5644f8a"
+        },
+        {
+          "bytes": 229809,
+          "path": "D/bound-hosts/product-v2-launch-inputs.json.gz.002",
+          "sha256": "1665769f82e5ff6802026dad56a419488370e42bb83d5868c005f08c29fb45d8"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "D/bound-hosts/product-v2-launch-inputs.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1509665,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/product-v2-launch-inputs.json",
+      "original_raw_sha256": "8d7d2479d9a5ba21deb4a15326bc283d94974db2b8e501f316ee5eddbe3a0f35",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3408,
+      "decoded_sanitized_sha256": "366eaad61d2418e9663a8e3fa1b8857cd5bff065cf0ed8eec27cd377191f82f4",
+      "derived_parts": [
+        {
+          "bytes": 3408,
+          "path": "D/bound-hosts/resize_adapter.py",
+          "sha256": "366eaad61d2418e9663a8e3fa1b8857cd5bff065cf0ed8eec27cd377191f82f4"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/resize_adapter.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3408,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/resize_adapter.py",
+      "original_raw_sha256": "366eaad61d2418e9663a8e3fa1b8857cd5bff065cf0ed8eec27cd377191f82f4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2018,
+      "decoded_sanitized_sha256": "7ee32895fbfe004af90faaad4b33f788acfc73a7baba81c20058c4eb1aa0eab1",
+      "derived_parts": [
+        {
+          "bytes": 2018,
+          "path": "D/bound-hosts/resize_background.py",
+          "sha256": "7ee32895fbfe004af90faaad4b33f788acfc73a7baba81c20058c4eb1aa0eab1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/resize_background.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2018,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/resize_background.py",
+      "original_raw_sha256": "7ee32895fbfe004af90faaad4b33f788acfc73a7baba81c20058c4eb1aa0eab1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2438,
+      "decoded_sanitized_sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0",
+      "derived_parts": [
+        {
+          "bytes": 2438,
+          "path": "D/bound-hosts/retire_helpers.py",
+          "sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/retire_helpers.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2438,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/retire_helpers.py",
+      "original_raw_sha256": "d5883c1cef6c784f23cac657767fa0f19d6466cf179b143ffec54661eafd83c0",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 11355,
+      "decoded_sanitized_sha256": "efc0d9beab778a4fb5b83c6ce12724f1a050d690ba8a08a45f763b063f9e81fa",
+      "derived_parts": [
+        {
+          "bytes": 11355,
+          "path": "D/bound-hosts/run_default.py",
+          "sha256": "efc0d9beab778a4fb5b83c6ce12724f1a050d690ba8a08a45f763b063f9e81fa"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/run_default.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 11355,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/run_default.py",
+      "original_raw_sha256": "efc0d9beab778a4fb5b83c6ce12724f1a050d690ba8a08a45f763b063f9e81fa",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8009,
+      "decoded_sanitized_sha256": "22f371a1648a88d2c4928cda18234142f234359121dd9ecc57e5e49d10ec4371",
+      "derived_parts": [
+        {
+          "bytes": 8009,
+          "path": "D/bound-hosts/run_group.py",
+          "sha256": "22f371a1648a88d2c4928cda18234142f234359121dd9ecc57e5e49d10ec4371"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/run_group.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8009,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/run_group.py",
+      "original_raw_sha256": "22f371a1648a88d2c4928cda18234142f234359121dd9ecc57e5e49d10ec4371",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4139,
+      "decoded_sanitized_sha256": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd",
+      "derived_parts": [
+        {
+          "bytes": 4139,
+          "path": "D/bound-hosts/scene_game.py",
+          "sha256": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/scene_game.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4139,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/scene_game.py",
+      "original_raw_sha256": "361d226a240d713cdd1b0d4df00a649bd62d566740e611c1bb3f703fc32de5cd",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1061,
+      "decoded_sanitized_sha256": "1d909bd2c1caf51cbcb51667ab8b355becc4ffe25aecbb0bdb6ccc2e5838ba28",
+      "derived_parts": [
+        {
+          "bytes": 1061,
+          "path": "D/bound-hosts/scene_native_layout.py",
+          "sha256": "1d909bd2c1caf51cbcb51667ab8b355becc4ffe25aecbb0bdb6ccc2e5838ba28"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/scene_native_layout.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1061,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/scene_native_layout.py",
+      "original_raw_sha256": "1d909bd2c1caf51cbcb51667ab8b355becc4ffe25aecbb0bdb6ccc2e5838ba28",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2021,
+      "decoded_sanitized_sha256": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad",
+      "derived_parts": [
+        {
+          "bytes": 2021,
+          "path": "D/bound-hosts/scene_policy.py",
+          "sha256": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/scene_policy.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2021,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/scene_policy.py",
+      "original_raw_sha256": "7e9b9a1f400e15f272c5ad8be93cd8075f290db9404902f93aec00ec70369aad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1517,
+      "decoded_sanitized_sha256": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e",
+      "derived_parts": [
+        {
+          "bytes": 1517,
+          "path": "D/bound-hosts/scene_restore.py",
+          "sha256": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/scene_restore.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1517,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/scene_restore.py",
+      "original_raw_sha256": "6f63b574a159d3b142b7ff9f3144db66e2ece15b097543c6911d4fc0c5d9750e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1175,
+      "decoded_sanitized_sha256": "b595a4938446ebcdf7de86a28f5fefae9ec9183bcc8cbd1bffc69c3668337ad1",
+      "derived_parts": [
+        {
+          "bytes": 1175,
+          "path": "D/bound-hosts/source-synthesis-v1.json",
+          "sha256": "b595a4938446ebcdf7de86a28f5fefae9ec9183bcc8cbd1bffc69c3668337ad1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/source-synthesis-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1175,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/source-synthesis-v1.json",
+      "original_raw_sha256": "b595a4938446ebcdf7de86a28f5fefae9ec9183bcc8cbd1bffc69c3668337ad1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2378,
+      "decoded_sanitized_sha256": "4a7535d0cb885b890023262d85b351b9f1a7ff5cb4a1bc3ecf6e27bed18db51f",
+      "derived_parts": [
+        {
+          "bytes": 2378,
+          "path": "D/bound-hosts/source_provenance.py",
+          "sha256": "4a7535d0cb885b890023262d85b351b9f1a7ff5cb4a1bc3ecf6e27bed18db51f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/source_provenance.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2378,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/source_provenance.py",
+      "original_raw_sha256": "4a7535d0cb885b890023262d85b351b9f1a7ff5cb4a1bc3ecf6e27bed18db51f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 237,
+      "decoded_sanitized_sha256": "14dd3d0244d40fa96590247d306e6d222faf142c3294b625c88a9f3a85b8b86a",
+      "derived_parts": [
+        {
+          "bytes": 237,
+          "path": "D/bound-hosts/stage-r25.json",
+          "sha256": "14dd3d0244d40fa96590247d306e6d222faf142c3294b625c88a9f3a85b8b86a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/stage-r25.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 237,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/stage-r25.json",
+      "original_raw_sha256": "14dd3d0244d40fa96590247d306e6d222faf142c3294b625c88a9f3a85b8b86a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2239,
+      "decoded_sanitized_sha256": "3a2d4f071cb77bf15aada19b418ddf0a06fe41cdad4abb8c2f1c4793334417ba",
+      "derived_parts": [
+        {
+          "bytes": 2239,
+          "path": "D/bound-hosts/start_assert_watch.py",
+          "sha256": "3a2d4f071cb77bf15aada19b418ddf0a06fe41cdad4abb8c2f1c4793334417ba"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/start_assert_watch.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2239,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/start_assert_watch.py",
+      "original_raw_sha256": "3a2d4f071cb77bf15aada19b418ddf0a06fe41cdad4abb8c2f1c4793334417ba",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 6835,
+      "decoded_sanitized_sha256": "5074e02be91ff9eb5e3a5b44ebcde6268883bf4d67a3e8f7372743566865f208",
+      "derived_parts": [
+        {
+          "bytes": 6835,
+          "path": "D/bound-hosts/watch_handles.py",
+          "sha256": "5074e02be91ff9eb5e3a5b44ebcde6268883bf4d67a3e8f7372743566865f208"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/watch_handles.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 6835,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/watch_handles.py",
+      "original_raw_sha256": "5074e02be91ff9eb5e3a5b44ebcde6268883bf4d67a3e8f7372743566865f208",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3911,
+      "decoded_sanitized_sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee",
+      "derived_parts": [
+        {
+          "bytes": 3911,
+          "path": "D/bound-hosts/world_readback.py",
+          "sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/bound-hosts/world_readback.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3911,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/world_readback.py",
+      "original_raw_sha256": "2ba3247782a402465293d5084bc1044f96bca5e66bccfd810c5be5e77430e1ee",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 62178,
+      "decoded_sanitized_sha256": "607ab0dc71dca6e8532c0ba44b1a47e5fc9e04273d500a46115b2e6127fc58c5",
+      "derived_parts": [
+        {
+          "bytes": 62178,
+          "path": "D/captures/default-r28-d-handles.json",
+          "sha256": "607ab0dc71dca6e8532c0ba44b1a47e5fc9e04273d500a46115b2e6127fc58c5"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/captures/default-r28-d-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 62178,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d-handles.json",
+      "original_raw_sha256": "607ab0dc71dca6e8532c0ba44b1a47e5fc9e04273d500a46115b2e6127fc58c5",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1021914,
+      "decoded_sanitized_sha256": "4800208b9eca5114b2357f9964f7df503cfa300d6b4a0463116c3f8c03f5158a",
+      "derived_parts": [
+        {
+          "bytes": 33608,
+          "path": "D/captures/default-r28-d-host.json.gz",
+          "sha256": "ecf21790024d21c448c4bb9bb1f49ab913d264eeb35a8e552b75ea2c22c2c76f"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "D/captures/default-r28-d-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1021914,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d-host.json",
+      "original_raw_sha256": "4800208b9eca5114b2357f9964f7df503cfa300d6b4a0463116c3f8c03f5158a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3272193,
+      "decoded_sanitized_sha256": "826bdc8446b63a1cc69792c5abec8b0d0ed7b947dc3535f9f910d3225463b8a4",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "D/captures/default-r28-d.json.gz.001",
+          "sha256": "b3865abe6ecfb22520aabb8fe6ac909d2005991d77cd5bcf3bf8feb9c6600f47"
+        },
+        {
+          "bytes": 239000,
+          "path": "D/captures/default-r28-d.json.gz.002",
+          "sha256": "41b1a4268fbb94408f1808769956011fde56fd2437c90f30b2daf1f4df7ebabd"
+        },
+        {
+          "bytes": 239000,
+          "path": "D/captures/default-r28-d.json.gz.003",
+          "sha256": "73d290afc7e64060715aeb452ab8cece5bf61665a8a338936dc3a7129be33f94"
+        },
+        {
+          "bytes": 258,
+          "path": "D/captures/default-r28-d.json.gz.004",
+          "sha256": "8ba68d5bcabb97c614d6fd28da5b370581886315e6762eade49b513ff1ad9c3d"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "D/captures/default-r28-d.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3272193,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d.json",
+      "original_raw_sha256": "826bdc8446b63a1cc69792c5abec8b0d0ed7b947dc3535f9f910d3225463b8a4",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9896,
+      "decoded_sanitized_sha256": "2e7d6d19a87e3781488e15fbbfde62f35e0a43881048ad36f50c61a37135874a",
+      "derived_parts": [
+        {
+          "bytes": 9896,
+          "path": "D/cohort/cold-default-observation-v1.json",
+          "sha256": "2e7d6d19a87e3781488e15fbbfde62f35e0a43881048ad36f50c61a37135874a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/cold-default-observation-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9896,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/cold-default-observation-v1.json",
+      "original_raw_sha256": "2e7d6d19a87e3781488e15fbbfde62f35e0a43881048ad36f50c61a37135874a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 217897,
+      "decoded_sanitized_sha256": "d53b1f1a2db4881bdd18883851a0d6527c60464103a4e0860cd95baf181f12f6",
+      "derived_parts": [
+        {
+          "bytes": 4662,
+          "path": "D/cohort/continuous-handle-guard-v1.json.gz",
+          "sha256": "ba782750ac942c1f490d68531a55aac8177e225550b03c8849f5d915ed4f274f"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "D/cohort/continuous-handle-guard-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 217897,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/continuous-handle-guard-v1.json",
+      "original_raw_sha256": "d53b1f1a2db4881bdd18883851a0d6527c60464103a4e0860cd95baf181f12f6",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1731366,
+      "decoded_sanitized_sha256": "875c3f380825012f0fd3a548152d9b689a50ea6a5055357c48abfdcb6991acbf",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "D/cohort/final-source-binding-v1.json.gz.001",
+          "sha256": "7d2365f8a222039c5c6b0e97c8317ed37116b6214e9a956921c1c75061917da5"
+        },
+        {
+          "bytes": 239000,
+          "path": "D/cohort/final-source-binding-v1.json.gz.002",
+          "sha256": "0f11e69dcbaad3a54a7ba8ed97eab4f8efcd3256cddb0674557832f387c6034c"
+        },
+        {
+          "bytes": 35323,
+          "path": "D/cohort/final-source-binding-v1.json.gz.003",
+          "sha256": "12f8deda25be9ca0e039a2fd3c3dc4d97614ce856632c59596d72f8a1da9c1b1"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "D/cohort/final-source-binding-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1731366,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/final-source-binding-v1.json",
+      "original_raw_sha256": "875c3f380825012f0fd3a548152d9b689a50ea6a5055357c48abfdcb6991acbf",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 43535,
+      "decoded_sanitized_sha256": "ca7f7b6b2c8befc12331b33a821f680c34b970e36aa209888fb295d39275f4fe",
+      "derived_parts": [
+        {
+          "bytes": 43535,
+          "path": "D/cohort/group-execution-v1.json",
+          "sha256": "ca7f7b6b2c8befc12331b33a821f680c34b970e36aa209888fb295d39275f4fe"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/group-execution-v1.json",
+      "original_bytes_reconstructable": false,
+      "original_raw_bytes": 50197,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/group-execution-v1.json",
+      "original_raw_sha256": "89b9451886a485598fb40ac8a71b82faad83e9b54a542760054f288cbfd5b3f9",
+      "redacted_fields": [
+        "$:json.registry_finalize.stdout:json.mcp_url"
+      ]
+    },
+    {
+      "decoded_sanitized_bytes": 239,
+      "decoded_sanitized_sha256": "d40d71eb83af6a1fe211215bcd2377b05382b83282f535ad05521e4897f02e16",
+      "derived_parts": [
+        {
+          "bytes": 239,
+          "path": "D/cohort/helper-retirement-v1.json",
+          "sha256": "d40d71eb83af6a1fe211215bcd2377b05382b83282f535ad05521e4897f02e16"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/helper-retirement-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 239,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/helper-retirement-v1.json",
+      "original_raw_sha256": "d40d71eb83af6a1fe211215bcd2377b05382b83282f535ad05521e4897f02e16",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2975,
+      "decoded_sanitized_sha256": "3b1c6214456f2adc81a6ee26b064682a372ca78ab06f48cb686700c7c50b67c8",
+      "derived_parts": [
+        {
+          "bytes": 2975,
+          "path": "D/cohort/independent-restore-after-camera.json",
+          "sha256": "3b1c6214456f2adc81a6ee26b064682a372ca78ab06f48cb686700c7c50b67c8"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/independent-restore-after-camera.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2975,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/independent-restore-after-camera.json",
+      "original_raw_sha256": "3b1c6214456f2adc81a6ee26b064682a372ca78ab06f48cb686700c7c50b67c8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2975,
+      "decoded_sanitized_sha256": "1e7d6978de476efb1744a8bf8dacde7ea57380656474d97210145759de8f45c3",
+      "derived_parts": [
+        {
+          "bytes": 2975,
+          "path": "D/cohort/independent-restore-v1.json",
+          "sha256": "1e7d6978de476efb1744a8bf8dacde7ea57380656474d97210145759de8f45c3"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/independent-restore-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2975,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/independent-restore-v1.json",
+      "original_raw_sha256": "1e7d6978de476efb1744a8bf8dacde7ea57380656474d97210145759de8f45c3",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 996,
+      "decoded_sanitized_sha256": "90005610d83055857c469b11e2f273f81f047fdb019ffafaeb966412d8639584",
+      "derived_parts": [
+        {
+          "bytes": 996,
+          "path": "D/cohort/launch/exact-exit.json",
+          "sha256": "90005610d83055857c469b11e2f273f81f047fdb019ffafaeb966412d8639584"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/launch/exact-exit.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 996,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/launch/exact-exit.json",
+      "original_raw_sha256": "90005610d83055857c469b11e2f273f81f047fdb019ffafaeb966412d8639584",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 51719,
+      "decoded_sanitized_sha256": "f5d497889aa31e3a1fae4876468d27a5dab4fea89742bd8f700feaaeda137a9f",
+      "derived_parts": [
+        {
+          "bytes": 51719,
+          "path": "D/cohort/launch/launch.json",
+          "sha256": "f5d497889aa31e3a1fae4876468d27a5dab4fea89742bd8f700feaaeda137a9f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/launch/launch.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 51719,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/launch/launch.json",
+      "original_raw_sha256": "f5d497889aa31e3a1fae4876468d27a5dab4fea89742bd8f700feaaeda137a9f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3474,
+      "decoded_sanitized_sha256": "ec66cca915a5c135712402e123a0a304a115d6214570b6de4d2df601ae9bfa71",
+      "derived_parts": [
+        {
+          "bytes": 3474,
+          "path": "D/cohort/precise-release-audit-v1.json",
+          "sha256": "ec66cca915a5c135712402e123a0a304a115d6214570b6de4d2df601ae9bfa71"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/precise-release-audit-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3474,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/precise-release-audit-v1.json",
+      "original_raw_sha256": "ec66cca915a5c135712402e123a0a304a115d6214570b6de4d2df601ae9bfa71",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9444,
+      "decoded_sanitized_sha256": "0f6c8e732162f05217c2eefddbf7c0cbc4caff8ff29c4f8e6c92e3d81bcc9b86",
+      "derived_parts": [
+        {
+          "bytes": 9444,
+          "path": "D/cohort/prelaunch-host-binding-v1.json",
+          "sha256": "0f6c8e732162f05217c2eefddbf7c0cbc4caff8ff29c4f8e6c92e3d81bcc9b86"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/prelaunch-host-binding-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9444,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/prelaunch-host-binding-v1.json",
+      "original_raw_sha256": "0f6c8e732162f05217c2eefddbf7c0cbc4caff8ff29c4f8e6c92e3d81bcc9b86",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5804,
+      "decoded_sanitized_sha256": "f446a9b44c6c9d7e519c1dcb56ba3a77428be92609e7e77849dc8abecf4c0056",
+      "derived_parts": [
+        {
+          "bytes": 5804,
+          "path": "D/cohort/product-v2-camera-seam-v1-handles.json",
+          "sha256": "f446a9b44c6c9d7e519c1dcb56ba3a77428be92609e7e77849dc8abecf4c0056"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/product-v2-camera-seam-v1-handles.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5804,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/product-v2-camera-seam-v1-handles.json",
+      "original_raw_sha256": "f446a9b44c6c9d7e519c1dcb56ba3a77428be92609e7e77849dc8abecf4c0056",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 17951,
+      "decoded_sanitized_sha256": "423b54facda9e5afff1227251c91d9b7b369f0954dcd47a726dc84f9d6aa4478",
+      "derived_parts": [
+        {
+          "bytes": 17951,
+          "path": "D/cohort/product-v2-camera-seam-v1-host.json",
+          "sha256": "423b54facda9e5afff1227251c91d9b7b369f0954dcd47a726dc84f9d6aa4478"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/product-v2-camera-seam-v1-host.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 17951,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/product-v2-camera-seam-v1-host.json",
+      "original_raw_sha256": "423b54facda9e5afff1227251c91d9b7b369f0954dcd47a726dc84f9d6aa4478",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 83872,
+      "decoded_sanitized_sha256": "6194e6cc7d2453775db7a7b72b14f71e41c464ce140f349b7bc3afb973f69cc0",
+      "derived_parts": [
+        {
+          "bytes": 83872,
+          "path": "D/cohort/product-v2-camera-seam-v1.json",
+          "sha256": "6194e6cc7d2453775db7a7b72b14f71e41c464ce140f349b7bc3afb973f69cc0"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/product-v2-camera-seam-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 83872,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/product-v2-camera-seam-v1.json",
+      "original_raw_sha256": "6194e6cc7d2453775db7a7b72b14f71e41c464ce140f349b7bc3afb973f69cc0",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3659,
+      "decoded_sanitized_sha256": "f1437e61a5e69b4ce37a2efa6e5552dd8ddb74c161fee62c0b19fab999334c91",
+      "derived_parts": [
+        {
+          "bytes": 3659,
+          "path": "D/cohort/resize-background-v1.json",
+          "sha256": "f1437e61a5e69b4ce37a2efa6e5552dd8ddb74c161fee62c0b19fab999334c91"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/resize-background-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3659,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/resize-background-v1.json",
+      "original_raw_sha256": "f1437e61a5e69b4ce37a2efa6e5552dd8ddb74c161fee62c0b19fab999334c91",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 376,
+      "decoded_sanitized_sha256": "055152ba2df8bbc36a9a0bd36e0e5f1c94aee775c5b87c3c84cbe9071cd82a32",
+      "derived_parts": [
+        {
+          "bytes": 376,
+          "path": "D/cohort/root-grant-D-v1.json",
+          "sha256": "055152ba2df8bbc36a9a0bd36e0e5f1c94aee775c5b87c3c84cbe9071cd82a32"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/root-grant-D-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 376,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/root-grant-D-v1.json",
+      "original_raw_sha256": "055152ba2df8bbc36a9a0bd36e0e5f1c94aee775c5b87c3c84cbe9071cd82a32",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1496,
+      "decoded_sanitized_sha256": "1e2671885ee61af2aa1159bdad14782826110e3783ae8739a5f32a4bd02a1a5b",
+      "derived_parts": [
+        {
+          "bytes": 1496,
+          "path": "D/cohort/root-static-review-v1.json",
+          "sha256": "1e2671885ee61af2aa1159bdad14782826110e3783ae8739a5f32a4bd02a1a5b"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/root-static-review-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1496,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/root-static-review-v1.json",
+      "original_raw_sha256": "1e2671885ee61af2aa1159bdad14782826110e3783ae8739a5f32a4bd02a1a5b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1196,
+      "decoded_sanitized_sha256": "e6ddfc0e800d9f95e9d8454769538cd6d2aaeb8d226fc009f3581b213f5b82c7",
+      "derived_parts": [
+        {
+          "bytes": 1196,
+          "path": "D/cohort/world-baseline-v1.json",
+          "sha256": "e6ddfc0e800d9f95e9d8454769538cd6d2aaeb8d226fc009f3581b213f5b82c7"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "D/cohort/world-baseline-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1196,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/world-baseline-v1.json",
+      "original_raw_sha256": "e6ddfc0e800d9f95e9d8454769538cd6d2aaeb8d226fc009f3581b213f5b82c7",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4267,
+      "decoded_sanitized_sha256": "c3d85fc9682faeff1cdd0b29e0d2219eb7df63201bf941e8beb2d00633b2158b",
+      "derived_parts": [
+        {
+          "bytes": 4267,
+          "path": "admission/actual-prelaunch-audit-D-v1.json",
+          "sha256": "c3d85fc9682faeff1cdd0b29e0d2219eb7df63201bf941e8beb2d00633b2158b"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/actual-prelaunch-audit-D-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4267,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/actual-prelaunch-audit-D-v1.json",
+      "original_raw_sha256": "c3d85fc9682faeff1cdd0b29e0d2219eb7df63201bf941e8beb2d00633b2158b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4366,
+      "decoded_sanitized_sha256": "b96e5688b8eddac4e9b02cc76e29e63cb652a06f322c1b79f7cf4d5a2c5ee685",
+      "derived_parts": [
+        {
+          "bytes": 4366,
+          "path": "admission/analyze_default.py",
+          "sha256": "b96e5688b8eddac4e9b02cc76e29e63cb652a06f322c1b79f7cf4d5a2c5ee685"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/analyze_default.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4366,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/analyze_default.py",
+      "original_raw_sha256": "b96e5688b8eddac4e9b02cc76e29e63cb652a06f322c1b79f7cf4d5a2c5ee685",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3927,
+      "decoded_sanitized_sha256": "6b118fafeae4d885544b9084b3515fc58c2bf5a1319aec7b2c888fed848ecc7e",
+      "derived_parts": [
+        {
+          "bytes": 3927,
+          "path": "admission/audit_release_D.py",
+          "sha256": "6b118fafeae4d885544b9084b3515fc58c2bf5a1319aec7b2c888fed848ecc7e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/audit_release_D.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3927,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/audit_release_D.py",
+      "original_raw_sha256": "6b118fafeae4d885544b9084b3515fc58c2bf5a1319aec7b2c888fed848ecc7e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5109,
+      "decoded_sanitized_sha256": "905f375e09ae884691bcf0582285cfc5b10add72c071fa059a02f1fb671db61f",
+      "derived_parts": [
+        {
+          "bytes": 5109,
+          "path": "admission/disposable-preparation-v1.json",
+          "sha256": "905f375e09ae884691bcf0582285cfc5b10add72c071fa059a02f1fb671db61f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/disposable-preparation-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5109,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/disposable-preparation-v1.json",
+      "original_raw_sha256": "905f375e09ae884691bcf0582285cfc5b10add72c071fa059a02f1fb671db61f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 39658,
+      "decoded_sanitized_sha256": "0dbfdb21dd2a25a3debded4ece8bbe88c933636d936a4fdb0e3c7e91f7df6502",
+      "derived_parts": [
+        {
+          "bytes": 39658,
+          "path": "admission/final-static-inspection-v1.json",
+          "sha256": "0dbfdb21dd2a25a3debded4ece8bbe88c933636d936a4fdb0e3c7e91f7df6502"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/final-static-inspection-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 39658,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-static-inspection-v1.json",
+      "original_raw_sha256": "0dbfdb21dd2a25a3debded4ece8bbe88c933636d936a4fdb0e3c7e91f7df6502",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 601,
+      "decoded_sanitized_sha256": "225925fcf236db89c381bba28b60a3f261ba8cac202c38b5ed412e3634f94cec",
+      "derived_parts": [
+        {
+          "bytes": 601,
+          "path": "admission/prepare-failure-v1.json",
+          "sha256": "225925fcf236db89c381bba28b60a3f261ba8cac202c38b5ed412e3634f94cec"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/prepare-failure-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 601,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/prepare-failure-v1.json",
+      "original_raw_sha256": "225925fcf236db89c381bba28b60a3f261ba8cac202c38b5ed412e3634f94cec",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8054,
+      "decoded_sanitized_sha256": "572e1a6df72767635d7ed3f4897e9037cb1d3857a5de83570f4bf352aa595312",
+      "derived_parts": [
+        {
+          "bytes": 8054,
+          "path": "admission/prepare_disposable.py",
+          "sha256": "572e1a6df72767635d7ed3f4897e9037cb1d3857a5de83570f4bf352aa595312"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/prepare_disposable.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8054,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/prepare_disposable.py",
+      "original_raw_sha256": "572e1a6df72767635d7ed3f4897e9037cb1d3857a5de83570f4bf352aa595312",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 8066,
+      "decoded_sanitized_sha256": "cf4762f05f20b7105bae8033fc7cb5918000e8a4f5239cebdbcac3c930afc20a",
+      "derived_parts": [
+        {
+          "bytes": 8066,
+          "path": "admission/prepare_disposable_v2.py",
+          "sha256": "cf4762f05f20b7105bae8033fc7cb5918000e8a4f5239cebdbcac3c930afc20a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/prepare_disposable_v2.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 8066,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/prepare_disposable_v2.py",
+      "original_raw_sha256": "cf4762f05f20b7105bae8033fc7cb5918000e8a4f5239cebdbcac3c930afc20a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 9102,
+      "decoded_sanitized_sha256": "fc3a5a8208bd28152ca48a6ad417c5430c1e884d5db5580bd2ecd5ba909fdeb7",
+      "derived_parts": [
+        {
+          "bytes": 9102,
+          "path": "admission/prepare_final_host.py",
+          "sha256": "fc3a5a8208bd28152ca48a6ad417c5430c1e884d5db5580bd2ecd5ba909fdeb7"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/prepare_final_host.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 9102,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/prepare_final_host.py",
+      "original_raw_sha256": "fc3a5a8208bd28152ca48a6ad417c5430c1e884d5db5580bd2ecd5ba909fdeb7",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 15040,
+      "decoded_sanitized_sha256": "d97be345b75824e6bcccd995fed9b5caf93ec8231eb2a1d1bb10abfb8b0669d2",
+      "derived_parts": [
+        {
+          "bytes": 15040,
+          "path": "admission/provisional-output-v1/qualification.json",
+          "sha256": "d97be345b75824e6bcccd995fed9b5caf93ec8231eb2a1d1bb10abfb8b0669d2"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/provisional-output-v1/qualification.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 15040,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/provisional-output-v1/qualification.json",
+      "original_raw_sha256": "d97be345b75824e6bcccd995fed9b5caf93ec8231eb2a1d1bb10abfb8b0669d2",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 46298,
+      "decoded_sanitized_sha256": "263489074f40e70a81ea967e8ab61ade78d5e14aa38f22be038aa926d0644fa1",
+      "derived_parts": [
+        {
+          "bytes": 46298,
+          "path": "admission/provisional-output-v1/reviewed-host-receipt-v1.json",
+          "sha256": "263489074f40e70a81ea967e8ab61ade78d5e14aa38f22be038aa926d0644fa1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/provisional-output-v1/reviewed-host-receipt-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 46298,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/provisional-output-v1/reviewed-host-receipt-v1.json",
+      "original_raw_sha256": "263489074f40e70a81ea967e8ab61ade78d5e14aa38f22be038aa926d0644fa1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 7340,
+      "decoded_sanitized_sha256": "c08c5f5fb249ebaba6ddc561dda075cf317d90cfafc5a4b418fba2584eb5bc82",
+      "derived_parts": [
+        {
+          "bytes": 7340,
+          "path": "admission/provisional-static-inspection-v1.json",
+          "sha256": "c08c5f5fb249ebaba6ddc561dda075cf317d90cfafc5a4b418fba2584eb5bc82"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/provisional-static-inspection-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 7340,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/provisional-static-inspection-v1.json",
+      "original_raw_sha256": "c08c5f5fb249ebaba6ddc561dda075cf317d90cfafc5a4b418fba2584eb5bc82",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 45159,
+      "decoded_sanitized_sha256": "e917131343247ccde5ee611b13bd57837a39557bb1c09ff6a0022f26cd2bbb74",
+      "derived_parts": [
+        {
+          "bytes": 45159,
+          "path": "admission/provisional-static-inspection-v2.json",
+          "sha256": "e917131343247ccde5ee611b13bd57837a39557bb1c09ff6a0022f26cd2bbb74"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/provisional-static-inspection-v2.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 45159,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/provisional-static-inspection-v2.json",
+      "original_raw_sha256": "e917131343247ccde5ee611b13bd57837a39557bb1c09ff6a0022f26cd2bbb74",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 13029,
+      "decoded_sanitized_sha256": "02bc7ca0055ab283c7117d69d18b68860a13b5f681735e51df58814ce6b763fc",
+      "derived_parts": [
+        {
+          "bytes": 13029,
+          "path": "admission/qualify_final_v1.py",
+          "sha256": "02bc7ca0055ab283c7117d69d18b68860a13b5f681735e51df58814ce6b763fc"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/qualify_final_v1.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 13029,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/qualify_final_v1.py",
+      "original_raw_sha256": "02bc7ca0055ab283c7117d69d18b68860a13b5f681735e51df58814ce6b763fc",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 10923,
+      "decoded_sanitized_sha256": "b86e2ae69705c7f78f49f2a75ae019a861d2960bb0c8a5a8539a23f99dc0ee62",
+      "derived_parts": [
+        {
+          "bytes": 10923,
+          "path": "admission/qualify_provisional.py",
+          "sha256": "b86e2ae69705c7f78f49f2a75ae019a861d2960bb0c8a5a8539a23f99dc0ee62"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/qualify_provisional.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 10923,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/qualify_provisional.py",
+      "original_raw_sha256": "b86e2ae69705c7f78f49f2a75ae019a861d2960bb0c8a5a8539a23f99dc0ee62",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 11708,
+      "decoded_sanitized_sha256": "38e34bc80fbdc44dd2c291a92b6fac545c5746269647885368d074dd542917b6",
+      "derived_parts": [
+        {
+          "bytes": 11708,
+          "path": "admission/qualify_provisional_v2.py",
+          "sha256": "38e34bc80fbdc44dd2c291a92b6fac545c5746269647885368d074dd542917b6"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/qualify_provisional_v2.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 11708,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/qualify_provisional_v2.py",
+      "original_raw_sha256": "38e34bc80fbdc44dd2c291a92b6fac545c5746269647885368d074dd542917b6",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4743,
+      "decoded_sanitized_sha256": "15b9c67e58d9a1d6db9bbca343d71fdf6ef617174bb2ef8cfc935fef2a2b4707",
+      "derived_parts": [
+        {
+          "bytes": 4743,
+          "path": "admission/root-final-review-confirmed-v1.json",
+          "sha256": "15b9c67e58d9a1d6db9bbca343d71fdf6ef617174bb2ef8cfc935fef2a2b4707"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/root-final-review-confirmed-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4743,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/root-final-review-confirmed-v1.json",
+      "original_raw_sha256": "15b9c67e58d9a1d6db9bbca343d71fdf6ef617174bb2ef8cfc935fef2a2b4707",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4209,
+      "decoded_sanitized_sha256": "bf003d8b3e486bf0736a8341f5b65b4e80672f726739ff1d0aedb9000d966b64",
+      "derived_parts": [
+        {
+          "bytes": 4209,
+          "path": "admission/root-scope-review-confirmed-v1.json",
+          "sha256": "bf003d8b3e486bf0736a8341f5b65b4e80672f726739ff1d0aedb9000d966b64"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/root-scope-review-confirmed-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4209,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/root-scope-review-confirmed-v1.json",
+      "original_raw_sha256": "bf003d8b3e486bf0736a8341f5b65b4e80672f726739ff1d0aedb9000d966b64",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 3847,
+      "decoded_sanitized_sha256": "cde7e8a22eff023e479222ffe9573375f9d94035d4496d853c697ee06299126d",
+      "derived_parts": [
+        {
+          "bytes": 3847,
+          "path": "admission/root-scope-review-draft-v1.json",
+          "sha256": "cde7e8a22eff023e479222ffe9573375f9d94035d4496d853c697ee06299126d"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/root-scope-review-draft-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 3847,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/root-scope-review-draft-v1.json",
+      "original_raw_sha256": "cde7e8a22eff023e479222ffe9573375f9d94035d4496d853c697ee06299126d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1858,
+      "decoded_sanitized_sha256": "e5d6f79285e661f1fc4ba41de5146de0f040ce4c5bc294f5d4cab0c1f49cd167",
+      "derived_parts": [
+        {
+          "bytes": 1858,
+          "path": "admission/static-admission-contract-v1.json",
+          "sha256": "e5d6f79285e661f1fc4ba41de5146de0f040ce4c5bc294f5d4cab0c1f49cd167"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "admission/static-admission-contract-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1858,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/static-admission-contract-v1.json",
+      "original_raw_sha256": "e5d6f79285e661f1fc4ba41de5146de0f040ce4c5bc294f5d4cab0c1f49cd167",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 27568,
+      "decoded_sanitized_sha256": "189038a9eb31c98f85094733e8cbf023f46b8ee84dcaab510355a76f036f02ee",
+      "derived_parts": [
+        {
+          "bytes": 27568,
+          "path": "official-final/acceptance-analysis.json",
+          "sha256": "189038a9eb31c98f85094733e8cbf023f46b8ee84dcaab510355a76f036f02ee"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/acceptance-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 27568,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/acceptance-analysis.json",
+      "original_raw_sha256": "189038a9eb31c98f85094733e8cbf023f46b8ee84dcaab510355a76f036f02ee",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 10117,
+      "decoded_sanitized_sha256": "6d6c7fdb8771a131f72b2be34664c477aa217de97d9958d53c7be025f44069ef",
+      "derived_parts": [
+        {
+          "bytes": 10117,
+          "path": "official-final/animated-analysis.json",
+          "sha256": "6d6c7fdb8771a131f72b2be34664c477aa217de97d9958d53c7be025f44069ef"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/animated-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 10117,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/animated-analysis.json",
+      "original_raw_sha256": "6d6c7fdb8771a131f72b2be34664c477aa217de97d9958d53c7be025f44069ef",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 4324,
+      "decoded_sanitized_sha256": "71edac9740d7453c97d48cd0c02a6b067168df3ec2b8e1551121213787b2c565",
+      "derived_parts": [
+        {
+          "bytes": 4324,
+          "path": "official-final/biome-analysis.json",
+          "sha256": "71edac9740d7453c97d48cd0c02a6b067168df3ec2b8e1551121213787b2c565"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/biome-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 4324,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/biome-analysis.json",
+      "original_raw_sha256": "71edac9740d7453c97d48cd0c02a6b067168df3ec2b8e1551121213787b2c565",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 11892,
+      "decoded_sanitized_sha256": "bbf9a6236cbaafa6c27d81efedae923ae35d89d08b36b48fbec9412277ce3f2c",
+      "derived_parts": [
+        {
+          "bytes": 11892,
+          "path": "official-final/biome_pixels-analysis.json",
+          "sha256": "bbf9a6236cbaafa6c27d81efedae923ae35d89d08b36b48fbec9412277ce3f2c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/biome_pixels-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 11892,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/biome_pixels-analysis.json",
+      "original_raw_sha256": "bbf9a6236cbaafa6c27d81efedae923ae35d89d08b36b48fbec9412277ce3f2c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 16665,
+      "decoded_sanitized_sha256": "0c16640d8e6e96f00f9f0b3e5c5d55b3caba90b155a9f6a7bf97e71c0efe2f8b",
+      "derived_parts": [
+        {
+          "bytes": 16665,
+          "path": "official-final/default-analysis.json",
+          "sha256": "0c16640d8e6e96f00f9f0b3e5c5d55b3caba90b155a9f6a7bf97e71c0efe2f8b"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/default-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 16665,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/default-analysis.json",
+      "original_raw_sha256": "0c16640d8e6e96f00f9f0b3e5c5d55b3caba90b155a9f6a7bf97e71c0efe2f8b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 541027,
+      "decoded_sanitized_sha256": "51d703737b7d47a1eea6705cc3fc314c261d65097dc9137f5f79f98eff2f8a56",
+      "derived_parts": [
+        {
+          "bytes": 54774,
+          "path": "official-final/flow-analysis.json.gz",
+          "sha256": "85939dc0d054ebc6ecaccc332909817b2ff726c6c53514f7faf818c34fe85c80"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "official-final/flow-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 541027,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/flow-analysis.json",
+      "original_raw_sha256": "51d703737b7d47a1eea6705cc3fc314c261d65097dc9137f5f79f98eff2f8a56",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 88808,
+      "decoded_sanitized_sha256": "cc2ce5860d58e3c8a079ad396ffbe66ec60c7d201cc1ed6de9761fd30278682f",
+      "derived_parts": [
+        {
+          "bytes": 88808,
+          "path": "official-final/frozen-analysis.json",
+          "sha256": "cc2ce5860d58e3c8a079ad396ffbe66ec60c7d201cc1ed6de9761fd30278682f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/frozen-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 88808,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/frozen-analysis.json",
+      "original_raw_sha256": "cc2ce5860d58e3c8a079ad396ffbe66ec60c7d201cc1ed6de9761fd30278682f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1682,
+      "decoded_sanitized_sha256": "672b0451477d484b1ae65f91deb3a935d0edeea0611a49545ec66f77dd4488a9",
+      "derived_parts": [
+        {
+          "bytes": 1682,
+          "path": "official-final/gallery-analysis.json",
+          "sha256": "672b0451477d484b1ae65f91deb3a935d0edeea0611a49545ec66f77dd4488a9"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/gallery-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1682,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/gallery-analysis.json",
+      "original_raw_sha256": "672b0451477d484b1ae65f91deb3a935d0edeea0611a49545ec66f77dd4488a9",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 16015,
+      "decoded_sanitized_sha256": "2f827d28f74ee5f70f5301e556e170003314baa1b0927ef46f4f152dd9947625",
+      "derived_parts": [
+        {
+          "bytes": 16015,
+          "path": "official-final/qualification.json",
+          "sha256": "2f827d28f74ee5f70f5301e556e170003314baa1b0927ef46f4f152dd9947625"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/qualification.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 16015,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/qualification.json",
+      "original_raw_sha256": "2f827d28f74ee5f70f5301e556e170003314baa1b0927ef46f4f152dd9947625",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 17670,
+      "decoded_sanitized_sha256": "9127b3198ac7e2f802023c2955b142c359f312398d9b038309f79334ae728375",
+      "derived_parts": [
+        {
+          "bytes": 17670,
+          "path": "official-final/reverse-analysis.json",
+          "sha256": "9127b3198ac7e2f802023c2955b142c359f312398d9b038309f79334ae728375"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/reverse-analysis.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 17670,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/reverse-analysis.json",
+      "original_raw_sha256": "9127b3198ac7e2f802023c2955b142c359f312398d9b038309f79334ae728375",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 41481,
+      "decoded_sanitized_sha256": "8c6d5cdffdd8cbf0927ce94bc9b384bc957b69f17ab70420f5854ff3b14f1d66",
+      "derived_parts": [
+        {
+          "bytes": 41481,
+          "path": "official-final/reviewed-final-host-receipt-v1.json",
+          "sha256": "8c6d5cdffdd8cbf0927ce94bc9b384bc957b69f17ab70420f5854ff3b14f1d66"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-final/reviewed-final-host-receipt-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 41481,
+      "original_raw_path": ".runtime/round-20261023/water-default-admission-v1/final-shared-output-v1/reviewed-final-host-receipt-v1.json",
+      "original_raw_sha256": "8c6d5cdffdd8cbf0927ce94bc9b384bc957b69f17ab70420f5854ff3b14f1d66",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 200,
+      "decoded_sanitized_sha256": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+      "derived_parts": [
+        {
+          "bytes": 200,
+          "path": "official-shared/behavior_pack/modern_projection/projection/liquid_product_owner_data.py",
+          "sha256": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-shared/behavior_pack/modern_projection/projection/liquid_product_owner_data.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 200,
+      "original_raw_path": "behavior_pack/modern_projection/projection/liquid_product_owner_data.py",
+      "original_raw_sha256": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 1007,
+      "decoded_sanitized_sha256": "f27e2351c83fb35fa7bade5879375ed388eb328cd78ac5591d7bdd48764bbc0d",
+      "derived_parts": [
+        {
+          "bytes": 1007,
+          "path": "official-shared/behavior_pack/modern_projection/projection/liquid_product_qualification_data.py",
+          "sha256": "f27e2351c83fb35fa7bade5879375ed388eb328cd78ac5591d7bdd48764bbc0d"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-shared/behavior_pack/modern_projection/projection/liquid_product_qualification_data.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 1007,
+      "original_raw_path": "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py",
+      "original_raw_sha256": "f27e2351c83fb35fa7bade5879375ed388eb328cd78ac5591d7bdd48764bbc0d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5580,
+      "decoded_sanitized_sha256": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+      "derived_parts": [
+        {
+          "bytes": 5580,
+          "path": "official-shared/tools/data/liquid_product_owner_contract_v1.json",
+          "sha256": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-shared/tools/data/liquid_product_owner_contract_v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5580,
+      "original_raw_path": "tools/data/liquid_product_owner_contract_v1.json",
+      "original_raw_sha256": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2811,
+      "decoded_sanitized_sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85",
+      "derived_parts": [
+        {
+          "bytes": 2811,
+          "path": "official-shared/tools/generate_liquid_product_owner_contract.py",
+          "sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-shared/tools/generate_liquid_product_owner_contract.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2811,
+      "original_raw_path": "tools/generate_liquid_product_owner_contract.py",
+      "original_raw_sha256": "f095c41bc6a9002d0a63b46948c237ec98d412e415ac10f4c02e3719b4de9b85",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 24658,
+      "decoded_sanitized_sha256": "c1249a31bd5da4e470c4a413e6641c5ae8bee420b593285957d79d23deaef381",
+      "derived_parts": [
+        {
+          "bytes": 24658,
+          "path": "official-shared/tools/qualify_water_product_r16.py",
+          "sha256": "c1249a31bd5da4e470c4a413e6641c5ae8bee420b593285957d79d23deaef381"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "official-shared/tools/qualify_water_product_r16.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 24658,
+      "original_raw_path": "tools/qualify_water_product_r16.py",
+      "original_raw_sha256": "c1249a31bd5da4e470c4a413e6641c5ae8bee420b593285957d79d23deaef381",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5302,
+      "decoded_sanitized_sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e",
+      "derived_parts": [
+        {
+          "bytes": 5302,
+          "path": "packaging/original_independent_scanner.py",
+          "sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/original_independent_scanner.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5302,
+      "original_raw_path": ".runtime/round-20261022/root_review_wire_bundle_v3.py",
+      "original_raw_sha256": "6c5bbd86dcf5fdcbf36ab709806beff4cb0230cbc0dad1d505b8fc172f95429e",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 14064,
+      "decoded_sanitized_sha256": "fe5a5957e5280dde69418310ba7da438b85a8ac121f0a0130b6175e2d480d9ee",
+      "derived_parts": [
+        {
+          "bytes": 14064,
+          "path": "packaging/package.py",
+          "sha256": "fe5a5957e5280dde69418310ba7da438b85a8ac121f0a0130b6175e2d480d9ee"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/package.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 14064,
+      "original_raw_path": ".runtime/round-20261023/water-final-qualification-package-v1/package.py",
+      "original_raw_sha256": "fe5a5957e5280dde69418310ba7da438b85a8ac121f0a0130b6175e2d480d9ee",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 13624,
+      "decoded_sanitized_sha256": "77638ab78580f78a34e8133f0336dd99257c6d03fe4c4e4db76607bb73cd45ad",
+      "derived_parts": [
+        {
+          "bytes": 13624,
+          "path": "packaging/reviewed_recursive_redactor.py",
+          "sha256": "77638ab78580f78a34e8133f0336dd99257c6d03fe4c4e4db76607bb73cd45ad"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/reviewed_recursive_redactor.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 13624,
+      "original_raw_path": ".runtime/round-20261022/water-evidence-redaction-v4/package_v4_optimized.py",
+      "original_raw_sha256": "77638ab78580f78a34e8133f0336dd99257c6d03fe4c4e4db76607bb73cd45ad",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 5918,
+      "decoded_sanitized_sha256": "6a58b1d05004e31ad09264288651cf371866d2bb83d8360cfa7968d2ef4cbd65",
+      "derived_parts": [
+        {
+          "bytes": 5918,
+          "path": "packaging/verify_package.py",
+          "sha256": "6a58b1d05004e31ad09264288651cf371866d2bb83d8360cfa7968d2ef4cbd65"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "packaging/verify_package.py",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 5918,
+      "original_raw_path": ".runtime/round-20261023/water-final-qualification-package-v1/verify_package.py",
+      "original_raw_sha256": "6a58b1d05004e31ad09264288651cf371866d2bb83d8360cfa7968d2ef4cbd65",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 103939,
+      "decoded_sanitized_sha256": "dc74a89324c02e473af42988d2ebe5337d9b30230531f9f74d4f667455c0e26b",
+      "derived_parts": [
+        {
+          "bytes": 19120,
+          "path": "references/runtime-artifact-index-v1.json.gz",
+          "sha256": "86f0b4731571fbca80157acb66afdba2b744c571a00e4d8f57161cc638f47dae"
+        }
+      ],
+      "encoding": "gzip",
+      "logical_name": "references/runtime-artifact-index-v1.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 103939,
+      "original_raw_path": ".runtime/round-20261023/water-final-qualification-package-v1/runtime-artifact-index-v1.json",
+      "original_raw_sha256": "dc74a89324c02e473af42988d2ebe5337d9b30230531f9f74d4f667455c0e26b",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2860,
+      "decoded_sanitized_sha256": "df235233e11b75245fff252916c6e2c4530473d36657512ac12ffe8adeed4361",
+      "derived_parts": [
+        {
+          "bytes": 2860,
+          "path": "selected-original-PNG/BRG/editor_gallery_wet.capture.json",
+          "sha256": "df235233e11b75245fff252916c6e2c4530473d36657512ac12ffe8adeed4361"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/BRG/editor_gallery_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2860,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-g-v1_editor_gallery_wet.capture.json",
+      "original_raw_sha256": "df235233e11b75245fff252916c6e2c4530473d36657512ac12ffe8adeed4361",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 118139,
+      "decoded_sanitized_sha256": "802279b6a46839048d0f7cc04916f093f3bae9be74f09647e98724141066a170",
+      "derived_parts": [
+        {
+          "bytes": 118139,
+          "path": "selected-original-PNG/BRG/editor_gallery_wet.png",
+          "sha256": "802279b6a46839048d0f7cc04916f093f3bae9be74f09647e98724141066a170"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/BRG/editor_gallery_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 118139,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-g-v1_editor_gallery_wet.png",
+      "original_raw_sha256": "802279b6a46839048d0f7cc04916f093f3bae9be74f09647e98724141066a170",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2868,
+      "decoded_sanitized_sha256": "ed6fa6b692bfb1cd6cfd209db639a470bd623ad01d5a6d22ab3ab9367a6a715f",
+      "derived_parts": [
+        {
+          "bytes": 2868,
+          "path": "selected-original-PNG/BRG/editor_neighbor_stone_wet.capture.json",
+          "sha256": "ed6fa6b692bfb1cd6cfd209db639a470bd623ad01d5a6d22ab3ab9367a6a715f"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/BRG/editor_neighbor_stone_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2868,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-r-v1_editor_neighbor_stone_wet.capture.json",
+      "original_raw_sha256": "ed6fa6b692bfb1cd6cfd209db639a470bd623ad01d5a6d22ab3ab9367a6a715f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 124089,
+      "decoded_sanitized_sha256": "c05aa0173b36d5d10346bcbf61ca22305359f77a257a697573bd7213ba1ab72d",
+      "derived_parts": [
+        {
+          "bytes": 124089,
+          "path": "selected-original-PNG/BRG/editor_neighbor_stone_wet.png",
+          "sha256": "c05aa0173b36d5d10346bcbf61ca22305359f77a257a697573bd7213ba1ab72d"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/BRG/editor_neighbor_stone_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 124089,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-r-v1_editor_neighbor_stone_wet.png",
+      "original_raw_sha256": "c05aa0173b36d5d10346bcbf61ca22305359f77a257a697573bd7213ba1ab72d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2871,
+      "decoded_sanitized_sha256": "2a64af367e84fd871a3d1f66801b7d790943117af520b0e400e8cd70a49355c8",
+      "derived_parts": [
+        {
+          "bytes": 2871,
+          "path": "selected-original-PNG/BRG/full_transparent_overlap_wet.capture.json",
+          "sha256": "2a64af367e84fd871a3d1f66801b7d790943117af520b0e400e8cd70a49355c8"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/BRG/full_transparent_overlap_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2871,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-r-v1_full_transparent_overlap_wet.capture.json",
+      "original_raw_sha256": "2a64af367e84fd871a3d1f66801b7d790943117af520b0e400e8cd70a49355c8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 461077,
+      "decoded_sanitized_sha256": "69a1dcd051e4ea03314a88714b31229d8594ddb3c94166f0b509aa834616053c",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/BRG/full_transparent_overlap_wet.png.001",
+          "sha256": "4bef8020fb90db0e67af84e9e12701ce21f3d6ef940d0db2db506cb0c259012a"
+        },
+        {
+          "bytes": 222077,
+          "path": "selected-original-PNG/BRG/full_transparent_overlap_wet.png.002",
+          "sha256": "77431bfc961f529c7ab4f80ba568feecd8f1fbd6a7b7ed0672ccf8b444d44e29"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/BRG/full_transparent_overlap_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 461077,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-r-v1_full_transparent_overlap_wet.png",
+      "original_raw_sha256": "69a1dcd051e4ea03314a88714b31229d8594ddb3c94166f0b509aa834616053c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2859,
+      "decoded_sanitized_sha256": "688e81075364a6c8b784d8432f9ac72a14fd61fb240aefc5c6bbfa5034dc1fa6",
+      "derived_parts": [
+        {
+          "bytes": 2859,
+          "path": "selected-original-PNG/BRG/missing_pool_wet.capture.json",
+          "sha256": "688e81075364a6c8b784d8432f9ac72a14fd61fb240aefc5c6bbfa5034dc1fa6"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/BRG/missing_pool_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2859,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-b-v1_missing_pool_wet.capture.json",
+      "original_raw_sha256": "688e81075364a6c8b784d8432f9ac72a14fd61fb240aefc5c6bbfa5034dc1fa6",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 451579,
+      "decoded_sanitized_sha256": "249cbd8f90a09ccbb9bda1e00588739c4a8ecdf4de75ed4270a2c83a3d5f5013",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/BRG/missing_pool_wet.png.001",
+          "sha256": "f14f25d5b1d0b793fb3f4b0a49c235b41d9f4201d02c72d0feab9a39e6caabd0"
+        },
+        {
+          "bytes": 212579,
+          "path": "selected-original-PNG/BRG/missing_pool_wet.png.002",
+          "sha256": "4665abf18dca217773b2dfeb02e06dc901651ea47300c096d229085f280e98eb"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/BRG/missing_pool_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 451579,
+      "original_raw_path": ".runtime/round-20261023/water-final-brg-v3/product-v2-b-v1_missing_pool_wet.png",
+      "original_raw_sha256": "249cbd8f90a09ccbb9bda1e00588739c4a8ecdf4de75ed4270a2c83a3d5f5013",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2857,
+      "decoded_sanitized_sha256": "aa19fce1e4b42a07ad659b9cbec8104fdf2285b9f84763a931d5a097b4ca1fc8",
+      "derived_parts": [
+        {
+          "bytes": 2857,
+          "path": "selected-original-PNG/D/editor_pool_wet.capture.json",
+          "sha256": "aa19fce1e4b42a07ad659b9cbec8104fdf2285b9f84763a931d5a097b4ca1fc8"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/editor_pool_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2857,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_editor_pool_wet.capture.json",
+      "original_raw_sha256": "aa19fce1e4b42a07ad659b9cbec8104fdf2285b9f84763a931d5a097b4ca1fc8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 147962,
+      "decoded_sanitized_sha256": "52f2089c1de755fcd8dcb0af1e6fed8392b94c00a50b22930914a10be49310d1",
+      "derived_parts": [
+        {
+          "bytes": 147962,
+          "path": "selected-original-PNG/D/editor_pool_wet.png",
+          "sha256": "52f2089c1de755fcd8dcb0af1e6fed8392b94c00a50b22930914a10be49310d1"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/editor_pool_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 147962,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_editor_pool_wet.png",
+      "original_raw_sha256": "52f2089c1de755fcd8dcb0af1e6fed8392b94c00a50b22930914a10be49310d1",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2860,
+      "decoded_sanitized_sha256": "396cb0fafee61ca33f1350da023ccc3294865bc7572eb79c53749a8c220e4043",
+      "derived_parts": [
+        {
+          "bytes": 2860,
+          "path": "selected-original-PNG/D/editor_source_wet.capture.json",
+          "sha256": "396cb0fafee61ca33f1350da023ccc3294865bc7572eb79c53749a8c220e4043"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/editor_source_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2860,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_editor_source_wet.capture.json",
+      "original_raw_sha256": "396cb0fafee61ca33f1350da023ccc3294865bc7572eb79c53749a8c220e4043",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 127196,
+      "decoded_sanitized_sha256": "fdb42c020a4ffcaad7e1101c9c19ea4f005010c874d570f4a3b519a5d61ce0c7",
+      "derived_parts": [
+        {
+          "bytes": 127196,
+          "path": "selected-original-PNG/D/editor_source_wet.png",
+          "sha256": "fdb42c020a4ffcaad7e1101c9c19ea4f005010c874d570f4a3b519a5d61ce0c7"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/editor_source_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 127196,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_editor_source_wet.png",
+      "original_raw_sha256": "fdb42c020a4ffcaad7e1101c9c19ea4f005010c874d570f4a3b519a5d61ce0c7",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2866,
+      "decoded_sanitized_sha256": "e030603cd9c237ceff24c7433e82e1b676b7e02c0ca32bd243f98533d62d453c",
+      "derived_parts": [
+        {
+          "bytes": 2866,
+          "path": "selected-original-PNG/D/editor_wet_oak_fence_wet.capture.json",
+          "sha256": "e030603cd9c237ceff24c7433e82e1b676b7e02c0ca32bd243f98533d62d453c"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/editor_wet_oak_fence_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2866,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_editor_wet_oak_fence_wet.capture.json",
+      "original_raw_sha256": "e030603cd9c237ceff24c7433e82e1b676b7e02c0ca32bd243f98533d62d453c",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 115136,
+      "decoded_sanitized_sha256": "32d4934122a70623986b47299863f8778dc061366eac6d990e047d45a399e72d",
+      "derived_parts": [
+        {
+          "bytes": 115136,
+          "path": "selected-original-PNG/D/editor_wet_oak_fence_wet.png",
+          "sha256": "32d4934122a70623986b47299863f8778dc061366eac6d990e047d45a399e72d"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/editor_wet_oak_fence_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 115136,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_editor_wet_oak_fence_wet.png",
+      "original_raw_sha256": "32d4934122a70623986b47299863f8778dc061366eac6d990e047d45a399e72d",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2854,
+      "decoded_sanitized_sha256": "5c972a5b0278716ce23ba8ca399bca492ea035b70dd502f0b59f4ca28c0c8751",
+      "derived_parts": [
+        {
+          "bytes": 2854,
+          "path": "selected-original-PNG/D/full_pool_wet.capture.json",
+          "sha256": "5c972a5b0278716ce23ba8ca399bca492ea035b70dd502f0b59f4ca28c0c8751"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/full_pool_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2854,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_full_pool_wet.capture.json",
+      "original_raw_sha256": "5c972a5b0278716ce23ba8ca399bca492ea035b70dd502f0b59f4ca28c0c8751",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 451827,
+      "decoded_sanitized_sha256": "83be8667e4576b063827211a27a2e55e61c04cfd01b486d82ac281ad833c6c1f",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/D/full_pool_wet.png.001",
+          "sha256": "3e710daa5304e6d7900c56766b4fc3bb0d796e1230e57f642c0c372a1e26985f"
+        },
+        {
+          "bytes": 212827,
+          "path": "selected-original-PNG/D/full_pool_wet.png.002",
+          "sha256": "7ede362764c9333046a9bb937291b5cd8a753f7dc982bae199dfd1678e3bdc53"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/full_pool_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 451827,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_full_pool_wet.png",
+      "original_raw_sha256": "83be8667e4576b063827211a27a2e55e61c04cfd01b486d82ac281ad833c6c1f",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2856,
+      "decoded_sanitized_sha256": "386f5d277bc1c5f7e6bd628ecebbcd66afe2f7f51878875f72637ad904ec6034",
+      "derived_parts": [
+        {
+          "bytes": 2856,
+          "path": "selected-original-PNG/D/full_source_wet.capture.json",
+          "sha256": "386f5d277bc1c5f7e6bd628ecebbcd66afe2f7f51878875f72637ad904ec6034"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/full_source_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2856,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_full_source_wet.capture.json",
+      "original_raw_sha256": "386f5d277bc1c5f7e6bd628ecebbcd66afe2f7f51878875f72637ad904ec6034",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 457667,
+      "decoded_sanitized_sha256": "2cfaa83d775fe84b613f90868beec270dffbd8d0f8dbca3f7451dd33a572530a",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/D/full_source_wet.png.001",
+          "sha256": "d5bce6e52846a346f142839960c7aab158ace147de9dcae4542c009b97a55932"
+        },
+        {
+          "bytes": 218667,
+          "path": "selected-original-PNG/D/full_source_wet.png.002",
+          "sha256": "366f660f80bf9cdbd72306ec48e969f8117831e4465e2b0b83bfeffe2c70697d"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/full_source_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 457667,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_full_source_wet.png",
+      "original_raw_sha256": "2cfaa83d775fe84b613f90868beec270dffbd8d0f8dbca3f7451dd33a572530a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2862,
+      "decoded_sanitized_sha256": "4a0b85b97915250125e378d6fb5975272e38b77903f78a62393b438f4ac75ebf",
+      "derived_parts": [
+        {
+          "bytes": 2862,
+          "path": "selected-original-PNG/D/full_wet_oak_fence_wet.capture.json",
+          "sha256": "4a0b85b97915250125e378d6fb5975272e38b77903f78a62393b438f4ac75ebf"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/full_wet_oak_fence_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2862,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_full_wet_oak_fence_wet.capture.json",
+      "original_raw_sha256": "4a0b85b97915250125e378d6fb5975272e38b77903f78a62393b438f4ac75ebf",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 134621,
+      "decoded_sanitized_sha256": "97873bb183a8f15343bbce1fbe1330972de49e94eb7f13439525e34348139975",
+      "derived_parts": [
+        {
+          "bytes": 134621,
+          "path": "selected-original-PNG/D/full_wet_oak_fence_wet.png",
+          "sha256": "97873bb183a8f15343bbce1fbe1330972de49e94eb7f13439525e34348139975"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/full_wet_oak_fence_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 134621,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_full_wet_oak_fence_wet.png",
+      "original_raw_sha256": "97873bb183a8f15343bbce1fbe1330972de49e94eb7f13439525e34348139975",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2858,
+      "decoded_sanitized_sha256": "bf1611f7568af03bfec9d4a3424a7bb422f03aeeba0f44e99c370e3af4dc8c40",
+      "derived_parts": [
+        {
+          "bytes": 2858,
+          "path": "selected-original-PNG/D/missing_pool_wet.capture.json",
+          "sha256": "bf1611f7568af03bfec9d4a3424a7bb422f03aeeba0f44e99c370e3af4dc8c40"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/missing_pool_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2858,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_pool_wet.capture.json",
+      "original_raw_sha256": "bf1611f7568af03bfec9d4a3424a7bb422f03aeeba0f44e99c370e3af4dc8c40",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 452251,
+      "decoded_sanitized_sha256": "1def2442e26dd948b004a5f4684add2d15042cb69080d8110c8cf408ca01debf",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/D/missing_pool_wet.png.001",
+          "sha256": "b548170774ed0ce860bb9ea2a637dcb3b8e3a4c7c65a5af0ceae322d0f90916d"
+        },
+        {
+          "bytes": 213251,
+          "path": "selected-original-PNG/D/missing_pool_wet.png.002",
+          "sha256": "4012cd6c7811c5af928d2a391e4952e0d462f5aae73cf3da4d09fd1d31deaa94"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/missing_pool_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 452251,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_pool_wet.png",
+      "original_raw_sha256": "1def2442e26dd948b004a5f4684add2d15042cb69080d8110c8cf408ca01debf",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2868,
+      "decoded_sanitized_sha256": "f364347df18fdd48b526a8a098e981501efd6739be4813f017856e47a3dfe7b0",
+      "derived_parts": [
+        {
+          "bytes": 2868,
+          "path": "selected-original-PNG/D/missing_pool_wet_occupied.capture.json",
+          "sha256": "f364347df18fdd48b526a8a098e981501efd6739be4813f017856e47a3dfe7b0"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/missing_pool_wet_occupied.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2868,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_pool_wet_occupied.capture.json",
+      "original_raw_sha256": "f364347df18fdd48b526a8a098e981501efd6739be4813f017856e47a3dfe7b0",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 455607,
+      "decoded_sanitized_sha256": "40e5ac1509b0e72f28c95584e0f7d6796946569742221bc39092f22af2692541",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/D/missing_pool_wet_occupied.png.001",
+          "sha256": "5201e1222d5fd9112480f8fa39c9b8629f658d5943a4b8946e83204bde988e22"
+        },
+        {
+          "bytes": 216607,
+          "path": "selected-original-PNG/D/missing_pool_wet_occupied.png.002",
+          "sha256": "d88040fef00f801998af3a6cb1be6c0c28b8987461472fd32202245904d5a42a"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/missing_pool_wet_occupied.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 455607,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_pool_wet_occupied.png",
+      "original_raw_sha256": "40e5ac1509b0e72f28c95584e0f7d6796946569742221bc39092f22af2692541",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2865,
+      "decoded_sanitized_sha256": "044472e9edf17a3265eb0abc8487eaba372d4dba53d76426a498dff5f6bd29f8",
+      "derived_parts": [
+        {
+          "bytes": 2865,
+          "path": "selected-original-PNG/D/missing_pool_wet_restored.capture.json",
+          "sha256": "044472e9edf17a3265eb0abc8487eaba372d4dba53d76426a498dff5f6bd29f8"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/missing_pool_wet_restored.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2865,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_pool_wet_restored.capture.json",
+      "original_raw_sha256": "044472e9edf17a3265eb0abc8487eaba372d4dba53d76426a498dff5f6bd29f8",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 451815,
+      "decoded_sanitized_sha256": "823efcbd836059c9a9f1667b096e4531ae0cd7b6eb727df9f3723875ded9ff87",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/D/missing_pool_wet_restored.png.001",
+          "sha256": "cc545ba741407ce9adf266aab0441230b2a1d56cc38a6af4d67f8192e10597e7"
+        },
+        {
+          "bytes": 212815,
+          "path": "selected-original-PNG/D/missing_pool_wet_restored.png.002",
+          "sha256": "8afbbd128a1857821e423d34e2cd075421c569b0c363d9866762a921eac761ff"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/missing_pool_wet_restored.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 451815,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_pool_wet_restored.png",
+      "original_raw_sha256": "823efcbd836059c9a9f1667b096e4531ae0cd7b6eb727df9f3723875ded9ff87",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2859,
+      "decoded_sanitized_sha256": "82533593a8ab92a295f9c86f96a88fa065da3118c463c031ac0b1353405b9b8a",
+      "derived_parts": [
+        {
+          "bytes": 2859,
+          "path": "selected-original-PNG/D/missing_source_wet.capture.json",
+          "sha256": "82533593a8ab92a295f9c86f96a88fa065da3118c463c031ac0b1353405b9b8a"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/missing_source_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2859,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_source_wet.capture.json",
+      "original_raw_sha256": "82533593a8ab92a295f9c86f96a88fa065da3118c463c031ac0b1353405b9b8a",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 457828,
+      "decoded_sanitized_sha256": "52cb181320418a9d4a47bcd6e553900c69169db0408782c26501863585784387",
+      "derived_parts": [
+        {
+          "bytes": 239000,
+          "path": "selected-original-PNG/D/missing_source_wet.png.001",
+          "sha256": "9fb9453ad62006b58d1aaa54fb2e458d3395c45ca730a1845f76fd1a2de491ba"
+        },
+        {
+          "bytes": 218828,
+          "path": "selected-original-PNG/D/missing_source_wet.png.002",
+          "sha256": "12177daebbd2b5921b902ebc26956fe600bb03dde815c55df9586a91db66d1a9"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/missing_source_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 457828,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_source_wet.png",
+      "original_raw_sha256": "52cb181320418a9d4a47bcd6e553900c69169db0408782c26501863585784387",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 2866,
+      "decoded_sanitized_sha256": "9986482e8302e024ac29ac1c407998195cbf974d4f418ee0eef04a0f97180dd9",
+      "derived_parts": [
+        {
+          "bytes": 2866,
+          "path": "selected-original-PNG/D/missing_wet_oak_fence_wet.capture.json",
+          "sha256": "9986482e8302e024ac29ac1c407998195cbf974d4f418ee0eef04a0f97180dd9"
+        }
+      ],
+      "encoding": "utf8",
+      "logical_name": "selected-original-PNG/D/missing_wet_oak_fence_wet.capture.json",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 2866,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_wet_oak_fence_wet.capture.json",
+      "original_raw_sha256": "9986482e8302e024ac29ac1c407998195cbf974d4f418ee0eef04a0f97180dd9",
+      "redacted_fields": []
+    },
+    {
+      "decoded_sanitized_bytes": 134679,
+      "decoded_sanitized_sha256": "bab39971672da6f2dc0d6b3d758e398a0af0fa8585fcdf859ad74e3068ecd36d",
+      "derived_parts": [
+        {
+          "bytes": 134679,
+          "path": "selected-original-PNG/D/missing_wet_oak_fence_wet.png",
+          "sha256": "bab39971672da6f2dc0d6b3d758e398a0af0fa8585fcdf859ad74e3068ecd36d"
+        }
+      ],
+      "encoding": "png",
+      "logical_name": "selected-original-PNG/D/missing_wet_oak_fence_wet.png",
+      "original_bytes_reconstructable": true,
+      "original_raw_bytes": 134679,
+      "original_raw_path": ".runtime/round-20261023/water-default-final-v1/default-r28-d_missing_wet_oak_fence_wet.png",
+      "original_raw_sha256": "bab39971672da6f2dc0d6b3d758e398a0af0fa8585fcdf859ad74e3068ecd36d",
+      "redacted_fields": []
+    }
+  ],
+  "entry_count": 185,
+  "final_manifest_original_sha256": "2f827d28f74ee5f70f5301e556e170003314baa1b0927ef46f4f152dd9947625",
+  "historical_source_contracts_relabelled": false,
+  "large_source_archives_included": false,
+  "manual_closures_added": 0,
+  "old_failed_reports_regraded": false,
+  "original_PNG_count": 15,
+  "packaging_mutated_products_or_gates": false,
+  "preserved_G_geometry_failures": 1,
+  "preserved_R_geometry_failures": 5,
+  "preserved_dynamic_D_transparency_diagnostics": 3,
+  "production_admission_performed_by": "/root",
+  "schema": 3,
+  "scope": "BRG original scoped gates, disposable provisional admission, cold D and official final shared qualification; historical F/A retained by exact package reference.",
+  "single_file_limit_bytes": 239000
+}

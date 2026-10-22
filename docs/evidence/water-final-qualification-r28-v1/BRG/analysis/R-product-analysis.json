@@ -1,0 +1,830 @@
+{
+  "alpha_controls": {},
+  "analytic_geometry_diagnostic": {
+    "alpha_controls": {},
+    "analyzer_sha256": "81ee980256fd6d679d20e1526a66b4bc576cd4a33ccf0266cd4361d5f306a635",
+    "animation": {},
+    "capture_failures": [],
+    "captures_verified": true,
+    "cleanup_errors": [],
+    "completed": true,
+    "editor_geometry_oracle": {
+      "image_fit_or_roi_search": false,
+      "kind": "captured_sdk_integer_gui_anchor",
+      "legacy_default_gui": 4.0,
+      "native_gui_scales": [
+        2.0
+      ],
+      "states_verified": 10
+    },
+    "evidence_valid": true,
+    "geometry": {
+      "editor_neighbor_glass_pane_wet": {
+        "declared": {
+          "bounds": [
+            611,
+            479,
+            758,
+            612
+          ],
+          "pixels": 15175
+        },
+        "iou": 0.3787172585833388,
+        "maximum_boundary_pixels": 62,
+        "observed": {
+          "bounds": [
+            611,
+            479,
+            759,
+            550
+          ],
+          "pixels": 5827
+        },
+        "passed": false
+      },
+      "editor_neighbor_oak_slab_wet": {
+        "declared": {
+          "bounds": [
+            611,
+            479,
+            758,
+            612
+          ],
+          "pixels": 15175
+        },
+        "iou": 0.3787172585833388,
+        "maximum_boundary_pixels": 62,
+        "observed": {
+          "bounds": [
+            611,
+            479,
+            759,
+            550
+          ],
+          "pixels": 5827
+        },
+        "passed": false
+      },
+      "editor_neighbor_oak_stairs_wet": {
+        "declared": {
+          "bounds": [
+            611,
+            479,
+            758,
+            612
+          ],
+          "pixels": 15175
+        },
+        "iou": 0.3787421218487395,
+        "maximum_boundary_pixels": 62,
+        "observed": {
+          "bounds": [
+            611,
+            479,
+            759,
+            550
+          ],
+          "pixels": 5826
+        },
+        "passed": false
+      },
+      "editor_neighbor_stone_wet": {
+        "declared": {
+          "bounds": [
+            611,
+            472,
+            758,
+            612
+          ],
+          "pixels": 15923
+        },
+        "iou": 0.4068072326847275,
+        "maximum_boundary_pixels": 62,
+        "observed": {
+          "bounds": [
+            611,
+            472,
+            759,
+            550
+          ],
+          "pixels": 6562
+        },
+        "passed": false
+      },
+      "editor_transparent_overlap_wet": {
+        "declared": {
+          "bounds": [
+            610,
+            405,
+            880,
+            612
+          ],
+          "pixels": 30257
+        },
+        "iou": 0.6778658738024447,
+        "maximum_boundary_pixels": 62,
+        "observed": {
+          "bounds": [
+            611,
+            405,
+            880,
+            550
+          ],
+          "pixels": 20532
+        },
+        "passed": false
+      },
+      "full_neighbor_glass_pane_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            313,
+            708,
+            440
+          ],
+          "pixels": 12745
+        },
+        "iou": 0.9530397068720556,
+        "maximum_boundary_pixels": 2,
+        "observed": {
+          "bounds": [
+            568,
+            312,
+            710,
+            441
+          ],
+          "pixels": 13373
+        },
+        "passed": true
+      },
+      "full_neighbor_oak_slab_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            313,
+            708,
+            440
+          ],
+          "pixels": 12745
+        },
+        "iou": 0.9530397068720556,
+        "maximum_boundary_pixels": 2,
+        "observed": {
+          "bounds": [
+            568,
+            312,
+            710,
+            441
+          ],
+          "pixels": 13373
+        },
+        "passed": true
+      },
+      "full_neighbor_oak_stairs_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            313,
+            708,
+            440
+          ],
+          "pixels": 12745
+        },
+        "iou": 0.9530397068720556,
+        "maximum_boundary_pixels": 2,
+        "observed": {
+          "bounds": [
+            568,
+            312,
+            710,
+            441
+          ],
+          "pixels": 13373
+        },
+        "passed": true
+      },
+      "full_neighbor_stone_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            307,
+            709,
+            440
+          ],
+          "pixels": 13368
+        },
+        "iou": 0.953291021892605,
+        "maximum_boundary_pixels": 2,
+        "observed": {
+          "bounds": [
+            568,
+            306,
+            711,
+            441
+          ],
+          "pixels": 14023
+        },
+        "passed": true
+      },
+      "full_transparent_overlap_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            270,
+            788,
+            440
+          ],
+          "pixels": 20166
+        },
+        "iou": 0.9538461538461539,
+        "maximum_boundary_pixels": 3,
+        "observed": {
+          "bounds": [
+            568,
+            268,
+            791,
+            441
+          ],
+          "pixels": 20982
+        },
+        "passed": true
+      },
+      "missing_neighbor_glass_pane_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            313,
+            708,
+            440
+          ],
+          "pixels": 12745
+        },
+        "iou": 0.9530397068720556,
+        "maximum_boundary_pixels": 2,
+        "observed": {
+          "bounds": [
+            568,
+            312,
+            710,
+            441
+          ],
+          "pixels": 13373
+        },
+        "passed": true
+      },
+      "missing_neighbor_oak_slab_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            313,
+            708,
+            440
+          ],
+          "pixels": 12745
+        },
+        "iou": 0.9530397068720556,
+        "maximum_boundary_pixels": 2,
+        "observed": {
+          "bounds": [
+            568,
+            312,
+            710,
+            441
+          ],
+          "pixels": 13373
+        },
+        "passed": true
+      },
+      "missing_neighbor_oak_stairs_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            313,
+            708,
+            440
+          ],
+          "pixels": 12745
+        },
+        "iou": 0.9530397068720556,
+        "maximum_boundary_pixels": 2,
+        "observed": {
+          "bounds": [
+            568,
+            312,
+            710,
+            441
+          ],
+          "pixels": 13373
+        },
+        "passed": true
+      },
+      "missing_neighbor_stone_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            307,
+            709,
+            440
+          ],
+          "pixels": 13368
+        },
+        "iou": 0.953291021892605,
+        "maximum_boundary_pixels": 2,
+        "observed": {
+          "bounds": [
+            568,
+            306,
+            711,
+            441
+          ],
+          "pixels": 14023
+        },
+        "passed": true
+      },
+      "missing_transparent_overlap_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            270,
+            788,
+            440
+          ],
+          "pixels": 20166
+        },
+        "iou": 0.9538461538461539,
+        "maximum_boundary_pixels": 3,
+        "observed": {
+          "bounds": [
+            568,
+            268,
+            791,
+            441
+          ],
+          "pixels": 20982
+        },
+        "passed": true
+      }
+    },
+    "limits": {
+      "maximum_boundary_pixels": 6,
+      "minimum_contribution_fraction": 0.1,
+      "minimum_contribution_pixels": 8,
+      "minimum_mask_iou": 0.8,
+      "minimum_water_pixels": 24,
+      "rgb_delta": 8,
+      "temporal_delta": 2
+    },
+    "native_alpha_accepted": false,
+    "native_shape_accepted": false,
+    "native_uv_accepted": false,
+    "observed_product_gates": {
+      "animation": false,
+      "geometry": false,
+      "transparency": false
+    },
+    "product_style_accepted": false,
+    "restored": true,
+    "schema": 1,
+    "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+    "source_sha256": "357bb4d8da35c995b9984776c6fa5eb18678082a9eabcc997cfff5864343413c",
+    "transparency": {},
+    "transparency_phase_controlled": true
+  },
+  "analyzer_sha256": "81ee980256fd6d679d20e1526a66b4bc576cd4a33ccf0266cd4361d5f306a635",
+  "animation": {},
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "editor_geometry_oracle": {
+    "image_fit_or_roi_search": false,
+    "kind": "captured_sdk_integer_gui_anchor",
+    "legacy_default_gui": 4.0,
+    "native_gui_scales": [
+      2.0
+    ],
+    "states_verified": 10
+  },
+  "evidence_valid": true,
+  "geometry": {
+    "editor_neighbor_glass_pane_wet": {
+      "declared": {
+        "bounds": [
+          611,
+          479,
+          758,
+          612
+        ],
+        "pixels": 15175
+      },
+      "iou": 0.3787172585833388,
+      "maximum_boundary_pixels": 62,
+      "observed": {
+        "bounds": [
+          611,
+          479,
+          759,
+          550
+        ],
+        "pixels": 5827
+      },
+      "passed": false
+    },
+    "editor_neighbor_oak_slab_wet": {
+      "declared": {
+        "bounds": [
+          611,
+          479,
+          758,
+          612
+        ],
+        "pixels": 15175
+      },
+      "iou": 0.3787172585833388,
+      "maximum_boundary_pixels": 62,
+      "observed": {
+        "bounds": [
+          611,
+          479,
+          759,
+          550
+        ],
+        "pixels": 5827
+      },
+      "passed": false
+    },
+    "editor_neighbor_oak_stairs_wet": {
+      "declared": {
+        "bounds": [
+          611,
+          479,
+          758,
+          612
+        ],
+        "pixels": 15175
+      },
+      "iou": 0.3787421218487395,
+      "maximum_boundary_pixels": 62,
+      "observed": {
+        "bounds": [
+          611,
+          479,
+          759,
+          550
+        ],
+        "pixels": 5826
+      },
+      "passed": false
+    },
+    "editor_neighbor_stone_wet": {
+      "declared": {
+        "bounds": [
+          611,
+          472,
+          758,
+          612
+        ],
+        "pixels": 15923
+      },
+      "iou": 0.4068072326847275,
+      "maximum_boundary_pixels": 62,
+      "observed": {
+        "bounds": [
+          611,
+          472,
+          759,
+          550
+        ],
+        "pixels": 6562
+      },
+      "passed": false
+    },
+    "editor_transparent_overlap_wet": {
+      "declared": {
+        "bounds": [
+          610,
+          405,
+          880,
+          612
+        ],
+        "pixels": 30257
+      },
+      "iou": 0.6778658738024447,
+      "maximum_boundary_pixels": 62,
+      "observed": {
+        "bounds": [
+          611,
+          405,
+          880,
+          550
+        ],
+        "pixels": 20532
+      },
+      "passed": false
+    },
+    "full_neighbor_glass_pane_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13270
+      },
+      "iou": 0.9921489457155676,
+      "maximum_boundary_pixels": 0,
+      "observed": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13373
+      },
+      "passed": true
+    },
+    "full_neighbor_oak_slab_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13270
+      },
+      "iou": 0.9921489457155676,
+      "maximum_boundary_pixels": 0,
+      "observed": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13373
+      },
+      "passed": true
+    },
+    "full_neighbor_oak_stairs_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13270
+      },
+      "iou": 0.9921489457155676,
+      "maximum_boundary_pixels": 0,
+      "observed": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13373
+      },
+      "passed": true
+    },
+    "full_neighbor_stone_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          306,
+          711,
+          441
+        ],
+        "pixels": 13915
+      },
+      "iou": 0.9922983669685517,
+      "maximum_boundary_pixels": 0,
+      "observed": {
+        "bounds": [
+          568,
+          306,
+          711,
+          441
+        ],
+        "pixels": 14023
+      },
+      "passed": true
+    },
+    "full_transparent_overlap_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          268,
+          792,
+          442
+        ],
+        "pixels": 21076
+      },
+      "iou": 0.9913825757575757,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          568,
+          268,
+          791,
+          441
+        ],
+        "pixels": 20982
+      },
+      "passed": true
+    },
+    "missing_neighbor_glass_pane_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13270
+      },
+      "iou": 0.9921489457155676,
+      "maximum_boundary_pixels": 0,
+      "observed": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13373
+      },
+      "passed": true
+    },
+    "missing_neighbor_oak_slab_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13270
+      },
+      "iou": 0.9921489457155676,
+      "maximum_boundary_pixels": 0,
+      "observed": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13373
+      },
+      "passed": true
+    },
+    "missing_neighbor_oak_stairs_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13270
+      },
+      "iou": 0.9921489457155676,
+      "maximum_boundary_pixels": 0,
+      "observed": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13373
+      },
+      "passed": true
+    },
+    "missing_neighbor_stone_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          306,
+          711,
+          441
+        ],
+        "pixels": 13915
+      },
+      "iou": 0.9922983669685517,
+      "maximum_boundary_pixels": 0,
+      "observed": {
+        "bounds": [
+          568,
+          306,
+          711,
+          441
+        ],
+        "pixels": 14023
+      },
+      "passed": true
+    },
+    "missing_transparent_overlap_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          268,
+          792,
+          442
+        ],
+        "pixels": 21076
+      },
+      "iou": 0.9913825757575757,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          568,
+          268,
+          791,
+          441
+        ],
+        "pixels": 20982
+      },
+      "passed": true
+    }
+  },
+  "geometry_oracle": {
+    "calibration_sha256": "06c8230c4968bb06961ebaa598020febdd88accef1f3e60efd5046b2726b9333",
+    "helper_sha256": "bef9e23e3d10ff763fb0e36df9eff7432a6b926219d04866509fa0cd9e168816",
+    "kind": "native_stone_camera_with_opaque_support_depth",
+    "model": {
+      "center_physical_pixels": [
+        640.4998957316084,
+        360.00001169526513
+      ],
+      "coordinate_units": "physical_pixels",
+      "engine_screen": [
+        641.0,
+        360.0
+      ],
+      "fit_input": "24 native stone corners; no water pixels",
+      "held_out_maximum_pixels": [
+        4.121252709410328e-05,
+        6.839251773271826e-05,
+        7.831486686882272e-05
+      ],
+      "maximum_residual_pixels": 6.896633101405314e-05,
+      "physical_size": [
+        1280,
+        720
+      ],
+      "reported_fov": 60.0,
+      "scale_relative_fov90": 1.5413821493266915,
+      "schema": 1,
+      "session_binding": {
+        "game_identity": "134371686569971408",
+        "game_pid": 59196,
+        "id": "93fbd1817c774163ba321dd24e75bc41",
+        "owner": "water-r28-final-brg-v3",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\93fbd1817c774163ba321dd24e75bc41\\session.json"
+      },
+      "source_contract_sha256": "4e4eb7fff2b3dd8d6519ce70c7290c911f6c54ff2c9dbd0e7d3cf160a6b54749",
+      "stone_validation": {
+        "front": {
+          "native_api_mask_iou": 0.9800038827412153
+        },
+        "right": {
+          "native_api_mask_iou": 0.9800038827412153
+        },
+        "tilted": {
+          "native_api_mask_iou": 0.96470116325712
+        }
+      },
+      "vertical_fov": 65.94846432732025
+    }
+  },
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": false,
+    "geometry": false,
+    "transparency": false
+  },
+  "product_style_accepted": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "357bb4d8da35c995b9984776c6fa5eb18678082a9eabcc997cfff5864343413c",
+  "transparency": {},
+  "transparency_phase_controlled": true
+}

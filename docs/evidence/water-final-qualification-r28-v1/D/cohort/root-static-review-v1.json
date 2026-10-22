@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "reviewer": "/root",
+  "owner": "water-r28-default-v1",
+  "plan_sha256": "f3cb48b38fe023f438612cb32b445d0da87a7127807d8177e1b0b491633e81fb",
+  "host_binding_sha256": "0f6c8e732162f05217c2eefddbf7c0cbc4caff8ff29c4f8e6c92e3d81bcc9b86",
+  "actual_hosts_checked": 24,
+  "external_hosts_checked": 49,
+  "all_static_code_hosts_equal_previously_reviewed_static_D": true,
+  "source_files": 4483,
+  "auxiliary_files": 1391,
+  "exact_metadata_changes": {
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py": {
+      "before": "5259bd983e90c5cb5de6fe6e25fbfb527b5d6c8ee3adba9f220b772b9ab50187",
+      "after": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1"
+    },
+    "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py": {
+      "before": "41956f315294c7540c3c11a8e629499abdca0afa4bfbc6607c4f25a1ea508c14",
+      "after": "e2fb1199961aaa1000019a0e3aec6a645ba2428ab20946af98b02ff1764821a3"
+    },
+    "tools/data/liquid_product_owner_contract_v1.json": {
+      "before": "ef4f709969b6e96d7675529cd84ff27043706b23b723c4ee3d399497b32f4872",
+      "after": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684"
+    }
+  },
+  "all_implementation_and_resource_bytes_equal_FA_BRG": true,
+  "D_cold_no_profile_assignment_and_current_native_GUI_protocol_reviewed": true,
+  "MC_launch_granted": false,
+  "production_admission_performed": false,
+  "manual_closures_added": 0
+}

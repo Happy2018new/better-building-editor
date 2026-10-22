@@ -1,0 +1,84 @@
+--- D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261023\water-final-matrix-v1\launch_r25.py
++++ launch_r25.py
+@@ -13,8 +13,8 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-OWNER = 'water-r28-final-matrix-v1'
+-PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-matrix-v1')
++OWNER = 'water-r28-final-brg-v3'
++PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-brg-v3')
+ SCRIPTS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+ sys.path.insert(0, str(SCRIPTS))
+ from _session import process_identity, registry_dir
+--- D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261023\water-final-matrix-v1\run_camera.py
++++ run_camera.py
+@@ -12,8 +12,8 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-matrix-v1')
+-OWNER = 'water-r28-final-matrix-v1'
++PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-brg-v3')
++OWNER = 'water-r28-final-brg-v3'
+ STAGE = sys.argv[1] if len(sys.argv) == 2 else None
+ if STAGE != 'camera':
+     raise ValueError('Pass camera or D')
+--- D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261023\water-final-matrix-v1\run_flow.py
++++ run_flow.py
+@@ -12,9 +12,9 @@
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ WORK = Path(__file__).resolve().parent
+-PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-matrix-v1')
++PROJECT = Path('D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\water-r28-final-brg-v3')
+ SESSION = Path(json.loads((WORK / 'launch/launch.json').read_bytes())['session_file'])
+-OWNER = 'water-r28-final-matrix-v1'
++OWNER = 'water-r28-final-brg-v3'
+ STAGE = sys.argv[1] if len(sys.argv) == 2 else None
+ if STAGE not in ('A', 'B', 'R', 'G'):
+     raise ValueError('Pass one stage: A, B, R, or G')
+@@ -25,8 +25,8 @@
+           'neighbor_stone', 'transparent_overlap'),
+     'G': ('gallery',),
+ }[STAGE]
+-ROUTES = ('editor', 'full', 'missing')
+-OUT = WORK / 'product-v2-a-v1.json'
++ROUTES = ('editor',) if STAGE == 'G' else ('editor', 'full', 'missing')
++OUT = WORK / ('product-v2-' + STAGE.lower() + '-v1.json')
+ HANDLES = OUT.with_name(OUT.stem + '-handles.json')
+ RECEIPT = OUT.with_name(OUT.stem + '-host.json')
+ 
+--- D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\round-20261023\water-final-matrix-v1\run_group_v2.py
++++ run_group_v2.py
+@@ -26,12 +26,11 @@
+     parser=argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--root-grant',type=Path,required=True)
+     args=parser.parse_args()
+-    extension=json.loads((WORK/'prelaunch-host-extension-v2.json').read_bytes())
+-    assert all(sha(WORK/name)==expected for name,expected in extension['host_sha256'].items())
+-    assert sha(WORK/'prelaunch-host-binding-v1.json')==extension['previous_host_binding_sha256']
++    host_binding=json.loads((WORK/'prelaunch-host-binding-v1.json').read_bytes())
++    assert all(sha(WORK/name)==expected for name,expected in host_binding['host_sha256'].items())
+     binding=json.loads((WORK/'final-source-binding-v1.json').read_bytes())
+     grant=json.loads(args.root_grant.read_bytes())
+-    assert grant['owner']==binding['owner'] and grant['plan_sha256']==sha(WORK/'plan-v2.json')
++    assert grant['owner']==binding['owner'] and grant['plan_sha256']==sha(WORK/'plan-v3.json')
+     assert grant['schema']==1
+     assert grant['begin']<=time.time()<grant['until']-300
+     assert datetime.now(timezone.utc)<datetime.fromisoformat('2026-10-22T23:20:00+00:00'),'Insufficient time before 07:25 capture cutoff'
+@@ -96,14 +95,6 @@
+         command('world-baseline','world_readback.py')
+         command('camera','run_camera.py',('camera',),timeout=480)
+         independent_restore('after-camera')
+-        command('F-editor','run_frozen_editor.py',timeout=1800)
+-        independent_restore('after-F-editor')
+-        command('F-full','run_f_world_cutoff_v2.py',('full',),timeout=1800)
+-        independent_restore('after-F-full')
+-        command('F-missing','run_f_world_cutoff_v2.py',('missing',),timeout=1800)
+-        independent_restore('after-F-missing')
+-        command('A','run_flow.py',('A',),timeout=1800)
+-        independent_restore('after-A')
+         command('B','run_flow.py',('B',),timeout=1800)
+         independent_restore('after-B')
+         command('R','run_flow.py',('R',),timeout=1800)

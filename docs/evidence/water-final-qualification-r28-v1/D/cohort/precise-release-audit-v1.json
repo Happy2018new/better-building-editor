@@ -1,0 +1,94 @@
+{
+  "MC_started": false,
+  "RPC_dispatched": false,
+  "all_six_exact_identities_absent": true,
+  "all_source_and_auxiliary_unchanged": true,
+  "checked_at_utc": "2026-10-22T19:50:45.950041+00:00",
+  "files_sha256": {
+    "default-r28-d.json": "826bdc8446b63a1cc69792c5abec8b0d0ed7b947dc3535f9f910d3225463b8a4",
+    "group-execution-v1.json": "89b9451886a485598fb40ac8a71b82faad83e9b54a542760054f288cbfd5b3f9",
+    "helper-retirement-v1.json": "d40d71eb83af6a1fe211215bcd2377b05382b83282f535ad05521e4897f02e16",
+    "independent-restore-v1.json": "1e7d6978de476efb1744a8bf8dacde7ea57380656474d97210145759de8f45c3",
+    "launch/exact-exit.json": "90005610d83055857c469b11e2f273f81f047fdb019ffafaeb966412d8639584",
+    "product-v2-camera-seam-v1.json": "6194e6cc7d2453775db7a7b72b14f71e41c464ce140f349b7bc3afb973f69cc0"
+  },
+  "final_same_handle_exit": {
+    "completed": true,
+    "opened_at": "2026-10-22T19:43:05.858256+00:00",
+    "owner": "water-r28-default-v1",
+    "process_or_window_mutation": false,
+    "processes": {
+      "game": {
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+        "exit_code": 3221226505,
+        "exit_code_hex": "0xC0000409",
+        "identity": "134371717772236884",
+        "observed_at": "2026-10-22T19:50:34.051074+00:00",
+        "pid": 68772,
+        "state": "exited"
+      },
+      "mcdk": {
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "exit_code": 0,
+        "exit_code_hex": "0x00000000",
+        "identity": "134371717769966486",
+        "observed_at": "2026-10-22T19:50:34.051995+00:00",
+        "pid": 37476,
+        "state": "exited"
+      }
+    },
+    "schema": 1,
+    "session": "39bfdea424f040f380afc60543698067"
+  },
+  "group_completed": true,
+  "group_original_snapshot_preserved": true,
+  "group_same_handle_snapshot_completed": true,
+  "host_sha256": "6b118fafeae4d885544b9084b3515fc58c2bf5a1319aec7b2c888fed848ecc7e",
+  "independent_restored": true,
+  "manual_closures_added": 0,
+  "ordinary_stop_exit_code": 1,
+  "owner": "water-r28-default-v1",
+  "processes": {
+    "assert_watch": {
+      "current_identity": null,
+      "exact_identity_absent": true,
+      "identity": "134371717588482415",
+      "pid": 10236
+    },
+    "continuous_guard": {
+      "current_identity": null,
+      "exact_identity_absent": true,
+      "identity": "134371717856330358",
+      "pid": 34812
+    },
+    "game": {
+      "current_identity": null,
+      "exact_identity_absent": true,
+      "identity": "134371717772236884",
+      "pid": 68772
+    },
+    "launcher": {
+      "current_identity": null,
+      "exact_identity_absent": true,
+      "identity": "134371717702159391",
+      "pid": 32092
+    },
+    "mcdk": {
+      "current_identity": null,
+      "exact_identity_absent": true,
+      "identity": "134371717769966486",
+      "pid": 37476
+    },
+    "observer": {
+      "current_identity": null,
+      "exact_identity_absent": true,
+      "identity": "134371717854263866",
+      "pid": 42888
+    }
+  },
+  "qualification_or_owner_changed": false,
+  "registry_finalize_exit_code": 0,
+  "same_handle_exit_completed": true,
+  "same_handle_exit_sha256": "90005610d83055857c469b11e2f273f81f047fdb019ffafaeb966412d8639584",
+  "schema": 1
+}

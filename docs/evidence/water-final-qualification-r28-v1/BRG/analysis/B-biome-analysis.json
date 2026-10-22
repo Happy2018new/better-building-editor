@@ -1,0 +1,418 @@
+{
+  "analyzer_sha256": "eb100031cefe60f74aed270c224b1338b5772fe372b3d7fd3fff8113bc4f0bba",
+  "capture_failures": [],
+  "color_limits": {
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mean_channel_delta": 3,
+    "pixel_rgb_delta": 3
+  },
+  "editor_geometry_oracle": {
+    "image_fit_or_roi_search": false,
+    "kind": "captured_sdk_integer_gui_anchor",
+    "legacy_default_gui": 4.0,
+    "native_gui_scales": [
+      2.0
+    ],
+    "states_verified": 5
+  },
+  "evidence_valid": true,
+  "frozen": true,
+  "passed": true,
+  "rows": {
+    "editor": {
+      "geometry_unchanged": true,
+      "pairs": {
+        "plains_to_swampland": {
+          "body": {
+            "contribution_pixels": 253,
+            "eligible_pixels": 253,
+            "fraction": 1.0,
+            "mean_absolute_rgb_delta": [
+              3.972332015810277,
+              17.055335968379445,
+              40.59683794466403
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          },
+          "rear": {
+            "contribution_pixels": 210,
+            "eligible_pixels": 210,
+            "fraction": 1.0,
+            "mean_absolute_rgb_delta": [
+              18.761904761904763,
+              35.28095238095238,
+              42.44761904761905
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          }
+        },
+        "swampland_to_mangrove_swamp": {
+          "body": {
+            "contribution_pixels": 168,
+            "eligible_pixels": 253,
+            "fraction": 0.6640316205533597,
+            "mean_absolute_rgb_delta": [
+              4.300395256916996,
+              3.675889328063241,
+              2.4031620553359683
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          },
+          "rear": {
+            "contribution_pixels": 210,
+            "eligible_pixels": 210,
+            "fraction": 1.0,
+            "mean_absolute_rgb_delta": [
+              15.847619047619048,
+              19.447619047619046,
+              1.6761904761904762
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          }
+        }
+      },
+      "passed": true,
+      "phases": {
+        "mangrove_swamp": {
+          "capture_sha256": "63914f656be9110ad7864990ea258fa42c4edb7d739b0103066694d57c3dc1c3",
+          "geometry_unchanged": true,
+          "regions": {
+            "body": {
+              "mean_rgb": [
+                77.62450592885375,
+                85.43083003952569,
+                60.88537549407115
+              ],
+              "pixels": 253
+            },
+            "rear": {
+              "mean_rgb": [
+                129.42857142857142,
+                136.52857142857144,
+                65.0904761904762
+              ],
+              "pixels": 210
+            }
+          },
+          "requested_biome_visible": true
+        },
+        "plains": {
+          "capture_sha256": "2cdb6d77ccfc5ab5bbe5ac1bd9763aedc1d9912a90ae4addd0ca2d7fe8e774aa",
+          "geometry_unchanged": true,
+          "regions": {
+            "body": {
+              "mean_rgb": [
+                80.43478260869566,
+                101.25296442687747,
+                102.33596837944664
+              ],
+              "pixels": 253
+            },
+            "rear": {
+              "mean_rgb": [
+                132.34285714285716,
+                152.36190476190475,
+                107.25238095238095
+              ],
+              "pixels": 210
+            }
+          },
+          "requested_biome_visible": true
+        },
+        "swampland": {
+          "capture_sha256": "02d25ee7895b058f9608ad815dfdb6ef332f1345b113a9d70e0748ec162f8249",
+          "geometry_unchanged": true,
+          "regions": {
+            "body": {
+              "mean_rgb": [
+                80.04347826086956,
+                84.19762845849803,
+                61.73913043478261
+              ],
+              "pixels": 253
+            },
+            "rear": {
+              "mean_rgb": [
+                113.58095238095238,
+                117.08095238095238,
+                64.8047619047619
+              ],
+              "pixels": 210
+            }
+          },
+          "requested_biome_visible": true
+        }
+      },
+      "plains_restore_rgb_rmse": 0.0
+    },
+    "full": {
+      "geometry_unchanged": true,
+      "pairs": {
+        "plains_to_swampland": {
+          "body": {
+            "contribution_pixels": 448,
+            "eligible_pixels": 448,
+            "fraction": 1.0,
+            "mean_absolute_rgb_delta": [
+              2.8995535714285716,
+              16.738839285714285,
+              41.0
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          },
+          "rear": {
+            "contribution_pixels": 380,
+            "eligible_pixels": 380,
+            "fraction": 1.0,
+            "mean_absolute_rgb_delta": [
+              15.944736842105263,
+              32.51052631578948,
+              47.43421052631579
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          }
+        },
+        "swampland_to_mangrove_swamp": {
+          "body": {
+            "contribution_pixels": 173,
+            "eligible_pixels": 448,
+            "fraction": 0.3861607142857143,
+            "mean_absolute_rgb_delta": [
+              3.7723214285714284,
+              3.0825892857142856,
+              1.7433035714285714
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          },
+          "rear": {
+            "contribution_pixels": 380,
+            "eligible_pixels": 380,
+            "fraction": 1.0,
+            "mean_absolute_rgb_delta": [
+              12.9,
+              16.357894736842105,
+              11.73157894736842
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          }
+        }
+      },
+      "passed": true,
+      "phases": {
+        "mangrove_swamp": {
+          "capture_sha256": "70d35200ccf39e29df1e241031698062df32f93c407c2e2bb24474f1bcb86e38",
+          "geometry_unchanged": true,
+          "regions": {
+            "body": {
+              "mean_rgb": [
+                76.87946428571429,
+                85.45982142857143,
+                60.879464285714285
+              ],
+              "pixels": 448
+            },
+            "rear": {
+              "mean_rgb": [
+                121.16578947368421,
+                127.9921052631579,
+                77.75
+              ],
+              "pixels": 380
+            }
+          },
+          "requested_biome_visible": true
+        },
+        "plains": {
+          "capture_sha256": "2cd237f577bfae8d7c2129a56d4241f518dea7a297455fecbb8c90dc8504f9cc",
+          "geometry_unchanged": true,
+          "regions": {
+            "body": {
+              "mean_rgb": [
+                79.69419642857143,
+                101.60714285714286,
+                103.20758928571429
+              ],
+              "pixels": 448
+            },
+            "rear": {
+              "mean_rgb": [
+                124.21052631578948,
+                144.14473684210526,
+                120.21052631578948
+              ],
+              "pixels": 380
+            }
+          },
+          "requested_biome_visible": true
+        },
+        "swampland": {
+          "capture_sha256": "c7f8c59a1cb30522cde5ee3c417e9de0b12806daae8fa315c7b894444fda8539",
+          "geometry_unchanged": true,
+          "regions": {
+            "body": {
+              "mean_rgb": [
+                80.16071428571429,
+                84.86830357142857,
+                62.207589285714285
+              ],
+              "pixels": 448
+            },
+            "rear": {
+              "mean_rgb": [
+                108.26578947368421,
+                111.63421052631578,
+                72.77631578947368
+              ],
+              "pixels": 380
+            }
+          },
+          "requested_biome_visible": true
+        }
+      },
+      "plains_restore_rgb_rmse": 0.0
+    },
+    "missing": {
+      "geometry_unchanged": true,
+      "pairs": {
+        "plains_to_swampland": {
+          "body": {
+            "contribution_pixels": 448,
+            "eligible_pixels": 448,
+            "fraction": 1.0,
+            "mean_absolute_rgb_delta": [
+              2.8995535714285716,
+              16.738839285714285,
+              41.0
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          },
+          "rear": {
+            "contribution_pixels": 380,
+            "eligible_pixels": 380,
+            "fraction": 1.0,
+            "mean_absolute_rgb_delta": [
+              15.944736842105263,
+              32.51052631578948,
+              47.43421052631579
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          }
+        },
+        "swampland_to_mangrove_swamp": {
+          "body": {
+            "contribution_pixels": 173,
+            "eligible_pixels": 448,
+            "fraction": 0.3861607142857143,
+            "mean_absolute_rgb_delta": [
+              3.7723214285714284,
+              3.0825892857142856,
+              1.7433035714285714
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          },
+          "rear": {
+            "contribution_pixels": 380,
+            "eligible_pixels": 380,
+            "fraction": 1.0,
+            "mean_absolute_rgb_delta": [
+              12.9,
+              16.357894736842105,
+              11.73157894736842
+            ],
+            "passed": true,
+            "rgb_delta": 3
+          }
+        }
+      },
+      "passed": true,
+      "phases": {
+        "mangrove_swamp": {
+          "capture_sha256": "fd10202ed518d06330bf3a3ddda884ebe45d247e1ffd28c685ebb4b39536055f",
+          "geometry_unchanged": true,
+          "regions": {
+            "body": {
+              "mean_rgb": [
+                76.87946428571429,
+                85.45982142857143,
+                60.879464285714285
+              ],
+              "pixels": 448
+            },
+            "rear": {
+              "mean_rgb": [
+                121.16578947368421,
+                127.9921052631579,
+                77.75
+              ],
+              "pixels": 380
+            }
+          },
+          "requested_biome_visible": true
+        },
+        "plains": {
+          "capture_sha256": "4eae33041e40ae3c7e8c5e3485cca67d2ffcec3f4a5a26358b62a8748cd1c38b",
+          "geometry_unchanged": true,
+          "regions": {
+            "body": {
+              "mean_rgb": [
+                79.69419642857143,
+                101.60714285714286,
+                103.20758928571429
+              ],
+              "pixels": 448
+            },
+            "rear": {
+              "mean_rgb": [
+                124.21052631578948,
+                144.14473684210526,
+                120.21052631578948
+              ],
+              "pixels": 380
+            }
+          },
+          "requested_biome_visible": true
+        },
+        "swampland": {
+          "capture_sha256": "b591be8eea12967f9481f91670f0ca8904257bcd349ae1f66cdbc0fee7cd6288",
+          "geometry_unchanged": true,
+          "regions": {
+            "body": {
+              "mean_rgb": [
+                80.16071428571429,
+                84.86830357142857,
+                62.207589285714285
+              ],
+              "pixels": 448
+            },
+            "rear": {
+              "mean_rgb": [
+                108.26578947368421,
+                111.63421052631578,
+                72.77631578947368
+              ],
+              "pixels": 380
+            }
+          },
+          "requested_biome_visible": true
+        }
+      },
+      "plains_restore_rgb_rmse": 0.0
+    }
+  },
+  "schema": 1,
+  "scope": "Visible preset changes with unchanged blocks, water geometry and camera",
+  "source_contract_sha256": "4e4eb7fff2b3dd8d6519ce70c7290c911f6c54ff2c9dbd0e7d3cf160a6b54749",
+  "source_sha256": "3d89ca9136299e314b9dd3eb2517856f1944845709553c241016c9e970f38cef"
+}

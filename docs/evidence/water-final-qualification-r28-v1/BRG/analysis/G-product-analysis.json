@@ -1,0 +1,68 @@
+{
+  "alpha_controls": {},
+  "analyzer_sha256": "81ee980256fd6d679d20e1526a66b4bc576cd4a33ccf0266cd4361d5f306a635",
+  "animation": {},
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "editor_geometry_oracle": {
+    "image_fit_or_roi_search": false,
+    "kind": "captured_sdk_integer_gui_anchor",
+    "legacy_default_gui": 4.0,
+    "native_gui_scales": [
+      2.0
+    ],
+    "states_verified": 2
+  },
+  "evidence_valid": true,
+  "geometry": {
+    "editor_gallery_wet": {
+      "declared": {
+        "bounds": [
+          553,
+          346,
+          739,
+          425
+        ],
+        "pixels": 758
+      },
+      "iou": 0.5971502590673575,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          555,
+          346,
+          739,
+          424
+        ],
+        "pixels": 475
+      },
+      "passed": false
+    }
+  },
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": false,
+    "geometry": false,
+    "transparency": false
+  },
+  "product_style_accepted": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "1e4be6a60b321795c41658b431a7fa87067196ae128c7d369e88c76ed214d79b",
+  "transparency": {},
+  "transparency_phase_controlled": true
+}

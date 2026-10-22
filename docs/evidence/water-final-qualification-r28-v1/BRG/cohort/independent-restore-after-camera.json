@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "owner": "water-r28-final-brg-v3",
+  "restored": true,
+  "restore_unknown": false,
+  "checked_at": 1792695209.0831013,
+  "scene": {
+    "restored": true,
+    "restore_unknown": false,
+    "actions": [
+      {
+        "close": true
+      },
+      {
+        "profile": true
+      },
+      {
+        "timing": true
+      }
+    ],
+    "before": {
+      "projection_active": false,
+      "navigator_top": null,
+      "own_marker": false,
+      "preparing_entity": false,
+      "io_job": false,
+      "blueprint_marker": false,
+      "busy": false,
+      "edit_job": false,
+      "world_actors": 0,
+      "navigator_transitioning": false,
+      "restored": true
+    },
+    "after": {
+      "projection_active": false,
+      "navigator_top": null,
+      "own_marker": false,
+      "preparing_entity": false,
+      "io_job": false,
+      "blueprint_marker": false,
+      "busy": false,
+      "edit_job": false,
+      "world_actors": 0,
+      "navigator_transitioning": false,
+      "restored": true
+    },
+    "final_markers": {
+      "navigator_open": false,
+      "edit_job": false,
+      "navigator_transitioning": false,
+      "busy": false,
+      "io_job": false,
+      "projection_active": false,
+      "remaining_markers": [],
+      "preparing_entity": false,
+      "world_actors": 0
+    }
+  },
+  "world": {
+    "server": {
+      "player": "-8589934591",
+      "rules": {
+        "command_blocks_enabled": true,
+        "mob_griefing": true,
+        "enable": true,
+        "keep_inventory": true,
+        "entities_drop_loot": true,
+        "daylight_cycle": false,
+        "random_tick_speed": 1,
+        "mob_spawn": true,
+        "weather_cycle": false,
+        "show_days_played": false,
+        "recipes_unlock": true,
+        "is_flat_world": true,
+        "always_day": false,
+        "skip_night_by_sleeping": true,
+        "player_sleeping_percentage": 100
+      },
+      "raining": false,
+      "time": 0,
+      "foot": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "thunder": false,
+      "remaining_markers": [],
+      "dimension": 0
+    },
+    "client": {
+      "yaw_lock": false,
+      "rotation": [
+        0.0,
+        179.99996948242188,
+        -1.3660377589985728e-05
+      ],
+      "pitch_lock": false,
+      "remaining_markers": []
+    }
+  },
+  "world_verdict": {
+    "restored": true,
+    "checks": {
+      "server_markers_clear": true,
+      "client_markers_clear": true,
+      "same_player_dimension": true,
+      "player_foot_restored": true,
+      "environment_rules_restored": true,
+      "weather_restored": true,
+      "camera_locks_restored": true,
+      "camera_rotation_restored": true
+    },
+    "time_readback_only": {
+      "before": 0,
+      "after": 0,
+      "note": "Ordinary world time may advance after restoration; no exact-time gate is invented."
+    }
+  },
+  "source_unchanged": true
+}

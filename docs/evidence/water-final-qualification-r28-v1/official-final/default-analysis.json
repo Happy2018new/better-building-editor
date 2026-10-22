@@ -1,0 +1,684 @@
+{
+  "alpha_controls": {},
+  "analytic_geometry_diagnostic": {
+    "alpha_controls": {},
+    "analyzer_sha256": "81ee980256fd6d679d20e1526a66b4bc576cd4a33ccf0266cd4361d5f306a635",
+    "animation": {
+      "editor_pool_wet": {
+        "contribution_pixels": 19095,
+        "eligible_pixels": 38939,
+        "fraction": 0.4903823929736254,
+        "passed": true,
+        "rgb_delta": 2
+      },
+      "editor_source_wet": {
+        "contribution_pixels": 7613,
+        "eligible_pixels": 14235,
+        "fraction": 0.5348085704250087,
+        "passed": true,
+        "rgb_delta": 2
+      },
+      "editor_wet_oak_fence_wet": {
+        "contribution_pixels": 1972,
+        "eligible_pixels": 3168,
+        "fraction": 0.6224747474747475,
+        "passed": true,
+        "rgb_delta": 2
+      },
+      "full_pool_wet": {
+        "contribution_pixels": 23356,
+        "eligible_pixels": 45786,
+        "fraction": 0.5101122613899445,
+        "passed": true,
+        "rgb_delta": 2
+      },
+      "full_source_wet": {
+        "contribution_pixels": 6614,
+        "eligible_pixels": 11732,
+        "fraction": 0.5637572451414934,
+        "passed": true,
+        "rgb_delta": 2
+      },
+      "full_wet_oak_fence_wet": {
+        "contribution_pixels": 4686,
+        "eligible_pixels": 7592,
+        "fraction": 0.6172286617492097,
+        "passed": true,
+        "rgb_delta": 2
+      },
+      "missing_pool_wet": {
+        "contribution_pixels": 21135,
+        "eligible_pixels": 45786,
+        "fraction": 0.46160398375049144,
+        "passed": true,
+        "rgb_delta": 2
+      },
+      "missing_source_wet": {
+        "contribution_pixels": 6701,
+        "eligible_pixels": 11732,
+        "fraction": 0.5711728605523355,
+        "passed": true,
+        "rgb_delta": 2
+      },
+      "missing_wet_oak_fence_wet": {
+        "contribution_pixels": 4721,
+        "eligible_pixels": 7592,
+        "fraction": 0.6218387776606955,
+        "passed": true,
+        "rgb_delta": 2
+      }
+    },
+    "capture_failures": [],
+    "captures_verified": true,
+    "cleanup_errors": [],
+    "completed": true,
+    "editor_geometry_oracle": {
+      "image_fit_or_roi_search": false,
+      "kind": "captured_sdk_integer_gui_anchor",
+      "legacy_default_gui": 4.0,
+      "native_gui_scales": [
+        2.0
+      ],
+      "states_verified": 16
+    },
+    "evidence_valid": true,
+    "geometry": {
+      "editor_pool_wet": {
+        "declared": {
+          "bounds": [
+            472,
+            291,
+            767,
+            488
+          ],
+          "pixels": 40885
+        },
+        "iou": 0.9905254932604024,
+        "maximum_boundary_pixels": 1,
+        "observed": {
+          "bounds": [
+            473,
+            292,
+            767,
+            487
+          ],
+          "pixels": 40631
+        },
+        "passed": true
+      },
+      "editor_source_wet": {
+        "declared": {
+          "bounds": [
+            533,
+            291,
+            681,
+            426
+          ],
+          "pixels": 15345
+        },
+        "iou": 0.9773216031280547,
+        "maximum_boundary_pixels": 2,
+        "observed": {
+          "bounds": [
+            534,
+            292,
+            681,
+            424
+          ],
+          "pixels": 14997
+        },
+        "passed": true
+      },
+      "full_pool_wet": {
+        "declared": {
+          "bounds": [
+            488,
+            312,
+            803,
+            552
+          ],
+          "pixels": 48096
+        },
+        "iou": 0.9635966581852423,
+        "maximum_boundary_pixels": 4,
+        "observed": {
+          "bounds": [
+            486,
+            312,
+            806,
+            556
+          ],
+          "pixels": 49913
+        },
+        "passed": true
+      },
+      "full_source_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            312,
+            709,
+            440
+          ],
+          "pixels": 12894
+        },
+        "iou": 0.9641815598594182,
+        "maximum_boundary_pixels": 1,
+        "observed": {
+          "bounds": [
+            568,
+            312,
+            710,
+            441
+          ],
+          "pixels": 13373
+        },
+        "passed": true
+      },
+      "missing_pool_wet": {
+        "declared": {
+          "bounds": [
+            488,
+            312,
+            803,
+            552
+          ],
+          "pixels": 48096
+        },
+        "iou": 0.9635966581852423,
+        "maximum_boundary_pixels": 4,
+        "observed": {
+          "bounds": [
+            486,
+            312,
+            806,
+            556
+          ],
+          "pixels": 49913
+        },
+        "passed": true
+      },
+      "missing_source_wet": {
+        "declared": {
+          "bounds": [
+            569,
+            312,
+            709,
+            440
+          ],
+          "pixels": 12894
+        },
+        "iou": 0.9641815598594182,
+        "maximum_boundary_pixels": 1,
+        "observed": {
+          "bounds": [
+            568,
+            312,
+            710,
+            441
+          ],
+          "pixels": 13373
+        },
+        "passed": true
+      }
+    },
+    "limits": {
+      "maximum_boundary_pixels": 6,
+      "minimum_contribution_fraction": 0.1,
+      "minimum_contribution_pixels": 8,
+      "minimum_mask_iou": 0.8,
+      "minimum_water_pixels": 24,
+      "rgb_delta": 8,
+      "temporal_delta": 2
+    },
+    "native_alpha_accepted": false,
+    "native_shape_accepted": false,
+    "native_uv_accepted": false,
+    "observed_product_gates": {
+      "animation": true,
+      "geometry": true,
+      "transparency": false
+    },
+    "product_style_accepted": false,
+    "restored": true,
+    "schema": 1,
+    "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+    "source_sha256": "826bdc8446b63a1cc69792c5abec8b0d0ed7b947dc3535f9f910d3225463b8a4",
+    "transparency": {
+      "editor_wet_oak_fence_wet": {
+        "passed": false,
+        "phase_controlled": false,
+        "regions": {
+          "body": {
+            "contribution_pixels": 253,
+            "eligible_pixels": 253,
+            "fraction": 1.0,
+            "passed": true,
+            "rgb_delta": 8,
+            "underlying_control_pixels": 253
+          },
+          "rear": {
+            "contribution_pixels": 210,
+            "eligible_pixels": 210,
+            "fraction": 1.0,
+            "passed": true,
+            "rgb_delta": 8,
+            "underlying_control_pixels": 210
+          }
+        },
+        "water_pixels": 3450
+      },
+      "full_wet_oak_fence_wet": {
+        "passed": false,
+        "phase_controlled": false,
+        "regions": {
+          "body": {
+            "contribution_pixels": 448,
+            "eligible_pixels": 448,
+            "fraction": 1.0,
+            "passed": true,
+            "rgb_delta": 8,
+            "underlying_control_pixels": 448
+          },
+          "rear": {
+            "contribution_pixels": 300,
+            "eligible_pixels": 300,
+            "fraction": 1.0,
+            "passed": true,
+            "rgb_delta": 8,
+            "underlying_control_pixels": 300
+          }
+        },
+        "water_pixels": 8415
+      },
+      "missing_wet_oak_fence_wet": {
+        "passed": false,
+        "phase_controlled": false,
+        "regions": {
+          "body": {
+            "contribution_pixels": 448,
+            "eligible_pixels": 448,
+            "fraction": 1.0,
+            "passed": true,
+            "rgb_delta": 8,
+            "underlying_control_pixels": 448
+          },
+          "rear": {
+            "contribution_pixels": 300,
+            "eligible_pixels": 300,
+            "fraction": 1.0,
+            "passed": true,
+            "rgb_delta": 8,
+            "underlying_control_pixels": 300
+          }
+        },
+        "water_pixels": 8415
+      }
+    },
+    "transparency_phase_controlled": false
+  },
+  "analyzer_sha256": "81ee980256fd6d679d20e1526a66b4bc576cd4a33ccf0266cd4361d5f306a635",
+  "animation": {
+    "editor_pool_wet": {
+      "contribution_pixels": 19095,
+      "eligible_pixels": 38939,
+      "fraction": 0.4903823929736254,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "editor_source_wet": {
+      "contribution_pixels": 7613,
+      "eligible_pixels": 14235,
+      "fraction": 0.5348085704250087,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "editor_wet_oak_fence_wet": {
+      "contribution_pixels": 1972,
+      "eligible_pixels": 3168,
+      "fraction": 0.6224747474747475,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "full_pool_wet": {
+      "contribution_pixels": 24565,
+      "eligible_pixels": 47576,
+      "fraction": 0.5163317639145788,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "full_source_wet": {
+      "contribution_pixels": 6932,
+      "eligible_pixels": 12249,
+      "fraction": 0.5659237488774593,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "full_wet_oak_fence_wet": {
+      "contribution_pixels": 4878,
+      "eligible_pixels": 7876,
+      "fraction": 0.6193499238191975,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "missing_pool_wet": {
+      "contribution_pixels": 22216,
+      "eligible_pixels": 47576,
+      "fraction": 0.4669581301496553,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "missing_source_wet": {
+      "contribution_pixels": 7072,
+      "eligible_pixels": 12249,
+      "fraction": 0.5773532533268022,
+      "passed": true,
+      "rgb_delta": 2
+    },
+    "missing_wet_oak_fence_wet": {
+      "contribution_pixels": 4928,
+      "eligible_pixels": 7876,
+      "fraction": 0.6256983240223464,
+      "passed": true,
+      "rgb_delta": 2
+    }
+  },
+  "capture_failures": [],
+  "captures_verified": true,
+  "cleanup_errors": [],
+  "completed": true,
+  "editor_geometry_oracle": {
+    "image_fit_or_roi_search": false,
+    "kind": "captured_sdk_integer_gui_anchor",
+    "legacy_default_gui": 4.0,
+    "native_gui_scales": [
+      2.0
+    ],
+    "states_verified": 16
+  },
+  "evidence_valid": true,
+  "geometry": {
+    "editor_pool_wet": {
+      "declared": {
+        "bounds": [
+          472,
+          291,
+          767,
+          488
+        ],
+        "pixels": 40885
+      },
+      "iou": 0.9905254932604024,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          473,
+          292,
+          767,
+          487
+        ],
+        "pixels": 40631
+      },
+      "passed": true
+    },
+    "editor_source_wet": {
+      "declared": {
+        "bounds": [
+          533,
+          291,
+          681,
+          426
+        ],
+        "pixels": 15345
+      },
+      "iou": 0.9773216031280547,
+      "maximum_boundary_pixels": 2,
+      "observed": {
+        "bounds": [
+          534,
+          292,
+          681,
+          424
+        ],
+        "pixels": 14997
+      },
+      "passed": true
+    },
+    "full_pool_wet": {
+      "declared": {
+        "bounds": [
+          486,
+          311,
+          806,
+          556
+        ],
+        "pixels": 49926
+      },
+      "iou": 0.9971394851073193,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          486,
+          312,
+          806,
+          556
+        ],
+        "pixels": 49913
+      },
+      "passed": true
+    },
+    "full_source_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          311,
+          711,
+          442
+        ],
+        "pixels": 13435
+      },
+      "iou": 0.9909394727070182,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13373
+      },
+      "passed": true
+    },
+    "missing_pool_wet": {
+      "declared": {
+        "bounds": [
+          486,
+          311,
+          806,
+          556
+        ],
+        "pixels": 49926
+      },
+      "iou": 0.9971394851073193,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          486,
+          312,
+          806,
+          556
+        ],
+        "pixels": 49913
+      },
+      "passed": true
+    },
+    "missing_source_wet": {
+      "declared": {
+        "bounds": [
+          568,
+          311,
+          711,
+          442
+        ],
+        "pixels": 13435
+      },
+      "iou": 0.9909394727070182,
+      "maximum_boundary_pixels": 1,
+      "observed": {
+        "bounds": [
+          568,
+          312,
+          710,
+          441
+        ],
+        "pixels": 13373
+      },
+      "passed": true
+    }
+  },
+  "geometry_oracle": {
+    "calibration_sha256": "6194e6cc7d2453775db7a7b72b14f71e41c464ce140f349b7bc3afb973f69cc0",
+    "helper_sha256": "bef9e23e3d10ff763fb0e36df9eff7432a6b926219d04866509fa0cd9e168816",
+    "kind": "native_stone_camera_with_opaque_support_depth",
+    "model": {
+      "center_physical_pixels": [
+        640.4998957316084,
+        360.00001169526513
+      ],
+      "coordinate_units": "physical_pixels",
+      "engine_screen": [
+        641.0,
+        360.0
+      ],
+      "fit_input": "24 native stone corners; no water pixels",
+      "held_out_maximum_pixels": [
+        4.121252709410328e-05,
+        6.839251773271826e-05,
+        7.831486686882272e-05
+      ],
+      "maximum_residual_pixels": 6.896633101405314e-05,
+      "physical_size": [
+        1280,
+        720
+      ],
+      "reported_fov": 60.0,
+      "scale_relative_fov90": 1.5413821493266915,
+      "schema": 1,
+      "session_binding": {
+        "game_identity": "134371717772236884",
+        "game_pid": 68772,
+        "id": "39bfdea424f040f380afc60543698067",
+        "owner": "water-r28-default-v1",
+        "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\39bfdea424f040f380afc60543698067\\session.json"
+      },
+      "source_contract_sha256": "18d36ac18162771addcd9e23ac3692ab3e86e94c9f0944de3a75f413f64f016f",
+      "stone_validation": {
+        "front": {
+          "native_api_mask_iou": 0.9800038827412153
+        },
+        "right": {
+          "native_api_mask_iou": 0.9800038827412153
+        },
+        "tilted": {
+          "native_api_mask_iou": 0.96470116325712
+        }
+      },
+      "vertical_fov": 65.94846432732025
+    }
+  },
+  "limits": {
+    "maximum_boundary_pixels": 6,
+    "minimum_contribution_fraction": 0.1,
+    "minimum_contribution_pixels": 8,
+    "minimum_mask_iou": 0.8,
+    "minimum_water_pixels": 24,
+    "rgb_delta": 8,
+    "temporal_delta": 2
+  },
+  "native_alpha_accepted": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "observed_product_gates": {
+    "animation": true,
+    "geometry": true,
+    "transparency": false
+  },
+  "product_style_accepted": false,
+  "restored": true,
+  "schema": 1,
+  "scope": "Declared Java-style geometry and independent body/rear contribution; no native RGB comparison",
+  "source_sha256": "826bdc8446b63a1cc69792c5abec8b0d0ed7b947dc3535f9f910d3225463b8a4",
+  "transparency": {
+    "editor_wet_oak_fence_wet": {
+      "passed": false,
+      "phase_controlled": false,
+      "regions": {
+        "body": {
+          "contribution_pixels": 253,
+          "eligible_pixels": 253,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 253
+        },
+        "rear": {
+          "contribution_pixels": 210,
+          "eligible_pixels": 210,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 210
+        }
+      },
+      "water_pixels": 3450
+    },
+    "full_wet_oak_fence_wet": {
+      "passed": false,
+      "phase_controlled": false,
+      "regions": {
+        "body": {
+          "contribution_pixels": 510,
+          "eligible_pixels": 510,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 510
+        },
+        "rear": {
+          "contribution_pixels": 300,
+          "eligible_pixels": 300,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 300
+        }
+      },
+      "water_pixels": 8415
+    },
+    "missing_wet_oak_fence_wet": {
+      "passed": false,
+      "phase_controlled": false,
+      "regions": {
+        "body": {
+          "contribution_pixels": 510,
+          "eligible_pixels": 510,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 510
+        },
+        "rear": {
+          "contribution_pixels": 300,
+          "eligible_pixels": 300,
+          "fraction": 1.0,
+          "passed": true,
+          "rgb_delta": 8,
+          "underlying_control_pixels": 300
+        }
+      },
+      "water_pixels": 8415
+    }
+  },
+  "transparency_phase_controlled": false
+}
