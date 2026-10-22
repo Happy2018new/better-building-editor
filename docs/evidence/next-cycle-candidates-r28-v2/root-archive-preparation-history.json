@@ -1,0 +1,10 @@
+{
+  "first_attempt": "2026-10-22 UTC",
+  "failure": "AssertionError: cell.py at raw worktree equals Git assertion",
+  "failed_script_sha256": "eaa86d2ebecb4881f369aafd82cd5615da83639afa911fec3539594d5bb7c7f9",
+  "failed_output_directory": "docs/evidence/next-cycle-candidates-r28-v1 (local, incomplete, not staged)",
+  "correction": "Only cell.py is compared using explicit CRLF-to-LF normalization; Git raw and worktree raw hashes/lengths remain distinct in root-review.json. Candidate and product were not changed.",
+  "Git_core_autocrlf": "true",
+  "Git_ls_files_eol": "i/lf w/crlf attr/ behavior_pack/modern_projection/projection/cell.py",
+  "product_modified": false
+}

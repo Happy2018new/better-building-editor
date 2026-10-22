@@ -1,0 +1,19 @@
+{
+  "command": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    ".runtime\\round-20261023\\portal-anchor-candidate-v1\\prepare_candidate.py"
+  ],
+  "returncode": 1,
+  "first_failure_type": "AssertionError",
+  "first_failure_message": "scene.py",
+  "reason": "Exact b70 Scene Git blob uses CRLF; initial LF-only replacement correctly refused",
+  "script_sha256": "6bdf76960c417ca7553139cefbc51768ed23a25c33ac5e07ef270cd953781d9d",
+  "baseline_scene_CRLF_lines": 825,
+  "baseline_scene_LF_lines": 825,
+  "candidate_controls_started": false,
+  "MC_started": false,
+  "production_modified": false
+}

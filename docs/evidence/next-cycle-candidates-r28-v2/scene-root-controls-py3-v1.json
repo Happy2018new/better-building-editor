@@ -1,0 +1,616 @@
+{
+  "MC_started": false,
+  "SDK_import_or_Scene_UI_or_real_Pyreact_effect_scheduling_executed": false,
+  "all_hook_order_dependencies_and_constructor_expressions_unchanged": true,
+  "cases": [
+    {
+      "identical_event_count": 25,
+      "kind": "actual-Scene-construction-hooks",
+      "passed": true,
+      "profiles": [],
+      "water_budget_present": true,
+      "water_custom_factory": true
+    },
+    {
+      "identical_event_count": 40,
+      "kind": "actual-Scene-construction-hooks",
+      "passed": true,
+      "profiles": [
+        "liquid",
+        "item",
+        "cauldron",
+        "portal",
+        "book"
+      ],
+      "water_budget_present": true,
+      "water_custom_factory": true
+    },
+    {
+      "identical_event_count": 40,
+      "kind": "actual-Scene-construction-hooks",
+      "passed": true,
+      "profiles": [
+        "liquid",
+        "item",
+        "cauldron",
+        "portal",
+        "book"
+      ],
+      "water_budget_present": false,
+      "water_custom_factory": false
+    },
+    {
+      "identical_event_count": 28,
+      "kind": "actual-Scene-construction-hooks",
+      "passed": true,
+      "profiles": [
+        "liquid"
+      ],
+      "water_budget_present": true,
+      "water_custom_factory": true
+    },
+    {
+      "identical_event_count": 28,
+      "kind": "actual-Scene-construction-hooks",
+      "passed": true,
+      "profiles": [
+        "item"
+      ],
+      "water_budget_present": true,
+      "water_custom_factory": true
+    },
+    {
+      "identical_event_count": 28,
+      "kind": "actual-Scene-construction-hooks",
+      "passed": true,
+      "profiles": [
+        "cauldron"
+      ],
+      "water_budget_present": true,
+      "water_custom_factory": true
+    },
+    {
+      "identical_event_count": 28,
+      "kind": "actual-Scene-construction-hooks",
+      "passed": true,
+      "profiles": [
+        "portal"
+      ],
+      "water_budget_present": true,
+      "water_custom_factory": true
+    },
+    {
+      "identical_event_count": 28,
+      "kind": "actual-Scene-construction-hooks",
+      "passed": true,
+      "profiles": [
+        "book"
+      ],
+      "water_budget_present": true,
+      "water_custom_factory": true
+    },
+    {
+      "error": null,
+      "family": "liquid",
+      "identical_event_count": 37,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_preview",
+      "passed": true,
+      "trace_state_sha256": "5306b4b7ff151ce5015cfcb1224fad69e79038dedd03976ec35d645212dd7fe5"
+    },
+    {
+      "error": null,
+      "family": "liquid",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "normal_cleanup",
+      "passed": true,
+      "trace_state_sha256": "c73eb7f7b64edb48538b11cb876c0e118a1f902de9c590f90748d25073a8c061"
+    },
+    {
+      "error": null,
+      "family": "liquid",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "late_old_cleanup",
+      "passed": true,
+      "trace_state_sha256": "ae1e08a40dd4d7fde9984c4bc8adbc6d6ea9b054880ecef54fdeb01f9bfcc6d5"
+    },
+    {
+      "error": null,
+      "family": "liquid",
+      "identical_event_count": 49,
+      "kind": "actual-owner-effect-closure",
+      "mode": "same_preview_new_controls",
+      "passed": true,
+      "trace_state_sha256": "afdf67c245e6b0df44e5051137b846c0fddfbf15a8964cbdef7090a3ef914ea2"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "liquid",
+      "identical_event_count": 43,
+      "kind": "actual-owner-effect-closure",
+      "mode": "controls_close_error",
+      "passed": true,
+      "trace_state_sha256": "aa1d6fddec8f952fb93f4599d2c0431895e357ac96386dd46f0ce76bd25c1b9d"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "liquid",
+      "identical_event_count": 44,
+      "kind": "actual-owner-effect-closure",
+      "mode": "preview_close_error",
+      "passed": true,
+      "trace_state_sha256": "0f02afd583a6ad49911484541460b0cb3d2345b34ba94e5a820d375b5008897f"
+    },
+    {
+      "error": null,
+      "family": "liquid",
+      "identical_event_count": 45,
+      "kind": "actual-owner-effect-closure",
+      "mode": "missing_current_attribute",
+      "passed": true,
+      "trace_state_sha256": "3c528b8a4e87f4832b9d0c438e8e00767a034d53d5b1c91a123c23699b2b2de6"
+    },
+    {
+      "error": null,
+      "family": "liquid",
+      "identical_event_count": 51,
+      "kind": "actual-owner-effect-closure",
+      "mode": "repeat_cleanup",
+      "passed": true,
+      "trace_state_sha256": "fa739e2315e464344f17ff327a5027741abe52c00ea3b7734b3de3341871809e"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": false,
+        "type": "AttributeError"
+      },
+      "family": "liquid",
+      "identical_event_count": 42,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_controls",
+      "passed": true,
+      "trace_state_sha256": "e1e2e5d9f965273a22842e35aacf32f9803eb958ccd9007c847db05780fae5f0"
+    },
+    {
+      "error": null,
+      "family": "liquid",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "close_replaces_owner",
+      "passed": true,
+      "trace_state_sha256": "39ddc4f87ab91ff0d93c6389f0581378330b595281ec2a9944d5b5fcedc3b02d"
+    },
+    {
+      "error": null,
+      "family": "item",
+      "identical_event_count": 37,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_preview",
+      "passed": true,
+      "trace_state_sha256": "faf9682364ebb6f59aee5217c18e0e7b38eb60b6e779f1770bac76782854d02b"
+    },
+    {
+      "error": null,
+      "family": "item",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "normal_cleanup",
+      "passed": true,
+      "trace_state_sha256": "6f15b1fd4b0e5264e02c29019d9c55a11865a929b3087fe4d07e68adaf0de5b8"
+    },
+    {
+      "error": null,
+      "family": "item",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "late_old_cleanup",
+      "passed": true,
+      "trace_state_sha256": "2d6a7ef1584897067cab9d8f34ee9a0bb82d2392cb7e0743754e14c3c24241ca"
+    },
+    {
+      "error": null,
+      "family": "item",
+      "identical_event_count": 49,
+      "kind": "actual-owner-effect-closure",
+      "mode": "same_preview_new_controls",
+      "passed": true,
+      "trace_state_sha256": "80f9ed811b5b9d75289d2a314a1ca4f49d5d3555aecf18ec40126e739d8a2440"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "item",
+      "identical_event_count": 43,
+      "kind": "actual-owner-effect-closure",
+      "mode": "controls_close_error",
+      "passed": true,
+      "trace_state_sha256": "7a78444f776083168fb17ed710275cf7ce8e8524bddf03a569e380b9ad6b8ac2"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "item",
+      "identical_event_count": 44,
+      "kind": "actual-owner-effect-closure",
+      "mode": "preview_close_error",
+      "passed": true,
+      "trace_state_sha256": "1863811f38cee6fb8b55c141a178c99a65b2557e8738f9f793146d10dbff88d8"
+    },
+    {
+      "error": null,
+      "family": "item",
+      "identical_event_count": 45,
+      "kind": "actual-owner-effect-closure",
+      "mode": "missing_current_attribute",
+      "passed": true,
+      "trace_state_sha256": "d3f2a7c684db48b1a3bcf9b529f595b4ac547b322e6f6a16d05834931996281c"
+    },
+    {
+      "error": null,
+      "family": "item",
+      "identical_event_count": 51,
+      "kind": "actual-owner-effect-closure",
+      "mode": "repeat_cleanup",
+      "passed": true,
+      "trace_state_sha256": "5e4408f3765fd32a1c3662bdbe5b508a077953ac634c8415497bc2b6fd53a3b8"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": false,
+        "type": "AttributeError"
+      },
+      "family": "item",
+      "identical_event_count": 42,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_controls",
+      "passed": true,
+      "trace_state_sha256": "b2dc3ec118eac116f5dd9d0e00b7f72d9fc191819210582996a6e19fcb4b10b4"
+    },
+    {
+      "error": null,
+      "family": "item",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "close_replaces_owner",
+      "passed": true,
+      "trace_state_sha256": "7793f550189c76430b34d02b8b6d39a14b346c78555e97f41f603f3f6a5c167e"
+    },
+    {
+      "error": null,
+      "family": "cauldron",
+      "identical_event_count": 37,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_preview",
+      "passed": true,
+      "trace_state_sha256": "41b2e9c04325ffe0a0ddc5c4aadeefd31d01b3d432de78dc763853ac26475ce2"
+    },
+    {
+      "error": null,
+      "family": "cauldron",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "normal_cleanup",
+      "passed": true,
+      "trace_state_sha256": "857f573e2d55f714cd74bf9f50cfbe6064716396408cf735858a9208f007c4d2"
+    },
+    {
+      "error": null,
+      "family": "cauldron",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "late_old_cleanup",
+      "passed": true,
+      "trace_state_sha256": "92e1e2a8a0dac181ddea6cb08fae02b191fbfdaf40400eb9791cbd0240efda94"
+    },
+    {
+      "error": null,
+      "family": "cauldron",
+      "identical_event_count": 49,
+      "kind": "actual-owner-effect-closure",
+      "mode": "same_preview_new_controls",
+      "passed": true,
+      "trace_state_sha256": "0661f9aa60b882d0c460c59138f3b66203d2923627caf856b1925503e8753531"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "cauldron",
+      "identical_event_count": 43,
+      "kind": "actual-owner-effect-closure",
+      "mode": "controls_close_error",
+      "passed": true,
+      "trace_state_sha256": "8c0d7c772ca9293a7d2e13af21ed189c762e1712907ad2133cdd6823c4121e06"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "cauldron",
+      "identical_event_count": 44,
+      "kind": "actual-owner-effect-closure",
+      "mode": "preview_close_error",
+      "passed": true,
+      "trace_state_sha256": "5d4752982acfe62ed7972bcf055a801518822a566fb0d8721755e1b7f87cc03f"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": false,
+        "type": "AttributeError"
+      },
+      "family": "cauldron",
+      "identical_event_count": 45,
+      "kind": "actual-owner-effect-closure",
+      "mode": "missing_current_attribute",
+      "passed": true,
+      "trace_state_sha256": "c47f948ad9baaf5e9010a715756cb43026e8152bb3dcf69e45b51dc92acc150a"
+    },
+    {
+      "error": null,
+      "family": "cauldron",
+      "identical_event_count": 51,
+      "kind": "actual-owner-effect-closure",
+      "mode": "repeat_cleanup",
+      "passed": true,
+      "trace_state_sha256": "af1385a2828b4166d31394a6cacdc4ccecc755b8ec837694945826cb98895289"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": false,
+        "type": "AttributeError"
+      },
+      "family": "cauldron",
+      "identical_event_count": 42,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_controls",
+      "passed": true,
+      "trace_state_sha256": "77b17b2f863f6607d1d5675591a855131c6a5fa8ed1ad21ed562a1b36894f0d5"
+    },
+    {
+      "error": null,
+      "family": "cauldron",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "close_replaces_owner",
+      "passed": true,
+      "trace_state_sha256": "b535975f91996b93e86fd3a98449762a4472c78fb1d01547f5d217a388f84f58"
+    },
+    {
+      "error": null,
+      "family": "portal",
+      "identical_event_count": 37,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_preview",
+      "passed": true,
+      "trace_state_sha256": "4c0aecf728845852b1c6476a38414984c4b442f9cd94404a2fb4fd6bdab8bc66"
+    },
+    {
+      "error": null,
+      "family": "portal",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "normal_cleanup",
+      "passed": true,
+      "trace_state_sha256": "53e0757dc0091e758f635434238d93bb3a1026396e316629482f205d7c351c68"
+    },
+    {
+      "error": null,
+      "family": "portal",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "late_old_cleanup",
+      "passed": true,
+      "trace_state_sha256": "3779062d195b773c514c1e2aaae9c74afc81af1458c2991617fa1ace6cd9cd48"
+    },
+    {
+      "error": null,
+      "family": "portal",
+      "identical_event_count": 49,
+      "kind": "actual-owner-effect-closure",
+      "mode": "same_preview_new_controls",
+      "passed": true,
+      "trace_state_sha256": "811d82cd7cd57c66b50cc24f604dba14624ed70d2771b5769943f6fa472452a8"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "portal",
+      "identical_event_count": 43,
+      "kind": "actual-owner-effect-closure",
+      "mode": "controls_close_error",
+      "passed": true,
+      "trace_state_sha256": "09365f6d3c4cb0881348fd4cbc6022f880651bb3b39bdd8fe99261e332fb7ce3"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "portal",
+      "identical_event_count": 44,
+      "kind": "actual-owner-effect-closure",
+      "mode": "preview_close_error",
+      "passed": true,
+      "trace_state_sha256": "18d07b38551caff2b326cce873c368439f3ba2778ca003369a6251cd4352eab6"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": false,
+        "type": "AttributeError"
+      },
+      "family": "portal",
+      "identical_event_count": 45,
+      "kind": "actual-owner-effect-closure",
+      "mode": "missing_current_attribute",
+      "passed": true,
+      "trace_state_sha256": "2ff8d49e686bc291eb072dcfd40da3849b0322c63ff4523f62af66708ba69921"
+    },
+    {
+      "error": null,
+      "family": "portal",
+      "identical_event_count": 51,
+      "kind": "actual-owner-effect-closure",
+      "mode": "repeat_cleanup",
+      "passed": true,
+      "trace_state_sha256": "092992d845620f13b4db97cdd6a82ddb134a4b65cf8d77cb08889f765cd6bb4f"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": false,
+        "type": "AttributeError"
+      },
+      "family": "portal",
+      "identical_event_count": 42,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_controls",
+      "passed": true,
+      "trace_state_sha256": "21bf817ac963f215001ac37e1d667baa2eeb22f1367c5e1bffc5f004a8cbafae"
+    },
+    {
+      "error": null,
+      "family": "portal",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "close_replaces_owner",
+      "passed": true,
+      "trace_state_sha256": "458be219f39691dea852d6dc753980589afe9c61f9ad9bc148a82ac270922220"
+    },
+    {
+      "error": null,
+      "family": "book",
+      "identical_event_count": 37,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_preview",
+      "passed": true,
+      "trace_state_sha256": "d695fc1b9a43c8d337ff5f01487a4f040abc4bddd59ace6c2ecbf8de78032d97"
+    },
+    {
+      "error": null,
+      "family": "book",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "normal_cleanup",
+      "passed": true,
+      "trace_state_sha256": "db1dc87e149ecf6be97a13ade3484bc7ab873ccdab4d643c9ebad56f52d30c43"
+    },
+    {
+      "error": null,
+      "family": "book",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "late_old_cleanup",
+      "passed": true,
+      "trace_state_sha256": "fe6405fc3ea86df50d3c4fd89fcc2cd0b118d69dbc8544b3456a50dd4327fdde"
+    },
+    {
+      "error": null,
+      "family": "book",
+      "identical_event_count": 49,
+      "kind": "actual-owner-effect-closure",
+      "mode": "same_preview_new_controls",
+      "passed": true,
+      "trace_state_sha256": "753554a2a02ecc19acd99035e8ccd9653082ce6617b3c4182dee9cfb4f72e52e"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "book",
+      "identical_event_count": 43,
+      "kind": "actual-owner-effect-closure",
+      "mode": "controls_close_error",
+      "passed": true,
+      "trace_state_sha256": "c127d34554e9a1213087b36e199736f1651279e6f7db94099723780b361cfad3"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": true,
+        "type": "InjectedClose"
+      },
+      "family": "book",
+      "identical_event_count": 44,
+      "kind": "actual-owner-effect-closure",
+      "mode": "preview_close_error",
+      "passed": true,
+      "trace_state_sha256": "b12a4aad7bc0185d83ce693eba51c1729f61a1715d360aee025a9bd19dd90452"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": false,
+        "type": "AttributeError"
+      },
+      "family": "book",
+      "identical_event_count": 45,
+      "kind": "actual-owner-effect-closure",
+      "mode": "missing_current_attribute",
+      "passed": true,
+      "trace_state_sha256": "8934a69c739ef1a413c6613a7941be53dd85191b992877d6709d145698e641d4"
+    },
+    {
+      "error": null,
+      "family": "book",
+      "identical_event_count": 51,
+      "kind": "actual-owner-effect-closure",
+      "mode": "repeat_cleanup",
+      "passed": true,
+      "trace_state_sha256": "c1a821bf3e6de0f09552b687a99e9f8fcf9e69b14dc6a063019a0bc1fb2c89c8"
+    },
+    {
+      "error": {
+        "injected_identity_preserved": false,
+        "type": "AttributeError"
+      },
+      "family": "book",
+      "identical_event_count": 42,
+      "kind": "actual-owner-effect-closure",
+      "mode": "None_controls",
+      "passed": true,
+      "trace_state_sha256": "cff10e6e9543a74bbec30346500ef19a89da70595b7e40eb7275770cc1252746"
+    },
+    {
+      "error": null,
+      "family": "book",
+      "identical_event_count": 48,
+      "kind": "actual-owner-effect-closure",
+      "mode": "close_replaces_owner",
+      "passed": true,
+      "trace_state_sha256": "3c885b4a86cbe57c7ce43cdb4c6fe2b8746959116f651e786e7e6308de0aa8ac"
+    }
+  ],
+  "completed": true,
+  "native_runtime_qualified": false,
+  "original_controls_close_then_preview_close_then_identity_guard_retained": true,
+  "product_sha256_before_after": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+  "product_written": false,
+  "python": [
+    3,
+    13,
+    13
+  ],
+  "scope": "Original and private candidate actual Scene prefix (all original owner construction/hooks) and actual five effect closures, with explicit fake hook scheduler/native factories/SDK resource close boundaries",
+  "sources": {
+    "scene.candidate.py": "9ae698aa0232748d92eb4c1deac5bf786764e517c1e63009fc2146d17cad93cb",
+    "scene.original.py": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+    "scene_owner.py": "cf8f500261d6f1a96d9f0625b62eb277484d2b5034cc614a04b00bc3f4204569"
+  },
+  "this_round_merge": false,
+  "water39_qualification_transferred": false,
+  "whole_module_AST_identical_except_five_owner_bodies_and_helper_import": true
+}

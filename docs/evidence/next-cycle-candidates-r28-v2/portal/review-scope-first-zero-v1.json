@@ -1,0 +1,14 @@
+{
+  "attempts": [
+    "modern_projection/projection/portal_profile",
+    "modern_projection/projection/scene"
+  ],
+  "files_each": 0,
+  "accepted_as_review": false,
+  "correction": "Review both and only candidate files with no scope in fallback-directory mode; 2 files scanned",
+  "baseline_candidate_final_findings_equal": [
+    "logic-blob.large-function@modern_projection/projection/scene.py:308::Scene.tick",
+    "logic-blob.large-function@modern_projection/projection/scene.py:92::Scene",
+    "signature.too-many-params@modern_projection/projection/scene.py:92::Scene"
+  ]
+}

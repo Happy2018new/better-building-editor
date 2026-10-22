@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "entries": [
+    {
+      "path": "baseline/behavior_pack/modern_projection/projection/portal_profile.py",
+      "bytes": 5063,
+      "sha256": "6af026febda0793b296e3e2a5af93cfa6e40854da9cd862fb25ee5d43cc85ed8"
+    },
+    {
+      "path": "baseline/behavior_pack/modern_projection/projection/scene.py",
+      "bytes": 46764,
+      "sha256": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9"
+    },
+    {
+      "path": "candidate/behavior_pack/modern_projection/projection/portal_profile.py",
+      "bytes": 5482,
+      "sha256": "d356b0951f0c36e72f111c37bdbe4f58f8e2040b8b1eadd85e75c8cd45e9eaa9"
+    },
+    {
+      "path": "candidate/behavior_pack/modern_projection/projection/scene.py",
+      "bytes": 46951,
+      "sha256": "3e1aa6d7586eecac33483690e90c7d76a7c8a18eafd0285c4a5393a798e78668"
+    },
+    {
+      "path": "candidate.patch",
+      "bytes": 1745,
+      "sha256": "c453591beac157944e7ec80e9db7d7d0541d515eda92cbb7f7ef2b4cf0cb6ec7"
+    },
+    {
+      "path": "controls-py2.json",
+      "bytes": 11384,
+      "sha256": "fb1d965cbb12c3ec20481efd1360c3add6d82e5effe31648f03a8f4767373a52"
+    },
+    {
+      "path": "controls-py3.json",
+      "bytes": 11094,
+      "sha256": "1469a6725e355d74c5499b2dca2355caa8f92cc737001e53341ac02fb2c41724"
+    },
+    {
+      "path": "NEXT_ROUND.md",
+      "bytes": 9636,
+      "sha256": "10ea00e1dd3f23426bfa34071585811ea8b2a6cfeec2ba4abf556d1f8a63b02a"
+    },
+    {
+      "path": "preparation-failure-v1/prepare_candidate.py",
+      "bytes": 4710,
+      "sha256": "6bdf76960c417ca7553139cefbc51768ed23a25c33ac5e07ef270cd953781d9d"
+    },
+    {
+      "path": "preparation-failure-v1/receipt.json",
+      "bytes": 617,
+      "sha256": "340b22f2f5df494d78403471f788ade02b9e17453088876ea94bdf7314c302cb"
+    },
+    {
+      "path": "prepare_candidate.py",
+      "bytes": 5097,
+      "sha256": "4870fc223e6aa3742fb3345ea7a96a2f35b662b1f7486b1c5cfc3e7d11cc1cc3"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 1483,
+      "sha256": "738e00d824ab0488b6ab8c5965e189be0c902f42c437da0a0789793f616cd926"
+    },
+    {
+      "path": "requalification-preview.json",
+      "bytes": 1881,
+      "sha256": "08c551c6dec3dba2eead18c54ecd42840c6ff55a504177320414cee2dca81e9b"
+    },
+    {
+      "path": "review-baseline-v1.json",
+      "bytes": 3414,
+      "sha256": "14548fdab022533e2a602e8cad95924376412c43827f6e5b17f25db712fe4506"
+    },
+    {
+      "path": "review-candidate-v1.json",
+      "bytes": 3416,
+      "sha256": "fa96da8b5f00c34211884266d4e1148dd54979f0ded3b7cbfc720dd93bfdf3b6"
+    },
+    {
+      "path": "review-scope-first-zero-v1.json",
+      "bytes": 594,
+      "sha256": "407d9bc412553d057025e23c04e435287411426db854fe5a48260816057681ea"
+    },
+    {
+      "path": "seal_candidate.py",
+      "bytes": 7267,
+      "sha256": "aeb507d695f507477eb69bc72742c1daa93f650753c8b40a8ecb0281772f1d69"
+    },
+    {
+      "path": "support/cell.py",
+      "bytes": 13705,
+      "sha256": "4e138901f73353a50afbbefd72c3ea7425ce6234eee10c03ed3adde3f8f3883d"
+    },
+    {
+      "path": "validation-invocations.json",
+      "bytes": 1114,
+      "sha256": "77c8b379b7c8b7b91138662696300bb223acbcb82e518cff1db4014f49b5fdc7"
+    },
+    {
+      "path": "verify_candidate.py",
+      "bytes": 12260,
+      "sha256": "0ab7510cff25379378cbd76551cd1d1b12ca61e107a00df11927ebc80babe601"
+    },
+    {
+      "path": "workspace-boundary-after.json",
+      "bytes": 6411,
+      "sha256": "0e17f71f824b029e99fc3d612a93c42486b509d1193bfb69111e63d0dbe0a205"
+    },
+    {
+      "path": "workspace-boundary-before.json",
+      "bytes": 6389,
+      "sha256": "a3a7873431dfc8df0b98e11400ee45cbcf6d5a0475a893540ac7745634399b06"
+    }
+  ],
+  "files": 22,
+  "bytes": 206477,
+  "patch_sha256": "c453591beac157944e7ec80e9db7d7d0541d515eda92cbb7f7ef2b4cf0cb6ec7",
+  "protected_workspace_files": 45,
+  "actual_Py2_Py3_controls_passed": true,
+  "production_modified": false,
+  "metadata_modified": false,
+  "water39_contract_modified": false,
+  "merge_authorized": false,
+  "MC_started": false,
+  "candidate_cold_tested": false,
+  "qualification_awarded": false,
+  "manual_issues_closed": 0
+}

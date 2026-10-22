@@ -1,0 +1,17 @@
+{
+  "MC_started": false,
+  "files": {
+    "candidate.patch": "d177c25437889efaa5faa0641f2bf464266a7ba83c55f35b66121791f17f89c2",
+    "scene.candidate.py": "9ae698aa0232748d92eb4c1deac5bf786764e517c1e63009fc2146d17cad93cb",
+    "scene.original.py": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+    "scene_owner.py": "cf8f500261d6f1a96d9f0625b62eb277484d2b5034cc614a04b00bc3f4204569"
+  },
+  "prior_preparation_failure": "scene-owner-minimal-v1 preserves exact original bytes and helper; exact LF needle rejected original Git CRLF before candidate creation. v2 preserves original CRLF candidate bytes and uses normalized lines for patch generation only.",
+  "product_written": false,
+  "runtime_qualification_transferred": false,
+  "scope": "OFFLINE_PRIVATE_NEXT_CYCLE_SCENE_OWNER_CANDIDATE",
+  "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "source_git_blob": "9f5ad03886ed32ac8e07303537ec45f4eea05f0f",
+  "source_path": "behavior_pack/modern_projection/projection/scene.py",
+  "this_round_merge": false
+}

@@ -1,0 +1,28 @@
+{
+  "MC_started": false,
+  "candidate_lifecycle_changed_to_pass_controls": false,
+  "failures": [
+    {
+      "correction": "New v2 preserves raw original and CRLF candidate; normalize only for mechanical source editing/diff generation",
+      "original_error": "AssertionError: LF import needle did not match original Git CRLF",
+      "retained": "scene-owner-minimal-v1 has original exact source and first helper; no candidate was created",
+      "stage": "exact source generator"
+    },
+    {
+      "correction": "Decode Windows __file__ bytes with filesystem encoding before joining unicode paths",
+      "original_error": "UnicodeDecodeError: ascii codec cannot decode byte 0xa4 in position 13: ordinal not in range(128)",
+      "stage": "first true Python2 control load"
+    },
+    {
+      "correction": "Parse original encoded bytes under Python2; Python3 decoding stays unchanged",
+      "original_error": "SyntaxError: encoding declaration in Unicode string",
+      "stage": "second true Python2 AST load"
+    }
+  ],
+  "prior_v1_partial_files": {
+    "scene.original.py": "e1a2c18c65f37d29dbaeb35d7b4b512252539871f112ed9552d4e68d955a69a9",
+    "scene_owner.py": "e902d7514ff5ffa6a77e033607b2af701ca43635bd0357185c0b904dcece2ccb"
+  },
+  "product_written": false,
+  "scope": "Private offline preparation only"
+}
