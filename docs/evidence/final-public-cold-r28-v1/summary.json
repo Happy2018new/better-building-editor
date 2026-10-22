@@ -1,0 +1,137 @@
+{
+  "actual_cache_observations": [
+    {
+      "all_current_nonce_native_calls": 3,
+      "current_matching_tile_native_creates": 1,
+      "document_id": 2701795885968,
+      "editor_id": 2701795885184,
+      "first_nonce": 1,
+      "identity": "test.layers.water_source",
+      "nonce": 1,
+      "path": "current_exact_native_create",
+      "source_read_only_verified": true,
+      "stage": "public_load",
+      "tile_builds_cumulative": 2,
+      "tile_key": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "actual_exit_codes": {
+    "game": 3221226505,
+    "mcdk": 0
+  },
+  "actual_public_load_confirm_pairs": 1,
+  "cards_not_reached": [
+    "test.layers.water_pool",
+    "test.layers.water_fence",
+    "test.entities.book_enchanting",
+    "test.entities.book_lectern"
+  ],
+  "cleanup_errors": [],
+  "cold_defaults": {
+    "book_instance_gui_override": false,
+    "book_profile_identity": [
+      1,
+      "3.10.0.420447",
+      "native_artwork_idle_book_v1",
+      128
+    ],
+    "book_profile_type": "modern_projection.projection.book_profile.BookProfile",
+    "bootstrap_performed": false,
+    "engine_version": "3.10.0.420447",
+    "profile_assignment_performed": false,
+    "session_id": 2700884915088,
+    "water_default_callbacks_match_source": true,
+    "water_owner_contract_sha256": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+    "water_profile_type": "modern_projection.projection.liquid_product_profile.ProductLiquidProfile",
+    "water_qualification_sha256": "2f827d28f74ee5f70f5301e556e170003314baa1b0927ef46f4f152dd9947625",
+    "water_rules_sha256": "00749b55138a23f8f86f2b9b2ab024ad57dd4478a6520ac25a18e2c32cc4af2c",
+    "water_supported_names": [
+      "minecraft:flowing_water",
+      "minecraft:water"
+    ]
+  },
+  "complete_semantics_sha256": "c52a220baddc48687ce7c41c3bce4e6c03a6af19ac3cfce86ddde38873684153",
+  "completed_main_frames": 0,
+  "dual_original_restore_qualified": true,
+  "exact_owned_processes_released": true,
+  "experiment_completed": false,
+  "first_error": {
+    "error": "Complete typed water document changed",
+    "type": "AssertionError"
+  },
+  "historical_image_count": 0,
+  "images": [
+    {
+      "completed_natural_main_frame": false,
+      "file": "0001_test_layers_water_source_card.png",
+      "metadata": "0001_test_layers_water_source_card.capture.json",
+      "original_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\check\\0001_test_layers_water_source_card.png",
+      "reviewed_original_image": true,
+      "sha256": "66e2d752166b435ccb447c4c9c0887e110e5c6eb88eb8df98aafc7e9827d1fef"
+    },
+    {
+      "completed_natural_main_frame": false,
+      "file": "0002_test_layers_water_source_editor.png",
+      "metadata": "0002_test_layers_water_source_editor.capture.json",
+      "original_path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\check\\0002_test_layers_water_source_editor.png",
+      "reviewed_original_image": true,
+      "sha256": "41a8c12bd111787c6415337bc29abbd4c31baefe574daea41683c927eafb2b30"
+    }
+  ],
+  "manual_issues_closed": 0,
+  "native_pixels_qualified": false,
+  "normal_shutdown_qualified": false,
+  "original_traceback": "Traceback (most recent call last):\n  File \"D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\run_public_books.py\", line 214, in main\n    natural=check.water_state(label+' default water',identity,expected)\n  File \"D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\run_public_books.py\", line 169, in water_state\n    assert_water_state(state,identity,expected)\n    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\run_public_books.py\", line 76, in assert_water_state\n    assert row['document']==expected,'Complete typed water document changed'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Complete typed water document changed\n",
+  "owner": "final-r28-public-cold-v1",
+  "raw_original_pins": {
+    "actual_check": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\check\\report.json",
+      "sha256": "0fccac289045c73fffbc2688088ccde298c13f1b73f19b04dd1f7134f8d3d8a9"
+    },
+    "actual_lifecycle": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\lifecycle-sequence\\report.json",
+      "sha256": "f4941c7513a18292a1b66c244de9747dddcfc187e4f092b6227df5255920a2b1"
+    },
+    "actual_stop": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\stop\\report.json",
+      "sha256": "1f81dd19d65877e8e257b39bc4cfbca8de1e355a20000ca66decb26565e9ae4e"
+    },
+    "exact_failed_state": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\check\\rpc\\0024.result.json",
+      "sha256": "0130d437066e8bf8d7b7b50642775c7367b7836527cf736ea51f6e46908b143e"
+    },
+    "host_binding": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\host-binding.json",
+      "sha256": "f3fb9ac216f5379f8fdc69d96c109cf8405e1202cf76730abd69fd0fc0d24f4c"
+    },
+    "independent_release": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\run-closeout.json",
+      "sha256": "cf3aa64a030a088271ac56eb3bf91e2ad5d044f52ccb47e43c4e13ad70958bc4"
+    },
+    "root_grant": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\root-launch-grant-v1.json",
+      "sha256": "4c67c736016cf2bd6dbdf6f33b895d93dbd1a82b1f3a26cce3ae624058c01a2a"
+    },
+    "root_review": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\root-offline-review-v1.json",
+      "sha256": "87fe9fc062d405f5776219877a533be1a6405ae718ba682e65a93a2536be5f91"
+    },
+    "source_manifest": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\final-public-cold-v1\\source-manifest.json",
+      "sha256": "812433d487b15aed127c6e8a99db9ea46bfb304099010666ea7bdedf7266d2c8"
+    },
+    "typed_proof_script": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\round-20261023\\prove_final_document_wire_v1.py",
+      "sha256": "cb8debdcd99ba5f4759f3e3a69d523e4d24d2efcb827adb7ca9670694e4ede61"
+    }
+  },
+  "readonly_diagnosis": "Py3 host and native Py2 wire differ only in material-index order and matching chunk encoding; exact original native expected/actual/state wires match. Both real interpreters decode all 800 positions to identical typed cells and declared-table/header semantics. This diagnosis leaves the original native run failed.",
+  "restored": true,
+  "source_and_hosts_unchanged": true,
+  "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "watcher_retired": true
+}

@@ -1,0 +1,324 @@
+{
+  "actual_exit_codes": {
+    "game": 3221226505,
+    "mcdk": 0
+  },
+  "actual_successful_public_confirm_dispatches": 1,
+  "cache_provenance": [
+    {
+      "all_current_nonce_native_calls": 3,
+      "current_matching_tile_native_creates": 1,
+      "document_id": 2701795885968,
+      "editor_id": 2701795885184,
+      "first_nonce": 1,
+      "identity": "test.layers.water_source",
+      "nonce": 1,
+      "path": "current_exact_native_create",
+      "source_read_only_verified": true,
+      "stage": "public_load",
+      "tile_builds_cumulative": 2,
+      "tile_key": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "cleanup_errors": [],
+  "dual_original_restore_qualified": true,
+  "exact_PID_CIM_original_rows": [],
+  "exact_identity_observations": [
+    {
+      "actual_creation_identity": null,
+      "expected_creation_identity": "134371764751354872",
+      "kind": "game",
+      "pid": 15220,
+      "state": "absent"
+    },
+    {
+      "actual_creation_identity": null,
+      "expected_creation_identity": "134371764748326777",
+      "kind": "mcdk",
+      "pid": 66944,
+      "state": "absent"
+    }
+  ],
+  "experiment_completed": false,
+  "first_error": {
+    "error": "Complete typed water document changed",
+    "type": "AssertionError"
+  },
+  "force_executed": false,
+  "independent_readonly_release_at": "2026-10-22T21:04:42.237130+00:00",
+  "lifecycle_finished_at": "2026-10-22T21:03:55.647824+00:00",
+  "main_frames_completed": 0,
+  "manual_issues_closed": 0,
+  "no_live_exact_owned_processes": true,
+  "normal_shutdown_qualified": false,
+  "owner": "final-r28-public-cold-v1",
+  "processes": {
+    "game": {
+      "creation_identity": "134371764751354872",
+      "pid": 15220
+    },
+    "mcdk": {
+      "creation_identity": "134371764748326777",
+      "pid": 66944
+    }
+  },
+  "raw_report_pins": {
+    "check": "0fccac289045c73fffbc2688088ccde298c13f1b73f19b04dd1f7134f8d3d8a9",
+    "grant": "4c67c736016cf2bd6dbdf6f33b895d93dbd1a82b1f3a26cce3ae624058c01a2a",
+    "host_binding": "f3fb9ac216f5379f8fdc69d96c109cf8405e1202cf76730abd69fd0fc0d24f4c",
+    "lifecycle": "f4941c7513a18292a1b66c244de9747dddcfc187e4f092b6227df5255920a2b1",
+    "source_manifest": "812433d487b15aed127c6e8a99db9ea46bfb304099010666ea7bdedf7266d2c8",
+    "stop": "1f81dd19d65877e8e257b39bc4cfbca8de1e355a20000ca66decb26565e9ae4e",
+    "watcher_close": "c2aee43d14fd1c757800bf8971d8de03540c0f60f27e5d725df2232b8fa3582e"
+  },
+  "registry_state": "stopped",
+  "release_completed": true,
+  "restore_audits": [
+    {
+      "actor_count": 0,
+      "document_id": 2700884915200,
+      "editor_id": 2700884806400,
+      "fields_equal": true,
+      "library_semantics_equal": true,
+      "original_document": {
+        "biome": "plains",
+        "blockCount": 1307,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1p:eJxjZWBmYGBkYAJSLAzIwGGSiuckFeqSDPiBAlCJJ0UkLtDAyMDAg1N2Q+7tbbxEkeSZrzCJxYOLQQHI4iBAjpo/WM1nZuPBSS6YyOzGR5H5+AEobXMSRQ5O80fBEAEAD1Vgyg=="
+          ],
+          [
+            0,
+            0,
+            1,
+            "1r:eJxjYmBg4GNgZGAikl4CpHmAPBY0mhlIMwLJC0CaG0izotEsSPIg0zihNCsWPjfUXGLUg+xlZmBj4EJi80Lp/TTUC3PnVRqo40biExK/CGQAAPYfC5A="
+          ],
+          [
+            1,
+            0,
+            0,
+            "1p:eJxjY2BmYGBkYAJSrAxsDMjAcxL1SSzAAMGcxEIpid98CFDhJJ8kxnyqgVtM6OTQMn8UjIJRMKQAAGm4GgE="
+          ],
+          [
+            1,
+            0,
+            1,
+            "1r:eJxjY2Bk4GJgYGAjgl4FpFkYmBh40GgBIM3IwMxwGsxnZTCA8v9D6XdAmhloAi8afReH+C6ghQBt5QZJ"
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:grass_block",
+            {},
+            [
+              "minecraft:grass",
+              0
+            ]
+          ],
+          [
+            "minecraft:quartz_block",
+            {
+              "pillar_axis": "y"
+            }
+          ],
+          [
+            "minecraft:spruce_planks",
+            {},
+            [
+              "minecraft:planks",
+              1
+            ]
+          ],
+          [
+            "minecraft:glass",
+            {}
+          ],
+          [
+            "minecraft:cyan_stained_glass",
+            {},
+            [
+              "minecraft:stained_glass",
+              9
+            ]
+          ],
+          [
+            "minecraft:oak_leaves",
+            {
+              "persistent_bit": false,
+              "update_bit": false
+            },
+            [
+              "minecraft:leaves",
+              0
+            ]
+          ]
+        ],
+        "name": "\u6797\u95f4\u767d\u76d2\u5efa\u7b51\u7ec3\u4e60",
+        "palette": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          16,
+          24
+        ],
+        "version": 6
+      },
+      "original_library_same_object": true,
+      "original_undo_redo_selection_equal": true,
+      "preview_ready": true,
+      "profiles_same": true,
+      "restored": true,
+      "stored_library_equal": true,
+      "workspace": false
+    },
+    {
+      "actor_count": 0,
+      "document_id": 2700884915200,
+      "editor_id": 2700884806400,
+      "fields_equal": true,
+      "library_semantics_equal": true,
+      "original_document": {
+        "biome": "plains",
+        "blockCount": 1307,
+        "cellVersion": 1,
+        "chunkEncoding": 1,
+        "chunks": [
+          [
+            0,
+            0,
+            0,
+            "1p:eJxjZWBmYGBkYAJSLAzIwGGSiuckFeqSDPiBAlCJJ0UkLtDAyMDAg1N2Q+7tbbxEkeSZrzCJxYOLQQHI4iBAjpo/WM1nZuPBSS6YyOzGR5H5+AEobXMSRQ5O80fBEAEAD1Vgyg=="
+          ],
+          [
+            0,
+            0,
+            1,
+            "1r:eJxjYmBg4GNgZGAikl4CpHmAPBY0mhlIMwLJC0CaG0izotEsSPIg0zihNCsWPjfUXGLUg+xlZmBj4EJi80Lp/TTUC3PnVRqo40biExK/CGQAAPYfC5A="
+          ],
+          [
+            1,
+            0,
+            0,
+            "1p:eJxjY2BmYGBkYAJSrAxsDMjAcxL1SSzAAMGcxEIpid98CFDhJJ8kxnyqgVtM6OTQMn8UjIJRMKQAAGm4GgE="
+          ],
+          [
+            1,
+            0,
+            1,
+            "1r:eJxjY2Bk4GJgYGAjgl4FpFkYmBh40GgBIM3IwMxwGsxnZTCA8v9D6XdAmhloAi8afReH+C6ghQBt5QZJ"
+          ]
+        ],
+        "materials": [
+          [
+            "minecraft:air",
+            {}
+          ],
+          [
+            "minecraft:grass_block",
+            {},
+            [
+              "minecraft:grass",
+              0
+            ]
+          ],
+          [
+            "minecraft:quartz_block",
+            {
+              "pillar_axis": "y"
+            }
+          ],
+          [
+            "minecraft:spruce_planks",
+            {},
+            [
+              "minecraft:planks",
+              1
+            ]
+          ],
+          [
+            "minecraft:glass",
+            {}
+          ],
+          [
+            "minecraft:cyan_stained_glass",
+            {},
+            [
+              "minecraft:stained_glass",
+              9
+            ]
+          ],
+          [
+            "minecraft:oak_leaves",
+            {
+              "persistent_bit": false,
+              "update_bit": false
+            },
+            [
+              "minecraft:leaves",
+              0
+            ]
+          ]
+        ],
+        "name": "\u6797\u95f4\u767d\u76d2\u5efa\u7b51\u7ec3\u4e60",
+        "palette": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "registry": {
+          "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+          "version": "NEMC 3.9.0.401155"
+        },
+        "size": [
+          24,
+          16,
+          24
+        ],
+        "version": 6
+      },
+      "original_library_same_object": true,
+      "original_undo_redo_selection_equal": true,
+      "preview_ready": true,
+      "profiles_same": true,
+      "restored": true,
+      "stored_library_equal": true,
+      "workspace": false
+    }
+  ],
+  "restored": true,
+  "runtime_pixels_qualified": false,
+  "same_owner_retry": false,
+  "source_and_bound_hosts_reverified": true,
+  "source_commit": "b70ce7bf13ad6a4472f2b089ac812c162b174861",
+  "stop_completed": true,
+  "watcher_retired": true,
+  "water_FA_matrix_requalified": false
+}

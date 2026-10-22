@@ -1,0 +1,203 @@
+{
+  "MC_started": false, 
+  "complete_comparison": {
+    "actual_original_wire_sha256": "ea39b5e4031c23ae3a911809c502d4a18b90399b2d96d9182764324c61448526", 
+    "comparison": "strict_v6_full_typed_cells_and_declared_tables", 
+    "complete_positions_checked": 800, 
+    "complete_semantics_sha256": "c52a220baddc48687ce7c41c3bce4e6c03a6af19ac3cfce86ddde38873684153", 
+    "exact_header_and_unknown_fields_checked": true, 
+    "expected_original_wire_sha256": "08e001495c37d06ddb38325df63a67c1567317e56848d87582a7090d5bd2be43", 
+    "full_actor_tag_types_and_extra_layers_checked": true, 
+    "nonair_cells": 2, 
+    "unused_material_palette_rows_preserved": true, 
+    "wire_identical": false
+  }, 
+  "complete_semantics_sha256": "c52a220baddc48687ce7c41c3bce4e6c03a6af19ac3cfce86ddde38873684153", 
+  "native_pixels_qualified": false, 
+  "negative_controls": [
+    {
+      "case": "wrong material at same complete positions", 
+      "changed_sections": [
+        "complete_cells"
+      ], 
+      "phase": "strict_full_typed_semantic_comparison", 
+      "rejected": true
+    }, 
+    {
+      "case": "wrong foreground aux/depth", 
+      "changed_sections": [
+        "complete_cells", 
+        "declared_material_rows", 
+        "declared_typed_palette_rows"
+      ], 
+      "phase": "strict_full_typed_semantic_comparison", 
+      "rejected": true
+    }, 
+    {
+      "case": "wrong complete extra layer", 
+      "changed_sections": [
+        "complete_cells", 
+        "declared_typed_palette_rows"
+      ], 
+      "phase": "strict_full_typed_semantic_comparison", 
+      "rejected": true
+    }, 
+    {
+      "case": "added typed actor including bytes and tuple", 
+      "changed_sections": [
+        "complete_cells", 
+        "declared_typed_palette_rows"
+      ], 
+      "phase": "strict_full_typed_semantic_comparison", 
+      "rejected": true
+    }, 
+    {
+      "case": "actor bool differs from integer one", 
+      "changed_sections": [
+        "complete_cells", 
+        "declared_typed_palette_rows"
+      ], 
+      "phase": "strict_full_typed_semantic_comparison", 
+      "rejected": true
+    }, 
+    {
+      "case": "wrong registry provenance", 
+      "changed_sections": [
+        "header"
+      ], 
+      "phase": "strict_full_typed_semantic_comparison", 
+      "rejected": true
+    }, 
+    {
+      "case": "unknown top wire field", 
+      "phase": "real_codec_or_strict_schema", 
+      "reason": "Strict document compare requires the exact v6 wire field set", 
+      "rejected": true
+    }, 
+    {
+      "case": "unknown registry field", 
+      "phase": "real_codec_or_strict_schema", 
+      "reason": "\u8bed\u4e49\u65b9\u5757\u683c\u5f0f\u6216\u6765\u6e90\u65b9\u5757\u8868\u7248\u672c\u65e0\u6548", 
+      "rejected": true
+    }, 
+    {
+      "case": "unused material row is not discarded", 
+      "changed_sections": [
+        "declared_material_rows"
+      ], 
+      "phase": "strict_full_typed_semantic_comparison", 
+      "rejected": true
+    }, 
+    {
+      "case": "unused palette row is not discarded", 
+      "changed_sections": [
+        "declared_typed_palette_rows"
+      ], 
+      "phase": "strict_full_typed_semantic_comparison", 
+      "rejected": true
+    }, 
+    {
+      "case": "invalid compressed chunk is not ignored", 
+      "phase": "real_codec_or_strict_schema", 
+      "reason": "\u4e0d\u652f\u6301\u7684\u5206\u5757\u538b\u7f29\u683c\u5f0f", 
+      "rejected": true
+    }, 
+    {
+      "case": "state bool differs from integer zero", 
+      "phase": "real_codec_or_strict_schema", 
+      "reason": "\u5f53\u524d\u65b9\u5757\u8868\u65e0\u6cd5\u8868\u793a minecraft:water \u7684\u72b6\u6001 {u'liquid_depth': False}\uff08\u6765\u6e90 NEMC 3.9.0.401155\uff09", 
+      "rejected": true
+    }
+  ], 
+  "original_failed_v1_stays_failed": true, 
+  "original_full_typed_nonair_cells": [
+    [
+      [
+        3, 
+        2, 
+        3
+      ], 
+      [
+        "complete_cell", 
+        [
+          "tuple", 
+          [
+            [
+              "text", 
+              "minecraft:stone"
+            ], 
+            [
+              "int", 
+              "0"
+            ]
+          ]
+        ], 
+        [
+          "tuple", 
+          [
+            [
+              "text", 
+              "minecraft:air"
+            ], 
+            [
+              "int", 
+              "0"
+            ]
+          ]
+        ], 
+        [
+          "null"
+        ]
+      ]
+    ], 
+    [
+      [
+        3, 
+        3, 
+        3
+      ], 
+      [
+        "complete_cell", 
+        [
+          "tuple", 
+          [
+            [
+              "text", 
+              "minecraft:water"
+            ], 
+            [
+              "int", 
+              "0"
+            ]
+          ]
+        ], 
+        [
+          "tuple", 
+          [
+            [
+              "text", 
+              "minecraft:air"
+            ], 
+            [
+              "int", 
+              "0"
+            ]
+          ]
+        ], 
+        [
+          "null"
+        ]
+      ]
+    ]
+  ], 
+  "original_headers_type_exact_equal": true, 
+  "original_host_native_wire_equal": false, 
+  "original_materials_only_order_changed": true, 
+  "original_native_expected_actual_state_wire_exactly_equal": true, 
+  "python": [
+    2, 
+    7, 
+    13
+  ], 
+  "runtime_written": false
+}
