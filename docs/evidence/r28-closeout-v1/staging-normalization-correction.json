@@ -1,0 +1,8 @@
+{
+  "correction": "Added an explicit -text -diff rule only for this frozen archive and restaged original bytes; did not alter original receipts or console whitespace.",
+  "first_failing_file": "final-closeout-v1.json",
+  "first_staged_verification": "failed before commit",
+  "product_changed": false,
+  "reason": "The existing *-r28-* frozen-byte rule does not match the leading r28-closeout name; Git normalized original JSON line endings and inspected captured powercfg terminal whitespace.",
+  "restage_requirement": "Ordinary git add reused cached file stats after the attribute change; explicit git add --renormalize is required to stage exact original bytes."
+}
