@@ -2,6 +2,12 @@
 
 ## 2026-10-23 R28 开发中（优先于下方 R27 历史收尾）
 
+**05:35最新状态优先于本节稍早检查点：**主程序运行来源为b70ce7bf；最终三水＋两书公开冷测v1在宿主跨Py2／3原wire比较处失败（原生数据自身一致），已保留原失败、双恢复和异常退出。真实两解释器逐800格完整类型语义证明相同，后续V3只修跨解释器水比较及公开status读写，原书缓存门不变；root独立审源和完整main离线重放后，V3正在独占槽进行一次真实冷启动，尚不能报通过。见[最终入口](verification/FINAL_PUBLIC_COLD_R28.md)。
+
+两名称植物A4在看护status截断JSON处失败，未启动MC、未到targets。V6修写端后，原Path读端的第13并发控制又失败；V7新读写接口九控制通过，原首败保留，详见[状态读写](verification/WATCHER_STATUS_IO_R28.md)。末地legacy GUI2／3／4锚点因果实验与T02白支撑对照正在独立离线准备，均未获像素／人工通过。按钮264个可重复差异支持微弱贡献，仍不关闭贴面、厚度及深度；植物和线候选仍未合入。新增人工关闭0。
+
+下周期重构的[静态职责图](verification/RENDER_BOUNDARY_MAP_R28.md)已完成：259个真Py2语法解析、258个Py3对照；39显式源可保守语法到达248模块，不能当实际执行闭包。只准备了职责／接入边界，没有已完成Scene重构或两库切换。主仓render_layout与renderer现有文件已直接SHA比对相同；两库HEAD及来源绑定未改。
+
 本轮仍按北京时间 08:00 截止并休眠。已提交书 GUI2／3 锚点窄修 `7c06e23a` 和产品水 PaperDoll 裁剪几何修正 `a6950ece`，新增半床／半高草两个可选聚焦变换入口 `e733baa9`。水私有池景冷启动达到 8／8 native ID 就绪，旧失败两组恢复；该私有 Scene 尚不含最终书改动，不能授予合源水的全部 F／A／B／R／G 或默认冷启动 D 资格。正式源复验继续进行。见[水池几何](verification/WATER_POOL_GEOMETRY_COLD_R28.md)、[书锚点](verification/BOOK_EDITOR_R28.md)。
 
 北京时间03:55检查点：合源的书GUI2／3／4与讲台GUI2已有正式原图；两张公开书卡已加入，但独立公开冷流程在真实第二次载入后的缓存证书检查处停止，后续重新载入外观和讲台流程尚未运行。正在补严格的同会话缓存来源证明，不能将旧host拒绝直接改为产品通过。T01／T05实际生产Session及SDK保存载回、T04／T05受控missing已补；独立`48dedf14`冷源补齐T08与两个可选伙伴卡的代表操作，见[公开流程](verification/TRANSFORM_PUBLIC_R28.md)及[新实例补查](verification/TRANSFORM_PUBLIC_COMPLETION_R28.md)。

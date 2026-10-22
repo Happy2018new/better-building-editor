@@ -2,6 +2,14 @@
 
 ## 2026-10-22 R28 已授权接续（本节优先）
 
+**05:35北京时间接续：**当前dev为5ad78cbe，最终游戏运行代码仍b70ce7bf。三水＋两书最终公开冷测V3正在唯一独占槽，owner `final-r28-public-cold-v3`，cutoff22:00Z／watch22:05Z，只有一次attempt；先等双restore、source／host后核、ordinary stop、精确PID+creation退出与watch退休，再授下一槽。V1水比较首败及V2未启动状态保留。root已独立核3712+36 Git源、46宿主／4外部资产，并实际重放完整main正例和WGC失败两个离线场景；其中UI／native／capture／restore是明确假边界，不可称实机或像素通过。V3源／宿主SHA及授权在`.runtime/round-20261023/final-public-cold-v3/`。
+
+V1首败是host Py3材质索引顺序与native Py2不同，现场原生expected／actual／STATE原wire完全相等。真Py2／3完整800格类型语义摘要相同，各拒12个负控；V3仅改水跨解释器host比较，保留原wire，书严格cache／reload门原样。首败小包和专项页已提交30162115，root独审原始指针及PNG字节并实际查看编辑器图；该轮仍为1对confirm／0主帧、game C0000409／MCDK0，人工0。
+
+植物A4尚未launch即因V5 status截断JSON失败，看护已精确退休；V6 writer-only第13并发控制仍在原Path读侧未知errno13首败。V7使用完整原子发布和94598a69原生共享读，9控制及100发布实跑通过，root独立重放100发布／4857读；原失败不改。所有新host的启动和运行中status读点均需绑定V7，不能只改首启。常用tracked看护工具同步共享read_json／write_json，11项定点通过，提交5ad78cbe。见[专项](verification/WATCHER_STATUS_IO_R28.md)。
+
+water_r28离线准备portal V4（b70源、GUI2／3／4×三窗口×A/B/A共18原图，实验最晚07:20／watch07:25），transforms_r28优先具体化T02白支撑6阶段／4模型对照；二者无启动授权。剩余时间不再扩植物矩阵。红石线候选未合入，按钮264弱差异／82较强差异不等于贴面或厚度通过。259模块静态职责图已提交e145958d，约6小时周期重构容量及两库10-31—11-03最小接入不变。下方04:25等为更早检查点，后续结果以本节最新更新及专项为准。
+
 用户已授权按原计划进入下一轮并在截止时休眠。固定窗口为 **2026-10-22 15:30—2026-10-23 00:00 UTC**，即客户端 America/New_York **10-22 11:30—20:00**，原计划北京时间 **10-22 23:30—10-23 08:00**。07:00（北京时间）停止扩范围，07:30停止长实验并冻结周末入口，07:45前恢复、关闭所属实例和保存交接，08:00休眠。
 
 一次任务 `Codex-BBE-R28-Hibernate-20261023` 已创建并读回：Ready／Enabled、trigger `2026-10-23T08:00:00+08:00`、`shutdown.exe /h`、StartWhenAvailable=False，电池条件不阻止运行。这是安排就绪，尚非已执行。
