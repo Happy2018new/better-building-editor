@@ -50,6 +50,8 @@ from .debug_coral_blueprints import (METADATA as CORAL_REVIEW_METADATA,
                                       VISUAL_CASES as CORAL_REVIEW_VISUAL_CASES)
 from .debug_book_blueprints import (METADATA as BOOK_METADATA,
                                      VISUAL_CASES as BOOK_VISUAL_CASES)
+from .debug_water_focus_blueprints import (METADATA as WATER_FOCUS_METADATA,
+                                           CASES as WATER_FOCUS_CASES)
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -93,7 +95,7 @@ BLUEPRINTS = (
     CORAL_METADATA,
     PEONY_METADATA,
     KELP_METADATA,
-) + CORAL_REVIEW_METADATA + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA + TRANSFORM_ACCEPTANCE_METADATA + BOOK_METADATA
+) + CORAL_REVIEW_METADATA + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA + TRANSFORM_ACCEPTANCE_METADATA + BOOK_METADATA + WATER_FOCUS_METADATA
 BLUEPRINTS += ORDINARY_METADATA + context_metadata(BLUEPRINTS)
 VISUAL_CASES = {
     'barrier_visibility': BARRIER_VISUAL_CASE,
@@ -376,6 +378,9 @@ def build(identity):
         document = build(identity[len('test.ordinary.context.'):])
         document.name = metadata[2]
         return document
+    if identity in WATER_FOCUS_CASES:
+        from .debug_water_focus_blueprints import build as build_water_focus
+        return build_water_focus(identity)
     fixture = Fixture(metadata)
     if identity in BOOK_VISUAL_CASES:
         from .debug_book_blueprints import populate
@@ -504,3 +509,5 @@ def open_blueprint(session, identity):
         session.editor.message = '已载入测试蓝图'
         if identity in BOOK_VISUAL_CASES:
             session.camera_focus_request = BOOK_VISUAL_CASES[identity]['focus']
+        elif identity in WATER_FOCUS_CASES:
+            session.camera_focus_request = WATER_FOCUS_CASES[identity]['focus']
