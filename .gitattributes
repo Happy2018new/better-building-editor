@@ -499,3 +499,6 @@ behavior_pack/modern_projection/projection/projection_target.py -text whitespace
 behavior_pack/modern_projection/projection/debug_projection_transform_blueprints.py -text whitespace=cr-at-eol
 docs/evidence/*-r28-*/** -text -diff whitespace=cr-at-eol
 docs/evidence/r28-closeout-v1/** -text -diff whitespace=cr-at-eol
+
+# R29 compressed records reconstruct their exact original source and log bytes.
+docs/evidence/projection-transforms-r29-v1/** -text -diff whitespace=cr-at-eol
