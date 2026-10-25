@@ -651,9 +651,18 @@ class ModernProjectionServerSystem(ServerSystem):
             request, action, job, adapter, ticks = entry
             self.jobs[player] = (request, action, job, adapter, ticks + 1)
             if action == 'apply':
-                job.step()
+                player_present = None
+                try:
+                    player_present = player in serverApi.GetPlayerList()
+                    if (not player_present or
+                            adapter.factory.CreateDimension(player).GetEntityDimensionId() != adapter.dimension):
+                        job.cancel('玩家已离开或维度已改变，已取消世界写入')
+                except (ValueError, TypeError, KeyError, RuntimeError) as error:
+                    job.cancel('世界写入状态检查失败：%s' % error_text(error))
+                if not job.done:
+                    job.step()
                 if job.done:
-                    if player not in serverApi.GetPlayerList():
+                    if player_present is False:
                         self.jobs.pop(player, None)
                         continue
                     progress = {'total': job.total, 'processed': job.cursor,
