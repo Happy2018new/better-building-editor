@@ -8,6 +8,10 @@
 
 首次独立MC在启动资源门停止，未运行功能或世界写入测试，未操作另一个独立Codex对话的MC。6GiB运行余量门保持，新源水／书／末地资格不能沿用旧源；原892／34／387人工基线及旗面飘动豁免不变，新增人工关闭0。两库尚未切换运行依赖。见[投影变换](verification/PROJECTION_TRANSFORMS_R29.md)、[末地锚点](verification/PORTAL_GUI_ANCHOR_R29.md)、[床写入边界](verification/WORLD_BED_BOUNDS_R29.md)。本轮仍至北京时间08:00截止并休眠。
 
+离线补查不改变上述关闭数：[仙人掌花／红树根](evidence/ob03-source-review-r29-v1/README.md)身份及纹理输入完整，仍缺原生网格／材质证据，未猜测代理模型。[红石线上坡原始失败](evidence/wire-slope-review-r29-v1/README.md)仍成立，[当前flat-only候选](evidence/wire-flat-current-r29-v1/README.md)真实Py2／3各48例通过但尚未接入产品或取得新原生结果。两库[af9私有接入定点](evidence/library-current-r29-v1/README.md)通过，正式依赖切换仍待。
+
+末地opt-in native包装层另有[UI继承透明度私有候选](evidence/portal-inherited-alpha-r29-v1/README.md)：宿主WebGL2的54组阳性控制中45组实际产生彩色星点，候选与原片元外部传入有效透明度的oracle逐像素相同，原片元16组有差异。最初180组仅覆盖黑纹理清屏，原件及解释保留。16配置中10通过、6保留基线GLES100 skinning顶点头限制；没有MC绑定证据、产品安装或新源资格，不关闭默认星点外观等问题。
+
 ## 2026-10-23 07:41 R28最终收尾（08:00休眠待执行）
 
 本轮已完成产品冻结与最终收尾，07:41只读核对为实际存活MC／所属观察进程0、三仓受跟踪工作区干净、3712项运行源无非换行漂移、显式水39项不变。08:00休眠任务再次核为就绪，此刻尚未观察到执行；见[最终收尾回执](evidence/r28-closeout-v1/README.md)。本轮新增人工关闭0，下一允许窗口仍为10-25周日23:30，周末反馈优先。下方阶段计划保留供追溯。

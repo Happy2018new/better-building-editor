@@ -9,3 +9,9 @@ Scene 在每次回调读取 `Theme.native_gui_scale`，因此同一场景内 GUI
 `tests/test_portal_gui_anchor.py` 的四项回归覆盖 GUI2／3 修正、GUI4 恒等、输入边界、同一实际 Scene 回调的 2→3→4→2 切换和旧 profile 兼容；与五项既有书本锚点回归共同通过。其余 35 项末地定点测试通过。真实 Python2／3 的完整候选编译及 profile／实际回调控制通过；root 已逐字核对主仓两文件等于该候选，完整 Scene AST 只有末地回调体变化。结构审查保留 Scene 原有长函数和参数提示，没有新增依赖或端侧调用。
 
 本次 Scene 改动会使水 41 项显式实现来源及书本 19 项 owner 来源中的 Scene 指纹改变；末地 19 项来源另含 profile。新源必须单独冻结和验证，不能复制旧门或资格。新源实机与用户人工接受仍待完成，新增人工关闭为 0。内部离线控制留在 `.runtime/portal-anchor-r29-v1/`；产品及永久测试由 Git 提交保存。
+
+## opt-in native 的继承透明度补查
+
+另发现legacy片元在正交UI中使用CURRENT_COLOR.a，而opt-in native包装层没有继承该透明度。私有候选仅补同条件乘数和零值discard，保留世界路径、混合方式、原生星点及参数；未安装到产品或现有冷测副本。宿主ANGLE SwiftShader实际54组非黑纹理控制有45组彩色贡献，全部与原片元外部传入有效透明度的oracle相同，旧包装层16组有差异。第一组180次实际采样均落黑纹理，只支持清屏层结论，不能充当星点RGB证据。原始结果和补充控制分别保留。
+
+实际16配置编译／链接10项通过，6项为基线同样不支持的GLES100 skinning mat3x4顶点头；不称全变体通过。生成器只产生这一个片元差异，并明确修改原“只改include路径”的contract描述。见[小型原件包](../evidence/portal-inherited-alpha-r29-v1/README.md)。真实MC的CURRENT_COLOR／PROJ绑定、界面过渡及当前冷源仍待，默认末地外观、方向、速度和亮度问题没有因此关闭。

@@ -1,5 +1,13 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-26 04:20 R29离线增量（开发继续）
+
+本轮仍至北京时间08:00截止并休眠；af9产品源和CPU-v6结果未变，不因下面文档／私有候选更新重跑全量或重冻投影v5／水v4。投影v5唯一条件授权保持，04:18可用commit约7.430GiB、全机live1／unknown0，低于9.319GiB启动门；自有MC／watcher／observer均未启动。只读统计资源，不操作其他独立对话的MC。三活动代理为v5条件冷测、wire新host、投影确认时序独审。
+
+新保存五项小型原件：[OB-03两名称](evidence/ob03-source-review-r29-v1/README.md)、[红石线上坡原失败](evidence/wire-slope-review-r29-v1/README.md)、[当前flat-only候选](evidence/wire-flat-current-r29-v1/README.md)、[af9两库私有接入](evidence/library-current-r29-v1/README.md)、[末地UI透明度私有候选](evidence/portal-inherited-alpha-r29-v1/README.md)。149份引用、136个去重小对象逐SHA／gzip验证，凭据模式扫描发现0，最大对象52,164字节；没有产品安装、新MC或人工关闭。
+
+两库当前私有93项定点及真Py2／3各39条通过，旧全量失败保留，主程序未cutover。红石线真Py2／3各48例复用既有v3；原上坡像素严格失败仍开，新host不能只切换三个helper。末地原生包装层继承透明度候选只经宿主GL：54组中45组彩色阳性、oracle零差；初始180组全黑纹理的限制、6项基线顶点头编译限制保留，无MC uniform绑定证据。OB-03尚无足够资料猜测mesh。
+
 ## 2026-10-26 04:00 R29接续检查点（开发继续）
 
 本轮仍至北京时间08:00截止并休眠，07:00／07:30／07:45收尾线保持。用户再次明确另一个MC属于独立Codex对话和不同模组；不得连接、输入、修改、关闭或重启。主仓dev只本地提交，不push／合main、不清历史untracked或用户probe，最多3活动代理、5全机实际MC。
