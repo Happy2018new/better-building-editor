@@ -502,3 +502,17 @@ docs/evidence/r28-closeout-v1/** -text -diff whitespace=cr-at-eol
 
 # R29 compressed records reconstruct their exact original source and log bytes.
 docs/evidence/projection-transforms-r29-v1/** -text -diff whitespace=cr-at-eol
+
+# Preserve the compacted handoff history and newly frozen R29 evidence bytes.
+docs/CONVERSATION_HANDOFF_HISTORY_20261026.md -text whitespace=cr-at-eol
+docs/evidence/r29-final-cpu-v7/** -text -diff whitespace=cr-at-eol
+docs/evidence/r29-final-cpu-v8/** -text -diff whitespace=cr-at-eol
+docs/evidence/library-final-source-r29-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/library-full-current-r29-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/library-layout-callers-r29-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/runtime-preparation-r29-v7/** -text -diff whitespace=cr-at-eol
+docs/evidence/scene-owner-current-r29-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/wire-native-host-r29-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/world-dimension-r29-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/special-item-source-census-r29-v1/** -text -diff whitespace=cr-at-eol
+docs/evidence/library-runtime-package-r29-v1/** -text -diff whitespace=cr-at-eol
