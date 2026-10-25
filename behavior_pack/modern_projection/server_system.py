@@ -130,6 +130,21 @@ class WorldAdapter(object):
                 back = AIR
         return make_cell(front, back)
 
+    def validate_write(self, document, pos, value):
+        front = foreground(native_cell(self.canonical(value)))
+        properties = registry_states(front)
+        if properties is None or 'head_piece_bit' not in properties:
+            return
+        from .projection.block_groups import paired_position
+
+        def get_block(local):
+            if document.contains(local):
+                return foreground(native_cell(self.canonical(document.get(local))))
+
+        # Native bed placement creates its other half. Only permit a pair
+        # already present in this frozen document, including promoted layers.
+        paired_position(get_block, pos)
+
     def write(self, pos, value, origin=(0, 0, 0)):
         value = native_cell(self.canonical(value))
         front, back = foreground(value), background(value)

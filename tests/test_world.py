@@ -46,6 +46,7 @@ class WorldTests(unittest.TestCase):
                          [row[0] for row in world.attempts])
         self.assertEqual(STONE, world.blocks[(2, 64, 0)])
         self.assertIn('2 格成功，1 格失败', job.error)
+        self.assertIn('首处失败 (1, 64, 0)：写入接口返回失败', job.error)
         self.assertEqual([((1, 64, 0), '写入接口返回失败')], job.failures)
 
     def test_write_exception_is_a_cell_failure_and_does_not_stop_job(self):
@@ -95,6 +96,53 @@ class WorldTests(unittest.TestCase):
         self.assertEqual(1, job.cursor)
         self.assertEqual(1, len(world.attempts))
         self.assertIn('已写入 1 格', job.error)
+
+    def test_optional_validation_receives_local_position_and_document_before_writing(self):
+        world = World()
+        checked = []
+        doc = Document((3, 1, 1), {(i, 0, 0): STONE for i in range(3)})
+
+        def validate(document, local, value):
+            checked.append((document, local, value, len(world.attempts)))
+            if local == (1, 0, 0):
+                raise ValueError('invalid compound part')
+
+        world.validate_write = validate
+        job = WorldJob(world, doc, (5, 64, 9))
+        # The optional adapter hook is resolved once for the job.
+        world.validate_write = lambda *args: self.fail('hook must be cached')
+        complete(job)
+        self.assertEqual([(doc, (0, 0, 0), STONE, 0),
+                          (doc, (1, 0, 0), STONE, 1),
+                          (doc, (2, 0, 0), STONE, 1)], checked)
+        self.assertEqual([(5, 64, 9), (7, 64, 9)],
+                         [row[0] for row in world.attempts])
+        self.assertEqual((2, 1), (job.written, job.failed))
+        self.assertEqual([((6, 64, 9), 'invalid compound part')], job.failures)
+
+    def test_cancel_stops_future_validation_and_native_writes(self):
+        world = World()
+        checked = []
+        world.validate_write = lambda doc, local, value: checked.append(local)
+        doc = Document((3, 1, 1), {(i, 0, 0): STONE for i in range(3)})
+        job = WorldJob(world, doc, (5, 64, 9))
+        job.step(1)
+        job.cancel()
+        complete(job)
+        self.assertEqual([(0, 0, 0)], checked)
+        self.assertEqual([(5, 64, 9)], [row[0] for row in world.attempts])
+
+    def test_cancel_preserves_first_failure_coordinate_and_reason(self):
+        world = World()
+        world.failed.add((5, 64, 9))
+        doc = Document((3, 1, 1), {(i, 0, 0): STONE for i in range(3)})
+        job = WorldJob(world, doc, (5, 64, 9))
+        job.step(2)
+        job.cancel()
+        complete(job)
+        self.assertEqual((1, 1), (job.written, job.failed))
+        self.assertEqual(2, len(world.attempts))
+        self.assertIn('首处失败 (5, 64, 9)：写入接口返回失败', job.error)
 
     def test_include_air_is_opt_in(self):
         world = World()

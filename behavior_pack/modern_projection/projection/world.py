@@ -17,10 +17,11 @@ class WorldJob(object):
     """Adapter implements write for one dimension."""
     def __init__(self, adapter, document, origin, include_air=False):
         self.adapter = adapter
+        self.validate_write = getattr(adapter, 'validate_write', None)
         self.origin = coordinate(origin)
         self.document = document
         points = document.points() if include_air else iter(document.blocks)
-        self.source = ((add(self.origin, pos), document.get(pos)) for pos in points)
+        self.source = ((pos, document.get(pos)) for pos in points)
         self.total = document.volume if include_air else len(document.blocks)
         self.cursor = 0
         self.written = 0
@@ -37,6 +38,20 @@ class WorldJob(object):
         self.done = True
         self.error = '%s：已写入 %d 格，%d 格失败，停止后续写入' % (
             message, self.written, self.failed)
+        self.error += self._failure_detail()
+
+    def _failure_detail(self):
+        if not self.failures:
+            return ''
+        pos, detail = self.failures[0]
+        return '；首处失败 (%d, %d, %d)：%s' % (pos + (detail,))
+
+    def _finish(self):
+        self.done = True
+        if self.failed:
+            self.error = '写入完成：%d 格成功，%d 格失败' % (
+                self.written, self.failed)
+            self.error += self._failure_detail()
 
     def step(self, budget=2048):
         if self.done:
@@ -47,14 +62,14 @@ class WorldJob(object):
                 return
             item = next(self.source, None)
             if item is None:
-                self.done = True
-                if self.failed:
-                    self.error = '写入完成：%d 格成功，%d 格失败' % (
-                        self.written, self.failed)
+                self._finish()
                 return
-            pos, value = item
+            local, value = item
+            pos = add(self.origin, local)
             self.cursor += 1
             try:
+                if self.validate_write is not None:
+                    self.validate_write(self.document, local, value)
                 result = self.adapter.write(pos, value, self.origin)
             except Exception as error:
                 result = False
@@ -69,7 +84,4 @@ class WorldJob(object):
             self.written += 1
 
         if self.cursor >= self.total:
-            self.done = True
-            if self.failed:
-                self.error = '写入完成：%d 格成功，%d 格失败' % (
-                    self.written, self.failed)
+            self._finish()
