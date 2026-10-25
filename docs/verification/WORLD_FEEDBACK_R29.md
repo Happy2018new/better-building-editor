@@ -12,4 +12,6 @@ SDK 以 UTF-8 字节给出错误时，`WorldJob.step` 原来的 Unicode 格式�
 
 新增5项永久回归覆盖实际上传、服务端写入、回复、JSON序列化和客户端接收，及错误文本和公开拒绝操作；连同WorldJob、Session、来源审计、书owner／末地集成，共67项定点通过。结构审查实际解析5个前缀匹配模块，只有既有Session长函数、world_capture参数和world_projection兼容异常提示。两次零文件scope结果不作为通过依据。
 
-内部原件位于 `.runtime/r29-world-feedback-candidate/`，root独立回执为 `.runtime/r29-world-feedback-root-v3/`。这些是CPU及JSON边界验证，没有运行ModSDK网络、原生输入或文字像素检查，新增人工关闭数为0。bca源3571项完整回归仍仅对应该较早来源，不把其数字直接授给本修复。
+内部原件位于 `.runtime/r29-world-feedback-candidate/`，root独立回执为 `.runtime/r29-world-feedback-root-v3/`；[精简归档](../evidence/world-feedback-r29-v1/README.md)保留修前、候选及root实际源记录。这里验证CPU及JSON边界，没有运行ModSDK网络、原生输入或文字像素检查，新增人工关闭数为0。bca源3571项完整回归仍仅对应该较早来源，不把其数字直接授给本修复。
+
+实际修复提交7021随后取得[CPU v4完整回归](../evidence/r29-final-cpu-v4/README.md)：3576项／skip1／OK，6329输入前后不变，13个产品模块真Py2／3编译通过。该结果仍不取代原生网络与像素验收。

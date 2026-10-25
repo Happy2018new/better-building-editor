@@ -1,5 +1,21 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-26 02:50 R29接续检查点（本节优先，开发继续）
+
+本轮仍至**北京时间10-26 08:00＝UTC10-26 00:00＝New York10-25 20:00截止并休眠**。07:00停止扩范围及实机实验，07:30前清理实验，07:45前完成恢复／关闭／交接。`Codex-BBE-R29-Hibernate-20261026` 已再次读回Ready、08:00+08触发shutdown.exe /h；此刻未执行休眠。用户再次明确外部MC属于另一独立Codex对话和完全不同模组，**不得连接、测试、修改、关闭或重启**；仅OS只读资源计数计入全机5活MC上限。主仓dev只本地提交、不push／合main，不清理历史untracked、五用户probe或磁盘垃圾。
+
+当前冻结产品源为完整 `7021e32cb64f09b9567c55a4c7fad3800afc4cc0`。此前投影页变换及17格卡、末地GUI锚点、残缺床写入边界及固定两库打包均保留。7021另修复真实Py2错误：SDK UTF8字节异常造成WorldJob二次编码失败、无final回复而客户端卡住；Session中文拒绝显示也会二次失败。新增无依赖error_text，WorldJob及Session五处既有边界使用，水／portal／book owner来源为42／20／20，不生成新metadata。见[反馈修复及原始失败](verification/WORLD_FEEDBACK_R29.md)。
+
+当前完整CPU v4已结束：**3576项／skip1／OK、exit0**，6329输入／259,508,749字节前后重枚举一致，unittest568.500秒／总589.142221秒；实际13个变更产品模块真Py2.7.13／Py3.13.13编译且SHA匹配。范围含历史untracked，不称clean HEAD-only资格。见[精简原件](evidence/r29-final-cpu-v4/README.md)。无新源／疑点不重复主仓全量；代理下一步只跑独立库候选以发现实际接入差异。
+
+投影实机v1资源失败、未运行observer／smoke／写入／截图及game实际C0000409保持；v2冻结于bca源后未启动，永久保留。新v3 `.runtime/projects/r29-transform-cold-v3`／hosts `validation-v3` 冻结当前7021，3716 runtime／119,016,604字节、4502物理复制非hardlink，21离线控制通过；source／host／observer SHA依次 `b59f9eb4db161d329687102bf31a5b1ab3866e98c5c5eae632b3c7705aefc77e`、`98a0714c85d86796eeab950a53c177069bd5f8c10ac8978dd923de9bda6cefea`、`d379d5387f66fa0cca31afd4ae15d9910b7d2b3fed9a2264cf38cfac6bc7982a`。已给一次条件授权：CPU v4 exit0／changed=[]、fresh OS admission达到9.319GiB且unknown0／live<5、复核冻结绑定后，普通冷Session→原冻结smoke含独立世界写入→完整恢复读回→所属普通stop与精确退出→关闭所属watcher。等至06:30，不自动重试／降门／动外部会话；07:00前结束、07:30前清理。容量监测历史路径仍为`validation-v2/conditional-capacity/`，只是OS读取。02:41余量约7.09GiB，尚未启动自有v3。
+
+水新源准备已冻结为 `.runtime/round-20261026/water-r29-v2`／`.runtime/projects/water-r29-v2`：4491源、1391辅助、42显式实现源；复用原base archive及145,948字节delta，不再复制大型archive。source合同 `ee2932da1bd90f801ebfa390a35c6db89e9268b21709da5a8f8246b32a79095c`；binding `22ca2a8389f9a6e4eb98230f2ddc965f13bed8ebb1e48d520b175c8b3fe8dae9`；host `522c145e3803c2a4f03f244bb16f23678ed151da7161ca3b7c4fa57e91c66121`；只读inspection通过，SHA `7695273df5f62709ae85c54ee7014c617eac4df918f99b7709d614c1bead44df`。旧metadata原样、当前资格false。新宿主启前9.319GiB／运行6GiB、每秒先落实际内存和handle样本再判门、V7原子状态及共享reader；57hosts／55external／42生产源预检和实际离线控制通过。水尚无启动授权，root统一排在投影释放之后；FABRG最迟05:15开始、D最迟06:15，07:00采样截止／07:30恢复截止。恢复链未保存projection_transform，只适合当前fresh identity且水probe不改变transform的会话，不能复用投影变换实测会话。
+
+固定两库及主程序依赖尚未切换。[私有适配器原件](evidence/library-adapters-r29-v1/README.md)已准备：2adapter／7caller及三来源工具补丁，runtime和root真实双解释器对等；新来源水42→63、portal20→43另8资源、book owner20→45／body12→36。book声明缺文件改为明确拒绝，须验证实际fixture差异。当前另一个代理在独立小副本做现有测试整合，不改主仓／metadata／两库；原v1目录保持。10-28 08:00决策、10-29 08:00验证才进首版，否则11-18周期，10-30最终候选冻结不变。
+
+飞虫OB-01只读调查位于 `.runtime/firefly-owner-research-r29-v1/`：原版粒子运动／颜色数据可取得，9386个data JSON未找到灌木发射调度；官方PaperDoll粒子例是网易特效，不证明微软firefly可绑定到UI。纯前景源／变换坐标候选真Py2／3通过，正在准备一次独立world及UI root carrier最小探针，尚未游戏执行、不改冻结源。新增人工关闭0，原892／34／387及旗面飘动豁免保持；无新账单，不以测试、提交、窗口或代理并行计算贡献／预算／剩余工时。
+
 ## 2026-10-26 01:50 R29接续检查点（本节优先，开发继续）
 
 本轮仍至**北京时间10-26 08:00＝UTC10-26 00:00＝New York10-25 20:00截止并休眠**，07:00止扩范围、07:30冻结长实验、07:45前恢复关闭并交接。任务 `Codex-BBE-R29-Hibernate-20261026` 已再次读回Ready，尚未执行。主仓dev当前产品源为 `bca8052c189f0aba67140c24e15a418424e8bf35`；之后只提交证据／文档，不push／合main，不清理历史untracked或用户五个p0_palette探针。
