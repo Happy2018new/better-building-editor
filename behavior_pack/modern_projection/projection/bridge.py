@@ -692,8 +692,7 @@ class ClientBridge(object):
         return start(self, 'apply', placement_target(self), self.session.apply_air)
 
     def confirm_apply_world(self):
-        from functools import partial
-        from .projection_target import placement_target, start, describe
+        from .projection_target import placement_target, WorldApplyConfirmation, describe
         target = placement_target(self)
         include_air = bool(self.session.apply_air)
         title = '将整个建筑写入世界？\n原点 %d, %d, %d\n范围 %d × %d × %d\n%s\n' % (
@@ -701,7 +700,7 @@ class ClientBridge(object):
         if include_air:
             title += '空气位置的已有方块也会被清除。\n'
         title += '此操作无法撤销。'
-        self.session.confirm(title, partial(start, self, 'apply', target, include_air))
+        self.session.confirm(title, WorldApplyConfirmation(self, target, include_air))
 
     def cancel_world(self):
         if self.projection_preparation is not None:
@@ -847,7 +846,10 @@ class ClientBridge(object):
     def world_request_state(self, action):
         s = self.session
         state = (id(s.editor), s.editor.revision, tuple(s.origin))
-        return state + (tuple(s.projection_transform),) if action == 'check' else state
+        if action == 'check':
+            dimension = self.factory.CreateGame(self.level).GetCurrentDimension()
+            return state + (tuple(s.projection_transform), dimension)
+        return state
 
     def toggle_missing(self):
         s = self.session
@@ -1061,6 +1063,11 @@ class ClientBridge(object):
         return True
 
     def dimension_changed(self, unused):
+        from .projection_target import WorldApplyConfirmation
+        pending = self.session.pending_confirm
+        if pending is not None and isinstance(pending[1], WorldApplyConfirmation):
+            pending[1].cancel()
+            self.session.pending_confirm = None
         loaded = getattr(self.system, 'projection_loaded_chunks', None)
         if loaded is not None:
             dimension = self.factory.CreateGame(self.level).GetCurrentDimension()

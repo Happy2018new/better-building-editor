@@ -946,6 +946,7 @@ class Session(object):
             self._loaded(Document.from_data(data))
 
     def _loaded(self, document):
+        self.progress = None
         self.camera_focus_request = None
         edit_layer = self.editor.edit_layer
         self.editor = Editor(document)

@@ -31,6 +31,7 @@ class ActorRender:
 class Runtime:
     def __init__(self):
         self.timers = []
+        self.dimension = 0
         self.created = []
         self.destroyed = []
         self.attached = []
@@ -91,6 +92,9 @@ class Runtime:
 
     def CreateGame(self, level):
         return self
+
+    def GetCurrentDimension(self):
+        return self.dimension
 
     def AddTimer(self, delay, callback):
         self.timers.append(callback)

@@ -314,6 +314,12 @@ class ModernProjectionServerSystem(ServerSystem):
         if args.get('clientCapture') is not True:
             raise ValueError('世界选区必须通过客户端 palette 读取')
 
+    def validate_request_dimension(self, adapter, args):
+        if 'expectedDimension' in args:
+            dimension = args['expectedDimension']
+            if type(dimension) is not int or dimension != adapter.dimension:
+                raise ValueError('操作确认后维度已改变，请在当前维度重新确认')
+
     def tool_block_use(self, args):
         event = dict(args, entityId=args.get('playerId'))
         self.tool_use_on(event)
@@ -447,6 +453,7 @@ class ModernProjectionServerSystem(ServerSystem):
                     if player in self.jobs or player in self.uploads or args.get('action') not in ('apply', 'check', 'capture'):
                         raise ValueError('已有世界操作正在进行')
                     adapter = WorldAdapter(player)
+                    self.validate_request_dimension(adapter, args)
                     if args['action'] == 'apply' and not adapter.allowed():
                         raise ValueError('世界写入需要创造模式、操作员和建造权限')
                     # Validate dimensions, destination and authorization before
@@ -490,6 +497,7 @@ class ModernProjectionServerSystem(ServerSystem):
             if action not in ('capture', 'check', 'apply', 'resolve'):
                 raise ValueError('未知的世界操作')
             adapter = upload_adapter or WorldAdapter(player)
+            self.validate_request_dimension(adapter, args)
             if action == 'capture' and upload_adapter is None:
                 self.validate_capture(adapter, args)
             if action == 'apply' and upload_adapter is None and not adapter.allowed():

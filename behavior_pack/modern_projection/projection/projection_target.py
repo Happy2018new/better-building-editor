@@ -71,17 +71,39 @@ class ProjectionTarget(object):
         return result
 
 
+class WorldApplyConfirmation(object):
+    """Keep a world-write confirmation bound to its original dimension."""
+    def __init__(self, bridge, target, include_air):
+        self.bridge, self.target, self.include_air = bridge, target, include_air
+        self.dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+        self.valid = True
+
+    def cancel(self):
+        self.valid = False
+
+    def __call__(self):
+        b = self.bridge
+        if (not self.valid or
+                b.factory.CreateGame(b.level).GetCurrentDimension() != self.dimension):
+            raise ValueError('所在维度已改变，请重新确认写入世界')
+        return start(b, 'apply', self.target, self.include_air, self.dimension)
+
+
 class ProjectionPreparation(object):
     """Publish a complete target or leave the previous projection untouched."""
-    def __init__(self, bridge, target, action, include_air=False):
+    def __init__(self, bridge, target, action, include_air=False, expected_dimension=None):
         self.bridge, self.target, self.action = bridge, target, action
         self.include_air = include_air
+        self.expected_dimension = expected_dimension
 
     def advance(self):
         b, target = self.bridge, self.target
         if not b.alive or b.projection_preparation is not self:
             return
         try:
+            if (self.expected_dimension is not None and
+                    b.factory.CreateGame(b.level).GetCurrentDimension() != self.expected_dimension):
+                raise ValueError('所在维度已改变，请重新检查或确认写入世界')
             if target.document is None and not target.advance():
                 b.next_frame(self.advance)
                 return
@@ -92,7 +114,8 @@ class ProjectionPreparation(object):
             else:
                 if self.action == 'check' and target.source_key != current_key(b.session):
                     raise ValueError('草稿、原点或投影变换已改变，请重新检查')
-                data = {'origin': target.origin, 'document': target.document}
+                data = {'origin': target.origin, 'document': target.document,
+                        'expectedDimension': self.expected_dimension}
                 if self.action == 'apply':
                     data['includeAir'] = self.include_air
                 b.request(self.action, data)
@@ -107,7 +130,7 @@ class ProjectionPreparation(object):
             b.session.emit()
 
 
-def start(bridge, action, target=None, include_air=False):
+def start(bridge, action, target=None, include_air=False, expected_dimension=None):
     session = bridge.session
     if session.edit_job is not None or session.io_job is not None:
         raise ValueError('请等待编辑任务完成')
@@ -115,7 +138,9 @@ def start(bridge, action, target=None, include_air=False):
         raise ValueError('请等待当前世界操作完成')
     if target is None:
         target = ProjectionTarget(session)
-    job = ProjectionPreparation(bridge, target, action, include_air)
+    if action != 'project' and expected_dimension is None:
+        expected_dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+    job = ProjectionPreparation(bridge, target, action, include_air, expected_dimension)
     bridge.projection_preparation = job
     if action == 'project':
         bridge.projection_requested = True
