@@ -1,5 +1,19 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-26 04:00 R29接续检查点（开发继续）
+
+本轮仍至北京时间08:00截止并休眠，07:00／07:30／07:45收尾线保持。用户再次明确另一个MC属于独立Codex对话和不同模组；不得连接、输入、修改、关闭或重启。主仓dev只本地提交，不push／合main、不清历史untracked或用户probe，最多3活动代理、5全机实际MC。
+
+当前产品源为 `af9c628c40b688a2ffa9091f1e6b5abc9e6aa70f`。新增每批apply前在线／维度守卫，异常反馈可读且释放任务；保留开始时一次写权限检查、单格失败继续、已写前缀不回滚。独立真Py2／3各21链均无逃逸、在线等待清空、21/21同host后续新请求成功；修前各两条失败原件保留。床边界与生命周期另有280组组合通过，不模拟原生自动补床。见[生命周期](evidence/world-lifecycle-independent-r29-v1/README.md)、[组合](evidence/world-bed-lifecycle-r29-v1/README.md)。
+
+[完整CPU v6](evidence/r29-final-cpu-v6/README.md)已3591项／skip1／OK、exit0；6331输入／259,526,838字节前后重枚举不变，本体517.341秒／总532.208170秒。13产品模块真Py2.7.13／Py3.13.13编译且SHA匹配。session41879已结束。范围含历史untracked，不称clean HEAD专属资格；无新增源或疑点不重复同源全量。
+
+投影v5已独立冻结af9c：3716 runtime／119,017,299字节、785 host、4502物理copy无hardlink，21controls／14AST及frozen_guard通过。source／host／observer SHA依次 `a2ca77a663b4c6bf596b4c2359cb20cce3000e7c2e1dbc5c2ad42ca8ce59fc96`、`a5bd2908bc65523ab66d6d4a8e83a348907be95912672e808ef0b01c942c9c7a`、`51ed1fcede8b9df6f5862a56c435e27d3e20cd6ca7f61246eda3b2a26d74b068`。旧v4授权暂停且未启动。v5已获一次条件授权，必须CPU-v6及三绑定通过、fresh OS余量至少9.319GiB／unknown0／live<5，运行6GiB不降；普通冷observer→冻结smoke含独立世界写入→完整恢复读回→普通stop及实际exit→所属watcher释放，不重试。06:30后不新启、07:00止实验、07:30前清理；目前未过资源门、无自有MC／watcher。
+
+水v4已rootreview／freeze／inspect／API audit：相对有效v3唯server_system变化，42显式实现合同不变；4491源／1391辅助、56hosts／55external，94旧v3文件逐SHA保留。base ZIP119,618,244字节仅引用，delta146,044字节。inventory合同 `06e6a907149372f76959485b41c7eaf054fac930149285d499693fc3e8012855`、binding `5b1c21449c3b7406432fcc9724a7fbe3d4f1f4ba33c7e1218033117bc4c4c8de`、host `6b7c3edb83ec0da26f366541d09121a50af7f43b85ecaddd8fd02f997abe394c`。水仍无启动授权；fresh identity链不复用投影会话，FABRG最迟05:15、D最迟06:15、采样07:00／恢复07:30。两阶段整链安排约75—125分钟，不能将05:15起步当作必能跑完两阶段。[静态原件](evidence/runtime-preparation-r29-v5/README.md)不授当前源资格。
+
+两库私有7021集成缺输入的定点增量已解决：补369冻结输入后只重跑原28未解决selector展开的54项全过，原唯一全量3547项／33ERROR仍保留。运行依赖未切换，10-28决策／10-29验证／10-30冻结门保持。余量在离线调查OB-03两名称植物与OB-10上坡，不改冻结源、不开额外MC。新增人工关闭0，既有892／34／387及旗面飘动豁免保持，无新账单，不从测试／提交／窗口推算贡献或消耗。
+
 ## 2026-10-26 03:15 R29接续检查点（本节优先，开发继续）
 
 本轮仍至北京时间08:00截止并休眠，07:00／07:30／07:45收尾线及既有一次任务保持。用户明确另一MC属于独立对话和完全不同模组，禁止连接／测试／修改／关闭／重启，仅OS只读总资源计数。主仓dev、本地提交、不push／合main；最多3活动子代理、全机5实际MC，不清垃圾或历史untracked／用户probe。

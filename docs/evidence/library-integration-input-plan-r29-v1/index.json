@@ -1,0 +1,54 @@
+{
+  "MC_started_by_packager": false,
+  "description": "Read-only input dependency plan used by the targeted candidate rerun; no new runtime qualification",
+  "native_or_human_qualification_granted": false,
+  "objects": {
+    "612579c8411956d7a59afe9a665ae74b4f57e42f6941074a960e2cec65b7e700": {
+      "file": "612579c8411956d7a59afe9a665ae74b4f57e42f6941074a960e2cec65b7e700.gz",
+      "raw_bytes": 142495,
+      "stored_bytes": 14229,
+      "stored_sha256": "0b7f23850263462a994470fe3a06063aadb9466d9614e5d1817759cacc18bc18"
+    },
+    "a6632283a1bca21f524f84401a55e3a3fcd1ae4b4ad2ed49a2026625814336c9": {
+      "file": "a6632283a1bca21f524f84401a55e3a3fcd1ae4b4ad2ed49a2026625814336c9.gz",
+      "raw_bytes": 13743,
+      "stored_bytes": 4892,
+      "stored_sha256": "f553cb83853e3c29ca7bb5962a6a7143af589cad8a11aca42dece20464925a05"
+    },
+    "cb1a86992a5c6f1630f205ab91a9624feab6426e5c1929dacbcad433da24a2b0": {
+      "file": "cb1a86992a5c6f1630f205ab91a9624feab6426e5c1929dacbcad433da24a2b0.gz",
+      "raw_bytes": 6242,
+      "stored_bytes": 3518,
+      "stored_sha256": "ddd611cc244198bf38cda903fa22173ed56db0b44cbe2938b45ed57172535403"
+    },
+    "e01be682985063a626d05cca4fc7bda6ab18b6e35f20a493a29b5642e0961014": {
+      "file": "e01be682985063a626d05cca4fc7bda6ab18b6e35f20a493a29b5642e0961014.gz",
+      "raw_bytes": 91354,
+      "stored_bytes": 19474,
+      "stored_sha256": "5c44c61f4a17d3a6ad9ecebc6ac6171351193d86227b290139d749228223532f"
+    }
+  },
+  "references": [
+    {
+      "bytes": 6242,
+      "path": "README.md",
+      "sha256": "cb1a86992a5c6f1630f205ab91a9624feab6426e5c1929dacbcad433da24a2b0"
+    },
+    {
+      "bytes": 91354,
+      "path": "minimal-missing-input-plan-audit.json",
+      "sha256": "e01be682985063a626d05cca4fc7bda6ab18b6e35f20a493a29b5642e0961014"
+    },
+    {
+      "bytes": 142495,
+      "path": "minimal-missing-input-plan.json",
+      "sha256": "612579c8411956d7a59afe9a665ae74b4f57e42f6941074a960e2cec65b7e700"
+    },
+    {
+      "bytes": 13743,
+      "path": "plan_missing_inputs.py",
+      "sha256": "a6632283a1bca21f524f84401a55e3a3fcd1ae4b4ad2ed49a2026625814336c9"
+    }
+  ],
+  "schema": 1
+}
