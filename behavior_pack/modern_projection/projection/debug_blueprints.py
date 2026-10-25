@@ -52,6 +52,9 @@ from .debug_book_blueprints import (METADATA as BOOK_METADATA,
                                      VISUAL_CASES as BOOK_VISUAL_CASES)
 from .debug_water_focus_blueprints import (METADATA as WATER_FOCUS_METADATA,
                                            CASES as WATER_FOCUS_CASES)
+from .debug_projection_transform_blueprints import (
+    METADATA as PROJECTION_TRANSFORM_METADATA, VISUAL_CASE as PROJECTION_TRANSFORM_VISUAL_CASE,
+    MESSAGE as PROJECTION_TRANSFORM_MESSAGE)
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -66,6 +69,7 @@ BLUEPRINTS = (
     SLAB_METADATA,
     ('test.connections.context', 'connections', '楼梯、铁轨、墙与双箱', (32, 12, 32), 'minecraft:rail'),
     ('test.transforms.directions', 'transforms', '方向与镜像', (32, 12, 32), 'minecraft:oak_stairs'),
+    PROJECTION_TRANSFORM_METADATA,
     ('test.entities.classic', 'entities', '方块实体 · 基础', (40, 10, 36), 'minecraft:chest'),
     ('test.entities.mechanisms', 'entities', '方块实体 · 机关', (32, 10, 28), 'minecraft:structure_block'),
     ('test.entities.recent', 'entities', '方块实体 · 新版本', (32, 10, 28), 'minecraft:trial_spawner'),
@@ -98,6 +102,7 @@ BLUEPRINTS = (
 ) + CORAL_REVIEW_METADATA + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA + TRANSFORM_ACCEPTANCE_METADATA + BOOK_METADATA + WATER_FOCUS_METADATA
 BLUEPRINTS += ORDINARY_METADATA + context_metadata(BLUEPRINTS)
 VISUAL_CASES = {
+    'projection_transform': PROJECTION_TRANSFORM_VISUAL_CASE,
     'barrier_visibility': BARRIER_VISUAL_CASE,
     'pressure_signals': PRESSURE_VISUAL_CASE,
     'concrete_neighbors': CONCRETE_VISUAL_CASE,
@@ -382,6 +387,9 @@ def build(identity):
         from .debug_water_focus_blueprints import build as build_water_focus
         return build_water_focus(identity)
     fixture = Fixture(metadata)
+    if identity == PROJECTION_TRANSFORM_METADATA[0]:
+        from .debug_projection_transform_blueprints import populate
+        return populate(fixture)
     if identity in BOOK_VISUAL_CASES:
         from .debug_book_blueprints import populate
         return populate(fixture, identity)
@@ -511,3 +519,6 @@ def open_blueprint(session, identity):
             session.camera_focus_request = BOOK_VISUAL_CASES[identity]['focus']
         elif identity in WATER_FOCUS_CASES:
             session.camera_focus_request = WATER_FOCUS_CASES[identity]['focus']
+        elif identity == PROJECTION_TRANSFORM_METADATA[0]:
+            session.camera_focus_request = PROJECTION_TRANSFORM_VISUAL_CASE['focus']
+            session.editor.message = PROJECTION_TRANSFORM_MESSAGE
