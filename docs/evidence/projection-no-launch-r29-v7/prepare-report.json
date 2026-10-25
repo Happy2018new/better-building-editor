@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-25T20:50:04.933649+00:00",
+  "owner": "r29-transform-cold-v7",
+  "project": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\r29-transform-cold-v7",
+  "source_commit": "dcf34132ce8e33284066efe66b9693ff89dc675a",
+  "runtime_source_files": 3716,
+  "runtime_source_bytes": 119020141,
+  "host_files": 785,
+  "physical_copy_only": true,
+  "hardlink_checked_files": 4502,
+  "source_manifest_sha256": "bb6e86cd25d8659361a0e010e46a6876a3691ceb840f34c5b4b414b49f5de811",
+  "host_binding_sha256": "44f9c9fc25b87934aab12cecac004a544f65c2c3b53b85ed5ed323cec306142b",
+  "observer_binding_sha256": "20200ee527481ec3a88f7d664b35eef00af23337909d73c421ab545addb32ec9",
+  "live_host_sha256": "ef2c54055cb8b28faff8fd359ac63cdcc239e107d88f6d1a7c002742e2f744fe",
+  "local_launch_sha256": "673a02a4ddfc3ca219f59f37fb5f976e9d15806ff66f115051362a1dbd7a706b",
+  "local_observer_sha256": "03540b87403cca1cc3f2cb3a5c6adce24b49f234d64bb2ac89deccc1f7078177",
+  "stored_metadata_unchanged": true,
+  "stored_metadata_sha256": {
+    "tools/data/liquid_product_owner_contract_v1.json": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+    "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py": "f27e2351c83fb35fa7bade5879375ed388eb328cd78ac5591d7bdd48764bbc0d"
+  },
+  "source_scope_counts": {
+    "book": 20,
+    "portal": 20,
+    "water": 42
+  },
+  "explicit_helpers_declared": true,
+  "water_source_differences": [
+    "behavior_pack/modern_projection/projection/bridge.py",
+    "behavior_pack/modern_projection/projection/error_text.py",
+    "behavior_pack/modern_projection/projection/projection_target.py",
+    "behavior_pack/modern_projection/projection/projection_transform.py",
+    "behavior_pack/modern_projection/projection/scene.py",
+    "behavior_pack/modern_projection/projection/session.py",
+    "behavior_pack/modern_projection/projection/world_projection.py"
+  ],
+  "current_source_qualification": {
+    "water": false,
+    "portal": false,
+    "book": false
+  },
+  "offline_controls": {
+    "inherited_from_validation_v6": {
+      "tests": 21,
+      "passed": true,
+      "rerun": false,
+      "reason": "Host code verified exact after owner/project-only replacement; copied tools unchanged"
+    },
+    "python_host_ast": {
+      "files": 14,
+      "passed": true
+    },
+    "observer_binding_integrity": true,
+    "live_host_exact_sha_unchanged": true
+  },
+  "runtime_delta_from_v6": [
+    "behavior_pack/modern_projection/projection/bridge.py",
+    "behavior_pack/modern_projection/projection/projection_target.py"
+  ],
+  "copied_host_bytes_unchanged_from_v6": true,
+  "frozen_guard_passed": true,
+  "runtime_minimum_headroom_bytes": 6442450944,
+  "prelaunch_minimum_headroom_bytes": 10005745664,
+  "standard_registry_routing_unchanged": true,
+  "global_options_changed": false,
+  "shared_production_files_modified": false,
+  "MC_started": false,
+  "watcher_started": false,
+  "RPC_dispatched": false,
+  "world_write_performed": false
+}

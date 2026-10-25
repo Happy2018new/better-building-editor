@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "received_at": "2026-10-25T20:58:38.470065+00:00",
+  "grant_source": "root direct message for projection v7 after CPU-v8",
+  "owner": "r29-transform-cold-v7",
+  "project": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\r29-transform-cold-v7",
+  "source_commit": "dcf34132ce8e33284066efe66b9693ff89dc675a",
+  "cpu_result": ".runtime\\round-20261026\\cpu-v8\\result.json",
+  "cpu_result_sha256": "1251517317f7afa5f3aa6dd4d5ff12026ad341fe84170fa6a21ae43238281074",
+  "cpu_exit_code": 0,
+  "changed_selected_inputs": [],
+  "expected_bindings_sha256": {
+    "source-manifest.json": "bb6e86cd25d8659361a0e010e46a6876a3691ceb840f34c5b4b414b49f5de811",
+    "host-binding.json": "44f9c9fc25b87934aab12cecac004a544f65c2c3b53b85ed5ed323cec306142b",
+    "cold-observer-binding.json": "20200ee527481ec3a88f7d664b35eef00af23337909d73c421ab545addb32ec9"
+  },
+  "single_launch_only": true,
+  "prelaunch_minimum_headroom_bytes": 10005745664,
+  "runtime_minimum_headroom_bytes": 6442450944,
+  "max_global_live_mc": 5,
+  "unknown_count_must_be_zero": true,
+  "no_launch_after_utc": "2026-10-25T22:30:00+00:00",
+  "experiment_end_utc": "2026-10-25T23:00:00+00:00",
+  "cleanup_end_utc": "2026-10-25T23:30:00+00:00",
+  "allowed_sequence": [
+    "fresh admission and frozen guard",
+    "own watcher start",
+    "one owned launch",
+    "ordinary cold Session observer",
+    "frozen transform smoke with owned independent air reserve and explicit allow-world-write",
+    "complete restoration readback",
+    "ordinary exact-owned stop and actual exit observation",
+    "retire exact owned watcher"
+  ],
+  "external_mc_operations_authorized": false,
+  "profile_or_metadata_changes_authorized": false,
+  "automatic_retry_authorized": false,
+  "water_book_portal_qualification_granted": false,
+  "MC_started": false,
+  "watcher_started": false
+}

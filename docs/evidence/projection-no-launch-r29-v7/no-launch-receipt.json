@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-25T22:31:47.497014+00:00",
+  "owner": "r29-transform-cold-v7",
+  "source_commit": "dcf34132ce8e33284066efe66b9693ff89dc675a",
+  "source_manifest_sha256": "bb6e86cd25d8659361a0e010e46a6876a3691ceb840f34c5b4b414b49f5de811",
+  "host_binding_sha256": "44f9c9fc25b87934aab12cecac004a544f65c2c3b53b85ed5ed323cec306142b",
+  "observer_binding_sha256": "20200ee527481ec3a88f7d664b35eef00af23337909d73c421ab545addb32ec9",
+  "cpu_result_path": ".runtime/round-20261026/cpu-v8/result.json",
+  "cpu_result_sha256": "1251517317f7afa5f3aa6dd4d5ff12026ad341fe84170fa6a21ae43238281074",
+  "cpu_exit_code": 0,
+  "changed_selected_inputs": [],
+  "conditional_grant_expired_at_utc": "2026-10-25T22:30:00+00:00",
+  "sampler_exit_code": 0,
+  "sampler_completed": true,
+  "sampler_finished_at": "2026-10-25T22:30:00.000159+00:00",
+  "sample_count": 90,
+  "sample_interval_seconds": 60,
+  "sample_first": {
+    "sample": 1,
+    "recorded_at": "2026-10-25T21:00:35.050734+00:00",
+    "headroom_bytes": 7916548096,
+    "live": 1,
+    "tombstones": 8,
+    "unknown": 0,
+    "capacity_met": false
+  },
+  "sample_minimum_headroom": {
+    "sample": 15,
+    "recorded_at": "2026-10-25T21:14:34.985746+00:00",
+    "headroom_bytes": 5848875008,
+    "live": 1,
+    "tombstones": 8,
+    "unknown": 0,
+    "capacity_met": false
+  },
+  "sample_maximum_headroom": {
+    "sample": 87,
+    "recorded_at": "2026-10-25T22:26:35.000649+00:00",
+    "headroom_bytes": 7956713472,
+    "live": 1,
+    "tombstones": 8,
+    "unknown": 0,
+    "capacity_met": false
+  },
+  "sample_last": {
+    "sample": 90,
+    "recorded_at": "2026-10-25T22:29:35.248371+00:00",
+    "headroom_bytes": 7929839616,
+    "live": 1,
+    "tombstones": 8,
+    "unknown": 0,
+    "capacity_met": false
+  },
+  "prelaunch_minimum_headroom_bytes": 10005745664,
+  "runtime_minimum_headroom_bytes": 6442450944,
+  "qualified_admission_count": 0,
+  "last_shortfall_bytes": 2075906048,
+  "MC_launch_invoked": false,
+  "watcher_invoked": false,
+  "ordinary_cold_observer_run": false,
+  "feature_smoke_run": false,
+  "feature_screenshots_created": false,
+  "world_write_performed": false,
+  "player_or_camera_modified": false,
+  "profile_or_metadata_modified": false,
+  "owned_cleanup_invoked": false,
+  "no_cleanup_reason": "No v7 instance or watcher was ever launched; no stop or watcher retirement was called.",
+  "external_mc_connected_or_controlled": false,
+  "external_mc_game_state_inspected": false,
+  "owner_matching_os_process_count": 0,
+  "owner_process_audit_path": "owned-process-audit.json",
+  "owner_process_claim_scope": "Exact command-line attribution only, coupled with uninvoked launch/watch sequence and absence of their receipts; not a claim that global live MC count is zero.",
+  "current_source_qualification": {
+    "water": false,
+    "portal": false,
+    "book": false,
+    "projection_world_pixels": false
+  },
+  "all_original_samples_retained": true,
+  "original_sample_directory": ".runtime/round-20261026/validation-v7/conditional-capacity",
+  "ordered_original_sample_manifest_sha256": "af99da2b1b78d65705d49f703af8f2b28a2198aaeb01f2f5ff9af04011d3fc2a",
+  "selected_sample_numbers": [
+    1,
+    15,
+    87,
+    90
+  ],
+  "archive_references": [
+    {
+      "original_path": ".runtime/round-20261026/validation-v7/conditional-capacity/index.json",
+      "archived_path": "index.json",
+      "bytes": 20375,
+      "sha256": "2e366883fcb873d6b742abae74eff41f193040f2585f7073d1dfa1999578f1dc"
+    },
+    {
+      "original_path": ".runtime/round-20261026/validation-v7/conditional-launch-grant-v7.json",
+      "archived_path": "conditional-launch-grant-v7.json",
+      "bytes": 1925,
+      "sha256": "723623e0e35ba0889d5884a9909f8b8205fce3541439be0d35e4c6b2ef1ebc8c"
+    },
+    {
+      "original_path": ".runtime/round-20261026/validation-v7/prepare-report.json",
+      "archived_path": "prepare-report.json",
+      "bytes": 3277,
+      "sha256": "8fb76e9821beea3c2d7a61ddef2791dd768cdbab1c655e545019a9230d609bb2"
+    },
+    {
+      "original_path": ".runtime/round-20261026/validation-v7/no-launch-owned-process-audit.json",
+      "archived_path": "owned-process-audit.json",
+      "bytes": 1119,
+      "sha256": "59fabdd83bc63d2009667ce5fdd8d1e2e4e5f7562ae117630d1df55d1f92ae3c"
+    },
+    {
+      "original_path": ".runtime/round-20261026/validation-v7/conditional-capacity/0001.json",
+      "archived_path": "samples/0001.json",
+      "bytes": 4523,
+      "sha256": "f69c64a38612903ced8bfbdb6903dc2c5552ce16b0ecb36ceae6744a70ab8a3d"
+    },
+    {
+      "original_path": ".runtime/round-20261026/validation-v7/conditional-capacity/0015.json",
+      "archived_path": "samples/0015.json",
+      "bytes": 4523,
+      "sha256": "54782e4ae3fe5671d25835c3c55430e161c48df9d5f558ee406a807db96a0fe9"
+    },
+    {
+      "original_path": ".runtime/round-20261026/validation-v7/conditional-capacity/0087.json",
+      "archived_path": "samples/0087.json",
+      "bytes": 4522,
+      "sha256": "7f9c57cdc8288522baf704cbbb45273e692dbf9d57216505203b34f20d56c0a2"
+    },
+    {
+      "original_path": ".runtime/round-20261026/validation-v7/conditional-capacity/0090.json",
+      "archived_path": "samples/0090.json",
+      "bytes": 4522,
+      "sha256": "7ebe73d340e8c508d674b415106143f7064e5d76d681dda74e3e823928feec29"
+    }
+  ],
+  "no_additional_tests_run_at_deadline": true
+}

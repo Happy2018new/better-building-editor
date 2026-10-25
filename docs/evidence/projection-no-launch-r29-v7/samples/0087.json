@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "instance_census": {
+    "recorded_at": "2026-10-25T22:26:35.000231+00:00",
+    "confirmed_live_mc_count": 1,
+    "actual_live_mc_count": 1,
+    "instance_count_qualified": true,
+    "categories": {
+      "live": [
+        {
+          "pid": 65812,
+          "handle_count": 825,
+          "thread_count": 65,
+          "working_set_bytes": 989753344,
+          "executable_path_is_null": false,
+          "cim_creation_utc": "2026-10-25T18:20:46.7321520Z",
+          "retained_query": {
+            "ok": true,
+            "exit_code": 259,
+            "creation_identity": "134374260467321529"
+          },
+          "category": "live"
+        }
+      ],
+      "exited": [],
+      "zero_resource_tombstone": [
+        {
+          "pid": 45396,
+          "handle_count": 0,
+          "thread_count": 0,
+          "working_set_bytes": 32768,
+          "executable_path_is_null": true,
+          "cim_creation_utc": "2026-10-25T05:27:22.4421570Z",
+          "retained_query": {
+            "ok": false,
+            "winerror": 5
+          },
+          "category": "zero_resource_tombstone"
+        },
+        {
+          "pid": 34836,
+          "handle_count": 0,
+          "thread_count": 0,
+          "working_set_bytes": 32768,
+          "executable_path_is_null": true,
+          "cim_creation_utc": "2026-10-25T06:35:30.6823150Z",
+          "retained_query": {
+            "ok": false,
+            "winerror": 5
+          },
+          "category": "zero_resource_tombstone"
+        },
+        {
+          "pid": 33152,
+          "handle_count": 0,
+          "thread_count": 0,
+          "working_set_bytes": 32768,
+          "executable_path_is_null": true,
+          "cim_creation_utc": "2026-10-25T09:35:31.7728640Z",
+          "retained_query": {
+            "ok": false,
+            "winerror": 5
+          },
+          "category": "zero_resource_tombstone"
+        },
+        {
+          "pid": 49616,
+          "handle_count": 0,
+          "thread_count": 0,
+          "working_set_bytes": 32768,
+          "executable_path_is_null": true,
+          "cim_creation_utc": "2026-10-25T09:45:28.2228630Z",
+          "retained_query": {
+            "ok": false,
+            "winerror": 5
+          },
+          "category": "zero_resource_tombstone"
+        },
+        {
+          "pid": 33716,
+          "handle_count": 0,
+          "thread_count": 0,
+          "working_set_bytes": 32768,
+          "executable_path_is_null": true,
+          "cim_creation_utc": "2026-10-25T09:57:41.9745950Z",
+          "retained_query": {
+            "ok": false,
+            "winerror": 5
+          },
+          "category": "zero_resource_tombstone"
+        },
+        {
+          "pid": 37312,
+          "handle_count": 0,
+          "thread_count": 0,
+          "working_set_bytes": 32768,
+          "executable_path_is_null": true,
+          "cim_creation_utc": "2026-10-25T10:07:18.1482280Z",
+          "retained_query": {
+            "ok": false,
+            "winerror": 5
+          },
+          "category": "zero_resource_tombstone"
+        },
+        {
+          "pid": 51288,
+          "handle_count": 0,
+          "thread_count": 0,
+          "working_set_bytes": 32768,
+          "executable_path_is_null": true,
+          "cim_creation_utc": "2026-10-25T10:11:35.8900930Z",
+          "retained_query": {
+            "ok": false,
+            "winerror": 5
+          },
+          "category": "zero_resource_tombstone"
+        },
+        {
+          "pid": 64072,
+          "handle_count": 0,
+          "thread_count": 0,
+          "working_set_bytes": 28672,
+          "executable_path_is_null": true,
+          "cim_creation_utc": "2026-10-25T16:10:19.4470750Z",
+          "retained_query": {
+            "ok": false,
+            "winerror": 5
+          },
+          "category": "zero_resource_tombstone"
+        }
+      ],
+      "unknown": []
+    },
+    "session_configs_read": false,
+    "process_or_window_mutation": false
+  },
+  "memory": {
+    "committed_bytes": 35817111552,
+    "limit_bytes": 43773825024,
+    "headroom_bytes": 7956713472
+  },
+  "runtime_minimum_headroom_bytes": 6442450944,
+  "prelaunch_minimum_headroom_bytes": 10005745664,
+  "recorded_at": "2026-10-25T22:26:35.000649+00:00",
+  "MC_started": false,
+  "world_write_performed": false,
+  "capacity_met": false,
+  "rejection": "Prelaunch commit headroom below 9.319 GiB"
+}
