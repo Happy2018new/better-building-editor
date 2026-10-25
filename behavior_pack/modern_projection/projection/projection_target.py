@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import time
 import traceback
 from .model import Document
+from .error_text import error_text
 from .projection_transform import iter_snapshot, transform_size, validate_operations
 from .world import coordinate
 
@@ -102,7 +103,7 @@ class ProjectionPreparation(object):
             if self.action == 'project':
                 b.projection_requested = bool(b.session.projection_active)
             b.session.busy = False
-            b.session.editor.message = type('')(error)
+            b.session.editor.message = error_text(error)
             b.session.emit()
 
 

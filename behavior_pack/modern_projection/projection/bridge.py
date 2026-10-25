@@ -9,6 +9,7 @@ import traceback
 import mod.client.extraClientApi as clientApi
 from .model import AIR, Document, Editor, add, bounds, block
 from .world import coordinate
+from .error_text import error_text
 from .transfer import Receiver, packets, _wire_text
 
 
@@ -631,7 +632,7 @@ class ClientBridge(object):
             self.capture_active = None
             self.capture_dimension = None
             self.session.busy = False
-            self.session.editor.message = '世界读取初始化失败：%s' % error
+            self.session.editor.message = '世界读取初始化失败：%s' % error_text(error)
             self.session.emit()
             return
 
@@ -673,7 +674,7 @@ class ClientBridge(object):
                 self.capture_active = None
                 self.capture_dimension = None
                 self.session.busy = False
-                self.session.editor.message = str(error)
+                self.session.editor.message = error_text(error)
                 self.session.emit()
                 return
             self.session.editor.message = '正在读取世界方块层与方块实体… %d/%d' % (index + 1, len(chunks))
@@ -757,7 +758,7 @@ class ClientBridge(object):
                         'sequence': packet['seq']})
                 except (ValueError, TypeError, KeyError, RuntimeError) as error:
                     self.cancel_world()
-                    s.editor.message = str(error)
+                    s.editor.message = error_text(error)
                     self.pending = self.pending_data = self.pending_state = None
                     self.download = None
                     s.busy = False
@@ -792,7 +793,7 @@ class ClientBridge(object):
                     if self.projection_requested:
                         self.project()
                 except (ValueError, TypeError, RuntimeError) as error:
-                    s.editor.message = type('')(error)
+                    s.editor.message = error_text(error)
         elif action == 'capture':
             document = (sent.get('captureDocument') if sent.get('clientCapture') else
                         download.result if args.get('streamed') and download else
@@ -805,7 +806,7 @@ class ClientBridge(object):
                     merge_entity_document(document, download.result)
                 except (ValueError, TypeError, KeyError) as error:
                     self.download = None
-                    s.editor.message = str(error)
+                    s.editor.message = error_text(error)
                     s.emit()
                     return
             self.download = None
@@ -817,7 +818,7 @@ class ClientBridge(object):
                 try:
                     s.import_world_capture(document, sent['origin'])
                 except (ValueError, TypeError, KeyError) as error:
-                    s.editor.message = type('')(error)
+                    s.editor.message = error_text(error)
                     self.notify(s.editor.message)
                 s.emit()
                 return
@@ -944,7 +945,7 @@ class ClientBridge(object):
                 self.system.DestroyClientEntity(entity)
             except Exception as error:
                 traceback.print_exc()
-                errors.append(type('')(error))
+                errors.append(error_text(error))
             else:
                 pending.remove(entity)
                 self.projection_entity_shaders.pop(entity, None)
@@ -953,7 +954,7 @@ class ClientBridge(object):
                 outline.clear()
             except Exception as error:
                 traceback.print_exc()
-                errors.append(type('')(error))
+                errors.append(error_text(error))
             else:
                 retired.remove(outline)
         retired_liquids = getattr(self, 'projection_retired_liquids', [])

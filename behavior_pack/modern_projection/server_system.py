@@ -5,6 +5,7 @@ from .projection.model import AIR, Document, add, block
 from .projection.cell import actor_data, background, foreground, make_cell
 from .projection.native_layers import native_cell
 from .projection.world import WorldJob, coordinate
+from .projection.error_text import error_text
 from .projection.transfer import Receiver, packets
 from .projection.block_registry import canonical as registry_canonical, states as registry_states
 from .projection.nbt_spatial import rebase as rebase_actor
@@ -18,9 +19,6 @@ try:
 except NameError:
     text_type = str
 
-
-def error_text(error):
-    return text_type(error)
 
 ServerSystem = serverApi.GetServerSystemCls()
 
