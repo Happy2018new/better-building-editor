@@ -9,7 +9,8 @@ from modern_projection.projection import block_registry as registry
 from modern_projection.projection.cell import make_cell
 from modern_projection.projection.geometry_palette import prepare_palette
 from modern_projection.projection.large_preview import SurfacePalette
-from modern_projection.projection.model import Document
+from modern_projection.projection.model import Document, Editor
+from modern_projection.projection.session import Session
 from modern_projection.projection.occupancy import ProjectionOccupancy
 from modern_projection.projection.world_projection import WorldProjection
 from modern_projection.projection.visible_actor import compose_actor
@@ -211,13 +212,26 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
     def test_missing_even_small_documents_route_through_incremental_world_projection(self):
         document, tracker, unused, unused2, unused3, unused4 = self.fixture()
         bridge = tracker.bridge
+        bridge.session = Session(bridge)
+        bridge.session.editor = Editor(document)
         bridge.session.origin = tracker.origin
+        bridge.pending = None
+        bridge.projection_preparation = None
         bridge.ensure_projection_distance = lambda size: None
         work = SimpleNamespace(incremental=True)
-        bridge.project_large = lambda origin: work if origin == tracker.origin else None
+        submitted = []
+        def project_large(origin, target):
+            submitted.append((origin, target, work))
+            return work
+        bridge.project_large = project_large
         bridge.geometry = lambda *args, **kwargs: self.fail('Missing projection must prepare incrementally')
         self.assertLess(document.volume, 32768)
-        self.assertIs(work, ClientBridge.project(bridge))
+        target = ClientBridge.project(bridge)
+        self.assertEqual([(tracker.origin, target, work)], submitted)
+        self.assertTrue(bridge.projection_requested)
+        self.assertIsNone(bridge.projection_preparation)
+        self.assertIsNot(document, target.document)
+        self.assertEqual(document.to_data(), target.document.to_data())
 
     def test_nonmissing_small_geometry_keeps_native_logical_palette(self):
         document, tracker, unused, unused2, unused3, unused4 = self.fixture()
