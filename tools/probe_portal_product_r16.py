@@ -15,7 +15,7 @@ MODULE='behavior_pack/modern_projection/projection/'
 SOURCES=tuple(MODULE+name+'.py' for name in (
     'portal_profile','portal_render_plan','portal_preview','portal_projection','debug_portal_blueprints',
     'liquid_preview','liquid_projection','liquid_transport','liquid_viewport','liquid_render',
-    'scene','session','world_projection','projection_transform','projection_target',
+    'scene','session','world_projection','projection_transform','projection_target','error_text',
     'occupancy','geometry_palette','render_context','tiles'))
 RESOURCES=('resource_pack/shaders/glsl/modern_projection_portal_geometry.vertex',
            'resource_pack/shaders/glsl/modern_projection_portal_geometry_world.vertex',

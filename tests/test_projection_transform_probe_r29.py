@@ -53,7 +53,7 @@ class ProjectionProbeSourcesTest(unittest.TestCase):
 
     def test_real_owners_cover_both_new_execution_dependencies(self):
         result = probe.source_audit(ROOT, [probe.MODULE + name + '.py'
-            for name in ('projection_transform', 'projection_target')])
+            for name in ('projection_transform', 'projection_target', 'error_text')])
         self.assertTrue(result['all_requested_helpers_declared'])
 
     def test_changed_helper_is_reported_even_when_it_remains_declared(self):

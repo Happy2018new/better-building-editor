@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import time
 from .model import AIR, Document, Editor, RegionSizeError, demo_document, SMALL_VOLUME, bounds
 from .materials import MATERIAL_CHANNELS, material_value
+from .error_text import error_text
 
 
 def as_text(value):
@@ -461,7 +462,7 @@ class Session(object):
             if callback == self.editor.run and args and args[0].startswith('select_'):
                 self.box_anchor = None
         except (ValueError, TypeError) as error:
-            self.editor.message = str(error).decode('utf8') if isinstance(str(error), bytes) else str(error)
+            self.editor.message = error_text(error)
             self.emit()
             return False
         if callback in (self.editor.undo, self.editor.redo) and result and getattr(self.editor, 'last_changed_positions', None) is not None:
@@ -622,7 +623,7 @@ class Session(object):
                             return
                 except (ValueError, TypeError, RuntimeError) as error:
                     self.preview_pending = False
-                    self.preview_error = as_text(str(error))
+                    self.preview_error = error_text(error)
                     self.emit()
                     return
                 self.bridge.later(0., advance)
@@ -642,7 +643,7 @@ class Session(object):
         except (ValueError, TypeError, RuntimeError) as error:
             # Keep the last usable preview, but permit the next action to retry.
             self.model_revision = None
-            self.preview_error = str(error).decode('utf8') if isinstance(str(error), bytes) else str(error)
+            self.preview_error = error_text(error)
         self.emit()
 
     def preview_signature(self):
@@ -988,7 +989,7 @@ class Session(object):
                         return
             except (ValueError, TypeError, KeyError, RuntimeError, StopIteration) as error:
                 self.io_job = None
-                self.editor.message = as_text(str(error)) or '建筑存取失败，当前草稿已保留'
+                self.editor.message = error_text(error) or '建筑存取失败，当前草稿已保留'
                 self.emit()
                 return
             self.bridge.later(0., advance)
@@ -1008,7 +1009,7 @@ class Session(object):
         try:
             self.rename(self.pending_rename[0], name)
         except (ValueError, TypeError) as error:
-            self.rename_error = as_text(str(error))
+            self.rename_error = error_text(error)
             self.emit('pending_rename')
             return
         self.pending_rename = None

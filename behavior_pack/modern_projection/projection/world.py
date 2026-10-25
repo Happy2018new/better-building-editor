@@ -2,6 +2,7 @@
 """Bounded world jobs that continue after individual cell write failures."""
 from __future__ import unicode_literals
 from .model import Document, add
+from .error_text import error_text
 import time
 
 
@@ -73,7 +74,7 @@ class WorldJob(object):
                 result = self.adapter.write(pos, value, self.origin)
             except Exception as error:
                 result = False
-                detail = '%s' % error
+                detail = error_text(error)
             else:
                 detail = '写入接口返回失败'
             if not result:

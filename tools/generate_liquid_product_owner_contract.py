@@ -13,7 +13,7 @@ SOURCES = tuple('behavior_pack/modern_projection/projection/' + name + '.py' for
     'liquid_product_projection', 'liquid_product_plan', 'liquid_product_preview',
     'liquid_render_plan', 'liquid_transport', 'liquid_render', 'liquid_preview',
     'liquid_projection', 'liquid_viewport', 'liquid_scene', 'scene', 'world_projection',
-    'projection_companions', 'projection_transform', 'projection_target',
+    'projection_companions', 'projection_transform', 'projection_target', 'error_text',
     'liquid_render_ownership', 'geometry_palette',
     'render_context', 'bridge', 'session', 'tiles', 'ui', 'occupancy',
     'liquid_render_target_data',

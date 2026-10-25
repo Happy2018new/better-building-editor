@@ -17,7 +17,7 @@ MODEL_PREFIXES=('',)+tuple('r17_book_'+motion+mode+'_' for motion in ('','moving
                           for mode in ('double','back','front'))
 OWNER_SOURCES=tuple('behavior_pack/modern_projection/projection/'+name+'.py' for name in (
     'book_profile','book_render_plan','book_preview','book_projection','scene','session','ui',
-    'diagnostics','world_projection','projection_transform','projection_target',
+    'diagnostics','world_projection','projection_transform','projection_target','error_text',
     'projection_companions','liquid_preview','liquid_projection',
     'liquid_render','liquid_viewport','liquid_transport','occupancy','occupancy_shader'))
 BODY_SOURCES=(
