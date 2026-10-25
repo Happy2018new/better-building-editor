@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-25T17:06:44.512028+00:00",
+  "scope": "This round owned r29-transform-cold-v1 only; no external-session settings or controls",
+  "owner_binding": {
+    "owner": "r29-transform-cold-v1",
+    "project": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\projects\\r29-transform-cold-v1",
+    "game_pid": 5060,
+    "game_identity": "134374207314971720",
+    "mcdk_pid": 14176,
+    "mcdk_identity": "134374207312900163",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\df69c5e87f37458ba9578aac25d3f7bd\\session.json"
+  },
+  "result": {
+    "launch_ready_marker": true,
+    "resource_ready_accepted": false,
+    "failure": {
+      "type": "AssertionError",
+      "error": "Commit headroom below 6 GiB or unavailable"
+    },
+    "ordinary_cold_session_observer_run": false,
+    "feature_smoke_run": false,
+    "feature_screenshots_created": false,
+    "world_or_player_probe_mutation_performed": false,
+    "normal_shutdown_qualified": false,
+    "source_unchanged_after_ready_not_evaluated": true
+  },
+  "memory": {
+    "prelaunch": {
+      "committed_bytes": 35716599808,
+      "limit_bytes": 44747825152,
+      "headroom_bytes": 9031225344
+    },
+    "ready": {
+      "committed_bytes": 38743023616,
+      "limit_bytes": 44747825152,
+      "headroom_bytes": 6004801536
+    },
+    "commit_increase_bytes": 3026423808,
+    "runtime_minimum_headroom_bytes": 6442450944,
+    "runtime_guard_changed": false,
+    "next_prelaunch_minimum_headroom_bytes": 10005745664,
+    "next_prelaunch_formula": "6 GiB + observed commit increase + 0.5 GiB",
+    "next_prelaunch_minimum_gib": 9.31857681274414
+  },
+  "cleanup": {
+    "owned_stop_completed": true,
+    "force_executed": false,
+    "registry_state": "stopped",
+    "actual_exit_codes": {
+      "game": 3221226505,
+      "mcdk": 0
+    },
+    "exit_observer_process_or_window_mutation": false,
+    "watcher_errors": [],
+    "watcher_other_assertions": [],
+    "known_assert_recoveries": [],
+    "watcher_closed": true,
+    "watcher_exit_code": 0,
+    "watcher_game_process_touched": false,
+    "post_stop_recorded_at": "2026-10-25T16:55:34.849376+00:00",
+    "post_stop_actual_live_mc_count_at_recorded_time": 0,
+    "post_stop_exact_live_binding_count_at_recorded_time": 0,
+    "post_stop_memory": {
+      "committed_bytes": 35603550208,
+      "headroom_bytes": 8954781696,
+      "limit_bytes": 44558331904,
+      "physical_available_bytes": 4059164672
+    }
+  },
+  "privacy": {
+    "session_credentials_copied": false,
+    "raw_session_manifest_copied": false,
+    "raw_foreground_window_data_copied": false,
+    "shared_or_external_options_copied": false
+  },
+  "artifacts": [
+    {
+      "path": ".runtime/round-20261026/validation-v1/launch/report.json",
+      "sha256": "2776230c0f61383c97e9790eafee0236377b99f6d46af20d5eb96ab8b124164c",
+      "bytes": 55308,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": false
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/launch/resource-prelaunch.json",
+      "sha256": "88328a510bedc1659b81ade4ecb416b4559c9ce3386200e0feed771c78d32453",
+      "bytes": 943,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": false
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/launch/resource-ready.json",
+      "sha256": "a28c4c0da5b05ce3ae6bee4d791f74547cbd5a6b0b26b8f02cc854984c578bec",
+      "bytes": 1642,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": false
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/launch/exact-exit.json",
+      "sha256": "5f500f96dee17d61f1dd8eda95ce3902044a8b000058004d7c10b32eb93c3284",
+      "bytes": 996,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": false
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/launch/stdout.json",
+      "sha256": "ff6c6f439e503f065cca6f24cfc97c40ffee6583846241374f5c0531a9fd8bfb",
+      "bytes": 38627,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": true
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/stop/report.json",
+      "sha256": "762079e6eadc67af696fd7579994fbe3c845554b7f1170436f9a02a4b2317955",
+      "bytes": 132748,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": true
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/assert-watch/status.json",
+      "sha256": "85b291bf4d52ab97d94e842118dba39d6dabb126e5852c3b32def2f01a903b8b",
+      "bytes": 382,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": false
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/assert-watch-start.json",
+      "sha256": "13104713647c3dbc71a5f61aacbd997294573fe7f8aed083f4c6ca9f7ba9c9ae",
+      "bytes": 1330,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": true
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/assert-watch-close.json",
+      "sha256": "126099ba7de22f7fa74b84c0b51ae1ff89705e59c5d117aca72154ae578d10b6",
+      "bytes": 798,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": false
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/prelaunch-final-census.json",
+      "sha256": "bf7b0e248f4032cd7d5bcf1236471f5056710711c84075b01183cefb3be1a4b3",
+      "bytes": 1929,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": true
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/post-stop-census.json",
+      "sha256": "9897a58e797969ea8c374fd42db7a5cafd030429cfb0d63d39cb4eb425e4d053",
+      "bytes": 1929,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": true
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/source-manifest.json",
+      "sha256": "0be46a6dfe2a3290b7947cda317a044f67b5dfd2a3914bc93d7b60a5d146e805",
+      "bytes": 644686,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": false
+    },
+    {
+      "path": ".runtime/round-20261026/validation-v1/host-binding.json",
+      "sha256": "c7ba4408baa0b56c82e264f5755ae198c9210858d6c4997c8f339dcfd3ecaa31",
+      "bytes": 1334,
+      "raw_content_copied": false,
+      "may_contain_private_session_or_foreground_data": false
+    }
+  ]
+}
