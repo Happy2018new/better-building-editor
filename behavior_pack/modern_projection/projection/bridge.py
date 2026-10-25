@@ -779,7 +779,7 @@ class ClientBridge(object):
             s.editor.message = args['error']
             if sent.get('source') == 'world_item':
                 self.notify(s.editor.message)
-        elif action in ('capture', 'check', 'resolve') and sent.get('source') != 'world_item' and state != self.world_request_state(action):
+        elif action in ('capture', 'resolve') and sent.get('source') != 'world_item' and state != self.world_request_state(action):
             s.editor.message = '草稿或原点已改变，请重新读取或检查'
         elif action == 'resolve':
             values = args.get('palette')
@@ -831,8 +831,17 @@ class ClientBridge(object):
             s.editor.message = '已读取世界选区，包括方块状态、背景层和方块实体数据'
             s.refresh_preview()
         elif action == 'check':
-            s.progress = args['progress']
-            s.editor.message = '建造进度已更新'
+            try:
+                matches = (sent.get('source') == 'world_item' or
+                           state == self.world_request_state(action))
+            except (ValueError, TypeError) as error:
+                s.editor.message = error_text(error)
+            else:
+                if matches:
+                    s.progress = args['progress']
+                    s.editor.message = '建造进度已更新'
+                else:
+                    s.editor.message = '草稿、原点、投影变换或维度已改变，请重新检查'
         else:
             s.editor.message = args.get('message', '操作完成')
         if isinstance(s.editor.message, bytes):
@@ -847,7 +856,8 @@ class ClientBridge(object):
         s = self.session
         state = (id(s.editor), s.editor.revision, tuple(s.origin))
         if action == 'check':
-            dimension = self.factory.CreateGame(self.level).GetCurrentDimension()
+            from .projection_target import current_dimension
+            dimension = current_dimension(self)
             return state + (tuple(s.projection_transform), dimension)
         return state
 

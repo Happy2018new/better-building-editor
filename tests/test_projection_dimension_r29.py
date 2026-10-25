@@ -160,6 +160,67 @@ class ConfirmationDimensionTests(unittest.TestCase):
         self.record()
         self.assertEqual([], self.writes)
 
+    def fail_dimension_query(self):
+        raise RuntimeError('原生维度查询失败')
+
+    def assert_query_failure_released(self):
+        session = self.bridge.session
+        self.assertIn('原生维度查询失败', session.editor.message)
+        self.assertIsNone(session.pending_confirm)
+        self.assertIsNone(self.bridge.pending)
+        self.assertIsNone(self.bridge.projection_preparation)
+        self.assertFalse(session.busy)
+        self.assertEqual({}, self.host.jobs)
+        self.assertEqual({}, self.host.uploads)
+        self.assertEqual([], self.writes)
+
+    def test_dimension_query_failure_while_opening_confirmation_is_readable(self):
+        self.runtime.GetCurrentDimension = self.fail_dimension_query
+        self.assertFalse(self.bridge.session.action(self.bridge.confirm_apply_world))
+        self.assert_query_failure_released()
+
+    def test_dimension_query_failure_while_accepting_confirmation_is_readable(self):
+        self.source(True)
+        self.runtime.GetCurrentDimension = self.fail_dimension_query
+        self.bridge.session.accept()
+        self.assert_query_failure_released()
+
+    def test_dimension_query_failure_at_start_does_not_reserve_a_job(self):
+        self.runtime.GetCurrentDimension = self.fail_dimension_query
+        self.assertFalse(self.bridge.session.action(self.bridge.apply_world))
+        self.assert_query_failure_released()
+
+    def test_dimension_query_failure_during_preparation_releases_busy(self):
+        self.bridge.session.editor = Editor(Document((16, 4, 16), {
+            (x, y, z): STONE for x in range(16) for y in range(4) for z in range(16)}))
+        self.source(False)
+        self.bridge.session.accept()
+        self.assertIsNotNone(self.bridge.projection_preparation)
+        self.assertIsNone(self.bridge.pending)
+        self.runtime.GetCurrentDimension = self.fail_dimension_query
+        self.drain()
+        self.assert_query_failure_released()
+
+    def test_dimension_query_failure_while_receiving_check_result_is_readable(self):
+        deliveries = []
+        original = self.host.NotifyToClient
+        def hold_final(player, event, data):
+            if data.get('done'):
+                deliveries.append((player, event, data))
+            else:
+                original(player, event, data)
+        self.host.NotifyToClient = hold_final
+        self.bridge.check_progress()
+        self.drain()
+        self.finish()
+        self.assertTrue(deliveries)
+        self.assertIsNotNone(self.bridge.pending)
+        self.runtime.GetCurrentDimension = self.fail_dimension_query
+        for args in deliveries:
+            original(*args)
+        self.assertIsNone(self.bridge.session.progress)
+        self.assert_query_failure_released()
+
     def test_check_reply_after_dimension_event_is_not_published(self):
         self.source(True)
         self.bridge.session.pending_confirm = None

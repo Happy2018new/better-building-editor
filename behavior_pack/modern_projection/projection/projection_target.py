@@ -16,6 +16,14 @@ LABELS = {'rotate_y90': 'Y轴90°', 'rotate_y180': 'Y轴180°',
           'mirror_y': 'Y镜像', 'mirror_z': 'Z镜像'}
 
 
+def current_dimension(bridge):
+    """Keep an unavailable native dimension query readable at UI boundaries."""
+    try:
+        return bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+    except RuntimeError as error:
+        raise ValueError('无法读取当前维度：%s' % error_text(error))
+
+
 def current_key(session):
     return (id(session.editor), session.editor.revision,
             coordinate(session.origin), tuple(getattr(session, 'projection_transform', ())))
@@ -75,7 +83,7 @@ class WorldApplyConfirmation(object):
     """Keep a world-write confirmation bound to its original dimension."""
     def __init__(self, bridge, target, include_air):
         self.bridge, self.target, self.include_air = bridge, target, include_air
-        self.dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+        self.dimension = current_dimension(bridge)
         self.valid = True
 
     def cancel(self):
@@ -84,7 +92,7 @@ class WorldApplyConfirmation(object):
     def __call__(self):
         b = self.bridge
         if (not self.valid or
-                b.factory.CreateGame(b.level).GetCurrentDimension() != self.dimension):
+                current_dimension(b) != self.dimension):
             raise ValueError('所在维度已改变，请重新确认写入世界')
         return start(b, 'apply', self.target, self.include_air, self.dimension)
 
@@ -102,7 +110,7 @@ class ProjectionPreparation(object):
             return
         try:
             if (self.expected_dimension is not None and
-                    b.factory.CreateGame(b.level).GetCurrentDimension() != self.expected_dimension):
+                    current_dimension(b) != self.expected_dimension):
                 raise ValueError('所在维度已改变，请重新检查或确认写入世界')
             if target.document is None and not target.advance():
                 b.next_frame(self.advance)
@@ -139,7 +147,7 @@ def start(bridge, action, target=None, include_air=False, expected_dimension=Non
     if target is None:
         target = ProjectionTarget(session)
     if action != 'project' and expected_dimension is None:
-        expected_dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+        expected_dimension = current_dimension(bridge)
     job = ProjectionPreparation(bridge, target, action, include_air, expected_dimension)
     bridge.projection_preparation = job
     if action == 'project':
