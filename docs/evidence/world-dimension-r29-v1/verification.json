@@ -1,0 +1,88 @@
+{
+  "MC_started": false,
+  "all_raw_and_storage_hashes_verified": true,
+  "all_source_bindings_rechecked": true,
+  "current_source_commit": "dcf34132ce8e33284066efe66b9693ff89dc675a",
+  "decompressed_reference_scan": {
+    "bytes": 865253,
+    "decoded_base64_texts": 0,
+    "decoded_json_strings": 3158,
+    "files": 66,
+    "findings": [],
+    "matches": 0,
+    "pattern_types": [
+      "openai_style_key",
+      "github_token",
+      "aws_access_key",
+      "bearer_token",
+      "private_key",
+      "credential_url",
+      "credential_assignment"
+    ]
+  },
+  "fresh_process_readback": true,
+  "gzip_recompression_byte_identical": true,
+  "index_bytes": 39379,
+  "index_sha256": "dc204d28ea31341b3891af87116281e417d94cd6858b06865a28cba558642cc7",
+  "manual_issues_closed": 0,
+  "metadata_document_scan": {
+    "bytes": 48609,
+    "decoded_base64_texts": 0,
+    "decoded_json_strings": 1011,
+    "files": 3,
+    "findings": [],
+    "matches": 0,
+    "pattern_types": [
+      "openai_style_key",
+      "github_token",
+      "aws_access_key",
+      "bearer_token",
+      "private_key",
+      "credential_url",
+      "credential_assignment"
+    ]
+  },
+  "original_inputs_unchanged": {
+    "archive-index.json": {
+      "bytes": 6570,
+      "entries": 37,
+      "entry_raw_bytes": 400660,
+      "sha256": "0d9cd8bfa1240e2c5eae2d68a3f3f792235fc383a252c3ce6f3d6644bd1d1f68"
+    },
+    "archive-v2-index.json": {
+      "bytes": 2970,
+      "entries": 16,
+      "entry_raw_bytes": 142945,
+      "sha256": "0001bf5a85c52b3ca5a0a1337cc32363bad69d180025217d5049dca8fa67056d"
+    }
+  },
+  "passed": true,
+  "readme_sha256": "75b63c494453714bd9eefe36f5e732a60fa185c85ec937de9f42fdf24d6b2b6c",
+  "schema": 1,
+  "selected_input_scan": {
+    "bytes": 865253,
+    "decoded_base64_texts": 0,
+    "decoded_json_strings": 3158,
+    "files": 66,
+    "findings": [],
+    "matches": 0,
+    "pattern_types": [
+      "openai_style_key",
+      "github_token",
+      "aws_access_key",
+      "bearer_token",
+      "private_key",
+      "credential_url",
+      "credential_assignment"
+    ]
+  },
+  "summary": {
+    "gzip_bytes": 166140,
+    "logical_raw_bytes": 865253,
+    "logical_references": 66,
+    "unique_objects": 61,
+    "unique_raw_bytes": 771569
+  },
+  "tests_rerun": false,
+  "verification_document_sha256": "813ab445ccdae6db4747ea15888299fa80be2baa009a9dfa7e55ac1bbd64d60d"
+}

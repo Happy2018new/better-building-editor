@@ -1,0 +1,107 @@
+{
+  "MC_started_by_packager": false,
+  "native_or_human_qualification_granted": false,
+  "objects": {
+    "1251517317f7afa5f3aa6dd4d5ff12026ad341fe84170fa6a21ae43238281074": {
+      "file": "1251517317f7afa5f3aa6dd4d5ff12026ad341fe84170fa6a21ae43238281074.gz",
+      "raw_bytes": 473,
+      "stored_bytes": 297,
+      "stored_sha256": "294cd3d75a6f808ecba143593244bbef58c3e9cff38220a112563dceac81a5de"
+    },
+    "2d2decf621ae8aa339dbcdc02d8899ba609afa3b4c804133c5f8ba244c3a9533": {
+      "file": "2d2decf621ae8aa339dbcdc02d8899ba609afa3b4c804133c5f8ba244c3a9533.gz",
+      "raw_bytes": 31973,
+      "stored_bytes": 3408,
+      "stored_sha256": "45c7611616be9e024c3554dd2254fe268911d739d056cc385aa28bc0fd23fa8c"
+    },
+    "46c84c186cd756415308123c2cd8a84f875d4898af025f2f8afd19813da45b2b": {
+      "file": "46c84c186cd756415308123c2cd8a84f875d4898af025f2f8afd19813da45b2b.gz",
+      "raw_bytes": 2419,
+      "stored_bytes": 830,
+      "stored_sha256": "2f76d086e89b51ea6247d95d4f55a731feb2556ff615deb9017c7f8ea47f7ed7"
+    },
+    "74c4ffb5bcc406fd0ba41a66acea88493851e81fda598d3515eefee291058d59": {
+      "file": "74c4ffb5bcc406fd0ba41a66acea88493851e81fda598d3515eefee291058d59.gz",
+      "raw_bytes": 2389,
+      "stored_bytes": 825,
+      "stored_sha256": "4a13dda61a420ac71791b057622225ea1efa2c4213fd912b8a1c2f91abbbf7c6"
+    },
+    "96dcddbab7612ecb6f0f89c387c21dcd6bfdac1dc36dbe4efa877543c6b95eef": {
+      "file": "96dcddbab7612ecb6f0f89c387c21dcd6bfdac1dc36dbe4efa877543c6b95eef.gz",
+      "raw_bytes": 1019,
+      "stored_bytes": 534,
+      "stored_sha256": "1e97ddc212d439a5833d860a016dfab9a0694263e1d0620643c7b36a2dbf5d9b"
+    },
+    "e22d62ccd1c1cf83edd394f90c845b3f4cece3f3a7fe177662e192a285901dc8": {
+      "file": "e22d62ccd1c1cf83edd394f90c845b3f4cece3f3a7fe177662e192a285901dc8.gz",
+      "raw_bytes": 891712,
+      "stored_bytes": 276467,
+      "stored_sha256": "3bdcc24735d98f4e6455b29a6f9f210837799ce903b41258056bb7c609db3abe"
+    },
+    "f4cc5449f687080c81e2c78ba60a5625d399e2cbad73d15a198dc62026250dc2": {
+      "file": "f4cc5449f687080c81e2c78ba60a5625d399e2cbad73d15a198dc62026250dc2.gz",
+      "raw_bytes": 2311,
+      "stored_bytes": 1052,
+      "stored_sha256": "cc5f272944e2d62046d24bd7f5adb3bf5469ed1e00ca2abd0e19e61b4de912fe"
+    }
+  },
+  "references": [
+    {
+      "bytes": 473,
+      "path": "cpu-v8/result.json",
+      "sha256": "1251517317f7afa5f3aa6dd4d5ff12026ad341fe84170fa6a21ae43238281074"
+    },
+    {
+      "bytes": 31973,
+      "path": "cpu-v8/unittest.log",
+      "sha256": "2d2decf621ae8aa339dbcdc02d8899ba609afa3b4c804133c5f8ba244c3a9533"
+    },
+    {
+      "bytes": 891712,
+      "path": "cpu-v8/before.json",
+      "sha256": "e22d62ccd1c1cf83edd394f90c845b3f4cece3f3a7fe177662e192a285901dc8"
+    },
+    {
+      "bytes": 891712,
+      "path": "cpu-v8/after.json",
+      "sha256": "e22d62ccd1c1cf83edd394f90c845b3f4cece3f3a7fe177662e192a285901dc8"
+    },
+    {
+      "bytes": 2311,
+      "path": "run_cpu_v8.py",
+      "sha256": "f4cc5449f687080c81e2c78ba60a5625d399e2cbad73d15a198dc62026250dc2"
+    },
+    {
+      "bytes": 1019,
+      "path": "compile_current_v4.py",
+      "sha256": "96dcddbab7612ecb6f0f89c387c21dcd6bfdac1dc36dbe4efa877543c6b95eef"
+    },
+    {
+      "bytes": 2419,
+      "path": "compile-py2-v8.json",
+      "sha256": "46c84c186cd756415308123c2cd8a84f875d4898af025f2f8afd19813da45b2b"
+    },
+    {
+      "bytes": 2389,
+      "path": "compile-py3-v8.json",
+      "sha256": "74c4ffb5bcc406fd0ba41a66acea88493851e81fda598d3515eefee291058d59"
+    }
+  ],
+  "result": {
+    "after_input_bytes": 259545173,
+    "after_input_count": 6333,
+    "changed_selected_inputs": [],
+    "elapsed_seconds": 570.3040819168091,
+    "exit_code": 0,
+    "scope": "actual workspace behavior/resource/tests/tools including historical untracked; before/after inventories recomputed",
+    "selected_input_bytes": 259545173,
+    "selected_input_count": 6333,
+    "source_commit": "dcf34132ce8e33284066efe66b9693ff89dc675a",
+    "started_utc_epoch": 1792961222.5308137
+  },
+  "schema": 1,
+  "skipped": 1,
+  "source_commit": "dcf34132ce8e33284066efe66b9693ff89dc675a",
+  "tests": 3613,
+  "unittest_seconds": 554.447
+}

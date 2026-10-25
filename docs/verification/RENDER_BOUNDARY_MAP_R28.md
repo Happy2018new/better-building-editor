@@ -44,3 +44,18 @@ Scene五个 owner 的原源码、实际位置、语法层面的 close 次序及�
 [静态小包](../evidence/render-boundary-map-r28-v1/index.json) 含完整语法导入记录、全部解析记录、259源的Git blob与SHA、真实Python2解析器和宿主分析脚本；两份大JSON用标准xz无损压缩。6文件共99,015 B，单文件均小于240,000 B，索引SHA256为 `db160a4f01dd6997ab07f69b6e95721de59a843ed771b5bb148e682cda84d6e4`。
 
 原始目录为 `.runtime/round-20261023/render-boundary-map-v1` 与 `render-boundary-map-v2`；前者保留Python3解析限制，后者补真Python2解析及258模块的双解析器对照。包内脚本保留原工作区运行路径；独立复跑应使用同一仓库布局并改到新的输出目录，避免覆盖历史结果。
+
+
+## R29：当前 Scene 的五 owner 私有重构 rebase
+
+在当前 `dcf34132ce8e33284066efe66b9693ff89dc675a` 来源上，已把封存 R28 的五 owner 机械抽取重新套到私有副本；**未合主源、未切库、未生成资格**。当前原 Scene raw SHA 为 `3e1aa6d7586eecac33483690e90c7d76a7c8a18eafd0285c4a5393a798e78668`，两个候选文件为 Scene（45,272 B）和 `scene_owner.py`（891 B）。
+
+root 生成器和独立复核各保存实际 git apply 记录。独立 fresh 副本对封存 patch 与当前 LF patch 都完成 `--check` 和实际 apply，均 exit 0；封存 patch 重放的两文件 raw 字节与候选完全相同。原封存 patch 因 helper 的 CRLF 产生 **24 行 whitespace warnings**，原 stderr 完整保存，不能称零警告；当前 LF patch 另存，不覆盖封存原件。
+
+当前五个原 owner AST 分别与封存原函数相等。将候选五函数恢复为当前原函数并移除唯一 `.scene_owner import own_preview` 后，整个模块 AST 与当前 Scene 相同；helper LF 字节与封存版相同。Scene 外围、hook 次序、家族构造与预算、controls／preview close 次序、身份判断和原异常传播均不在本批改变范围。helper 是主仓客户端生命周期职责，不搬进 renderer／states 库。
+
+实际 CPython 2.7.13 与 3.13.13 各编译这两个当前候选文件，源 SHA 相同，不导入产品或 SDK。原双解释器各 58 个 owner 控制本次**未重跑**，保留其原始结果，仅作为未变五函数／helper 的历史依据，不把它们记成当前重跑。MCP 最初从私有 behavior_pack 加 scope 得到 files=0，该回执保留且不算通过；随后只扫描含这两文件的私有 projection 目录，实际解析 2、失败 0。报告保留既有 Scene／tick 过长的 2 warning 和 Scene 六参数的 1 hint；helper 无规则命中，不能把结构审查等同运行验收。
+
+只读解析当前三份声明得到水 42、书 owner 20、末地 20 项，均包含 `scene.py`、尚不含新 helper。若未来仅合入这次抽取，有限声明至少应变为 **43／21／21** 并保留 Scene，再按最终实现重绑来源；本次不修改任何合同或 metadata，不将这些有限清单称完整运行时闭包，不转授旧资格。
+
+[当前候选精简证据](../evidence/scene-owner-current-r29-v1/index.json) 保存生成器、两候选、两补丁、实际 git apply／AST／编译／限域 review 原件、当前及历史比较输入、有限 source-membership 记录。gzip 确定性去重，索引列 raw／storage SHA；另有新进程解压回读和局部凭据扫描。没有 MC／RPC／冷启动／GPU、五家族真实调度或人工验收，人工关闭 0。既定重构容量不重复计费。

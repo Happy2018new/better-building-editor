@@ -1,6 +1,6 @@
 # 当前开发交接：现代化投影建筑编辑器
 
-更新于北京时间 **2026-10-26 05:22**。本轮开发仍在继续；以下是当前有效状态。较早轮次、失败和阶段性授权完整保存在[原文历史](CONVERSATION_HANDOFF_HISTORY_20261026.md)，281,913字节原样保留，SHA-256为`15a1c06ba7cd37f05e9c6a1a1fe462c1536209997c598c87cffbab57ed9bb4c5`。历史中的旧来源、旧grant和“继续开发”不能覆盖本页。
+更新于北京时间 **2026-10-26 05:50**。本轮开发仍在继续；以下是当前有效状态。较早轮次、失败和阶段性授权完整保存在[原文历史](CONVERSATION_HANDOFF_HISTORY_20261026.md)，281,913字节原样保留，SHA-256为`15a1c06ba7cd37f05e9c6a1a1fe462c1536209997c598c87cffbab57ed9bb4c5`。历史中的旧来源、旧grant和“继续开发”不能覆盖本页。当前交接与原字节历史已本地提交`be28b589`。
 
 ## 截止、隔离与仓库
 
@@ -38,6 +38,7 @@
 - `.runtime/lib-layout-callers-r29-v1`：host／candidate×真Py2／Py3四路各33控制，22正常＋11拒绝，完整输出相同。唯一实际vendor函数调用是`context_position`每候选解释器18次，另8函数只核导出对象身份；其余真实caller消费常量。旧Py2 cache拒绝与AST导入层级勘误保留，未重跑115或66k网格。
 - `.runtime/lib-full-dcf-v1/p`为6989输入、326,464,656B。新完整组合回归**3613项／skip10／OK、exit0**，本体454.072秒、总473.296630秒；输入及main6333前后不变。404个完成时实际产品模块均来自该工程，outside=[]。原369历史输入、extras、两个book指纹fixture修补及32候选保留。
 - 上述额外9项历史冷档案回放另经测试支持的只读证据根单独补验：10选定方法中9通过、1基线census缺失skip，0错误／失败，本体29.505秒。该结果不改写完整回归的skip10，也不覆盖原7021唯一全量3547项／33ERROR。[完整组合及补验原件](evidence/library-full-current-r29-v1/README.md)已归档，root独立解压核SHA通过；没有复制326MB工程或大型档案。
+- [实际运行包](evidence/library-runtime-package-r29-v1/README.md)为3738 runtime＋2许可＋1回执，ZIP47,280,551B、SHA`f42cdd600b2783fb5dfc1940ed28991de547880123dcd48b45fa3e27c7ee5eed`。5种真实异常ZIP拒绝，真Py2／3各60产品模块从包内导入；无邻仓／SDK桩。独立外部审计另核全部runtime与full前后清单、实际p及成功记录一致，不能倒写成v1 builder本身门禁。初许可换行摘要、Py2 None-cache及路径codec两次驱动失败保留。modMain只核存在／字节，未执行SDK入口。47MB ZIP仅在私有目录，不进Git。
 
 生产切换、最终包及新源资格仍按[接入缺口](verification/LIBRARY_CUTOVER_R29.md)处理。三份旧metadata保持，未生成新资格；私有完整组合不含Scene重构。
 
@@ -65,9 +66,11 @@ CPU-v8通过后，只授v7**一次条件冷启**：freshOS门→三绑定及guar
 
 全部产品缺口以[统一待办](IMPLEMENTATION_GAPS.md)为准，不能从私有候选或测试数量增加关闭数。
 
+[特殊物品来源普查](evidence/special-item-source-census-r29-v1/README.md)已收口：有限40ID从3包扩21包，实际只增加盾牌两条通用材质引用；不证明旗帜不能接入或盾牌图案可用。版本映射、atlas着色、item userdata、物品姿态和渲染仍待。私有fixture一测试／CLI成功不补默认census，也不改写原full skip；本轮人工新增关闭0。
+
 ## 后续执行与发布边界
 
-当前三个代理分工：`r29_validation`只做v7条件准入／所属冷测；`projection_snapshot_r29`整理布局caller证据及cutover说明；`world_placement_r29`补历史skip定点与完整组合精简归档。不要启动第四个活动代理。
+当前代理：`r29_validation`只做v7条件准入／所属冷测；`projection_snapshot_r29`在新私有目录验证Scene与两库的最小联合候选；`world_placement_r29`已收口运行包来源审计及精简归档，当前空闲。不要启动第四个活动代理。联合候选尚未执行完成，不能转授仅两库的完整回归或运行包结果；三有限声明应按实际联合源为水64／书owner46／末地代码44＋资源8，书BODY36保持，而非单独Scene的43／21／21。
 
 接下来先收口上述精简证据并本地提交，runtime保持dcf。资源门若真正通过，按唯一v7 grant执行；否则继续隔离候选、准备下一允许窗口，不降低门。07:00后不扩大实验；07:30恢复、07:45核所属进程／保存交接，最后再次核08:00任务。不要关闭外部MC。
 

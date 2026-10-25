@@ -1,0 +1,365 @@
+{
+  "MC_started": false,
+  "description": "Final dcf private fixed-library full CPU run and one archive-byte-only targeted followup; no native qualification",
+  "followup_passed": 9,
+  "followup_skipped": 1,
+  "followup_tests": 10,
+  "full_skipped": 10,
+  "full_tests": 3613,
+  "gzip": {
+    "compresslevel": 9,
+    "filename": "",
+    "mtime": 0
+  },
+  "large_project_or_archive_payloads_copied": false,
+  "manual_issues_closed": 0,
+  "native_qualification_granted": false,
+  "objects": {
+    "0364c9f0fc40d3584c2e2acca1b21bf6a1b98b07e15022fdc01232308e3d2c32": {
+      "file": "0364c9f0fc40d3584c2e2acca1b21bf6a1b98b07e15022fdc01232308e3d2c32.gz",
+      "raw_bytes": 11659,
+      "stored_bytes": 3602,
+      "stored_sha256": "49461a286318ad8ce5bd1326ee7fcfa8304ac48d7c2296223fdd2c5b57e28f6d"
+    },
+    "1573475ef7db03d39db73127711f8e7049c3135952b1ecefa4b72189f55e27ad": {
+      "file": "1573475ef7db03d39db73127711f8e7049c3135952b1ecefa4b72189f55e27ad.gz",
+      "raw_bytes": 9589,
+      "stored_bytes": 2442,
+      "stored_sha256": "2651b6df0fe6d84868b41c0f2cf50998cb858f72970ca53a7dbcec01d40b9076"
+    },
+    "158f71eebc235423207a09e19a3a669f893655dc095befc8efab9c513ed35833": {
+      "file": "158f71eebc235423207a09e19a3a669f893655dc095befc8efab9c513ed35833.gz",
+      "raw_bytes": 2881648,
+      "stored_bytes": 379744,
+      "stored_sha256": "02f514acfff0edc393c9613039ba217b3dd0f79adf8b8dc5b7af3fff45de2e71"
+    },
+    "15a51ad4a19fc782c799d3c8089085a8a2962b5de2d711613b71ccfeed084ea8": {
+      "file": "15a51ad4a19fc782c799d3c8089085a8a2962b5de2d711613b71ccfeed084ea8.gz",
+      "raw_bytes": 2064,
+      "stored_bytes": 555,
+      "stored_sha256": "4cf10bea7b6a669b5e6b8c329b6d2428a564c5e6860b8bca4b7c6c6588ad5d26"
+    },
+    "17b3213f2b4919e95c76b5fdb922a97ecef9751f9c8a2a8bacd972a818aca7b3": {
+      "file": "17b3213f2b4919e95c76b5fdb922a97ecef9751f9c8a2a8bacd972a818aca7b3.gz",
+      "raw_bytes": 66070,
+      "stored_bytes": 5274,
+      "stored_sha256": "5b4d6cef74395b0cc94d8047ed26cfde0fb69a79d1039dacc77c483230181321"
+    },
+    "1d1b1945467fd0c4a906f9fd6d2579f0387c747f62f18328c752587eeb5c5e64": {
+      "file": "1d1b1945467fd0c4a906f9fd6d2579f0387c747f62f18328c752587eeb5c5e64.gz",
+      "raw_bytes": 551,
+      "stored_bytes": 340,
+      "stored_sha256": "88282abcceb2f29acb4e50e188c3c277819e3934042c78c445127ce2c983e28c"
+    },
+    "2263a4c0dc81f9d5cc94600bfa082de9634f18bfe388cdaf7382bfbbbfd921d0": {
+      "file": "2263a4c0dc81f9d5cc94600bfa082de9634f18bfe388cdaf7382bfbbbfd921d0.gz",
+      "raw_bytes": 41091,
+      "stored_bytes": 11826,
+      "stored_sha256": "952433e4d395fc4885644b2fcd8258a2faa2364759d48b460d682e4a32ed5b97"
+    },
+    "314f59442265a0768bd06dea2651ef669f5c14e43de9a7c7b2b78be56376de8a": {
+      "file": "314f59442265a0768bd06dea2651ef669f5c14e43de9a7c7b2b78be56376de8a.gz",
+      "raw_bytes": 1769,
+      "stored_bytes": 737,
+      "stored_sha256": "46e6a497b7eaf41f997452051de4b42754389479ccf2d2c1a8a485b44a6cfc4a"
+    },
+    "34b180cebf3a27146be3973506071c770ac04941ee6d9d4149844e568686c962": {
+      "file": "34b180cebf3a27146be3973506071c770ac04941ee6d9d4149844e568686c962.gz",
+      "raw_bytes": 16703,
+      "stored_bytes": 4812,
+      "stored_sha256": "8278ee2398f9c7d7c6a0da5dd6be3a4079db49c061f26e525949fda46cadd6c6"
+    },
+    "3a1b4a123856636f90a1595f0da0c40efe3e3f13e1046dc0ff2b6b9e881d7392": {
+      "file": "3a1b4a123856636f90a1595f0da0c40efe3e3f13e1046dc0ff2b6b9e881d7392.gz",
+      "raw_bytes": 992436,
+      "stored_bytes": 308616,
+      "stored_sha256": "efc3043ae74b5c5afd8a2f5d03f7b358e9caec66406cb07b0136c8d7c631fa02"
+    },
+    "46744493efc320ed7014d50bbcbc91fd4bd1257d4cb20e7ef6571756acccbfea": {
+      "file": "46744493efc320ed7014d50bbcbc91fd4bd1257d4cb20e7ef6571756acccbfea.gz",
+      "raw_bytes": 1414020,
+      "stored_bytes": 348743,
+      "stored_sha256": "4b3b33fa8abc39c15847577af1bb9801b9523e5a57437ba57b6f9376bd50c851"
+    },
+    "47017b56b643f665c696c7ad8e3a73e1b40ecdaae4fcab3b23c45d92f00fa478": {
+      "file": "47017b56b643f665c696c7ad8e3a73e1b40ecdaae4fcab3b23c45d92f00fa478.gz",
+      "raw_bytes": 14586,
+      "stored_bytes": 5523,
+      "stored_sha256": "93726ec21ac65b3002223da373e203cdd60b18b636181f7b7792e1fe6edbf6df"
+    },
+    "4a482571f9f2eb8ca441785062826c5d3239a301e59a29d4707ea2459030d79a": {
+      "file": "4a482571f9f2eb8ca441785062826c5d3239a301e59a29d4707ea2459030d79a.gz",
+      "raw_bytes": 30303,
+      "stored_bytes": 3942,
+      "stored_sha256": "64291f0aee56eeeda6c854d11cba9925bb6d5b897a75ffe5f2eb9bf7756a9d7e"
+    },
+    "56e01f25e434afd49c3c931e5e6e235cfbb25efc001f9a18f3fccc45ca36305d": {
+      "file": "56e01f25e434afd49c3c931e5e6e235cfbb25efc001f9a18f3fccc45ca36305d.gz",
+      "raw_bytes": 22623,
+      "stored_bytes": 4166,
+      "stored_sha256": "600da22b39fd94052b710a811550d6b56ae4a2cebfba41c11466813a9105929e"
+    },
+    "63545741feef26966dae7c84c68068d412942c9a854c5c69c7475a2d946500b7": {
+      "file": "63545741feef26966dae7c84c68068d412942c9a854c5c69c7475a2d946500b7.gz",
+      "raw_bytes": 397,
+      "stored_bytes": 241,
+      "stored_sha256": "b4d0ef7565842d694cae1d750179c592684c7afa8ac950e483af0bae6c698aff"
+    },
+    "7a246fd529ff8a09847bde847c469cef79a793bf22bfbdf9443592e789d45eca": {
+      "file": "7a246fd529ff8a09847bde847c469cef79a793bf22bfbdf9443592e789d45eca.gz",
+      "raw_bytes": 2558,
+      "stored_bytes": 806,
+      "stored_sha256": "26cebd211605e17c1c6c654b76a23c6a4946f9b78d508d3fb7d1fbd731b04736"
+    },
+    "8400dc5529fabbe774043a52adec69d4d33aedca8e3bf31b2adbf0e68118a66c": {
+      "file": "8400dc5529fabbe774043a52adec69d4d33aedca8e3bf31b2adbf0e68118a66c.gz",
+      "raw_bytes": 136107,
+      "stored_bytes": 21588,
+      "stored_sha256": "952eac8c20eb93fa4b040fef4e893a3afdf233d51a131db840dfa15ed3692c41"
+    },
+    "8d3741cbc08f3bc08b4a42e50ab87369f7016b9a3774ec9d74960beb090b5cb5": {
+      "file": "8d3741cbc08f3bc08b4a42e50ab87369f7016b9a3774ec9d74960beb090b5cb5.gz",
+      "raw_bytes": 14263,
+      "stored_bytes": 4252,
+      "stored_sha256": "b5f94ec7a3b6b9f8a9079793ea37ebf0daad101c3919a72a0730b991a45d20c0"
+    },
+    "90a79befa3f4154ce7fac0e33f2a7f8bc7cc605eb99a134a99aab2e2b4d7113a": {
+      "file": "90a79befa3f4154ce7fac0e33f2a7f8bc7cc605eb99a134a99aab2e2b4d7113a.gz",
+      "raw_bytes": 171496,
+      "stored_bytes": 26093,
+      "stored_sha256": "bc973588277aa89a49b0c4ebd226ea54144ea9b259630673642f4eecaea8c894"
+    },
+    "ba55684fb4821041d5cc5d778a4c32eb83734b0e3b209698d1d14c2b7a02574b": {
+      "file": "ba55684fb4821041d5cc5d778a4c32eb83734b0e3b209698d1d14c2b7a02574b.gz",
+      "raw_bytes": 2261,
+      "stored_bytes": 557,
+      "stored_sha256": "f84ef8fac8de212b6d0a17d08adb19a5f4d26b5e691175d860eab6cd4a968808"
+    },
+    "c7439c98b2c3fca27fa24a2b54f3aef79ecd590ea39936fd9a20a6898e52bcab": {
+      "file": "c7439c98b2c3fca27fa24a2b54f3aef79ecd590ea39936fd9a20a6898e52bcab.gz",
+      "raw_bytes": 4019,
+      "stored_bytes": 1668,
+      "stored_sha256": "7121e8e1e284ef7b6be0db2079d90940dc745d8cd52c27a2bce59b1d0b524488"
+    },
+    "caa468c7bf4d04d915002f5e2a0afb3acac6155d18f5c736591589d462178564": {
+      "file": "caa468c7bf4d04d915002f5e2a0afb3acac6155d18f5c736591589d462178564.gz",
+      "raw_bytes": 30325,
+      "stored_bytes": 4577,
+      "stored_sha256": "27d4ca7ae85ea99db0f96dba8135b63f0cb65ccaeb0b7edfbb8fcf449e0dcc47"
+    },
+    "d43ed2405aa85ce8cc184e39134a41d89a914088672ca1144d9866ecf6cde342": {
+      "file": "d43ed2405aa85ce8cc184e39134a41d89a914088672ca1144d9866ecf6cde342.gz",
+      "raw_bytes": 93110,
+      "stored_bytes": 12599,
+      "stored_sha256": "a47e89f4cd5633fff4c770c821b659fb58d7639054ad084c31b547a8b501ae05"
+    },
+    "daa08bff4e05bf67d0a7e24f45501658827fa482607ffa08066ddd448f803ef4": {
+      "file": "daa08bff4e05bf67d0a7e24f45501658827fa482607ffa08066ddd448f803ef4.gz",
+      "raw_bytes": 173115,
+      "stored_bytes": 23261,
+      "stored_sha256": "65c735bf872c25d03396db8b4be36639d3f9f31ac51e4f937483dd17f1d09264"
+    },
+    "dd7e654e49443761b57b58c8eca9af06f40dd74e0c3b0e822f6f08ba0e7247d0": {
+      "file": "dd7e654e49443761b57b58c8eca9af06f40dd74e0c3b0e822f6f08ba0e7247d0.gz",
+      "raw_bytes": 7209,
+      "stored_bytes": 2516,
+      "stored_sha256": "68eb9a95b6e47c8db58b3a0fc27da765a9b37abc02c2e8667a72b8ea30087cf1"
+    },
+    "e6eb2670ee43a064bbe2d7c5a9dc6e5abd7418874a3846810e7d16f6beadfdc7": {
+      "file": "e6eb2670ee43a064bbe2d7c5a9dc6e5abd7418874a3846810e7d16f6beadfdc7.gz",
+      "raw_bytes": 33435,
+      "stored_bytes": 3440,
+      "stored_sha256": "5de4942f32dd6492f76162a2e14efe1dedfd1dc85f7ca62d60f1f51b84a4feca"
+    },
+    "ea33c28316aecf466bf8e70a841122c0579da9a9d99a61942c4c487b3e99d9b6": {
+      "file": "ea33c28316aecf466bf8e70a841122c0579da9a9d99a61942c4c487b3e99d9b6.gz",
+      "raw_bytes": 9975,
+      "stored_bytes": 4610,
+      "stored_sha256": "29067f5783ac4d1f94a0bbffbe469e3a862b8603d08475a22c12304d4d71bcf4"
+    },
+    "fb3ecd5a87ac91ab2cffee2154bc468514d53c6e27e453bf463ba0196ce990ac": {
+      "file": "fb3ecd5a87ac91ab2cffee2154bc468514d53c6e27e453bf463ba0196ce990ac.gz",
+      "raw_bytes": 6078,
+      "stored_bytes": 1925,
+      "stored_sha256": "06c7d45f785b49f17a0a5b43641a7322862276f27c62dcf2408279b2f743619b"
+    }
+  },
+  "references": [
+    {
+      "bytes": 4019,
+      "path": ".runtime/lib-full-dcf-v1/run_full.py",
+      "sha256": "c7439c98b2c3fca27fa24a2b54f3aef79ecd590ea39936fd9a20a6898e52bcab"
+    },
+    {
+      "bytes": 2881648,
+      "path": ".runtime/lib-full-dcf-v1/provenance.json",
+      "sha256": "158f71eebc235423207a09e19a3a669f893655dc095befc8efab9c513ed35833"
+    },
+    {
+      "bytes": 2558,
+      "path": ".runtime/lib-full-dcf-v1/root-input-supplement-v1.json",
+      "sha256": "7a246fd529ff8a09847bde847c469cef79a793bf22bfbdf9443592e789d45eca"
+    },
+    {
+      "bytes": 2261,
+      "path": ".runtime/lib-full-dcf-v1/declared-skip-scope-v1.json",
+      "sha256": "ba55684fb4821041d5cc5d778a4c32eb83734b0e3b209698d1d14c2b7a02574b"
+    },
+    {
+      "bytes": 992436,
+      "path": ".runtime/lib-full-dcf-v1/full/before.json",
+      "sha256": "3a1b4a123856636f90a1595f0da0c40efe3e3f13e1046dc0ff2b6b9e881d7392"
+    },
+    {
+      "bytes": 992436,
+      "path": ".runtime/lib-full-dcf-v1/full/after.json",
+      "sha256": "3a1b4a123856636f90a1595f0da0c40efe3e3f13e1046dc0ff2b6b9e881d7392"
+    },
+    {
+      "bytes": 551,
+      "path": ".runtime/lib-full-dcf-v1/full/result.json",
+      "sha256": "1d1b1945467fd0c4a906f9fd6d2579f0387c747f62f18328c752587eeb5c5e64"
+    },
+    {
+      "bytes": 136107,
+      "path": ".runtime/lib-full-dcf-v1/full/child-result.json",
+      "sha256": "8400dc5529fabbe774043a52adec69d4d33aedca8e3bf31b2adbf0e68118a66c"
+    },
+    {
+      "bytes": 33435,
+      "path": ".runtime/lib-full-dcf-v1/full/unittest.log",
+      "sha256": "e6eb2670ee43a064bbe2d7c5a9dc6e5abd7418874a3846810e7d16f6beadfdc7"
+    },
+    {
+      "bytes": 11659,
+      "path": ".runtime/lib-full-dcf-skip-v1/run_targeted.py",
+      "sha256": "0364c9f0fc40d3584c2e2acca1b21bf6a1b98b07e15022fdc01232308e3d2c32"
+    },
+    {
+      "bytes": 1414020,
+      "path": ".runtime/lib-full-dcf-skip-v1/before.json",
+      "sha256": "46744493efc320ed7014d50bbcbc91fd4bd1257d4cb20e7ef6571756acccbfea"
+    },
+    {
+      "bytes": 1414020,
+      "path": ".runtime/lib-full-dcf-skip-v1/after.json",
+      "sha256": "46744493efc320ed7014d50bbcbc91fd4bd1257d4cb20e7ef6571756acccbfea"
+    },
+    {
+      "bytes": 1769,
+      "path": ".runtime/lib-full-dcf-skip-v1/request.json",
+      "sha256": "314f59442265a0768bd06dea2651ef669f5c14e43de9a7c7b2b78be56376de8a"
+    },
+    {
+      "bytes": 397,
+      "path": ".runtime/lib-full-dcf-skip-v1/result.json",
+      "sha256": "63545741feef26966dae7c84c68068d412942c9a854c5c69c7475a2d946500b7"
+    },
+    {
+      "bytes": 173115,
+      "path": ".runtime/lib-full-dcf-skip-v1/child-result.json",
+      "sha256": "daa08bff4e05bf67d0a7e24f45501658827fa482607ffa08066ddd448f803ef4"
+    },
+    {
+      "bytes": 171496,
+      "path": ".runtime/lib-full-dcf-skip-v1/trace.json",
+      "sha256": "90a79befa3f4154ce7fac0e33f2a7f8bc7cc605eb99a134a99aab2e2b4d7113a"
+    },
+    {
+      "bytes": 2064,
+      "path": ".runtime/lib-full-dcf-skip-v1/unittest.log",
+      "sha256": "15a51ad4a19fc782c799d3c8089085a8a2962b5de2d711613b71ccfeed084ea8"
+    },
+    {
+      "bytes": 7209,
+      "path": ".runtime/lib-full-dcf-skip-v1/review_provenance.py",
+      "sha256": "dd7e654e49443761b57b58c8eca9af06f40dd74e0c3b0e822f6f08ba0e7247d0"
+    },
+    {
+      "bytes": 66070,
+      "path": ".runtime/lib-full-dcf-skip-v1/review-provenance.json",
+      "sha256": "17b3213f2b4919e95c76b5fdb922a97ecef9751f9c8a2a8bacd972a818aca7b3"
+    },
+    {
+      "bytes": 9975,
+      "path": ".runtime/lib-full-dcf-skip-v1/pack_library_evidence.py",
+      "sha256": "ea33c28316aecf466bf8e70a841122c0579da9a9d99a61942c4c487b3e99d9b6"
+    },
+    {
+      "bytes": 22623,
+      "path": "docs/evidence/liquid-native-write-r13-v2/archive-index.json",
+      "sha256": "56e01f25e434afd49c3c931e5e6e235cfbb25efc001f9a18f3fccc45ca36305d"
+    },
+    {
+      "bytes": 30325,
+      "path": "docs/evidence/liquid-native-write-r13-v2-source-closure/archive-index.json",
+      "sha256": "caa468c7bf4d04d915002f5e2a0afb3acac6155d18f5c736591589d462178564"
+    },
+    {
+      "bytes": 30303,
+      "path": "docs/evidence/liquid-native-write-r13-v2-source-closure-extra/archive-index.json",
+      "sha256": "4a482571f9f2eb8ca441785062826c5d3239a301e59a29d4707ea2459030d79a"
+    },
+    {
+      "bytes": 93110,
+      "path": "docs/evidence/liquid-native-write-r13-v4b/archive-index.json",
+      "sha256": "d43ed2405aa85ce8cc184e39134a41d89a914088672ca1144d9866ecf6cde342"
+    },
+    {
+      "bytes": 9589,
+      "path": ".runtime/lib-full-dcf-v1/p/tests/test_liquid_archive_replay_integration.py",
+      "sha256": "1573475ef7db03d39db73127711f8e7049c3135952b1ecefa4b72189f55e27ad"
+    },
+    {
+      "bytes": 6078,
+      "path": ".runtime/lib-full-dcf-v1/p/tests/test_special_item_capabilities.py",
+      "sha256": "fb3ecd5a87ac91ab2cffee2154bc468514d53c6e27e453bf463ba0196ce990ac"
+    },
+    {
+      "bytes": 16703,
+      "path": ".runtime/lib-full-dcf-v1/p/tools/replay_liquid_native_archive.py",
+      "sha256": "34b180cebf3a27146be3973506071c770ac04941ee6d9d4149844e568686c962"
+    },
+    {
+      "bytes": 14263,
+      "path": ".runtime/lib-full-dcf-v1/p/tools/special_item_capabilities_r17.py",
+      "sha256": "8d3741cbc08f3bc08b4a42e50ab87369f7016b9a3774ec9d74960beb090b5cb5"
+    },
+    {
+      "bytes": 41091,
+      "path": ".runtime/lib-full-dcf-v1/p/tools/audit_native_nbt_inventory.py",
+      "sha256": "2263a4c0dc81f9d5cc94600bfa082de9634f18bfe388cdaf7382bfbbbfd921d0"
+    },
+    {
+      "bytes": 14586,
+      "path": ".runtime/r29-world-dimension-pack-v1/pack.py",
+      "sha256": "47017b56b643f665c696c7ad8e3a73e1b40ecdaae4fcab3b23c45d92f00fa478"
+    }
+  ],
+  "schema": 1,
+  "selected_raw_credential_scan": {
+    "bytes": 8595916,
+    "decoded_base64_texts": 0,
+    "decoded_json_strings": 153345,
+    "files": 30,
+    "findings": [],
+    "matches": 0,
+    "pattern_types": [
+      "openai_style_key",
+      "github_token",
+      "aws_access_key",
+      "bearer_token",
+      "private_key",
+      "credential_url",
+      "credential_assignment"
+    ]
+  },
+  "source_commit": "dcf34132ce8e33284066efe66b9693ff89dc675a",
+  "summary": {
+    "gzip_bytes": 1188455,
+    "logical_raw_bytes": 8595916,
+    "logical_references": 30,
+    "unique_objects": 28,
+    "unique_raw_bytes": 6189460
+  }
+}

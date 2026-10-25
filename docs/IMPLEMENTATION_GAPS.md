@@ -4,13 +4,17 @@
 
 投影页直接旋转／镜像、完整／缺失目标、进度比对和同快照真实放置已接入，并提供17格非对称公开对照卡；CPU及错误路径回归通过，新源实机待完成。末地编辑器已接入按当前原生GUI倍率计算锚点的修正；星点及其他外观问题保持开放。写入审查另修复残缺床向确认范围外补件的缺陷，非法床格写前失败并显示坐标／原因，后续合法格继续。
 
-反馈链已修复SDK字节错误造成的Py2任务卡住、中文拒绝原因及读取／下载／准备／资源清理显示。当前af9c628c另补写入批次前的在线／维度守卫，保留开始时一次权限检查和不回滚语义。当前[CPU v6](evidence/r29-final-cpu-v6/README.md)为3591项／skip1／OK，6331输入前后不变；真实Py2／3各21条生命周期对照及280组床边界组合通过。投影v5、水v4按新源重新冻结，原生／人工仍待。显式来源保持水42／末地20／书20，旧metadata不刷新。见[反馈修复](verification/WORLD_FEEDBACK_R29.md)。
+反馈链已修复SDK字节错误造成的Py2任务卡住、中文拒绝原因及读取／下载／准备／资源清理显示。当前`dcf34132`补齐写入批次前的在线／维度守卫、确认至首包的原维度冻结、迟到检查拒绝和查询失败提示，保留开始时一次权限检查、单格失败继续及不回滚语义。当前[CPU-v8](evidence/r29-final-cpu-v8/README.md)为3613项／skip1／OK，6333输入前后不变；确认／维度23条定点和真Py2／3各19条控制通过，旧生命周期及床组合结果分别保留。投影v7、水v5按新源重新冻结，原生／人工仍待。水未在05:15前取得实机时段，本轮新源完整资格链顺延；投影只在06:30前资源准入后允许一次独立冷测。显式来源保持水42／末地20／书20，旧metadata不刷新。见[反馈修复](verification/WORLD_FEEDBACK_R29.md)及[维度专项](verification/WORLD_DIMENSION_R29.md)。
 
 首次独立MC在启动资源门停止，未运行功能或世界写入测试，未操作另一个独立Codex对话的MC。6GiB运行余量门保持，新源水／书／末地资格不能沿用旧源；原892／34／387人工基线及旗面飘动豁免不变，新增人工关闭0。两库尚未切换运行依赖。见[投影变换](verification/PROJECTION_TRANSFORMS_R29.md)、[末地锚点](verification/PORTAL_GUI_ANCHOR_R29.md)、[床写入边界](verification/WORLD_BED_BOUNDS_R29.md)。本轮仍至北京时间08:00截止并休眠。
 
-离线补查不改变上述关闭数：[仙人掌花／红树根](evidence/ob03-source-review-r29-v1/README.md)身份及纹理输入完整，仍缺原生网格／材质证据，未猜测代理模型。[红石线上坡原始失败](evidence/wire-slope-review-r29-v1/README.md)仍成立，[当前flat-only候选](evidence/wire-flat-current-r29-v1/README.md)真实Py2／3各48例通过但尚未接入产品或取得新原生结果。两库[af9私有接入定点](evidence/library-current-r29-v1/README.md)通过，正式依赖切换仍待。
+离线补查不改变上述关闭数：[仙人掌花／红树根](evidence/ob03-source-review-r29-v1/README.md)身份及纹理输入完整，仍缺原生网格／材质证据，未猜测代理模型。[红石线上坡原始失败](evidence/wire-slope-review-r29-v1/README.md)仍成立，[当前flat-only候选](evidence/wire-flat-current-r29-v1/README.md)真实Py2／3各48例通过但尚未接入产品或取得新原生结果，[完整切换宿主](evidence/wire-native-host-r29-v1/README.md)也只准备、未运行MC。两库[最终dcf定点](evidence/library-final-source-r29-v1/README.md)115条通过；[完整私有组合](evidence/library-full-current-r29-v1/README.md)另3613项／skip10／OK，额外9项历史档案回放已单独通过，唯一原census缺失skip保持。正式依赖切换与新源原生资格仍待。Scene五owner抽取已[重新绑定当前源码](evidence/scene-owner-current-r29-v1/README.md)，仍在私有候选内。
 
 末地opt-in native包装层另有[UI继承透明度私有候选](evidence/portal-inherited-alpha-r29-v1/README.md)：宿主WebGL2的54组阳性控制中45组实际产生彩色星点，候选与原片元外部传入有效透明度的oracle逐像素相同，原片元16组有差异。最初180组仅覆盖黑纹理清屏，原件及解释保留。16配置中10通过、6保留基线GLES100 skinning顶点头限制；没有MC绑定证据、产品安装或新源资格，不关闭默认星点外观等问题。
+
+[特殊物品来源普查](evidence/special-item-source-census-r29-v1/README.md)另完成40个有限候选ID的私有只读调查：从3包扩大至21包，39行相同，盾牌仅增加两条通用材质来源引用，未发现新的几何或图案纹理。旗帜缺少attachable记录不能证明无法接入；盾牌已有动态atlas与44图案PNG的来源，实际着色合成、物品姿态及编辑器接入仍待。网易发行版与exe版本映射未独立证实。私有fixture的一条真实测试及CLI检查成功，不替代默认路径census缺失或改写原全量skip，也不改变普通物品基线／动态指针不读NBT的约定；新增人工关闭0。
+
+两库[私有运行包](evidence/library-runtime-package-r29-v1/README.md)已把3738 runtime真实字节与已通过的完整组合对应，5个物理异常ZIP拒绝；真Py2／3各60个实际产品模块从包内导入。modMain只做存在性与字节检查，仍缺SDK入口、普通游戏冷启、三路径和最终发布组合验收。生产依赖未切换，Scene联合候选不在此包中；这些准备不关闭新的玩家问题。
 
 ## 2026-10-23 07:41 R28最终收尾（08:00休眠待执行）
 

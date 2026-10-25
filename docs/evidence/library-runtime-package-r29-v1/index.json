@@ -1,0 +1,482 @@
+{
+  "MC_started": false,
+  "description": "Existing v1 private runtime package receipts, real ZIP imports and separately executed external source binding; original runtime ZIP excluded",
+  "gzip": {
+    "compresslevel": 9,
+    "filename": "",
+    "mtime": 0
+  },
+  "manual_issues_closed": 0,
+  "native_or_release_qualification_granted": false,
+  "objects": {
+    "018b8e8a83b7f276a6ce2e76fc08cf2032c8d8f6e351c76deed769f12f919e5a": {
+      "file": "018b8e8a83b7f276a6ce2e76fc08cf2032c8d8f6e351c76deed769f12f919e5a.gz",
+      "raw_bytes": 2854,
+      "stored_bytes": 1154,
+      "stored_sha256": "06a717c6c8c1a0ec6f799826e396791d72b5ed25c1aa9872f001bf005ecef397"
+    },
+    "05816eaee7718c5b6d699543b9f2322ba17f721a6a6bd4ff301f75b1753198af": {
+      "file": "05816eaee7718c5b6d699543b9f2322ba17f721a6a6bd4ff301f75b1753198af.gz",
+      "raw_bytes": 314,
+      "stored_bytes": 265,
+      "stored_sha256": "9cba234be522562a4763b274fad56087f87c2d0cd6c32130a6d0016f8a98c46c"
+    },
+    "0b937c12e5a0400e93324411b0acb5eedd3324382e8271d121556ea36e288406": {
+      "file": "0b937c12e5a0400e93324411b0acb5eedd3324382e8271d121556ea36e288406.gz",
+      "raw_bytes": 31694,
+      "stored_bytes": 4519,
+      "stored_sha256": "cb60642f5253de76c9e3da7cba3e1f75f5763b3f60b77cd6c849aa9567913258"
+    },
+    "1730a319671524087f444ffa603f075c1150aa83c3d0af0b5491b7ed341235da": {
+      "file": "1730a319671524087f444ffa603f075c1150aa83c3d0af0b5491b7ed341235da.gz",
+      "raw_bytes": 5673,
+      "stored_bytes": 1540,
+      "stored_sha256": "05edf0c12d64a5f1d470c86fecd383fdce3f877d5b6cade5ed702bf767000024"
+    },
+    "1f1496d4280100cf988a52d57def292f20b5450ec1296b800c7ff142b525e932": {
+      "file": "1f1496d4280100cf988a52d57def292f20b5450ec1296b800c7ff142b525e932.gz",
+      "raw_bytes": 4843,
+      "stored_bytes": 1848,
+      "stored_sha256": "c0b121615cc42d4bf7bbef8da89a4e7c9e419ab4647c6f576cb25871cfa92d1f"
+    },
+    "203d021b1f262bc6bf7999208cacd2449bef0de5a84cfe7bd6467cbdf6a6e642": {
+      "file": "203d021b1f262bc6bf7999208cacd2449bef0de5a84cfe7bd6467cbdf6a6e642.gz",
+      "raw_bytes": 1477410,
+      "stored_bytes": 204611,
+      "stored_sha256": "dd2f18ee0397f97a8dbe2163b78248d11129e4c9ee5dd36dae37c945a18b31b7"
+    },
+    "239f52e645632118385b9078023e020a42499eb265590083d1bb60764d3b2582": {
+      "file": "239f52e645632118385b9078023e020a42499eb265590083d1bb60764d3b2582.gz",
+      "raw_bytes": 31734,
+      "stored_bytes": 4537,
+      "stored_sha256": "d1c3951a979095773a2de73a67018509636aab887e2135e8f679e7dfc8b719f1"
+    },
+    "24ff74161bfbee6d582db3d6e94974bf1f2bf07593993da7768cd9444d9a3f21": {
+      "file": "24ff74161bfbee6d582db3d6e94974bf1f2bf07593993da7768cd9444d9a3f21.gz",
+      "raw_bytes": 312,
+      "stored_bytes": 263,
+      "stored_sha256": "85c920e4f9685cc97d1957b62b1e2f3f04047ba4ced3980a0cc22b9a4be5a9e5"
+    },
+    "28f5d9decce6e78efe87c81336e3bd39b17be0ffd386faffffcb4a8d8948e626": {
+      "file": "28f5d9decce6e78efe87c81336e3bd39b17be0ffd386faffffcb4a8d8948e626.gz",
+      "raw_bytes": 1056,
+      "stored_bytes": 485,
+      "stored_sha256": "41ad2a8308b85c72cd4d92a499f70e50fdf2e51dc62add3180cc687a0804b781"
+    },
+    "2c2f70f6dd7d72524f2cb6b5a32a0b3a167fd53dcac2910c29181148021f69f1": {
+      "file": "2c2f70f6dd7d72524f2cb6b5a32a0b3a167fd53dcac2910c29181148021f69f1.gz",
+      "raw_bytes": 314,
+      "stored_bytes": 264,
+      "stored_sha256": "cb7ed69152a823030f726bdc2611bf74fb710058b7edaf0d3104f6be41696890"
+    },
+    "3d70584d98258c38336dd548177874e4e4258e8d37ae6ee38a135eb756489c96": {
+      "file": "3d70584d98258c38336dd548177874e4e4258e8d37ae6ee38a135eb756489c96.gz",
+      "raw_bytes": 9957,
+      "stored_bytes": 3143,
+      "stored_sha256": "661fc2ef0d9be7a5eeeafe0f943ac12957e097ab4a2cb6f38c9b8ea489d31ce7"
+    },
+    "47017b56b643f665c696c7ad8e3a73e1b40ecdaae4fcab3b23c45d92f00fa478": {
+      "file": "47017b56b643f665c696c7ad8e3a73e1b40ecdaae4fcab3b23c45d92f00fa478.gz",
+      "raw_bytes": 14586,
+      "stored_bytes": 5523,
+      "stored_sha256": "93726ec21ac65b3002223da373e203cdd60b18b636181f7b7792e1fe6edbf6df"
+    },
+    "470aecd89c21748cc13176d0b2af36b2636490ffb36fa50708dd30c1cd44b26e": {
+      "file": "470aecd89c21748cc13176d0b2af36b2636490ffb36fa50708dd30c1cd44b26e.gz",
+      "raw_bytes": 2489,
+      "stored_bytes": 1058,
+      "stored_sha256": "d78a6a69904c3eb241d4a6f4a652f811c8663f6101e2b08ec0fc037a4d023c62"
+    },
+    "4a2a4ed49abd288c08f8662fd4be8aaa50146dff6eec2b763f15ae6cd930fdab": {
+      "file": "4a2a4ed49abd288c08f8662fd4be8aaa50146dff6eec2b763f15ae6cd930fdab.gz",
+      "raw_bytes": 15051,
+      "stored_bytes": 6242,
+      "stored_sha256": "00063ef04c79bb748a58f84d9e0b9d701ecc4f093c7c6487c4149061f6ef97a6"
+    },
+    "5ea0aade016d4ee34bb0c547c04738910f572a8bcbb428b82babc766a65f8613": {
+      "file": "5ea0aade016d4ee34bb0c547c04738910f572a8bcbb428b82babc766a65f8613.gz",
+      "raw_bytes": 1231,
+      "stored_bytes": 349,
+      "stored_sha256": "fa4cd128a79dc9563b3c36551243e0675d35107a1dbb65f722d5822bbfda3072"
+    },
+    "61ab164fad52eed0a73fb212c1509ae650545c6b89c8afb1b8c3dbe58ac8b07f": {
+      "file": "61ab164fad52eed0a73fb212c1509ae650545c6b89c8afb1b8c3dbe58ac8b07f.gz",
+      "raw_bytes": 2220973,
+      "stored_bytes": 220989,
+      "stored_sha256": "de87815efa2fdbcbceaf304838a09d83c571637ce813af03a58084ecf5d3d314"
+    },
+    "68db5ed5abfc5c610c1de1928ade66b67be79c882966967a05be297690ba8809": {
+      "file": "68db5ed5abfc5c610c1de1928ade66b67be79c882966967a05be297690ba8809.gz",
+      "raw_bytes": 11570,
+      "stored_bytes": 3457,
+      "stored_sha256": "4d5e78238506227ce770ac9ad64722f2f9f1ba99b5249ba8f01eb2be35f34ee2"
+    },
+    "73a70ac9ffad5ffb977f396a24e3321da996dff1035c69a9673c8ec62182d575": {
+      "file": "73a70ac9ffad5ffb977f396a24e3321da996dff1035c69a9673c8ec62182d575.gz",
+      "raw_bytes": 3058,
+      "stored_bytes": 764,
+      "stored_sha256": "a2740cbe1b848d2de3a9879c65acc56bd1224664c82749275887d9a93eceb1f4"
+    },
+    "7961a5c37bc25f276a8c15a3061b2b5ba284a92ebf1c02d838ad0d7966cb173d": {
+      "file": "7961a5c37bc25f276a8c15a3061b2b5ba284a92ebf1c02d838ad0d7966cb173d.gz",
+      "raw_bytes": 4479,
+      "stored_bytes": 1721,
+      "stored_sha256": "91e42d72342e91f5ebfae9b948f5931fc29dc8af0eb8e94bc219327841b9e5e4"
+    },
+    "9ce67e318b016697986774eb4dcbfd2c012252c1ee4c934e2c0b0dab37ca6d5c": {
+      "file": "9ce67e318b016697986774eb4dcbfd2c012252c1ee4c934e2c0b0dab37ca6d5c.gz",
+      "raw_bytes": 1671,
+      "stored_bytes": 874,
+      "stored_sha256": "fbac19386d04899d43316c697052d902f34014478039c0e896d9100d87f8e032"
+    },
+    "ba05588a055e1d91ac59ca8e938b5f118f79eb108ec0242be834d0c48019fa0e": {
+      "file": "ba05588a055e1d91ac59ca8e938b5f118f79eb108ec0242be834d0c48019fa0e.gz",
+      "raw_bytes": 4906,
+      "stored_bytes": 1793,
+      "stored_sha256": "2fcee9b60c62219a3adaf34cc2842e5cafbe7076dbea4368de2f96849f995e4c"
+    },
+    "c0250dce38b27ebfa3c421042618a66ee2f80c0dd90c2b9e32737f5d2fcef40e": {
+      "file": "c0250dce38b27ebfa3c421042618a66ee2f80c0dd90c2b9e32737f5d2fcef40e.gz",
+      "raw_bytes": 5095,
+      "stored_bytes": 2048,
+      "stored_sha256": "4720ddad07426a05266db7682d8f908a4c7298173d29d958f0354aac67f4d0c0"
+    },
+    "d632af1e9cadb126e6560591ace580ed23463aa22952c14211291a0dda531bf9": {
+      "file": "d632af1e9cadb126e6560591ace580ed23463aa22952c14211291a0dda531bf9.gz",
+      "raw_bytes": 32887,
+      "stored_bytes": 4635,
+      "stored_sha256": "79d93002c800ae587ec5924ca8604d79fcc47b5d7382e5ad097b2d48ae53066a"
+    },
+    "d697a1a602eb3123cd9c757e422247e8fdf45b624b4df075550abcb64884fe2e": {
+      "file": "d697a1a602eb3123cd9c757e422247e8fdf45b624b4df075550abcb64884fe2e.gz",
+      "raw_bytes": 724985,
+      "stored_bytes": 187074,
+      "stored_sha256": "624804ab9727c7aefdc619d0fa06bd20e38f34f84f3e56c333e97a5781fe1e96"
+    },
+    "d87b079f7ef975d358b3edf6b366649e92f1d127bfe72a23fd4c3d4bcbfd96be": {
+      "file": "d87b079f7ef975d358b3edf6b366649e92f1d127bfe72a23fd4c3d4bcbfd96be.gz",
+      "raw_bytes": 3485,
+      "stored_bytes": 937,
+      "stored_sha256": "a45341d8f72b8182f99adedfc7a72f68ecc664cfb8a9a9dbe99feeb85d3ab894"
+    },
+    "d923a3020ff88d3153cd29b9a08bd08851afc5e68fa1d6900c7483ec701d9915": {
+      "file": "d923a3020ff88d3153cd29b9a08bd08851afc5e68fa1d6900c7483ec701d9915.gz",
+      "raw_bytes": 1091,
+      "stored_bytes": 539,
+      "stored_sha256": "81c65be78c244088646e7653f1b49c3db380f601a4a619b53d01ca49d051ed87"
+    },
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855": {
+      "file": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "raw_bytes": 0,
+      "stored_bytes": 20,
+      "stored_sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    "f06a276e08a3b9b6474c9d775110f090a23dd33d96ebc8ea2d844922cd194640": {
+      "file": "f06a276e08a3b9b6474c9d775110f090a23dd33d96ebc8ea2d844922cd194640.gz",
+      "raw_bytes": 4808157,
+      "stored_bytes": 718410,
+      "stored_sha256": "8591ad20652f4b34b94a381a4e8c47ab1bbfbf551c4c35989d279dc06a3196e6"
+    },
+    "f28a3c29fce7ef7d55722f8a2090e7f817e4696dbbea6cfe77cd04ea87927d1c": {
+      "file": "f28a3c29fce7ef7d55722f8a2090e7f817e4696dbbea6cfe77cd04ea87927d1c.gz",
+      "raw_bytes": 311,
+      "stored_bytes": 263,
+      "stored_sha256": "9e3f1c32783cb9d28e171249eeeef3d1bb42bc271b9ae2acd867f7e06f53b2fe"
+    },
+    "fe314b1d1706aebc7a99e788ce31515499bb612f0af21b465962535204b2a4d8": {
+      "file": "fe314b1d1706aebc7a99e788ce31515499bb612f0af21b465962535204b2a4d8.gz",
+      "raw_bytes": 5236,
+      "stored_bytes": 2034,
+      "stored_sha256": "639e2fd707bd42da27e566b2c2595da4f34c5942da338c628ce4288991970351"
+    },
+    "fec00e80d6c36bfef052ed7a0dfbf164a6891bb71912b7450524baf7415cdf71": {
+      "file": "fec00e80d6c36bfef052ed7a0dfbf164a6891bb71912b7450524baf7415cdf71.gz",
+      "raw_bytes": 693,
+      "stored_bytes": 480,
+      "stored_sha256": "b6bd7a1748582afd38154ca2471a21763b4e0dd5369f757c5c5b27c1f30ee897"
+    }
+  },
+  "original_archive_and_execution_summary": {
+    "exact_temporary_negative_paths": [
+      {
+        "deleted_by_archiver": false,
+        "exists": false,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\library-runtime-package-r29-v1\\temporary-negative-missing_adapter.zip"
+      },
+      {
+        "deleted_by_archiver": false,
+        "exists": false,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\library-runtime-package-r29-v1\\temporary-negative-changed_vendor_bytes.zip"
+      },
+      {
+        "deleted_by_archiver": false,
+        "exists": false,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\library-runtime-package-r29-v1\\temporary-negative-duplicate_member.zip"
+      },
+      {
+        "deleted_by_archiver": false,
+        "exists": false,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\library-runtime-package-r29-v1\\temporary-negative-unsafe_member.zip"
+      },
+      {
+        "deleted_by_archiver": false,
+        "exists": false,
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\library-runtime-package-r29-v1\\temporary-negative-changed_lock.zip"
+      }
+    ],
+    "external_source_binding_result_sha256": "c0250dce38b27ebfa3c421042618a66ee2f80c0dd90c2b9e32737f5d2fcef40e",
+    "final_real_zip_imports": {
+      "py2": {
+        "modMain_imported": false,
+        "modules": 60,
+        "negative_relative_cache_entries": 13,
+        "sdk_imports": [],
+        "version": "2.7.13 (v2.7.13:a06454b1afa1, Dec 17 2016, 20:53:40) [MSC v.1500 64 bit (AMD64)]"
+      },
+      "py3": {
+        "modMain_imported": false,
+        "modules": 60,
+        "negative_relative_cache_entries": 0,
+        "sdk_imports": [],
+        "version": "3.13.13 (tags/v3.13.13:01104ce, Apr  7 2026, 19:25:48) [MSC v.1944 64 bit (AMD64)]"
+      }
+    },
+    "licenses": 2,
+    "negative_controls_rerun_by_archiver": false,
+    "physical_negative_controls": 5,
+    "receipt_members": 1,
+    "runtime_archive": {
+      "bytes": 47280551,
+      "copied_into_evidence": false,
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\library-runtime-package-r29-v1\\runtime-candidate.zip",
+      "sha256": "f42cdd600b2783fb5dfc1940ed28991de547880123dcd48b45fa3e27c7ee5eed"
+    },
+    "runtime_files": 3738,
+    "state_snapshot_game_version": "NEMC 3.9.0.401155",
+    "zip_members": 3741
+  },
+  "references": [
+    {
+      "bytes": 1671,
+      "path": ".runtime/library-runtime-package-r29-v1/build-result.json",
+      "sha256": "9ce67e318b016697986774eb4dcbfd2c012252c1ee4c934e2c0b0dab37ca6d5c"
+    },
+    {
+      "bytes": 9957,
+      "path": ".runtime/library-runtime-package-r29-v1/build_package.py",
+      "sha256": "3d70584d98258c38336dd548177874e4e4258e8d37ae6ee38a135eb756489c96"
+    },
+    {
+      "bytes": 5673,
+      "path": ".runtime/library-runtime-package-r29-v1/controls-result.json",
+      "sha256": "1730a319671524087f444ffa603f075c1150aa83c3d0af0b5491b7ed341235da"
+    },
+    {
+      "bytes": 724985,
+      "path": ".runtime/library-runtime-package-r29-v1/expected-package-receipt.json",
+      "sha256": "d697a1a602eb3123cd9c757e422247e8fdf45b624b4df075550abcb64884fe2e"
+    },
+    {
+      "bytes": 5236,
+      "path": ".runtime/library-runtime-package-r29-v1/import_from_zip.py",
+      "sha256": "fe314b1d1706aebc7a99e788ce31515499bb612f0af21b465962535204b2a4d8"
+    },
+    {
+      "bytes": 4479,
+      "path": ".runtime/library-runtime-package-r29-v1/import_from_zip_initial.py",
+      "sha256": "7961a5c37bc25f276a8c15a3061b2b5ba284a92ebf1c02d838ad0d7966cb173d"
+    },
+    {
+      "bytes": 4843,
+      "path": ".runtime/library-runtime-package-r29-v1/import_from_zip_v2.py",
+      "sha256": "1f1496d4280100cf988a52d57def292f20b5450ec1296b800c7ff142b525e932"
+    },
+    {
+      "bytes": 1477410,
+      "path": ".runtime/library-runtime-package-r29-v1/physical-inputs.json",
+      "sha256": "203d021b1f262bc6bf7999208cacd2449bef0de5a84cfe7bd6467cbdf6a6e642"
+    },
+    {
+      "bytes": 693,
+      "path": ".runtime/library-runtime-package-r29-v1/preparation-history.json",
+      "sha256": "fec00e80d6c36bfef052ed7a0dfbf164a6891bb71912b7450524baf7415cdf71"
+    },
+    {
+      "bytes": 2489,
+      "path": ".runtime/library-runtime-package-r29-v1/retry_imports_v2.py",
+      "sha256": "470aecd89c21748cc13176d0b2af36b2636490ffb36fa50708dd30c1cd44b26e"
+    },
+    {
+      "bytes": 2854,
+      "path": ".runtime/library-runtime-package-r29-v1/run_imports_v3.py",
+      "sha256": "018b8e8a83b7f276a6ce2e76fc08cf2032c8d8f6e351c76deed769f12f919e5a"
+    },
+    {
+      "bytes": 4906,
+      "path": ".runtime/library-runtime-package-r29-v1/run_package_controls.py",
+      "sha256": "ba05588a055e1d91ac59ca8e938b5f118f79eb108ec0242be834d0c48019fa0e"
+    },
+    {
+      "bytes": 4906,
+      "path": ".runtime/library-runtime-package-r29-v1/run_package_controls_initial.py",
+      "sha256": "ba05588a055e1d91ac59ca8e938b5f118f79eb108ec0242be834d0c48019fa0e"
+    },
+    {
+      "bytes": 0,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py2-v2.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1056,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py2-v2.stderr",
+      "sha256": "28f5d9decce6e78efe87c81336e3bd39b17be0ffd386faffffcb4a8d8948e626"
+    },
+    {
+      "bytes": 0,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py2-v2.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 32887,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py2-v3.json",
+      "sha256": "d632af1e9cadb126e6560591ace580ed23463aa22952c14211291a0dda531bf9"
+    },
+    {
+      "bytes": 0,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py2-v3.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 312,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py2-v3.stdout",
+      "sha256": "24ff74161bfbee6d582db3d6e94974bf1f2bf07593993da7768cd9444d9a3f21"
+    },
+    {
+      "bytes": 1231,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py2.stderr",
+      "sha256": "5ea0aade016d4ee34bb0c547c04738910f572a8bcbb428b82babc766a65f8613"
+    },
+    {
+      "bytes": 0,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py2.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 31734,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py3-v2.json",
+      "sha256": "239f52e645632118385b9078023e020a42499eb265590083d1bb60764d3b2582"
+    },
+    {
+      "bytes": 0,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py3-v2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 314,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py3-v2.stdout",
+      "sha256": "05816eaee7718c5b6d699543b9f2322ba17f721a6a6bd4ff301f75b1753198af"
+    },
+    {
+      "bytes": 31734,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py3-v3.json",
+      "sha256": "239f52e645632118385b9078023e020a42499eb265590083d1bb60764d3b2582"
+    },
+    {
+      "bytes": 0,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py3-v3.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 314,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py3-v3.stdout",
+      "sha256": "2c2f70f6dd7d72524f2cb6b5a32a0b3a167fd53dcac2910c29181148021f69f1"
+    },
+    {
+      "bytes": 31694,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py3.json",
+      "sha256": "0b937c12e5a0400e93324411b0acb5eedd3324382e8271d121556ea36e288406"
+    },
+    {
+      "bytes": 0,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py3.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 311,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-import-py3.stdout",
+      "sha256": "f28a3c29fce7ef7d55722f8a2090e7f817e4696dbbea6cfe77cd04ea87927d1c"
+    },
+    {
+      "bytes": 3058,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-imports-v2-result.json",
+      "sha256": "73a70ac9ffad5ffb977f396a24e3321da996dff1035c69a9673c8ec62182d575"
+    },
+    {
+      "bytes": 3485,
+      "path": ".runtime/library-runtime-package-r29-v1/zip-imports-v3-result.json",
+      "sha256": "d87b079f7ef975d358b3edf6b366649e92f1d127bfe72a23fd4c3d4bcbfd96be"
+    },
+    {
+      "bytes": 11570,
+      "path": ".runtime/library-runtime-source-binding-r29-v1/bind.py",
+      "sha256": "68db5ed5abfc5c610c1de1928ade66b67be79c882966967a05be297690ba8809"
+    },
+    {
+      "bytes": 4808157,
+      "path": ".runtime/library-runtime-source-binding-r29-v1/actual-selected-input-readback.json",
+      "sha256": "f06a276e08a3b9b6474c9d775110f090a23dd33d96ebc8ea2d844922cd194640"
+    },
+    {
+      "bytes": 2220973,
+      "path": ".runtime/library-runtime-source-binding-r29-v1/runtime-bindings.json",
+      "sha256": "61ab164fad52eed0a73fb212c1509ae650545c6b89c8afb1b8c3dbe58ac8b07f"
+    },
+    {
+      "bytes": 5095,
+      "path": ".runtime/library-runtime-source-binding-r29-v1/source-binding-result.json",
+      "sha256": "c0250dce38b27ebfa3c421042618a66ee2f80c0dd90c2b9e32737f5d2fcef40e"
+    },
+    {
+      "bytes": 1091,
+      "path": ".runtime/library-runtime-source-binding-r29-v1/delivery-index.json",
+      "sha256": "d923a3020ff88d3153cd29b9a08bd08851afc5e68fa1d6900c7483ec701d9915"
+    },
+    {
+      "bytes": 15051,
+      "path": ".runtime/library-runtime-package-archive-r29-v1/pack.py",
+      "sha256": "4a2a4ed49abd288c08f8662fd4be8aaa50146dff6eec2b763f15ae6cd930fdab"
+    },
+    {
+      "bytes": 14586,
+      "path": ".runtime/r29-world-dimension-pack-v1/pack.py",
+      "sha256": "47017b56b643f665c696c7ad8e3a73e1b40ecdaae4fcab3b23c45d92f00fa478"
+    }
+  ],
+  "schema": 1,
+  "selected_raw_credential_scan": {
+    "bytes": 9464755,
+    "decoded_base64_texts": 0,
+    "decoded_json_strings": 165050,
+    "files": 39,
+    "findings": [],
+    "matches": 0,
+    "pattern_types": [
+      "openai_style_key",
+      "github_token",
+      "aws_access_key",
+      "bearer_token",
+      "private_key",
+      "credential_url",
+      "credential_assignment"
+    ]
+  },
+  "summary": {
+    "gzip_bytes": 1381839,
+    "largest_gzip_object_bytes": 718410,
+    "logical_raw_bytes": 9464755,
+    "logical_references": 39,
+    "unique_objects": 31,
+    "unique_raw_bytes": 9428115
+  },
+  "tests_or_controls_rerun": false
+}
