@@ -1,0 +1,36 @@
+{
+  "libraries": {
+    "nemc-block-renderer": {
+      "branch": "main",
+      "commit": "ca1035615410db75aeaffdd7e8f3feb73ae6c0f0",
+      "license_sha256": "b056d222ef27995df09c16066eb51ac1b09d6679d4b0de33c772c2fb9397d64a",
+      "manifest_sha256": "67732f87f7904b43488d8d35712c775843d02d3d2a4b06be48d00b28e1e20b19",
+      "package": "nemc_block_renderer",
+      "runtime_files": {
+        "nemc_block_renderer/__init__.py": "a6a1522e20d6d6f3e4b1130ed2f49e16ab8d0b82b7502feec80bac0e38333da9",
+        "nemc_block_renderer/_snapshot.py": "9800a7bc8baff0bf472d82c1e7dc28f94db9f0a5fe16506babb6f6419eed0ff0",
+        "nemc_block_renderer/provenance.py": "9babeac939befc9e343756b4880aad986e9f27c25480e7ad6b71e575407b40a8",
+        "nemc_block_renderer/render_layout.py": "f4d3cacf41b5d80498f85ec59cfd46a9bb2fbe5d82865aadba315574cf2f6997"
+      }
+    },
+    "nemc-block-states": {
+      "branch": "main",
+      "commit": "58534dc5956848b4e6e5bcba97ad7112e2802388",
+      "license_sha256": "b056d222ef27995df09c16066eb51ac1b09d6679d4b0de33c772c2fb9397d64a",
+      "manifest_sha256": "36a7a2ad36dfdaa948474daf086a5716a2fbd0fc6c46dc810c5e30e6f04626ae",
+      "package": "nemc_block_states",
+      "runtime_files": {
+        "nemc_block_states/__init__.py": "16e729c65ab64223fbfa01f295b45bcafad100b2644ea4d249ab9e65c2ec9299",
+        "nemc_block_states/_snapshot.py": "bb7fbb4f72d1ad0a06232cc15e7533b0bfc537d03f82efdaf8c47e696da812bd",
+        "nemc_block_states/block_groups.py": "0275d5824e5298f0f8bf065caaffbdebf70654ea58d25784d990d0e0a935b11b",
+        "nemc_block_states/block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+        "nemc_block_states/block_registry_data.py": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1",
+        "nemc_block_states/block_traits.py": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c",
+        "nemc_block_states/block_traits_data.py": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6",
+        "nemc_block_states/provenance.py": "c815a5aa1adbc639f65f61cd2d9317c685c415bf8e8b5bb1ac61cb1e6c323350",
+        "nemc_block_states/state_transform.py": "ee20291ac3a7efb30405e4769d519c55a2951291074cb1fd6cd21aa475e820c2"
+      }
+    }
+  },
+  "schema_version": 1
+}

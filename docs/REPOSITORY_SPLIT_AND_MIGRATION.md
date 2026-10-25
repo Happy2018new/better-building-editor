@@ -2,6 +2,14 @@
 
 更新日期：2026-10-26。时间均为北京时间（Asia/Shanghai）。
 
+### R29 构建期固定包已可复建，运行依赖尚未切换
+
+新增 `tools/vendor_block_libraries.py` 与 `tools/data/block_library_lock.json`，固定当前两个库的main提交、manifest、许可证及13个运行Python模块的原字节。工具先核对实际文件、Git对象、包清单和renderer对states的绑定，再复制到全新独立输出目录；不覆盖已有目录，不复制原始采集大表、测试或历史证据。运行包共377953字节，可置于私有父包，运行时不需要邻仓路径或pip。
+
+复建示例：`python -B -X utf8 tools/vendor_block_libraries.py --states ../nemc-block-states --renderer ../nemc-block-renderer --output .runtime/block-libraries-new`。输出含私有包入口、两包、原manifest／许可证、原锁和`vendor_manifest.json`；输出目录必须尚不存在。当前锁SHA为`1ac41ba9fd6db01a5cf3b1d9013c177be3fc7b3cd8e3717d936944fd22586b56`。
+
+九项临时真实Git仓定点测试通过，覆盖来源漂移、错误提交／分支、文件缺失、跨目录路径、两库绑定和已有输出保护；隐藏来源仓后的隔离进程仍可导入。实际13模块另由真实Py2／3编译、嵌套包导入及API／manifest绑定控制通过，root已独立复建。主程序尚未vendor或切换import，剩余适配器、实际打包入口、最终来源和实机验证仍按下方计划执行；不把本次构建准备写成迁移完成或转授渲染资格。
+
 ## 2026-10-26 R29：变换接入位置已验证，运行依赖暂不切换
 
 用户已恢复10-25夜间工期，覆盖下方取消安排。本轮先实现投影页旋转／镜像和同快照真实放置，两个库暂不切换为主程序运行依赖。现有 states `58534dc5956848b4e6e5bcba97ad7112e2802388`、renderer `ca1035615410db75aeaffdd7e8f3feb73ae6c0f0` 的受跟踪工作区均干净；states 的6份模块、12份生成／证据及原表共19项，renderer 的layout、8份边界及3份资源共12项输入，逐hash均与当前host一致。本轮新快照和目标模块没有落入这批库生成边界，不为HEAD或来源说明字段变化反复生成快照。
