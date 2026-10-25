@@ -1,5 +1,17 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-26 03:15 R29接续检查点（本节优先，开发继续）
+
+本轮仍至北京时间08:00截止并休眠，07:00／07:30／07:45收尾线及既有一次任务保持。用户明确另一MC属于独立对话和完全不同模组，禁止连接／测试／修改／关闭／重启，仅OS只读总资源计数。主仓dev、本地提交、不push／合main；最多3活动子代理、全机5实际MC，不清垃圾或历史untracked／用户probe。
+
+最新产品源为 `cdd0601537e2466dc336ddd46ad5ae6e6863fcad`。7021之后又实际复现七条读取／下载／合并／准备回调的Py2二次编码失败，以及实体／边框清理中断。三模块复用已存在error_text，成功路径／协议／捕获类型／清理顺序不改；7永久测试与root关联82项通过，实际Py2／3七链及3清理场景对照通过。第七preparation夹具不证明pending清空，早期驱动失败和并发错误基线已明确排除。见[补修原件](evidence/world-feedback-r29-v2/README.md)。主仓CPU-v5已3583项／skip1／OK、exit0，6330输入／259517114字节前后不变；本体507.210秒／总521.585936秒，session16328已结束。7021的3576项CPU-v4仍仅属旧源，不重复授给cdd。13产品模块真Py2／3编译通过。
+
+projection新v4已冻结在cdd，目录`.runtime/round-20261026/validation-v4`和`.runtime/projects/r29-transform-cold-v4`，3716runtime／119,016,710字节、4502物理copy无hardlink，21controls／14AST通过；source／host／observer SHA依次`ffb0ee697d56a66a1fd5630aa4889cac29ea6cb575ea65fb72db616c4c575bce`、`6a93fe1520178238bd6fb681811e41bebbae27c6ca798ee530dad7e4d65091b5`、`7f3b7bf4a6f4f48d89a1c93e297035f8442e4393ae658d67fcd9630dcb599dff`。**v3启动授权已暂停**；root读回CPU-v5后已授v4一次条件冷启，必须fresh OS容量与冻结绑定通过，不自动重试；此刻尚未启动。v1资源失败／C0000409原件保留，v2／v3没有启动。容量约5—7GiB，低于9.319GiB准入；运行6GiB不降。
+
+water新v3按cdd完成rootreview／freeze／inspect／API audit，4491源／1391辅助／42显式实现，base ZIP仅引用原119,618,244字节包，新overlay145,953字节。合同`ea096af71f254c1ae5a40df4de3a39710e44293b55a3ea6652223de8e2463faa`、binding`f8c0ea2ad6bfbf6d5789b1bb96ceff9cedef1c038fd9752fd05be5055034c442`、host`9727e99673e04158101035761032473db217d03802ec037092fd79874f7c300a`；inspection`c34f644dd643ab782fe1575344d62541504912dacf6dc62f38ae046f54510ea5`。56hosts／55external静态检查和实际资源控制通过，旧metadata保持、当前资格false。**水没有MC启动授权**，投影释放后由root另授；FABRG最迟05:15、D06:15、采样07:00、恢复07:30。通用restore不存projection_transform，仅允许fresh identity水会话，不复用投影测试会话。v2原件保留。
+
+两库[私有实际集成](evidence/library-integration-r29-v1/README.md)固定7021：241定点通过，唯一全量3547项／33ERROR／10skip，全部缺历史输入分类但**全量未绿**；extras补齐仅重跑3项通过。未确认适配器兼容故障，缺输入范围无资格；book最小fixture补丁保留，metadata实际拒绝63新来源。运行依赖尚未切换，原10-28决策／10-29验证／10-30冻结门不变。另已封存[OB-01调查与最小探针准备](evidence/firefly-owner-research-r29-v1/README.md)，无MC／RPC、OB-01仍开。没有新增人工关闭或新账单，不由测试／提交／时间窗口推算贡献百分比和预算。
+
 ## 2026-10-26 02:50 R29接续检查点（本节优先，开发继续）
 
 本轮仍至**北京时间10-26 08:00＝UTC10-26 00:00＝New York10-25 20:00截止并休眠**。07:00停止扩范围及实机实验，07:30前清理实验，07:45前完成恢复／关闭／交接。`Codex-BBE-R29-Hibernate-20261026` 已再次读回Ready、08:00+08触发shutdown.exe /h；此刻未执行休眠。用户再次明确外部MC属于另一独立Codex对话和完全不同模组，**不得连接、测试、修改、关闭或重启**；仅OS只读资源计数计入全机5活MC上限。主仓dev只本地提交、不push／合main，不清理历史untracked、五用户probe或磁盘垃圾。

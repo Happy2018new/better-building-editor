@@ -1,5 +1,11 @@
 # R29：真实写入与界面拒绝提示的中文错误
 
+## 2026-10-26 补修：读取、下载、投影准备与资源清理
+
+`cdd0601537e2466dc336ddd46ad5ae6e6863fcad` 将三个模块剩余既有错误展示边界接到同一helper。实际Py2复现的七条链包括服务端构造／读取失败、客户端读取初始化／未加载区块、非法传输包、读取期间方块变化及投影准备失败。原错误格式化二次抛异常会阻止最终回复或界面释放，现均能展示原因。实体和边框释放的两处错误聚合也已修正：失败句柄继续保留，后续边框／液体仍可清理，恢复后重试完成。
+
+新增7项永久回归，root关联82项通过，真Py2／3实际回调及3种清理失败对照通过；成功路径、异常类型、协议和清理顺序不改，显式来源数仍42／20／20且metadata不刷新。preparation夹具整体替换request且预置pending，只证明展示／busy释放，不证明该夹具的pending清空。完整原件、早期驱动失败和并发基线排除见[补修归档](../evidence/world-feedback-r29-v2/README.md)。当前cdd源[CPU-v5](../evidence/r29-final-cpu-v5/README.md)为3583项／skip1／OK、6330输入前后不变；下方7021与CPU-v4是较早来源。原生网络及像素待验，人工关闭0。
+
 本轮沿实际 `WorldJob → server.reply → JSON → bridge.receive → TaskStatus` 检查时，发现两处可复现的 Python 2 编码缺陷。
 
 SDK 以 UTF-8 字节给出错误时，`WorldJob.step` 原来的 Unicode 格式化会再次抛出 `UnicodeDecodeError`，失败格还没有计数，服务端任务仍占用且没有最终回复，客户端保持等待。Python 3 虽能结束，却会把原因显示成 `b'\\x...'`。另一处发生在投影方向改变后点击“应用到世界”：旧目标本来被正确拒绝，但 `Session.action` 对中文异常调用 `str`，Python 2 再抛 `UnicodeEncodeError`，界面没有显示拒绝原因。旧目标安全检查没有失效。
