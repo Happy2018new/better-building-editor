@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "started_at": "2026-10-26T07:40:31.623916+08:00",
+  "product_source_commit": "dcf34132ce8e33284066efe66b9693ff89dc675a",
+  "read_only_except_new_receipt": true,
+  "game_connection_or_input": false,
+  "session_configs_read": false,
+  "process_or_window_mutation": false,
+  "MC_launch_performed": false,
+  "SDK_or_RPC_called": false,
+  "tests_rerun": false,
+  "hibernation_execution_observed": false,
+  "repositories": {
+    "better-building-editor": {
+      "branch": "dev",
+      "head": "08bb6bad461bbfe0532de762f19d860818a4a93b",
+      "tracked_status": "",
+      "expected_branch_and_head": true,
+      "tracked_clean": true
+    },
+    "nemc-block-states": {
+      "branch": "main",
+      "head": "58534dc5956848b4e6e5bcba97ad7112e2802388",
+      "tracked_status": "",
+      "expected_branch_and_head": true,
+      "tracked_clean": true
+    },
+    "nemc-block-renderer": {
+      "branch": "main",
+      "head": "ca1035615410db75aeaffdd7e8f3feb73ae6c0f0",
+      "tracked_status": "",
+      "expected_branch_and_head": true,
+      "tracked_clean": true
+    }
+  },
+  "runtime": {
+    "files": 3716,
+    "bytes": 119020141,
+    "CPU_v8_runtime_names_and_sha_equal": true,
+    "git_product_delta_since_dcf": false
+  },
+  "three_water_metadata_files": {
+    "behavior_pack/modern_projection/projection/liquid_product_owner_data.py": {
+      "sha256": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1",
+      "expected_sha256": "12eb260ab36dcb1d64ccd06f4912319bf6925e624194b57ec90a15c3de3f4ef1"
+    },
+    "behavior_pack/modern_projection/projection/liquid_product_qualification_data.py": {
+      "sha256": "f27e2351c83fb35fa7bade5879375ed388eb328cd78ac5591d7bdd48764bbc0d",
+      "expected_sha256": "f27e2351c83fb35fa7bade5879375ed388eb328cd78ac5591d7bdd48764bbc0d"
+    },
+    "tools/data/liquid_product_owner_contract_v1.json": {
+      "sha256": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684",
+      "expected_sha256": "f54d64cdab7292832ee1fc9c870905fdd45ec030739b61836812db527bfcc684"
+    }
+  },
+  "v7_binding_sha256": {
+    "source-manifest.json": "bb6e86cd25d8659361a0e010e46a6876a3691ceb840f34c5b4b414b49f5de811",
+    "host-binding.json": "44f9c9fc25b87934aab12cecac004a544f65c2c3b53b85ed5ed323cec306142b",
+    "cold-observer-binding.json": "20200ee527481ec3a88f7d664b35eef00af23337909d73c421ab545addb32ec9"
+  },
+  "v7_frozen_guard_passed": true,
+  "OS_MC_count": {
+    "recorded_at": "2026-10-25T23:40:49.558229+00:00",
+    "actual_live_mc_count": 1,
+    "instance_count_qualified": true,
+    "categories": {
+      "live": 1,
+      "exited": 0,
+      "zero_resource_tombstone": 8,
+      "unknown": 0
+    },
+    "scope": "OS process identity and count only; no game/session access"
+  },
+  "owned_process_audit": {
+    "matched_count": 0,
+    "matched_metadata": [],
+    "scope": "Exact v7 owner/project and round host paths; query wrappers and ancestors excluded",
+    "external_command_lines_copied": false,
+    "limitation": "Cannot attribute unmarked inherited or stdin-only processes; combine with existing no-launch receipts."
+  },
+  "v7_absent_artifacts": {
+    "launch/report.json": true,
+    "assert-watch-start.json": true,
+    "feature-smoke": true,
+    "stop/report.json": true
+  },
+  "hibernation_task": {
+    "recorded_at": "2026-10-26T07:40:57.3016075+08:00",
+    "name": "Codex-BBE-R29-Hibernate-20261026",
+    "state": "Ready",
+    "enabled": true,
+    "next_run": "2026-10-26T08:00:00.0000000+08:00",
+    "last_run": "1999-11-30T00:00:00.0000000+08:00",
+    "last_result": 267011,
+    "start_when_available": false,
+    "wake_to_run": true,
+    "disallow_on_battery": false,
+    "stop_on_battery": false,
+    "actions": [
+      {
+        "Execute": "C:\\WINDOWS\\System32\\shutdown.exe",
+        "Arguments": "/h"
+      }
+    ],
+    "triggers": [
+      {
+        "StartBoundary": "2026-10-26T08:00:00+08:00",
+        "Enabled": true
+      }
+    ]
+  },
+  "completed_at": "2026-10-26T07:40:57.470060+08:00",
+  "passed": true
+}
