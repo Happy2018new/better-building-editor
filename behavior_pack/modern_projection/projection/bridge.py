@@ -86,6 +86,8 @@ class ClientBridge(object):
         self.projection_entity_shaders = {}
         self.projection_retired_outlines = []
         self.projection_work = None
+        self.projection_target = None
+        self.projection_preparation = None
         self.projection_occupancy = None
         self.projection_shader = None
         self.projection_liquid = None
@@ -558,6 +560,7 @@ class ClientBridge(object):
             raise ValueError('请等待编辑任务完成')
         if self.pending is not None:
             raise ValueError('请等待当前世界操作完成')
+        state = self.world_request_state(action)
         outgoing = dict(data)
         upload = None
         document = outgoing.pop('document', None)
@@ -569,7 +572,7 @@ class ClientBridge(object):
         self.request_id += 1
         self.pending = self.request_id
         self.pending_data = (action, dict(data))
-        self.pending_state = (id(self.session.editor), self.session.editor.revision, tuple(self.session.origin))
+        self.pending_state = state
         outgoing.update(action=action, request=self.request_id)
         self.upload = upload
         if upload is not None:
@@ -680,14 +683,33 @@ class ClientBridge(object):
         read_chunk()
 
     def check_progress(self):
-        s = self.session
-        self.request('check', {'origin': coordinate(s.origin), 'document': s.editor.document})
+        from .projection_target import placement_target, start
+        return start(self, 'check', placement_target(self))
 
     def apply_world(self):
-        s = self.session
-        self.request('apply', {'origin': coordinate(s.origin), 'document': s.editor.document, 'includeAir': s.apply_air})
+        from .projection_target import placement_target, start
+        return start(self, 'apply', placement_target(self), self.session.apply_air)
+
+    def confirm_apply_world(self):
+        from functools import partial
+        from .projection_target import placement_target, start, describe
+        target = placement_target(self)
+        include_air = bool(self.session.apply_air)
+        title = '将整个建筑写入世界？\n原点 %d, %d, %d\n范围 %d × %d × %d\n%s\n' % (
+            target.origin + target.size + (describe(target.operations),))
+        if include_air:
+            title += '空气位置的已有方块也会被清除。\n'
+        title += '此操作无法撤销。'
+        self.session.confirm(title, partial(start, self, 'apply', target, include_air))
 
     def cancel_world(self):
+        if self.projection_preparation is not None:
+            if self.projection_preparation.action == 'project':
+                self.projection_requested = bool(self.session.projection_active)
+            self.projection_preparation = None
+            self.session.busy = False
+            self.session.editor.message = '已取消投影变换准备'
+            self.session.emit()
         if self.capture_active is not None:
             self.capture_active = None
             self.capture_dimension = None
@@ -757,7 +779,7 @@ class ClientBridge(object):
             s.editor.message = args['error']
             if sent.get('source') == 'world_item':
                 self.notify(s.editor.message)
-        elif action in ('capture', 'check', 'resolve') and sent.get('source') != 'world_item' and state != (id(s.editor), s.editor.revision, tuple(s.origin)):
+        elif action in ('capture', 'check', 'resolve') and sent.get('source') != 'world_item' and state != self.world_request_state(action):
             s.editor.message = '草稿或原点已改变，请重新读取或检查'
         elif action == 'resolve':
             values = args.get('palette')
@@ -818,11 +840,13 @@ class ClientBridge(object):
         s.emit()
 
     def project(self):
+        from .projection_target import start
+        return start(self, 'project')
+
+    def world_request_state(self, action):
         s = self.session
-        origin = coordinate(s.origin)
-        self.ensure_projection_distance(s.editor.document.size)
-        self.projection_requested = True
-        return self.project_large(origin)
+        state = (id(s.editor), s.editor.revision, tuple(s.origin))
+        return state + (tuple(s.projection_transform),) if action == 'check' else state
 
     def toggle_missing(self):
         s = self.session
@@ -945,6 +969,10 @@ class ClientBridge(object):
         return errors
 
     def stop_projection(self):
+        if self.projection_preparation is not None:
+            self.projection_preparation = None
+            self.session.busy = False
+        self.projection_target = None
         self.own_projection_entity(self.entity, self.projection_shader)
         self.own_projection_entity(self.preparing_entity,
                                    getattr(self.projection_work, 'shader', None))
@@ -972,7 +1000,7 @@ class ClientBridge(object):
         self.session.editor.message = ('投影已关闭' if not errors else
                                        '投影已关闭，部分资源清理失败，请再次关闭重试')
 
-    def project_large(self, origin):
+    def project_large(self, origin, target=None):
         """Prepare one exact full model while retaining the previous projection."""
         from .world_projection import WorldProjection
         occupancy = self.projection_occupancy
@@ -1000,7 +1028,7 @@ class ClientBridge(object):
             self.session.emit()
             return
         had_projection = bool(self.entity or self.projection_entities)
-        self.projection_work = WorldProjection(self, origin)
+        self.projection_work = WorldProjection(self, origin, target)
         self.ensure_projection_distance(self.projection_work.document.size)
         # Keep the selected region visible while the exact model is prepared;
         # the outline is independent of the eventual mesh commit.

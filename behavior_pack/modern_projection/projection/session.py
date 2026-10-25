@@ -105,6 +105,7 @@ class Session(object):
         self.opacity = .45
         self.apply_air = False
         self.projection_active = False
+        self.projection_transform = ()
         self.projection_missing = True
         self.projection_outline = True
         self.progress = None
@@ -251,6 +252,33 @@ class Session(object):
         # Pane navigation only invalidates its owners. Document edits still
         # broadcast so retained panes refresh before becoming interactive.
         self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename', 'pending_confirm', 'outline_style', 'projection_outline') else None)
+
+    def set_projection_rotation(self, operation):
+        from .projection_target import ROTATIONS, MIRRORS
+        if operation not in ROTATIONS:
+            raise ValueError('不支持的投影旋转')
+        selected = tuple(value for value in MIRRORS if value in self.projection_transform)
+        self.projection_transform = ((operation,) if operation else ()) + selected
+        self.progress = None
+        self.emit()
+
+    def toggle_projection_mirror(self, operation):
+        from .projection_target import ROTATIONS, MIRRORS
+        if operation not in MIRRORS:
+            raise ValueError('不支持的投影镜像')
+        selected = set(self.projection_transform)
+        if operation in selected:
+            selected.remove(operation)
+        else:
+            selected.add(operation)
+        self.projection_transform = tuple(value for value in ROTATIONS[1:] + MIRRORS if value in selected)
+        self.progress = None
+        self.emit()
+
+    def reset_projection_transform(self):
+        self.projection_transform = ()
+        self.progress = None
+        self.emit()
 
     def set_editor(self, field, value):
         if field == 'edit_layer' and (type(value) is not int or value not in (0, 1, 2)):

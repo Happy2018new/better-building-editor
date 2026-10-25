@@ -587,10 +587,26 @@ def ProjectionSettings(session=None, revision=0, height=330):
     use_material_names(session)
     tab, set_tab = use_state('display')
     e, stats = session.editor, session.progress
+    from .projection_target import ROTATIONS, describe, transform_size
+    operations = session.projection_transform
+    rotation = next((value for value in operations if value in ROTATIONS), '')
+    size = transform_size(e.document.size, operations)
     display = [
         text('投影位置', 14),
         Coordinates(label='原点  X, Y, Z', value=session.origin, onChange=partial(session.set, 'origin')),
         Action(label='使用脚下坐标', glyph='pin', onClick=session.bridge.use_player_origin),
+        line(), text('投影旋转与镜像', 14),
+        Segments(items=[('', '0°'), ('rotate_y90', '90°'), ('rotate_y180', '180°'),
+                        ('rotate_y270', '270°')], value=rotation, width=216,
+                 onChange=session.set_projection_rotation),
+        row([Action(label=axis.upper()+'镜像', width=68, selected='mirror_'+axis in operations,
+                    onClick=partial(session.toggle_projection_mirror, 'mirror_'+axis),
+                    enabled=not session.busy) for axis in ('x', 'y', 'z')], gap=6),
+        text('先绕Y轴旋转，再沿目标X／Y／Z轴镜像。', 10, Theme.muted, width=216),
+        text('范围 %d × %d × %d' % size, 11, Theme.blue),
+        text('设置后点击生成或更新投影，原建筑保持。', 10, Theme.muted, width=216),
+        Action(label='恢复原始方向', onClick=session.reset_projection_transform,
+               enabled=bool(operations) and not session.busy),
         line(), text('显示效果', 14),
         BiomeTintSettings(session=session),
         Range(label='投影不透明度', value=session.opacity, minimum=.1, maximum=.85,
@@ -618,9 +634,11 @@ def ProjectionSettings(session=None, revision=0, height=330):
         Action(label='同步空气', glyph='erase', selected=session.apply_air, danger=session.apply_air,
                onClick=partial(session.set, 'apply_air', not session.apply_air)),
         text('开启后会清除草稿中空气对应的位置。', 10, Theme.muted, width=216),
-        Action(label='应用到世界', glyph='cube', accent=True, onClick=partial(session.confirm,
-               '将草稿同步到世界？\n空气位置的已有方块也会被清除。\n此操作无法撤销。' if session.apply_air else
-               '将草稿中的方块写入目标位置？\n此操作无法撤销。', session.bridge.apply_world), enabled=not session.busy),
+        text('本次方向：'+describe(operations), 11, Theme.blue, width=216),
+        text('写入与投影使用相同方向、镜像和目标原点。', 10, Theme.muted, width=216),
+        text('写入整个建筑，包含当前切面隐藏的楼层。', 10, Theme.muted, width=216),
+        Action(label='应用到世界', glyph='cube', accent=True,
+               onClick=partial(session.action, session.bridge.confirm_apply_world), enabled=not session.busy),
         text('世界写入无法撤销，请确认原点和范围。', 10, Theme.muted, width=216),
     ]
     return Panel(style=S(width=230, height=height, gap=10), children=[
