@@ -1,0 +1,106 @@
+{
+  "MC_started_by_packager": false,
+  "native_or_human_qualification_granted": false,
+  "objects": {
+    "08800264b8c0026103dccc3dd9a3f82b7a6b193871319ad50e89988775701b96": {
+      "file": "08800264b8c0026103dccc3dd9a3f82b7a6b193871319ad50e89988775701b96.gz",
+      "raw_bytes": 2247,
+      "stored_bytes": 786,
+      "stored_sha256": "fed6b9ffedb468f119cd592b41fb0a920e57a1eb448aa3d91098551317916133"
+    },
+    "3dd6d580eb69ec06561867a950ccd1b61986f20720561c730c98d95e3b58c4c1": {
+      "file": "3dd6d580eb69ec06561867a950ccd1b61986f20720561c730c98d95e3b58c4c1.gz",
+      "raw_bytes": 2256,
+      "stored_bytes": 1030,
+      "stored_sha256": "aa16a67258f853e90002f8fcbddf3f1011ddda509f6c5aab2006651049336b28"
+    },
+    "4a173d773a415d53017821b09e7fc2a1278d8ac42b920bbfdfedfaf55600fba6": {
+      "file": "4a173d773a415d53017821b09e7fc2a1278d8ac42b920bbfdfedfaf55600fba6.gz",
+      "raw_bytes": 473,
+      "stored_bytes": 298,
+      "stored_sha256": "6f3286707ff02071d3583bedcf4000bf317029866fabe95ebe00f6e64054d7e4"
+    },
+    "6c9346047d51e1a64f0ed54c6cb0b1d99a46f9ceef5b4cfb624041788fe7b870": {
+      "file": "6c9346047d51e1a64f0ed54c6cb0b1d99a46f9ceef5b4cfb624041788fe7b870.gz",
+      "raw_bytes": 1005,
+      "stored_bytes": 526,
+      "stored_sha256": "cfcc6fa03dfc9ac746e6150564d526094f708a6484090be969663c42ca3a0b8a"
+    },
+    "967a3a8aa9e7299e480acac9f9de8a7b954877cfbd170cd94198a4331ed2e6a0": {
+      "file": "967a3a8aa9e7299e480acac9f9de8a7b954877cfbd170cd94198a4331ed2e6a0.gz",
+      "raw_bytes": 2219,
+      "stored_bytes": 780,
+      "stored_sha256": "4a34436035731cf669d1824b4db50c301135cfe680dac39f8893ddb37c21177a"
+    },
+    "ccdce387e759227e3a7d9d4bb8571bc766db74f2d298d400befff929d971335c": {
+      "file": "ccdce387e759227e3a7d9d4bb8571bc766db74f2d298d400befff929d971335c.gz",
+      "raw_bytes": 891019,
+      "stored_bytes": 276157,
+      "stored_sha256": "9f2074efe4282b9095c2b8ac44bc483d24bc43edaae08971f0f06c053b0ac7ce"
+    },
+    "e808c4c0b6c8e8662dd15340490a586294b4c23d26f0428f5fc0f5158b5b0815": {
+      "file": "e808c4c0b6c8e8662dd15340490a586294b4c23d26f0428f5fc0f5158b5b0815.gz",
+      "raw_bytes": 31933,
+      "stored_bytes": 3405,
+      "stored_sha256": "c2c6552273d205e741f4b5add2a889f59f8692b7fd22ee1d674256d90df1cb39"
+    }
+  },
+  "references": [
+    {
+      "bytes": 473,
+      "path": "cpu-v3/result.json",
+      "sha256": "4a173d773a415d53017821b09e7fc2a1278d8ac42b920bbfdfedfaf55600fba6"
+    },
+    {
+      "bytes": 31933,
+      "path": "cpu-v3/unittest.log",
+      "sha256": "e808c4c0b6c8e8662dd15340490a586294b4c23d26f0428f5fc0f5158b5b0815"
+    },
+    {
+      "bytes": 891019,
+      "path": "cpu-v3/before.json",
+      "sha256": "ccdce387e759227e3a7d9d4bb8571bc766db74f2d298d400befff929d971335c"
+    },
+    {
+      "bytes": 891019,
+      "path": "cpu-v3/after.json",
+      "sha256": "ccdce387e759227e3a7d9d4bb8571bc766db74f2d298d400befff929d971335c"
+    },
+    {
+      "bytes": 2256,
+      "path": "run_cpu_v3.py",
+      "sha256": "3dd6d580eb69ec06561867a950ccd1b61986f20720561c730c98d95e3b58c4c1"
+    },
+    {
+      "bytes": 1005,
+      "path": "compile_current.py",
+      "sha256": "6c9346047d51e1a64f0ed54c6cb0b1d99a46f9ceef5b4cfb624041788fe7b870"
+    },
+    {
+      "bytes": 2247,
+      "path": "compile-py2-v3.json",
+      "sha256": "08800264b8c0026103dccc3dd9a3f82b7a6b193871319ad50e89988775701b96"
+    },
+    {
+      "bytes": 2219,
+      "path": "compile-py3-v3.json",
+      "sha256": "967a3a8aa9e7299e480acac9f9de8a7b954877cfbd170cd94198a4331ed2e6a0"
+    }
+  ],
+  "result": {
+    "after_input_bytes": 259501444,
+    "after_input_count": 6327,
+    "changed_selected_inputs": [],
+    "elapsed_seconds": 541.2329182624817,
+    "exit_code": 0,
+    "scope": "actual workspace behavior/resource/tests/tools including historical untracked; before/after inventories recomputed",
+    "selected_input_bytes": 259501444,
+    "selected_input_count": 6327,
+    "source_commit": "bca8052c189f0aba67140c24e15a418424e8bf35",
+    "started_utc_epoch": 1792949221.6323676
+  },
+  "schema": 1,
+  "skipped": 1,
+  "source_commit": "bca8052c189f0aba67140c24e15a418424e8bf35",
+  "tests": 3571
+}
