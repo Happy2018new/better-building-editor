@@ -1,6 +1,6 @@
 # 当前开发交接：现代化投影建筑编辑器
 
-更新于北京时间 **2026-10-26 05:50**。本轮开发仍在继续；以下是当前有效状态。较早轮次、失败和阶段性授权完整保存在[原文历史](CONVERSATION_HANDOFF_HISTORY_20261026.md)，281,913字节原样保留，SHA-256为`15a1c06ba7cd37f05e9c6a1a1fe462c1536209997c598c87cffbab57ed9bb4c5`。历史中的旧来源、旧grant和“继续开发”不能覆盖本页。当前交接与原字节历史已本地提交`be28b589`。
+更新于北京时间 **2026-10-26 06:02**。本轮开发仍在继续；以下是当前有效状态。较早轮次、失败和阶段性授权完整保存在[原文历史](CONVERSATION_HANDOFF_HISTORY_20261026.md)，281,913字节原样保留，SHA-256为`15a1c06ba7cd37f05e9c6a1a1fe462c1536209997c598c87cffbab57ed9bb4c5`。历史中的旧来源、旧grant和“继续开发”不能覆盖本页。精简交接初版与原字节历史已本地提交`be28b589`；最终源、仅两库运行包及特殊物品普查资料已提交`f889274f`。
 
 ## 截止、隔离与仓库
 
@@ -42,6 +42,8 @@
 
 生产切换、最终包及新源资格仍按[接入缺口](verification/LIBRARY_CUTOVER_R29.md)处理。三份旧metadata保持，未生成新资格；私有完整组合不含Scene重构。
 
+随后另完成[Scene＋两库联合候选](evidence/library-scene-joint-r29-v1/README.md)：733文件、8,200,531B，仅Scene两文件及三来源清单各新增helper，共5delta。原32库候选中29项保持，3工具只增字符串。真Py2／3各58个实际Scene前缀／helper＋fake边界控制通过；27断言及其余driver AST保持，独审逐case等历史。三有限声明为水64／书owner46／末地代码44＋资源8，BODY36保持；水旧合同正常态本就拒绝，不声称helper漂移是唯一拒绝原因。未执行完整Scene、Pyreact、vendor导入、完整联合回归或联合ZIP，不能转授上述仅两库结果；metadata原字节不变，未合产品。
+
 ## 实机准备与唯一有效grant
 
 **投影v7**：hosts`.runtime/round-20261026/validation-v7`，project`.runtime/projects/r29-transform-cold-v7`，owner`r29-transform-cold-v7`。3716runtime／119,020,141B、785host、4502物理副本无hardlink。root独立核三绑定SHA及最终frozen_guard；未变宿主21控制只引用v6，不机械重跑。
@@ -70,7 +72,7 @@ CPU-v8通过后，只授v7**一次条件冷启**：freshOS门→三绑定及guar
 
 ## 后续执行与发布边界
 
-当前代理：`r29_validation`只做v7条件准入／所属冷测；`projection_snapshot_r29`在新私有目录验证Scene与两库的最小联合候选；`world_placement_r29`已收口运行包来源审计及精简归档，当前空闲。不要启动第四个活动代理。联合候选尚未执行完成，不能转授仅两库的完整回归或运行包结果；三有限声明应按实际联合源为水64／书owner46／末地代码44＋资源8，书BODY36保持，而非单独Scene的43／21／21。
+当前仅`r29_validation`继续v7条件准入／所属冷测；`projection_snapshot_r29`及`world_placement_r29`已完成联合候选、独审及精简归档，当前空闲。不要无故再启候选实验或重复已过控制。联合候选的CPU完成边界和原生缺口见上节，不转授仅两库的完整回归或运行包结果。
 
 接下来先收口上述精简证据并本地提交，runtime保持dcf。资源门若真正通过，按唯一v7 grant执行；否则继续隔离候选、准备下一允许窗口，不降低门。07:00后不扩大实验；07:30恢复、07:45核所属进程／保存交接，最后再次核08:00任务。不要关闭外部MC。
 

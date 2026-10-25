@@ -59,3 +59,13 @@ root 生成器和独立复核各保存实际 git apply 记录。独立 fresh 副
 只读解析当前三份声明得到水 42、书 owner 20、末地 20 项，均包含 `scene.py`、尚不含新 helper。若未来仅合入这次抽取，有限声明至少应变为 **43／21／21** 并保留 Scene，再按最终实现重绑来源；本次不修改任何合同或 metadata，不将这些有限清单称完整运行时闭包，不转授旧资格。
 
 [当前候选精简证据](../evidence/scene-owner-current-r29-v1/index.json) 保存生成器、两候选、两补丁、实际 git apply／AST／编译／限域 review 原件、当前及历史比较输入、有限 source-membership 记录。gzip 确定性去重，索引列 raw／storage SHA；另有新进程解压回读和局部凭据扫描。没有 MC／RPC／冷启动／GPU、五家族真实调度或人工验收，人工关闭 0。既定重构容量不重复计费。
+
+## R29：与固定两库的最小联合候选
+
+随后另在独立733文件、8,200,531B小工程中组合已封存的Scene两文件和两库候选。原32项库候选中29项SHA保持，另外3份来源工具各仅增加一次helper清单字符串；相对原732项目只有5处delta。恢复三份工具中的新字符串后，raw字节及完整AST均恢复原版；Scene五owner及唯一import之外不变。没有将主程序切换到该组合。
+
+真实Py2.7.13／Py3.13.13各58条owner控制通过，完整case结果及来源SHA一致。驱动仅重绑定来源路径，27个assert节点及其余AST保持；范围为真实Scene前缀／helper与fake scheduler、native factory、close边界，未执行完整Scene、真实Pyreact或vendor导入。两份Scene双解释器编译及三宿主工具Py3编译通过。独立复核没有重跑58、115、66k或完整回归。
+
+组合的有限声明实际为水64／书owner46／末地代码44＋资源8＝52，书BODY36保持，不能使用上节仅Scene的43／21／21。缺helper／字节漂移的窄来源检查与原错误保留；水旧合同在正常联合来源下本就拒绝，不把该拒绝归因于helper单项，也没有生成metadata或资格。原三metadata与各baseline逐字节相同。
+
+[联合候选精简证据](../evidence/library-scene-joint-r29-v1/README.md)保存实际5份delta、源清单／编译／控制原件、历史driver及独审。733树、119MB运行源和326MB全量工程不入包。仅两库的3613项完整回归和47MB运行包均不转授给该联合候选；最终联合包、普通游戏冷启、三路径和真实调度仍待。人工关闭0，重构准备仍只计既有容量一次。
